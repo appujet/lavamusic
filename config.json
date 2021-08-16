@@ -1,8 +1,11 @@
 {
+    "TOKEN": "", 
+    "MONGOURL": "",
+    "KSOFT_API_KEY": "",
     "PREFIX": "!",
     "OWNERID": "491577179495333903",
-    "clientID": "69ebbd15cba9474a9d46e5aa95733b15",
-    "clientSecret": "185da21de3904b7db61d4d12c455c166",
+    "clientID": "",
+    "clientSecret": "",
     "embedColor": "#303236",
      "nodes": [
     
