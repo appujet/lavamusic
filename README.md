@@ -55,7 +55,24 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
 
 ## ⚙️ Configuration
 ```
-  
+{
+    "PREFIX": "", // prefix
+    "OWNERID": "491577179495333903",
+    "clientID": "69ebbd15cba9474a9d46e5aa95733b15",
+    "clientSecret": "185da21de3904b7db61d4d12c455c166",
+    "embedColor": "#303236",
+     "nodes": [
+    
+    {
+      "host": "lavalink-repl.brblacky.repl.co",
+      "port": 443,
+      "password": "LAVA",
+      "retryDelay": 3000,
+      "secure": true
+    
+    }
+  ]
+}
 
 ```
 
