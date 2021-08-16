@@ -1,0 +1,21 @@
+{
+    "TOKEN": "", 
+    "MONGOURL": "",
+    "KSOFT_API_KEY": "",
+    "PREFIX": "!",
+    "OWNERID": "491577179495333903",
+    "clientID": "",
+    "clientSecret": "",
+    "embedColor": "#303236",
+     "nodes": [
+    
+    {
+      "host": "lavalink-repl.brblacky.repl.co",
+      "port": 443,
+      "password": "LAVA",
+      "retryDelay": 3000,
+      "secure": true
+    
+    }
+  ]
+}
