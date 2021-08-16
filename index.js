@@ -1,9 +1,9 @@
 const { Client, Collection, Intents } = require("discord.js");
 const mongoose = require('mongoose');
 const { Database } = require("quickmongo");
-require('dotenv')
+
 const { readdirSync } = require("fs");
-const { PREFIX, OWNERID,clientSecret, clientID, embedColor, nodes } = require("./config.json");
+const { TOKEN, PREFIX, OWNERID, MONGOURL, clientID, clientSecret, embedColor, nodes } = require("./config.json");
 const { Manager } = require("erela.js");
 const Spotify = require("erela.js-spotify")
 const client = new Client({
@@ -14,7 +14,7 @@ const client = new Client({
 
 client.prefix = PREFIX;
 client.owner = OWNERID;
-client.db = new Database(process.env.MONGOURL);
+client.db = new Database(MONGOURL);
 client.embedColor = embedColor;
 client.aliases = new Collection();
 client.commands = new Collection();
@@ -31,7 +31,7 @@ client.manager = new Manager({
     autoPlay: true,
     plugins: [new Spotify({
         clientID,
-        clientSecret,
+        clientSecret
     })]
 });
 
@@ -49,7 +49,7 @@ const dbOptions = {
   family: 4,
   useUnifiedTopology: true,
 };
-  mongoose.connect(process.env.MONGOURL, dbOptions);
+  mongoose.connect(MONGOURL, dbOptions);
   mongoose.set("useFindAndModify", false);
   mongoose.Promise = global.Promise;
 	mongoose.connection.on('connected', () => {
@@ -104,4 +104,4 @@ readdirSync("./commands/").forEach(dir => {
     }
 });
 
-client.login(process.env.TOKEN);
+client.login(TOKEN);
