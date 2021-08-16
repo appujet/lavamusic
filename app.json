@@ -1,0 +1,26 @@
+{
+  "name": "Alina",
+  "description": "lavamusic is a powerful Discord music bot!",
+  "repository": "https://github.com/brblacky/lavamusic",
+  "logo": "https://media.discordapp.net/attachments/845318824323448882/876690332333514752/1629089649835.png",
+  "keywords": ["discord", "discordjs", "music", "bot", "lavalink-bot", "erela.js", "lavalink", "lavalink-music-bot"],
+  "env": {
+    "MONGOURL": {
+      "description": "Your Mongo url",
+      "value": "",
+      "required": true
+    },
+    "SPOTYFICLINTID":{
+    "description": "Spotify Clint id",
+      "required": false
+     },
+    "SPOTYFICLINTSECRET":{
+    "description": "Spotify Clint secret",
+      "required": false
+     },
+    "TOKEN": {
+      "description": "Your bot's bot token.",
+      "required": true
+    }
+  }
+}
