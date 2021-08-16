@@ -54,27 +54,24 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
 <!-- CONFIGURATION -->
 
 ## ⚙️ Configuration
-```json
-{
-    "PREFIX": "", // prefix
+
+    "TOKEN": "", Discord bot token 
+    "MONGOURL": "", MongoDb url
+    "KSOFT_API_KEY": "", ksoft api
+    "PREFIX": "!", Default prefix
     "OWNERID": "491577179495333903",
-    "clientID": "69ebbd15cba9474a9d46e5aa95733b15",
-    "clientSecret": "185da21de3904b7db61d4d12c455c166",
-    "embedColor": "#303236",
-     "nodes": [
+    "clientID": "", spotify client ID
+    "clientSecret": "", spotify client secret
+    "embedColor": "",  default embed color
     
-    {
+## 🌋 lavalink 
+
       "host": "lavalink-repl.brblacky.repl.co",
       "port": 443,
       "password": "LAVA",
       "retryDelay": 3000,
       "secure": true
     
-    }
-  ]
-}
-
-```
 
 <!-- ABOUT THE PROJECT -->
 
