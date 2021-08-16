@@ -90,6 +90,8 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
 <!-- ABOUT THE PROJECT -->
 
 ## 🌀 About
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=brblacky&repo=lavamusic&theme=tokyonight)](https://github.com/brblacky/lavamusic)
+
  Lavamusic is a lavalink music bot base in [erela.js](https://github.com/MenuDocs/erela.js)
 If you liked this repository, feel free to leave a star ⭐ to help promote !
 
