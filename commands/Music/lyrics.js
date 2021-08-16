@@ -1,9 +1,10 @@
-const { KSOFT_API_KEY } = require('../../config.json');
+
 const { MessageEmbed } = require('discord.js');
 const palette = require('image-palette');
 const pixels = require('image-pixels');
 const { KSoftClient } = require('@ksoft/api');
-const ksoft = KSOFT_API_KEY ? new KSoftClient(KSOFT_API_KEY) : null;
+const ksoft = new KSoftClient(process.env.KSOFT_API_KEY);
+
 module.exports = {
 	name: "lyrics",
     aliases: ["ly"],
