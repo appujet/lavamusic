@@ -75,7 +75,7 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 - Hello! Here is another tutorial in which you will learn how to use the mongodb database.
 
-- First, let's download the project (you can do this by clicking on [me *ALi*](https://github.com/brblacky/ALi/archive/master.zip))
+- First, let's download the project (you can do this by clicking on [me **lavamusic**](https://github.com/brblacky/lavamusic/archive/master.zip))
 
 - Next, we need to create a server. This is the longest stage. So make some tea and sit down at the computer: 3
 
