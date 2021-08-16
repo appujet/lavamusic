@@ -45,6 +45,10 @@
 * [Java](https://adoptopenjdk.net/) for lavalink
 * [Lavalink](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1)
 
+Note: Java v11 or newer is required to run the Lavalink.jar. Java v13 is recommended. If you are using sdkman then its a manager, not Java, you have to install sdkman and use sdkman to install Java
+
+Warning: Java v14 has issues with Lavalink.
+
 
 <!-- INSTALL -->
 ## 🚀 Installation
@@ -78,7 +82,10 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
       "password": "LAVA",
       "retryDelay": 3000,
       "secure": true
-    
+
+- Create an application.yml file in your working directory and copy the [example](https://github.com/freyacodes/Lavalink/blob/master/LavalinkServer/application.yml.example) into the created file and edit it with your configuration.
+- Run the jar file by running `java -jar Lavalink.jar` in a Terminal window.
+
 
 <!-- ABOUT THE PROJECT -->
 
