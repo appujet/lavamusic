@@ -4,7 +4,7 @@
   "description": "lavalink music bot base in erelajs",
   "main": "index.js",
   "scripts": {
-    "test": "node ."
+    "test": "node index.js"
   },
       "repository": {
         "type": "git",
