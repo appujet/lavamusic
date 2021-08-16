@@ -8,6 +8,10 @@
   "scripts": {
     "start": "node index.js"
   },
+   "repository": {
+     "type": "git",
+     "url": "git+https://github.com/brblacky/lavamusic.git"
+      },
   "keywords": [
     "lavalink",
     "erela",
@@ -19,6 +23,8 @@
   ],
   "author": "blacky",
   "license": "MIT",
+  "bugs": "https://github.com/brblacky/lavamusic/issues",
+  "homepage": "https://github.com/brblacky/lavamusic#readme",
   "dependencies": {
     "@ksoft/api": "^3.1.9",
     "chalk": "^4.1.2",
@@ -38,4 +44,5 @@
     "quickmongo": "^3.0.2",
     "systeminformation": "^5.8.0"
   }
+ }
 }
