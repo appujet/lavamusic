@@ -38,6 +38,13 @@
 - [x] filters
 - [x] More
 
+<!-- REQUIREMENT -- >
+## 📎 Requirement
+
+* [Discord.js]()v12
+* [Java](https://adoptopenjdk.net/) for lavalink
+* [Lavalink](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1)
+
 
 <!-- INSTALL -->
 ## 🚀 Installation
@@ -76,7 +83,7 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
 <!-- ABOUT THE PROJECT -->
 
 ## 🌀 About
- Lavamusic is a lavalink music bot base in erela.js 
+ Lavamusic is a lavalink music bot base in [erela.js](https://github.com/MenuDocs/erela.js)
 If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 ## 💌 Support Server
