@@ -10,14 +10,6 @@
       "value": "",
       "required": true
     },
-    "SPOTYFICLINTID":{
-    "description": "Spotify Clint id",
-      "required": false
-     },
-    "SPOTYFICLINTSECRET":{
-    "description": "Spotify Clint secret",
-      "required": false
-     },
     "KSOFT_API_KEY":{
     "description": "ksoft api for lyrics",
       "required": false
