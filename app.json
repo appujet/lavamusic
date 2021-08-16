@@ -18,6 +18,10 @@
     "description": "Spotify Clint secret",
       "required": false
      },
+    "KSOFT_API_KEY":{
+    "description": "ksoft api for lyrics",
+      "required": false
+     },
     "TOKEN": {
       "description": "Your bot's bot token.",
       "required": true
