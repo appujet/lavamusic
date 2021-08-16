@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "lavalink music bot base in erelajs",
   "main": "index.js",
+  "engines": {
+  "node": ">=14.0.0",
   "scripts": {
-    "test": "node ."
+    "start": "node index.js"
   },
   "keywords": [
     "lavalink",
