@@ -19,7 +19,7 @@
     <img src="https://media.discordapp.net/attachments/845318824323448882/876690332333514752/1629089649835.png" alt="Pbot-plus" width="200" height="200">
   </a>
 
-  <h3 align="center">ALi</h3>
+  <h3 align="center">lavamusic</h3>
 
   <p align="center">
     Lavamusic is  a powerful music Bot
@@ -88,8 +88,6 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
 ![](https://cdn.discordapp.com/attachments/667072123914813444/686353659650768939/IMG_20200309_035249.png)
 
 ![](https://cdn.discordapp.com/attachments/667072123914813444/686353659331870865/IMG_20200309_035651.png)
-
-- После, вас попросит ввести **Add Members and Set Permissions**. На данном этапе можете просто простустить, наваж на зеленую кнопку(это нее играет никакой роли.)
 
 ![](https://cdn.discordapp.com/attachments/667072123914813444/686353658962640904/IMG_20200309_035747.png)
 
