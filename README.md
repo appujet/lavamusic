@@ -38,7 +38,7 @@
 - [x] filters
 - [x] More
 
-<!-- REQUIREMENT -- >
+
 ## 📎 Requirement
 
 * [Discord.js]()v12
