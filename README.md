@@ -54,7 +54,7 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
 <!-- CONFIGURATION -->
 
 ## ⚙️ Configuration
-```
+```json
 {
     "PREFIX": "", // prefix
     "OWNERID": "491577179495333903",
