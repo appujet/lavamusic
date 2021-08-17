@@ -41,7 +41,7 @@
 
 ## 📎 Requirement
 
-* [Discord.js]()v12
+* [Discord.js](https://github.com/discordjs/discord.js/)v12
 * [Java](https://adoptopenjdk.net/) for lavalink
 * [Lavalink](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1)
 
