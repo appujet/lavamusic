@@ -1,37 +1,34 @@
 const { MessageEmbed } = require("discord.js");
-
 module.exports = {
-	name: "shuffle",
-    category: "Music",
-    description: "Shuffle queue",
-    args: false,
-    usage: "",
-    permission: [],
-    owner: false,
-    player: true,
-    inVoiceChannel: true,
-    sameVoiceChannel: true,
-	execute(message, args) {
+  name: 'shuffle',
+  aliases: [""],
+  guildOnly: true,
+  permissions: [],
+  clientPermissions: [],
+  inVoiceChannel: true,
+  sameVoiceChannel: true,
+  group: 'Music',
+  description: 'Shuffle queue',
+  examples: [''],
+  parameters: [''],
+  run: async (client, message, args) => {
     
-		const player = message.client.manager.get(message.guild.id);
+    const { color } = client.config;
+    const queue = message.client.distube.getQueue(message);
 
-        if (!player.queue.current) {
-            let thing = new MessageEmbed()
-                .setColor("RED")
-                .setDescription("There is no music playing.");
-            return message.channel.send(thing);
+        if(!queue) {
+            const embed = new MessageEmbed()
+                .setColor(color)
+                .setDescription(`There is no music playing.`);
+            return message.channel.send(embed);
         }
 
+        message.client.distube.shuffle(message);
 
-        player.queue.shuffle();
-        
-        const emojishuffle = message.client.emoji.shuffle;
-
-        let thing = new MessageEmbed()
-            .setDescription(`${emojishuffle} Shuffled the queue`)
-            .setColor(message.client.embedColor)
-            .setTimestamp()
-        return message.channel.send(thing).catch(error => message.client.logger.log(error, "error"));
-	
+        const embed = new MessageEmbed()
+            .setColor(color)
+            .setDescription(`**Shuffle** the queue.`)
+            .setFooter(`Music | \©️${new Date().getFullYear()} ${client.config.foot}`);
+        message.channel.send(embed);
     }
-};
+}

@@ -1,28 +1,32 @@
 const { MessageEmbed } = require("discord.js");
-
 module.exports = {
-	name: "leave",
-    aliases: ["dc"],
-    category: "Music",
-    description: "Leave voice channel",
-    args: false,
-    usage: "",
-    permission: [],
-    owner: false,
-    player: false,
-    inVoiceChannel: true,
-    sameVoiceChannel: true,
-	execute(message, args) {
-        const player = message.client.manager.get(message.guild.id);
+  name: 'leave',
+  aliases: ["dc"],
+  guildOnly: true,
+  permissions: [],
+  clientPermissions: [],
+  inVoiceChannel: true,
+  sameVoiceChannel: false,
+  group: 'Music',
+  description: 'Leave Voice Channel',
+  examples: [''],
+  parameters: ['Leave Your Voice Channel'],
+  run: async (client, message, args) => {
 
-        const emojiLeave = message.client.emoji.leave;
+        const { color } = client.config;
+        const queue = message.client.distube.getQueue(message);
 
-        player.destroy();
-        
-        let thing = new MessageEmbed()
-            .setColor(message.client.embedColor)
-            .setDescription(`${emojiLeave} **Leave the voice channel**\nThank you for using ${message.client.user.username}!`)
-          return message.channel.send(thing);
-	
+        if(!queue) {
+            message.member.voice.channel.leave();
+        } else {
+	    message.client.distube.stop(message);
+	    message.member.voice.channel.leave();
+	}
+
+        const embed = new MessageEmbed()
+            .setColor(color)
+            .setDescription("**Leave** the voice channel.")
+            .setFooter(`Music | \©️${new Date().getFullYear()} ${client.config.foot}`);
+        return message.channel.send(embed);
     }
-};
+}
