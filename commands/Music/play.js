@@ -1,36 +1,96 @@
 const { MessageEmbed } = require("discord.js");
+const { convertTime } = require('../../utils/convert.js');
+
 module.exports = {
-  name: 'play',
-  aliases: ["p"],
-  guildOnly: true,
-  permissions: [],
-  clientPermissions: [],
-  group: 'Music',
-  description: 'Play songs from Soundcloud, Spotify or Youtube',
-  examples: ['play Why by Sabrina Carpenter', 'play https://www.youtube.com/watch?v=fhH4pbRJh0k'],
-  parameters: ['Song name or URl of the song or playlist'],
-  run: async (client, message, args) => {
-        
-       const { color } = client.config;
-   
-        if (!message.guild.me.voice.channel) {
-            message.member.voice.channel.join();
-        } else {
-            if (message.guild.me.voice.channel !== message.member.voice.channel) {
-         const embed = new MessageEmbed()
-             .setColor(color)
-             .setDescription(`You must be in the same channel as ${message.client.user}`);
-                return message.channel.send(embed)
-            }
+    name: "play",
+    category: "Music",
+    aliases: ["p"],
+    description: "Plays audio from YouTube or Soundcloud",
+    args: true,
+    usage: "<YouTube URL | Video Name | Spotify URL>",
+    permission: [],
+    owner: false,
+    player: false,
+    inVoiceChannel: true,
+    sameVoiceChannel: false,
+    async execute(message, args, client) {
+
+        const { channel } = message.member.voice;
+        var player = message.client.manager.get(message.guild.id);
+
+        if (player && message.member.voice.channel !== message.guild.me.voice.channel) {
+            let thing = new MessageEmbed()
+                .setColor("RED")
+                .setDescription(`You must be in the same channel as ${message.client.user}`);
+            return message.channel.send(thing);
+        } else if (!player) {
+            var player = message.client.manager.create({
+                guild: message.guild.id,
+                voiceChannel: channel.id,
+                textChannel: message.channel.id,
+                volume: 50,
+                selfDeafen: true,
+            });
         }
+
+        if (player.state !== "CONNECTED") player.connect();
+
+        player.set("autoplay", false);
         
+        const emojiaddsong = message.client.emoji.addsong;
+        const emojiplaylist = message.client.emoji.playlist;
+
+        const search = args.join(' ');
+        let res;
+
         try {
-            message.client.distube.play(message, args.join(' '))
-        } catch (e) {
-           const embed = new MessageEmbed()
-              .setColor(color)
-              .setDescription(`Error: \`${e}\``);
-            return message.channel.send(embed);
+            res = await player.search(search, message.author);
+            if (res.loadType === 'LOAD_FAILED') {
+                if (!player.queue.current) player.destroy();
+                throw res.exception;
+            }
+        } catch (err) {
+            return message.reply(`there was an error while searching: ${err.message}`);
+        }
+
+        switch (res.loadType) {
+            case 'NO_MATCHES':
+                if (!player.queue.current) player.destroy();
+                return message.reply('there were no results found.');
+            case 'TRACK_LOADED':
+                var track = res.tracks[0];
+                player.queue.add(track);
+                if (!player.playing && !player.paused && !player.queue.size) { 
+                    return player.play();
+                } else {
+                    var thing = new MessageEmbed()
+                        .setColor(client.embedColor)
+                        .setTimestamp()
+                        .setThumbnail(track.displayThumbnail("hqdefault"))
+                        .setDescription(`${emojiaddsong} **Added Song to queue**\n[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``)
+                    return message.channel.send(thing);
+                }
+            case 'PLAYLIST_LOADED':
+                player.queue.add(res.tracks);
+                if (!player.playing && !player.paused && player.queue.totalSize === res.tracks.length) player.play();
+                var thing = new MessageEmbed()
+                    .setColor(client.embedColor)
+                    .setTimestamp()
+                    .setDescription(`${emojiplaylist} **Added Playlist to queue**\n${res.tracks.length} Songs **${res.playlist.name}** - \`[${convertTime(res.playlist.duration)}]\``)
+                return message.channel.send(thing);
+            case 'SEARCH_RESULT':
+                var track = res.tracks[0];
+                player.queue.add(track);
+                if (!player.playing && !player.paused && !player.queue.size) {
+                    return player.play();
+                } else {
+                    var thing = new MessageEmbed()
+                        .setColor(client.embedColor)
+                        .setTimestamp()
+                        .setThumbnail(track.displayThumbnail("hqdefault"))
+                        .setDescription(`${emojiaddsong} **Added Song to queue**\n[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\`[<@${track.requester.id}>]`)
+                    return message.channel.send(thing);
+                }
         }
     }
 }

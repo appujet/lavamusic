@@ -1,34 +1,53 @@
 const { MessageEmbed } = require("discord.js");
-module.exports = {
-  name: 'queue',
-  aliases: ["q"],
-  guildOnly: true,
-  permissions: [],
-  clientPermissions: [],
-  inVoiceChannel: true,
-  sameVoiceChannel: true,
-  group: 'Music',
-  description: '',
-  examples: [''],
-  parameters: [''],
-  run: async (client, message, args) => {
-        
-        const { color } = client.config;
-        const queue = message.client.distube.getQueue(message);
+const { convertTime } = require('../../utils/convert.js');
 
-        if(!queue) {
-            let embed = new MessageEmbed()
-                .setColor(color)
-                .setDescription(`There is no music playing.`);
-            return message.channel.send(embed);
+module.exports = {
+    name: "queue",
+    category: "Music",
+    aliases: ["q"],
+    description: "Show the music queue and now playing.",
+    args: false,
+    usage: "",
+    permission: [],
+    owner: false,
+    player: true,
+    inVoiceChannel: false,
+    sameVoiceChannel: false,
+    async execute(message, args) {
+
+        const player = message.client.manager.get(message.guild.id);
+
+        if (!player.queue.current) {
+            let thing = new MessageEmbed()
+                .setColor("RED")
+                .setDescription("There is no music playing.");
+            return message.channel.send(thing);
         }
 
-        // Queue status templat
-      
+        const queue = player.queue;
+
+        const emojiQueue = message.client.emoji.queue;
+
         const embed = new MessageEmbed()
-            .setColor(color)
-            .setDescription('Current queue:\n' + queue.songs.map((song, id) => `**${id + 1}**. [${song.name}](${song.url}) - [${song.user}] \`${song.formattedDuration}\``).slice(0, 10).join("\n"))
-            .setFooter(`Music | \©️${new Date().getFullYear()} ${client.config.foot}`);
-        message.channel.send(embed);
+            .setColor(message.client.embedColor)
+      
+        const multiple = 10;
+        const page = args.length && Number(args[0]) ? Number(args[0]) : 1;
+
+        const end = page * multiple;
+        const start = end - multiple;
+
+        const tracks = queue.slice(start, end);
+
+        if (queue.current) embed.addField("Now Playing", `[${queue.current.title}](${queue.current.uri}) \`[${convertTime(queue.current.duration)}]\``);
+
+        if (!tracks.length) embed.setDescription(`No tracks in ${page > 1 ? `page ${page}` : "the queue"}.`);
+        else embed.setDescription(`${emojiQueue} Queue List\n` + tracks.map((track, i) => `${start + (++i)} - [${track.title}](${track.uri}) \`[${convertTime(track.duration)}]\``).join("\n"));
+
+        const maxPages = Math.ceil(queue.length / multiple);
+
+        embed.addField("\u200b", `Page ${page > maxPages ? maxPages : page} of ${maxPages}`);
+
+        return message.channel.send(embed);
     }
-}
+};

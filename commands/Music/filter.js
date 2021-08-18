@@ -28,6 +28,8 @@ module.exports = {
         let thing = new MessageEmbed()
             .setColor(message.client.embedColor)
             .setTimestamp()
+            .setFooter(`Request by: ${message.author.tag}`, message.author.displayAvatarURL());
+        
         if (args[0] == 'party') {
             var bands = [
                 { band: 0, gain: -1.16 },

@@ -1,45 +1,46 @@
 const { MessageEmbed } = require("discord.js");
+
 module.exports = {
-  name: 'pause',
-  aliases: [""],
-  guildOnly: true,
-  permissions: [],
-  clientPermissions: [],
-  inVoiceChannel: true,
-  sameVoiceChannel: true,
-  group: 'Music',
-  description: 'Pause the current song',
-  examples: [''],
-  parameters: [''],
-  run: async (client, message, args) => {
-      
-      const { color } = client.config;
-      const queue = message.client.distube.getQueue(message);
+	name: "pause",
+    category: "Music",
+    description: "Pause the currently playing music",
+    args: false,
+    usage: "",
+    permission: [],
+    owner: false,
+    player: true,
+    inVoiceChannel: true,
+    sameVoiceChannel: true,
+	execute(message, args) {
+    
+		const player = message.client.manager.get(message.guild.id);
 
-        if(!queue) {
-           const embed = new MessageEmbed()
-                .setColor(color)
-                .setDescription(`There is no music playing.`);
-            return message.channel.send(embed);
+        if (!player.queue.current) {
+            let thing = new MessageEmbed()
+                .setColor("RED")
+                .setDescription("There is no music playing.");
+            return message.channel.send(thing);
         }
 
-        // Queue status templat
-      
-        if (queue.pause) {
-            message.client.distube.resume(message)
-            const embed = new MessageEmbed()
-                .setColor(color)
-                .setDescription(`**Resumed** the song!`)
-                .setFooter(`Music | \©️${new Date().getFullYear()} ${client.config.foot}`);
-            return message.channel.send(embed);
+        const emojipause = message.client.emoji.pause;
+
+        if (player.paused) {
+            let thing = new MessageEmbed()
+                .setColor("RED")
+                .setDescription(`${emojipause} The player is already paused.`)
+                .setTimestamp()
+                return message.channel.send(thing);
         }
 
-        message.client.distube.pause(message)
-        
-        const embed = new MessageEmbed()
-            .setColor(color)
-            .setDescription(`**Paused** the song!`)
-            .setFooter(`Music | \©️${new Date().getFullYear()} ${client.config.foot}`);
-        message.channel.send(embed);
+        player.pause(true);
+
+        const song = player.queue.current;
+
+        let thing = new MessageEmbed()
+            .setColor(message.client.embedColor)
+            .setTimestamp()
+            .setDescription(`${emojipause} **Paused**\n[${song.title}](${song.uri})`)
+          return message.channel.send(thing);
+	
     }
-}
+};
