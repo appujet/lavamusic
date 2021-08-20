@@ -8,7 +8,7 @@ module.exports = async (client, player, track, payload) => {
     const thing = new MessageEmbed()
         .setColor("RED")
         .setDescription("❌ Error when loading song! Track is error");
-    channel.send(thing);
+    channel.send({embeds: [thing]});
     client.logger.log(`Error when loading song! Track is error in [${player.guild}]`, "error");
     if (!player.voiceChannel) player.destroy();
 

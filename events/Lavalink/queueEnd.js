@@ -10,5 +10,5 @@ module.exports = async (client, player) => {
 		.setColor(client.embedColor)
 		.setDescription(`${emojiwarn} **Music queue ended**`)
 		.setFooter(client.user.username, client.user.displayAvatarURL());
-	channel.send(thing);
+	channel.send({embeds: [thing]});
 }

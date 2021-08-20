@@ -46,8 +46,8 @@ module.exports = async (client, oldState, newState) => {
                 return player.destroy();
             }
 
-		}
+		  }
 
-	}
+	 }
     
 };

@@ -10,6 +10,6 @@ module.exports = async (client, player, track, payload) => {
         .setThumbnail(track.displayThumbnail("3"))
         .setColor(client.embedColor)
         .setTimestamp()
-    channel.send(thing);
+    return channel.send({embeds: [thing]});
     
 }
