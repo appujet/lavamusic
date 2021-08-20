@@ -6,9 +6,12 @@
   "scripts": {
     "start": "node index.js"
   },
-      "repository": {
-        "type": "git",
-        "url": "git+https://github.com/brblacky/lavamusic.git"
+  "engines": {
+  "node": "16.x"
+  },
+   "repository": {
+     "type": "git",
+     "url": "git+https://github.com/brblacky/lavamusic.git"
      
   },
   "keywords": [
