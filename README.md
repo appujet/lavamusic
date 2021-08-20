@@ -30,6 +30,9 @@
   </p>
 </p>
 
+# Discord-v 13 updated coming soon
+
+
 ## 🎭 Futures
 
 - [x] Music
