@@ -12,15 +12,15 @@ module.exports = {
     player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
-	execute(message, args) {
-
+	 execute: async (message, args, client, prefix) => {
+  
 		const player = message.client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
         }
 
         const emojiresume = message.client.emoji.resume;
@@ -30,7 +30,7 @@ module.exports = {
                 .setColor("RED")
                 .setDescription(`${emojiresume} The player is already **resumed**.`)
                 .setTimestamp()
-          return message.channel.send(thing);
+          return message.channel.send({embeds: [thing]});
         }
 
         player.pause(false);
@@ -39,7 +39,7 @@ module.exports = {
             .setDescription(`${emojiresume} **Resumed**\n[${song.title}](${song.uri})`)
             .setColor(message.client.embedColor)
             .setTimestamp()
-        return message.channel.send(thing);
+        return message.channel.send({embeds: [thing]});
 	
     }
 };

@@ -13,8 +13,8 @@ module.exports = {
     usage: "",
     permission: [],
     owner: false,
-    async execute(message, args) {
-        const duration1 = moment.duration(message.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
+    execute: async (message, args, client, prefix) => {
+       const duration1 = moment.duration(message.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
         const cpu = await si.cpu();
         const about = message.client.emoji.about;
         const embed = new MessageEmbed()
@@ -40,6 +40,6 @@ module.exports = {
 > **• Heap Total** : ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} Mbps
 > **• Heap Usage** : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Mbps
 `);
-        message.channel.send(embed);
+         message.channel.send({embeds: [embed]});
     }
 }

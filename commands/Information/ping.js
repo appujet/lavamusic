@@ -8,7 +8,7 @@ module.exports = {
     usage: "",
     permission: [],
     owner: false,
-    execute(message, args, client) {
+    execute: async (message, args, client, prefix) => {
   
     const timestamp = (message.editedTimestamp) ? message.editedTimestamp : message.createdTimestamp; // Check if edited
     const latency = `\`\`\`ini\n[ ${Math.floor(message.createdTimestamp - timestamp)}ms ]\`\`\``;
@@ -22,6 +22,6 @@ module.exports = {
       .setThumbnail(client.user.displayAvatarURL())   
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp();
-    message.channel.send(embed);
+    message.channel.send({embeds: [embed]});
   }
 };

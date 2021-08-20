@@ -12,24 +12,23 @@ module.exports = {
     player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
-	execute(message, args) {
-    
+	 execute: async (message, args, client, prefix) => {
+        
         const player = message.client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
         }
 
         const emojiequalizer = message.client.emoji.filter;
 
         let thing = new MessageEmbed()
-            .setColor(message.client.embedColor)
+            .setColor(client.embedColor)
             .setTimestamp()
-            .setFooter(`Request by: ${message.author.tag}`, message.author.displayAvatarURL());
-        
+            
         if (args[0] == 'party') {
             var bands = [
                 { band: 0, gain: -1.16 },
@@ -173,6 +172,6 @@ module.exports = {
             player.clearEQ();
             thing.setDescription(`${emojiequalizer} Equalizer mode is OFF`);
         }
-        return message.channel.send(thing);
+        return message.channel.send({embeds: [thing]});
     }
 };

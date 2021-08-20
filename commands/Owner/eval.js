@@ -9,8 +9,8 @@ module.exports = {
     usage: "<string>",
     permission: [],
     owner: true,
-    async execute(message, args) {
-        
+    execute: async (message, args, client, prefix) => {
+       
         const embed = new MessageEmbed()
             .addField("Input", "```js\n" + args.join(" ") + "```");
 
@@ -37,7 +37,7 @@ module.exports = {
                 embed.addField("Output", "```js\n" + output + "```").setColor(message.client.embedColor);
             }
 
-            message.channel.send(embed);
+            message.channel.send({embeds: [embed]});
 
         } catch (error) {
             let err = clean(error);
@@ -49,7 +49,7 @@ module.exports = {
                 embed.addField("Output", "```js\n" + err + "```").setColor("RED");
             }
 
-            message.channel.send(embed);
+            message.channel.send({embeds: [embed]});
         }
     }
 }

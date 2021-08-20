@@ -2,25 +2,25 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
 	name: "volume",
-	aliases: ["v"],
+	aliases: ["v", "vol"],
 	category: "Music",
 	description: "Change volume of currently playing music",
-	args: false,
+	  args: false,
     usage: "",
     permission: [],
     owner: false,
-	player: true,
+  	player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
-	execute(message, args) {
-	
+	 execute: async (message, args, client, prefix) => {
+  
 		const player = message.client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
 		}
 		
 		const volumeEmoji = message.client.emoji.volumehigh;
@@ -30,7 +30,7 @@ module.exports = {
 			.setColor(message.client.embedColor)
 			.setTimestamp()
 			.setDescription(`${volumeEmoji} The current volume is: **${player.volume}%**`)
-			return message.channel.send(thing);
+			return message.channel.send({embeds: [thing]});
 		}
 
 		const volume = Number(args[0]);
@@ -39,7 +39,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
 				.setDescription(`Usage: ${message.client.prefix}volume <Number of volume between 0 - 100>`)
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
 		}
 
 		player.setVolume(volume);
@@ -50,23 +50,21 @@ module.exports = {
 				.setColor(message.client.embedColor)
 				.setTimestamp()
 				.setDescription(`${emojivolume} Volume set to: **${volume}%**`)
-		  return message.channel.send(thing);
+		  return message.channel.send({embeds: [thing]});
 		} else if (volume < player.volume) {
 			var emojivolume = message.client.emoji.volumelow;
 			let thing = new MessageEmbed()
 				.setColor(message.client.embedColor)
 				.setTimestamp()
 				.setDescription(`${emojivolume} Volume set to: **${volume}%**`)
-		  return message.channel.send(thing);
+		  return message.channel.send({embeds: [thing]});
 		} else {
 			let thing = new MessageEmbed()
 				.setColor(message.client.embedColor)
 				.setTimestamp()
 				.setDescription(`${volumeEmoji} Volume set to: **${volume}%**`)
-			return message.channel.send(thing);
+			return message.channel.send({embeds: [thing]});
 		}
-
 		
-	
-  	}
+ 	}
 };

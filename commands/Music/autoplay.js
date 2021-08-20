@@ -12,15 +12,15 @@ module.exports = {
     player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
-    async execute(message, args) {
-
+     execute: async (message, args, client, prefix) => {
+  
         const player = message.client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
         }
 
         const autoplay = player.get("autoplay");
@@ -39,7 +39,7 @@ module.exports = {
                 .setColor(message.client.embedColor)
                 .setTimestamp()
                 .setDescription(`${emojireplay} Autoplay is now **enabled**`)
-           return message.channel.send(thing);
+           return message.channel.send({embeds: [thing]});
         } else {
             player.set("autoplay", false);
             player.queue.clear();
@@ -48,7 +48,7 @@ module.exports = {
                 .setTimestamp()
                 .setDescription(`${emojireplay} Autoplay is now **disabled**`)
                
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
         }
 
     }

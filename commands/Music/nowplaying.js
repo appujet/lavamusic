@@ -14,8 +14,8 @@ module.exports = {
     player: true,
     inVoiceChannel: false,
     sameVoiceChannel: false,
-	execute(message, args) {
-	
+	 execute: async (message, args, client, prefix) => {
+  
         const player = message.client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
@@ -42,7 +42,7 @@ module.exports = {
             .setColor(message.client.embedColor)
             .addField("\u200b", progressbar(total, current, size, line, slider))
             .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
-         return message.channel.send(embed)
+         return message.channel.send({embeds: [embed]})
             
     }
 };

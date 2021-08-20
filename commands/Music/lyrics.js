@@ -1,9 +1,9 @@
-const { KSOFT_API_KEY } = require('../../config.json');
+const { ksoftapi } = require('../../config.json');
 const { MessageEmbed } = require('discord.js');
 const palette = require('image-palette');
 const pixels = require('image-pixels');
 const { KSoftClient } = require('@ksoft/api');
-const ksoft = KSOFT_API_KEY ? new KSoftClient(KSOFT_API_KEY) : null;
+const ksoft = ksoftapi ? new KSoftClient(ksoftapi) : null;
 module.exports = {
 	name: "lyrics",
     aliases: ["ly"],
@@ -13,21 +13,21 @@ module.exports = {
     usage: "",
     permission: [],
     owner: false,
-	async execute(message, args) {
-	  
+	 execute: async (message, args, client, prefix) => {
+    
 	  try {
-            if (!ksoft) return message.channel.send(new MessageEmbed().setDescription('Please ask developer to add ksoft API Key'))
+            if (!ksoft) return message.channel.send({embeds: [new MessageEmbed().setDescription('Please ask developer to add ksoft API Key')]})
             const player = message.client.manager.get(message.guild.id);
-            if (!args[0] && !player) return message.channel.send(new MessageEmbed().setDescription('Specify a title'))
+            if (!args[0] && !player) return message.channel.send({embeds: [new MessageEmbed().setDescription('Specify a title')]})
             let songTitle = args.join(' ') ? args.join(' ') : player.queue.current.title;
-            if (!songTitle) return message.channel.send(new MessageEmbed().setDescription('No music currently playing. Specify a title'))
+            if (!songTitle) return message.channel.send({embeds: [new MessageEmbed().setDescription('No music currently playing. Specify a title')]})
 
-            const wait = await message.channel.send(new MessageEmbed().setDescription('Searching...'))
+            const wait = await message.channel.send({embeds: [new MessageEmbed().setDescription('Searching...')]})
             let err;
             const lyrics = await ksoft.lyrics.get(songTitle).catch(x => {
                 if (!wait.deleted) { wait.delete() };
                 err = 'yes'
-                return message.channel.send(new MessageEmbed().setDescription('No result was found'))
+                return message.channel.send({embeds: [new MessageEmbed().setDescription('No result was found')]})
             })
             if(err == 'yes') return;
             const chunked = this.chunkString(lyrics.lyrics, 1600)
@@ -38,6 +38,7 @@ module.exports = {
                     '#F5F5F5',
                 ]
             }
+	     
             if (!wait.deleted) { wait.delete() }
             let embeds = []
             chunked.forEach((x, i) => {
@@ -51,7 +52,7 @@ module.exports = {
             })
 
             if (embeds.length <= 1) {
-                embeds.forEach(x => message.channel.send(x))
+                embeds.forEach(x => message.channel.send({embeds: [x]}))
             } else {
                 let currentPage = 0
                 const msg = await message.channel.send(embeds[currentPage])
@@ -82,7 +83,7 @@ module.exports = {
                 });
             }
         } catch (err) {
-            const player = client.player.players.get(message.guild.id);
+            const player = message.client.manager.get(message.guild.id);
             let songTitle = args.join(' ') ? args.join(' ') : player.queue.current.title;
 
             const lyrics = await ksoft.lyrics.get(songTitle)
@@ -99,7 +100,7 @@ module.exports = {
             })
 
             if (embeds.length <= 1) {
-                embeds.forEach(x => message.channel.send(x))
+                embeds.forEach(x => message.channel.send({embeds: [x]}))
             } else {
                 let currentPage = 0
                 const msg = await message.channel.send(embeds[currentPage])

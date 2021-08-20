@@ -12,8 +12,8 @@ module.exports = {
     player: false,
     inVoiceChannel: true,
     sameVoiceChannel: false,
-	execute(message, args) {
-
+ execute: async (message, args, client, prefix) => {
+  
 		const { channel } = message.member.voice;
 
         const emojiJoin = message.client.emoji.join;
@@ -31,16 +31,16 @@ module.exports = {
             player.connect();
 
             let thing = new MessageEmbed()
-                .setColor(message.client.embedColor)
+                .setColor(client.embedColor)
                 .setDescription(`${emojiJoin} **Join the voice channel**\nJoined <#${channel.id}> and bound to <#${message.channel.id}>`)
-             return message.channel.send(thing);
+             return message.channel.send({embeds: [thing]});
 
         } else if (message.guild.me.voice.channel !== channel) {
 
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription(`You must be in the same channel as ${message.client.user}`);
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
         }
         
     }

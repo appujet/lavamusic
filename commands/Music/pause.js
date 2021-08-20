@@ -11,7 +11,7 @@ module.exports = {
     player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
-	execute(message, args) {
+	 execute: async (message, args, client, prefix) => {
     
 		const player = message.client.manager.get(message.guild.id);
 
@@ -19,7 +19,7 @@ module.exports = {
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
         }
 
         const emojipause = message.client.emoji.pause;
@@ -29,7 +29,7 @@ module.exports = {
                 .setColor("RED")
                 .setDescription(`${emojipause} The player is already paused.`)
                 .setTimestamp()
-                return message.channel.send(thing);
+                return message.channel.send({embeds: [thing]});
         }
 
         player.pause(true);
@@ -40,7 +40,7 @@ module.exports = {
             .setColor(message.client.embedColor)
             .setTimestamp()
             .setDescription(`${emojipause} **Paused**\n[${song.title}](${song.uri})`)
-          return message.channel.send(thing);
+          return message.channel.send({embeds: [thing]});
 	
     }
 };

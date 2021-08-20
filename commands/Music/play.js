@@ -13,8 +13,8 @@ module.exports = {
     player: false,
     inVoiceChannel: true,
     sameVoiceChannel: false,
-    async execute(message, args, client) {
-
+   execute: async (message, args, client, prefix) => {
+  
         const { channel } = message.member.voice;
         var player = message.client.manager.get(message.guild.id);
 
@@ -22,7 +22,7 @@ module.exports = {
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription(`You must be in the same channel as ${message.client.user}`);
-            return message.channel.send(thing);
+             message.channel.send({embeds: [thing]});
         } else if (!player) {
             var player = message.client.manager.create({
                 guild: message.guild.id,
@@ -68,7 +68,7 @@ module.exports = {
                         .setTimestamp()
                         .setThumbnail(track.displayThumbnail("hqdefault"))
                         .setDescription(`${emojiaddsong} **Added Song to queue**\n[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``)
-                    return message.channel.send(thing);
+                    return message.channel.send({embeds: [thing]});
                 }
             case 'PLAYLIST_LOADED':
                 player.queue.add(res.tracks);
@@ -77,7 +77,7 @@ module.exports = {
                     .setColor(client.embedColor)
                     .setTimestamp()
                     .setDescription(`${emojiplaylist} **Added Playlist to queue**\n${res.tracks.length} Songs **${res.playlist.name}** - \`[${convertTime(res.playlist.duration)}]\``)
-                return message.channel.send(thing);
+                return message.channel.send({embeds: [thing]});
             case 'SEARCH_RESULT':
                 var track = res.tracks[0];
                 player.queue.add(track);
@@ -89,7 +89,7 @@ module.exports = {
                         .setTimestamp()
                         .setThumbnail(track.displayThumbnail("hqdefault"))
                         .setDescription(`${emojiaddsong} **Added Song to queue**\n[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\`[<@${track.requester.id}>]`)
-                    return message.channel.send(thing);
+                    return message.channel.send({embeds: [thing]});
                 }
         }
     }

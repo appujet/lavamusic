@@ -11,7 +11,7 @@ module.exports = {
     player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
-	execute(message, args) {
+	 execute: async (message, args, client, prefix) => {
     
 		const player = message.client.manager.get(message.guild.id);
 
@@ -19,7 +19,7 @@ module.exports = {
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
         }
 
 
@@ -31,7 +31,7 @@ module.exports = {
             .setDescription(`${emojishuffle} Shuffled the queue`)
             .setColor(message.client.embedColor)
             .setTimestamp()
-        return message.channel.send(thing).catch(error => message.client.logger.log(error, "error"));
+        return message.channel.send({embeds: [thing]}).catch(error => message.client.logger.log(error, "error"));
 	
     }
 };

@@ -12,7 +12,8 @@ module.exports = {
     player: false,
     inVoiceChannel: true,
     sameVoiceChannel: true,
-	execute(message, args) {
+ execute: async (message, args, client, prefix) => {
+       
         const player = message.client.manager.get(message.guild.id);
 
         const emojiLeave = message.client.emoji.leave;
@@ -22,7 +23,7 @@ module.exports = {
         let thing = new MessageEmbed()
             .setColor(message.client.embedColor)
             .setDescription(`${emojiLeave} **Leave the voice channel**\nThank you for using ${message.client.user.username}!`)
-          return message.channel.send(thing);
+          return message.channel.send({embeds: [thing]});
 	
     }
 };

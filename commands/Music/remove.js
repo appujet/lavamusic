@@ -11,15 +11,15 @@ module.exports = {
     player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
-	execute(message, args) {
-
+	 execute: async (message, args, client, prefix) => {
+  
 		const player = message.client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
         }
 
         const position = (Number(args[0]) - 1);
@@ -28,7 +28,7 @@ module.exports = {
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription(`No songs at number ${number}.\nTotal Songs: ${player.queue.size}`);
-            return message.channel.send(thing);
+            return message.channel.send({embeds: [thing]});
         }
 
 		const song = player.queue.remove(position);
@@ -39,7 +39,7 @@ module.exports = {
 			.setColor(message.client.embedColor)
 			.setTimestamp()
 			.setDescription(`${emojieject} Removed\n[${song.track.title}](${song.track.uri})`)
-		  return message.channel.send(thing);
+		  return message.channel.send({embeds: [thing]});
 	
     }
 };
