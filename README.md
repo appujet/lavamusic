@@ -39,6 +39,16 @@
 - [x] filters
 - [x] More
 
+## 🖼️ Screenshot
+<br />
+<p align="center">
+  <a href="https://github.com/brblacky/lavamusic">
+    <img src="https://media.discordapp.net/attachments/649085622702833664/878327454140338186/Screenshot_20210820-224454__01.jpg">
+    <img src="https://media.discordapp.net/attachments/649085622702833664/878327453913862184/Screenshot_20210820-224506__01.jpg">
+    <img src="https://media.discordapp.net/attachments/649085622702833664/878327454433951754/Screenshot_20210820-224625__01.jpg">
+
+  </a>
+</p>
 
 ## 📎 Requirement
 
