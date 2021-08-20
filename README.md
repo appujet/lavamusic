@@ -30,8 +30,6 @@
   </p>
 </p>
 
-# Discord-v 13 updated coming soon
-
 
 ## 🎭 Futures
 
@@ -44,7 +42,7 @@
 
 ## 📎 Requirement
 
-* [Discord.js](https://github.com/discordjs/discord.js/)v12
+* [Discord.js](https://github.com/discordjs/discord.js/)v13
 * [Java](https://adoptopenjdk.net/) for lavalink
 * [Lavalink](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1)
 
