@@ -1,21 +1,27 @@
-const { Client, Collection, Intents } = require("discord.js");
+const { Client, Collection } = require("discord.js");
+const array = [];
+const { readdirSync } = require("fs");
 const mongoose = require('mongoose');
 const { Database } = require("quickmongo");
-
-const { readdirSync } = require("fs");
-const { TOKEN, PREFIX, OWNERID, MONGOURL, clientID, clientSecret, embedColor, nodes } = require("./config.json");
 const { Manager } = require("erela.js");
 const Spotify = require("erela.js-spotify")
 const client = new Client({
-    disableMentions: "everyone",
-    partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
-    ws: { intents: Intents.ALL }
-});
+   intents: ["GUILDS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"],
+    allowedMentions: {
+        parse: ["everyone", "roles", "users"],
+        repliedUser: true
+    },
+    partials: ["CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "USER"]
 
-client.prefix = PREFIX;
-client.owner = OWNERID;
-client.db = new Database(MONGOURL);
-client.embedColor = embedColor;
+});
+module.exports = client;
+client.commands = new Collection();
+client.slashCommands = new Collection();
+client.config = require("./config.json");
+client.db = new Database(client.config.mongourl);
+client.owner = client.config.ownerID;
+client.prefix = client.config.prefix;
+client.embedColor = client.config.embedColor;
 client.aliases = new Collection();
 client.commands = new Collection();
 client.categories = readdirSync("./commands/");
@@ -23,15 +29,15 @@ client.logger = require("./utils/logger.js");
 client.emoji = require("./utils/emoji.json");
 
 client.manager = new Manager({
-    nodes,
+    nodes: client.config.nodes,
     send: (id, payload) => {
         const guild = client.guilds.cache.get(id);
         if (guild) guild.shard.send(payload);
     },
     autoPlay: true,
     plugins: [new Spotify({
-        clientID,
-        clientSecret
+        clientID: client.config.clientID,
+        clientSecret: client.config.clientSecret,
     })]
 });
 
@@ -39,7 +45,6 @@ client.on("raw", (d) => client.manager.updateVoiceState(d));
 /**
  * Mongodb connection
  */
-
 
 const dbOptions = {
   useNewUrlParser: true,
@@ -49,7 +54,7 @@ const dbOptions = {
   family: 4,
   useUnifiedTopology: true,
 };
-  mongoose.connect(MONGOURL, dbOptions);
+  mongoose.connect(client.config.mongourl, dbOptions);
   mongoose.set("useFindAndModify", false);
   mongoose.Promise = global.Promise;
 	mongoose.connection.on('connected', () => {
@@ -104,4 +109,5 @@ readdirSync("./commands/").forEach(dir => {
     }
 });
 
-client.login(TOKEN);
+
+client.login(client.config.token);
