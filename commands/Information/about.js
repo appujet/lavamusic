@@ -33,9 +33,9 @@ module.exports = {
             .setColor('#303236')
             .addField('Creator', '[Blacky#6618](https://github.com/brblacky)', true)
             .addField('Organization', '[Blacky](https://github.com/brblacky)', true)
-            .addField('Repository', '[Here](https://github.com/)', true)
+            .addField('Repository', '[Here](https://github.com/brblacky/lavamusic)', true)
             .addField('\u200b',
-                `[LavaMusic](https://github.com/brblacky/) is [Blacky](https://github.com/brblacky)'s Was created by brblacky. He really wants to make his first open source project ever. Because he wants more for coding experience. In this project, he was challenged to make project with less bugs. Hope you enjoy using LavaMusic!`
+                `[LavaMusic](https://github.com/brblacky/lavamusic/) is [Blacky](https://github.com/brblacky)'s Was created by brblacky. He really wants to make his first open source project ever. Because he wants more for coding experience. In this project, he was challenged to make project with less bugs. Hope you enjoy using LavaMusic!`
             )
         return message.channel.send({embeds: [mainPage], components: [row]});
     }
