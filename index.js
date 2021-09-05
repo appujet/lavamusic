@@ -4,7 +4,9 @@ const { readdirSync } = require("fs");
 const mongoose = require('mongoose');
 const { Database } = require("quickmongo");
 const { Manager } = require("erela.js");
-const Spotify = require("erela.js-spotify")
+const Spotify = require("erela.js-spotify");
+const Deezer = require("erela.js-deezer");
+const FaceBook = require("erela.js-facebook");
 const client = new Client({
    intents: ["GUILDS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"],
     allowedMentions: {
@@ -36,10 +38,13 @@ client.manager = new Manager({
     },
     autoPlay: true,
     plugins: [new Spotify({
-        clientID: client.config.SpotifyID,
-        clientSecret: client.config.SpotifySecret,
-    })]
-});
+        clientID: client.config.clientID,
+        clientSecret: client.config.clientSecret,
+    }),
+            new Deezer(),
+            new FaceBook()
+        ],
+   });
 
 client.on("raw", (d) => client.manager.updateVoiceState(d));
 /**
