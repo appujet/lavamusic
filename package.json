@@ -36,6 +36,8 @@
     "discord.js": "^13.1.0",
     "erela.js": "^2.3.3",
     "erela.js-spotify": "^1.2.0",
+    "erela.js-deezer": "^1.0.7",
+    "erela.js-facebook": "^1.0.4",
     "fs": "^0.0.1-security",
     "image-palette": "^2.1.0",
     "image-pixels": "^2.2.2",
