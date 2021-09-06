@@ -17,14 +17,21 @@ module.exports = {
        const duration1 = moment.duration(message.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
         const cpu = await si.cpu();
         const about = message.client.emoji.about;
+        let ccount = client.channels.cache.size;
+        let scount = client.guilds.cache.size;
+        let mcount = 0; 
+client.guilds.cache.forEach((guild) => {
+    mcount += guild.memberCount 
+
+})
         const embed = new MessageEmbed()
             .setColor(message.client.embedColor)
             .setThumbnail(message.client.user.displayAvatarURL())
             .setDescription(`${about} **Status**
 **= STATISTICS =**
-**• Servers** : ${message.client.guilds.cache.size.toLocaleString()}
-**• Channels** : ${message.client.channels.cache.size.toLocaleString()}
-**• Users** : ${message.client.users.cache.size.toLocaleString()}
+**• Servers** : ${scount}
+**• Channels** : ${ccount}
+**• Users** : ${mcount}
 **• Discord.js** : v${version}
 **• Node** : ${process.version}
 **= SYSTEM =**
