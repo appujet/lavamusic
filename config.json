@@ -13,6 +13,7 @@
       "host": "lavalink-repl.brblacky.repl.co",
       "port": 443,
       "password": "LAVA",
+      "identifier": "lavamusic",
       "retryAmount": 3,
       "retryDelay": 3000,
       "secure": true
