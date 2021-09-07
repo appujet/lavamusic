@@ -82,8 +82,8 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
      "KSOFT_API_KEY": "",  //ksoft api
      "PREFIX": "!",  //Default prefix
      "OWNERID": "491577179495333903",  //Owner id
-     "clientID": "",  //spotify client ID
-     "clientSecret": "", //spotify client secret
+     "SpotifyID": "",  //spotify client ID
+     "SpotifySecret": "", //spotify client secret
      "embedColor": "",  //default embed color
     
 ## 🌋 lavalink 
