@@ -38,8 +38,8 @@ client.manager = new Manager({
     },
     autoPlay: true,
     plugins: [new Spotify({
-        clientID: client.config.clientID,
-        clientSecret: client.config.clientSecret,
+        clientID: client.config.SpotifyID,
+        clientSecret: client.config.SpotifySecret,
     }),
             new Deezer(),
             new FaceBook()
