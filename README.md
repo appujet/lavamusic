@@ -88,7 +88,7 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
     
 ## 🌋 lavalink 
 
-      "host": "lavalink-repl.brblacky.repl.co",
+      "host": "disbotlistlavalink.ml",
       "port": 443,
       "password": "LAVA",
       "retryDelay": 3000,
