@@ -8,7 +8,7 @@ const Spotify = require("erela.js-spotify");
 const Deezer = require("erela.js-deezer");
 const FaceBook = require("erela.js-facebook");
 const client = new Client({
-   intents: [Intents.FLAGS.GUILD, Intents.FLAGS.GUILD_INVITES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES],
+   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_INVITES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES],
     allowedMentions: {
         parse: ["everyone", "roles", "users"],
         repliedUser: true
