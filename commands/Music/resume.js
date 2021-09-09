@@ -15,6 +15,7 @@ module.exports = {
 	 execute: async (message, args, client, prefix) => {
   
 		const player = message.client.manager.get(message.guild.id);
+        const song = player.queue.current;
 
         if (!player.queue.current) {
             let thing = new MessageEmbed()
