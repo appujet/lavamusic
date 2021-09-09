@@ -31,7 +31,7 @@
 </p>
 
 
-## 🎭 Futures
+## 🎭 Features
 
 - [x] Music
 - [x] 24/7
@@ -39,7 +39,7 @@
 - [x] filters
 - [x] More
 
-## 🖼️ Screenshot
+## 🖼️ Screenshots
 <br />
 <p align="center">
   <a href="https://github.com/brblacky/lavamusic">
@@ -50,7 +50,7 @@
   </a>
 </p>
 
-## 📎 Requirement
+## 📎 Requirements
 * [Nodejs](https://nodejs.org/en/)-v16 
 * [Discord.js](https://github.com/discordjs/discord.js/)-v13
 * [Java](https://adoptopenjdk.net/) for lavalink
@@ -75,7 +75,7 @@ npm install
 to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing *much* easier.
 <!-- CONFIGURATION -->
 
-## ⚙️ Configuration
+## ⚙️ Configurations
 
      "TOKEN": "", //Discord bot token 
      "MONGOURL": "",  //MongoDb url
