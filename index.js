@@ -1,4 +1,4 @@
-const { Client, Collection } = require("discord.js");
+const { Client, Collection, Intents } = require("discord.js");
 const array = [];
 const { readdirSync } = require("fs");
 const mongoose = require('mongoose');
@@ -8,7 +8,7 @@ const Spotify = require("erela.js-spotify");
 const Deezer = require("erela.js-deezer");
 const FaceBook = require("erela.js-facebook");
 const client = new Client({
-   intents: ["GUILDS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"],
+   intents: [Intents.FLAGS.GUILD, Intents.FLAGS.GUILD_INVITES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES],
     allowedMentions: {
         parse: ["everyone", "roles", "users"],
         repliedUser: true
