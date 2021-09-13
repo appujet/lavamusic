@@ -115,6 +115,6 @@ readdirSync("./commands/").forEach(dir => {
     }
 });
 ///// Keep Alive Uptime Robot ///////
-keepAlive();
+//keepAlive();
 
 client.login(client.config.token);
