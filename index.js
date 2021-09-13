@@ -3,6 +3,7 @@ const array = [];
 const { readdirSync } = require("fs");
 const mongoose = require('mongoose');
 const { Database } = require("quickmongo");
+//const keepAlive = require('./keepAlive.js');
 const { Manager } = require("erela.js");
 const Spotify = require("erela.js-spotify");
 const Deezer = require("erela.js-deezer");
@@ -113,6 +114,7 @@ readdirSync("./commands/").forEach(dir => {
         client.commands.set(command.name, command);
     }
 });
-
+///// Keep Alive Uptime Robot ///////
+keepAlive();
 
 client.login(client.config.token);
