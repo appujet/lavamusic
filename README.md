@@ -15,7 +15,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/brblacky/lavamusic">
-    <img src="https://media.discordapp.net/attachments/845318824323448882/876690332333514752/1629089649835.png" alt="Pbot-plus" width="200" height="200">
+    <img src="https://media.discordapp.net/attachments/876035356460462090/887728792926290091/20210820_124325.png" alt="Pbot-plus" width="200" height="200">
   </a>
 
   <h3 align="center">lavamusic</h3>
