@@ -1,4 +1,4 @@
-[![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://replit.com/@brblacky1/lavamusic?v=1)
+[![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://repl.it/github/brblacky/lavamusic)
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/brblacky/lavamusic)
 
 
