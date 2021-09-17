@@ -1,11 +1,11 @@
 {
-    "token": "", 
-    "mongourl": "",
-    "ksoftapi": "",
-    "prefix": "!",
+    "token": "", //paste your bot token
+    "mongourl": "", //paste your mongdb url
+    "ksoftapi": "", //paste your ksoft api
+    "prefix": "!", //your prefix
     "ownerID": "491577179495333903",
-    "SpotifyID": "",
-    "SpotifySecret": "",
+    "SpotifyID": "", //paste your spotify client id
+    "SpotifySecret": "", //paste your spotify client secret
     "embedColor": "#303236",
      "nodes": [
     
@@ -16,7 +16,7 @@
       "identifier": "lavamusic",
       "retryAmount": 3,
       "retryDelay": 3000,
-      "secure": true
+      "secure": true 
     
     }
   ]
