@@ -1,27 +1,37 @@
-const {
-    MessageEmbed,
-    Message,
-    Client
-} = require("discord.js");
+
 const { readdirSync } = require("fs");
 const create_mh = require(`../../utils/menu.js`);
 
+const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
+
 module.exports = {
     name: "help",
-    category: "Information",
-    aliases: [ "h" ],
     description: "Return all commands, or one specific command",
-    args: false,
-    usage: "",
-    permission: [],
     owner: false,
-   execute: async (message, args, client, prefix) => {
+    options: [
+      {
+        name: "command",
+        description: "the full name of command",
+        required: false,
+        type: "STRING"
+		}
+	],
 
+    /**
+     * @param {Client} client
+     * @param {CommandInteraction} interaction
+     */
+
+    run: async (client, interaction, prefix ) => {
+        await interaction.deferReply({
+          ephemeral: false
+        });
+    const args = interaction.options.getString("command");
      let color = client.embedColor;
       let categories = [];
         let cots = [];
 
-        if (!args[0]) {
+        if (!args) {
 
             //categories to ignore
             let ignored = [
@@ -68,15 +78,15 @@ module.exports = {
                 .setDescription(`>>> My prefix is \`${prefix}\`\nUse the menu, or use \`${prefix}help [category]\` to view commands base on their category!`)
                 .addFields(categories)
                 .setFooter(
-                    `Requested by ${message.author.tag}`,
-                    message.author.displayAvatarURL({
+                    `Requested by ${interaction.member.user.username}`,
+                    interaction.member.user.displayAvatarURL({
                         dynamic: true
                     })
                 )
                 .setTimestamp()
                 .setColor(color)
             let menus = create_mh(ccate);
-            return message.channel.send({
+            return interaction.editReply({
                 embeds: [embed],
                 components: menus.smenu
             }).then((msgg) => {
@@ -157,7 +167,7 @@ module.exports = {
                 };
 
                 const filter = (interaction) => {
-                    return !interaction.user.bot && interaction.user.id == message.author.id
+                    return !interaction.user.bot && interaction.userId == interaction.authorId
                 };
 
                 const collector = msgg.createMessageComponentCollector({
@@ -230,7 +240,7 @@ module.exports = {
                     .addFields(catts)
                     .setColor(color)
 
-                return message.channel.send({
+                return await interaction.editReply({
                     embeds: [combed]
                 })
             };
@@ -239,7 +249,7 @@ module.exports = {
                 const embed = new MessageEmbed()
                     .setTitle(`Invalid command! Use \`${prefix}help\` for all of my commands!`)
                     .setColor("RED");
-                return await message.channel.send({
+                return await interaction.editReply({
                     embeds: [embed],
                     allowedMentions: {
                         repliedUser: false
@@ -272,14 +282,14 @@ module.exports = {
                     "No description for this command."
                 )
                 .setFooter(
-                    `Requested by ${message.author.tag}`,
-                    message.author.displayAvatarURL({
-                        dynamic: true
-                    })
+                        `Requested by ${interaction.member.user.username}`,
+                        interaction.member.user.displayAvatarURL({
+                          dynamic: true
+                        })
                 )
                 .setTimestamp()
                 .setColor(color);
-            return await message.channel.send({
+            return await interaction.editReply({
                 embeds: [embed]
             });
         }

@@ -1,22 +1,21 @@
 {
-    "token": "", //paste your bot token
-    "mongourl": "", //paste your mongdb url
-    "ksoftapi": "", //paste your ksoft api
-    "prefix": "!", //your prefix
+    "token": "", 
+    "prefix": "!",
+	  "ksoftapi": "",   
     "ownerID": "491577179495333903",
-    "SpotifyID": "", //paste your spotify client id
-    "SpotifySecret": "", //paste your spotify client secret
+    "SpotifyID": "",
+    "SpotifySecret": "",
+    "mongourl": "",
     "embedColor": "#303236",
      "nodes": [
     
     {
+     
       "host": "disbotlistlavalink.ml",
       "port": 443,
       "password": "LAVA",
-      "identifier": "lavamusic",
-      "retryAmount": 3,
       "retryDelay": 3000,
-      "secure": true 
+      "secure": true
     
     }
   ]

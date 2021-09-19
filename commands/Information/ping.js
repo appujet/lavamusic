@@ -14,7 +14,7 @@ module.exports = {
     const latency = `\`\`\`ini\n[ ${Math.floor(message.createdTimestamp - timestamp)}ms ]\`\`\``;
     const apiLatency = `\`\`\`ini\n[ ${Math.round(message.client.ws.ping)}ms ]\`\`\``;
       const embed = new MessageEmbed()
-      .setTitle(`Pong!`)
+      .setTitle(`Pong`, client.user.displayAvatarURL({ dynamic: true }))
       .setDescription('')
       .addField('Latency', latency, true)
       .addField('API Latency', apiLatency, true)

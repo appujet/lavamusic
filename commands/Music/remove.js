@@ -1,10 +1,10 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-	name: "remove",
+  	name: "remove",
     category: "Music",
-	description: "Remove song from the queue",
-	args: false,
+  	description: "Remove song from the queue",
+	  args: true,
     usage: "<Number of song in queue>",
     permission: [],
     owner: false,
@@ -31,7 +31,7 @@ module.exports = {
             return message.channel.send({embeds: [thing]});
         }
 
-        	const song = player.queue[position]
+    const song = player.queue[position]
 		player.queue.remove(position);
 
 		const emojieject = message.client.emoji.remove;

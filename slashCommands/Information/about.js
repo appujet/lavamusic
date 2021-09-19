@@ -1,17 +1,20 @@
-const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
+const { MessageEmbed, CommandInteraction, Client, MessageButton, MessageActionRow } = require("discord.js")
 
 module.exports = {
     name: "about",
-    category: "Information",
-    aliases: [ "botinfo" ],
-    description: "See description about this project",
-    args: false,
-    usage: "",
-    permission: [],
-    owner: false,
-    execute: async (message, args, client, prefix) => {
-     
-    const row = new MessageActionRow()
+    description: "Show Lavamusic project information",
+
+    /**
+     * 
+     * @param {Client} client 
+     * @param {CommandInteraction} interaction 
+     */
+
+    run: async (client, interaction) => {
+        await interaction.deferReply({
+            ephemeral: false
+        });
+   const row = new MessageActionRow()
 			.addComponents(
         new MessageButton()
     .setLabel("Invite")
@@ -37,6 +40,6 @@ module.exports = {
             .addField('\u200b',
                 `[LavaMusic](https://github.com/brblacky/lavamusic/) is [Blacky](https://github.com/brblacky) and [Venom](https://github.com/Venom9718)'s Was created by blacky and Venom. He really wants to make his first open source project ever. Because he wants more for coding experience. In this project, he was challenged to make project with less bugs. Hope you enjoy using LavaMusic!`
             )
-        return message.channel.send({embeds: [mainPage], components: [row]});
+        await interaction.followUp({embeds: [mainPage], components: [row]});
     }
 }

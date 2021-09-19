@@ -15,21 +15,21 @@ module.exports = {
       if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send('You must have `Manage Guild` permission to use this command.');
  if (!args[0]) {
     const embed = new MessageEmbed()
-        .setDescription("Please give the prefix that you want to set!")
+        .setDescription("Please give the prefix that you want to set")
         .setColor(client.embedColor)
       return message.channel.send({ embeds: [embed] });
     }
 
     if (args[1]) {
        const embed = new MessageEmbed()
-        .setDescription("You can not set prefix a double argument!")
+        .setDescription("You can not set prefix a double argument")
         .setColor(client.embedColor)
       return message.channel.send({ embeds: [embed] });
     }
 
     if (args[0].length > 3) {
        const embed = new MessageEmbed()
-        .setDescription("You can not set prefix more than 3 characters!")
+        .setDescription("You can not send prefix more than 3 characters")
         .setColor(client.embedColor)
       return message.channel.send({ embeds: [embed] });
     }

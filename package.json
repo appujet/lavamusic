@@ -1,18 +1,17 @@
 {
   "name": "lavamusic",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "lavalink music bot base in erelajs",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "engines": {
-  "node": "16.x"
+    "node": "16.x"
   },
-   "repository": {
-     "type": "git",
-     "url": "git+https://github.com/brblacky/lavamusic.git"
-     
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brblacky/lavamusic.git"
   },
   "keywords": [
     "lavalink",
@@ -34,16 +33,19 @@
     "common-tags": "^1.8.0",
     "delay": "^5.0.0",
     "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
     "erela.js": "^2.3.3",
-    "erela.js-spotify": "^1.2.0",
     "erela.js-deezer": "^1.0.7",
     "erela.js-facebook": "^1.0.4",
+    "erela.js-spotify": "^1.2.0",
     "fs": "^0.0.1-security",
+    "genius-lyrics": "^4.2.9",
     "image-palette": "^2.1.0",
     "image-pixels": "^2.2.2",
+    "lyrics-finder": "^21.7.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.13.9",
+    "mongoose": "^5.11.15",
     "node-superfetch": "^0.2.3",
     "quickmongo": "^3.0.2",
     "systeminformation": "^5.8.0"
