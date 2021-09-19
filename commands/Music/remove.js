@@ -31,14 +31,15 @@ module.exports = {
             return message.channel.send({embeds: [thing]});
         }
 
-		const song = player.queue.remove(position);
+        	const song = player.queue[position]
+		player.queue.remove(position);
 
 		const emojieject = message.client.emoji.remove;
 
 		let thing = new MessageEmbed()
 			.setColor(message.client.embedColor)
 			.setTimestamp()
-			.setDescription(`${emojieject} Removed\n[${song.track.title}](${song.track.uri})`)
+			.setDescription(`${emojieject} Removed\n[${song.title}](${song.uri})`)
 		  return message.channel.send({embeds: [thing]});
 	
     }
