@@ -33,6 +33,11 @@
 </p>
 
 
+## 📝 Tutorial
+
+A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://youtu.be/x5lQD2rguz0)
+
+
 ## 🎭 Features
 
 - [x] Music
