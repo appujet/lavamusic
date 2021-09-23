@@ -140,7 +140,7 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
 ## 💌 Support Server
 [![DiscordBanner](https://invidget.switchblade.xyz/gfcv94hDhv)](https://discord.gg/gfcv94hDhv)
 [Support Server](https://discord.gg/gfcv94hDhv) - lavamusic's Support Server Invite
-:----:
+
 
 <!-- LICENSE -->
 
