@@ -1,12 +1,13 @@
 {
     "token": "", 
     "prefix": "!",
-	  "ksoftapi": "",   
+    "ksoftapi": "",   
     "ownerID": "491577179495333903",
     "SpotifyID": "",
     "SpotifySecret": "",
     "mongourl": "",
     "embedColor": "#303236",
+    "log": "",
      "nodes": [
     
     {
