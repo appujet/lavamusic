@@ -1,0 +1,41 @@
+{
+  "name": "LavaMusic",
+  "description": "lavalink music bot base in erela.js and discord.js v13",
+  "repository": "https://github.com/brblacky/lavamusic",
+  "keywords": ["node", "discord", "youtube", "music", "bot", "lavalink", "dashboard"],
+  "image": "heroku/nodejs",
+  "buildpacks": [
+      {
+          "url": "heroku/nodejs"
+      }
+  ],
+"env": {
+  "token": {
+    "description": "The Discord Bot Token",
+    "required": "true"
+  },      
+  "prefix": {
+    "description": "prefix you wanna use in your server",
+    "required": "true"
+  },
+  "ownerID": {
+    "description": "Bot's Owner ID",
+    "required": "true"
+  },
+  "mongourl": {
+    "description": "Your MongoDB URL for custom prefix",
+    "required": "true"
+  "ksoftapi": {
+    "description": "Ksoft API",
+    "required": "true"
+  },
+  "SpotifyID": {
+    "description": "Spotify ClientID. This is used if you want to use Spotify features for your bot. (https://developer.spotify.com/dashboard/)",
+    "required": "true"
+  },
+  "SpotifySecret": {
+    "description": "Spotify ClientSecret. This is used if you want to use Spotify features for your bot. (https://developer.spotify.com/dashboard/)",
+    "required": "true"
+  }
+}
+}
