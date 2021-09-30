@@ -45,7 +45,7 @@
     "lyrics-finder": "^21.7.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.11.15",
+    "mongoose": "^6.0.8",
     "node-superfetch": "^0.2.3",
     "quickmongo": "^3.0.2",
     "systeminformation": "^5.8.0"
