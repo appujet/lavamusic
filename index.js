@@ -1,5 +1,4 @@
 const { Client, Collection, Intents } = require("discord.js");
-const mongoose = require('mongoose');
 const { Database } = require("quickmongo");
 const { readdirSync } = require("fs");
 const client = new Client({
