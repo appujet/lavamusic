@@ -114,7 +114,7 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
 
   </a>
 </p>
-When Your Running The Code You Must Have Gotten This Error To Fix This Head Over To Your Bots [Discord Application](https://discord.com/developers/applications/) and Go To The Bot Settings And Find This
+When Your Running The Code You Must Have Gotten This Error To Fix This Head Over To Your Bots Discord Application and Go To The Bot Settings And Find This
 
 <p align="center">
   <a href="https://github.com/brblacky/lavamusic">
