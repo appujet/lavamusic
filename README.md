@@ -105,6 +105,25 @@ npm install
 * Start the bot with `node index.js`
 
 to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing *much* easier.
+
+## intents
+
+<br />
+<p align="center">
+  <a href="https://github.com/brblacky/lavamusic">
+    <img src="https://media.discordapp.net/attachments/848492641585725450/894114853382410260/unknown.png">
+
+  </a>
+</p>
+* When Your Running The Code You Must Have Gotten This Error To Fix This Head Over To Your Bots [Discord Application](https://discord.com/developers/applications/) and Go To The Bot Settings And Find This
+
+<p align="center">
+  <a href="https://github.com/brblacky/lavamusic">
+    <img src="https://media.discordapp.net/attachments/848492641585725450/894115221701001216/unknown.png">
+
+  </a>
+</p>
+Then Turn On Both Of Those Settings And Click "Save Changes" Then Your Are Done And The It Should Be Fixed
 <!-- CONFIGURATION -->
 
 ## ⚙️ Configurations
