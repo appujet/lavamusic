@@ -15,7 +15,7 @@ module.exports = {
       if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send('You must have `Manage Guild` permission to use this command.');
  if (!args[0]) {
     const embed = new MessageEmbed()
-        .setDescription("Please give the prefix that you want to set")
+        .setDescription("Please give the prefix that you want to set!")
         .setColor(client.embedColor)
       return message.channel.send({ embeds: [embed] });
     }
