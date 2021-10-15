@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const pre= require("../../schema/prefix.js");
 
 module.exports = async (client, message) => {
    
