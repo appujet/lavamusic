@@ -1,7 +1,7 @@
 
 const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
-
-const { default_prefix } = require(`${process.cwd()}/config.json`)
+const pre = require("../../schema/prefix.js");
+const mongoose = require('mongoose')
 module.exports = {
     name: "setprefix",
     description: "Set Custom Prefix",
@@ -17,7 +17,6 @@ module.exports = {
   
    run: async (client, interaction,) => {
    await interaction.deferReply({
-            ephemeral: false
         });
      const args = interaction.options.getString("prefix");
 
@@ -45,14 +44,34 @@ module.exports = {
       return await interaction.editReply({ embeds: [embed] });
     }
 
-     client.db.delete(`prefix_${interaction.guildId}`);
-      
-    client.db.set(`prefix_${interaction.guildId}`, args[0]);
-    const embed = new MessageEmbed()
-       .setDescription(`Set Bot's Prefix to ${args[0]}`)
-       .setColor(client.embedColor)
-    return await interaction.editReply({ embeds: [embed] });
-  },
-};
-
-
+    const res = await pre.findOne({ guildid:interaction.guildId })
+      let prefix = args.join(" ");
+      let p;
+      if (!res) p = ">"
+      else p = res.prefix;
+      const noperms = new MessageEmbed()
+        .setColor("#651FFF")
+        .setDescription(`The prefix for this server is \`${p}\``)
+      let newprefix = args.join(" ");
+      if (!args[0]) return interaction.editReply({embeds: [noperms]});
+      else {
+        pre.findOne({ guildid: interaction.guildId }).then(result => {
+          let duck = new pre({
+            _id: new mongoose.Types.ObjectId(),
+            guildid: interaction.guildId,
+            prefix: prefix
+          })
+          let send = new MessageEmbed()
+            .setDescription(`Changed prefix to \`${newprefix}\``)
+            .setTimestamp()
+            .setColor("#651FFF")
+         return interaction.editReply({embeds: [send]});
+          if (!result || result == []) {
+            duck.save().catch(console.error);
+          } else {
+            pre.deleteOne({ guildid: interaction.guildId }).catch(console.error)
+            duck.save().catch(console.error)
+          }
+      })}
+   }
+}
