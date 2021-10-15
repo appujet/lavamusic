@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
-
-const { default_prefix } = require(`${process.cwd()}/config.json`)
+const pre = require("../../schema/prefix.js");
+const mongoose = require('mongoose')
 module.exports = {
     name: "setprefix",
     category: "Config",
@@ -34,18 +34,34 @@ module.exports = {
       return message.channel.send({ embeds: [embed] });
     }
 
-    if (args.join("") === default_prefix) {
-      client.db.delete(`prefix_${message.guild.id}`);
-      const embed = new MessageEmbed()
-        .setDescription("Reseted Prefix")
-        .setColor(client.embedColor)
-      return await message.channel.send({ embeds: [embed] });
-    }
-
-    client.db.set(`prefix_${message.guild.id}`, args[0]);
-    const embed = new MessageEmbed()
-       .setDescription(`Set Bot's Prefix to ${args[0]}`)
-       .setColor(client.embedColor)
-    await message.channel.send({ embeds: [embed] });
-  },
-};
+    const res = await pre.findOne({ guildid: message.guild.id })
+      let prefix = args.join(" ");
+      let p;
+      if (!res) p = ">"
+      else p = res.prefix;
+      const noperms = new MessageEmbed()
+        .setColor("#651FFF")
+        .setDescription(`The prefix for this server is \`${p}\``)
+      let newprefix = args.join(" ");
+      if (!args[0]) return message.channel.send({embeds: [noperms]});
+      else {
+        pre.findOne({ guildid: message.guild.id }).then(result => {
+          let duck = new pre({
+            _id: new mongoose.Types.ObjectId(),
+            guildid: message.guild.id,
+            prefix: prefix
+          })
+          let send = new MessageEmbed()
+            .setDescription(`Changed prefix to \`${newprefix}\``)
+            .setTimestamp()
+            .setColor("#651FFF")
+          message.channel.send({embeds: [send]});
+          if (!result || result == []) {
+            duck.save().catch(console.error);
+          } else {
+            pre.deleteOne({ guildid: message.guild.id }).catch(console.error)
+            duck.save().catch(console.error)
+          }
+      })}
+   }
+}
