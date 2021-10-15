@@ -1,9 +1,12 @@
 const { MessageEmbed, Client } = require("discord.js")
+const pre= require("../../schema/prefix.js");
+
 module.exports = async (client, interaction) => {
-	 let prefix = await client.db.get(`prefix_${interaction.guild.id}`);
-      if (prefix === null) prefix = client.prefix;
-      
- let color = client.embedColor;
+    let prefix = client.prefix;
+    const ress =  await pre.findOne({guildid: message.guild.id})
+    if(ress && ress.prefix)prefix = ress.prefix;
+   
+    let color = client.embedColor;
      
      if(interaction.isCommand()) {
 
