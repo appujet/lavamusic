@@ -3,7 +3,7 @@ const pre= require("../../schema/prefix.js");
 
 module.exports = async (client, interaction) => {
     let prefix = client.prefix;
-    const ress =  await pre.findOne({guildid: message.guild.id})
+    const ress =  await pre.findOne({guildid: interaction.guildId})
     if(ress && ress.prefix)prefix = ress.prefix;
    
     let color = client.embedColor;
