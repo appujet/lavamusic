@@ -47,7 +47,6 @@
     "moment-duration-format": "^2.3.2",
     "mongoose": "^6.0.9",
     "node-superfetch": "^0.2.3",
-    "quickmongo": "^3.0.2",
     "systeminformation": "^5.8.0"
   }
 }
