@@ -1,7 +1,6 @@
 const { Client } = require("discord.js");const chalk = require("chalk");
 const array = [];
 const mongoose = require('mongoose');
-const { Database } = require("quickmongo");
 const { Manager } = require("erela.js");
 const Spotify = require("erela.js-spotify");
 const Deezer = require("erela.js-deezer");
