@@ -1,5 +1,4 @@
 const { Client, Collection, Intents } = require("discord.js");
-const { Database } = require("quickmongo");
 const { readdirSync } = require("fs");
 const client = new Client({
    shards: "auto",
@@ -16,7 +15,6 @@ module.exports = client;
 client.commands = new Collection();
 client.slashCommands = new Collection();
 client.config = require("./config.json");
-client.db = new Database(client.config.mongourl);
 client.owner = client.config.ownerID;
 client.prefix = client.config.prefix;
 client.embedColor = client.config.embedColor;
