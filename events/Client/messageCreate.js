@@ -4,10 +4,10 @@ module.exports = async (client, message) => {
    
    if (message.author.bot) return;
    if (!message.guild) return;
-
-   let prefix = await client.db.get(`prefix_${message.guild.id}`);
-      if (prefix === null) prefix = client.prefix;
-      
+    let prefix = client.prefix;
+    const ress =  await pre.findOne({guildid: message.guild.id})
+    if(ress && ress.prefix)prefix = ress.prefix;
+   
     const mention = new RegExp(`^<@!?${client.user.id}>( |)$`);
 
     if (message.content.match(mention)) {
