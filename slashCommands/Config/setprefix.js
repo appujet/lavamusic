@@ -52,7 +52,7 @@ module.exports = {
       const noperms = new MessageEmbed()
         .setColor("#651FFF")
         .setDescription(`The prefix for this server is \`${p}\``)
-      let newprefix = args.join(" ");
+      let newprefix = args();
       if (!args[0]) return interaction.editReply({embeds: [noperms]});
       else {
         pre.findOne({ guildid: interaction.guildId }).then(result => {
