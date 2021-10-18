@@ -45,9 +45,9 @@ module.exports = {
     }
 
     const res = await pre.findOne({ guildid:interaction.guildId })
-      let prefix = args.join(" ");
+      let prefix = args();
       let p;
-      if (!res) p = ">"
+      if (!res) p = "!"
       else p = res.prefix;
       const noperms = new MessageEmbed()
         .setColor("#651FFF")
