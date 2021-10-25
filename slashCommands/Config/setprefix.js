@@ -1,4 +1,3 @@
-
 const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
 const pre = require("../../schema/prefix.js");
 const mongoose = require('mongoose')
