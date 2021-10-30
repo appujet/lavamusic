@@ -118,9 +118,4 @@ readdirSync("./slashCommands/").forEach((dir) => {
         }
     });
 
-    client.on("ready", async () => {
-          await client.application.commands.set(data).then(() => client.logger.log(`Client SlashCommand (/) Registered.`, "ready")).catch((e) => console.log(e));
-    });
-  
-
 }
