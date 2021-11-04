@@ -1,0 +1,39 @@
+{
+  "name": "lavamusic",
+  "description": "Lavamusic a powerful music Discord bot that need in your server",
+  "repository": "https://github.com/brblacky/lavamusic",
+  "logo": "https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png",
+  "keywords": ["discord", "discordjs", "music"],
+  "env": {
+    "MONGO_URI": {
+      "description": "Your Mongo url",
+      "value": "",
+      "required": true
+    },
+    "KSOFTAPI":{
+    "description": "for lyrics",
+      "required": false
+     },
+    "PREFIX":{
+    "description": "your prefix",
+     "value": "!",
+      "required": true
+     },
+    "SPOTIFYID":{
+    "description": "Spotify client id",
+      "required": true
+     },
+     "SPOTIFYSECRET":{
+    "description": "Spotify client secret",
+      "required": true
+     },
+     "OWNERID":{
+    "description": "your discord id",
+      "required": false
+     },
+     "TOKEN": {
+      "description": "Your bot's bot token.",
+      "required": true
+    }
+  }
+}
