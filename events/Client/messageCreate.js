@@ -6,7 +6,6 @@ module.exports = async (client, message) => {
    if (message.author.bot) return;
    if (!message.guild) return;
     let prefix = client.prefix;
-    const channel = message?.channel;
     const ress =  await pre.findOne({guildid: message.guild.id})
     if(ress && ress.prefix)prefix = ress.prefix;
    
@@ -57,9 +56,6 @@ module.exports = async (client, message) => {
         embed.setDescription("You can't use this command.");
         return message.channel.send({embeds: [embed]});
     }
-   if (!channel.permissionsFor(message.guild.me)?.has(Permissions.FLAGS.EMBED_LINKS) && client.user.id !== userId) {
-        return channel.send({ content: `Error: I need \`EMBED_LINKS\` permission to work.` });
-      }
     if (command.owner && message.author.id !== `${client.owner}`) {
         embed.setDescription("Only <@491577179495333903> can use this command!");
         return message.channel.send({embeds: [embed]});
