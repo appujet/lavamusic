@@ -1,5 +1,6 @@
 const { Client, Collection, Intents } = require("discord.js");
 const { readdirSync } = require("fs");
+const env = require('dotenv');
 const client = new Client({
    shards: "auto",
    intents: [Intents.FLAGS.GUILDS, Intents.
