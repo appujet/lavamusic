@@ -1,5 +1,6 @@
 const { Client } = require("discord.js");const chalk = require("chalk");
 const array = [];
+const env = require('dotenv');
 const mongoose = require('mongoose');
 const { Manager } = require("erela.js");
 const Spotify = require("erela.js-spotify");
@@ -23,8 +24,8 @@ module.exports = async (client) => {
         },
         autoPlay: true,
         plugins: [new Spotify({
-            clientID: client.config.SpotifyID,
-            clientSecret: client.config.SpotifySecret,
+            clientID: process.env.SPOTIFYID || client.config.SpotifyID,
+            clientSecret: process.env.SPOTIFYSECRET || client.config.SpotifySecret,
         }),
                 new Deezer(),
                 new FaceBook()
@@ -43,7 +44,7 @@ module.exports = async (client) => {
         family: 4,
         useUnifiedTopology: true,
       };
-        mongoose.connect(client.config.mongourl, dbOptions);
+        mongoose.connect(process.env.MONGO_URI || client.config.mongourl, dbOptions);
         mongoose.Promise = global.Promise;
           mongoose.connection.on('connected', () => {
               client.logger.log('[DB] DATABASE CONNECTED', "ready");
