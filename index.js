@@ -27,6 +27,6 @@ client.emoji = require("./utils/emoji.json");
 require("./handler/Client")(client);
 
 
-client.login(client.config.token);
+client.login(process.env.TOKEN || client.config.token);
 
 
