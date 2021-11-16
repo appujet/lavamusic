@@ -1,6 +1,6 @@
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Fbrblacky%2Flavamusic&envs=COlOR%2CLOGS%2CMONGO_URI%2COWNERID%2CPREFIX%2CSPOTIFYID%2CSPOTIFYSECRET%2CTOKEN&optionalEnvs=COlOR%2COWNERID&COlORDesc=embed+colour+code+hex&LOGSDesc=Channel+I%27d&MONGO_URIDesc=Your+Mongo+url&OWNERIDDesc=your+discord+id&PREFIXDesc=your+bot+prefix&SPOTIFYIDDesc=Spotify+client+id&SPOTIFYSECRETDesc=Spotify+client+secret&TOKENDesc=Your+bot%27s+bot+token.&COlORDefault=%23303236&PREFIXDefault=%21&referralCode=kcnA8M)
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/brblacky/lavamusic)
-[![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://replit.com/@brblacky1/lavamusic?v=1)
+[![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://repl.it/github/brblacky/lavamusic)
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/brblacky/lavamusic)
 
 
