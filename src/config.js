@@ -11,7 +11,7 @@ module.exports = {
   nodes: {
      
       host: process.env.HOST || "disbotlistlavalink.ml",
-      port: process.env.PORT || 443,
+      port: process.env.PORT,
       password: process.env.PASS || "LAVA",
       id: process.env.ID || "DisBotlist Lavalink",
       retryDelay: 3000,
