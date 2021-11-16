@@ -10,12 +10,12 @@ module.exports = {
 
   nodes: {
      
-      host: process.env.HOST || "disbotlistlavalink.ml",
-      port: process.env.PORT,
-      password: process.env.PASS || "LAVA",
-      id: process.env.ID || "DisBotlist Lavalink",
+      host: "disbotlistlavalink.ml",
+      port: 443,
+      password: "LAVA",
+      id: "DisBotlist Lavalink",
       retryDelay: 3000,
-      secure: process.env.SECURE || true
+      secure: true
     
     },
  
