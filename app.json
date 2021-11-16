@@ -32,31 +32,6 @@
      "description": "Channel I'd",
      "required": true
      },
-     "HOST":{
-     "description": "lavalink server host",
-     "value": "disbotlistlavalink.ml",
-     "required": true
-     },
-     "PORT":{
-     "description": "lavalink server port",
-     "value": "443",
-     "required": true
-     },
-     "PASS":{
-     "description": "lavalink server password",
-     "value": "LAVA",
-     "required": true
-     },
-     "ID":{
-     "description": "lavalink server id",
-     "value": "main",
-     "required": true
-     },
-     "SECURE":{
-     "description": "lavalink server secure",
-     "value": "true",
-     "required": true
-     },
      "OWNERID":{
      "description": "your discord id",
      "required": false
