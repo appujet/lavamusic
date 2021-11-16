@@ -6,34 +6,64 @@
   "keywords": ["discord", "discordjs", "music"],
   "env": {
     "MONGO_URI": {
-      "description": "Your Mongo url",
-      "value": "",
-      "required": true
+    "description": "Your Mongo url",
+    "value": "",
+    "required": true
     },
-    "KSOFTAPI":{
-    "description": "for lyrics",
-      "required": false
-     },
     "PREFIX":{
     "description": "your prefix",
-     "value": "!",
-      "required": true
+    "value": "!",
+    "required": true
      },
     "SPOTIFYID":{
     "description": "Spotify client id",
-      "required": true
+    "required": true
      },
      "SPOTIFYSECRET":{
-    "description": "Spotify client secret",
-      "required": true
+     "description": "Spotify client secret",
+     "required": true
+     },
+     "COlOR":{
+     "description": "embed colour code hex",
+     "value": "#303236",
+     "required": false
+     },
+     "LOGS":{
+     "description": "Channel I'd",
+     "required": true
+     },
+     "HOST":{
+     "description": "lavalink server host",
+     "value": "disbotlistlavalink.ml",
+     "required": true
+     },
+     "PORT":{
+     "description": "lavalink server port",
+     "value": "443",
+     "required": true
+     },
+     "PASS":{
+     "description": "lavalink server password",
+     "value": "LAVA",
+     "required": true
+     },
+     "ID":{
+     "description": "lavalink server id",
+     "value": "main",
+     "required": true
+     },
+     "SECURE":{
+     "description": "lavalink server secure",
+     "value": "true",
+     "required": true
      },
      "OWNERID":{
-    "description": "your discord id",
-      "required": false
+     "description": "your discord id",
+     "required": false
      },
      "TOKEN": {
-      "description": "Your bot's bot token.",
-      "required": true
+     "description": "Your bot's bot token.",
+     "required": true
     }
   }
 }
