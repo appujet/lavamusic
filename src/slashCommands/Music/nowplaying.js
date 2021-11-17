@@ -34,7 +34,7 @@ module.exports = {
         var current = player.position;
 
         let embed = new MessageEmbed()
-            .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\`- [${song.requester}] \n\n\`${progressba(player)}\``)
+            .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\`- [${song.requester}] \n\n\`${progressbar(player)}\``)
             .setThumbnail(song.displayThumbnail("3"))
             .setColor(client.embedColor)
             .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
