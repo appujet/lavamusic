@@ -29,21 +29,14 @@ module.exports = {
         }
 
         const song = player.queue.current
-
         const emojimusic = client.emoji.music;
-
-        // Progress Bar
         var total = song.duration;
         var current = player.position;
-        var size = 20;
-        var line = '▬';
-        var slider = '🔘';
 
         let embed = new MessageEmbed()
-            .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\` [<@${song.requester.id}>]`)
+            .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\`- [${song.requester}] \n\n\`${progressba(player)}\``)
             .setThumbnail(song.displayThumbnail("3"))
             .setColor(client.embedColor)
-            .addField("\u200b", progressbar(total, current, size, line, slider))
             .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
          return interaction.editReply({embeds: [embed]})
             
