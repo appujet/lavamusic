@@ -1,8 +1,8 @@
 const { MusicBot } = require("../../structures/MusicClient");
 const { VoiceState, MessageEmbed } = require("discord.js");
-/**
+/*
  *
- * @param {DiscordMusicBot} client
+ * @param {MusicBot} client
  * @param {VoiceState} oldState
  * @param {VoiceState} newState
  * @returns {Promise<void>}
