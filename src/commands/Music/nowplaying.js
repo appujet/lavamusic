@@ -17,21 +17,14 @@ module.exports = {
  execute: async (message, args, client, prefix) => {
   
         const player = message.client.manager.get(message.guild.id);
-
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
             return message.channel.send(thing);
         }
-
         const song = player.queue.current
-
         const emojimusic = client.emoji.music;
-
-        // Progress Bar
-        var total = song.duration;
-        var current = player.position;
 
         let embed = new MessageEmbed()
             .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\`- [${song.requester}] \n\n\`${progressba(player)}\``)
