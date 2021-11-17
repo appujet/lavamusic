@@ -50,7 +50,7 @@ module.exports = {
              .setDescription(`${emojiplaylist} **Added Playlist to queue** [${Searched.playlistInfo.name}](${SearchString}) - [\`${Searched.tracks.length}\`]`)
           return message.channel.send({embeds: [thing]});
      } else if (Searched.loadType.startsWith("TRACK")) {
-          player.queue.add(TrackUtils.build(Searched.tracks[0]));
+          player.queue.add(TrackUtils.build(Searched.tracks[0], message.author));
        if (!player.playing && !player.paused && !player.queue.size)
             player.play();
             const thing = new MessageEmbed()
@@ -62,7 +62,7 @@ module.exports = {
          return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription('there were no results found.')]});
         }
       } else {
-        let Searched = await player.search(SearchString);
+        let Searched = await player.search(SearchString, message.author);
          if (!player)
            return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription("Nothing is playing right now...")]});
 
@@ -70,11 +70,8 @@ module.exports = {
            return message.channel.send({ embeds: [new MessageEmbed()].setColor(client.embedColor).setTimestamp().setDescription(`No matches found for - [this]${SearchString}`)});
         else if (Searched.loadType == "PLAYLIST_LOADED") {
           player.queue.add(Searched.tracks);
-          if (
-            !player.playing &&
-            !player.paused &&
-            player.queue.totalSize === Searched.tracks.length
-          )
+          if (!player.playing && !player.paused &&
+            player.queue.totalSize === Searched.tracks.length)
             player.play();
          const thing = new MessageEmbed()
              .setColor(client.embedColor)
@@ -82,7 +79,7 @@ module.exports = {
              .setDescription(`${emojiplaylist} Playlist added to queue - [${Searched.playlist.name}](${SearchString} - \`${Searched.tracks.length}\` songs - \`[${convertTime(Searched.playlist.duration)}]\``)
            return message.channel.send({embeds: [thing]});
         } else {
-          player.queue.add(Searched.tracks[0]);
+          player.queue.add(Searched.tracks[0], message.author);
           if (!player.playing && !player.paused && !player.queue.size)
             player.play();
         const thing = new MessageEmbed()
