@@ -3,7 +3,7 @@ const { convertTime } = require('../../utils/convert.js');
 const { progressbar } = require('../../utils/progressbar.js')
 
 module.exports = {
-  	name: "nowplaying",
+    name: "nowplaying",
     aliases: ["np"],
     category: "Music",
     description: "Show now playing song",
@@ -14,7 +14,7 @@ module.exports = {
     player: true,
     inVoiceChannel: false,
     sameVoiceChannel: false,
-	 execute: async (message, args, client, prefix) => {
+ execute: async (message, args, client, prefix) => {
   
         const player = message.client.manager.get(message.guild.id);
 
@@ -27,22 +27,18 @@ module.exports = {
 
         const song = player.queue.current
 
-        const emojimusic = message.client.emoji.music;
+        const emojimusic = client.emoji.music;
 
         // Progress Bar
         var total = song.duration;
         var current = player.position;
-        var size = 20;
-        var line = '▬';
-        var slider = '🔘';
 
         let embed = new MessageEmbed()
-            .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\` [${song.requester}]`)
+            .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\`- [${song.requester}] \n\n\`${progressba(player)}\``)
             .setThumbnail(song.displayThumbnail("3"))
-            .setColor(message.client.embedColor)
-            .addField("\u200b", progressbar(total, current, size, line, slider))
+            .setColor(client.embedColor)
             .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
-         return message.reply({embeds: [embed]})
+         return message.channel.send({embeds: [embed]})
             
     }
 };
