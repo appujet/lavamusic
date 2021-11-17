@@ -127,12 +127,12 @@ module.exports = {
           case "SEARCH_RESULT":
             const track = res.tracks[0];
             player.queue.add(track);
-
+            
             if (!player.playing && !player.paused && !player.queue.length) {
                const searchresult = new MessageEmbed()
                 .setColor(client.embedColor)
                 .setTimestamp()
-                .setThumbnail(track.displayThumbnail())
+                .setThumbnail(track.displayThumbnail("3"))
                 .setDescription(`${emojiplaylist} Added to queue [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]`);
                 
               player.play();
@@ -142,8 +142,8 @@ module.exports = {
                const thing = new MessageEmbed()
                 .setColor(client.embedColor)
                 .setTimestamp()
-                .setThumbnail(track.displayThumbnail())
-                .setDescription(`${emojiplaylist} Added to queue [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]`);
+                .setThumbnail(track.displayThumbnail("3"))
+                .setDescription(`${emojiplaylist} Added to queue [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``);
              
                 return await interaction.editReply({embeds: [thing]});
           
