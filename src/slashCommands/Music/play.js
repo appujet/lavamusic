@@ -56,7 +56,7 @@ module.exports = {
             return await interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription('there were no results found.')]});
             
           case "TRACK_LOADED":
-            player.queue.add(TrackUtils.build(Searched.tracks[0], member.user));
+            player.queue.add(TrackUtils.build(Searched.tracks[0], interaction.user));
             if (!player.playing && !player.paused && !player.queue.length)
               player.play();
          const loadmusic = new MessageEmbed()
@@ -66,7 +66,7 @@ module.exports = {
          return await interaction.editReply({embeds: [loadmusic]});
            
           case "SEARCH_RESULT":
-            player.queue.add(TrackUtils.build(Searched.tracks[0], member.user));
+            player.queue.add(TrackUtils.build(Searched.tracks[0], interaction.user));
             if (!player.playing && !player.paused && !player.queue.length)
               player.play();
              const searchmusic = new MessageEmbed()
@@ -78,7 +78,7 @@ module.exports = {
           case "PLAYLIST_LOADED":
             let songs = [];
             for (let i = 0; i < Searched.tracks.length; i++)
-              songs.push(TrackUtils.build(Searched.tracks[i]));
+              songs.push(TrackUtils.build(Searched.tracks[i], interaction.user));
             player.queue.add(songs);
             if (
               !player.playing &&
@@ -107,7 +107,7 @@ module.exports = {
             if (!player.queue.current) player.destroy();
             return await interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription("❌ | **No results were found.**")]});
           case "TRACK_LOADED":
-            player.queue.add(res.tracks[0]);
+            player.queue.add(res.tracks[0], interaction.user);
             if (!player.playing && !player.paused && !player.queue.length)
               player.play();
             const trackload = new MessageEmbed()
