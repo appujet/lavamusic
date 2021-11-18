@@ -76,7 +76,7 @@ module.exports = {
          const thing = new MessageEmbed()
              .setColor(client.embedColor)
              .setTimestamp()
-             .setDescription(`${emojiplaylist} Playlist added to queue - [${Searched.playlist.name}](${SearchString} - \`${Searched.tracks.length}\` songs - \`[${convertTime(Searched.playlist.duration)}]\``)
+             .setDescription(`${emojiplaylist} Playlist added to queue - [${Searched.playlist.name}](${SearchString}) - \`${Searched.tracks.length}\` songs - \`[${convertTime(Searched.playlist.duration)}]\``)
            return message.channel.send({embeds: [thing]});
         } else {
           player.queue.add(Searched.tracks[0], message.author);
