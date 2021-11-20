@@ -12,6 +12,7 @@ require("./PlayerBase");
 class MusicBot extends Client {
 	 constructor() {
         super({
+            shards: "auto",
             allowedMentions: {
                 parse: ["roles", "users", "everyone"],
                 repliedUser: false
