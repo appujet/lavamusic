@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-	name: "pause",
+    name: "pause",
     category: "Music",
     description: "Pause the currently playing music",
     args: false,
@@ -11,7 +11,7 @@ module.exports = {
     player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
-	 execute: async (message, args, client, prefix) => {
+ execute: async (message, args, client, prefix) => {
     
 		const player = message.client.manager.get(message.guild.id);
 
