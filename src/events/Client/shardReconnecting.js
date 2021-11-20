@@ -1,3 +1,3 @@
 module.exports = (client, id) => {
-  client.logger(`Shard #${id} Reconnecting`, "log")
+  client.logger.log(`Shard #${id} Reconnecting`, "log")
 }
