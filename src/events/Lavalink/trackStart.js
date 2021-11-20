@@ -43,6 +43,7 @@ module.exports = async (client, player, track, payload) => {
                     return collector.stop();
                 }
                 await player.stop();
+                await player.queue.clear();
                 return collector.stop();
             } else if (i.customId === "pause") {
                 if (!player) {
