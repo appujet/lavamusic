@@ -43,7 +43,12 @@ module.exports = {
            };
       },
       time : 200000
+      idle: 60000/2
     });
+    collector.on("end", async () => {
+	 if(!m) return;
+        await m.editReply({ components: [new MessageActionRow().addComponents(but1.setDisabled(true), but2.setDisabled(true), but3.setDisabled(true), but4.setDisabled(true))] }).catch(() => {});
+     });
     collector.on('collect', async (b) => {
         if(b.customId === "home") {
            if(!m) return;
