@@ -39,7 +39,7 @@ module.exports = {
      b.reply({ ephemeral: true, content: `Only **${message.author.tag}** can use this button, if you want then you've to run the command again.`}); return false;
            };
       },
-      time : 200000
+      time : 60000,
       idle: 60000/2
     });
     collector.on("end", async () => {
