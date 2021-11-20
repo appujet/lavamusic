@@ -2,6 +2,9 @@ const { MessageEmbed, Client } = require("discord.js")
 const pre= require("../../schema/prefix.js");
 
 module.exports = async (client, interaction) => {
+   if(!interaction.member.voice.channel) return interaction.reply({ content: `You are not connected to a voice channel to use this button.`, ephemeral: true});
+   if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.reply({ content: `You are not connected to ${interaction.guild.me.voice.channel} to use this buttons.`, ephemeral: true});
+	
     let prefix = client.prefix;
     const ress =  await pre.findOne({guildid: interaction.guildId})
     if(ress && ress.prefix)prefix = ress.prefix;
