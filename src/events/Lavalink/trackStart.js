@@ -1,10 +1,9 @@
-const { MessageEmbed, MessageActionRow, MessageSelectMenu, MessageButton } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton} = require("discord.js");
 const { convertTime } = require('../../utils/convert.js');
-
+    
 module.exports = async (client, player, track, payload) => {
-  const channel = client.channels.cache.get(player.textChannel);
   const emojiplay = client.emoji.play;
-
+  
   const thing = new MessageEmbed()
     .setDescription(`${emojiplay} **Started Playing**\n [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``)
     .setThumbnail(track.displayThumbnail("3"))
@@ -26,10 +25,16 @@ module.exports = async (client, player, track, payload) => {
     .get(player.textChannel)
     .send({ embeds: [thing], components: [row] });
   player.setNowplayingMessage(NowPlaying);
-
+  
   const collector = NowPlaying.createMessageComponentCollector({
-            time: track.duration,
-        });
+    filter: (b) => {
+      if(b.guild.me.voice.channel && b.guild.me.voice.channelId === b.member.voice.channelId) return true;
+      else {
+        b.reply({content: `You are not connected to ${b.guild.me.voice.channel} to use this buttons.`, ephemeral: true}); return false;
+        };
+     },
+     time: track.duration,
+      });
         collector.on("collect", async (i) => {
             if (i.customId === "vdown") {
                if (!player) {
