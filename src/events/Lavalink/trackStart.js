@@ -44,6 +44,7 @@ module.exports = async (client, player, track, payload) => {
                 }
                 await player.stop();
                 await player.queue.clear();
+                i.reply({content: "Music Is Stopped", ephemeral: true});
                 return collector.stop();
             } else if (i.customId === "pause") {
                 if (!player) {
