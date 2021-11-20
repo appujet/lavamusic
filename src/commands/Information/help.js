@@ -1,7 +1,7 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 
 module.exports = {
-    name: "help2",
+    name: "help",
     category: "Information",
     aliases: [ "h" ],
     description: "Return all commands, or one specific command",
@@ -17,8 +17,8 @@ module.exports = {
     .setThumbnail(client.user.displayAvatarURL())
     .setColor(client.embedColor)
     .setTimestamp()
-    .setFooter(`Requested by: ${message.author.tag}`)
-
+    .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
+                
     let but1 = new MessageButton().setCustomId("home").setLabel("Home").setStyle("SUCCESS")
   
     let but2 = new MessageButton().setCustomId("music").setLabel("Music").setStyle("PRIMARY")
