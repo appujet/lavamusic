@@ -159,7 +159,7 @@ class MusicBot extends Client {
         }
      });
 	  this.on("ready", async () => {
-        await this.application.commands?.set(data).then(() => this.logger.log(`Client Application (/) Registered.`, "cmd")).catch((e) => console.log(e));
+        await this.application.commands.set(data).then(() => this.logger.log(`Client Application (/) Registered.`, "cmd")).catch((e) => console.log(e));
     });
 	 }
 		 connect() {
