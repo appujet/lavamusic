@@ -34,17 +34,7 @@ execute: async (message, args, client, prefix) => {
             .setThumbnail(song.displayThumbnail("3"))
             .setColor(client.embedColor)
             .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
-         message.channel.send({embeds: [embed]}).then(message => player.set('nowplayingMSG', message))
-         
-          const interval = setInterval(() => {
-             let embed = new MessageEmbed()
-            .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\`- [${song.requester}] \n\n\`${progressbar(player)}\``)
-            .setThumbnail(song.displayThumbnail("3"))
-            .setColor(client.embedColor)
-            .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``) 
-            player?.get('nowplayingMSG') ? player.get('nowplayingMSG').edit({embeds: [embed]}, "") : message.channel.send({embeds: [embed]}).then(message => player.set('nowplayingMSG', message))
-        }, 5000);
-        player.set('nowplaying', interval)
-      
+            return message.channel.send({embeds: [embed]})
+
     }
 }
