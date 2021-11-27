@@ -3,10 +3,7 @@ const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 module.exports = {
   name: "filter",
   description: "Set EqualizerBand",
-  owner: false,
-  player: true,
-  inVoiceChannel: false,
-  sameVoiceChannel: false,
+ 
   options: [
     {
       name: "filter",
