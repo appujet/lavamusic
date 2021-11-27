@@ -33,7 +33,9 @@ module.exports = {
     
     run: async (client, interaction) => {
         if (!interaction.replied) await interaction.deferReply().catch(() => {});
-        
+        if(!interaction.member.voice.channel) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription("You are not connect in vc")]});
+        if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription(`You are not connected to <#${interaction.guild.me.voice.channelId}> to use this command.`)]});
+
        const input = interaction.options.getString("input");
     
         let player = client.manager.get(interaction.guildId);
