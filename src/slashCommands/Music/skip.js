@@ -3,12 +3,7 @@ const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
 module.exports = {
         name: "skip",
         description: "To skip a song/track from the queue.",
-        owner: false,
-        player: true,
-        inVoiceChannel: true,
-        sameVoiceChannel: true,
     
-
     /**
      * 
      * @param {Client} client 
@@ -20,6 +15,9 @@ module.exports = {
     await interaction.deferReply({
             ephemeral: false
         });
+      if(!interaction.member.voice.channel) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription("You are not connect in vc")]});
+      if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription(`You are not connected to <#${interaction.guild.me.voice.channelId}> to use this command.`)]});
+
    	const emojiskip = client.emoji.skip;
   if(!interaction.member.voice?.channel) return await interaction.editReply({embeds: [new MessageEmbed().setColor(client.embedColor).setDescription("You are not connected to a voice channel to use this command.")]
     }).catch(() => {});
