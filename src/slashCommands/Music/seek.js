@@ -5,10 +5,6 @@ const ms = require('ms');
 module.exports = {
     name: "seek",
     description: "Seek the currently playing song",
-    owner: false,
-    player: true,
-    inVoiceChannel: true,
-    sameVoiceChannel: true,
     options: [
       {
         name: "time",
@@ -27,7 +23,10 @@ module.exports = {
         await interaction.deferReply({
           ephemeral: false
         });
-      const args = interaction.options.getString("time");
+      if(!interaction.member.voice.channel) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription("You are not connect in vc")]});
+      if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription(`You are not connected to <#${interaction.guild.me.voice.channelId}> to use this command.`)]});
+
+        const args = interaction.options.getString("time");
     	const player = interaction.client.manager.get(interaction.guildId);
 
         if (!player.queue.current) {
