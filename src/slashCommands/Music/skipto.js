@@ -3,10 +3,6 @@ const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
 module.exports = {
     name: "skipto",
     description: "Forward song",
-    owner: false,
-    player: true,
-    inVoiceChannel: true,
-    sameVoiceChannel: true,
     options: [
       {
         name: "number",
@@ -25,6 +21,9 @@ module.exports = {
         await interaction.deferReply({
           ephemeral: false
         });
+      if(!interaction.member.voice.channel) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription("You are not connect in vc")]});
+      if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription(`You are not connected to <#${interaction.guild.me.voice.channelId}> to use this command.`)]});
+
       const args = interaction.options.getNumber("number");
     	const player = interaction.client.manager.get(interaction.guildId);
 
