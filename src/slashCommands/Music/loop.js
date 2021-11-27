@@ -3,10 +3,6 @@ const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
 module.exports = {
     name: "loop",
     description: "Toggle music loop",
-    owner: false,
-    player: true,
-    inVoiceChannel: true,
-    sameVoiceChannel: true,
          options: [
            {
              name: "input",
