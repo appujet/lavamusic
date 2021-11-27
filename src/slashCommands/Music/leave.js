@@ -3,10 +3,6 @@ const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 module.exports = {
   name: "leave",
   description: "Leave voice channel",
-  owner: false,
-  player: false,
-  inVoiceChannel: true,
-  sameVoiceChannel: true,
 
   /**
    * 
