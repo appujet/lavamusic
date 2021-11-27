@@ -4,10 +4,6 @@ const { convertTime } = require('../../utils/convert.js');
 module.exports = {
   name: "play",
   description: "To play some song.",
-  owner: false,
-  player: false,
-  inVoiceChannel: true,
-  sameVoiceChannel: false,
   options: [
     {
       name: "input",
@@ -26,7 +22,9 @@ module.exports = {
    await interaction.deferReply({
             ephemeral: false
         });
-     
+      if(!interaction.member.voice.channel) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription("You are not connect in vc")]});
+      if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription(`You are not connected to <#${interaction.guild.me.voice.channelId}> to use this command.`)]});
+
       const emojiaddsong = client.emoji.addsong;
       const emojiplaylist = client.emoji.playlist;
       let search = interaction.options.getString("input");
