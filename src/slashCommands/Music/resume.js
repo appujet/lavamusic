@@ -3,10 +3,6 @@ const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 module.exports = {
     name: "resume",
     description: "Resume currently playing music",
-    owner: false,
-    player: true,
-    inVoiceChannel: true,
-    sameVoiceChannel: true,
 	
     /**
      * 
@@ -18,6 +14,9 @@ module.exports = {
         await interaction.deferReply({
           ephemeral: false
         });
+      if(!interaction.member.voice.channel) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription("You are not connect in vc")]});
+      if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription(`You are not connected to <#${interaction.guild.me.voice.channelId}> to use this command.`)]});
+
         const player = interaction.client.manager.get(interaction.guildId);              
         const song = player.queue.current;
 
