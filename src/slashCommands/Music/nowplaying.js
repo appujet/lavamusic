@@ -5,10 +5,6 @@ const { progressbar } = require('../../utils/progressbar.js')
 module.exports = {
     name: "nowplaying",
     description: "Show now playing song",
-    owner: false,
-    player: true,
-    inVoiceChannel: false,
-    sameVoiceChannel: false,
     /**
      * 
      * @param {Client} client 
