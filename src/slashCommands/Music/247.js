@@ -2,11 +2,7 @@ const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
     name: "247",
-    description: "24/7 in voice channel",
-    owner: false,
-    player: false,
-    inVoiceChannel: true,
-    sameVoiceChannel: true,
+    description: "24/7 in voice channel"
 
     /**
      * 
