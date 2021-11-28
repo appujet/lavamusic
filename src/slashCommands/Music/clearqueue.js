@@ -2,7 +2,7 @@ const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
     name: "clearqueue",
-    description: "Clear Queue"
+    description: "Clear Queue",
 	
     /**
      * 
