@@ -2,7 +2,7 @@ const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
   name: "join",
-  description: "Join voice channel"
+  description: "Join voice channel",
   /**
    * 
    * @param {Client} client 
