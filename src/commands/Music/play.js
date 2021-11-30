@@ -15,8 +15,10 @@ module.exports = {
     inVoiceChannel: true,
     sameVoiceChannel: false,
    execute: async (message, args, client, prefix) => {
-
-	  let SearchString = args.join(" ");
+    
+    if (!message.guild.me.permissions.has([Permissions.FLAGS.CONNECT, Permissions.FLAGS.SPEAK])) return message.channel.send({embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`I don't have enough permissions to execute this command.`)]});
+    
+    let SearchString = args.join(" ");
     const emojiaddsong = message.client.emoji.addsong;
     const emojiplaylist = message.client.emoji.playlist;
     
