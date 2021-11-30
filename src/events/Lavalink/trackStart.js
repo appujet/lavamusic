@@ -72,7 +72,7 @@ module.exports = async (client, player, track, payload) => {
                  return collector.stop();
                }
                let amount = Number(player.volume) + 10;
-            if(amount >= 200) return i.reply({ content: `Cannot higher the player volume further more.`, ephemeral: true });
+            if(amount >= 150) return i.reply({ content: `Cannot higher the player volume further more.`, ephemeral: true });
                await player.setVolume(amount);
                i.reply({content: `Volume set to ${amount} `, ephemeral: true});
                 return;
