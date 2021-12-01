@@ -80,8 +80,6 @@ Warning: Java v14 has issues with Lavalink.
 - Your ID `for eval command. It's dangerous if eval accessible to everyone`
 - Spotify client ID `for spotify support` [Click here to get](https://developer.spotify.com/dashboard/login)
 - Spotify client Secret `for spotify support` [Click here to get](https://developer.spotify.com/dashboard/login)
-- Ksoft API
-  Key [Click here to get](https://api.ksoft.si/?ref=ksoft.si#get-started)
 
 ## 🎶 Available music sources:
 
