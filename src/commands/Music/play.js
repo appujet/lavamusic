@@ -13,7 +13,7 @@ module.exports = {
     owner: false,
     player: false,
     inVoiceChannel: true,
-    sameVoiceChannel: false,
+    sameVoiceChannel: true,
    execute: async (message, args, client, prefix) => {
     
     if (!message.guild.me.permissions.has([Permissions.FLAGS.CONNECT, Permissions.FLAGS.SPEAK])) return message.channel.send({embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`I don't have enough permissions to execute this command! please give me permission \`CONNECT\` or \`SPEAK\`.`)]});
