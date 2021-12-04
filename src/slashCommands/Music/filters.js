@@ -7,7 +7,7 @@ module.exports = {
   options: [
     {
       name: "filter",
-      description: "<Party || Bass || Radio || Pop || Trablebass || Soft || Custom || Off>",
+      description: "<party || bass || radio || pop || trablebass || soft || custom || Off>",
       required: true,
       type: "STRING"
 	  	}

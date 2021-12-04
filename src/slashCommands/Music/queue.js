@@ -38,7 +38,7 @@ module.exports = {
 
             await interaction.editReply({
                 embeds: [embed]
-            }).catch(() => {});
+            })
         } else {
             const mapping = player.queue.map((t, i) => `\` ${++i} \` • [${t.title}](${t.uri}) • \`[ ${pms(t.duration)} ]\` • [${t.requester}]`);
 
@@ -103,7 +103,7 @@ module.exports = {
                             components: [new MessageActionRow().addComponents([
                                 but2, but3, but1
                             ])]
-                        }).catch(() => {});
+                        })
 
                     } else if(button.customId === "queue_cmd_but_2_app") {
 
@@ -133,7 +133,7 @@ module.exports = {
                         components: [new MessageActionRow().addComponents([
                             dedbut2, dedbut3, dedbut1
                         ])]
-                    }).catch(() => {});
+                    });
                 })
             }
         }

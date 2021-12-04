@@ -16,13 +16,12 @@ module.exports = {
     inVoiceChannel: false,
     sameVoiceChannel: false,
    execute: async (message, args, client, prefix) => {
-   
-     try {
-        const player = client.manager.get(message.guild.id);
+  
+            const player = client.manager.get(message.guild.id);
             if(!player) return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription(`Nothing is playing right now.`)]});
             
             if(!player.queue) return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription(`Nothing is playing right now.`)]});
-            
+           
             if(player.queue.length === "0" || !player.queue.length) {
                 const embed = new MessageEmbed()
                 .setColor(client.embedColor)
@@ -49,7 +48,7 @@ module.exports = {
 
                     await message.channel.send({
                         embeds: [embed]
-                    }).catch(() => {});
+                    })
                 } else {
                     const embed2 = new MessageEmbed()
                     .setColor(client.embedColor)
@@ -81,7 +80,7 @@ module.exports = {
                     const msg = await message.channel.send({
                         embeds: [embed2],
                         components: [row1]
-                    }).catch(() => {});
+                    })
 
                     const collector = message.channel.createMessageComponentCollector({
                         filter: (b) => {
@@ -114,7 +113,7 @@ module.exports = {
                             await msg.edit({
                                 embeds: [embed3],
                                 components: [row1]
-                            }).catch(() => {});
+                            })
                         } else if(button.customId === "queue_cmd_but_2") {
                             await button.deferUpdate().catch(() => {});
                             page = page > 0 ? --page : pages.length - 1;
@@ -140,13 +139,9 @@ module.exports = {
                     collector.on("end", async () => {
                         await msg.edit({
                             components: []
-                        }).catch(() => {});
+                        })
                     });
                 }
             }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-}
+       }
+  };

@@ -77,10 +77,13 @@ module.exports = async (client, message) => {
         return message.channel.send({embeds: [embed]});
     }
 
-    if (command.sameVoiceChannel && message.member.voice.channel !== message.guild.me.voice.channel) {
+    if (command.sameVoiceChannel) {
+    if(message.guild.me.voice.channel) {
+     if(message.guild.me.voice.channelId !== message.member.voice.channelId)
         embed.setDescription(`You must be in the same channel as ${message.client.user}!`);
         return message.channel.send({embeds: [embed]});
     }
+}
 
     try {
         command.execute(message, args, client, prefix);
