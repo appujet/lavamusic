@@ -126,24 +126,25 @@ Then Turn On Both Of Those Settings And Click "Save Changes" Then Your Are Done 
 <!-- CONFIGURATION -->
 
 ## ⚙️ Configurations
-
-     "TOKEN": "", //Discord bot token 
-     "MONGOURL": "",  //MongoDb url
-     "KSOFT_API_KEY": "",  //ksoft api
-     "PREFIX": "!",  //Default prefix
-     "OWNERID": "491577179495333903",  //Owner id
-     "SpotifyID": "",  //spotify client ID
-     "SpotifySecret": "", //spotify client secret
-     "embedColor": "",  //default embed color
-    
+- edit in `src/config.js` and you can do in `.env` 
+```js
+    token: process.env.TOKEN || "",  // your bot token
+    prefix: process.env.PREFIX || "!", // bot prefix
+    ownerID: process.env.OWNERID || "491577179495333903", //your discord id
+    SpotifyID: process.env.SPOTIFYID || "", // spotify client id
+    SpotifySecret: process.env.SPOTIFYSECRET || "", // spotify client secret
+    mongourl: process.env.MONGO_URI || "", // MongoDb URL
+    embedColor: process.env.COlOR || "#303236", // embed colour
+    logs: process.env.LOGS || "", // channel id for guild create and delete logs
+```
 ## 🌋 lavalink 
-
+```js
       "host": "disbotlistlavalink.ml",
       "port": 443,
       "password": "LAVA",
       "retryDelay": 3000,
       "secure": true
-
+```
 - Create an application.yml file in your working directory and copy the [example](https://github.com/freyacodes/Lavalink/blob/master/LavalinkServer/application.yml.example) into the created file and edit it with your configuration.
 - Run the jar file by running `java -jar Lavalink.jar` in a Terminal window.
 
