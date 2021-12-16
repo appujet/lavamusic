@@ -158,8 +158,8 @@ Then Turn On Both Of Those Settings And Click "Save Changes" Then Your Are Done 
 If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 ## 💌 Support Server
-[![DiscordBanner](https://invidget.switchblade.xyz/gfcv94hDhv)](https://discord.gg/gfcv94hDhv)
-[Support Server](https://discord.gg/gfcv94hDhv) - lavamusic's Support Server Invite
+[![DiscordBanner](https://invidget.switchblade.xyz/YvR5ZXfmNj)](https://discord.gg/YvR5ZXfmNj)
+[Support Server](https://discord.gg/YvR5ZXfmNj) - lavamusic's Support Server Invite
 
 
 <!-- LICENSE -->
