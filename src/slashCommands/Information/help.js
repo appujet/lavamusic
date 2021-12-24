@@ -49,7 +49,8 @@ module.exports = {
         await interaction.editReply({ components: [new MessageActionRow().addComponents(but1.setDisabled(true), but2.setDisabled(true), but3.setDisabled(true), but4.setDisabled(true))] }).catch(() => {});
      });
     collector.on('collect', async (b) => {
-        if(b.customId === "home") {
+      if(!b.deferred) await b.deferUpdate()
+         if(b.customId === "home") {
            return await interaction.editReply({ embeds: [embed], components: [new MessageActionRow().addComponents(but1, but2, but3, but4)] })
         }
         if(b.customId === "music") {
