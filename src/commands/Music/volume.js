@@ -1,20 +1,20 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-	  name: "volume",
-	  aliases: ["v", "vol"],
-	  category: "Music",
-  	description: "Change volume of currently playing music",
-	  args: false,
+    name: "volume",
+    aliases: ["v", "vol"],
+    category: "Music",
+    description: "Change volume of currently playing music",
+    args: false,
     usage: "",
     permission: [],
     owner: false,
-  	player: true,
+    player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
-	execute: async (message, args, client, prefix) => {
+execute: async (message, args, client, prefix) => {
   
-		const player = client.manager.get(message.guild.id);
+	const player = client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
             let thing = new MessageEmbed()

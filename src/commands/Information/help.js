@@ -47,6 +47,7 @@ module.exports = {
         await m.edit({ components: [new MessageActionRow().addComponents(but1.setDisabled(true), but2.setDisabled(true), but3.setDisabled(true), but4.setDisabled(true))] }).catch(() => {});
     });
     collector.on('collect', async (b) => {
+       if(!b.deferred) await b.deferUpdate()
         if(b.customId === "home") {
            if(!m) return;
            return await m.edit({ embeds: [embed], components: [new MessageActionRow().addComponents(but1, but2, but3, but4)] })
