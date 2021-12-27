@@ -1,0 +1,28 @@
+{
+    "Creates a command": {
+        "prefix": "cmd",
+        "body": [
+            "const { MessageEmbed } = require(\"discord.js\")",
+            "",
+            "module.exports = {",
+            "    name: \"${1}\",",
+            "    description: \"${2}\",",
+            "    cooldown: ${3|3,5,10,30,60|},",
+            "    aliases: [${4}],",
+            "    usage: [`${1} ${5:}`],",
+            "    example: [`${1} ${6:}`],",
+            "    botPerms: [],",
+            "    Permissions: [],",
+            "      execute: async (message, args, client) => { ",
+            "",
+            "        $0",
+            "    }",
+            "    ",
+            "    ",
+            "}",
+            "",
+            ""
+        ],
+        "description": "Creates a command"
+    },
+}
