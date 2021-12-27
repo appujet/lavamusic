@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node index.js"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brblacky/lavamusic.git"
@@ -23,8 +26,10 @@
   "license ": "MIT",
   "bugs": "https://github.com/brblacky/lavamusic/issues",
   "homepage": "https://github.com/brblacky/lavamusic#readme",
+  "devDependencies": {
+    "node": "^16.6.1"
+  },
   "dependencies": {
-    "@discordjs/collection": "^0.3.2",
     "chalk": "^4.1.2",
     "delay": "^5.0.0",
     "discord.js": "^13.3.1",
