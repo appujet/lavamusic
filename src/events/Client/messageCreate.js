@@ -72,7 +72,7 @@ module.exports = async (client, message) => {
         return message.channel.send({embeds: [embed]});
     }
 
-    if (command.inVoiceChannel && !message.member.voice.channel) {
+    if (command.inVoiceChannel && !message.member.voice.channelId) {
         embed.setDescription("You must be in a voice channel!");
         return message.channel.send({embeds: [embed]});
     }
