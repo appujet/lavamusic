@@ -44,8 +44,10 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 
 - [x] Music
 - [x] 24/7
-- [x] custom prefix
-- [x] filters
+- [x] SlashCommand
+- [x] Custom prefix
+- [x] Filters
+- [x] Easy to use
 - [x] More
 
 
