@@ -1,0 +1,120 @@
+{
+	"name": "ow",
+	"version": "0.27.0",
+	"description": "Function argument validation for humans",
+	"license": "MIT",
+	"repository": "sindresorhus/ow",
+	"funding": {
+		"url": "https://github.com/sponsors/sindresorhus"
+	},
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"main": "dist/index.js",
+	"engines": {
+		"node": ">=12"
+	},
+	"scripts": {
+		"test": "xo && nyc ava",
+		"docs": "typedoc source/index.ts",
+		"build": "del-cli dist && tsc",
+		"prepare": "npm run build",
+		"postpublish": "npm run docs && gh-pages --dist docs --no-history --message \"Deploy documentation\"",
+		"example": "npm run build && node example.js"
+	},
+	"files": [
+		"dist",
+		"dev-only.js"
+	],
+	"keywords": [
+		"type",
+		"types",
+		"check",
+		"checking",
+		"guard",
+		"guards",
+		"assert",
+		"assertion",
+		"predicate",
+		"predicates",
+		"is",
+		"validate",
+		"validation",
+		"utility",
+		"util",
+		"typeof",
+		"instanceof",
+		"object"
+	],
+	"dependencies": {
+		"@sindresorhus/is": "^4.0.1",
+		"callsites": "^3.1.0",
+		"dot-prop": "^6.0.1",
+		"lodash.isequal": "^4.5.0",
+		"type-fest": "^1.2.1",
+		"vali-date": "^1.0.0"
+	},
+	"devDependencies": {
+		"@sindresorhus/tsconfig": "^0.8.0",
+		"@types/lodash.isequal": "^4.5.5",
+		"@types/node": "^15.12.4",
+		"@types/vali-date": "^1.0.0",
+		"ava": "^2.4.0",
+		"del-cli": "^4.0.0",
+		"expect-type": "^0.11.0",
+		"gh-pages": "^3.2.3",
+		"nyc": "^15.1.0",
+		"ts-node": "^10.0.0",
+		"typedoc": "^0.21.1",
+		"typescript": "^4.3.4",
+		"xo": "^0.38.2"
+	},
+	"browser": {
+		"./dist/utils/infer-label.js": "./dist/utils/infer-label.browser.js"
+	},
+	"types": "dist",
+	"sideEffects": false,
+	"xo": {
+		"parserOptions": {
+			"project": "./tsconfig.xo.json"
+		},
+		"ignores": [
+			"example.js",
+			"dev-only.js",
+			"source/utils/infer-label.browser.ts"
+		],
+		"rules": {
+			"no-useless-return": "off",
+			"ava/no-ignored-test-files": "off",
+			"@typescript-eslint/explicit-function-return-type": "error",
+			"@typescript-eslint/ban-types": "off",
+			"@typescript-eslint/no-explicit-any": "off",
+			"@typescript-eslint/no-empty-function": "off",
+			"@typescript-eslint/restrict-template-expressions": "off",
+			"@typescript-eslint/no-unused-vars": "off",
+			"import/no-anonymous-default-export": "off"
+		}
+	},
+	"ava": {
+		"babel": false,
+		"compileEnhancements": false,
+		"files": [
+			"test/**",
+			"!test/fixtures/**"
+		],
+		"extensions": [
+			"ts"
+		],
+		"require": [
+			"ts-node/register"
+		]
+	},
+	"nyc": {
+		"reporter": [
+			"text",
+			"lcov"
+		]
+	}
+}
