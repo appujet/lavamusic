@@ -1,17 +1,54 @@
 const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
-  name: "filter",
+  name: "filters",
   description: "Set EqualizerBand",
- 
   options: [
     {
-      name: "filter",
-      description: "<party || bass || radio || pop || trablebass || soft || custom || Off>",
-      required: true,
-      type: "STRING"
-	  	}
-	],
+        name: "filter",
+        description: "Set EqualizerBand",
+        type: "STRING",
+        required: true,
+        choices: [
+            {
+                name: "Clear",
+                value: "clear"
+            },
+            {
+                name: "Bass",
+                value: "bass",
+            },
+            {
+                name: "Party",
+                value: "party"
+            },
+            {
+                name: "Radio",
+                value: "radio"
+            },
+            {
+                name: "Pop",
+                value: "pop"
+            }, 
+            {
+                name: "Treblebass",
+                value: "treblebass"
+            },
+            {
+                name: "Bassboost",
+                value: "bassboost"
+            },
+            {
+                name: "Soft",
+                value: "soft"
+            },
+            {
+                name: "Custom",
+                value: "custom"
+            }
+        ]
+    }  
+],
 
   /**
    * 
@@ -23,10 +60,9 @@ module.exports = {
     await interaction.deferReply({
       ephemeral: false
     });
-        if(!interaction.member.voice.channel) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription("You are not connect in vc")]});
-        if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription(`You are not connected to <#${interaction.guild.me.voice.channelId}> to use this command.`)]});
-
-    const args = interaction.options.getString("filter");
+      if(!interaction.member.voice.channel) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription("You are not connect in vc")]});
+      if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription(`You are not connected to <#${interaction.guild.me.voice.channelId}> to use this command.`)]});
+    const filter = interaction.options.getString("filter");
 
     const player = interaction.client.manager.get(interaction.guildId);
     if (!player.queue.current) {
@@ -40,8 +76,8 @@ module.exports = {
         let thing = new MessageEmbed()
             .setColor(client.embedColor)
             .setTimestamp()
-            
-        if (args == 'party') {
+       switch(filter) {   
+          case "patry":
             var bands = [
                 { band: 0, gain: -1.16 },
                 { band: 1, gain: 0.28 },
@@ -55,7 +91,8 @@ module.exports = {
             ];
             player.setEQ(...bands);
             thing.setDescription(`${emojiequalizer} Party mode is ON`);
-        } else if (args == 'bass') {
+            break;
+            case 'bass':
             var bands = [
                 { band: 0, gain: 0.6 },
                 { band: 1, gain: 0.7 },
@@ -75,7 +112,8 @@ module.exports = {
             ];
             player.setEQ(...bands);
             thing.setDescription(`${emojiequalizer} Bass mode is ON`);
-        } else if (args == 'radio') {
+            break;
+           case 'radio':
             var bands = [
                 { band: 0, gain: 0.65 },
                 { band: 1, gain: 0.45 },
@@ -95,7 +133,8 @@ module.exports = {
             ];
             player.setEQ(...bands);
             thing.setDescription(`${emojiequalizer} Radio mode is ON`);
-        } else if (args == 'pop') {
+            break;
+           case 'pop':
             var bands = [
                 { band: 0, gain: -0.25 },
                 { band: 1, gain: 0.48 },
@@ -115,7 +154,8 @@ module.exports = {
             ];
             player.setEQ(...bands);
             thing.setDescription(`${emojiequalizer} Pop mode is ON`);
-        } else if (args == 'trablebass') {
+            break;
+        case 'trablebass':
             var bands = [
                 { band: 0, gain: 0.6 },
                 { band: 1, gain: 0.67 },
@@ -135,13 +175,15 @@ module.exports = {
             ];
             player.setEQ(...bands);
             thing.setDescription(`${emojiequalizer} Trablebass mode is ON`);
-        } else if (args === "Bassboost" || args[0] == 'bassboost') {
+            break;
+          case 'bassboost':
             var bands = new Array(7).fill(null).map((_, i) => (
                 { band: i, gain: 0.25 }
             ));
             player.setEQ(...bands);
             thing.setDescription(`${emojiequalizer} Bassboost mode is ON`);
-        } else if (args[0] == 'soft') {
+            break;
+          case 'soft':
             var bands =  [
                 { band: 0, gain: 0 },
                 { band: 1, gain: 0 },
@@ -161,7 +203,8 @@ module.exports = {
             ];
             player.setEQ(...bands);
             thing.setDescription(`${emojiequalizer} Soft mode is ON`);
-        } else if (args == 'custom') {
+            break;
+          case'custom':
             var bands = [
                 { band: 0, gain: args[1] },
                 { band: 1, gain: args[2] },
@@ -180,9 +223,11 @@ module.exports = {
             ];
             player.setEQ(...bands);
             thing.setDescription(`${emojiequalizer} Custom Equalizer mode is ON`);
-        } else if (args === "Off" || args == 'off') {
+            break;
+          case 'clear': 
             player.clearEQ();
             thing.setDescription(`${emojiequalizer} Equalizer mode is OFF`);
+            break;
         }
          return interaction.editReply({embeds: [thing]});
     }
