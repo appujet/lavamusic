@@ -29,7 +29,7 @@ module.exports = async (client, player, track, payload) => {
 
    const But7 = new MessageButton().setCustomId("rewind").setEmoji("⏪").setStyle("SECONDARY");
 
-   const But8 = new MessageButton().setCustomId("autoPlay").setEmoji("♾️").setStyle("SECONDARY");
+   const But8 = new MessageButton().setCustomId("queue").setEmoji("♾️").setStyle("SECONDARY");
 
    const But9 = new MessageButton().setCustomId("loop").setEmoji("🔁").setStyle("SECONDARY");
 
@@ -166,14 +166,16 @@ module.exports = async (client, player, track, payload) => {
        
     }
 
-    if (i.customId === "autoPlay") {
+    if (i.customId === "queue") {
       if (!player) {
         return collector.stop();
       }
-      //if there is active queue loop, disable it + add embed information
-      player.set(`autoplay`, !player.get(`autoplay`))
-              
-     i.reply({content: `${player.get(`autoplay`) ? `✅ Enabled Song Loop**`: `❌ Disabled Song Loop`}`, ephemeral: true});
+      if (player.trackRepeat) {
+        player.setTrackRepeat(false);
+      }
+      //set track repeat to revers of old track repeat
+      player.setQueueRepeat(!player.queueRepeat);
+     i.reply({content: `${player.queueRepeat ? `✅ Enabled Queue Loop`: `❌ Disabled Queue Loop`}`, ephemeral: true});
   }
       });
 }
