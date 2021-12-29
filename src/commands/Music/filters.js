@@ -1,7 +1,7 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
 
 module.exports = {
-	name: "filters",
+    name: "filters",
     category: "Music",
     aliases: [ "eq", "equalizer" ],
     description: "Set EqualizerBand",
@@ -29,7 +29,7 @@ module.exports = {
         const but = new MessageButton().setCustomId("clear_but").setLabel("Clear").setStyle("DANGER");
         const but2 = new MessageButton().setCustomId("bass_but").setLabel("Bass").setStyle("PRIMARY");
         const but3 = new MessageButton().setCustomId("party_but").setLabel("Party").setStyle("PRIMARY");
-        const but4 = new MessageButton().setCustomId("vapo_but").setLabel("Radio").setStyle("PRIMARY");
+        const but4 = new MessageButton().setCustomId("radio_but").setLabel("Radio").setStyle("PRIMARY");
         const but5 = new MessageButton().setCustomId("pop_but").setLabel("Pop").setStyle("PRIMARY");
         const but6 = new MessageButton().setCustomId("trab_but").setLabel("Treblebass").setStyle("PRIMARY");
         const but7 = new MessageButton().setCustomId("boost_but").setLabel("Bass Boost").setStyle("PRIMARY");
