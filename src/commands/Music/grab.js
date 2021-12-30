@@ -1,11 +1,8 @@
-const Discord = require('discord.js')
-require('discord-reply')
 const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
 const { convertTime } = require('../../utils/convert.js');
-const { progressbar } = require('../../utils/progressbar.js')
 
 module.exports = {
-	name: "grab",
+    name: "grab",
     aliases: ["save"],
     category: "Music",
     description: "Grabs And Sends You The Song That Is Playing At The Moment",
@@ -28,27 +25,27 @@ module.exports = {
         }
 
         const song = player.queue.current
+        const total = song.duration;
+        const current = player.position;
 
-        const emojimusic = message.client.emoji.music;
+        const dmbut = new MessageButton().setLabel("Check Your Dm").setStyle("LINK").setURL(`https://discord.com/users/${client.id}`)
+        const row = new MessageActionRow().addComponents(dmbut)
 
-        // Progress Bar
-        var total = song.duration;
-        var current = player.position;
-let dm = new MessageEmbed()
-.setAuthor(message.author.tag, message.author.avatarURL())
-.setDescription(`\`\`📬 Check Your Dms!\`\``)
-.setColor('BLURPLE')
-.setFooter(`Requested By ${message.author.tag}`).setTimestamp()
-message.reply({embeds: [dm]})
-
-const urlbutt = new MessageButton().setEmoji("🔎").setStyle("LINK").setURL(song.uri)
-const row = new MessageActionRow().addComponents(urlbutt)
+        let dm = new MessageEmbed()
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setDescription(`:mailbox_with_mail: \`Check Your Dms!\``)
+        .setColor(client.embedColor)
+        .setFooter(`Requested By ${message.author.tag}`).setTimestamp()
+        message.reply({embeds: [dm], components: [row]})
+        
+        const urlbutt = new MessageButton().setLabel("Search").setStyle("LINK").setURL(song.uri)
+        const row2 = new MessageActionRow().addComponents(urlbutt)
         let embed = new MessageEmbed()
             .setDescription(`**Song Details** \n\n > **__Song Name__**: [${song.title}](${song.uri}) \n > **__Song Duration__**: \`[${convertTime(song.duration)}]\` \n > **__Song Played By__**: [<@${song.requester.id}>] \n > **__Song Saved By__**: [<@${message.author.id}>]`)
             .setThumbnail(song.displayThumbnail())
-            .setColor("BLURPLE")
+            .setColor(client.embedColor)
             .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
-         return message.author.send({embeds: [embed], components: [row]})
+         return message.author.send({embeds: [embed], components: [row2]})
             
     }
 };
