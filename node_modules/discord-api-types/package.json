@@ -1,0 +1,210 @@
+{
+	"name": "discord-api-types",
+	"version": "0.26.1",
+	"description": "Discord API typings that are kept up to date for use in bot library creation.",
+	"types": "./v9.d.ts",
+	"exports": {
+		"./globals": {
+			"require": "./globals.js",
+			"import": "./globals.mjs"
+		},
+		"./v6": {
+			"require": "./v6.js",
+			"import": "./v6.mjs"
+		},
+		"./v8": {
+			"require": "./v8.js",
+			"import": "./v8.mjs"
+		},
+		"./v9": {
+			"require": "./v9.js",
+			"import": "./v9.mjs"
+		},
+		"./gateway": {
+			"require": "./gateway/index.js",
+			"import": "./gateway/index.mjs"
+		},
+		"./gateway/v*": {
+			"require": "./gateway/v*.js",
+			"import": "./gateway/v*.mjs"
+		},
+		"./payloads": {
+			"require": "./payloads/index.js",
+			"import": "./payloads/index.mjs"
+		},
+		"./payloads/v*": {
+			"require": "./payloads/v*/index.js",
+			"import": "./payloads/v*/index.mjs"
+		},
+		"./rest": {
+			"require": "./rest/index.js",
+			"import": "./rest/index.mjs"
+		},
+		"./rest/v*": {
+			"require": "./rest/v*/index.js",
+			"import": "./rest/v*/index.mjs"
+		},
+		"./rpc": {
+			"require": "./rpc/index.js",
+			"import": "./rpc/index.mjs"
+		},
+		"./rpc/v*": {
+			"require": "./rpc/v*.js",
+			"import": "./rpc/v*.mjs"
+		},
+		"./voice": {
+			"require": "./voice/index.js",
+			"import": "./voice/index.mjs"
+		},
+		"./voice/v*": {
+			"require": "./voice/v*.js",
+			"import": "./voice/v*.mjs"
+		},
+		"./utils": {
+			"require": "./utils/index.js",
+			"import": "./utils/index.mjs"
+		},
+		"./utils/v*": {
+			"require": "./utils/v*.js",
+			"import": "./utils/v*.mjs"
+		}
+	},
+	"scripts": {
+		"build:ci": "tsc --noEmit --incremental false",
+		"build:deno": "node ./scripts/deno.mjs",
+		"build:node": "tsc && run-p esm:*",
+		"clean:deno": "rimraf deno/",
+		"clean:node": "rimraf {gateway,payloads,rest,rpc,voice,utils}/**/*.{js,mjs,d.ts,*map} {globals,v*}.{js,mjs,d.ts,*map}",
+		"clean": "run-p clean:*",
+		"esm:gateway": "gen-esm-wrapper ./gateway/index.js ./gateway/index.mjs",
+		"esm:globals": "gen-esm-wrapper ./globals.js ./globals.mjs",
+		"esm:payloads": "gen-esm-wrapper ./payloads/index.js ./payloads/index.mjs",
+		"esm:rest": "gen-esm-wrapper ./rest/index.js ./rest/index.mjs",
+		"esm:rpc": "gen-esm-wrapper ./rpc/index.js ./rpc/index.mjs",
+		"esm:utils": "gen-esm-wrapper ./utils/index.js ./utils/index.mjs",
+		"esm:versions": "node ./scripts/versions.mjs",
+		"esm:voice": "gen-esm-wrapper ./voice/index.js ./voice/index.mjs",
+		"lint": "eslint --fix --ext mjs,ts {gateway,payloads,rest,rpc,voice,utils}/**/*.ts {globals,v*}.ts",
+		"postpublish": "run-s clean:node build:deno",
+		"prepare": "is-ci || husky install",
+		"prepublishOnly": "run-s clean test:lint build:node",
+		"test:lint": "eslint --ext mjs,ts {gateway,payloads,rest,rpc,voice,utils}/**/*.ts {globals,v*}.ts",
+		"pretest:types": "tsc",
+		"test:types": "tsd",
+		"posttest:types": "npm run clean:node",
+		"version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+	},
+	"keywords": [
+		"discord",
+		"discord api",
+		"types",
+		"discordjs"
+	],
+	"author": "Vlad Frangu <kingdgrizzle@gmail.com>",
+	"license": "MIT",
+	"files": [
+		"{gateway,payloads,rest,rpc,voice,utils}/**/*.{js,js.map,d.ts,d.ts.map,mjs}",
+		"{globals,v*}.{js,js.map,d.ts,d.ts.map,mjs}"
+	],
+	"engines": {
+		"node": ">=12"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.16.5",
+		"@babel/eslint-parser": "^7.16.5",
+		"@babel/plugin-syntax-top-level-await": "^7.14.5",
+		"@commitlint/cli": "^15.0.0",
+		"@commitlint/config-angular": "^15.0.0",
+		"@types/node": "^17.0.4",
+		"@typescript-eslint/eslint-plugin": "^5.8.0",
+		"@typescript-eslint/parser": "^5.8.0",
+		"conventional-changelog-cli": "^2.1.1",
+		"eslint": "^8.5.0",
+		"eslint-config-marine": "^9.1.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"gen-esm-wrapper": "^1.1.3",
+		"husky": "^7.0.4",
+		"is-ci": "^3.0.1",
+		"lint-staged": "^12.1.4",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^2.5.1",
+		"pretty-quick": "^3.1.3",
+		"rimraf": "^3.0.2",
+		"tsd": "^0.19.0",
+		"typescript": "^4.5.4"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/discordjs/discord-api-types"
+	},
+	"eslintConfig": {
+		"extends": "marine/prettier/node",
+		"parserOptions": {
+			"project": "./tsconfig.eslint.json",
+			"extraFileExtensions": [
+				".mjs"
+			]
+		},
+		"rules": {
+			"@typescript-eslint/naming-convention": 0
+		},
+		"overrides": [
+			{
+				"files": [
+					"scripts/**/*.mjs"
+				],
+				"parser": "@babel/eslint-parser",
+				"parserOptions": {
+					"ecmaVersion": 2021,
+					"sourceType": "module"
+				}
+			}
+		]
+	},
+	"lint-staged": {
+		"{gateway,payloads,rest,rpc,voice,utils}/**/*.{mjs,js,ts}": "eslint --fix --ext mjs,js,ts",
+		"{globals,v*}.ts": "eslint --fix --ext mjs,js,ts"
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-angular"
+		],
+		"rules": {
+			"type-enum": [
+				2,
+				"always",
+				[
+					"chore",
+					"build",
+					"ci",
+					"docs",
+					"feat",
+					"fix",
+					"perf",
+					"refactor",
+					"revert",
+					"style",
+					"test",
+					"types",
+					"wip"
+				]
+			],
+			"scope-case": [
+				1,
+				"always",
+				"pascal-case"
+			]
+		}
+	},
+	"standard-version": {
+		"skip": {
+			"changelog": true,
+			"commit": true,
+			"tag": true
+		}
+	},
+	"tsd": {
+		"directory": "tests"
+	}
+}

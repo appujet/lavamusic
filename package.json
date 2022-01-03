@@ -6,9 +6,6 @@
   "scripts": {
     "start": "node index.js"
   },
-  "engines": {
-    "node": "16.x"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brblacky/lavamusic.git"
@@ -26,13 +23,10 @@
   "license ": "MIT",
   "bugs": "https://github.com/brblacky/lavamusic/issues",
   "homepage": "https://github.com/brblacky/lavamusic#readme",
-  "devDependencies": {
-    "node": "^16.6.1"
-  },
   "dependencies": {
     "chalk": "^4.1.2",
     "delay": "^5.0.0",
-    "discord.js": "^13.3.1",
+    "discord.js": "^13.5.0",
     "dotenv": "^10.0.0",
     "erela.js": "^2.3.3",
     "erela.js-apple": "^1.2.5",
