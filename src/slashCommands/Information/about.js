@@ -15,7 +15,7 @@ module.exports = {
             ephemeral: false
         });
    const row = new MessageActionRow()
-	.addComponents(
+       .addComponents(
     new MessageButton()
     .setLabel("Invite")
     .setStyle("LINK")
