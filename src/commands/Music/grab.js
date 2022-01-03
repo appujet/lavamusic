@@ -20,7 +20,7 @@ module.exports = {
         if (!player.queue.current) {
             let thing = new MessageEmbed()
             .setColor("#FFC942")
-                .setDescription("> There is no music playing.");
+            .setDescription("> There is no music playing.");
             return message.channel.send({embeds: [thing]});
         }
 
@@ -32,10 +32,11 @@ module.exports = {
         const row = new MessageActionRow().addComponents(dmbut)
 
         let dm = new MessageEmbed()
-        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setAuthor({ name: message.author.tag, iconURL: message.author.avatarURL()})
         .setDescription(`:mailbox_with_mail: \`Check Your Dms!\``)
         .setColor(client.embedColor)
-        .setFooter(`Requested By ${message.author.tag}`).setTimestamp()
+        .setFooter({text: `Requested By ${message.author.tag}`})
+        .setTimestamp()
         message.reply({embeds: [dm], components: [row]})
         
         const urlbutt = new MessageButton().setLabel("Search").setStyle("LINK").setURL(song.uri)

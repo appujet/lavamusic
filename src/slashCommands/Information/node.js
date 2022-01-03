@@ -31,7 +31,7 @@ module.exports = {
         ).join('\n\n----------------------------\n');
 
         const embed = new MessageEmbed()
-            .setAuthor('Lavalink Node', client.user.displayAvatarURL())
+            .setAuthor({name: 'Lavalink Node', iconURL: client.user.displayAvatarURL()})
             .setDescription(`\`\`\`${all}\`\`\``)
             .setColor(client.embedColor)
         await interaction.followUp({embeds: [embed]})

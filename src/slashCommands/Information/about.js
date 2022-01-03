@@ -15,7 +15,7 @@ module.exports = {
             ephemeral: false
         });
    const row = new MessageActionRow()
-			.addComponents(
+	.addComponents(
         new MessageButton()
     .setLabel("Invite")
     .setStyle("LINK")
@@ -31,7 +31,7 @@ module.exports = {
 			);
 
       const mainPage = new MessageEmbed()
-            .setAuthor('LavaMusic', 'https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png')
+            .setAuthor({ nmae: 'LavaMusic', iconURL: 'https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png'})
             .setThumbnail('https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png')
             .setColor('#303236')
             .addField('Creator', '[Blacky#6618](https://github.com/brblacky) And [Venom#9718](https://github.com/Venom9718/)', true)

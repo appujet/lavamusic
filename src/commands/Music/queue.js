@@ -106,7 +106,7 @@ module.exports = {
                             .setColor(client.embedColor)
                             .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) • \`[ ${pms(player.position)} / ${pms(player.queue.current.duration)} ]\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
                             .setTimestamp()
-                            .setFooter(`Page ${page + 1}/${pages.length}`, message.author.displayAvatarURL({ dynamic: true }))
+                            .setFooter({text: `Page ${page + 1}/${pages.length}`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
                             .setThumbnail(player.queue.current.thumbnail)
                             .setTitle(`${message.guild.name} Queue`)
 
@@ -122,7 +122,7 @@ module.exports = {
                             .setColor(client.embedColor)
                             .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) • \`[ ${pms(player.position)} / ${pms(player.queue.current.duration)} ]\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
                             .setTimestamp()
-                            .setFooter(`Page ${page + 1}/${pages.length}`, message.author.displayAvatarURL({ dynamic: true }))
+                            .setFooter({text: `Page ${page + 1}/${pages.length}`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
                             .setThumbnail(player.queue.current.thumbnail)
                             .setTitle(`${message.guild.name} Queue`)
 

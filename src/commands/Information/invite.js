@@ -29,9 +29,9 @@ module.exports = {
 			);
 
           const mainPage = new MessageEmbed()
-            .setAuthor('LavaMusic', 'https://media.discordapp.net/attachments/845318824323448882/876690332333514752/1629089649835.png')
+            .setAuthor({ text: 'LavaMusic', iconURL: 'https://media.discordapp.net/attachments/845318824323448882/876690332333514752/1629089649835.png'})
             .setThumbnail('https://media.discordapp.net/attachments/845318824323448882/876690332333514752/1629089649835.png')
-             .setColor('#303236')
+            .setColor('#303236')
             .addField('invite lavamusic', `[Here](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=36768832&scope=applications.commands%20bot)`, true)
            message.reply({embeds: [mainPage], components: [row]})
     }

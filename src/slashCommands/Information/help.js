@@ -20,7 +20,7 @@ module.exports = {
     .setThumbnail(client.user.displayAvatarURL())
     .setColor(client.embedColor)
     .setTimestamp()
-    .setFooter(`Requested by: ${interaction.member.user.username}`, interaction.member.user.displayAvatarURL({ dynamic: true}))
+    .setFooter({ text: `Requested by: ${interaction.member.user.username}`, iconURL: interaction.member.user.displayAvatarURL({ dynamic: true})})
     
     let but1 = new MessageButton().setCustomId("home").setLabel("Home").setStyle("SUCCESS")
   

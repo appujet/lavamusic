@@ -18,7 +18,7 @@ module.exports = {
     if (!player.queue.current) {
         let thing = new MessageEmbed()
         .setColor("#FFC942")
-            .setDescription("There is no music playing.");
+        .setDescription("There is no music playing.");
         return interaction.reply({embeds: [thing]});
     }
 
@@ -30,10 +30,10 @@ module.exports = {
     const row = new MessageActionRow().addComponents(dmbut)
 
     let dm = new MessageEmbed()
-    .setAuthor(interaction.user.tag, interaction.user.avatarURL())
+    .setAuthor({name: interaction.user.tag, iconURL: interaction.user.avatarURL()})
     .setDescription(`:mailbox_with_mail: \`Check Your Dms!\``)
     .setColor(client.embedColor)
-    .setFooter(`Requested By ${interaction.user.tag}`)
+    .setFooter({text: `Requested By ${interaction.user.tag}`})
     .setTimestamp()
     interaction.reply({embeds: [dm], components: [row]})
     const user = client.users.cache.get(interaction.member.user.id);

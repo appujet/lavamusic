@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-	  name: "resume",
+	name: "resume",
     aliases: ["r"],
     category: "Music",
     description: "Resume currently playing music",
@@ -15,7 +15,7 @@ module.exports = {
  execute: async (message, args, client, prefix) => {
   
 		const player = client.manager.get(message.guild.id);
-    const song = player.queue.current;
+        const song = player.queue.current;
 
         if (!player.queue.current) {
             let thing = new MessageEmbed()

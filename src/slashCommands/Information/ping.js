@@ -20,7 +20,7 @@ module.exports = {
 
             await interaction.editReply({
                 content: "`🏓`",
-                embeds: [new MessageEmbed().setAuthor(`Pong`, client.user.displayAvatarURL({ dynamic: true })).setColor(client.embedColor).setFooter(`Requested by ${interaction.member.user.username}`, interaction.member.user.displayAvatarURL({ dynamic: true })).addFields([{ name: "Bot Latency", value: `\`\`\`ini\n[ ${ping}ms ]\n\`\`\``, inline: true }, { name: "API Latency", value: `\`\`\`ini\n[ ${api_ping}ms ]\n\`\`\``, inline: true }]).setTimestamp()]
+                embeds: [new MessageEmbed().setAuthor({name: `Pong`, iconURL: client.user.displayAvatarURL({ dynamic: true })}).setColor(client.embedColor).setFooter({text: `Requested by ${interaction.member.user.username}`, iconURL: interaction.member.user.displayAvatarURL({ dynamic: true })}).addFields([{ name: "Bot Latency", value: `\`\`\`ini\n[ ${ping}ms ]\n\`\`\``, inline: true }, { name: "API Latency", value: `\`\`\`ini\n[ ${api_ping}ms ]\n\`\`\``, inline: true }]).setTimestamp()]
             });
         })
     }

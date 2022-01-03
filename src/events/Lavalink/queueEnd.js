@@ -9,6 +9,6 @@ module.exports = async (client, player) => {
 	let thing = new MessageEmbed()
 		.setColor(client.embedColor)
 		.setDescription(`${emojiwarn} **Music queue ended**`)
-		.setFooter(client.user.username, client.user.displayAvatarURL());
+		.setFooter({text: client.user.username, iconURL: client.user.displayAvatarURL()});
 	channel.send({embeds: [thing] });
 }
