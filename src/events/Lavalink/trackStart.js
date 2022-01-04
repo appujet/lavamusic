@@ -18,7 +18,7 @@ module.exports = async (client, player, track, payload) => {
     
    const But2 = new MessageButton().setCustomId("stop").setEmoji("⏹️").setStyle("SECONDARY");
 
-   const But3 = new MessageButton().setCustomId("pause").setEmoji("⏯️").setStyle("SECONDARY");
+   const But3 = new MessageButton().setCustomId("pause").setEmoji("⏸️").setStyle("SECONDARY");
 
    const But4 = new MessageButton().setCustomId("skip").setEmoji("⏭️").setStyle("SECONDARY");
     
