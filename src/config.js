@@ -10,11 +10,11 @@ module.exports = {
 
     nodes: {
 
-      host: "localhost",
+      host: "disbotlistlavalink.ml",
       id: "local",
-      port: 80,
+      port: 443,
       password: "LAVA",
-      secure: false
+      secure: true
     
     },
  
