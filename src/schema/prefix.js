@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+const { Schema, model} = require('mongoose');
 
-const productSchema = mongoose.Schema({
-  _id: {type: mongoose.Schema.Types.ObjectId, required: true},
-  guildid: {type:String, required:true},
-  prefix: {type:String, required:true, default: "."}
-});
+let Prefix = new Schema({
+    Guild : String,
+    Prefix : String, 
+    oldPrefix: String,
+})
 
-module.exports = mongoose.model("prefix", productSchema);
+module.exports = model('prefix', Prefix);

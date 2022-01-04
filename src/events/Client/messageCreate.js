@@ -1,5 +1,5 @@
 const { MessageEmbed, Permissions } = require("discord.js");
-const pre= require("../../schema/prefix.js");
+const db = require("../../schema/prefix.js");
 
 module.exports = async (client, message) => {
    
@@ -7,9 +7,9 @@ module.exports = async (client, message) => {
    if (!message.guild) return;
     let prefix = client.prefix;
     const channel = message?.channel;
-    const ress =  await pre.findOne({guildid: message.guild.id})
-   if(ress && ress.prefix)prefix = ress.prefix;
-   
+    const ress =  await db.findOne({Guild: message.guild.id})
+   if(ress && ress.Prefix)prefix = ress.Prefix;
+
     const mention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(mention)) {
       const embed = new MessageEmbed()
@@ -17,13 +17,10 @@ module.exports = async (client, message) => {
         .setDescription(`**› My prefix in this server is \`${prefix}\`**\n**› You can see my all commands type \`${prefix}\`help**`);
       message.channel.send({embeds: [embed]})
     };
-   const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
+    const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`);
     if (!prefixRegex.test(message.content)) return;
-
     const [ matchedPrefix ] = message.content.match(prefixRegex);
-
     const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
 
