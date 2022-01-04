@@ -1,10 +1,13 @@
 {
   "name": "lavamusic",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "lavalink music bot base in erelajs",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
+  },
+   "engines": {
+    "node": "16.x"
   },
   "repository": {
     "type": "git",
@@ -23,6 +26,9 @@
   "license ": "MIT",
   "bugs": "https://github.com/brblacky/lavamusic/issues",
   "homepage": "https://github.com/brblacky/lavamusic#readme",
+    "devDependencies": {
+    "node": "^16.6.1"
+ },
   "dependencies": {
     "chalk": "^4.1.2",
     "delay": "^5.0.0",
