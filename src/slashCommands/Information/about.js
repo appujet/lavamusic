@@ -15,12 +15,12 @@ module.exports = {
             ephemeral: false
         });
    const row = new MessageActionRow()
-	.addComponents(
-        new MessageButton()
+       .addComponents(
+    new MessageButton()
     .setLabel("Invite")
     .setStyle("LINK")
     .setURL(`https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=36768832&scope=applications.commands%20bot`),
-			new MessageButton()
+    new MessageButton()
     .setLabel("GitHub")
     .setStyle("LINK")
     .setURL("https://github.com/brblacky/lavamusic"),
@@ -31,7 +31,7 @@ module.exports = {
 			);
 
       const mainPage = new MessageEmbed()
-            .setAuthor({ nmae: 'LavaMusic', iconURL: 'https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png'})
+            .setAuthor({ name: 'LavaMusic', iconURL: 'https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png'})
             .setThumbnail('https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png')
             .setColor('#303236')
             .addField('Creator', '[Blacky#6618](https://github.com/brblacky) And [Venom#9718](https://github.com/Venom9718/)', true)
