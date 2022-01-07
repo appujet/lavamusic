@@ -11,7 +11,7 @@ module.exports = async (client, player, track, payload) => {
 
   const thing = new MessageEmbed()
     .setDescription(`${emojiplay} **Started Playing**\n [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``)
-    .setThumbnail(`https://img.youtube.com/vi/${track.identifier}/mqdefault.jpg`)
+    .setThumbnail(`https://img.youtube.com/vi/${track.identifier}/coders.jpg`)
     .setColor(client.embedColor)
     .setTimestamp()
    const But1 = new MessageButton().setCustomId("vdown").setEmoji("🔉").setStyle("SECONDARY");
