@@ -7,7 +7,9 @@ const { VoiceState, MessageEmbed } = require("discord.js");
  * @param {VoiceState} newState
  * @returns {Promise<void>}
  */
-module.exports = async (client, oldState, newState) => {
+module.exports = {
+  name: "voiceStateUpdate",
+  run: async (client, oldState, newState) => {
   // get guild and player
   let guildId = newState.guild.id;
   const player = client.manager.get(guildId);
@@ -71,11 +73,12 @@ module.exports = async (client, oldState, newState) => {
         player.pause(true);
 
         let emb = new MessageEmbed()
-          .setAuthor(`Paused!`)
+          .setAuthor({name: `Paused!`})
           .setColor(client.embedColor)
           .setDescription(`The player has been paused because everybody left`);
         await client.channels.cache.get(player.textChannel).send({embeds: [emb]});
       }
       break;
   }
+ }
 };

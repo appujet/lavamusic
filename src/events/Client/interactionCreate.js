@@ -1,7 +1,9 @@
 const { MessageEmbed, Client } = require("discord.js")
 const pre= require("../../schema/prefix.js");
 
-module.exports = async (client, interaction) => {
+module.exports = {
+    name: "interactionCreate",
+    run: async (client, interaction) => {
    
     let prefix = client.prefix;
     const ress =  await pre.findOne({Guild: interaction.guildId})
@@ -51,6 +53,5 @@ module.exports = async (client, interaction) => {
             console.error(error);
         };
     } else return;
-        
-}
-
+  }    
+};

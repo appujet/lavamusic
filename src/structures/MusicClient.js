@@ -48,13 +48,13 @@ class MusicBot extends Client {
         mongoose.connect(this.config.mongourl, dbOptions);
         mongoose.Promise = global.Promise;
         mongoose.connection.on('connected', () => {
-              this.logger.log('[DB] DATABASE CONNECTED', "ready");
+         this.logger.log('[DB] DATABASE CONNECTED', "ready");
               });
         mongoose.connection.on('err', (err) => {
-                  console.log(`Mongoose connection error: \n ${err.stack}`, "error");
+         console.log(`Mongoose connection error: \n ${err.stack}`, "error");
               });
         mongoose.connection.on('disconnected', () => {
-                  console.log('Mongoose disconnected');
+         console.log('Mongoose disconnected');
               });
         
     /**
@@ -66,8 +66,7 @@ class MusicBot extends Client {
     this.on('error', error => console.log(error));
     process.on('unhandledRejection', error => console.log(error));
     process.on('uncaughtException', error => console.log(error));
-		    const client = this;
-
+		   const client = this;
 		   this.Lavasfy = new LavasfyClient(
       {
         clientID: this.config.SpotifyID,
@@ -114,9 +113,7 @@ class MusicBot extends Client {
  */
 	readdirSync("./src/events/Client/").forEach(file => {
     const event = require(`../events/Client/${file}`);
-    let eventName = file.split(".")[0];
-    this.logger.log(`Loading Events Client ${eventName}`, "event");
-    this.on(eventName, event.bind(null, this));
+    this.on(event.name, (...args) => event.run(this, ...args));
 });
 /**
  * Erela Manager Events
@@ -124,8 +121,8 @@ class MusicBot extends Client {
   readdirSync("./src/events/Lavalink/").forEach(file => {
     const event = require(`../events/Lavalink/${file}`);
     let eventName = file.split(".")[0];
-    client.logger.log(`Loading Events Lavalink ${eventName}`, "event");
-    client.manager.on(eventName, event.bind(null, client));
+    this.logger.log(`Loading Events Lavalink ${eventName}`, "event");
+    this.manager.on(eventName, event.bind(null, this));
 });
 /**
  * Import all commands

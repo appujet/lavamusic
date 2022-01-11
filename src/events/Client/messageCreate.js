@@ -1,7 +1,9 @@
 const { MessageEmbed, Permissions } = require("discord.js");
 const db = require("../../schema/prefix.js");
 
-module.exports = async (client, message) => {
+module.exports = {
+    name: "messageCreate",
+    run: async (client, message) => {
    
    if (message.author.bot) return;
    if (!message.guild) return;
@@ -91,3 +93,4 @@ module.exports = async (client, message) => {
         return message.channel.send({embeds: [embed]});
     }
   }
+};

@@ -1,7 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 
-module.exports = async (client, guild) => {
+module.exports = {
+  name: "guildCreate",
+run: async (client, guild) => {
   
   const channel = client.channels.cache.get(client.config.logs);
   let own = await guild.fetchOwner()
@@ -18,5 +20,6 @@ module.exports = async (client, guild) => {
     .addField(`${client.user.username}'s Server Count`, `\`${client.guilds.cache.size}\` Severs`)
     .setTimestamp()
     channel.send({embeds: [embed]})
+  }
 	
-}
+};

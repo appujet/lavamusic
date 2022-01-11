@@ -1,4 +1,6 @@
-module.exports = (client, data) => {
-  //What is data? Discord Gateway Data, Please check discord api docs
-  client.manager.updateVoiceState(data);
+module.exports = {
+  name: "raw",
+  run: async (client, data) => {
+    client.manager.updateVoiceState(data);
+  }
 };
