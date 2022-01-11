@@ -111,7 +111,7 @@ class MusicBot extends Client {
 /**
  * Client Events
  */
-	readdirSync("./src/events/Client/").forEach(file => {
+   readdirSync("./src/events/Client/").forEach(file => {
     const event = require(`../events/Client/${file}`);
     this.on(event.name, (...args) => event.run(this, ...args));
 });
