@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
     token: process.env.TOKEN || "",  // your bot token
     prefix: process.env.PREFIX || "!", // bot prefix
@@ -15,7 +17,7 @@ module.exports = {
       port: 443,
       password: "LAVA",
       secure: true
-    
+
     },
- 
+
 }
