@@ -4,7 +4,7 @@
   "description": "lavalink music bot base in erelajs",
   "main": "src/index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
    "engines": {
     "node": "16.x"
