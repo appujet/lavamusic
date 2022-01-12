@@ -3,7 +3,7 @@ WORKDIR /opt/lavamusic/
 
 # Copy dependencies first to improve layer caching
 COPY package*.json ./
-RUN npm install
+RUN npm install --production
 
 COPY . .
 
