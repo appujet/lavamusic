@@ -1,9 +1,7 @@
 const { MessageEmbed } = require("discord.js");
-const Client = require("../../../index");
 const { Player } = require("erela.js");
     /**
      * 
-     * @param {Client} client 
      * @param {Player} player 
      * @param {String} oldChannel
      * @param {String} newChannel
