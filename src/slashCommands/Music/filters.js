@@ -106,7 +106,7 @@ module.exports = {
             thing.setDescription(`${emojiequalizer} Pitch Equalizer mode is ON`);
             break;
         case'distort':
-            player.setDistortion(ture); 
+            player.setDistortion(true); 
             thing.setDescription(`${emojiequalizer} Distort Equalizer mode is ON`);
             break;
         case'vapo':
