@@ -29,7 +29,7 @@ module.exports = {
         const but = new MessageButton().setCustomId("clear_but").setLabel("Clear").setStyle("DANGER");
         const but2 = new MessageButton().setCustomId("bass_but").setLabel("Bass").setStyle("PRIMARY");
         const but3 = new MessageButton().setCustomId("night_but").setLabel("Night Core").setStyle("PRIMARY");
-        const but4 = new MessageButton().setCustomId("picth_but").setLabel("Picth").setStyle("PRIMARY");
+        const but4 = new MessageButton().setCustomId("picth_but").setLabel("Pitch").setStyle("PRIMARY");
         const but5 = new MessageButton().setCustomId("distort_but").setLabel("Distort").setStyle("PRIMARY");
         const but6 = new MessageButton().setCustomId("eq_but").setLabel("Equalizer").setStyle("PRIMARY");
         const but7 = new MessageButton().setCustomId("8d_but").setLabel("8D").setStyle("PRIMARY");
@@ -69,9 +69,9 @@ module.exports = {
             } else if (b.customId === "picth_but") {
                 await player.setPitch(2);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
-                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Picth mode is ON`)] });
+                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Pitch mode is ON`)] });
             } else if (b.customId === "distort_but") {
-                await player.setDistortion(ture);
+                await player.setDistortion(true);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
                 return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Distort mode is ON`)] });
             } else if (b.customId === "eq_but") {
