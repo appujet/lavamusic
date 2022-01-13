@@ -34,7 +34,7 @@ module.exports = {
             .setAuthor({ name: 'LavaMusic', iconURL: 'https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png'})
             .setThumbnail('https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png')
             .setColor('#303236')
-            .addField('Creator', '[Blacky#6618](https://github.com/brblacky) And [Venom#9718](https://github.com/Venom9718/)', true)
+            .addField('Creator', '[Blacky#6618](https://github.com/brblacky), [Venom#9718](https://github.com/Venom9718/), [AkAbhijit#6892](https://github.com/AkAbhijit#6892/)', true)
             .addField('Organization', '[Blacky](https://github.com/brblacky)', true)
             .addField('Repository', '[Here](https://github.com/brblacky/lavamusic)', true)
             .addField('\u200b',
