@@ -71,7 +71,7 @@ module.exports = {
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
                 return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Picth mode is ON`)] });
             } else if (b.customId === "distort_but") {
-                await player.setDistortion(ture);
+                await player.setDistortion(true);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
                 return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Distort mode is ON`)] });
             } else if (b.customId === "eq_but") {
