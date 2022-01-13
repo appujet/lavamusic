@@ -4,7 +4,7 @@
   "description": "lavalink music bot base in erelajs",
   "main": "src/index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
    "engines": {
     "node": "16.x"
@@ -26,7 +26,7 @@
   "license ": "MIT",
   "bugs": "https://github.com/brblacky/lavamusic/issues",
   "homepage": "https://github.com/brblacky/lavamusic#readme",
-    "devDependencies": {
+  "devDependencies": {
     "node": "^16.6.1"
  },
   "dependencies": {

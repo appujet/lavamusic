@@ -95,7 +95,7 @@ Warning: Java v14 has issues with Lavalink.
 
 
 <!-- INSTALL -->
-## 🚀 Installation
+## 🚀 Installation from source
 ```
 git clone https://github.com/brblacky/lavamusic.git
 ```
@@ -106,6 +106,10 @@ npm install
 * Start the bot with `node index.js`
 
 to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing *much* easier.
+
+## 🚀 Installation using docker-compose
+Alternatively you can run lavamusic on [docker](https://www.docker.com/). Pull the prebuilt docker image from [here](https://ghcr.io/brblacky/lavamusic).  
+See https://github.com/StefanLobbenmeier/lavamusic-docker-compose for a complete environment.
 
 ## intents
 
