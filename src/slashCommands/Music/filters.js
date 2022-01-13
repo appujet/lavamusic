@@ -19,32 +19,36 @@ module.exports = {
                 value: "bass",
             },
             {
-                name: "Party",
-                value: "party"
+                name: "Night Core",
+                value: "night"
             },
             {
-                name: "Radio",
-                value: "radio"
+                name: "Picth",
+                value: "picth"
             },
             {
-                name: "Pop",
-                value: "pop"
+                name: "Distort",
+                value: "distort"
             }, 
             {
-                name: "Treblebass",
-                value: "treblebass"
+                name: "Equalizer",
+                value: "eq"
+            },
+            {
+                name: "8D",
+                value: "8d"
             },
             {
                 name: "Bassboost",
                 value: "bassboost"
             },
             {
-                name: "Soft",
-                value: "soft"
+                name: "Speed",
+                value: "speed"
             },
             {
-                name: "Custom",
-                value: "custom"
+                name: "Vaporwave",
+                value: "vapo"
             }
         ]
     }  
@@ -77,157 +81,48 @@ module.exports = {
             .setColor(client.embedColor)
             .setTimestamp()
        switch(filter) {   
-          case "patry":
-            var bands = [
-                { band: 0, gain: -1.16 },
-                { band: 1, gain: 0.28 },
-                { band: 2, gain: 0.42 },
-                { band: 3, gain: 0.5 },
-                { band: 4, gain: 0.36 },
-                { band: 5, gain: 0 },
-                { band: 6, gain: -0.3 },
-                { band: 7, gain: -0.21 },
-                { band: 8, gain: -0.21 } 
-            ];
-            player.setEQ(...bands);
-            thing.setDescription(`${emojiequalizer} Party mode is ON`);
-            break;
-            case 'bass':
-            var bands = [
-                { band: 0, gain: 0.6 },
-                { band: 1, gain: 0.7 },
-                { band: 2, gain: 0.8 },
-                { band: 3, gain: 0.55 },
-                { band: 4, gain: 0.25 },
-                { band: 5, gain: 0 },
-                { band: 6, gain: -0.25 },
-                { band: 7, gain: -0.45 },
-                { band: 8, gain: -0.55 },
-                { band: 9, gain: -0.7 },    
-                { band: 10, gain: -0.3 },    
-                { band: 11, gain: -0.25 },
-                { band: 12, gain: 0 },   
-                { band: 13, gain: 0 },
-                { band: 14, gain: 0 }    
-            ];
-            player.setEQ(...bands);
+       
+        case 'bass':
+            player.setBassboost(true);
             thing.setDescription(`${emojiequalizer} Bass mode is ON`);
             break;
-           case 'radio':
-            var bands = [
-                { band: 0, gain: 0.65 },
-                { band: 1, gain: 0.45 },
-                { band: 2, gain: -0.45 },
-                { band: 3, gain: -0.65 },
-                { band: 4, gain: -0.35 },
-                { band: 5, gain: 0.45 },
-                { band: 6, gain: 0.55 },
-                { band: 7, gain: 0.6 },
-                { band: 8, gain: 0.6 },
-                { band: 9, gain: 0.6 },    
-                { band: 10, gain: 0 },    
-                { band: 11, gain: 0 },
-                { band: 12, gain: 0 },   
-                { band: 13, gain: 0 },
-                { band: 14, gain: 0 }  
-            ];
-            player.setEQ(...bands);
-            thing.setDescription(`${emojiequalizer} Radio mode is ON`);
-            break;
-           case 'pop':
-            var bands = [
-                { band: 0, gain: -0.25 },
-                { band: 1, gain: 0.48 },
-                { band: 2, gain: 0.59 },
-                { band: 3, gain: 0.72 },
-                { band: 4, gain: 0.56 },
-                { band: 5, gain: 0.15 },
-                { band: 6, gain: -0.24 },
-                { band: 7, gain: -0.24 },
-                { band: 8, gain: -0.16 },
-                { band: 9, gain: -0.16 },    
-                { band: 10, gain: 0 },    
-                { band: 11, gain: 0 },
-                { band: 12, gain: 0 },   
-                { band: 13, gain: 0 },
-                { band: 14, gain: 0 }
-            ];
-            player.setEQ(...bands);
-            thing.setDescription(`${emojiequalizer} Pop mode is ON`);
-            break;
-        case 'trablebass':
-            var bands = [
-                { band: 0, gain: 0.6 },
-                { band: 1, gain: 0.67 },
-                { band: 2, gain: 0.67 },
-                { band: 3, gain: 0 },
-                { band: 4, gain: -0.5 },
-                { band: 5, gain: 0.15 },
-                { band: 6, gain: -0.45 },
-                { band: 7, gain: 0.23 },
-                { band: 8, gain: 0.35 },
-                { band: 9, gain: 0.45 },
-                { band: 10, gain: 0.55 },
-                { band: 11, gain: 0.6 },
-                { band: 12, gain: 0.55 },
-                { band: 13, gain: 0 },
-                { band: 14, gain: 0 }
-            ];
-            player.setEQ(...bands);
+        case 'eq':   
+            player.setEqualizer(true);
             thing.setDescription(`${emojiequalizer} Trablebass mode is ON`);
             break;
-          case 'bassboost':
+        case 'bassboost':
             var bands = new Array(7).fill(null).map((_, i) => (
                 { band: i, gain: 0.25 }
             ));
             player.setEQ(...bands);
             thing.setDescription(`${emojiequalizer} Bassboost mode is ON`);
             break;
-          case 'soft':
-            var bands =  [
-                { band: 0, gain: 0 },
-                { band: 1, gain: 0 },
-                { band: 2, gain: 0 },
-                { band: 3, gain: 0 },
-                { band: 4, gain: 0 },
-                { band: 5, gain: 0 },
-                { band: 6, gain: 0 },
-                { band: 7, gain: 0 },
-                { band: 8, gain: -0.25 },
-                { band: 9, gain: -0.25 },    
-                { band: 10, gain: -0.25 },    
-                { band: 11, gain: -0.25 },
-                { band: 12, gain: -0.25 },   
-                { band: 13, gain: -0.25 },   
-                { band: 14, gain: -0.25 } 
-            ];
-            player.setEQ(...bands);
-            thing.setDescription(`${emojiequalizer} Soft mode is ON`);
+        case'night':    
+            player.setNightcore(true);
+            thing.setDescription(`${emojiequalizer} Night Core Equalizer mode is ON`);
             break;
-          case'custom':
-            var bands = [
-                { band: 0, gain: args[1] },
-                { band: 1, gain: args[2] },
-                { band: 2, gain: args[3] },
-                { band: 3, gain: args[4] },
-                { band: 4, gain: args[5] },
-                { band: 5, gain: args[6] },
-                { band: 6, gain: args[7] },
-                { band: 7, gain: args[8] },
-                { band: 8, gain: args[9] },
-                { band: 9, gain: args[10] },    
-                { band: 10, gain: args[11] },    
-                { band: 11, gain: args[12] },
-                { band: 12, gain: args[13] },   
-                { band: 13, gain: args[14] }    
-            ];
-            player.setEQ(...bands);
-            thing.setDescription(`${emojiequalizer} Custom Equalizer mode is ON`);
+        case'pitch':   
+            player.setPitch(2); 
+            thing.setDescription(`${emojiequalizer} Pitch Equalizer mode is ON`);
             break;
-          case 'clear': 
-            player.clearEQ();
+        case'distort':
+            player.setDistortion(ture); 
+            thing.setDescription(`${emojiequalizer} Distort Equalizer mode is ON`);
+            break;
+        case'vapo':
+            player.setVaporwave(true); 
+            thing.setDescription(`${emojiequalizer} Vaporwave Equalizer mode is ON`);
+            break;
+        case 'clear': 
+            player.clearEffects();
             thing.setDescription(`${emojiequalizer} Equalizer mode is OFF`);
             break;
+        case 'speed': 
+            player.setSpeed(2);
+            thing.setDescription(`${emojiequalizer} Speed mode is OFF`);
+        case '8d': 
+            player.set8D(true);
+            thing.setDescription(`${emojiequalizer} 8D mode is OFF`);
         }
          return interaction.editReply({embeds: [thing]});
     }

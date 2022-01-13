@@ -8,7 +8,7 @@ const apple = require("erela.js-apple");
 const facebook = require("erela.js-facebook");
 const mongoose = require('mongoose');
 require("./PlayerBase"); 
-
+require("../utils/lavamusic");
 class MusicBot extends Client {
 	 constructor() {
         super({
