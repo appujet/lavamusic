@@ -48,7 +48,7 @@ module.exports = {
         oldPrefix: prefix
        });
        await data.save()
-     const MessageEmbed = new MessageEmbed()
+     const embed = new MessageEmbed()
      .setDescription(`Custom prefix in this server is now set to **${pre}**`)
      .setColor(client.embedColor)
      .setTimestamp()
