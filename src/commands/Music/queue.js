@@ -62,12 +62,12 @@ module.exports = {
                     const but1 = new MessageButton()
                     .setCustomId("queue_cmd_but_1")
                   
-                    .setEmoji("913603321175085056")
+                    .setEmoji("⏭")
                     .setStyle("PRIMARY")
 
                     const but2 = new MessageButton()
                     .setCustomId("queue_cmd_but_2")
-                    .setEmoji("913603345581760512")
+                    .setEmoji("⏮")
                     .setStyle("PRIMARY")
 
                     const but3 = new MessageButton()
