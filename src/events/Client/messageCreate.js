@@ -9,7 +9,7 @@ module.exports = {
    if (!message.guild) return;
     let prefix = client.prefix;
     const channel = message?.channel;
-    const ress =  await db.findOne({Guild: message.guild.id})
+    const ress =  await db.findOne({Guild: message.guildId})
    if(ress && ress.Prefix)prefix = ress.Prefix;
 
     const mention = new RegExp(`^<@!?${client.user.id}>( |)$`);
