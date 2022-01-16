@@ -42,12 +42,12 @@ module.exports = {
      .setTimestamp()
      return message.reply({embeds: [update]});
     } else {
-      data = new db({
+     const newData = new db({
         Guild : message.guildId,
         Prefix : pre,
         oldPrefix: prefix
        });
-       await data.save()
+       await newData.save()
      const embed = new MessageEmbed()
      .setDescription(`Custom prefix in this server is now set to **${pre}**`)
      .setColor(client.embedColor)
