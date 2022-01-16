@@ -1,7 +1,7 @@
 
 const { Client, Message, MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
-const pms = require("pretty-ms");
-const load = require("lodash");
+const load = require('lodash');
+const { convertTime } = require('../../utils/convert.js');
 
 module.exports = {
     name: "queue",
@@ -18,20 +18,21 @@ module.exports = {
    execute: async (message, args, client, prefix) => {
   
             const player = client.manager.get(message.guild.id);
-            if(!player) return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription(`Nothing is playing right now.`)]});
+       const queue = player.queue;  
+   if(!player) return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription(`Nothing is playing right now.`)]});
             
             if(!player.queue) return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription(`Nothing is playing right now.`)]});
            
             if(player.queue.length === "0" || !player.queue.length) {
                 const embed = new MessageEmbed()
                 .setColor(client.embedColor)
-                .setDescription(`Now playing [${player.queue.current.title}](${player.queue.current.uri}) • \`[ ${pms(player.position)} / ${pms(player.queue.current.duration)} ]\` • [${player.queue.current.requester}]`)
+                .setDescription(`Now playing [${player.queue.current.title}](${player.queue.current.uri}) • \`[${convertTime(queue.current.duration)}]\` • [${player.queue.current.requester}]`)
 
                 await message.channel.send({
                     embeds: [embed]
                 }).catch(() => {});
             } else {
-                const queuedSongs = player.queue.map((t, i) => `\`${++i}\` • [${t.title}](${t.uri}) • \`[ ${pms(t.duration)} ]\` • [${t.requester}]`);
+                const queuedSongs = player.queue.map((t, i) => `\`${++i}\` • ${t.title} • \`[${convertTime(queue.current.duration)}]\` • [${t.requester}]`);
 
                 const mapping = load.chunk(queuedSongs, 10);
                 const pages = mapping.map((s) => s.join("\n"));
@@ -40,7 +41,7 @@ module.exports = {
                 if(player.queue.size < 11) {
                     const embed = new MessageEmbed()
                     .setColor(client.embedColor)
-                    .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) • \`[ ${pms(player.position)} / ${pms(player.queue.current.duration)} ]\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
+                    .setDescription(`**Now playing**\n > [${player.queue.current.title}](${player.queue.current.uri}) • \`[${convertTime(queue.current.duration)}]\`  • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
                     .setTimestamp()
                     .setFooter(`Page ${page + 1}/${pages.length}`, message.author.displayAvatarURL({ dynamic: true }))
                     .setThumbnail(player.queue.current.thumbnail)
@@ -52,7 +53,7 @@ module.exports = {
                 } else {
                     const embed2 = new MessageEmbed()
                     .setColor(client.embedColor)
-                    .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) • \`[ ${pms(player.position)} / ${pms(player.queue.current.duration)} ]\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
+                    .setDescription(`**Now playing**\n > [${player.queue.current.title}](${player.queue.current.uri}) • \`[${convertTime(queue.current.duration)}]\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
                     .setTimestamp()
                     .setFooter(`Page ${page + 1}/${pages.length}`, message.author.displayAvatarURL({ dynamic: true }))
                     .setThumbnail(player.queue.current.thumbnail)
@@ -60,18 +61,20 @@ module.exports = {
 
                     const but1 = new MessageButton()
                     .setCustomId("queue_cmd_but_1")
-                    .setEmoji("⏭️")
+                  
+                    .setEmoji("913603321175085056")
                     .setStyle("PRIMARY")
 
                     const but2 = new MessageButton()
                     .setCustomId("queue_cmd_but_2")
-                    .setEmoji("⏮️")
+                    .setEmoji("913603345581760512")
                     .setStyle("PRIMARY")
 
                     const but3 = new MessageButton()
                     .setCustomId("queue_cmd_but_3")
-                    .setEmoji("⏹️")
-                    .setStyle("DANGER")
+                    .setLabel(`${page + 1}/${pages.length}`)
+                    .setStyle("SECONDARY")
+                    .setDisabled(true)
 
                     const row1 = new MessageActionRow().addComponents([
                         but2, but3, but1
@@ -104,15 +107,15 @@ module.exports = {
 
                             const embed3 = new MessageEmbed()
                             .setColor(client.embedColor)
-                            .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) • \`[ ${pms(player.position)} / ${pms(player.queue.current.duration)} ]\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
+                            .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) • \`[${convertTime(queue.current.duration)}]\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
                             .setTimestamp()
-                            .setFooter({text: `Page ${page + 1}/${pages.length}`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
+                            .setFooter(`Page ${page + 1}/${pages.length}`, message.author.displayAvatarURL({ dynamic: true }))
                             .setThumbnail(player.queue.current.thumbnail)
                             .setTitle(`${message.guild.name} Queue`)
 
                             await msg.edit({
                                 embeds: [embed3],
-                                components: [row1]
+                                components: [new MessageActionRow().addComponents(but2, but3.setLabel(`${page + 1}/${pages.length}`), but1)]
                             })
                         } else if(button.customId === "queue_cmd_but_2") {
                             await button.deferUpdate().catch(() => {});
@@ -120,19 +123,16 @@ module.exports = {
 
                             const embed4 = new MessageEmbed()
                             .setColor(client.embedColor)
-                            .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) • \`[ ${pms(player.position)} / ${pms(player.queue.current.duration)} ]\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
+                            .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) • \`[${convertTime(queue.current.duration)}]\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
                             .setTimestamp()
-                            .setFooter({text: `Page ${page + 1}/${pages.length}`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
+                            .setFooter(`Page ${page + 1}/${pages.length}`, message.author.displayAvatarURL({ dynamic: true }))
                             .setThumbnail(player.queue.current.thumbnail)
                             .setTitle(`${message.guild.name} Queue`)
 
                             await msg.edit({
                                 embeds: [embed4],
-                                components: [row1]
-                            }).catch(() => {});
-                        } else if(button.customId === "queue_cmd_but_3") {
-                            await button.deferUpdate().catch(() => {});
-                            collector.stop();
+                                components: [new MessageActionRow().addComponents(but2, but3.setLabel(`Page ${page + 1}/${pages.length}`), but1)]
+                 }).catch(() => {});
                         } else return;
                     });
 
