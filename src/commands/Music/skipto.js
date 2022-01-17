@@ -1,11 +1,11 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-  	name: "skipto",
-	  aliases: ["jump"],
-  	category: "Music",
-  	description: "Forward song",
-  	args: true,
+    name: "skipto",
+    aliases: ["jump"],
+    category: "Music",
+    description: "Forward song",
+    args: true,
     usage: "<Number of song in queue>",
     permission: [],
     owner: false,
