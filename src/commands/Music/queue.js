@@ -32,7 +32,7 @@ module.exports = {
                     embeds: [embed]
                 }).catch(() => {});
             } else {
-                const queuedSongs = player.queue.map((t, i) => `\`${++i}\` • ${t.title} • \`[${convertTime(queue.current.duration)}]\` • [${t.requester}]`);
+                const queuedSongs = player.queue.map((t, i) => `\`${++i}\` • ${t.title} • \`[${convertTime(t.duration)}]\` • [${t.requester}]`);
 
                 const mapping = load.chunk(queuedSongs, 10);
                 const pages = mapping.map((s) => s.join("\n"));
