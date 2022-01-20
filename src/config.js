@@ -4,21 +4,20 @@ module.exports = {
     token: process.env.TOKEN || "",  // your bot token
     prefix: process.env.PREFIX || "!", // bot prefix
     ownerID: process.env.OWNERID || "491577179495333903", //your discord id
-    SpotifyID: process.env.SPOTIFYID || "", // spotify client id
-    SpotifySecret: process.env.SPOTIFYSECRET || "", // spotify client secret
     mongourl: process.env.MONGO_URI || "", // MongoDb URL
     embedColor: process.env.COlOR || "#303236", // embed colour
     logs: process.env.LOGS || "875254787191504947", // channel id for guild create and delete logs
 
-    nodes: {
-
+    nodes: [
+    {
       host: process.env.NODE_HOST || "disbotlistlavalink.ml",
-      id: process.env.NODE_ID || "local",
+      identifer: process.env.NODE_ID || "local",
       port: parseInt(process.env.NODE_PORT || "443"),
       password: process.env.NODE_PASSWORD || "LAVA",
-      secure: parseBoolean(process.env.NODE_SECURE || "true")
+      secure: parseBoolean(process.env.NODE_SECURE || "true"),
 
-    },
+    }
+  ],
 
 }
 

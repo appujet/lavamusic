@@ -40,14 +40,6 @@
       "value": "!",
       "required": true
      },
-    "SPOTIFYID":{
-      "description": "Spotify client id",
-      "required": true
-     },
-    "SPOTIFYSECRET":{
-      "description": "Spotify client secret",
-      "required": true
-     },
     "COlOR":{
       "description": "embed colour code hex",
       "value": "#303236",

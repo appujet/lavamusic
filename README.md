@@ -1,7 +1,7 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/brblacky/lavamusic)
 [![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://repl.it/github/brblacky/lavamusic)
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/brblacky/lavamusic)
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Fbrblacky%2Flavamusic&envs=NODE_HOST%2CNODE_ID%2CNODE_PASSWORD%2CNODE_PORT%2CNODE_SECURE%2CMONGO_URI%2CPREFIX%2CSPOTIFYID%2CSPOTIFYSECRET%2CCOlOR%2CLOGS%2COWNERID%2CTOKEN&optionalEnvs=COlOR%2CLOGS%2COWNERID&NODE_HOSTDesc=Lavalink+host&NODE_IDDesc=Lavalink+id&NODE_PASSWORDDesc=lavalink+password&NODE_PORTDesc=Lavalink+port&NODE_SECUREDesc=lavalink+secure+%28true%2Ffalse%29&MONGO_URIDesc=Your+mongodb+url+here&PREFIXDesc=Your+bot+prefix+here&SPOTIFYIDDesc=Spotify+client+id+%28+you+can+get+from+Spotify+dev+website%29&SPOTIFYSECRETDesc=Spotify+client+secret+%28+you+can+get+from+Spotify+dev+website%29&COlORDesc=embed+colour+code+hex&LOGSDesc=Your+server+channel+id+&OWNERIDDesc=Your+discord+is+&TOKENDesc=Discord+bot+token&NODE_HOSTDefault=disbotlistlavalink.ml&NODE_IDDefault=main&NODE_PASSWORDDefault=LAVA&NODE_PORTDefault=443&NODE_SECUREDefault=true&PREFIXDefault=%21&referralCode=kcnA8M)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Fbrblacky%2Flavamusic&envs=NODE_HOST%2CNODE_ID%2CNODE_PASSWORD%2CNODE_PORT%2CNODE_SECURE%2CMONGO_URI%2CPREFIX%2CSPOTIFYID%2CSPOTIFYSECRET%2CCOlOR%2CLOGS%2COWNERID%2CTOKEN&optionalEnvs=COlOR%2CLOGS%2COWNERID&NODE_HOSTDesc=Lavalink+host&NODE_IDDesc=Lavalink+id&NODE_PASSWORDDesc=lavalink+password&NODE_PORTDesc=Lavalink+port&NODE_SECUREDesc=lavalink+secure+%28true%2Ffalse%29&MONGO_URIDesc=Your+mongodb+url+here&PREFIXDesc=Your+bot+prefix+here&COlORDesc=embed+colour+code+hex&LOGSDesc=Your+server+channel+id+&OWNERIDDesc=Your+discord+is+&TOKENDesc=Discord+bot+token&NODE_HOSTDefault=disbotlistlavalink.ml&NODE_IDDefault=main&NODE_PASSWORDDefault=LAVA&NODE_PORTDefault=443&NODE_SECUREDefault=true&PREFIXDefault=%21&referralCode=kcnA8M)
 
 [![Version][version-shield]](version-url)
 [![Contributors][contributors-shield]][contributors-url]
@@ -136,8 +136,6 @@ Then Turn On Both Of Those Settings And Click "Save Changes" Then Your Are Done 
     token: process.env.TOKEN || "",  // your bot token
     prefix: process.env.PREFIX || "!", // bot prefix
     ownerID: process.env.OWNERID || "491577179495333903", //your discord id
-    SpotifyID: process.env.SPOTIFYID || "", // spotify client id
-    SpotifySecret: process.env.SPOTIFYSECRET || "", // spotify client secret
     mongourl: process.env.MONGO_URI || "", // MongoDb URL
     embedColor: process.env.COlOR || "#303236", // embed colour
     logs: process.env.LOGS || "", // channel id for guild create and delete logs

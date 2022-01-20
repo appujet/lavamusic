@@ -1,9 +1,8 @@
 const { Client, Intents, Collection, MessageEmbed, MessageButton, MessageSelectMenu } = require("discord.js");
-const { LavasfyClient } = require("lavasfy");
 const { Manager } = require("erela.js");
 const { readdirSync } = require("fs");
-const { path } = require("path");
 const deezer = require("erela.js-deezer");
+const spotify = require("better-erela.js-spotify").default;
 const apple = require("erela.js-apple");
 const facebook = require("erela.js-facebook");
 const mongoose = require('mongoose');
@@ -65,42 +64,15 @@ class MusicBot extends Client {
     this.on('warn', error => console.log(error));
     this.on('error', error => console.log(error));
     process.on('unhandledRejection', error => console.log(error));
-    process.on('uncaughtException', error => console.log(error));
-		   const client = this;
-		   this.Lavasfy = new LavasfyClient(
-      {
-        clientID: this.config.SpotifyID,
-        clientSecret: this.config.SpotifySecret,
-        playlistPageLoadLimit: 4,
-        filterAudioOnlyResult: true,
-        autoResolve: true,
-        useSpotifyMetadata: true,
-      },
-      [
-        {
-          id: this.config.nodes.id,
-          host: this.config.nodes.host,
-          port: this.config.nodes.port,
-          password: this.config.nodes.password,
-          secure: this.config.nodes.secure,
-        },
-      ]
-    );
-
+    process.on('uncaughtException', error => console.log(error))
+    const client = this;
     this.manager = new Manager({
+      nodes: this.config.nodes,
       plugins: [
         new deezer(),
+        new spotify(),
         new apple(),
         new facebook(),
-      ],
-      nodes: [
-        {
-          identifier: this.config.nodes.id,
-          host: this.config.nodes.host,
-          port: this.config.nodes.port,
-          password: this.config.nodes.password,
-          secure: this.config.nodes.secure,
-        },
       ],
       send(id, payload) {
         const guild = client.guilds.cache.get(id);
