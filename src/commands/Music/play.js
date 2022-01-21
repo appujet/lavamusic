@@ -50,7 +50,7 @@ module.exports = {
     switch (res.loadType) {
       case 'NO_MATCHES':
         if (!player.queue.current) player.destroy();
-        return message.channel.send({ embeds: [new MessageEmbed()].setColor(client.embedColor).setTimestamp().setDescription(`No matches found for - ${search}`) });
+        return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription(`No matches found for - ${search}`)] });
       case 'TRACK_LOADED':
         var track = res.tracks[0];
         player.queue.add(track);
