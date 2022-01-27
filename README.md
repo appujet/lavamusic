@@ -164,6 +164,12 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
 [![DiscordBanner](https://invidget.switchblade.xyz/YvR5ZXfmNj)](https://discord.gg/YvR5ZXfmNj)
 [Support Server](https://discord.gg/YvR5ZXfmNj) - lavamusic's Support Server Invite
 
+# Donate
+
+ By Donating, You Will Help Me To Maintain This Bot
+
+- [PayPal](https://www.paypal.me/sdip521)
+
 
 <!-- LICENSE -->
 
