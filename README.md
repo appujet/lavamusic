@@ -166,7 +166,7 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 # Donate
 
- By Donating, You Will Help Me To Maintain This Bot
+ By Donating, You Will Help Me To Maintain This Project 
 
 - [PayPal](https://www.paypal.me/sdip521)
 
