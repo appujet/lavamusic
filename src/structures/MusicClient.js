@@ -68,6 +68,7 @@ class MusicBot extends Client {
     const client = this;
     this.manager = new Manager({
       nodes: this.config.nodes,
+	autoPlay: true,
       plugins: [
         new deezer(),
         new spotify(),
