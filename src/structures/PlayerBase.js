@@ -1,8 +1,6 @@
 const { Message } = require("discord.js");
 const { Structure } = require("erela.js");
 
-// This system from discord music bot https://github.com/SudhanPlayz
-
 Structure.extend(
   "Player",
   (Player) =>
