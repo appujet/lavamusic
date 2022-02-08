@@ -56,7 +56,7 @@ module.exports = {
           .setAuthor(`Resuming paused queue`)
           .setColor(client.embedColor)
           .setDescription(
-            `Resuming playback because all of you left me with music to play all alone`
+            `Resuming playback because all of you left me with music to play`
           );
         await client.channels.cache.get(player.textChannel).send({embeds: [emb]});
 

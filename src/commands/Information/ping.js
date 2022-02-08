@@ -16,7 +16,7 @@ module.exports = {
 
   const PingEmbed = new MessageEmbed()
     .setColor(client.embedColor)
-    .setDescription(`**Music:** \`{api_ping}ms\``)
+    .setDescription(`<:music:939097896589066300> **Music:** \`${api_ping}ms\``)
 
   await msg.edit({
     content: "pinging..",
