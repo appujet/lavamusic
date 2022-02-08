@@ -37,7 +37,7 @@ module.exports = {
 
       let thing = new MessageEmbed()
         .setColor(client.embedColor)
-        .setDescription(`${emojiJoin} **Join the voice channel**\nJoined <#${channel.id}> and bound to <#${message.channel.id}>`)
+        .setDescription(`${emojiJoin} Joined <#${channel.id}> and bound to <#${message.channel.id}>`)
       return message.reply({ embeds: [thing] });
 
     };

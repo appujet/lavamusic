@@ -19,7 +19,7 @@ execute: async (message, args, client, prefix) => {
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription("There is no music playing.");
+                .setDescription("<:err:935798200869208074> There is no music playing.");
             return message.reply({embeds: [thing]});
 		}
 		
@@ -38,7 +38,7 @@ execute: async (message, args, client, prefix) => {
 		if (!volume || volume < 0 || volume > 100) { 
 			let thing = new MessageEmbed()
                 .setColor("RED")
-				.setDescription(`Usage: ${prefix}volume <Number of volume between 0 - 100>`)
+				.setDescription(`Usage: ${prefix}volume <0-100>`)
             return message.reply({embeds: [thing]});
 		}
 

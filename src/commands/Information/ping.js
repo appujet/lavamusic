@@ -15,15 +15,11 @@ module.exports = {
   const api_ping = client.ws.ping;
 
   const PingEmbed = new MessageEmbed()
-    .setAuthor({ name: "Pong", iconURL: client.user.displayAvatarURL()})
     .setColor(client.embedColor)
-    .addField("Bot Latency", `\`\`\`ini\n[ ${ping}ms ]\n\`\`\``, true)
-    .addField("API Latency", `\`\`\`ini\n[ ${api_ping}ms ]\n\`\`\``, true)
-    .setFooter({ text: `Requested by ${message.author.username}`, iconURL:  message.author.avatarURL({ dynamic: true })})
-    .setTimestamp();
+    .setDescription(`**Music:** \`{api_ping}ms\``)
 
   await msg.edit({
-    content: "\`🏓\`",
+    content: "pinging..",
     embeds: [PingEmbed]
   })
  })

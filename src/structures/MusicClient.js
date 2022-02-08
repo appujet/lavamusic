@@ -21,7 +21,8 @@ class MusicBot extends Client {
                 Intents.FLAGS.GUILD_MESSAGES, 
                 Intents.FLAGS.GUILD_MEMBERS, 
                 Intents.FLAGS.GUILD_VOICE_STATES
-            ]
+            ],
+            ws: {properties:{ $browser: "Discord iOS" }}
         });
 		 this.commands = new Collection();
      this.slashCommands = new Collection();
@@ -108,29 +109,7 @@ class MusicBot extends Client {
         this.commands.set(command.name, command);
     }
 })
-/**
- * SlashCommands 
- */
-  const data = [];
-       
-  readdirSync("./src/slashCommands/").forEach((dir) => {
-        const slashCommandFile = readdirSync(`./src/slashCommands/${dir}/`).filter((files) => files.endsWith(".js"));
-    
-        for (const file of slashCommandFile) {
-            const slashCommand = require(`../slashCommands/${dir}/${file}`);
 
-            if(!slashCommand.name) return console.error(`slashCommandNameError: ${slashCommand.split(".")[0]} application command name is required.`);
-
-            if(!slashCommand.description) return console.error(`slashCommandDescriptionError: ${slashCommand.split(".")[0]} application command description is required.`);
-
-            this.slashCommands.set(slashCommand.name, slashCommand);
-            this.logger.log(`Client SlashCommands Command (/) Loaded: ${slashCommand.name}`, "cmd");
-            data.push(slashCommand);
-        }
-     });
-	  this.on("ready", async () => {
-        await this.application.commands.set(data).then(() => this.logger.log(`Client Application (/) Registered.`, "cmd")).catch((e) => console.log(e));
-    });
 	 }
 		 connect() {
         return super.login(this.token);

@@ -28,7 +28,7 @@ module.exports = {
 		if (!position || position < 0 || position > player.queue.size) { 
 			let thing = new MessageEmbed()
                 .setColor("RED")
-				.setDescription(`Usage: ${message.client.prefix}skipto <Number of song in queue>`)
+				.setDescription(`<:err:935798200869208074> Usage: ${message.client.prefix}skipto <Number of song in queue>`)
             return message.reply({embeds: [thing]});
 		}
 
@@ -38,7 +38,7 @@ module.exports = {
 		const emojijump = client.emoji.jump;
 
 		let thing = new MessageEmbed()
-			.setDescription(`${emojijump} Forward **${position}** Songs`)
+			.setDescription(`${emojijump} Skipped to **${position}** songs`)
 			.setColor(client.embedColor)
 			.setTimestamp()
 			

@@ -19,7 +19,7 @@ module.exports = {
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription("There is no music playing.");
+                .setDescription("<:err:935798200869208074> There is no music playing.");
             return message.reply({embeds: [thing]});
         }
 
@@ -30,7 +30,7 @@ module.exports = {
 		let thing = new MessageEmbed()
 			.setColor(message.client.embedColor)
 			.setTimestamp()
-			.setDescription(`${emojieject} Removed all songs from the queue`)
+			.setDescription(`${emojieject} Cleared queue`)
 			  return message.reply({embeds: [thing]});
     }
 };

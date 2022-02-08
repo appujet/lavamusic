@@ -18,7 +18,7 @@ module.exports = {
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription("There is no music playing.");
+                .setDescription("<:err:935798200869208074> There is no music playing.");
             return message.reply({embeds: [thing]});
         }
 
@@ -27,7 +27,7 @@ module.exports = {
         const number = (position + 1);
          let thing = new MessageEmbed()
             .setColor("RED")
-            .setDescription(`No songs at number ${number}.\nTotal Songs: ${player.queue.size}`);
+            .setDescription(`<:err:935798200869208074> There are no songs at number ${number}!`);
             return message.reply({embeds: [thing]});
         }
 
@@ -39,7 +39,7 @@ module.exports = {
 		let thing = new MessageEmbed()
 			.setColor(client.embedColor)
 			.setTimestamp()
-			.setDescription(`${emojieject} Removed\n[${song.title}](${song.uri})`)
+			.setDescription(`${emojieject} Removed [${song.title}](${song.uri}) from queue`)
 		  return message.reply({embeds: [thing]});
 	
     }

@@ -18,7 +18,7 @@ module.exports = {
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription("There is no music playing.");
+                .setDescription("<:err:935798200869208074> There is no music playing.");
             return message.reply({embeds: [thing]});
         }
 
@@ -27,7 +27,7 @@ module.exports = {
         if (player.paused) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription(`${emojipause} The player is already paused.`)
+                .setDescription(`<:err:935798200869208074> The player is already paused.`)
                 .setTimestamp()
                 return message.reply({embeds: [thing]});
         }
@@ -39,7 +39,7 @@ module.exports = {
         let thing = new MessageEmbed()
             .setColor(client.embedColor)
             .setTimestamp()
-            .setDescription(`${emojipause} **Paused**\n[${song.title}](${song.uri})`)
+            .setDescription(`${emojipause} Paused song\n[${song.title}](${song.uri})`)
           return message.reply({embeds: [thing]});
 	
     }

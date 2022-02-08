@@ -18,13 +18,13 @@ module.exports = {
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription("There is no music playing.");
+                .setDescription("<:err:935798200869208074> There is no music playing.");
             return message.reply({ embeds: [thing] });
         }
         const emojiequalizer = message.client.emoji.filter;
         const embed = new MessageEmbed()
             .setColor(client.embedColor)
-            .setDescription(`Choose what filter you want in tha button`)
+            .setDescription(`${emojiequalizer} Choose a filter`)
 
         const but = new MessageButton().setCustomId("clear_but").setLabel("Clear").setStyle("DANGER");
         const but2 = new MessageButton().setCustomId("bass_but").setLabel("Bass").setStyle("PRIMARY");
@@ -50,38 +50,38 @@ module.exports = {
         });
         collector.on("end", async () => {
             if (!m) return;
-            await m.edit({ embeds: [embed1.setDescription(`Time is Out type again ${prefix}filters`)] });
+            await m.edit({ embeds: [embed1.setDescription(`Time out, type ${prefix}filters again!`)] });
         });
         collector.on("collect", async (b) => {
             if (!b.replied) await b.deferUpdate({ ephemeral: true });
             if (b.customId === "clear_but") {
                 await player.clearEffects();
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
-                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Equalizer mode is OFF`)] });
+                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Equalizer is turned off`)] });
             } else if (b.customId === "bass_but") {
                 await player.setBassboost(true);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
-                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Bass mode is ON`)] });
+                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Set to bass mode`)] });
             } else if (b.customId === "night_but") {
                 await player.setNightcore(true);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
-                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Night Core mode is ON`)] });
+                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Set to night core mode`)] });
             } else if (b.customId === "picth_but") {
                 await player.setPitch(2);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
-                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Pitch mode is ON`)] });
+                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Set to pitch mode`)] });
             } else if (b.customId === "distort_but") {
                 await player.setDistortion(true);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
-                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Distort mode is ON`)] });
+                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Set to distort mode`)] });
             } else if (b.customId === "eq_but") {
                 await player.setEqualizer(true);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
-                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Equalizer mode is ON`)] });
+                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Equalizer turned on`)] });
             } else if (b.customId === "8d_but") {
                 await player.set8D(true);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
-                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} 8D mode is ON`)] });
+                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Set to 8D mode`)] });
             } else if (b.customId === "boost_but") {
                 var bands = new Array(7).fill(null).map((_, i) => (
                     { band: i, gain: 0.25 }

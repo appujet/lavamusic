@@ -1,7 +1,8 @@
 {
-  "name": "lavamusic",
+  "name": "splash-music-v2",
   "version": "1.0.6",
-  "description": "lavalink music bot base in erelajs",
+  "description": "A discord.js music bot based of lavalink from the lavamusic project",
+  "author": "Tibor Mercs",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js"
@@ -11,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brblacky/lavamusic.git"
+    "url": "git+https://github.com/Tibor309/splash-music-v2.git"
   },
   "keywords": [
     "lavalink",
@@ -20,12 +21,12 @@
     "bot",
     "discord-music",
     "discord",
-    "musicbot"
+    "musicbot",
+    "splash"
   ],
-  "author": "blacky",
   "license ": "MIT",
-  "bugs": "https://github.com/brblacky/lavamusic/issues",
-  "homepage": "https://github.com/brblacky/lavamusic#readme",
+  "bugs": "https://github.com/Tibor309/splash-music-v2/issues",
+  "homepage": "https://github.com/Tibor309/splash-music-v2#readme",
   "devDependencies": {
     "node": "^16.6.1"
  },

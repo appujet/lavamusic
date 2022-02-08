@@ -21,7 +21,7 @@ execute: async (message, args, client, prefix) => {
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription("There is no music playing.");
+                .setDescription("<:err:935798200869208074> There is no music playing.");
             return message.channel.send(thing);
         }
         const song = player.queue.current
@@ -30,7 +30,8 @@ execute: async (message, args, client, prefix) => {
         var current = player.position;
         
         let embed = new MessageEmbed()
-            .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\`- [${song.requester}] \n\n\`${progressbar(player)}\``)
+            .setAuthor({text:'Now playing', iconURL: 'https://i.imgur.com/mbqI9je.png'})
+            .setDescription(`[${song.title}](${song.uri}) \`${convertTime(song.duration)}\`\nRequested by: ${song.requester} \n\n\`${progressbar(player)}\``)
             .setThumbnail(song.displayThumbnail("3"))
             .setColor(client.embedColor)
             .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)

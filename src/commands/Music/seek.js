@@ -21,7 +21,7 @@ module.exports = {
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription("There is no music playing.");
+                .setDescription("<:err:935798200869208074> There is no music playing.");
             return message.reply({embeds: [thing]});
         }
 
@@ -38,14 +38,14 @@ module.exports = {
             if (time > position) {
                 player.seek(time);
                 let thing = new MessageEmbed()
-                    .setDescription(`${emojiforward} **Forward**\n[${song.title}](${song.uri})\n\`${convertTime(time)} / ${convertTime(duration)}\``)
+                    .setDescription(`${emojiforward} **Forwarded**\n[${song.title}](${song.uri})\n\`${convertTime(time)} / ${convertTime(duration)}\``)
                     .setColor(client.embedColor)
                     .setTimestamp()
                 return message.reply({embeds: [thing]});
             } else {
                 player.seek(time);
                 let thing = new MessageEmbed()
-                    .setDescription(`${emojirewind} **Rewind**\n[${song.title}](${song.uri})\n\`${convertTime(time)} / ${convertTime(duration)}\``)
+                    .setDescription(`${emojirewind} **Rewinded**\n[${song.title}](${song.uri})\n\`${convertTime(time)} / ${convertTime(duration)}\``)
                     .setColor(client.embedColor)
                     .setTimestamp()
           return message.reply({embeds: [thing]});
