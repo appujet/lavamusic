@@ -25,14 +25,14 @@ module.exports = {
         guild: message.guild.id,
         voiceChannel: channel.id,
         textChannel: message.channel.id,
-        volume: 80,
-        selfDeafen: true,
+        volume: 100,
+        selfDeafen: false,
       }) 
       if(player && player.state !== "CONNECTED") player.connect();
 
     const query = args.join(" ");
   
-    const msg = await message.channel.send({embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`<a:buffering:939097896589066300> Searching \`${query}\``)]})
+    const msg = await message.channel.send({embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`<a:buffering:935810969500798986> Searching \`${query}\``)]})
     
     const but = new MessageButton().setCustomId("s_one").setLabel("1").setStyle("SUCCESS");
     const but2 = new MessageButton().setCustomId("s_two").setLabel("2").setStyle("SUCCESS");
@@ -48,7 +48,7 @@ module.exports = {
         case "TRACK_LOADED":
             player.queue.add(s.tracks[0]);
             const embed = new MessageEmbed()
-             .setDescription(`${emojiplaylist} **Added [${s.tracks[0].title}](${s.tracks[0].uri})** \`${convertTime(s.tracks[0].duration, true)}\` **to queue by** ${s.tracks[0].requester}`)
+             .setDescription(`${emojiplaylist} **Added ${s.tracks[0].title}](${s.tracks[0].uri})** \`${convertTime(s.tracks[0].duration, true)}\` **to queue by** ${s.tracks[0].requester}`)
              .setColor(client.embedColor)
 
             msg.edit({ embeds: [embed] });
@@ -87,24 +87,24 @@ module.exports = {
                     player.queue.add(s.tracks[0]);
                         if(player && player.state === "CONNECTED" && !player.playing && !player.paused && !player.queue.size) await player.play();
  
-                        if(msg) await msg.edit({embeds: [search.setDescription(`${emojiplaylist} **Added** [${s.tracks[0].title}](${s.tracks[0].uri})** \`${convertTime(s.tracks[0].duration, true)}\` **to queue by** ${s.tracks[0].requester}`)]})
+                        if(msg) await msg.edit({embeds: [search.setDescription(`${emojiplaylist} **Added [${s.tracks[0].title}](${s.tracks[0].uri})** \`${convertTime(s.tracks[0].duration, true)}\` **to queue by** ${s.tracks[0].requester}`)]})
                 } else if(b.customId === "s_two") {
                     player.queue.add(s.tracks[1]);
                     if(player && player.state === "CONNECTED" && !player.playing && !player.paused && !player.queue.size) await player.play();
 
-                    if(msg) await msg.edit({embeds: [search.setDescription(`${emojiplaylist} **Added** [${s.tracks[1].title}](${s.tracks[1].uri})** \`${convertTime(s.tracks[1].duration, true)}\` **to queue by** ${s.tracks[1].requester}`)]})
+                    if(msg) await msg.edit({embeds: [search.setDescription(`${emojiplaylist} **Added [${s.tracks[1].title}](${s.tracks[1].uri})** \`${convertTime(s.tracks[1].duration, true)}\` **to queue by** ${s.tracks[1].requester}`)]})
             
                 } else if(b.customId === "s_three") {
                     player.queue.add(s.tracks[2]);
                     if(player && player.state === "CONNECTED" && !player.playing && !player.paused && !player.queue.size) await player.play();
 
-                    if(msg) await msg.edit({embeds: [search.setDescription(`${emojiplaylist} **Added** [${s.tracks[2].title}](${s.tracks[2].uri}) \`${convertTime(s.tracks[2].duration, true)}\` **to queue by** ${s.tracks[2].requester}`)]})
+                    if(msg) await msg.edit({embeds: [search.setDescription(`${emojiplaylist} **Added [${s.tracks[2].title}](${s.tracks[2].uri}) \`${convertTime(s.tracks[2].duration, true)}\` **to queue by** ${s.tracks[2].requester}`)]})
             
                 } else if(b.customId === "s_four") {
                     player.queue.add(s.tracks[3]);
                     if(player && player.state === "CONNECTED" && !player.playing && !player.paused && !player.queue.size) await player.play();
 
-                    if(msg) await msg.edit({embeds: [search.setDescription(`${emojiplaylist} **Added** [${s.tracks[3].title}](${s.tracks[3].uri}) \`${convertTime(s.tracks[3].duration, true)}\` **to queue by** ${s.tracks[3].requester}`)]})
+                    if(msg) await msg.edit({embeds: [search.setDescription(`${emojiplaylist} **Added [${s.tracks[3].title}](${s.tracks[3].uri}) \`${convertTime(s.tracks[3].duration, true)}\` **to queue by** ${s.tracks[3].requester}`)]})
             
                 } else if(b.customId === "s_five") {
                     player.queue.add(s.tracks[4]);
