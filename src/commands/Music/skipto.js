@@ -38,7 +38,7 @@ module.exports = {
 		const emojijump = client.emoji.jump;
 
 		let thing = new MessageEmbed()
-			.setDescription(`${emojijump} Skipped to **${position}** songs`)
+			.setDescription(`${emojijump} Skipped to **${position}** song`)
 			.setColor(client.embedColor)
 			.setTimestamp()
 			

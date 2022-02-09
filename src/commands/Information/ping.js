@@ -3,15 +3,14 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: "ping",
     category: "Information",
-    description: "Check Ping Bot",
+    description: "Check bot ping",
     args: false,
     usage: "",
     permission: [],
     owner: false,
     execute: async (message, args, client, prefix) => {
       
-  await message.reply({ content: "Pinging..." }).then(async (msg) => {
-  const ping = msg.createdAt - message.createdAt;
+  await message.reply({ content: "pinging..." }).then(async (msg) => {
   const api_ping = client.ws.ping;
 
   const PingEmbed = new MessageEmbed()

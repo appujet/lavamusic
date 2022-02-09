@@ -29,7 +29,7 @@ execute: async (message, args, client, prefix) => {
 		const emojiskip = message.client.emoji.skip;
 
 		let thing = new MessageEmbed()
-			.setDescription(`${emojiskip} **Skipped**\n[${song.title}](${song.uri})`)
+			.setDescription(`${emojiskip} **Skipped [${song.title}](${song.uri})**`)
 			.setColor(message.client.embedColor)
 			.setTimestamp()
 		return message.reply({embeds: [thing]}).then(msg => { setTimeout(() => {msg.delete()}, 3000);

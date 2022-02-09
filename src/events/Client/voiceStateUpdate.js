@@ -53,10 +53,9 @@ module.exports = {
     case "JOIN":
       if (stateChange.members.size === 1 && player.paused) {
         let emb = new MessageEmbed()
-          .setAuthor(`Resuming paused queue`)
           .setColor(client.embedColor)
           .setDescription(
-            `Resuming playback because all of you left me with music to play`
+            `<:music:939097896589066300> Resuming playback because all of you left me with music to play`
           );
         await client.channels.cache.get(player.textChannel).send({embeds: [emb]});
 
@@ -73,9 +72,8 @@ module.exports = {
         player.pause(true);
 
         let emb = new MessageEmbed()
-          .setAuthor({name: `Paused!`})
           .setColor(client.embedColor)
-          .setDescription(`The player has been paused because everybody left`);
+          .setDescription(`<:music:939097896589066300> The player has been paused because everybody left`);
         await client.channels.cache.get(player.textChannel).send({embeds: [emb]});
       }
       break;

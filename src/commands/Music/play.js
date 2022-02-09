@@ -28,8 +28,7 @@ module.exports = {
       guild: message.guild.id,
       voiceChannel: message.member.voice.channel.id,
       textChannel: message.channel.id,
-      selfDeafen: true,
-      volume: 80,
+      volume: 100,
     });
 
     if (player.state != "CONNECTED") await player.connect();
@@ -39,7 +38,7 @@ module.exports = {
     try {
       res = await player.search(search, message.author);
       if (!player)
-        return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription("<:err:935798200869208074> Nothing is playing right now...")] });
+        return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription("<:err:935798200869208074> Nothing is playing right now")] });
       if (res.loadType === 'LOAD_FAILED') {
         if (!player.queue.current) player.destroy();
         throw res.exception;
@@ -61,7 +60,7 @@ module.exports = {
             .setColor(client.embedColor)
             .setTimestamp()
             .setThumbnail(track.displayThumbnail("hqdefault"))
-            .setDescription(`${emojiaddsong} **Added song to queue**\n[${track.title}](${track.uri}) \`[${convertTime(track.duration)}]\``)
+            .setDescription(`${emojiaddsong} **Added [${track.title}](${track.uri})** \`${convertTime(track.duration)}\` **to queue**`)
           return message.channel.send({ embeds: [thing] });
         }
       case 'PLAYLIST_LOADED':
@@ -74,7 +73,7 @@ module.exports = {
             {name: 'Songs', value: `${res.tracks.length}`, inline: true},
             {name: 'Duration', value: `${convertTime(res.playlist.duration)}`, inline: true}
           )
-          .setDescription(`${emojiplaylist} **Added playlist to queue**\n[${res.playlist.name}](${search})`)
+          .setDescription(`${emojiplaylist} **Added [${res.playlist.name}](${search}) playlist to queue**`)
         return message.channel.send({ embeds: [thing] });
       case 'SEARCH_RESULT':
         var track = res.tracks[0];
@@ -86,7 +85,7 @@ module.exports = {
             .setColor(client.embedColor)
             .setTimestamp()
             .setThumbnail(track.displayThumbnail("hqdefault"))
-            .setDescription(`${emojiaddsong} **Added song to queue**\n[${track.title}](${track.uri}) \nDuration: \`${convertTime(track.duration)}\`\nRequested by: <@${track.requester.id}>`)
+            .setDescription(`${emojiaddsong} **Added [${track.title}](${track.uri})** \`${convertTime(track.duration)}\` **to queue by** <@${track.requester.id}>`)
           return message.channel.send({ embeds: [thing] });
         }
     }

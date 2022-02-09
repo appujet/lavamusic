@@ -4,7 +4,7 @@ module.exports = {
     name: "filters",
     category: "Music",
     aliases: ["eq", "equalizer"],
-    description: "Set EqualizerBand",
+    description: "Set Equalizer",
     args: false,
     usage: "",
     permission: [],
@@ -50,7 +50,7 @@ module.exports = {
         });
         collector.on("end", async () => {
             if (!m) return;
-            await m.edit({ embeds: [embed1.setDescription(`Time out, type ${prefix}filters again!`)] });
+            await m.edit({ embeds: [embed1.setDescription(`<:err:935798200869208074> Time out, type ${prefix}filters again!`)] });
         });
         collector.on("collect", async (b) => {
             if (!b.replied) await b.deferUpdate({ ephemeral: true });

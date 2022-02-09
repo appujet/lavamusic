@@ -29,7 +29,7 @@ module.exports = {
         if (!player.paused) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription(`${emojiresume} The player is already resumed`)
+                .setDescription(`<:err:935798200869208074> The player is already resumed`)
                 .setTimestamp()
           return message.reply({embeds: [thing]});
         }
@@ -37,7 +37,7 @@ module.exports = {
         player.pause(false);
 
         let thing = new MessageEmbed()
-            .setDescription(`${emojiresume} Resumed player`)
+            .setDescription(`${emojiresume} Resumed player\n[${song.title}](${song.uri})`)
             .setColor(client.embedColor)
             .setTimestamp()
         return message.reply({embeds: [thing]});

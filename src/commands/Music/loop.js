@@ -30,7 +30,7 @@ execute: async (message, args, client, prefix) => {
 			let thing = new MessageEmbed()
 				.setColor(message.client.embedColor)
 				.setTimestamp()
-				.setDescription(`${emojiloop} Loop queue is now **${queueRepeat}**`)
+				.setDescription(`${emojiloop} Looping queue is now **${queueRepeat}**`)
 		   return message.reply({embeds: [thing]});
         }
 
@@ -39,7 +39,7 @@ execute: async (message, args, client, prefix) => {
 		let thing = new MessageEmbed()
 			.setColor(message.client.embedColor)
 			.setTimestamp()
-			.setDescription(`${emojiloop} Loop track is now **${trackRepeat}**`)
+			.setDescription(`${emojiloop} Looping track is now **${trackRepeat}**`)
 		    return message.reply({embeds: [thing]});
     }
 };

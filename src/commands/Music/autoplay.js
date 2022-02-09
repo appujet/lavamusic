@@ -19,7 +19,7 @@ module.exports = {
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription("<:err:935798200869208074> There is no music playing.");
+                .setDescription("<:err:935798200869208074> There's no music playing.");
             return message.channel.send({embeds: [thing]});
         }
 
@@ -38,7 +38,7 @@ module.exports = {
             let thing = new MessageEmbed()
                 .setColor(message.client.embedColor)
                 .setTimestamp()
-                .setDescription(`${emojireplay} Autoplay is now enabled`)
+                .setDescription(`${emojireplay} Autoplay is now **enabled**`)
            return message.channel.send({embeds: [thing]});
         } else {
             player.set("autoplay", false);
@@ -46,7 +46,7 @@ module.exports = {
             let thing = new MessageEmbed()
                 .setColor(message.client.embedColor)
                 .setTimestamp()
-                .setDescription(`${emojireplay} Autoplay is now disabled`)
+                .setDescription(`${emojireplay} Autoplay is now **disabled**`)
                
             return message.channel.send({embeds: [thing]});
         }

@@ -31,10 +31,9 @@ execute: async (message, args, client, prefix) => {
         
         let embed = new MessageEmbed()
             .setAuthor({text:'Now playing', iconURL: 'https://i.imgur.com/mbqI9je.png'})
-            .setDescription(`[${song.title}](${song.uri}) \`${convertTime(song.duration)}\`\nRequested by: ${song.requester} \n\n\`${progressbar(player)}\``)
+            .setDescription(`[${song.title}](${song.uri}) \`${convertTime(song.duration)}\`\nRequested by: ${song.requester} \n\n \`${convertTime(current)}\` \`${progressbar(player)}\` \`${convertTime(total)}\``)
             .setThumbnail(song.displayThumbnail("3"))
             .setColor(client.embedColor)
-            .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
             return message.channel.send({embeds: [embed]})
 
     }

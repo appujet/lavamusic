@@ -7,7 +7,7 @@ module.exports = {
     name: "queue",
     category: "Music",
     aliases: ["q"],
-    description: "Show the music queue and now playing.",
+    description: "Shows the music queue and now playing.",
     args: false,
     usage: "",
     permission: [],
@@ -27,7 +27,7 @@ module.exports = {
                 const embed = new MessageEmbed()
                 .setColor(client.embedColor)
                 .setAuthor({name: `Music queue`, iconURL: 'https://i.imgur.com/5ALtDZZ.png'})
-                .setDescription(`Now playing \n[${player.queue.current.title}](${player.queue.current.uri}) \`${convertTime(queue.current.duration)}\` • ${player.queue.current.requester}`)
+                .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) \`${convertTime(queue.current.duration)}\` by ${player.queue.current.requester}`)
 
                 await message.channel.send({
                     embeds: [embed]
@@ -42,9 +42,9 @@ module.exports = {
                 if(player.queue.size < 11) {
                     const embed = new MessageEmbed()
                     .setColor(client.embedColor)
-                    .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) \`${convertTime(queue.current.duration)}\` • ${player.queue.current.requester}\n\n**Queued Songs**\n${pages[page]}`)
+                    .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) \`${convertTime(queue.current.duration)}\` by ${player.queue.current.requester}\n\n**Queued Songs**\n${pages[page]}`)
                     .setTimestamp()
-                    .setFooter({ text: `Page ${page + 1}/${pages.length}`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
+                    .setFooter({ text: `Page ${page + 1}/${pages.length}`})
                     .setThumbnail(player.queue.current.thumbnail)
                     .setAuthor({name: `Music queue`, iconURL: 'https://i.imgur.com/5ALtDZZ.png'})
 
@@ -54,7 +54,7 @@ module.exports = {
                 } else {
                     const embed2 = new MessageEmbed()
                     .setColor(client.embedColor)
-                    .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) \`${convertTime(queue.current.duration)}\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
+                    .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) \`${convertTime(queue.current.duration)}\` by [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
                     .setTimestamp()
                     .setFooter({ text: `Requested by ${message.author.tag}`, iconURL:  message.author.displayAvatarURL({ dynamic: true })})
                     .setThumbnail(player.queue.current.thumbnail)
@@ -92,7 +92,7 @@ module.exports = {
                             else {
                                 b.reply({
                                     ephemeral: true,
-                                    content: `<:err:935798200869208074> Only **${message.author.tag}** can use this button, if you want to, you've to run the command again.`
+                                    content: `<:err:935798200869208074> Only **${message.author.tag}** can use this button, if you want to, you've to run the command.`
                                 });
                                 return false;
                             };
@@ -126,7 +126,7 @@ module.exports = {
                             .setColor(client.embedColor)
                             .setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) \`${convertTime(queue.current.duration)}\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`)
                             .setTimestamp()
-                            .setFooter({ text: `Requested By ${message.author.tag}`, iconURL:  message.author.displayAvatarURL({ dynamic: true })})
+                            .setFooter({ text: `Requested by ${message.author.tag}`, iconURL:  message.author.displayAvatarURL({ dynamic: true })})
                             .setThumbnail(player.queue.current.thumbnail)
                             .setAuthor({name: `Music queue`, iconURL: 'https://i.imgur.com/5ALtDZZ.png'})
 

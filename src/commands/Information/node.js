@@ -28,7 +28,7 @@ module.exports = {
         ).join('\n\n----------------------------\n');
 
         const embed = new MessageEmbed()
-            .setAuthor({ name: 'Lavalink Node', iconURL: client.user.displayAvatarURL()})
+            .setAuthor({ name: 'Lavalink Node', iconURL: 'https://i.imgur.com/PiFG9ng.png'})
             .setDescription(`\`\`\`${all}\`\`\``)
             .setColor(client.embedColor)
         message.reply({embeds: [embed]})
