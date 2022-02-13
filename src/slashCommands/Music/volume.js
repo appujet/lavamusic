@@ -2,12 +2,12 @@ const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
 const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: i18n.__("cmd.volume.name"),
-  description: i18n.__("cmd.volume.des"),
+  name: i18n.__("cmd.vol.name"),
+  description: i18n.__("cmd.vol.des"),
   options: [
     {
-      name: i18n.__("cmd.volume.slash.name"),
-      description: i18n.__("cmd.volume.slash.des"),
+      name: i18n.__("cmd.vol.slash.name"),
+      description: i18n.__("cmd.vol.slash.des"),
       required: true,
       type: "NUMBER",
     },
@@ -46,8 +46,8 @@ module.exports = {
           new MessageEmbed()
             .setColor(client.embedColor)
             .setDescription(
-              `${i18n.__("cmd.volume.use1")} ${prefix}${i18n.__(
-                "cmd.volume.use"
+              `${i18n.__("cmd.vol.use1")} ${prefix}${i18n.__(
+                "cmd.vol.use"
               )}`
             ),
         ],
@@ -60,7 +60,7 @@ module.exports = {
           new MessageEmbed()
             .setColor(client.embedColor)
             .setDescription(
-              `${emojivolume} ${i18n.__("cmd.volume.embed")} **${volume}%**`
+              `${emojivolume} ${i18n.__("cmd.vol.embed")} **${volume}%**`
             ),
         ],
       });
@@ -70,8 +70,7 @@ module.exports = {
           new MessageEmbed()
             .setColor(client.embedColor)
             .setDescription(
-              `${emojivolume} ${i18n.__("cmd.volume.embed")} **${volume}%**`
-            ),
+              `${emojivolume} ${i18n.__("cmd.vol.embed")} **${volume}%**`),
         ],
       });
     else
@@ -79,9 +78,7 @@ module.exports = {
         embeds: [
           new MessageEmbed()
             .setColor(client.embedColor)
-            .setDescription(
-              `${emojivolume} ${i18n.__("cmd.volume.embed")} **${volume}%**`
-            ),
+            .setDescription(`${emojivolume} ${i18n.__("cmd.vol.embed")} **${volume}%**`),
         ],
       });
   },

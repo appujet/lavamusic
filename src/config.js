@@ -7,7 +7,7 @@ module.exports = {
     mongourl: process.env.MONGO_URI || "", // MongoDb URL
     embedColor: process.env.COlOR || "#303236", // embed colour
     logs: process.env.LOGS || "875254787191504947", // channel id for guild create and delete logs
-    langs: "en", // Default language 
+    langs:  process.env.LANGS || "en", 
 
     nodes: [
     {

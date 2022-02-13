@@ -5,10 +5,11 @@ const {
   MessageButton,
   MessageActionRow,
 } = require("discord.js");
+const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: "about",
-  description: "Show Lavamusic project information",
+  name: i18n.__("cmd.about.name"),
+  description: i18n.__("cmd.about.des"),
 
   /**
    *

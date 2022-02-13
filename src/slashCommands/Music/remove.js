@@ -6,8 +6,8 @@ module.exports = {
   description: i18n.__("cmd.remove.des"),
   options: [
     {
-      name: "number",
-      description: "Number of song in queue",
+      name: i18n.__("cmd.remove.slash.name"),
+      description: i18n.__("cmd.remove.slash.des"),
       required: true,
       type: "NUMBER",
     },

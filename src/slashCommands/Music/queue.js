@@ -1,11 +1,4 @@
-const {
-  Client,
-  CommandInteraction,
-  MessageEmbed,
-  MessageButton,
-  MessageActionRow,
-  ButtonInteraction,
-} = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
 const load = require("lodash");
 const { convertTime } = require("../../utils/convert.js");
 const i18n = require("../../utils/i18n");
@@ -31,7 +24,7 @@ module.exports = {
    */
 
   run: async (client, interaction) => {
-    await interaction.deferReply().catch(() => {});
+    await interaction.deferReply().catch(() => { });
 
     const player = interaction.client.manager.get(interaction.guildId);
 
@@ -176,7 +169,7 @@ module.exports = {
 
         collector.on("collect", async (button) => {
           if (button.customId === "queue_cmd_but_1_app") {
-            await button.deferUpdate().catch(() => {});
+            await button.deferUpdate().catch(() => { });
             page = page + 1 < pages.length ? ++page : 0;
 
             const embed4 = new MessageEmbed()
@@ -204,7 +197,7 @@ module.exports = {
               ],
             });
           } else if (button.customId === "queue_cmd_but_2_app") {
-            await button.deferUpdate().catch(() => {});
+            await button.deferUpdate().catch(() => { });
             page = page > 0 ? --page : pages.length - 1;
 
             const embed5 = new MessageEmbed()
@@ -232,7 +225,7 @@ module.exports = {
               ],
             });
           } else if (button.customId === "queue_cmd_but_3_app") {
-            await button.deferUpdate().catch(() => {});
+            await button.deferUpdate().catch(() => { });
             await collector.stop();
           } else return;
         });

@@ -8,10 +8,11 @@ const moment = require("moment");
 require("moment-duration-format");
 const os = require("os");
 const si = require("systeminformation");
+const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: "status",
-  description: "Show status bot",
+  name: i18n.__("cmd.status.name"),
+  description: i18n.__("cmd.status.des"),
   run: async (client, interaction) => {
     await interaction.deferReply({
       ephemeral: false,
@@ -49,11 +50,11 @@ module.exports = {
 > **• Total Memory** : ${(os.totalmem() / 1024 / 1024).toFixed(2)} Mbps
 > **• Free Memory** : ${(os.freemem() / 1024 / 1024).toFixed(2)} Mbps
 > **• Heap Total** : ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(
-      2
-    )} Mbps
+        2
+      )} Mbps
 > **• Heap Usage** : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(
-      2
-    )} Mbps
+        2
+      )} Mbps
 `);
     interaction.followUp({ embeds: [embed] });
   },

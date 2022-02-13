@@ -13,19 +13,11 @@ module.exports = {
       type: "STRING",
     },
   ],
-
+  permission: ["MANAGE_GUILD"],
   run: async (client, interaction, prefix) => {
     await interaction.deferReply({});
     const data = await db.findOne({ Guild: interaction.guildId });
     const pre = interaction.options.getString("prefix");
-    if (!interaction.member.permissions.has("MANAGE_GUILD"))
-      return await interaction.editReply({
-        embeds: [
-          new MessageEmbed()
-            .setColor(client.embedColor)
-            .setDescription(i18n.__("prams.manage")),
-        ],
-      });
 
     if (!pre[0]) {
       const embed = new MessageEmbed()

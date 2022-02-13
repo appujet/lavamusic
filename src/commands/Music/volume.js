@@ -2,12 +2,12 @@ const { MessageEmbed } = require("discord.js");
 const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: i18n.__("cmd.volume.name"),
-  aliases: i18n.__("cmd.volume.aliases"),
+  name: i18n.__("cmd.vol.name"),
+  aliases: i18n.__("cmd.vol.aliases"),
   category: "Music",
-  description: i18n.__("cmd.volume.des"),
+  description: i18n.__("cmd.vol.des"),
   args: false,
-  usage: i18n.__("cmd.volume.use"),
+  usage: i18n.__("cmd.vol.use"),
   permission: [],
   owner: false,
   player: true,
@@ -30,7 +30,7 @@ module.exports = {
         .setColor(client.embedColor)
         .setTimestamp()
         .setDescription(
-          `${volumeEmoji} ${i18n.__("cmd.volume.embed")} **${player.volume}%**`
+          `${volumeEmoji} ${i18n.__("cmd.vol.embed")} **${player.volume}%**`
         );
       return message.reply({ embeds: [thing] });
     }
@@ -41,7 +41,7 @@ module.exports = {
       let thing = new MessageEmbed()
         .setColor("RED")
         .setDescription(
-          `${i18n.__("cmd.volume.use1")} ${prefix}${i18n.__("cmd.volume.use")}`
+          `${i18n.__("cmd.vol.use1")} ${prefix}${i18n.__("cmd.vol.use")}`
         );
       return message.reply({ embeds: [thing] });
     }
@@ -54,7 +54,7 @@ module.exports = {
         .setColor(client.embedColor)
         .setTimestamp()
         .setDescription(
-          `${emojivolume} ${i18n.__("cmd.volume.embed")} **${volume}%**`
+          `${emojivolume} ${i18n.__("cmd.vol.embed")} **${volume}%**`
         );
       return message.reply({ embeds: [thing] });
     } else if (volume < player.volume) {
@@ -63,7 +63,7 @@ module.exports = {
         .setColor(client.embedColor)
         .setTimestamp()
         .setDescription(
-          `${emojivolume} ${i18n.__("cmd.volume.embed")} **${volume}%**`
+          `${emojivolume} ${i18n.__("cmd.vol.embed")} **${volume}%**`
         );
       return message.reply({ embeds: [thing] });
     } else {
@@ -71,7 +71,7 @@ module.exports = {
         .setColor(client.embedColor)
         .setTimestamp()
         .setDescription(
-          `${volumeEmoji} ${i18n.__("cmd.volume.embed")} **${volume}%**`
+          `${volumeEmoji} ${i18n.__("cmd.vol.embed")} **${volume}%**`
         );
       return message.reply({ embeds: [thing] });
     }

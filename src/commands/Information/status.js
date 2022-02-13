@@ -3,12 +3,13 @@ const moment = require("moment");
 require("moment-duration-format");
 const os = require("os");
 const si = require("systeminformation");
+const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: "status",
+  name: i18n.__("cmd.status.name"),
   category: "Information",
-  aliases: ["stats"],
-  description: "Show status bot",
+  description: i18n.__("cmd.status.des"),
+  aliases: i18n.__("cmd.status.aliases"),
   args: false,
   usage: "",
   permission: [],

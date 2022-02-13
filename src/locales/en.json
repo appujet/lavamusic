@@ -6,21 +6,45 @@
 		"addlist": "**Added playlist to queue**",
 		"nomusic": "There is no music playing.",
 		"anotherVc": "I'm already connected to <#{vc}> voice channel!",
-		"noVc": "You are not connect in any voice channel!"
+		"noVc": "You are not connect in any voice channel!",
+		"vcmust": "You must be in a voice channel!",
+		"samevc": "You must be in the same channel as",
+		"cmderr": "There was an error executing that command.\nI have contacted the owner of the bot to fix it immediately.",
+		"epause": "The player has been paused because everybody left",
+		"eresume": "Resuming playback because all of you left me with music to play all alone",
+		"track": {
+			"error": "❌ Error when loading song! Track is error",
+			"end": "**Music queue ended**",
+			"dc": "I've been disconnected from",
+			"move": "Player voice channel moved to "
+		}
+	},
+	"events": {
+		"msgcrt": {
+			"embed": "**› My prefix in this server is `{Pre}`**\n**› You can see my all commands type `{Pre}`help**",
+			"embed2": "I don't have **`SEND_MESSAGES`** permission in <#{channelId}> to execute this **`{cmdname}`** command.",
+			"embed3": "I don't have **`EMBED_LINKS`** permission to execute this **`${cmdname}`** command.",
+			"embed4": "You didn't provide any arguments,",
+			"embed5": "Error: I need `EMBED_LINKS` permission to work."
+		},
+		"inter": {
+			"noplayer": "There is no player for this guild",
+			"noparam": "There is no player for this guild",
+			"use": "to use this command!"
+		}
 	},
 	"prams": {
 		"connect": "I don't have enough permissions to execute this command! please give me permission CONNECT or SPEAK",
 		"vc": "I don't have enough permissions connect your vc please give me permission CONNECT or SPEAK",
-		"manage": "You must have `Manage Guild` permission to use this command."
+		"manage": "You must have `Manage Guild` permission to use this command.",
+		"prams": "You can't use this command."
 	},
 	"button": {
 		"invite": "Invite",
 		"support": "Support",
 		"github": "Github",
-		"wrongbut": "Only **{Tag}** can use this button, if you want then you've to run the command again."
-	},
-	"events": {
-
+		"wrongbut": "Only **{Tag}** can use this button, if you want then you've to run the command again.",
+		"vcmst": "You are not connected to {Vc} to use this buttons."
 	},
 	"cmd": {
 		"247": {
@@ -42,7 +66,7 @@
 				"h"
 			],
 			"use": "",
-			"title": "{bot} Help" ,
+			"title": "{bot} Help",
 			"main": " Hello **<@{user}>**, I am <@{bot}>.  \n\nA Discord Music Bot With Many Awesome Features, \nSupport Many Sources \n\n`🎵`•Music\n`ℹ️`•information\n`⚙️`•Config\n\n *Choose an category below button to see commands* \n\n",
 			"footer": "Requested By",
 			"label": "Home",
@@ -101,7 +125,7 @@
 				"p"
 			],
 			"use": "<YouTube URL | Video Name | Spotify URL>",
-			
+			"embed": "**Started Playing**",
 			"slash": {
 				"name": "input",
 				"des": "The search input (name/url)",
@@ -110,7 +134,6 @@
 				"embed": "**Added song to queue**",
 				"embed1": "**Playlist added to queue**"
 			}
-			
 		},
 		"autoplay": {
 			"name": "autoplay",
@@ -204,7 +227,11 @@
 			],
 			"use": "<Number of song in queue>",
 			"embed": "No songs at number {Number}.\nTotal Songs: ${Qsize}",
-			"embed2": " Removed\n[{SongTitle}]({SongUrl})"
+			"embed2": " Removed\n[{SongTitle}]({SongUrl})",
+			"slash": {
+				"name": "number",
+				"des": "Number of song in queue"
+			}
 		},
 		"resume": {
 			"name": "resume",
@@ -224,20 +251,17 @@
 			],
 			"use": "search ckay",
 			"embed": "Searching The song please wait",
-			"title":"Select the track that you want",
+			"title": "Select the track that you want",
 			"queue": "**Added to queue**",
 			"slash": {
 				"name": "input",
 				"des": "The search input (name/url)"
-
 			}
 		},
 		"seek": {
 			"name": "seek",
 			"des": "Seek the currently playing song",
-			"aliases": [
-				""
-			],
+			"aliases": [],
 			"use": "<10s || 10m || 10h>",
 			"embed": "Seek duration exceeds Song duration.\nSong duration:",
 			"rewind": "**Rewind**",
@@ -277,7 +301,6 @@
 			"slash": {
 				"name": "number",
 				"des": "give queue song number"
-				
 			}
 		},
 		"stop": {
@@ -289,7 +312,7 @@
 			"use": "",
 			"embed": " Stopped the music"
 		},
-		"volume": {
+		"vol": {
 			"name": "volume",
 			"des": "Change volume of currently playing music",
 			"aliases": [
@@ -299,8 +322,9 @@
 			"use": "volume <Number of volume between 0 - 100>",
 			"use1": "Usage",
 			"embed": "The current volume is:",
+			"embed2": "Cannot higher the player volume further more.",
 			"slash": {
-				"name": "Name",
+				"name": "name",
 				"des": "Give your volume number"
 			}
 		},
@@ -323,7 +347,8 @@
 			"name": "filters",
 			"des": "Set EqualizerBand",
 			"aliases": [
-				"eq", "equalizer"
+				"eq",
+				"equalizer"
 			],
 			"filinfo": "Choose what filter you want in the button",
 			"but1": "Clear",
@@ -347,7 +372,7 @@
 			"em8": "Bassboost mode is ON",
 			"em9": "Speed mode is ON",
 			"em10": "Vaporwave mode is ON",
-			"slash":{
+			"slash": {
 				"name": "filter",
 				"des": "Set EqualizerBand"
 			}
@@ -367,9 +392,14 @@
 			"slash": {
 				"name": "prefix",
 				"des": "give me new prefix"
-
 			}
+		},
+		"status": {
+			"name": "status",
+			"des": "Show status bot",
+			"aliases": [
+				"stats"
+			]
 		}
-		
 	}
 }

@@ -1,4 +1,5 @@
 const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
+const i18n = require("../../utils/i18n");
 
 module.exports = {
   name: i18n.__("cmd.skipto.name"),

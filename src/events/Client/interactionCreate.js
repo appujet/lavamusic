@@ -1,5 +1,6 @@
 const { CommandInteraction, Client } = require("discord.js")
 const pre = require("../../schema/prefix.js");
+const i18n = require("../../utils/i18n");
 
 module.exports = {
     name: "interactionCreate",
@@ -20,16 +21,16 @@ module.exports = {
 
             const player = interaction.client.manager.get(interaction.guildId);
             if (SlashCommands.player && !player) {
-                return await interaction.reply({ content: `There is no player for this guild.`, ephemeral: true });
+                return await interaction.reply({ content: `${i18n.__("events.inter.noplayer")}`, ephemeral: true });
             }
             if (!interaction.member.permissions.has(SlashCommands.permissions || [])) {
-                return await interaction.reply({ content: `You Need these Permissions \`${SlashCommands.permissions.join(", ")}\` to use this command!`, ephemeral: true })
+                return await interaction.reply({ content: `${i18n.__("events.inter.noparam")} \`${SlashCommands.permissions.join(", ")}\` ${i18n.__("events.inter.use")}`, ephemeral: true })
             }
             if (SlashCommands.inVoiceChannel && !interaction.member.voice.channel) {
-                return await interaction.reply({ content: `You must be in a voice channel!`, ephemeral: true });
+                return await interaction.reply({ content: `${i18n.__("player.vcmust")}`, ephemeral: true });
             }
             if (SlashCommands.sameVoiceChannel && interaction.member.voice.channel !== interaction.guild.me.voice.channel) {
-                return await interaction.editReply({ content: `You must be in the same channel as ${interaction.client.user}`, ephemeral: true });
+                return await interaction.editReply({ content: `${i18n.__("player.samevc")} ${interaction.client.user}`, ephemeral: true });
             }
 
             try {

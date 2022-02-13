@@ -5,8 +5,6 @@ const { langs } = require("../config");
 i18n.configure({
   locales: [
     "en",
-    "ar",
-    "sp"
   ],
   directory: join(__dirname, "..", "locales"),
   defaultLocale: "en",
