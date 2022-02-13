@@ -172,7 +172,7 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
 ## 🌎 Locales
 
 Currently available locales are:
-- English (en)
+- [x] English (en)
 - Check [Contributing](#-contributing) if you wish to help add more languages!
 - For languages please use [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) two letter format
 
