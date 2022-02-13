@@ -195,7 +195,7 @@
 			"name": "pause",
 			"des": "Pause the currently playing music",
 			"aliases": [
-				""
+			
 			],
 			"use": "",
 			"embed": "The player is already paused",
@@ -205,7 +205,7 @@
 			"name": "queue",
 			"des": "Show the music queue and now playing.",
 			"aliases": [
-				""
+				
 			],
 			"use": "",
 			"embed": "Now playing [{SongTitle}]({SongUrl}) - `[ {SongTime} ]`  <@{SongReq}>",
@@ -223,7 +223,6 @@
 			"name": "remove",
 			"des": "Remove song from the queue",
 			"aliases": [
-				""
 			],
 			"use": "<Number of song in queue>",
 			"embed": "No songs at number {Number}.\nTotal Songs: ${Qsize}",
@@ -237,7 +236,6 @@
 			"name": "resume",
 			"des": "Resumed the currently playing music",
 			"aliases": [
-				""
 			],
 			"use": "",
 			"embed": "The player is already resumed",
@@ -247,7 +245,6 @@
 			"name": "search",
 			"des": "Resumed the currently playing music",
 			"aliases": [
-				""
 			],
 			"use": "search ckay",
 			"embed": "Searching The song please wait",
@@ -275,7 +272,6 @@
 			"name": "suffle",
 			"des": "Shuffle queue",
 			"aliases": [
-				""
 			],
 			"use": "",
 			"embed": "Shuffled the queue"
@@ -284,7 +280,6 @@
 			"name": "skip",
 			"des": "Skip the currently playing song",
 			"aliases": [
-				""
 			],
 			"use": "",
 			"embed": "Skipped"
@@ -307,7 +302,6 @@
 			"name": "stop",
 			"des": "Stops the music",
 			"aliases": [
-				""
 			],
 			"use": "",
 			"embed": " Stopped the music"
@@ -398,7 +392,7 @@
 			"name": "status",
 			"des": "Show status bot",
 			"aliases": [
-				"stats"
+				"info"
 			]
 		}
 	}
