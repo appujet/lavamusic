@@ -161,8 +161,8 @@ Then Turn On Both Of Those Settings And Click "Save Changes" Then Your Are Done 
 If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 ## 💌 Support Server
-[![DiscordBanner](https://invidget.switchblade.xyz/YvR5ZXfmNj)](https://discord.gg/YvR5ZXfmNj)
-[Support Server](https://discord.gg/YvR5ZXfmNj) - lavamusic's Support Server Invite
+[![DiscordBanner](https://invidget.switchblade.xyz/dBGt8HcEYA)](https://discord.gg/dBGt8HcEYA)
+[Support Server](https://discord.gg/dBGt8HcEYA) - lavamusic's Support Server Invite
 
 # Donate
 
