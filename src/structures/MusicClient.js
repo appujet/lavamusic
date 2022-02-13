@@ -86,6 +86,8 @@ class MusicBot extends Client {
  */
    readdirSync("./src/events/Client/").forEach(file => {
     const event = require(`../events/Client/${file}`);
+    let eventName = file.split(".")[0];
+    this.logger.log(`Loading Events ${eventName}`, "event");
     this.on(event.name, (...args) => event.run(this, ...args));
 });
 /**

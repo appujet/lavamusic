@@ -1,66 +1,71 @@
-const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const db = require("../../schema/prefix.js");
+const i18n = require("../../utils/i18n");
 
 module.exports = {
-    name: "setprefix",
-    description: "Set Custom Prefix",
-    options: [
+  name: i18n.__("cmd.prefix.name"),
+  description: i18n.__("cmd.prefix.des"),
+  options: [
     {
-      name: "prefix",
-      description: "give me new prefix",
+      name: i18n.__("cmd.prefix.slash.name"),
+      description: i18n.__("cmd.prefix.slash.des"),
       required: true,
-      type: "STRING"
-		}
-	],
+      type: "STRING",
+    },
+  ],
 
-  
-   run: async (client, interaction, prefix) => {
-   await interaction.deferReply({
-        });
-   const data = await db.findOne({ Guild: interaction.guildId});
-   const pre = interaction.options.getString("prefix");
-   if (!interaction.member.permissions.has('MANAGE_GUILD')) return await interaction.editReply({ ephemeral: true, embeds: [new MessageEmbed().setColor(client.embedColor).setDescription("You must have `Manage Guild` permission to use this command.")]
-    }).catch(() => {});
+  run: async (client, interaction, prefix) => {
+    await interaction.deferReply({});
+    const data = await db.findOne({ Guild: interaction.guildId });
+    const pre = interaction.options.getString("prefix");
+    if (!interaction.member.permissions.has("MANAGE_GUILD"))
+      return await interaction.editReply({
+        embeds: [
+          new MessageEmbed()
+            .setColor(client.embedColor)
+            .setDescription(i18n.__("prams.manage")),
+        ],
+      });
 
-  if (!pre[0]) {
-    const embed = new MessageEmbed()
-        .setDescription("Please give the prefix that you want to set")
-        .setColor(client.embedColor)
+    if (!pre[0]) {
+      const embed = new MessageEmbed()
+        .setDescription(i18n.__("cmd.prefix.embed"))
+        .setColor(client.embedColor);
       return await interaction.editReply({ embeds: [embed] });
     }
     if (pre[1]) {
-       const embed = new MessageEmbed()
-        .setDescription("You can not set prefix a double argument")
-        .setColor(client.embedColor)
+      const embed = new MessageEmbed()
+        .setDescription(i18n.__("cmd.prefix.embed2"))
+        .setColor(client.embedColor);
       return await interaction.editReply({ embeds: [embed] });
     }
     if (pre[0].length > 3) {
-       const embed = new MessageEmbed()
-        .setDescription("You can not send prefix more than 3 characters")
-        .setColor(client.embedColor)
+      const embed = new MessageEmbed()
+        .setDescription(i18n.__("cmd.prefix.embed3"))
+        .setColor(client.embedColor);
       return await interaction.editReply({ embeds: [embed] });
     }
-    if(data) {
+    if (data) {
       data.oldPrefix = prefix;
       data.Prefix = pre;
-      await data.save()
-    const update = new MessageEmbed()
-    .setDescription(`Your prefix has been updated to **${pre}**`)
-    .setColor(client.embedColor)
-    .setTimestamp()
-    return await interaction.editReply({embeds: [update]});
-   } else {
-    const newData = new db({
-       Guild : interaction.guildId,
-       Prefix : pre,
-       oldPrefix: prefix
+      await data.save();
+      const update = new MessageEmbed()
+        .setDescription(`${i18n.__("cmd.prefix.embed4")} **${pre}**`)
+        .setColor(client.embedColor)
+        .setTimestamp();
+      return await interaction.editReply({ embeds: [update] });
+    } else {
+      const newData = new db({
+        Guild: interaction.guildId,
+        Prefix: pre,
+        oldPrefix: prefix,
       });
-      await newData.save()
-    const embed = new MessageEmbed()
-    .setDescription(`Custom prefix in this server is now set to **${pre}**`)
-    .setColor(client.embedColor)
-    .setTimestamp()
-    return await interaction.editReply({embeds: [embed]});
-   }
- }
-}
+      await newData.save();
+      const embed = new MessageEmbed()
+        .setDescription(`${i18n.__("cmd.prefix.embed5")} **${pre}**`)
+        .setColor(client.embedColor)
+        .setTimestamp();
+      return await interaction.editReply({ embeds: [embed] });
+    }
+  },
+};

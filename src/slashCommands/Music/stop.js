@@ -1,45 +1,45 @@
-const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
+const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
+const i18n = require("../../utils/i18n");
 
 module.exports = {
-    name: "stop",
-    description: "Stops the music",
+  name: i18n.__("cmd.stop.name"),
+  description: i18n.__("cmd.stop.des"),
+  player: true,
+  inVoiceChannel: true,
+  sameVoiceChannel: true,
+  /**
+   *
+   * @param {Client} client
+   * @param {CommandInteraction} interaction
+   */
 
-    /**
-     * 
-     * @param {Client} client 
-     * @param {CommandInteraction} interaction 
-     */
+  run: async (client, interaction) => {
+    await interaction.deferReply({
+      ephemeral: false,
+    });
 
-    run: async (client, interaction) => {
-        await interaction.deferReply({
-          ephemeral: false
-        });
-      if(!interaction.member.voice.channel) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription("You are not connect in vc")]});
-      if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription(`You are not connected to <#${interaction.guild.me.voice.channelId}> to use this command.`)]});
+    const player = interaction.client.manager.get(interaction.guildId);
+    if (!player.queue.current) {
+      let thing = new MessageEmbed()
+        .setColor("RED")
+        .setDescription(i18n.__("player.nomusic"));
+      return interaction.editReply({ embeds: [thing] });
+    }
 
-        const player = interaction.client.manager.get(interaction.guildId);
-          if (!player.queue.current) {
-            let thing = new MessageEmbed()
-                .setColor("RED")
-                .setDescription("There is no music playing.");
-            return interaction.editReply({embeds: [thing]});
-        }
+    const autoplay = player.get("autoplay");
+    if (autoplay === true) {
+      player.set("autoplay", false);
+    }
 
-        const autoplay = player.get("autoplay")
-        if (autoplay === true) {
-            player.set("autoplay", false);
-        }
+    player.stop();
+    player.queue.clear();
 
-        player.stop();
-        player.queue.clear();
+    const emojistop = client.emoji.stop;
 
-        const emojistop = client.emoji.stop;
-
-		let thing = new MessageEmbed()
-            .setColor(client.embedColor)
-            .setTimestamp()
-            .setDescription(`${emojistop} Stopped the music`)
-        return interaction.editReply({embeds: [thing]});
-	
-  	}
+    let thing = new MessageEmbed()
+      .setColor(client.embedColor)
+      .setTimestamp()
+      .setDescription(`${emojistop} ${i18n.__("cmd.stop.embed")}`);
+    return interaction.editReply({ embeds: [thing] });
+  },
 };

@@ -79,7 +79,7 @@ module.exports = {
     if (command.sameVoiceChannel) {
     if(message.guild.me.voice.channel) {
         if (message.guild.me.voice.channelId !== message.member.voice.channelId) {
-            embed.setDescription(`You must be in the same channel as ${message.client.user}!`);
+            embed.setDescription(`You must be in the same channel as ${message.guild.me.voice.channel}!`);
             return message.channel.send({embeds: [embed]});
         }
     }

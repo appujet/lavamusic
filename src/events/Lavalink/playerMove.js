@@ -22,4 +22,4 @@ module.exports = async (client, player, oldChannel, newChannel) => {
         if(player.paused) player.pause(false);
       }
 
-}
+};

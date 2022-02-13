@@ -1,51 +1,53 @@
-const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
+const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
+const i18n = require("../../utils/i18n");
 
 module.exports = {
-    name: "pause",
-    description: "Pause the currently playing music",
+  name: i18n.__("cmd.pause.name"),
+  description: i18n.__("cmd.pause.des"),
+  player: true,
+  inVoiceChannel: true,
+  sameVoiceChannel: true,
 
-	
-    /**
-     * 
-     * @param {Client} client 
-     * @param {CommandInteraction} interaction 
-     */
+  /**
+   *
+   * @param {Client} client
+   * @param {CommandInteraction} interaction
+   */
 
-    run: async (client, interaction) => {
-        await interaction.deferReply({
-          ephemeral: false
-        });
-      if(!interaction.member.voice.channel) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription("You are not connect in vc")]});
-      if(interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply({embeds: [new MessageEmbed ().setColor(client.embedColor).setDescription(`You are not connected to <#${interaction.guild.me.voice.channelId}> to use this command.`)]});
+  run: async (client, interaction) => {
+    await interaction.deferReply({});
+    const player = interaction.client.manager.get(interaction.guildId);
 
-        const player = interaction.client.manager.get(interaction.guildId);
-
-        if (!player.queue.current) {
-            let thing = new MessageEmbed()
-                .setColor("RED")
-                .setDescription("There is no music playing.");
-            return interaction.editReply({embeds: [thing]});
-        }
-
-        const emojipause = client.emoji.pause;
-
-        if (player.paused) {
-            let thing = new MessageEmbed()
-                .setColor("RED")
-                .setDescription(`${emojipause} The player is already paused.`)
-                .setTimestamp()
-                return interaction.editReply({embeds: [thing]});
-        }
-
-        player.pause(true);
-
-        const song = player.queue.current;
-
-        let thing = new MessageEmbed()
-            .setColor(client.embedColor)
-            .setTimestamp()
-            .setDescription(`${emojipause} **Paused**\n[${song.title}](${song.uri})`)
-          return interaction.editReply({embeds: [thing]});
-	
+    if (!player.queue.current) {
+      let thing = new MessageEmbed()
+        .setColor("RED")
+        .setDescription(i18n.__("player.noplayer"));
+      return interaction.editReply({ embeds: [thing] });
     }
+
+    const emojipause = client.emoji.pause;
+
+    if (player.paused) {
+      let thing = new MessageEmbed()
+        .setColor("RED")
+        .setDescription(`${emojipause} ${i18n.__("cmd.pause.embed")}`)
+        .setTimestamp();
+      return interaction.editReply({ embeds: [thing] });
+    }
+
+    await player.pause(true);
+
+    const song = player.queue.current;
+
+    let thing = new MessageEmbed()
+      .setColor(client.embedColor)
+      .setTimestamp()
+      .setDescription(
+        `${emojipause} ${i18n.__mf("cmd.pause.embed2", {
+          SongTitle: song.title,
+          SongUrl: song.uri,
+        })}`
+      );
+    return interaction.editReply({ embeds: [thing] });
+  },
 };
