@@ -30,7 +30,7 @@ module.exports = {
                 return await interaction.reply({ content: `${i18n.__("player.vcmust")}`, ephemeral: true });
             }
             if (SlashCommands.sameVoiceChannel && interaction.member.voice.channel !== interaction.guild.me.voice.channel) {
-                return await interaction.editReply({ content: `${i18n.__("player.samevc")} ${interaction.client.user}`, ephemeral: true });
+                return await interaction.reply({ content: `${i18n.__("player.samevc")} ${interaction.client.user}`, ephemeral: true });
             }
 
             try {
