@@ -39,7 +39,7 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 
 
 ## 🎭 Features
-
+- [x] Multi languages
 - [x] Music
 - [x] 24/7
 - [x] SlashCommand
