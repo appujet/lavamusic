@@ -12,7 +12,7 @@ module.exports = {
   
   
      const all = client.manager.nodes.map(node => 
-            `Node ${(node.options.identifier)} Connected` +
+            `Connected Node: ${(node.options.identifier)}` +
             `\nPlayer: ${node.stats.players}` +
             `\nPlaying Players: ${node.stats.playingPlayers}` +
             `\nUptime: ${new Date(node.stats.uptime).toISOString().slice(11, 19)}` +

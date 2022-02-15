@@ -7,7 +7,7 @@ module.exports = {
   aliases: ["p"],
   description: "Plays audio from YouTube or Soundcloud",
   args: true,
-  usage: "<YouTube URL | Video Name | Spotify URL>",
+  usage: "<url>",
   permission: [],
   owner: false,
   player: false,
@@ -59,8 +59,8 @@ module.exports = {
           const thing = new MessageEmbed()
             .setColor(client.embedColor)
             .setTimestamp()
-            .setThumbnail(track.displayThumbnail("hqdefault"))
-            .setDescription(`${emojiaddsong} **Added [${track.title}](${track.uri})** \`${convertTime(track.duration)}\` **to queue**`)
+            //.setThumbnail(track.displayThumbnail("hqdefault"))
+            .setDescription(`${emojiaddsong} **Added  song to queue**\n[${track.title}](${track.uri})** \`${convertTime(track.duration)}\``)
           return message.channel.send({ embeds: [thing] });
         }
       case 'PLAYLIST_LOADED':
@@ -70,10 +70,10 @@ module.exports = {
           .setColor(client.embedColor)
           .setTimestamp()
           .addFields(
-            {name: 'Songs', value: `${res.tracks.length}`, inline: true},
-            {name: 'Duration', value: `${convertTime(res.playlist.duration)}`, inline: true}
+            {name: 'Songs', value: `${res.tracks.length} songs`, inline: true},
+            {name: 'Duration', value: `\`${convertTime(res.playlist.duration)}\``, inline: true}
           )
-          .setDescription(`${emojiplaylist} **Added [${res.playlist.name}](${search}) playlist to queue**`)
+          .setDescription(`${emojiplaylist} **Added playlist to queue**\n[${res.playlist.name}](${search})`)
         return message.channel.send({ embeds: [thing] });
       case 'SEARCH_RESULT':
         var track = res.tracks[0];
@@ -84,8 +84,8 @@ module.exports = {
           const thing = new MessageEmbed()
             .setColor(client.embedColor)
             .setTimestamp()
-            .setThumbnail(track.displayThumbnail("hqdefault"))
-            .setDescription(`${emojiaddsong} **Added [${track.title}](${track.uri})** \`${convertTime(track.duration)}\` **to queue by** <@${track.requester.id}>`)
+            //.setThumbnail(track.displayThumbnail("hqdefault"))
+            .setDescription(`${emojiaddsong} **Added  song to queue by** <@${track.requester.id}>\n[${track.title}](${track.uri}) \`${convertTime(track.duration)}\``)
           return message.channel.send({ embeds: [thing] });
         }
     }

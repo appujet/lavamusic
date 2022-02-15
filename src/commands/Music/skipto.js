@@ -28,7 +28,7 @@ module.exports = {
 		if (!position || position < 0 || position > player.queue.size) { 
 			let thing = new MessageEmbed()
                 .setColor("RED")
-				.setDescription(`<:err:935798200869208074> Usage: ${message.client.prefix}skipto <Number of song in queue>`)
+				.setDescription(`<:err:935798200869208074> Usage: ${message.client.prefix}skipto <number of song in queue>`)
             return message.reply({embeds: [thing]});
 		}
 
