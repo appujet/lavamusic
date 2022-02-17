@@ -25,6 +25,7 @@ module.exports = {
 
   run: async (client, interaction) => {
     await interaction.deferReply().catch(() => { });
+    const song = player.queue.current;
 
     const player = interaction.client.manager.get(interaction.guildId);
 
