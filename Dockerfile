@@ -1,5 +1,5 @@
 FROM node:16
-WORKDIR /opt/splash-music-v2/
+WORKDIR /opt/lavamusic/
 
 # Copy dependencies first to improve layer caching
 COPY package*.json ./

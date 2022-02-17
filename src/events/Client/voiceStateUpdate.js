@@ -1,6 +1,8 @@
 const { MusicBot } = require("../../structures/MusicClient");
 const { VoiceState, MessageEmbed } = require("discord.js");
-/*
+const i18n = require("../../utils/i18n");
+
+/**
  *
  * @param {MusicBot} client
  * @param {VoiceState} oldState
@@ -53,9 +55,10 @@ module.exports = {
     case "JOIN":
       if (stateChange.members.size === 1 && player.paused) {
         let emb = new MessageEmbed()
+          .setAuthor(`Resuming paused queue`)
           .setColor(client.embedColor)
           .setDescription(
-            `<:music:939097896589066300> Resuming playback because all of you left me with music to play`
+            `${i18n.__("player.eresume")}`
           );
         await client.channels.cache.get(player.textChannel).send({embeds: [emb]});
 
@@ -72,8 +75,9 @@ module.exports = {
         player.pause(true);
 
         let emb = new MessageEmbed()
+          .setAuthor({name: `Paused!`})
           .setColor(client.embedColor)
-          .setDescription(`<:music:939097896589066300> The player has been paused because everybody left`);
+          .setDescription(`${i18n.__("player.epause")}`);
         await client.channels.cache.get(player.textChannel).send({embeds: [emb]});
       }
       break;

@@ -1,5 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { Player } = require("erela.js");
+const i18n = require("../../utils/i18n");
     /**
      * 
      * @param {Player} player 
@@ -13,13 +14,13 @@ module.exports = async (client, player, oldChannel, newChannel) => {
         if(oldChannel === newChannel) return;
         if(newChannel === null || !newChannel) {
         if(!player) return;
-        if(channel) await  channel.send({ embeds: [new MessageEmbed().setColor(message.client.embedColor).setDescription(`<:voice:935490659681447937> Disconnected from <#${oldChannel}>`)]})
+        if(channel) await  channel.send({ embeds: [new MessageEmbed().setDescription(`${i18n.__("player.track.dc")} <#${oldChannel}>`)]})
          return player.destroy();
       } else {
         player.voiceChannel = newChannel;
         
-        if(channel) await channel.send({embeds: [new MessageEmbed().setColor(message.client.embedColor).setDescription(`<:voice:935490659681447937> Player moved to <#${player.voiceChannel}>`)]});
+        if(channel) await channel.send({embeds: [new MessageEmbed().setDescription(`${i18n.__("player.track.move")} <#${player.voiceChannel}>`)]});
         if(player.paused) player.pause(false);
       }
 
-}
+};

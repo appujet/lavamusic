@@ -1,40 +1,50 @@
 const { MessageEmbed } = require("discord.js");
-const { convertTime } = require('../../utils/convert.js');
-const { progressbar } = require('../../utils/progressbar.js')
+const { convertTime } = require("../../utils/convert.js");
+const { progressbar } = require("../../utils/progressbar.js");
+const i18n = require("../../utils/i18n");
 
 module.exports = {
-    name: "nowplaying",
-    aliases: ["np"],
-    category: "Music",
-    description: "Show now playing song",
-    args: false,
-    usage: "",
-    permission: [],
-    owner: false,
-    player: true,
-    inVoiceChannel: false,
-    sameVoiceChannel: false,
-execute: async (message, args, client, prefix) => {
-  
-        const player = message.client.manager.get(message.guild.id);
+  name: i18n.__("cmd.nowplaying.name"),
+  aliases: i18n.__("cmd.nowplaying.aliases"),
+  category: "Music",
+  description: i18n.__("cmd.nowplaying.des"),
+  args: false,
+  usage: i18n.__("cmd.nowplaying.use"),
+  permission: [],
+  owner: false,
+  player: true,
+  inVoiceChannel: false,
+  sameVoiceChannel: false,
+  execute: async (message, args, client, prefix) => {
+    const player = message.client.manager.get(message.guild.id);
 
-        if (!player.queue.current) {
-            let thing = new MessageEmbed()
-                .setColor("RED")
-                .setDescription("<:err:935798200869208074> There is no music playing.");
-            return message.channel.send(thing);
-        }
-        const song = player.queue.current
-        const emojimusic = client.emoji.music;
-        var total = song.duration;
-        var current = player.position;
-        
-        let embed = new MessageEmbed()
-            .setAuthor({text:'Now playing', iconURL: 'https://i.imgur.com/mbqI9je.png'})
-            .setDescription(`[${song.title}](${song.uri}) \`${convertTime(song.duration)}\`\nRequested by: ${song.requester} \n\n \`${convertTime(current)}\` \`${progressbar(player)}\` \`${convertTime(total)}\``)
-            .setThumbnail(song.displayThumbnail("3"))
-            .setColor(client.embedColor)
-            return message.channel.send({embeds: [embed]})
-
+    if (!player.queue.current) {
+      let thing = new MessageEmbed()
+        .setColor("RED")
+        .setDescription(i18n.__("player.noplayer"));
+      return message.channel.send({ embeds: [thing] });
     }
-}
+    const song = player.queue.current;
+    const emojimusic = client.emoji.music;
+    var total = song.duration;
+    var current = player.position;
+
+    let embed = new MessageEmbed()
+      .setDescription(
+        `${emojimusic} ${i18n.__mf("cmd.nowplaying.embed", {
+          SongTitle: song.title,
+          SongUrl: song.uri,
+          SongTime: convertTime(song.duration),
+          SongReq: song.requester,
+          Bar: progressbar(player),
+        })}`
+      )
+      .setThumbnail(song.displayThumbnail("3"))
+      .setColor(client.embedColor)
+      .addField(
+        "\u200b",
+        `\`${convertTime(current)} / ${convertTime(total)}\``
+      );
+    return message.channel.send({ embeds: [embed] });
+  },
+};

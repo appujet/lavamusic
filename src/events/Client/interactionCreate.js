@@ -1,57 +1,53 @@
-const { MessageEmbed, Client } = require("discord.js")
-const pre= require("../../schema/prefix.js");
+const { CommandInteraction, Client } = require("discord.js")
+const pre = require("../../schema/prefix.js");
+const i18n = require("../../utils/i18n");
 
 module.exports = {
     name: "interactionCreate",
+/**
+ * 
+ * @param {Client} client 
+ * @param {CommandInteraction} interaction 
+ */
+
     run: async (client, interaction) => {
-   
-    let prefix = client.prefix;
-    const ress =  await pre.findOne({Guild: interaction.guildId})
-    if(ress && ress.Prefix)prefix = ress.Prefix;
-     
-     if(interaction.isCommand()) {
 
-        const SlashCommands = client.slashCommands.get(interaction.commandName);
-        if(!SlashCommands) return;
-        
-        if (SlashCommands.owner && interaction.author.id !== `${client.owner}`) {
-          await interaction.editReply({
-          content: `Only <@491577179495333903> can use this command!`
-        }).catch(() => {});
-        }
-        const player = interaction.client.manager.get(interaction.guildId);
+        let prefix = client.prefix;
+        const ress = await pre.findOne({ Guild: interaction.guildId })
+        if (ress && ress.Prefix) prefix = ress.Prefix;
+        if (interaction.isCommand() || interaction.isContextMenu()) {
+            const SlashCommands = client.slashCommands.get(interaction.commandName);
+            if (!SlashCommands) return;
 
-        if (SlashCommands.player && !player) {
-          await interaction.editReply({
-                    content: `There is no player for this guild.`
-                }).catch(() => {});
-        }
-        if (SlashCommands.inVoiceChannel && !interaction.member.voice.channel) { 
-          await interaction.editReply({
-          content: `You must be in a voice channel!`
-        }).catch(() => {});
-        }
-        if (SlashCommands.sameVoiceChannel && interaction.member.voice.channel !== interaction.guild.me.voice.channel) { 
-           await interaction.editReply({
-                    content: `You must be in the same channel as ${interaction.client.user}`
-                }).catch(() => {}); 
-         }
-                
-        try {
-            await SlashCommands.run(client, interaction, prefix);
-        } catch (error) {
-            if(interaction.replied) {
-                await interaction.editReply({
-                    content: `An unexcepted error occured.`
-                }).catch(() => {});
-            } else {
-                await interaction.followUp({
-                    ephemeral: true,
-                    content: `An unexcepted error occured.`
-                }).catch(() => {});
+            const player = interaction.client.manager.get(interaction.guildId);
+            if (SlashCommands.player && !player) {
+                return await interaction.reply({ content: `${i18n.__("events.inter.noplayer")}`, ephemeral: true });
             }
-            console.error(error);
-        };
-    } else return;
-  }    
+            if (!interaction.member.permissions.has(SlashCommands.permissions || [])) {
+                return await interaction.reply({ content: `${i18n.__("events.inter.noparam")} \`${SlashCommands.permissions.join(", ")}\` ${i18n.__("events.inter.use")}`, ephemeral: true })
+            }
+            if (SlashCommands.inVoiceChannel && !interaction.member.voice.channel) {
+                return await interaction.reply({ content: `${i18n.__("player.vcmust")}`, ephemeral: true });
+            }
+            if (SlashCommands.sameVoiceChannel && interaction.member.voice.channel !== interaction.guild.me.voice.channel) {
+                return await interaction.reply({ content: `${i18n.__("player.samevc")} ${interaction.client.user}`, ephemeral: true });
+            }
+
+            try {
+                await SlashCommands.run(client, interaction, prefix);
+            } catch (error) {
+                if (interaction.replied) {
+                    await interaction.editReply({
+                        content: `An unexcepted error occured.`
+                    }).catch(() => { });
+                } else {
+                    await interaction.followUp({
+                        ephemeral: true,
+                        content: `An unexcepted error occured.`
+                    }).catch(() => { });
+                }
+                console.error(error);
+            };
+        } else return;
+    }
 };

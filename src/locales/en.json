@@ -1,0 +1,399 @@
+{
+	"player": {
+		"noplayer": "Nothing is playing right now...",
+		"addq": "**Added song to queue**",
+		"song": "Song",
+		"addlist": "**Added playlist to queue**",
+		"nomusic": "There is no music playing.",
+		"anotherVc": "I'm already connected to <#{vc}> voice channel!",
+		"noVc": "You are not connect in any voice channel!",
+		"vcmust": "You must be in a voice channel!",
+		"samevc": "You must be in the same channel as",
+		"cmderr": "There was an error executing that command.\nI have contacted the owner of the bot to fix it immediately.",
+		"epause": "The player has been paused because everybody left",
+		"eresume": "Resuming playback because all of you left me with music to play all alone",
+		"track": {
+			"error": "❌ Error when loading song! Track is error",
+			"end": "**Music queue ended**",
+			"dc": "I've been disconnected from",
+			"move": "Player voice channel moved to "
+		}
+	},
+	"events": {
+		"msgcrt": {
+			"embed": "**› My prefix in this server is `{Pre}`**\n**› You can see my all commands type `{Pre}`help**",
+			"embed2": "I don't have **`SEND_MESSAGES`** permission in <#{channelId}> to execute this **`{cmdname}`** command.",
+			"embed3": "I don't have **`EMBED_LINKS`** permission to execute this **`${cmdname}`** command.",
+			"embed4": "You didn't provide any arguments,",
+			"embed5": "Error: I need `EMBED_LINKS` permission to work."
+		},
+		"inter": {
+			"noplayer": "There is no player for this guild",
+			"noparam": "There is no player for this guild",
+			"use": "to use this command!"
+		}
+	},
+	"prams": {
+		"connect": "I don't have enough permissions to execute this command! please give me permission CONNECT or SPEAK",
+		"vc": "I don't have enough permissions connect your vc please give me permission CONNECT or SPEAK",
+		"manage": "You must have `Manage Guild` permission to use this command.",
+		"prams": "You can't use this command."
+	},
+	"button": {
+		"invite": "Invite",
+		"support": "Support",
+		"github": "Github",
+		"wrongbut": "Only **{Tag}** can use this button, if you want then you've to run the command again.",
+		"vcmst": "You are not connected to {Vc} to use this buttons."
+	},
+	"cmd": {
+		"247": {
+			"name": "247",
+			"des": "24/7 in voice channel",
+			"aliases": [
+				"24h",
+				"24/7",
+				"24*7"
+			],
+			"use": "",
+			"on": "24/7 mode is now **enabled**",
+			"off": "24/7 mode is now **disabled**"
+		},
+		"help": {
+			"name": "help",
+			"des": "Return all commands, or one specific command",
+			"aliases": [
+				"h"
+			],
+			"use": "",
+			"title": "{bot} Help",
+			"main": " Hello **<@{user}>**, I am <@{bot}>.  \n\nA Discord Music Bot With Many Awesome Features, \nSupport Many Sources \n\n`🎵`•Music\n`ℹ️`•information\n`⚙️`•Config\n\n *Choose an category below button to see commands* \n\n",
+			"footer": "Requested By",
+			"label": "Home",
+			"label2": "Music",
+			"label3": "Info",
+			"label4": "Config",
+			"but": {
+				"title": "Music Commands",
+				"title2": "Information Commands",
+				"title3": "Config Commands",
+				"footer": "Total {cmd} music commands.",
+				"footer2": "Total {cmd} information commands.",
+				"footer3": "Total {cmd} config commands."
+			}
+		},
+		"invite": {
+			"name": "invite",
+			"des": "invite LavaMusic",
+			"aliases": [
+				"addme"
+			],
+			"use": "",
+			"author": "Lavamusic",
+			"field": "invite lavamusic"
+		},
+		"node": {
+			"name": "node",
+			"des": "Check node information",
+			"aliases": [],
+			"use": ""
+		},
+		"ping": {
+			"name": "ping",
+			"des": "Check Ping Bot",
+			"use": "",
+			"content": "Pinging...",
+			"author": "Pong",
+			"bot": "Bot Latency:",
+			"api": "API Latency:",
+			"footer": "Requested by"
+		},
+		"about": {
+			"name": "about",
+			"des": "Check Ping Bot",
+			"aliases": [
+				"botinfo"
+			],
+			"use": "",
+			"main": "[LavaMusic](https://github.com/brblacky/lavamusic/) is [Blacky#6618](https://github.com/brblacky), [Venom#9718](https://github.com/Venom9718/), [AkAbhijit#6892](https://github.com/AkAbhijit/)'s Was created by Blacky, Venom and Abhijit. He really wants to make his first open source project ever. Because he wants more for coding experience. In this project, he was challenged to make project with less bugs. Hope you enjoy using LavaMusic!",
+			"author": "Lavamusic"
+		},
+		"play": {
+			"name": "play",
+			"des": "Plays audio from Spotify, YouTube, Soundcloud, and more",
+			"aliases": [
+				"p"
+			],
+			"use": "<YouTube URL | Video Name | Spotify URL>",
+			"embed": "**Started Playing**",
+			"slash": {
+				"name": "input",
+				"des": "The search input (name/url)",
+				"error": ":x: | **There was an error while searching**",
+				"nores": "❌ | **No results were found.**",
+				"embed": "**Added song to queue**",
+				"embed1": "**Playlist added to queue**"
+			}
+		},
+		"autoplay": {
+			"name": "autoplay",
+			"des": "Toggle music autoplay",
+			"aliases": [
+				"ap"
+			],
+			"use": "",
+			"on": "Autoplay is now **enabled**",
+			"off": "Autoplay is now **disabled**"
+		},
+		"clearqueue": {
+			"name": "clearqueue",
+			"des": "Clear Queue",
+			"aliases": [
+				"cq"
+			],
+			"use": "<Number of song in queue>",
+			"remove": "Removed all songs from the queue"
+		},
+		"join": {
+			"name": "join",
+			"des": "Join voice channel",
+			"aliases": [
+				"j"
+			],
+			"use": "",
+			"embed": "**Join the voice channel**\nJoined <#{vcId}> and bound to <#{msgChannel}>"
+		},
+		"leave": {
+			"name": "leave",
+			"des": "Leave voice channel",
+			"aliases": [
+				"dc"
+			],
+			"use": "",
+			"embed": " **Leave the voice channel**\nThank you for using {username}!"
+		},
+		"loop": {
+			"name": "loop",
+			"des": "Toggle Music Queue",
+			"aliases": [
+				"L"
+			],
+			"use": "",
+			"embed": "Loop queue is now **{queueRepeat}**",
+			"embed1": "Loop track is now **{trackRepeat}**"
+		},
+		"nowplaying": {
+			"name": "nowplaying",
+			"des": "Show now playing song",
+			"aliases": [
+				"np"
+			],
+			"use": "",
+			"embed": "**Now Playing**\n [{SongTitle}]({SongUrl}) - `[ {SongTime} ]`  <@{SongReq}> \n\n{Bar}"
+		},
+		"pause": {
+			"name": "pause",
+			"des": "Pause the currently playing music",
+			"aliases": [
+			
+			],
+			"use": "",
+			"embed": "The player is already paused",
+			"embed2": "**Paused**\n[{SongTitle}]({SongUrl})"
+		},
+		"queue": {
+			"name": "queue",
+			"des": "Show the music queue and now playing.",
+			"aliases": [
+				
+			],
+			"use": "",
+			"embed": "Now playing [{SongTitle}]({SongUrl}) - `[ {SongTime} ]`  <@{SongReq}>",
+			"embed2": "**Now playing**\n [{SongTitle}]({SongUrl}) - [ {SongTime} ] - <@{SongReq}>\n\n**Queued Songs**\n{Page}",
+			"footer": "Requested By",
+			"page": "Page",
+			"title": "Queue",
+			"slash": {
+				"name": "page",
+				"des": "The queue page number.",
+				"title": "Server Queue"
+			}
+		},
+		"remove": {
+			"name": "remove",
+			"des": "Remove song from the queue",
+			"aliases": [
+			],
+			"use": "<Number of song in queue>",
+			"embed": "No songs at number {Number}.\nTotal Songs: ${Qsize}",
+			"embed2": " Removed\n[{SongTitle}]({SongUrl})",
+			"slash": {
+				"name": "number",
+				"des": "Number of song in queue"
+			}
+		},
+		"resume": {
+			"name": "resume",
+			"des": "Resumed the currently playing music",
+			"aliases": [
+			],
+			"use": "",
+			"embed": "The player is already resumed",
+			"embed2": "**Resumed**\n[{SongTitle}]({SongUrl})"
+		},
+		"search": {
+			"name": "search",
+			"des": "Resumed the currently playing music",
+			"aliases": [
+			],
+			"use": "search ckay",
+			"embed": "Searching The song please wait",
+			"title": "Select the track that you want",
+			"queue": "**Added to queue**",
+			"slash": {
+				"name": "input",
+				"des": "The search input (name/url)"
+			}
+		},
+		"seek": {
+			"name": "seek",
+			"des": "Seek the currently playing song",
+			"aliases": [],
+			"use": "<10s || 10m || 10h>",
+			"embed": "Seek duration exceeds Song duration.\nSong duration:",
+			"rewind": "**Rewind**",
+			"forward": "**Forward**",
+			"slash": {
+				"name": "time",
+				"des": "<10s || 10m || 10h>"
+			}
+		},
+		"suffle": {
+			"name": "suffle",
+			"des": "Shuffle queue",
+			"aliases": [
+			],
+			"use": "",
+			"embed": "Shuffled the queue"
+		},
+		"skip": {
+			"name": "skip",
+			"des": "Skip the currently playing song",
+			"aliases": [
+			],
+			"use": "",
+			"embed": "Skipped"
+		},
+		"skipto": {
+			"name": "skipto",
+			"des": "Skip the currently playing song",
+			"aliases": [
+				"jump"
+			],
+			"use": "<Number of song in queue>",
+			"embed": "Forward **{position}** Songs",
+			"embed2": "Usage: {prefix}skipto <Number of song in queue",
+			"slash": {
+				"name": "number",
+				"des": "give queue song number"
+			}
+		},
+		"stop": {
+			"name": "stop",
+			"des": "Stops the music",
+			"aliases": [
+			],
+			"use": "",
+			"embed": " Stopped the music"
+		},
+		"vol": {
+			"name": "volume",
+			"des": "Change volume of currently playing music",
+			"aliases": [
+				"v",
+				"vol"
+			],
+			"use": "volume <Number of volume between 0 - 100>",
+			"use1": "Usage",
+			"embed": "The current volume is:",
+			"embed2": "Cannot higher the player volume further more.",
+			"slash": {
+				"name": "name",
+				"des": "Give your volume number"
+			}
+		},
+		"grab": {
+			"name": "grab",
+			"des": "Grabs And Sends You The Song That Is Playing At The Moment",
+			"aliases": [
+				"save"
+			],
+			"label": "Check Your Dm",
+			"search": "Search",
+			"footer": "Requested By",
+			"details": "**Song Details**",
+			"sname": "**__Song Name__**",
+			"time": "**__Song Duration__**",
+			"playedby": "**__Song Played By__**",
+			"savedby": "**__Song Saved By__**"
+		},
+		"filter": {
+			"name": "filters",
+			"des": "Set EqualizerBand",
+			"aliases": [
+				"eq",
+				"equalizer"
+			],
+			"filinfo": "Choose what filter you want in the button",
+			"but1": "Clear",
+			"but2": "Bass",
+			"but3": "Night Core",
+			"but4": "Pitch",
+			"but5": "Distort",
+			"but6": "Equalizer",
+			"but7": "8D",
+			"but8": "Bass Boost",
+			"but9": "Speed",
+			"but10": "Vaporwave",
+			"tout": "Time is Out type again {Pre}filters",
+			"em1": " Equalizer mode is OFF",
+			"em2": "Bass mode is ON",
+			"em3": "Night Core mode is ON",
+			"em4": "Pitch mode is ON",
+			"em5": "Distort mode is ON",
+			"em6": "Equalizer mode is ON",
+			"em7": "8D mode is ON ",
+			"em8": "Bassboost mode is ON",
+			"em9": "Speed mode is ON",
+			"em10": "Vaporwave mode is ON",
+			"slash": {
+				"name": "filter",
+				"des": "Set EqualizerBand"
+			}
+		},
+		"prefix": {
+			"name": "setprefix",
+			"des": "Set Custom Prefix",
+			"aliases": [
+				"prefix"
+			],
+			"use": "",
+			"embed": "Please give the prefix that you want to set!",
+			"embed2": "You can not set prefix a double argument",
+			"embed3": "You can not send prefix more than 3 characters",
+			"embed4": "Your prefix has been updated to",
+			"embed5": "Custom prefix in this server is now set to",
+			"slash": {
+				"name": "prefix",
+				"des": "give me new prefix"
+			}
+		},
+		"status": {
+			"name": "status",
+			"des": "Show status bot",
+			"aliases": [
+				"info"
+			]
+		}
+	}
+}
