@@ -16,9 +16,9 @@ module.exports = {
   inVoiceChannel: false,
   sameVoiceChannel: false,
   execute: async (message, args, client, prefix) => {
-    const song = player.queue.current;
 
     const player = client.manager.get(message.guild.id);
+    const song = player.queue.current;
 
     if (!player)
       return message.channel.send({
