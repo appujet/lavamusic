@@ -10,8 +10,15 @@ run: async (client) => {
     //Game
     let statuses = ['/help', `Prefix ${prefix}`];
     setInterval(function() {
-  		let status = statuses[Math.floor(Math.random()*statuses.length)];
-  		client.user.setActivity(status, {type: "PLAYING"});
-  	}, 10000)
- }
-}
+  	let status = statuses[Math.floor(Math.random()*statuses.length)];		
+        client.user.setPresence({
+            activities: [
+                {
+                    name: status,
+                    type: "PLAYING"
+                }
+            ],
+            status: "idle"
+        });
+    }, 10000)
+ };
