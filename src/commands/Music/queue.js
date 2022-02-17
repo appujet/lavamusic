@@ -8,7 +8,7 @@ module.exports = {
   category: "Music",
   aliases: i18n.__("cmd.queue.aliases"),
   description: i18n.__("cmd.queue.des"),
-  args: true,
+  args: false,
   usage: i18n.__("cmd.queue.use"),
   permission: [],
   owner: false,
