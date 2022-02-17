@@ -21,4 +21,5 @@ run: async (client) => {
             status: "idle"
         });
     }, 10000)
- };
+ }
+};
