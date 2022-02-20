@@ -67,19 +67,22 @@
 			],
 			"use": "",
 			"title": "{bot} Help",
-			"main": " Hello **<@{user}>**, I am <@{bot}>.  \n\nA Discord Music Bot With Many Awesome Features, \nSupport Many Sources \n\n`🎵`•Music\n`ℹ️`•information\n`⚙️`•Config\n\n *Choose an category below button to see commands* \n\n",
+			"main": " Hello **<@{user}>**, I am <@{bot}>.  \n\nA Discord Music Bot With Many Awesome Features, \nSupport Many Sources \n\n`🎵`•Music\n`ℹ️`•information\n`💽`•Playlists\n`⚙️`•Config\n\n *Choose an category below button to see commands* \n\n",
 			"footer": "Requested By",
 			"label": "Home",
 			"label2": "Music",
 			"label3": "Info",
 			"label4": "Config",
+			"label5": "Playlist",
 			"but": {
 				"title": "Music Commands",
 				"title2": "Information Commands",
 				"title3": "Config Commands",
+				"title4": "Playlist Commands",
 				"footer": "Total {cmd} music commands.",
 				"footer2": "Total {cmd} information commands.",
-				"footer3": "Total {cmd} config commands."
+				"footer3": "Total {cmd} config commands.",
+				"footer4": "Total {cmd} playlist commands."
 			}
 		},
 		"invite": {
@@ -194,9 +197,7 @@
 		"pause": {
 			"name": "pause",
 			"des": "Pause the currently playing music",
-			"aliases": [
-			
-			],
+			"aliases": [],
 			"use": "",
 			"embed": "The player is already paused",
 			"embed2": "**Paused**\n[{SongTitle}]({SongUrl})"
@@ -204,9 +205,7 @@
 		"queue": {
 			"name": "queue",
 			"des": "Show the music queue and now playing.",
-			"aliases": [
-				
-			],
+			"aliases": [],
 			"use": "",
 			"embed": "Now playing [{SongTitle}]({SongUrl}) - `[ {SongTime} ]`  <@{SongReq}>",
 			"embed2": "**Now playing**\n [{SongTitle}]({SongUrl}) - [ {SongTime} ] - <@{SongReq}>\n\n**Queued Songs**\n{Page}",
@@ -222,8 +221,7 @@
 		"remove": {
 			"name": "remove",
 			"des": "Remove song from the queue",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "<Number of song in queue>",
 			"embed": "No songs at number {Number}.\nTotal Songs: ${Qsize}",
 			"embed2": " Removed\n[{SongTitle}]({SongUrl})",
@@ -235,8 +233,7 @@
 		"resume": {
 			"name": "resume",
 			"des": "Resumed the currently playing music",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "",
 			"embed": "The player is already resumed",
 			"embed2": "**Resumed**\n[{SongTitle}]({SongUrl})"
@@ -244,8 +241,7 @@
 		"search": {
 			"name": "search",
 			"des": "Resumed the currently playing music",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "search ckay",
 			"embed": "Searching The song please wait",
 			"title": "Select the track that you want",
@@ -271,16 +267,14 @@
 		"suffle": {
 			"name": "suffle",
 			"des": "Shuffle queue",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "",
 			"embed": "Shuffled the queue"
 		},
 		"skip": {
 			"name": "skip",
 			"des": "Skip the currently playing song",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "",
 			"embed": "Skipped"
 		},
@@ -301,8 +295,7 @@
 		"stop": {
 			"name": "stop",
 			"des": "Stops the music",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "",
 			"embed": " Stopped the music"
 		},
@@ -394,6 +387,106 @@
 			"aliases": [
 				"info"
 			]
+		},
+		"playlist": {
+			"slash": {
+				"name": "name",
+				"des": "Playlist name",
+				"name2": "number",
+				"des2": "track number"
+
+			},
+			"create": {
+				"name": "create",
+				"aliases": [
+					"plcreate"
+				],
+				"des": "Gets the user's playlist.",
+				"use": "<playlist name>",
+				"argsembed": "Playlist Name Cant Be Greater Than 10 Charecters",
+				"dataembed": "This playlist already Exists! delete it using: {prefix}delete {name}",
+				"existembed": "You Can Only Create 10 Playlist",
+				"mainembed": "Successfully created a playlist for you **{name}**"
+			},
+			"list": {
+				"name": "list",
+				"aliases": [
+					"pllist"
+				],
+				"des": "To List The Playlist",
+				"use": "list",
+				"argsembed": "Playlist Name Cant Be Greater Than 10 Charecters",
+				"noembed": "You Do Not Have Any Playlist",
+				"author": "'s Playlists",
+				"footer": "Playlist ({list} / 10)",
+				"playembed": "**Playlist Name** {pname} **Total Tracks** {plist}"
+			},
+			"save": {
+				"name": "savequeue",
+				"aliases": [
+					"plsaveq"
+				],
+				"des": "Save current playing queue in your playlist.",
+				"use": "<playlist name>",
+				"nodata": "Playlist not found. Please enter the correct playlist name",
+				"mainembed": "**Added** `{save}`song in {name}",
+				"noname": "Playlist not found. Please enter the correct playlist name"
+			},
+			"load": {
+				"name": "load",
+				"aliases": [
+					"plload"
+				],
+				"des": "play the saved playlist",
+				"use": "<playlist name>",
+				"nodata": "Playlist not found. Please enter the correct playlist name",
+				"loading": "Adding `{length}` track(s) from your playlist **{name}** to the queue.",
+				"errorembed": "Couldn't add any tracks from your playlist **{name}** to the queue.",
+				"mainembed": "Added `{count}` track(s) from your playlist **{name}** to the queue."
+			},
+			"delete": {
+				"name": "delete",
+				"aliases": [
+					"pldelete"
+				],
+				"des": "delete your saved playlist",
+				"use": "<playlist name>",
+				"noname": "You don't have a playlist with **{name}** name",
+				"mainembed": "Successfully deleted `{name}` playlist"
+			},
+			"info": {
+				"name": "info",
+				"aliases": [
+					"plinfo"
+				],
+				"des": "get information your saved playlist",
+				"use": "<playlist name>",
+				"noname": "You don't have a playlist with **{name}** name",
+				"author": "'s Playlists",
+				"playembed": "**Playlist Name** {pname} **Total Tracks** `{plist}`"
+			},
+			"removetrack": {
+				"name": "removetrack",
+				"aliases": [
+					"plremovet"
+				],
+				"des": "removetrack from your saved playlists",
+				"use": "<playlist name> <track number>",
+				"noname": "You don't have a playlist with **{name}** name",
+				"nonumber": "You didn't entered track number (the Track you want to remove (ID OF IT))\nSee all your Tracks: `{prefix}info {name}`",
+				"wrongumber": "Your provided track number is out of Range (`0` - `{tracks}`)\nSee all your Tracks: `{prefix}info showdetails {name}",
+				"mainembed": "Removed **{tracks}** from `{name}`"
+			},
+			"savecurrent": {
+				"name": "savecurrent",
+				"aliases": [
+					"plsavec"
+				],
+				"des": "add current playing song in your saved playlist.",
+				"use": "<playlist name>",
+				"noname": "You don't have a playlist with **{name}** name",
+				"mainembed": "Added [{track}]({uri}) in `{name}`"
+			}
 		}
 	}
 }

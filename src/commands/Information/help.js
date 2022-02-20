@@ -43,6 +43,11 @@ module.exports = {
       .setStyle("PRIMARY");
 
     let but4 = new MessageButton()
+      .setCustomId("playlist")
+      .setLabel(i18n.__("cmd.help.label5"))
+      .setStyle("PRIMARY");
+      
+    let but5 = new MessageButton()
       .setCustomId("config")
       .setLabel(i18n.__("cmd.help.label4"))
       .setStyle("PRIMARY");
@@ -53,7 +58,7 @@ module.exports = {
     const m = await message.reply({
       embeds: [embed],
       components: [
-        new MessageActionRow().addComponents(but1, but2, but3, but4),
+        new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
       ],
     });
 
@@ -79,7 +84,8 @@ module.exports = {
             but1.setDisabled(true),
             but2.setDisabled(true),
             but3.setDisabled(true),
-            but4.setDisabled(true)
+            but4.setDisabled(true),
+            but5.setDisabled(true)
           ),
         ],
       });
@@ -91,7 +97,7 @@ module.exports = {
         return await m.edit({
           embeds: [embed],
           components: [
-            new MessageActionRow().addComponents(but1, but2, but3, but4),
+            new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
           ],
         });
       }
@@ -110,7 +116,7 @@ module.exports = {
         return await m.edit({
           embeds: [editEmbed],
           components: [
-            new MessageActionRow().addComponents(but1, but2, but3, but4),
+            new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
           ],
         });
       }
@@ -128,7 +134,7 @@ module.exports = {
         return await m.edit({
           embeds: [editEmbed],
           components: [
-            new MessageActionRow().addComponents(but1, but2, but3, but4),
+            new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
           ],
         });
       }
@@ -146,7 +152,25 @@ module.exports = {
         return await m.edit({
           embeds: [editEmbed],
           components: [
-            new MessageActionRow().addComponents(but1, but2, but3, but4),
+            new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
+          ],
+        });
+      }
+      if (b.customId == "playlist") {
+        _commands = client.commands
+          .filter((x) => x.category && x.category === "Playlist")
+          .map((x) => `\`${x.name}\``);
+        editEmbed
+          .setColor(client.embedColor)
+          .setDescription(_commands.join(", "))
+          .setTitle(i18n.__("cmd.help.but.title4"))
+          .setFooter({
+            text: i18n.__mf("cmd.help.but.footer4", { cmd: _commands.length }),
+          });
+        return await m.edit({
+          embeds: [editEmbed],
+          components: [
+            new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
           ],
         });
       }

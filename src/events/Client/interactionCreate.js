@@ -29,9 +29,13 @@ module.exports = {
             if (SlashCommands.inVoiceChannel && !interaction.member.voice.channel) {
                 return await interaction.reply({ content: `${i18n.__("player.vcmust")}`, ephemeral: true });
             }
-            if (SlashCommands.sameVoiceChannel && interaction.member.voice.channel !== interaction.guild.me.voice.channel) {
+            if (SlashCommands.sameVoiceChannel){
+                if(interaction.guild.me.voice.channel){
+                if(interaction.member.voice.channel !== interaction.guild.me.voice.channel) {
                 return await interaction.reply({ content: `${i18n.__("player.samevc")} ${interaction.client.user}`, ephemeral: true });
             }
+        }
+    }
 
             try {
                 await SlashCommands.run(client, interaction, prefix);
