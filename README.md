@@ -42,6 +42,7 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 - [x] Multi languages
 - [x] Music
 - [x] 24/7
+- [x] Custom Playlist (global)
 - [x] SlashCommand
 - [x] Custom prefix
 - [x] Filters
