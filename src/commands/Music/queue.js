@@ -8,7 +8,7 @@ module.exports = {
   category: "Music",
   aliases: i18n.__("cmd.queue.aliases"),
   description: i18n.__("cmd.queue.des"),
-  args: true,
+  args: false,
   usage: i18n.__("cmd.queue.use"),
   permission: [],
   owner: false,
@@ -16,9 +16,9 @@ module.exports = {
   inVoiceChannel: false,
   sameVoiceChannel: false,
   execute: async (message, args, client, prefix) => {
-    const song = player.queue.current;
 
     const player = client.manager.get(message.guild.id);
+    const song = player.queue.current;
 
     if (!player)
       return message.channel.send({

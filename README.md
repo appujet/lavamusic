@@ -18,16 +18,16 @@ And use the `.ping` and `.node` commands to get connection status!
 | `.clearqueue` | Clear music queue |
 | `.filters` | Configure equalizer |
 | `.grab` | Save currently playing song |
-| `.join | Join bot in a vc |
-| `.leave | Disconnect bot from vc |
+| `.join` | Join bot in a vc |
+| `.leave` | Disconnect bot from vc |
 | `.nowplaying` | Shows currently playing song |
 | `.pause` | Pause player |
 | `.play <url/text>` | Play a song |
-| `.queue | Shows music queue |
-| `.remove [number]` | Remove a song from queue |
-| `.resume | Resume player |
-| `.search [text]` | Search for a song |
-| `.seek <10s/10m/10h>` | Seek the current song |
+| `.queue` | Shows music queue |
+| `.remove` [number]` | Remove a song from queue |
+| `.resume` | Resume player |
+| `.search` [text]` | Search for a song |
+| `.seek` <10s/10m/10h>` | Seek the current song |
 | `.shuffle` | Shuffle queue |
 | `.skip` | Skip current song |
 | `.skipto [queue number]` | Skip to song in queue |

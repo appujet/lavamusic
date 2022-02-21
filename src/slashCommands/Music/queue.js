@@ -27,6 +27,7 @@ module.exports = {
     await interaction.deferReply().catch(() => { });
 
     const player = interaction.client.manager.get(interaction.guildId);
+    const song = player.queue.current;
 
     if (!player.queue)
       return await interaction.editReply({

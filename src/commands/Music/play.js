@@ -51,8 +51,8 @@ module.exports = {
       guild: message.guild.id,
       voiceChannel: message.member.voice.channel.id,
       textChannel: message.channel.id,
-      selfDeafen: true,
-      volume: 80,
+      selfDeafen: false,
+      volume: 100,
     });
 
     if (player.state != "CONNECTED") await player.connect();
@@ -87,7 +87,7 @@ module.exports = {
             new MessageEmbed()
               .setColor(client.embedColor)
               .setTimestamp()
-              .setDescription(`No matches found for - ${search}`),
+              .setDescription(`No matches found for \`${search}\``),
           ],
         });
       case "TRACK_LOADED":
@@ -103,7 +103,7 @@ module.exports = {
             .setDescription(
               `${emojiaddsong} ${i18n.__("player.addq")}\n[${track.title}](${
                 track.uri
-              }) - \`[${convertTime(track.duration)}]\``
+              }) - \`${convertTime(track.duration)}\``
             );
           return message.channel.send({ embeds: [thing] });
         }
@@ -123,7 +123,7 @@ module.exports = {
               res.tracks.length
             } ${i18n.__("player.song")} [${
               res.playlist.name
-            }](${search}) - \`[${convertTime(res.playlist.duration)}]\``
+            }](${search}) \`${convertTime(res.playlist.duration)}\``
           );
         return message.channel.send({ embeds: [thing] });
       case "SEARCH_RESULT":
@@ -139,9 +139,9 @@ module.exports = {
             .setDescription(
               `${emojiaddsong} ${i18n.__("player.addq")}\n[${track.title}](${
                 track.uri
-              }) - \`[${convertTime(track.duration)}]\`[<@${
+              }) \`[${convertTime(track.duration)}]\`by <@${
                 track.requester.id
-              }>]`
+              }>`
             );
           return message.channel.send({ embeds: [thing] });
         }

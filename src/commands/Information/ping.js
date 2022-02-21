@@ -24,7 +24,7 @@ module.exports = {
     .setTimestamp();
 
   await msg.edit({
-    content: "\`🏓\`",
+    content: "\`pinging\`",
     embeds: [PingEmbed]
   })
  })

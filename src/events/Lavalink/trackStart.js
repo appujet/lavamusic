@@ -12,7 +12,7 @@ module.exports = async (client, player, track, payload) => {
   const emojiskip = client.emoji.skip;
 
   const thing = new MessageEmbed()
-    .setDescription(`${emojiplay} ${i18n.__("cmd.play.embed")}\n [${track.title}](${track.uri}) \`[${convertTime(track.duration)}\``)
+    .setDescription(`${emojiplay} ${i18n.__("cmd.play.embed")}\n [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``)
     .setThumbnail(`https://img.youtube.com/vi/${track.identifier}/mqdefault.jpg`)
     .setColor(client.embedColor)
     .setTimestamp()
@@ -53,28 +53,28 @@ module.exports = async (client, player, track, payload) => {
       }
       let amount = Number(player.volume) - 10;
       await player.setVolume(amount);
-      i.editReply({ embeds: [embed.setDescription(`${volumeEmoji} ${i.member.user.tag} ${i18n.__("cmd.vol.embed")} **${amount}**`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      i.editReply({ embeds: [embed.setDescription(`${volumeEmoji} ${i18n.__("cmd.vol.embed")} **${amount}**`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
     } else if (i.customId === "stop") {
       if (!player) {
         return collector.stop();
       }
       await player.stop();
       await player.queue.clear();
-      i.editReply({ embeds: [embed.setDescription(`${emojistop} ${i.member.user.tag} ${i18n.__("cmd.stop.embed")}`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      i.editReply({ embeds: [embed.setDescription(`${emojistop} ${i18n.__("cmd.stop.embed")}`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
       return collector.stop();
     } else if (i.customId === "pause") {
       if (!player) {
         return collector.stop();
       }
       player.pause(!player.paused);
-      const Text = player.paused ? `${emojipause} **${i.member.user.tag} paused player**` : `${emojiresume} **${i.member.user.tag} resumed player**`;
+      const Text = player.paused ? `${emojipause} **Paused**` : `${emojiresume} **Resumed**`;
       i.editReply({ embeds: [embed.setDescription(`${Text} \n[${player.queue.current.title}](${player.queue.current.uri})`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
     } else if (i.customId === "skip") {
       if (!player) {
         return collector.stop();
       }
       await player.stop();
-      i.editReply({ embeds: [embed.setDescription(`${emojiskip} **${i.member.user.tag}** ${i18n.__("cmd.skip.embed")}\n[${player.queue.current.title}](${player.queue.current.uri})`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      i.editReply({ embeds: [embed.setDescription(`${emojiskip} ${i18n.__("cmd.skip.embed")}\n[${player.queue.current.title}](${player.queue.current.uri})`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
       if (track.length === 1) {
         return collector.stop();
       }
@@ -83,9 +83,9 @@ module.exports = async (client, player, track, payload) => {
         return collector.stop();
       }
       let amount = Number(player.volume) + 10;
-      if (amount >= 150) return i.editReply({ embeds: [embed.setDescription(`**${i.member.user.tag}** ${i18n.__("cmd.vol.embed2")}`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      if (amount >= 150) return i.editReply({ embeds: [embed.setDescription(`${i18n.__("cmd.vol.embed2")}`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
       await player.setVolume(amount);
-      i.editReply({ embeds: [embed.setDescription(`${volumeEmoji} **${i.member.user.tag}** ${i18n.__("cmd.vol.embed")} **${amount}**`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      i.editReply({ embeds: [embed.setDescription(`${volumeEmoji} ${i18n.__("cmd.vol.embed")} **${amount}**`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
       return;
     }
   });

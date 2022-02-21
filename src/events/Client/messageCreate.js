@@ -53,7 +53,7 @@ module.exports = {
         
         // usage: '',
         if (command.usage) {
-        	reply += `\n${i18n.__("cmd.volume.use1")} \`${prefix}${command.name} ${command.usage}\``;
+        	reply += `\n\`${prefix}${command.name} ${command.usage}\``;
         }
         
         embed.setDescription(reply);

@@ -1,31 +1,21 @@
-const {
-  MessageEmbed,
-  MessageActionRow,
-  MessageButton,
-  CommandInteraction,
-  Client,
-} = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const i18n = require("../../utils/i18n");
 
 module.exports = {
   name: i18n.__("cmd.help.name"),
+  category: "Information",
+  aliases: i18n.__("cmd.help.aliases"),
   description: i18n.__("cmd.help.des"),
+  args: false,
+  usage: "",
+  permission: [],
   owner: false,
-
-  /**
-   * @param {Client} client
-   * @param {CommandInteraction} interaction
-   */
-
-  run: async (client, interaction, prefix) => {
-    await interaction.deferReply({
-      ephemeral: false,
-    });
+  execute: async (message, args, client, prefix) => {
     const embed = new MessageEmbed()
       .setTitle(i18n.__mf("cmd.help.title", { bot: client.user.username }))
       .setDescription(
         i18n.__mf("cmd.help.main", {
-          user: interaction.member.user.id,
+          user: message.author.id,
           bot: client.user.id,
         })
       )
@@ -33,10 +23,8 @@ module.exports = {
       .setColor(client.embedColor)
       .setTimestamp()
       .setFooter({
-        text: `${i18n.__("cmd.help.footer")} ${
-          interaction.member.user.username
-        }`,
-        iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }),
+        text: `${i18n.__("cmd.help.footer")} ${message.author.tag}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
       });
 
     let but1 = new MessageButton()
@@ -54,7 +42,7 @@ module.exports = {
       .setLabel(i18n.__("cmd.help.label3"))
       .setStyle("PRIMARY");
 
-      let but4 = new MessageButton()
+    let but4 = new MessageButton()
       .setCustomId("playlist")
       .setLabel(i18n.__("cmd.help.label5"))
       .setStyle("PRIMARY");
@@ -67,22 +55,20 @@ module.exports = {
     let _commands;
     let editEmbed = new MessageEmbed();
 
-    await interaction.editReply({
+    const m = await message.reply({
       embeds: [embed],
       components: [
         new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
       ],
     });
 
-    const collector = interaction.channel.createMessageComponentCollector({
+    const collector = m.createMessageComponentCollector({
       filter: (b) => {
-        if (b.user.id === interaction.member.user.id) return true;
+        if (b.user.id === message.author.id) return true;
         else {
           b.reply({
             ephemeral: true,
-            content: i18n.__mf("button.wrongbut", {
-              Tag: interaction.member.user.tag,
-            }),
+            content: i18n.__mf("button.wrongbut", { Tag: message.author.tag }),
           });
           return false;
         }
@@ -91,26 +77,27 @@ module.exports = {
       idle: 60000 / 2,
     });
     collector.on("end", async () => {
-      await interaction
-        .editReply({
-          components: [
-            new MessageActionRow().addComponents(
-              but1.setDisabled(true),
-              but2.setDisabled(true),
-              but3.setDisabled(true),
-              but4.setDisabled(true)
-            ),
-          ],
-        })
-        .catch(() => {});
+      if (!m) return;
+      await m.edit({
+        components: [
+          new MessageActionRow().addComponents(
+            but1.setDisabled(true),
+            but2.setDisabled(true),
+            but3.setDisabled(true),
+            but4.setDisabled(true),
+            but5.setDisabled(true)
+          ),
+        ],
+      });
     });
     collector.on("collect", async (b) => {
       if (!b.deferred) await b.deferUpdate();
       if (b.customId === "home") {
-        return await interaction.editReply({
+        if (!m) return;
+        return await m.edit({
           embeds: [embed],
           components: [
-            new MessageActionRow().addComponents(but1, but2, but3, but4),
+            new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
           ],
         });
       }
@@ -125,11 +112,11 @@ module.exports = {
           .setFooter({
             text: i18n.__mf("cmd.help.but.footer", { cmd: _commands.length }),
           });
-
-        return await interaction.editReply({
+        if (!m) return;
+        return await m.edit({
           embeds: [editEmbed],
           components: [
-            new MessageActionRow().addComponents(but1, but2, but3, but4),
+            new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
           ],
         });
       }
@@ -144,10 +131,28 @@ module.exports = {
           .setFooter({
             text: i18n.__mf("cmd.help.but.footer2", { cmd: _commands.length }),
           });
-        return await interaction.editReply({
+        return await m.edit({
           embeds: [editEmbed],
           components: [
-            new MessageActionRow().addComponents(but1, but2, but3, but4),
+            new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
+          ],
+        });
+      }
+      if (b.customId == "config") {
+        _commands = client.commands
+          .filter((x) => x.category && x.category === "Config")
+          .map((x) => `\`${x.name}\``);
+        editEmbed
+          .setColor(client.embedColor)
+          .setDescription(_commands.join(", "))
+          .setTitle(i18n.__("cmd.help.but.title3"))
+          .setFooter({
+            text: i18n.__mf("cmd.help.but.footer3", { cmd: _commands.length }),
+          });
+        return await m.edit({
+          embeds: [editEmbed],
+          components: [
+            new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
           ],
         });
       }
@@ -162,28 +167,10 @@ module.exports = {
           .setFooter({
             text: i18n.__mf("cmd.help.but.footer4", { cmd: _commands.length }),
           });
-          return await interaction.editReply({
-            embeds: [editEmbed],
-            components: [
-              new MessageActionRow().addComponents(but1, but2, but3, but4),
-            ],
-          });
-        }
-      if (b.customId == "config") {
-        _commands = client.commands
-          .filter((x) => x.category && x.category === "Config")
-          .map((x) => `\`${x.name}\``);
-        editEmbed
-          .setColor(client.embedColor)
-          .setDescription(_commands.join(", "))
-          .setTitle(i18n.__("cmd.help.but.title3"))
-          .setFooter({
-            text: i18n.__mf("cmd.help.but.footer3", { cmd: _commands.length }),
-          });
-        return await interaction.editReply({
+        return await m.edit({
           embeds: [editEmbed],
           components: [
-            new MessageActionRow().addComponents(but1, but2, but3, but4),
+            new MessageActionRow().addComponents(but1, but2, but3, but4, but5),
           ],
         });
       }

@@ -53,8 +53,8 @@ module.exports = {
         guild: message.guild.id,
         voiceChannel: channel.id,
         textChannel: message.channel.id,
-        volume: 80,
-        selfDeafen: true,
+        volume: 100,
+        selfDeafen: false,
       });
     if (player && player.state !== "CONNECTED") player.connect();
 
@@ -104,12 +104,12 @@ module.exports = {
         player.queue.add(s.tracks[0]);
         const embed = new MessageEmbed()
           .setDescription(
-            `${emojiplaylist} ${i18n.__("cmd.search.queue")} - [${
+            `${emojiplaylist} ${i18n.__("cmd.search.queue")} - ${
               s.tracks[0].title
             }](${s.tracks[0].uri}) \`${convertTime(
               s.tracks[0].duration,
               true
-            )}\` • ${s.tracks[0].requester}`
+            )}\` by ${s.tracks[0].requester}`
           )
           .setColor(client.embedColor);
 
@@ -123,7 +123,7 @@ module.exports = {
           .slice(0, 5)
           .map(
             (x) =>
-              `• ${index++} | [${x.title}](${x.uri}) \`${convertTime(
+              `${index++}  [${x.title}](${x.uri}) \`${convertTime(
                 x.duration
               )}\``
           )
@@ -182,7 +182,7 @@ module.exports = {
                     }](${s.tracks[0].uri}) \`${convertTime(
                       s.tracks[0].duration,
                       true
-                    )}\` • ${s.tracks[0].requester}`
+                    )}\` by ${s.tracks[0].requester}`
                   ),
                 ],
               });
@@ -230,7 +230,7 @@ module.exports = {
                     }](${s.tracks[2].uri}) \`${convertTime(
                       s.tracks[2].duration,
                       true
-                    )}\` • ${s.tracks[2].requester}`
+                    )}\` by ${s.tracks[2].requester}`
                   ),
                 ],
               });
@@ -254,7 +254,7 @@ module.exports = {
                     }](${s.tracks[3].uri}) \`${convertTime(
                       s.tracks[3].duration,
                       true
-                    )}\` • ${s.tracks[3].requester}`
+                    )}\` by ${s.tracks[3].requester}`
                   ),
                 ],
               });
@@ -278,7 +278,7 @@ module.exports = {
                     }](${s.tracks[4].uri}) \`${convertTime(
                       s.tracks[4].duration,
                       true
-                    )}\` • ${s.tracks[4].requester}`
+                    )}\` by ${s.tracks[4].requester}`
                   ),
                 ],
               });

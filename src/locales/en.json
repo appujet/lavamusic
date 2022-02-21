@@ -5,27 +5,27 @@
 		"song": "Song",
 		"addlist": "**Added playlist to queue**",
 		"nomusic": "There is no music playing.",
-		"anotherVc": "I'm already connected to <#{vc}> voice channel!",
-		"noVc": "You are not connect in any voice channel!",
-		"vcmust": "You must be in a voice channel!",
-		"samevc": "You must be in the same channel as",
-		"cmderr": "There was an error executing that command.\nI have contacted the owner of the bot to fix it immediately.",
+		"anotherVc": "I'm already connected to <#{vc}>!",
+		"noVc": "You are not connected in any vc!",
+		"vcmust": "You have to be in a voice channel!",
+		"samevc": "You have to be in the same channel as",
+		"cmderr": "There was an error executing that command.\nSong usues invalid media codec.",
 		"epause": "The player has been paused because everybody left",
-		"eresume": "Resuming playback because all of you left me with music to play all alone",
+		"eresume": "Resuming playback because all of you left me with music to play",
 		"track": {
 			"error": "❌ Error when loading song! Track is error",
 			"end": "**Music queue ended**",
-			"dc": "I've been disconnected from",
-			"move": "Player voice channel moved to "
+			"dc": "Disconnected from",
+			"move": "Player moved to "
 		}
 	},
 	"events": {
 		"msgcrt": {
 			"embed": "**› My prefix in this server is `{Pre}`**\n**› You can see my all commands type `{Pre}`help**",
-			"embed2": "I don't have **`SEND_MESSAGES`** permission in <#{channelId}> to execute this **`{cmdname}`** command.",
-			"embed3": "I don't have **`EMBED_LINKS`** permission to execute this **`${cmdname}`** command.",
+			"embed2": "I don't have `SEND_MESSAGES` permission in <#{channelId}> to execute this **`{cmdname}`** command.",
+			"embed3": "I don't have `EMBED_LINKS` permission to execute this **`${cmdname}`** command.",
 			"embed4": "You didn't provide any arguments,",
-			"embed5": "Error: I need `EMBED_LINKS` permission to work."
+			"embed5": "Error: I need the `EMBED_LINKS` permission to work."
 		},
 		"inter": {
 			"noplayer": "There is no player for this guild",
@@ -34,8 +34,8 @@
 		}
 	},
 	"prams": {
-		"connect": "I don't have enough permissions to execute this command! please give me permission CONNECT or SPEAK",
-		"vc": "I don't have enough permissions connect your vc please give me permission CONNECT or SPEAK",
+		"connect": "I don't have enough permissions to execute this command!",
+		"vc": "I don't have enough permissions connect your vc!",
 		"manage": "You must have `Manage Guild` permission to use this command.",
 		"prams": "You can't use this command."
 	},
@@ -44,7 +44,7 @@
 		"support": "Support",
 		"github": "Github",
 		"wrongbut": "Only **{Tag}** can use this button, if you want then you've to run the command again.",
-		"vcmst": "You are not connected to {Vc} to use this buttons."
+		"vcmst": "You are not connected to {Vc} to use this button."
 	},
 	"cmd": {
 		"247": {
@@ -67,19 +67,22 @@
 			],
 			"use": "",
 			"title": "{bot} Help",
-			"main": " Hello **<@{user}>**, I am <@{bot}>.  \n\nA Discord Music Bot With Many Awesome Features, \nSupport Many Sources \n\n`🎵`•Music\n`ℹ️`•information\n`⚙️`•Config\n\n *Choose an category below button to see commands* \n\n",
+			"main": " Hello **<@{user}>**, I am <@{bot}>.  \n\nA Discord Music Bot With Many Awesome Features, \nSupport Many Sources \n\n`🎵`•Music\n`ℹ️`•information\n`💽`•Playlists\n`⚙️`•Config\n\n *Choose an category below button to see commands* \n\n",
 			"footer": "Requested By",
 			"label": "Home",
 			"label2": "Music",
 			"label3": "Info",
 			"label4": "Config",
+			"label5": "Playlist",
 			"but": {
 				"title": "Music Commands",
 				"title2": "Information Commands",
 				"title3": "Config Commands",
+				"title4": "Playlist Commands",
 				"footer": "Total {cmd} music commands.",
 				"footer2": "Total {cmd} information commands.",
-				"footer3": "Total {cmd} config commands."
+				"footer3": "Total {cmd} config commands.",
+				"footer4": "Total {cmd} playlist commands."
 			}
 		},
 		"invite": {
@@ -130,7 +133,7 @@
 				"name": "input",
 				"des": "The search input (name/url)",
 				"error": ":x: | **There was an error while searching**",
-				"nores": "❌ | **No results were found.**",
+				"nores": "❌ **No results were found.**",
 				"embed": "**Added song to queue**",
 				"embed1": "**Playlist added to queue**"
 			}
@@ -161,7 +164,7 @@
 				"j"
 			],
 			"use": "",
-			"embed": "**Join the voice channel**\nJoined <#{vcId}> and bound to <#{msgChannel}>"
+			"embed": "Joined <#{vcId}> and bound to <#{msgChannel}>"
 		},
 		"leave": {
 			"name": "leave",
@@ -170,7 +173,7 @@
 				"dc"
 			],
 			"use": "",
-			"embed": " **Leave the voice channel**\nThank you for using {username}!"
+			"embed": " **Leave the voice channel**"
 		},
 		"loop": {
 			"name": "loop",
@@ -189,44 +192,39 @@
 				"np"
 			],
 			"use": "",
-			"embed": "**Now Playing**\n [{SongTitle}]({SongUrl}) - `[ {SongTime} ]`  <@{SongReq}> \n\n{Bar}"
+			"embed": "**Now Playing**\n [{SongTitle}]({SongUrl}) `{SongTime}`\nReqested by: <@{SongReq}> \n\n{Bar}"
 		},
 		"pause": {
 			"name": "pause",
 			"des": "Pause the currently playing music",
-			"aliases": [
-			
-			],
+			"aliases": [],
 			"use": "",
 			"embed": "The player is already paused",
-			"embed2": "**Paused**\n[{SongTitle}]({SongUrl})"
+			"embed2": "**Paused player**\n[{SongTitle}]({SongUrl})"
 		},
 		"queue": {
 			"name": "queue",
 			"des": "Show the music queue and now playing.",
-			"aliases": [
-				
-			],
+			"aliases": [],
 			"use": "",
-			"embed": "Now playing [{SongTitle}]({SongUrl}) - `[ {SongTime} ]`  <@{SongReq}>",
-			"embed2": "**Now playing**\n [{SongTitle}]({SongUrl}) - [ {SongTime} ] - <@{SongReq}>\n\n**Queued Songs**\n{Page}",
+			"embed": "Now playing [{SongTitle}]({SongUrl}) `{SongTime}` by <@{SongReq}>",
+			"embed2": "**Now playing**\n [{SongTitle}]({SongUrl}) `{SongTime}`\nRequestesd by: <@{SongReq}>\n\n**Queued Songs**\n{Page}",
 			"footer": "Requested By",
 			"page": "Page",
 			"title": "Queue",
 			"slash": {
 				"name": "page",
 				"des": "The queue page number.",
-				"title": "Server Queue"
+				"title": "Queue"
 			}
 		},
 		"remove": {
 			"name": "remove",
 			"des": "Remove song from the queue",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "<Number of song in queue>",
 			"embed": "No songs at number {Number}.\nTotal Songs: ${Qsize}",
-			"embed2": " Removed\n[{SongTitle}]({SongUrl})",
+			"embed2": " Removed\n[{SongTitle}]({SongUrl}) from queue",
 			"slash": {
 				"name": "number",
 				"des": "Number of song in queue"
@@ -235,19 +233,17 @@
 		"resume": {
 			"name": "resume",
 			"des": "Resumed the currently playing music",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "",
 			"embed": "The player is already resumed",
-			"embed2": "**Resumed**\n[{SongTitle}]({SongUrl})"
+			"embed2": "**Resumed player**\n[{SongTitle}]({SongUrl})"
 		},
 		"search": {
 			"name": "search",
 			"des": "Resumed the currently playing music",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "search ckay",
-			"embed": "Searching The song please wait",
+			"embed": "Searching",
 			"title": "Select the track that you want",
 			"queue": "**Added to queue**",
 			"slash": {
@@ -261,8 +257,8 @@
 			"aliases": [],
 			"use": "<10s || 10m || 10h>",
 			"embed": "Seek duration exceeds Song duration.\nSong duration:",
-			"rewind": "**Rewind**",
-			"forward": "**Forward**",
+			"rewind": "**Rewinded**",
+			"forward": "**Forwarded**",
 			"slash": {
 				"name": "time",
 				"des": "<10s || 10m || 10h>"
@@ -271,18 +267,16 @@
 		"suffle": {
 			"name": "suffle",
 			"des": "Shuffle queue",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "",
 			"embed": "Shuffled the queue"
 		},
 		"skip": {
 			"name": "skip",
 			"des": "Skip the currently playing song",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "",
-			"embed": "Skipped"
+			"embed": "Skipped current song"
 		},
 		"skipto": {
 			"name": "skipto",
@@ -291,7 +285,7 @@
 				"jump"
 			],
 			"use": "<Number of song in queue>",
-			"embed": "Forward **{position}** Songs",
+			"embed": "Forward **{position}** songs",
 			"embed2": "Usage: {prefix}skipto <Number of song in queue",
 			"slash": {
 				"name": "number",
@@ -301,8 +295,7 @@
 		"stop": {
 			"name": "stop",
 			"des": "Stops the music",
-			"aliases": [
-			],
+			"aliases": [],
 			"use": "",
 			"embed": " Stopped the music"
 		},
@@ -315,7 +308,7 @@
 			],
 			"use": "volume <Number of volume between 0 - 100>",
 			"use1": "Usage",
-			"embed": "The current volume is:",
+			"embed": "Set volume to",
 			"embed2": "Cannot higher the player volume further more.",
 			"slash": {
 				"name": "name",
@@ -355,7 +348,7 @@
 			"but8": "Bass Boost",
 			"but9": "Speed",
 			"but10": "Vaporwave",
-			"tout": "Time is Out type again {Pre}filters",
+			"tout": "Time out, type {Pre}filters again",
 			"em1": " Equalizer mode is OFF",
 			"em2": "Bass mode is ON",
 			"em3": "Night Core mode is ON",
@@ -394,6 +387,106 @@
 			"aliases": [
 				"info"
 			]
+		},
+		"playlist": {
+			"slash": {
+				"name": "name",
+				"des": "Playlist name",
+				"name2": "number",
+				"des2": "track number"
+
+			},
+			"create": {
+				"name": "create",
+				"aliases": [
+					"plcreate"
+				],
+				"des": "Gets the user's playlist.",
+				"use": "<playlist name>",
+				"argsembed": "Playlist name can't be geater than 10 charecters",
+				"dataembed": "This playlist already Exists! Delete it using: {prefix}delete {name}",
+				"existembed": "You can only create 10 playlist",
+				"mainembed": "Successfully created the **{name}** playlist"
+			},
+			"list": {
+				"name": "list",
+				"aliases": [
+					"pllist"
+				],
+				"des": "To List The Playlist",
+				"use": "list",
+				"argsembed": "Playlist name can't be greater than 10 charecters",
+				"noembed": "You don't have any playlists",
+				"author": "'s playlists",
+				"footer": "Playlist ({list} / 10)",
+				"playembed": "**Playlist name** {pname} **Total Tracks** {plist}"
+			},
+			"save": {
+				"name": "savequeue",
+				"aliases": [
+					"plsaveq"
+				],
+				"des": "Save current playing queue in your playlist.",
+				"use": "<playlist name>",
+				"nodata": "Playlist not found. Please enter the correct playlist name",
+				"mainembed": "**Added** `{save}`song in {name}",
+				"noname": "Playlist not found. Please enter the correct playlist name"
+			},
+			"load": {
+				"name": "load",
+				"aliases": [
+					"plload"
+				],
+				"des": "play the saved playlist",
+				"use": "<playlist name>",
+				"nodata": "Playlist not found. Please enter the correct playlist name",
+				"loading": "Adding `{length}` track(s) from your **{name}** playlist to the queue.",
+				"errorembed": "Couldn't add any tracks from your **{name}** playlist to the queue.",
+				"mainembed": "Added `{count}` track(s) from your **{name}** playlist to the queue."
+			},
+			"delete": {
+				"name": "delete",
+				"aliases": [
+					"pldelete"
+				],
+				"des": "delete your saved playlist",
+				"use": "<playlist name>",
+				"noname": "You don't have a playlist with the **{name}** name",
+				"mainembed": "Successfully deleted `{name}` playlist"
+			},
+			"info": {
+				"name": "info",
+				"aliases": [
+					"plinfo"
+				],
+				"des": "get information your saved playlist",
+				"use": "<playlist name>",
+				"noname": "You don't have a playlist with the **{name}** name",
+				"author": "'s playlists",
+				"playembed": "**Playlist Name** {pname} **Total Tracks** `{plist}`"
+			},
+			"removetrack": {
+				"name": "removetrack",
+				"aliases": [
+					"plremovet"
+				],
+				"des": "removetrack from your saved playlists",
+				"use": "<playlist name> <track number>",
+				"noname": "You don't have a playlist with **{name}** name",
+				"nonumber": "You didn't entered track number (the Track you want to remove (ID OF IT))\nSee all your Tracks: `{prefix}info {name}`",
+				"wrongumber": "Your provided track number is out of Range (`0` - `{tracks}`)\nSee all your Tracks: `{prefix}info showdetails {name}",
+				"mainembed": "Removed **{tracks}** from `{name}`"
+			},
+			"savecurrent": {
+				"name": "savecurrent",
+				"aliases": [
+					"plsavec"
+				],
+				"des": "add current playing song in your saved playlist.",
+				"use": "<playlist name>",
+				"noname": "You don't have a playlist with the **{name}** name",
+				"mainembed": "Added [{track}]({uri}) in `{name}`"
+			}
 		}
 	}
 }
