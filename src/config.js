@@ -5,7 +5,7 @@ module.exports = {
     prefix: process.env.PREFIX || "!", // bot prefix
     ownerID: process.env.OWNERID || "491577179495333903", //your discord id
     mongourl: process.env.MONGO_URI || "", // MongoDb URL
-    embedColor: process.env.COlOR || "#303236", // embed colour
+    embedColor: process.env.COLOR || "#303236", // embed colour
     logs: process.env.LOGS || "875254787191504947", // channel id for guild create and delete logs
     langs:  process.env.LANGS || "en", 
 

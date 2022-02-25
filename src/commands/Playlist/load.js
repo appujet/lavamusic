@@ -22,7 +22,7 @@ module.exports = {
             voiceChannel: message.member.voice.channelId,
             textChannel: message.channelId,
             volume: 100,
-            selfDeafen: true,
+            selfDeafen: false,
         });
         if (player && player.state !== "CONNECTED") player.connect();
 

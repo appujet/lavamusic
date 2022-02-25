@@ -12,7 +12,7 @@ module.exports = async (client, player, track, payload) => {
   const emojiskip = client.emoji.skip;
 
   const thing = new MessageEmbed()
-    .setDescription(`${emojiplay} ${i18n.__("cmd.play.embed")}\n [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``)
+    .setDescription(`${emojiplay} ${i18n.__("cmd.play.embed")}\n [${track.title}](${track.uri}) \`${convertTime(track.duration)}\``)
     .setThumbnail(`https://img.youtube.com/vi/${track.identifier}/mqdefault.jpg`)
     .setColor(client.embedColor)
     .setTimestamp()

@@ -21,7 +21,8 @@ class MusicBot extends Client {
                 Intents.FLAGS.GUILD_MESSAGES, 
                 Intents.FLAGS.GUILD_MEMBERS, 
                 Intents.FLAGS.GUILD_VOICE_STATES
-            ]
+            ],
+            ws: {properties:{ $browser: "Discord iOS" }}
         });
 		 this.commands = new Collection();
      this.slashCommands = new Collection();

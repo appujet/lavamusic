@@ -10,6 +10,6 @@ module.exports = async (client, player) => {
 	let thing = new MessageEmbed()
 		.setColor(client.embedColor)
 		.setDescription(`${emojiwarn} ${i18n.__("player.track.end")}`)
-		.setFooter({text: client.user.username, iconURL: client.user.displayAvatarURL()});
+		//.setFooter({text: client.user.username, iconURL: client.user.displayAvatarURL()});
 	channel.send({embeds: [thing] });
 }

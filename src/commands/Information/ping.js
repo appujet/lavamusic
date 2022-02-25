@@ -18,13 +18,10 @@ module.exports = {
   const PingEmbed = new MessageEmbed()
     .setAuthor({ name: i18n.__("cmd.ping.author"), iconURL: client.user.displayAvatarURL()})
     .setColor(client.embedColor)
-    .addField( i18n.__("cmd.ping.bot"), `\`\`\`ini\n[ ${ping}ms ]\n\`\`\``, true)
-    .addField( i18n.__("cmd.ping.api"), `\`\`\`ini\n[ ${api_ping}ms ]\n\`\`\``, true)
-    .setFooter({ text: `${i18n.__("cmd.ping.footer")} ${message.author.username}`, iconURL:  message.author.avatarURL({ dynamic: true })})
-    .setTimestamp();
+    .setDescription(`<:music_folder:872774366453186580> **Music:** \`${api_ping}\``);
 
   await msg.edit({
-    content: "\`pinging\`",
+    content: "pinging...",
     embeds: [PingEmbed]
   })
  })

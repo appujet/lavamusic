@@ -99,11 +99,11 @@ module.exports = {
           const thing = new MessageEmbed()
             .setColor(client.embedColor)
             .setTimestamp()
-            .setThumbnail(track.displayThumbnail("hqdefault"))
+            //.setThumbnail(track.displayThumbnail("hqdefault"))
             .setDescription(
               `${emojiaddsong} ${i18n.__("player.addq")}\n[${track.title}](${
                 track.uri
-              }) - \`${convertTime(track.duration)}\``
+              }) \`${convertTime(track.duration)}\``
             );
           return message.channel.send({ embeds: [thing] });
         }
@@ -135,11 +135,11 @@ module.exports = {
           const thing = new MessageEmbed()
             .setColor(client.embedColor)
             .setTimestamp()
-            .setThumbnail(track.displayThumbnail("hqdefault"))
+            //.setThumbnail(track.displayThumbnail("hqdefault"))
             .setDescription(
               `${emojiaddsong} ${i18n.__("player.addq")}\n[${track.title}](${
                 track.uri
-              }) \`[${convertTime(track.duration)}]\`by <@${
+              }) \`${convertTime(track.duration)}\`by <@${
                 track.requester.id
               }>`
             );

@@ -132,7 +132,7 @@
 			"slash": {
 				"name": "input",
 				"des": "The search input (name/url)",
-				"error": ":x: | **There was an error while searching**",
+				"error": "❌ **There was an error while searching**",
 				"nores": "❌ **No results were found.**",
 				"embed": "**Added song to queue**",
 				"embed1": "**Playlist added to queue**"
@@ -319,16 +319,17 @@
 			"name": "grab",
 			"des": "Grabs And Sends You The Song That Is Playing At The Moment",
 			"aliases": [
-				"save"
+				"save",
+        "shazam"
 			],
-			"label": "Check Your Dm",
-			"search": "Search",
+			"label": "Saved to dms",
+			"search": "YouTube",
 			"footer": "Requested By",
-			"details": "**Song Details**",
-			"sname": "**__Song Name__**",
-			"time": "**__Song Duration__**",
-			"playedby": "**__Song Played By__**",
-			"savedby": "**__Song Saved By__**"
+			"details": "<:shazam:939100525645922365> **Shazam**",
+			"sname": "**Song:**",
+			"time": "Duration:",
+			"playedby": "Song requested by:",
+			"savedby": "Saved by:"
 		},
 		"filter": {
 			"name": "filters",
@@ -403,10 +404,10 @@
 				],
 				"des": "Gets the user's playlist.",
 				"use": "<playlist name>",
-				"argsembed": "Playlist name can't be geater than 10 charecters",
-				"dataembed": "This playlist already Exists! Delete it using: {prefix}delete {name}",
-				"existembed": "You can only create 10 playlist",
-				"mainembed": "Successfully created the **{name}** playlist"
+				"argsembed": "Playlist name can't be geater than __10 charecters__",
+				"dataembed": "That playlist already exists!",
+				"existembed": "You can only create 10 playlists!",
+				"mainembed": "<:mp3:946000038558060564> Successfully created the **{name}** playlist"
 			},
 			"list": {
 				"name": "list",
@@ -418,18 +419,18 @@
 				"argsembed": "Playlist name can't be greater than 10 charecters",
 				"noembed": "You don't have any playlists",
 				"author": "'s playlists",
-				"footer": "Playlist ({list} / 10)",
-				"playembed": "**Playlist name** {pname} **Total Tracks** {plist}"
+				"footer": "Playlist (`{list} / 10`)",
+				"playembed": "<:mp3:946000038558060564> {pname} (`{plist} Songs`)"
 			},
 			"save": {
 				"name": "savequeue",
 				"aliases": [
 					"plsaveq"
 				],
-				"des": "Save current playing queue in your playlist.",
+				"des": "<:mp3:946000038558060564> Saved current queue to your playlist",
 				"use": "<playlist name>",
 				"nodata": "Playlist not found. Please enter the correct playlist name",
-				"mainembed": "**Added** `{save}`song in {name}",
+				"mainembed": "<:mp3:946000038558060564> Added `{save}` songs to your **{name}** playlist",
 				"noname": "Playlist not found. Please enter the correct playlist name"
 			},
 			"load": {
@@ -440,9 +441,9 @@
 				"des": "play the saved playlist",
 				"use": "<playlist name>",
 				"nodata": "Playlist not found. Please enter the correct playlist name",
-				"loading": "Adding `{length}` track(s) from your **{name}** playlist to the queue.",
+				"loading": "<:mp3:946000038558060564> Added `{length}` tracks from your **{name}** playlist to the queue.",
 				"errorembed": "Couldn't add any tracks from your **{name}** playlist to the queue.",
-				"mainembed": "Added `{count}` track(s) from your **{name}** playlist to the queue."
+				"mainembed": "<:mp3:946000038558060564> Added `{count}` tracks from your **{name}** playlist to the queue."
 			},
 			"delete": {
 				"name": "delete",
@@ -452,7 +453,7 @@
 				"des": "delete your saved playlist",
 				"use": "<playlist name>",
 				"noname": "You don't have a playlist with the **{name}** name",
-				"mainembed": "Successfully deleted `{name}` playlist"
+				"mainembed": "<:mp3:946000038558060564> Successfully deleted your **{name}** playlist"
 			},
 			"info": {
 				"name": "info",
@@ -463,7 +464,7 @@
 				"use": "<playlist name>",
 				"noname": "You don't have a playlist with the **{name}** name",
 				"author": "'s playlists",
-				"playembed": "**Playlist Name** {pname} **Total Tracks** `{plist}`"
+				"playembed": "<:mp3:946000038558060564> **{pname}** ({plist} Songs)"
 			},
 			"removetrack": {
 				"name": "removetrack",
@@ -472,10 +473,10 @@
 				],
 				"des": "removetrack from your saved playlists",
 				"use": "<playlist name> <track number>",
-				"noname": "You don't have a playlist with **{name}** name",
-				"nonumber": "You didn't entered track number (the Track you want to remove (ID OF IT))\nSee all your Tracks: `{prefix}info {name}`",
-				"wrongumber": "Your provided track number is out of Range (`0` - `{tracks}`)\nSee all your Tracks: `{prefix}info showdetails {name}",
-				"mainembed": "Removed **{tracks}** from `{name}`"
+				"noname": "You don't have a playlist with the **{name}** name",
+				"nonumber": "You didn't entered track number",
+				"wrongumber": "Your provided track number is out of range",
+				"mainembed": "<:mp3:946000038558060564> Removed `{tracks}` tracks from your **{name}** playlist"
 			},
 			"savecurrent": {
 				"name": "savecurrent",
@@ -485,7 +486,7 @@
 				"des": "add current playing song in your saved playlist.",
 				"use": "<playlist name>",
 				"noname": "You don't have a playlist with the **{name}** name",
-				"mainembed": "Added [{track}]({uri}) in `{name}`"
+				"mainembed": "<:mp3:946000038558060564> Added [{track}]({uri}) to your **{name}** playlist"
 			}
 		}
 	}

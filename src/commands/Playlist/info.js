@@ -23,7 +23,7 @@ module.exports = {
         if (!data) {
             return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.info.noname", { name: Name }))] });
         }
-        let tracks = data.Playlist.map((x, i) => `\`${+i}\` - ${x.title && x.uri ? `[${x.title}](${x.uri})` : `${x.title}`}${x.duration ? ` - \`${convertTime(Number(x.duration))}\`` : ""}`);
+        let tracks = data.Playlist.map((x, i) => `**${+i}.** ${x.title && x.uri ? `[${x.title}](${x.uri})` : `${x.title}`}${x.duration ? ` \`${convertTime(Number(x.duration))}\`` : ""}`);
         const pages = lodash.chunk(tracks, 10).map((x) => x.join("\n"));
         let page = 0;
         const embed = new MessageEmbed()
