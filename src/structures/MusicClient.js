@@ -23,7 +23,6 @@ class MusicBot extends Client {
                 Intents.FLAGS.GUILD_VOICE_STATES
             ]
         });
-		 this.commands = new Collection();
      this.slashCommands = new Collection();
      this.config = require("../config.js");
      this.owner = this.config.ownerID;
