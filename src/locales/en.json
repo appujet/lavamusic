@@ -185,6 +185,15 @@
 			"embed": "Loop queue is now **{queueRepeat}**",
 			"embed1": "Loop track is now **{trackRepeat}**"
 		},
+                "lyrics": {
+			"name": "lyrics",
+			"des": "find the lyrics of current song",
+			"aliases": [
+				"ly"
+			],
+			"use": "",
+			"embed": "unexpected error has occurred."
+		},
 		"nowplaying": {
 			"name": "nowplaying",
 			"des": "Show now playing song",
