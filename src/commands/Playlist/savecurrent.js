@@ -46,10 +46,12 @@ module.exports = {
         },
             {
                 $push: {
+                    Playlist: {
                     title: song.title,
                     uri: song.uri,
                     author: song.author,
                     duration: song.duration
+                        }
 
                 }
             });
