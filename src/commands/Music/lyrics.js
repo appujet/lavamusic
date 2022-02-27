@@ -3,10 +3,10 @@ const lyricsFinder = require("lyrics-finder");
 const i18n = require("../../utils/i18n.js");
 
 module.exports = {
-    name: "lyrics",
-    aliases: ["ly"],
+    name: i18n.__("cmd.lyrics.name"),
+    aliases: i18n.__("cmd.lyrics.aliases"),
     category: "Music",
-    description: "Show now playing song",
+    description: i18n.__("cmd.lyrics.des"),
     args: false,
     usage: "",
     permission: [],
