@@ -273,8 +273,8 @@
 				"des": "<10s || 10m || 10h>"
 			}
 		},
-		"suffle": {
-			"name": "suffle",
+		"shuffle": {
+			"name": "shuffle",
 			"des": "Shuffle queue",
 			"aliases": [],
 			"use": "",
