@@ -2,9 +2,9 @@ const { MessageEmbed } = require("discord.js");
 const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: i18n.__("cmd.suffle.name"),
+  name: i18n.__("cmd.shuffle.name"),
   category: "Music",
-  description: i18n.__("cmd.suffle.des"),
+  description: i18n.__("cmd.shuffle.des"),
   args: false,
   usage: "",
   permission: [],
@@ -26,7 +26,7 @@ module.exports = {
     const emojishuffle = client.emoji.shuffle;
 
     let thing = new MessageEmbed()
-      .setDescription(`${emojishuffle} ${i18n.__("cmd.suffle.embed")}`)
+      .setDescription(`${emojishuffle} ${i18n.__("cmd.shuffle.embed")}`)
       .setColor(client.embedColor)
       .setTimestamp();
     return message
