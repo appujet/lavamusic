@@ -1,4 +1,5 @@
-{
+{	
+	
 	"player": {
 		"noplayer": "Nothing is playing right now...",
 		"addq": "**Added song to queue**",
