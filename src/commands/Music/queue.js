@@ -30,7 +30,7 @@ module.exports = {
         ],
       });
 
-    if (!player.queue)
+    if (!player.queue.current)
       return message.channel.send({
         embeds: [
           new MessageEmbed()
