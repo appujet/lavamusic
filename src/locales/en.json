@@ -1,4 +1,5 @@
-{
+{	
+	
 	"player": {
 		"noplayer": "Nothing is playing right now...",
 		"addq": "**Added song to queue**",
@@ -185,6 +186,15 @@
 			"embed": "Loop queue is now **{queueRepeat}**",
 			"embed1": "Loop track is now **{trackRepeat}**"
 		},
+                "lyrics": {
+			"name": "lyrics",
+			"des": "find the lyrics of current song",
+			"aliases": [
+				"ly"
+			],
+			"use": "",
+			"embed": "unexpected error has occurred."
+		},
 		"nowplaying": {
 			"name": "nowplaying",
 			"des": "Show now playing song",
@@ -264,8 +274,8 @@
 				"des": "<10s || 10m || 10h>"
 			}
 		},
-		"suffle": {
-			"name": "suffle",
+		"shuffle": {
+			"name": "shuffle",
 			"des": "Shuffle queue",
 			"aliases": [],
 			"use": "",

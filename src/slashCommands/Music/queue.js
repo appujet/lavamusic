@@ -29,7 +29,7 @@ module.exports = {
     const player = interaction.client.manager.get(interaction.guildId);
     const song = player.queue.current;
 
-    if (!player.queue)
+    if (!player.queue.current)
       return await interaction.editReply({
         embeds: [
           new MessageEmbed()
