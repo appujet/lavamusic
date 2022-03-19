@@ -13,7 +13,7 @@ module.exports = {
       type: "STRING",
     },
   ],
-  permission: ["MANAGE_GUILD"],
+  permissions: ["MANAGE_GUILD"],
   run: async (client, interaction, prefix) => {
     await interaction.deferReply({});
     const data = await db.findOne({ Guild: interaction.guildId });

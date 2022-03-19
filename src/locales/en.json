@@ -29,7 +29,7 @@
 		},
 		"inter": {
 			"noplayer": "There is no player for this guild",
-			"noparam": "There is no player for this guild",
+			"noparam": "You don't have permission",
 			"use": "to use this command!"
 		}
 	},
