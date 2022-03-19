@@ -40,5 +40,3 @@ execute: async (message, args, client, prefix) => {
     return message.channel.send({embeds: [lyricsEmbed]}).catch(console.error);
   }
 };
-//* Dm ❀SUNSHİNE❀#1359 for any error.
-//
