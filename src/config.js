@@ -12,7 +12,7 @@ module.exports = {
     nodes: [
     {
       host: process.env.NODE_HOST || "disbotlistlavalink.ml",
-      identifer: process.env.NODE_ID || "local",
+      identifier: process.env.NODE_ID || "local",
       port: parseInt(process.env.NODE_PORT || "443"),
       password: process.env.NODE_PASSWORD || "LAVA",
       secure: parseBoolean(process.env.NODE_SECURE || "true"),
