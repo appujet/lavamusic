@@ -143,10 +143,10 @@ Then Turn On Both Of Those Settings And Click "Save Changes" Then Your Are Done 
 ## 🌋 lavalink 
 ```js
       "host": "disbotlistlavalink.ml",
-      "port": 443,
+      "port": 80,
       "password": "LAVA",
       "retryDelay": 3000,
-      "secure": true
+      "secure": false
 ```
 - Create an application.yml file in your working directory and copy the [example](https://github.com/freyacodes/Lavalink/blob/master/LavalinkServer/application.yml.example) into the created file and edit it with your configuration.
 - Run the jar file by running `java -jar Lavalink.jar` in a Terminal window.
