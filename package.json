@@ -24,7 +24,6 @@
   "bugs": "https://github.com/brblacky/lavamusic/issues",
   "homepage": "https://github.com/brblacky/lavamusic#readme",
   "dependencies": {
-    "better-erela.js-spotify": "^1.2.3",
     "chalk": "^4.1.2",
     "delay": "^5.0.0",
     "discord.js": "^13.6.0",
@@ -33,6 +32,7 @@
     "erela.js-apple": "^1.2.5",
     "erela.js-deezer": "^1.0.7",
     "erela.js-facebook": "^1.0.4",
+    "erela.js-spotify": "^1.2.0",
     "i18n": "^0.14.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
