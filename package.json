@@ -20,7 +20,7 @@
     "musicbot"
   ],
   "author": "blacky",
-  "license ": "MIT",
+  "license ": "GPL",
   "bugs": "https://github.com/brblacky/lavamusic/issues",
   "homepage": "https://github.com/brblacky/lavamusic#readme",
   "dependencies": {
