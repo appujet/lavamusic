@@ -8,6 +8,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbrblacky%2Flavamusic.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbrblacky%2Flavamusic?ref=badge_shield)
 <center><img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=lavamusic&fontSize=80&fontAlignY=35&animation=twinkling&fontColor=gradient" /></center>
 
 
@@ -205,3 +206,6 @@ Distributed under the MIT License. See [`LICENSE`](https://github.com/brblacky/l
 [issues-url]: https://github.com/brblacky/lavamusic/issues
 [license-shield]: https://img.shields.io/github/license/brblacky/lavamusic.svg?style=for-the-badge
 [license-url]: https://github.com/brblacky/lavamusic/blob/master/LICENSE
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbrblacky%2Flavamusic.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbrblacky%2Flavamusic?ref=badge_large)
