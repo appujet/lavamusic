@@ -1,22 +1,22 @@
 const { MessageEmbed } = require("discord.js");
-const i18n = require("../../utils/i18n");
 const db = require("../../schema/playlist");
 
 module.exports = {
-    name: i18n.__("cmd.playlist.load.name"),
-    aliases: i18n.__("cmd.playlist.load.aliases"),
+    name: "load",
+    aliases: ["plload"],
     category: "Playlist",
-    description: i18n.__("cmd.playlist.load.des"),
-    args: true,
-    usage: i18n.__("cmd.playlist.load.use"),
+    description: "Play the saved Playlist.",
+    args: false,
+    usage: "<playlist name>",
     permission: [],
     owner: false,
-    player: false,
+    player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
     execute: async (message, args, client, prefix) => {
 
-        const Name = args[0];
+        var color = client.embedColor;
+        const Name = args[0].replace(/_/g, ' ');
         const player = message.client.manager.create({
             guild: message.guildId,
             voiceChannel: message.member.voice.channelId,
@@ -25,14 +25,16 @@ module.exports = {
             selfDeafen: true,
         });
         if (player && player.state !== "CONNECTED") player.connect();
+        let length = data.PlaylistName;
+        let name = Name;
 
         const data = await db.findOne({ UserId: message.author.id, PlaylistName: Name })
         if (!data) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__("cmd.playlist.load.nodata"))] })
+            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`Playlist not found. Please enter the correct playlist name\n\nDo ${prefix}list To see your Playlist`)] })
         }
         if (!player) return;
         let count = 0;
-        const m = await message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.load.loading", {length: data.Playlist.length, name: Name}))] })
+        const m = await message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`Adding ${length} track(s) from your playlist **${name}** to the queue.`)] })
         for (const track of data.Playlist) {
             let s = await player.search(track.uri ? track.uri : track.title, message.author);
             if (s.loadType === "TRACK_LOADED") {
@@ -48,8 +50,8 @@ module.exports = {
             };
         };
         if (player && !player.queue.current) player.destroy();
-        if (count <= 0 && m) return await m.edit({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.load.errorembed", {name: Name}))] })
-        if (m) return await m.edit({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.load.mainembed", {name: Name}))] })
+        if (count <= 0 && m) return await m.edit({ embeds: [new MessageEmbed().setColor(color).setDescription(`Couldn't add any tracks from your playlist **${name}** to the queue.`)] })
+        if (m) return await m.edit({ embeds: [new MessageEmbed().setColor(color).setDescription(`Added ${count} track(s) from your playlist **${name}** to the queue.`)] })
     }
 
 };

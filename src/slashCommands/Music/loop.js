@@ -1,53 +1,78 @@
 const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
-const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: i18n.__("cmd.loop.name"),
-  description: i18n.__("cmd.loop.des"),
+  name: "loop",
+  description: "Toggle music loop",
+  permissions: [],
   player: true,
+  dj: true,
   inVoiceChannel: true,
   sameVoiceChannel: true,
+  options: [
+    {
+      name: "input",
+      description: "The looping input (track or queue).",
+      type: "STRING",
+      required: true,
+      choices: [
+        {
+          name: "track",
+          value: "track"
+        },
+        {
+          name: "queue",
+          value: "queue"
+        }
+      ]
+    }
+  ],
   /**
-   *
-   * @param {Client} client
-   * @param {CommandInteraction} interaction
+   * 
+   * @param {Client} client 
+   * @param {CommandInteraction} interaction 
    */
 
   run: async (client, interaction) => {
-    await interaction.deferReply({});
+    if (!interaction.replied) await interaction.deferReply().catch(() => { });
 
+    const input = interaction.options.getString("input");
+
+    let player = client.manager.get(interaction.guildId);
     if (!player.queue.current) {
       let thing = new MessageEmbed()
         .setColor("RED")
-        .setDescription(i18n.__("player.noplayer"));
-      return interaction.editReply({ embeds: [thing] });
+        .setDescription("There is no music playing.");
+      return message.channel.send({ embeds: [thing] });
     }
     const emojiloop = client.emoji.loop;
 
-    if (args.length && /queue/i.test(args[0])) {
-      player.setQueueRepeat(!player.queueRepeat);
-      const queueRepeat = player.queueRepeat ? "enabled" : "disabled";
-      let thing = new MessageEmbed()
-        .setColor(client.embedColor)
-        .setTimestamp()
-        .setDescription(
-          `${emojiloop} ${i18n.__mf("cmd.loop.embed", {
-            queueRepeat: queueRepeat,
-          })} `
-        );
-      return interaction.editReply({ embeds: [thing] });
+    if (input === "track") {
+      if (player.trackRepeat) {
+        player.setTrackRepeat(false);
+        return await interaction.editReply({
+          embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`${emojiloop} Loop track is now disable`)]
+        })
+      } else {
+        player.setTrackRepeat(true);
+        return await interaction.editReply({
+          embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`${emojiloop} Loop track is now enable`)]
+        })
+      }
+    } else if (input === "queue") {
+      if (!player.queue.size) return await interaction.editReply({
+        embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`No more songs left in the queue to loop`)]
+      })
+      if (player.queueRepeat) {
+        player.setQueueRepeat(false);
+        return await interaction.editReply({
+          embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`${emojiloop} Loop queue is now disable`)]
+        })
+      } else {
+        player.setQueueRepeat(true);
+        return await interaction.editReply({
+          embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`${emojiloop} Loop queue is now enable`)]
+        })
+      };
     }
-
-    player.setTrackRepeat(!player.trackRepeat);
-    const trackRepeat = player.trackRepeat ? "enabled" : "disabled";
-    let thing = new MessageEmbed()
-      .setColor(client.embedColor)
-      .setTimestamp()
-      .setDescription(
-        `${emojiloop} ${i18n.__mf("cmd.loop.embed1", {
-          trackRepeat: trackRepeat,
-        })} `
-      );
-    return interaction.editReply({ embeds: [thing] });
-  },
+  }
 };

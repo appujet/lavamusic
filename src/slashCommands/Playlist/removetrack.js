@@ -1,23 +1,22 @@
 const { MessageEmbed, CommandInteraction, Client, MessageActionRow, MessageButton } = require("discord.js");
-const i18n = require("../../utils/i18n");
 const db = require("../../schema/playlist");
 
 module.exports = {
-    name: i18n.__("cmd.playlist.removetrack.name"),
-    description: i18n.__("cmd.playlist.removetrack.des"),
+    name: "removetrack",
+    description: "Removetrack from your saved Playlists.",
     player: false,
     inVoiceChannel: false,
     sameVoiceChannel: false,
     options: [
         {
-            name: i18n.__("cmd.playlist.slash.name"),
-            description: i18n.__("cmd.playlist.slash.des"),
+            name: "name",
+            description: "Playlist Name",
             required: true,
             type: "STRING"
         },
         {
-            name: i18n.__("cmd.playlist.slash.name2"),
-            description: i18n.__("cmd.playlist.slash.des2"),
+            name: "number",
+            description: "Song Number",
             required: true,
             type: "STRING"
         }
@@ -32,22 +31,22 @@ module.exports = {
 
         await interaction.deferReply({});
 
-        const Name = interaction.options.getString("name");
+        const Name = interaction.options.getString("name").replace(/_/g, ' ');
         const data = await db.findOne({ UserId: interaction.member.user.id, PlaylistName: Name });
 
         if (!data) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.removetrack.noname", { name: Name }))] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist with **${Name}** name`)] });
         }
         if (data.length == 0) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.delete.noname", { name: Name }))] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist with **${Name}** name`)] });
         }
         const Options = interaction.options.getString("number");
         if (!Options || isNaN(Options)) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.removetrack.nonumber", { prefix: prefix, name: Name }))] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You didn't entered track number (the Track you want to remove (ID OF IT))\nSee all your Tracks: ${prefix}info ${Name}`)] });
         }
         let tracks = data.Playlist;
         if (Number(Options) >= tracks.length || Number(Options) < 0) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.removetrack.wrongumber", { tracks: tracks.length - 1, prefix: prefix, name: Name }))] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Your provided track number is out of Range (\`0\` - ${tracks.length - 1})\nSee all your Tracks: \`${prefix}info\` showdetails ${Name}`)] });
 
         }
         await db.updateOne({
@@ -61,7 +60,7 @@ module.exports = {
             });
             const embed = new MessageEmbed()
             .setColor(client.embedColor)
-            .setDescription(i18n.__mf("cmd.playlist.removetrack.mainembed", { tracks: tracks[Options].title, name: Name }));
+            .setDescription(`Removed **${tracks[Options].title}** from \`${Name}\``);
             return interaction.editReply({embeds: [embed]});
     }
 };

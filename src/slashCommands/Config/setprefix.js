@@ -1,63 +1,65 @@
-const { MessageEmbed } = require("discord.js");
+const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
 const db = require("../../schema/prefix.js");
-const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: i18n.__("cmd.prefix.name"),
-  description: i18n.__("cmd.prefix.des"),
+  name: "setprefix",
+  description: "Set Custom Prefix",
+  permissions: ['MANAGE_GUILD'],
   options: [
     {
-      name: i18n.__("cmd.prefix.slash.name"),
-      description: i18n.__("cmd.prefix.slash.des"),
+      name: "prefix",
+      description: "give me new prefix",
       required: true,
-      type: "STRING",
-    },
+      type: "STRING"
+    }
   ],
-  permissions: ["MANAGE_GUILD"],
+
+
   run: async (client, interaction, prefix) => {
-    await interaction.deferReply({});
+    await interaction.deferReply({
+    });
     const data = await db.findOne({ Guild: interaction.guildId });
     const pre = interaction.options.getString("prefix");
 
     if (!pre[0]) {
       const embed = new MessageEmbed()
-        .setDescription(i18n.__("cmd.prefix.embed"))
-        .setColor(client.embedColor);
+        .setDescription("Please give the prefix that you want to set")
+        .setColor(client.embedColor)
       return await interaction.editReply({ embeds: [embed] });
     }
     if (pre[1]) {
       const embed = new MessageEmbed()
-        .setDescription(i18n.__("cmd.prefix.embed2"))
-        .setColor(client.embedColor);
+        .setDescription("You can not set prefix a double argument")
+        .setColor(client.embedColor)
       return await interaction.editReply({ embeds: [embed] });
     }
     if (pre[0].length > 3) {
       const embed = new MessageEmbed()
-        .setDescription(i18n.__("cmd.prefix.embed3"))
-        .setColor(client.embedColor);
+        .setDescription("You can not send prefix more than 3 characters")
+        .setColor(client.embedColor)
       return await interaction.editReply({ embeds: [embed] });
     }
     if (data) {
       data.oldPrefix = prefix;
       data.Prefix = pre;
-      await data.save();
+      await data.save()
       const update = new MessageEmbed()
-        .setDescription(`${i18n.__("cmd.prefix.embed4")} **${pre}**`)
+        .setDescription(`Your prefix has been updated to **${pre}**`)
         .setColor(client.embedColor)
-        .setTimestamp();
+        .setTimestamp()
       return await interaction.editReply({ embeds: [update] });
     } else {
       const newData = new db({
         Guild: interaction.guildId,
         Prefix: pre,
-        oldPrefix: prefix,
+        oldPrefix: prefix
       });
-      await newData.save();
+      await newData.save()
       const embed = new MessageEmbed()
-        .setDescription(`${i18n.__("cmd.prefix.embed5")} **${pre}**`)
+        .setDescription(`Custom prefix in this server is now set to **${pre}**`)
         .setColor(client.embedColor)
-        .setTimestamp();
+        .setTimestamp()
       return await interaction.editReply({ embeds: [embed] });
     }
-  },
-};
+  }
+}

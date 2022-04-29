@@ -1,63 +1,34 @@
-const {
-  CommandInteraction,
-  Client,
-  MessageEmbed,
-  Permissions,
-} = require("discord.js");
-
-const { convertTime } = require("../../utils/convert.js");
-const i18n = require("../../utils/i18n");
-
+const { CommandInteraction, Client, MessageEmbed, Permissions } = require("discord.js");
+const { convertTime } = require('../../utils/convert.js');
 module.exports = {
-  name: i18n.__("cmd.play.name"),
-  description: i18n.__("cmd.play.des"),
-  options: [
-    {
-      name: i18n.__("cmd.play.slash.name"),
-      description: i18n.__("cmd.play.slash.des"),
-      required: true,
-      type: "STRING",
-    },
-  ],
+  name: "play",
+  description: "To play some song.",
   player: false,
   inVoiceChannel: true,
   sameVoiceChannel: true,
+  options: [
+    {
+      name: "input",
+      description: "The search input (name/url)",
+      required: true,
+      type: "STRING"
+    }
+  ],
 
   /**
    * @param {Client} client
    * @param {CommandInteraction} interaction
    */
 
-  run: async (client, interaction) => {
-    await interaction.deferReply({});
-
-    if (
-      !interaction.guild.me.permissions.has([
-        Permissions.FLAGS.CONNECT,
-        Permissions.FLAGS.SPEAK,
-      ])
-    )
-      return interaction.editReply({
-        embeds: [
-          new MessageEmbed()
-            .setColor(client.embedColor)
-            .setDescription(i18n.__("prams.connect")),
-        ],
-      });
+  run: async (client, interaction,) => {
+    await interaction.deferReply({
+      ephemeral: false
+    });
+    if (!interaction.guild.me.permissions.has([Permissions.FLAGS.CONNECT, Permissions.FLAGS.SPEAK])) return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`I don't have enough permissions to execute this command! please give me permission \`CONNECT\` or \`SPEAK\`.`)] });
     const { channel } = interaction.member.voice;
-    if (
-      !interaction.guild.me
-        .permissionsIn(channel)
-        .has([Permissions.FLAGS.CONNECT, Permissions.FLAGS.SPEAK])
-    )
-      return interaction.editReply({
-        embeds: [
-          new MessageEmbed()
-            .setColor(client.embedColor)
-            .setDescription(i18n.__("prams.vc")),
-        ],
-      });
+    if (!interaction.guild.me.permissionsIn(channel).has([Permissions.FLAGS.CONNECT, Permissions.FLAGS.SPEAK])) return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`I don't have enough permissions connect your vc please give me permission \`CONNECT\` or \`SPEAK\`.`)] });
 
+    const emojiaddsong = client.emoji.addsong;
     const emojiplaylist = client.emoji.playlist;
     let search = interaction.options.getString("input");
     let res;
@@ -67,7 +38,7 @@ module.exports = {
       textChannel: interaction.channelId,
       voiceChannel: interaction.member.voice.channelId,
       selfDeafen: true,
-      volume: 100,
+      volume: 100
     });
 
     if (player.state != "CONNECTED") await player.connect();
@@ -76,29 +47,15 @@ module.exports = {
       res = await player.search(search);
       if (res.loadType === "LOAD_FAILED") {
         if (!player.queue.current) player.destroy();
-        return await interaction.editReply({
-          embeds: [
-            new MessageEmbed()
-              .setColor(client.embedColor)
-              .setTimestamp()
-              .setDescription(i18n.__("cmd.play.slash.error")),
-          ],
-        });
+        return await interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription(`:x: | **There was an error while searching**`)] });
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
     switch (res.loadType) {
       case "NO_MATCHES":
         if (!player.queue.current) player.destroy();
-        return await interaction.editReply({
-          embeds: [
-            new MessageEmbed()
-              .setColor(client.embedColor)
-              .setTimestamp()
-              .setDescription(i18n.__("cmd.play.slash.nores")),
-          ],
-        });
+        return await interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription("❌ | **No results were found.**")] });
       case "TRACK_LOADED":
         player.queue.add(res.tracks[0], interaction.user);
         if (!player.playing && !player.paused && !player.queue.length)
@@ -106,13 +63,7 @@ module.exports = {
         const trackload = new MessageEmbed()
           .setColor(client.embedColor)
           .setTimestamp()
-          .setDescription(
-            `${emojiplaylist} ${i18n.__("cmd.play.slash.embed")} [${
-              res.tracks[0].title
-            }](${res.tracks[0].uri}) - \`[${convertTime(
-              res.tracks[0].duration
-            )}]\``
-          );
+          .setDescription(`${emojiplaylist} **Added song to queue** [${res.tracks[0].title}](${res.tracks[0].uri}) - \`[${convertTime(res.tracks[0].duration)}]\``);
         return await interaction.editReply({ embeds: [trackload] });
       case "PLAYLIST_LOADED":
         player.queue.add(res.tracks);
@@ -121,11 +72,7 @@ module.exports = {
         const playlistloadds = new MessageEmbed()
           .setColor(client.embedColor)
           .setTimestamp()
-          .setDescription(
-            `${emojiplaylist} ${i18n.__("cmd.play.slash.embed1")} [${
-              res.playlist.name
-            }](${search}) - \`[${convertTime(res.playlist.duration)}]\``
-          );
+          .setDescription(`${emojiplaylist} **Playlist added to queue** [${res.playlist.name}](${search}) - \`[${convertTime(res.playlist.duration)}]\``);
         return await interaction.editReply({ embeds: [playlistloadds] });
       case "SEARCH_RESULT":
         const track = res.tracks[0];
@@ -136,27 +83,22 @@ module.exports = {
             .setColor(client.embedColor)
             .setTimestamp()
             .setThumbnail(track.displayThumbnail("3"))
-            .setDescription(
-              `${emojiplaylist} ${i18n.__("cmd.play.slash.embed")} [${
-                track.title
-              }](${track.uri}) - \`[${convertTime(track.duration)}]`
-            );
+            .setDescription(`${emojiplaylist} **Added song to queue** [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]`);
 
           player.play();
           return await interaction.editReply({ embeds: [searchresult] });
+
         } else {
           const thing = new MessageEmbed()
             .setColor(client.embedColor)
             .setTimestamp()
             .setThumbnail(track.displayThumbnail("3"))
-            .setDescription(
-              `${emojiplaylist} ${i18n.__("cmd.play.slash.embed")} [${
-                track.title
-              }](${track.uri}) - \`[${convertTime(track.duration)}]\``
-            );
+            .setDescription(`${emojiplaylist} **Added song to queue** [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``);
 
           return await interaction.editReply({ embeds: [thing] });
+
         }
     }
-  },
-};
+  }
+}
+

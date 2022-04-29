@@ -1,14 +1,13 @@
 const { MessageEmbed } = require("discord.js");
-const i18n = require("../../utils/i18n");
 const db = require("../../schema/playlist");
 
 module.exports = {
-    name: i18n.__("cmd.playlist.save.name"),
-    aliases: i18n.__("cmd.playlist.save.aliases"),
+    name: "savequeue",
+    aliases: ["plsaveq"],
     category: "Playlist",
-    description: i18n.__("cmd.playlist.save.des"),
-    args: true,
-    usage: i18n.__("cmd.playlist.save.use"),
+    description: "Save current playing queue in your playlist.",
+    args: false,
+    usage: "<playlist name>",
     permission: [],
     owner: false,
     player: true,
@@ -16,20 +15,20 @@ module.exports = {
     sameVoiceChannel: true,
     execute: async (message, args, client, prefix) => {
 
-        const Name = args[0];
+        const Name = args[0].replace(/_/g, ' ');
         const player = message.client.manager.get(message.guild.id);
         if (!player.queue.current) {
             let thing = new MessageEmbed()
                 .setColor("RED")
-                .setDescription(i18n.__("player.nomusic"));
+                .setDescription(`Currently No Music Is Playing..`);
             return message.reply({ embeds: [thing] });
         }
         const data = await db.find({ UserId: message.author.id, PlaylistName: Name })
         if (!data) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__("cmd.playlist.save.nodata"))] })
+            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] })
         }
         if (data.length == 0) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.save.noname", { name: Name }))] });
+            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] });
         }
         const song = player.queue.current;
         const tracks = player.queue;
@@ -64,7 +63,7 @@ module.exports = {
 
             });
         const embed = new MessageEmbed()
-            .setDescription(i18n.__mf("cmd.playlist.save.mainembed", { save: playlist.length - oldSong.length, name: Name }))
+            .setDescription(`**Added** \`${playlist.length - oldSong.length}\`song in \`${Name}\``)
             .setColor(client.embedColor)
         return message.channel.send({ embeds: [embed] })
 

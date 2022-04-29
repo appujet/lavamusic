@@ -1,63 +1,64 @@
 const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
-const i18n = require("../../utils/i18n");
 
 module.exports = {
-    name: i18n.__("cmd.filter.name"),
-    description: i18n.__("cmd.filter.des"),
+    name: "filters",
+    description: "Set EqualizerBand",
+    permissions: [],
+    player: true,
+    dj: true,
+    inVoiceChannel: true,
+    sameVoiceChannel: true,
     options: [
         {
-            name: i18n.__("cmd.filter.slash.name"),
-            description: i18n.__("cmd.filter.slash.name"),
+            name: "filter",
+            description: "Set EqualizerBand",
             type: "STRING",
             required: true,
             choices: [
                 {
-                    name: i18n.__("cmd.filter.but1"),
+                    name: "Clear",
                     value: "clear"
                 },
                 {
-                    name: i18n.__("cmd.filter.but2"),
+                    name: "Bass",
                     value: "bass",
                 },
                 {
-                    name: i18n.__("cmd.filter.but3"),
+                    name: "Night Core",
                     value: "night"
                 },
                 {
-                    name: i18n.__("cmd.filter.but4"),
+                    name: "Picth",
                     value: "picth"
                 },
                 {
-                    name: i18n.__("cmd.filter.but5"),
+                    name: "Distort",
                     value: "distort"
                 },
                 {
-                    name: i18n.__("cmd.filter.but6"),
+                    name: "Equalizer",
                     value: "eq"
                 },
                 {
-                    name: i18n.__("cmd.filter.but7"),
+                    name: "8D",
                     value: "8d"
                 },
                 {
-                    name: i18n.__("cmd.filter.but8"),
+                    name: "Bassboost",
                     value: "bassboost"
                 },
                 {
-                    name: i18n.__("cmd.filter.but9"),
+                    name: "Speed",
                     value: "speed"
                 },
                 {
-                    name: i18n.__("cmd.filter.but10"),
+                    name: "Vaporwave",
                     value: "vapo"
                 }
             ]
         }
     ],
 
-    player: true,
-    inVoiceChannel: true,
-    sameVoiceChannel: true,
     /**
      * 
      * @param {Client} client 
@@ -65,13 +66,15 @@ module.exports = {
      */
 
     run: async (client, interaction) => {
-        await interaction.deferReply({});
+        await interaction.deferReply({
+            ephemeral: false
+        });
         const filter = interaction.options.getString("filter");
 
         const player = interaction.client.manager.get(interaction.guildId);
         if (!player.queue.current) {
             const thing = new MessageEmbed()
-            .setDescription(i18n.__("player.nomusic"))
+                .setDescription('there is nothing playing')
                 .setColor(client.embedColor)
             return interaction.editReply({ embeds: [thing] });
         }
@@ -84,45 +87,45 @@ module.exports = {
 
             case 'bass':
                 player.setBassboost(true);
-                thing.setDescription(`${emojiequalizer}${i18n.__("cmd.filter.em2")}`);
+                thing.setDescription(`${emojiequalizer} Bass mode is ON`);
                 break;
             case 'eq':
                 player.setEqualizer(true);
-                thing.setDescription(`${emojiequalizer} ${i18n.__("cmd.filter.em6")}`);
+                thing.setDescription(`${emojiequalizer} Trablebass mode is ON`);
                 break;
             case 'bassboost':
                 var bands = new Array(7).fill(null).map((_, i) => (
                     { band: i, gain: 0.25 }
                 ));
                 player.setEQ(...bands);
-                thing.setDescription(`${emojiequalizer} ${i18n.__("cmd.filter.em8")}`);
+                thing.setDescription(`${emojiequalizer} Bassboost mode is ON`);
                 break;
             case 'night':
                 player.setNightcore(true);
-                thing.setDescription(`${emojiequalizer} ${i18n.__("cmd.filter.em3")}`);
+                thing.setDescription(`${emojiequalizer} Night Core Equalizer mode is ON`);
                 break;
             case 'pitch':
                 player.setPitch(2);
-                thing.setDescription(`${emojiequalizer}  ${i18n.__("cmd.filter.em4")}`);
+                thing.setDescription(`${emojiequalizer} Pitch Equalizer mode is ON`);
                 break;
             case 'distort':
                 player.setDistortion(true);
-                thing.setDescription(`${emojiequalizer}  ${i18n.__("cmd.filter.em5")}`);
+                thing.setDescription(`${emojiequalizer} Distort Equalizer mode is ON`);
                 break;
             case 'vapo':
                 player.setVaporwave(true);
-                thing.setDescription(`${emojiequalizer}  ${i18n.__("cmd.filter.em10")}`);
+                thing.setDescription(`${emojiequalizer} Vaporwave Equalizer mode is ON`);
                 break;
             case 'clear':
                 player.clearEffects();
-                thing.setDescription(`${emojiequalizer}  ${i18n.__("cmd.filter.em1")}`);
+                thing.setDescription(`${emojiequalizer} Equalizer mode is OFF`);
                 break;
             case 'speed':
                 player.setSpeed(2);
-                thing.setDescription(`${emojiequalizer}  ${i18n.__("cmd.filter.em9")}`);
+                thing.setDescription(`${emojiequalizer} Speed mode is OFF`);
             case '8d':
                 player.set8D(true);
-                thing.setDescription(`${emojiequalizer}  ${i18n.__("cmd.filter.em7")}`);
+                thing.setDescription(`${emojiequalizer} 8D mode is OFF`);
         }
         return interaction.editReply({ embeds: [thing] });
     }

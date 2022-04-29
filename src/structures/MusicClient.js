@@ -2,7 +2,7 @@ const { Client, Intents, Collection, MessageEmbed, MessageButton, MessageSelectM
 const { Manager } = require("erela.js");
 const { readdirSync } = require("fs");
 const deezer = require("erela.js-deezer");
-const spotify = require("erela.js-spotify")
+const Spotify = require("erela.js-spotify");
 const apple = require("erela.js-apple");
 const facebook = require("erela.js-facebook");
 const mongoose = require('mongoose');
@@ -23,6 +23,7 @@ class MusicBot extends Client {
                 Intents.FLAGS.GUILD_VOICE_STATES
             ]
         });
+		 this.commands = new Collection();
      this.slashCommands = new Collection();
      this.config = require("../config.js");
      this.owner = this.config.ownerID;
@@ -62,30 +63,17 @@ class MusicBot extends Client {
     this.on("reconnecting", () => console.log("Bot reconnecting..."))
     this.on('warn', error => console.log(error));
     this.on('error', error => console.log(error));
-    process.on('unhandledRejection', (reason, p) => {
-      console.log(reason, p);
-    });
-
-    process.on('uncaughtException', (err, origin) => {
-      console.log(err, origin);
-    });
-
-    process.on('uncaughtExceptionMonitor', (err, origin) => {
-      console.log(err, origin);
-    });
-
-    process.on('multipleResolves', (type, promise, reason) => {
-      console.log(type, promise, reason);
-    });
+    process.on('unhandledRejection', error => console.log(error));
+    process.on('uncaughtException', error => console.log(error))
     const client = this;
     this.manager = new Manager({
-      nodes: this.config.nodes,
       autoPlay: true,
+      nodes: this.config.nodes,
       plugins: [
         new deezer(),
-        new spotify({
-          clientID: this.config.SpotifyId,
-          clientSecret: this.config.SpotifySecret,
+        new Spotify({
+          clientID: this.config.SpotifyID,
+          clientSecret: this.config.SpotifySecret
         }),
         new apple(),
         new facebook(),
@@ -101,8 +89,6 @@ class MusicBot extends Client {
  */
    readdirSync("./src/events/Client/").forEach(file => {
     const event = require(`../events/Client/${file}`);
-    let eventName = file.split(".")[0];
-    this.logger.log(`Loading Events ${eventName}`, "event");
     this.on(event.name, (...args) => event.run(this, ...args));
 });
 /**

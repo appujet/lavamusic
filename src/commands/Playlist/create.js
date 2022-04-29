@@ -1,24 +1,28 @@
 const { MessageEmbed } = require("discord.js");
-const i18n = require("../../utils/i18n");
 const db = require("../../schema/playlist");
 
 module.exports = {
-    name: i18n.__("cmd.playlist.create.name"),
-    aliases: i18n.__("cmd.playlist.create.aliases"),
+    name: "create",
+    aliases: ["plcreate"],
     category: "Playlist",
-    description: i18n.__("cmd.playlist.create.des"),
-    args: true,
-    usage: i18n.__("cmd.playlist.create.use"),
+    description: "Creates the user's playlist.",
+    args: false,
+    usage: "<playlist name>",
     permission: [],
     owner: false,
-    player: false,
-    inVoiceChannel: false,
-    sameVoiceChannel: false,
+    player: true,
+    inVoiceChannel: true,
+    sameVoiceChannel: true,
     execute: async (message, args, client, prefix) => {
 
-        const Name = args[0];
+        var color = client.embedColor;
+        const Name = args[0].replace(/_/g, ' ');
+        if (Name[0].length < 0) {
+            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription("Provide a playlist name.")] });
+        };
+
         if (Name.length > 10) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__("cmd.playlist.create.argsembed"))] });
+            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription("Playlist Name Cant Be Greater Than \`10\` Charecters")] });
         };
         let data = await db.find({
             UserId: message.author.id,
@@ -26,13 +30,13 @@ module.exports = {
         });
 
         if (data.length > 0) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.create.dataembed", { prefix: prefix, name: Name }))] })
+            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`This playlist already Exists! delete it using: \`${prefix}\`delete \`${Name}\``)] })
         };
         let userData = db.find({
             UserId: message.author.id
         });
         if (userData.length >= 10) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__("cmd.playlist.create.existembed"))] })
+            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`You Can Only Create \`10\` Playlist`)] })
         }
 
         const newData = new db({
@@ -43,8 +47,8 @@ module.exports = {
         });
         await newData.save();
         const embed = new MessageEmbed()
-            .setDescription(i18n.__mf("cmd.playlist.create.mainembed", { name: Name }))
-            .setColor(client.embedColor)
+            .setDescription(`Successfully created a playlist for you **${Name}**`)
+            .setColor(color)
         return message.channel.send({ embeds: [embed] })
 
     }

@@ -1,9 +1,8 @@
 const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
-const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: i18n.__("cmd.autoplay.name"),
-  description: i18n.__("cmd.autoplay.des"),
+  name: "autoplay",
+  description: "Toggle music autoplay",
   player: true,
   inVoiceChannel: true,
   sameVoiceChannel: true,
@@ -33,7 +32,7 @@ module.exports = {
       let thing = new MessageEmbed()
         .setColor(client.embedColor)
         .setTimestamp()
-        .setDescription(`${emojireplay} ${i18n.__("cmd.autoplay.on")}`);
+        .setDescription(`${emojireplay} Autoplay is now **enabled**`);
       return await interaction.editReply({ embeds: [thing] });
     } else {
       player.set("autoplay", false);
@@ -41,7 +40,7 @@ module.exports = {
       let thing = new MessageEmbed()
         .setColor(client.embedColor)
         .setTimestamp()
-        .setDescription(`${emojireplay} ${i18n.__("cmd.autoplay.on")}`);
+        .setDescription(`${emojireplay} Autoplay is now **disabled**`);
 
       return await interaction.editReply({ embeds: [thing] });
     }

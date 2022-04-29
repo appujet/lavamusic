@@ -1,22 +1,21 @@
-const { MessageEmbed, CommandInteraction, Client, MessageActionRow, MessageButton } = require("discord.js");
-const i18n = require("../../utils/i18n");
+const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
 const db = require("../../schema/playlist");
 
 module.exports = {
-    name: i18n.__("cmd.playlist.savecurrent.name"),
-    description: i18n.__("cmd.playlist.savecurrent.des"),
+    name: "savecurrent",
+    description: "Add current playing song in your saved playlist.",
     player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
     options: [
         {
-            name: i18n.__("cmd.playlist.slash.name"),
-            description: i18n.__("cmd.playlist.slash.des"),
+            name: "name",
+            description: "Playlist Name",
             required: true,
             type: "STRING"
         }
     ],
-    /**
+    /** 
      *
      * @param {Client} client
      * @param {CommandInteraction} interaction
@@ -24,10 +23,10 @@ module.exports = {
 
     run: async (client, interaction) => {
 
-        
+
         await interaction.deferReply({});
 
-        const Name = interaction.options.getString("name");
+        const Name = interaction.options.getString("name").replace(/_/g, ' ');
         const data = await db.findOne({ UserId: interaction.member.user.id, PlaylistName: Name });
 
         const player = client.manager.players.get(interaction.guildId);
@@ -38,19 +37,19 @@ module.exports = {
             return interaction.editReply({ embeds: [thing] });
         }
         if (!data) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.savecurrent.noname", { name: Name }))] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist with **${Name}** name`)] });
         }
         if (data.length == 0) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.savecurrent.noname", { name: Name }))] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist with **${Name}** name`)] });
         }
-        const song = player.queue.current;
+        const track = player.queue.current;
         let oldSong = data.Playlist;
         if (!Array.isArray(oldSong)) oldSong = [];
         oldSong.push({
-            "title": song.title,
-            "uri": song.uri,
-            "author": song.author,
-            "duration": song.duration
+            "title": track.title,
+            "uri": track.uri,
+            "author": track.author,
+            "duration": track.duration
         });
         await db.updateOne({
             UserId: interaction.user.id,
@@ -59,17 +58,17 @@ module.exports = {
             {
                 $push: {
                     Playlist: {
-                    title: song.title,
-                    uri: song.uri,
-                    author: song.author,
-                    duration: song.duration
-                        }
+                        title: track.title,
+                        uri: track.uri,
+                        author: track.author,
+                        duration: track.duration
+                    }
 
                 }
             });
         const embed = new MessageEmbed()
             .setColor(client.embedColor)
-            .setDescription(i18n.__mf("cmd.playlist.savecurrent.mainembed", { track: song.title.substr(0, 256), uri: song.uri, name: Name }))
+            .setDescription(`Added [${track.title.substr(0, 256)}](${track.uri}) in \`${Name}\``)
         return interaction.editReply({ embeds: [embed] })
 
     }

@@ -1,35 +1,35 @@
-const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
-const i18n = require("../../utils/i18n");
+const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
-  name: i18n.__("cmd.leave.name"),
-  description: i18n.__("cmd.leave.des"),
+  name: "leave",
+  description: "Leave voice channel",
+  permissions: [],
   player: true,
+  dj: true,
   inVoiceChannel: true,
   sameVoiceChannel: true,
 
   /**
-   *
-   * @param {Client} client
-   * @param {CommandInteraction} interaction
+   * 
+   * @param {Client} client 
+   * @param {CommandInteraction} interaction 
    */
 
   run: async (client, interaction) => {
-    await interaction.deferReply({});
+    await interaction.deferReply({
+      ephemeral: false
+    });
 
     const player = client.manager.get(interaction.guildId);
 
     const emojiLeave = client.emoji.leave;
 
-    await player.destroy();
+    player.destroy();
 
     let thing = new MessageEmbed()
       .setColor(client.embedColor)
-      .setDescription(
-        `${emojiLeave} ${i18n.__mf("cmd.leave.embed", {
-          username: client.user.username,
-        })}`
-      );
+      .setDescription(`${emojiLeave} **Leave the voice channel**\nThank you for using ${interaction.client.user.username}!`)
     return interaction.editReply({ embeds: [thing] });
-  },
+
+  }
 };

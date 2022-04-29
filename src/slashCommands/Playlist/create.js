@@ -1,17 +1,16 @@
-const { MessageEmbed, CommandInteraction, Client, MessageActionRow, MessageButton } = require("discord.js");
-const i18n = require("../../utils/i18n");
+const { MessageEmbed, CommandInteraction, Client} = require("discord.js");
 const db = require("../../schema/playlist");
 
 module.exports = {
-    name: i18n.__("cmd.playlist.create.name"),
-    description: i18n.__("cmd.playlist.create.des"),
-    player: true,
-    inVoiceChannel: true,
-    sameVoiceChannel: true,
+    name: "create",
+    description: "Gets the user's playlist.",
+    player: false,
+    inVoiceChannel: false,
+    sameVoiceChannel: false,
     options: [
         {
-            name: i18n.__("cmd.playlist.slash.name"),
-            description: i18n.__("cmd.playlist.slash.des"),
+            name: "name",
+            description: "Playlist name",
             required: true,
             type: "STRING"
         }
@@ -26,21 +25,21 @@ module.exports = {
 
         await interaction.deferReply({});
 
-        const Name = interaction.options.getString("name");
+        const Name = interaction.options.getString("name").replace(/_/g, ' ');
         const data = await db.find({ UserId: interaction.member.user.id, PlaylistName: Name });
 
         if (Name.length > 10) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__("cmd.playlist.create.argsembed"))] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Playlist Name Cant Be Greater Than 10 Charecters`)] });
 
         };
         if (data.length > 0) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.create.dataembed", { prefix: prefix, name: Name }))] })
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`This playlist already Exists! delete it using: \`${prefix}\`delete \`${Name}\``)] })
         };
         let userData = db.find({
             UserId: interaction.user.id
         });
         if (userData.length >= 10) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__("cmd.playlist.create.existembed"))] })
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You Can Only Create 10 Playlist`)] })
         }
         const newData = new db({
             UserName: interaction.user.tag,
@@ -50,7 +49,7 @@ module.exports = {
         });
         await newData.save();
         const embed = new MessageEmbed()
-            .setDescription(i18n.__mf("cmd.playlist.create.mainembed", { name: Name }))
+            .setDescription(`Successfully created a playlist for you **${Name}**`)
             .setColor(client.embedColor)
         return interaction.editReply({ embeds: [embed] })
 

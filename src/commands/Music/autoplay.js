@@ -1,11 +1,10 @@
 const { MessageEmbed } = require("discord.js");
-const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: i18n.__("cmd.autoplay.name"),
-  aliases: i18n.__("cmd.autoplay.aliases"),
+  name: "autoplay",
+  aliases: ["ap"],
   category: "Music",
-  description: i18n.__("cmd.autoplay.des"),
+  description: "Toggle music autoplay",
   args: false,
   usage: "",
   permission: [],
@@ -31,7 +30,7 @@ module.exports = {
       let thing = new MessageEmbed()
         .setColor(client.embedColor)
         .setTimestamp()
-        .setDescription(`${emojireplay} ${i18n.__("cmd.autoplay.on")}`);
+        .setDescription(`${emojireplay} Autoplay is now **enabled**`);
       return message.channel.send({ embeds: [thing] });
     } else {
       player.set("autoplay", false);
@@ -39,7 +38,7 @@ module.exports = {
       let thing = new MessageEmbed()
         .setColor(client.embedColor)
         .setTimestamp()
-        .setDescription(`${emojireplay} ${i18n.__("cmd.autoplay.on")}`);
+        .setDescription(`${emojireplay} Autoplay is now **disabled**`);
 
       return message.channel.send({ embeds: [thing] });
     }

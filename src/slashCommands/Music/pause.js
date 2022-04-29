@@ -1,27 +1,31 @@
-const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
-const i18n = require("../../utils/i18n");
+const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
-  name: i18n.__("cmd.pause.name"),
-  description: i18n.__("cmd.pause.des"),
+  name: "pause",
+  description: "Pause the currently playing music",
+  permissions: [],
+  dj: true,
   player: true,
   inVoiceChannel: true,
   sameVoiceChannel: true,
 
+
   /**
-   *
-   * @param {Client} client
-   * @param {CommandInteraction} interaction
+   * 
+   * @param {Client} client 
+   * @param {CommandInteraction} interaction 
    */
 
   run: async (client, interaction) => {
-    await interaction.deferReply({});
+    await interaction.deferReply({
+      ephemeral: false
+    });
     const player = interaction.client.manager.get(interaction.guildId);
 
     if (!player.queue.current) {
       let thing = new MessageEmbed()
         .setColor("RED")
-        .setDescription(i18n.__("player.noplayer"));
+        .setDescription("There is no music playing.");
       return interaction.editReply({ embeds: [thing] });
     }
 
@@ -30,24 +34,20 @@ module.exports = {
     if (player.paused) {
       let thing = new MessageEmbed()
         .setColor("RED")
-        .setDescription(`${emojipause} ${i18n.__("cmd.pause.embed")}`)
-        .setTimestamp();
+        .setDescription(`${emojipause} The player is already paused.`)
+        .setTimestamp()
       return interaction.editReply({ embeds: [thing] });
     }
 
-    await player.pause(true);
+    player.pause(true);
 
     const song = player.queue.current;
 
     let thing = new MessageEmbed()
       .setColor(client.embedColor)
       .setTimestamp()
-      .setDescription(
-        `${emojipause} ${i18n.__mf("cmd.pause.embed2", {
-          SongTitle: song.title,
-          SongUrl: song.uri,
-        })}`
-      );
+      .setDescription(`${emojipause} **Paused**\n[${song.title}](${song.uri})`)
     return interaction.editReply({ embeds: [thing] });
-  },
+
+  }
 };

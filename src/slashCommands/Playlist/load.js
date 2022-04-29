@@ -1,17 +1,16 @@
 const { MessageEmbed, CommandInteraction, Client, MessageActionRow, MessageButton } = require("discord.js");
-const i18n = require("../../utils/i18n");
 const db = require("../../schema/playlist");
 
 module.exports = {
-    name: i18n.__("cmd.playlist.load.name"),
-    description: i18n.__("cmd.playlist.load.des"),
+    name: "load",
+    description: "Play the saved Playlist.",
     player: false,
     inVoiceChannel: true,
     sameVoiceChannel: true,
     options: [
         {
-            name: i18n.__("cmd.playlist.slash.name"),
-            description: i18n.__("cmd.playlist.slash.des"),
+            name: "name",
+            description: "play the saved playlist",
             required: true,
             type: "STRING"
         }
@@ -26,7 +25,7 @@ module.exports = {
 
         await interaction.deferReply({});
 
-        const Name = interaction.options.getString("name");
+        const Name = interaction.options.getString("name").replace(/_/g, ' ');
         const data = await db.findOne({ UserId: interaction.member.user.id, PlaylistName: Name });
 
         const player = interaction.client.manager.create({
@@ -40,12 +39,12 @@ module.exports = {
         if (player && player.state !== "CONNECTED") player.connect();
 
         if (!data) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__("cmd.playlist.load.nodata"))] })
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name\n\nDo ${prefix}list To see your Playlist`)] })
         }
         if (!player) return;
 
         let count = 0;
-        const m = await interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.load.loading", {length: data.Playlist.length, name: Name}))] })
+        const m = await interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Adding ${length} track(s) from your playlist **${Name}** to the queue.`)] })
         for (const track of data.Playlist) {
             let s = await player.search(track.uri ? track.uri : track.title, interaction.member);
             if (s.loadType === "TRACK_LOADED") {
@@ -61,8 +60,8 @@ module.exports = {
             };
         };
         if (player && !player.queue.current) player.destroy();
-        if (count <= 0 && m) return await m.edit({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.load.errorembed", {name: Name}))] })
-        if (m) return await m.edit({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.load.mainembed", {name: Name}))] })
+        if (count <= 0 && m) return await m.edit({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Couldn't add any tracks from your playlist **${name}** to the queue.`)] })
+        if (m) return await m.edit({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Added ${count} track(s) from your playlist **${name}** to the queue.`)] })
     }
 
 };

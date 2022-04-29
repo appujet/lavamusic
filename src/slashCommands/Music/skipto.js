@@ -1,27 +1,31 @@
 const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
-const i18n = require("../../utils/i18n");
 
 module.exports = {
-  name: i18n.__("cmd.skipto.name"),
-  description: i18n.__("cmd.skipto.des"),
-  options: [
-    {
-      name: i18n.__("cmd.skipto.slash.name"),
-      description: i18n.__("cmd.skipto.slash.des"),
-      required: true,
-      type: "NUMBER",
-    },
-  ],
+  name: "skipto",
+  description: "Forward song",
+  permissions: [],
   player: true,
+  dj: true,
   inVoiceChannel: true,
   sameVoiceChannel: true,
+  options: [
+    {
+      name: "number",
+      description: "select a song number",
+      required: true,
+      type: "NUMBER"
+    }
+  ],
+
   /**
    * @param {Client} client
    * @param {CommandInteraction} interaction
    */
 
   run: async (client, interaction, prefix) => {
-    await interaction.deferReply({});
+    await interaction.deferReply({
+      ephemeral: false
+    });
 
     const args = interaction.options.getNumber("number");
     const player = interaction.client.manager.get(interaction.guildId);
@@ -29,7 +33,7 @@ module.exports = {
     if (!player.queue.current) {
       let thing = new MessageEmbed()
         .setColor("RED")
-        .setDescription(i18n.__("player.nomusic"));
+        .setDescription("There is no music playing.");
       return await interaction.editReply({ embeds: [thing] });
     }
 
@@ -38,23 +42,21 @@ module.exports = {
     if (!position || position < 0 || position > player.queue.size) {
       let thing = new MessageEmbed()
         .setColor("RED")
-        .setDescription(i18n.__mf("cmd.skipto.embed2", { prefix: prefix }));
+        .setDescription(`Usage: ${prefix}volume <Number of song in queue>`)
       return await interaction.editReply({ embeds: [thing] });
     }
+
     player.queue.remove(0, position - 1);
     player.stop();
 
     const emojijump = client.emoji.jump;
 
     let thing = new MessageEmbed()
-      .setDescription(
-        `${emojijump} ${i18n.__mf("cmd.skipto.forward", {
-          position: position,
-        })}`
-      )
+      .setDescription(`${emojijump} Forward **${position}** Songs`)
       .setColor(client.embedColor)
-      .setTimestamp();
+      .setTimestamp()
 
     return await interaction.editReply({ embeds: [thing] });
-  },
+
+  }
 };

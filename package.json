@@ -1,6 +1,6 @@
 {
   "name": "lavamusic",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "lavalink music bot base in erelajs",
   "main": "src/index.js",
   "scripts": {
@@ -33,7 +33,6 @@
     "erela.js-deezer": "^1.0.7",
     "erela.js-facebook": "^1.0.4",
     "erela.js-spotify": "^1.2.0",
-    "i18n": "^0.14.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",

@@ -1,34 +1,38 @@
-const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
-const i18n = require("../../utils/i18n");
+const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
-  name: i18n.__("cmd.247.name"),
-  description: i18n.__("cmd.247.des"),
+  name: "247",
+  description: "24/7 in voice channel",
+  permissions: [],
   player: true,
+  dj: true,
   inVoiceChannel: true,
   sameVoiceChannel: true,
+
   /**
-   *
-   * @param {Client} client
-   * @param {CommandInteraction} interaction
+   * 
+   * @param {Client} client 
+   * @param {CommandInteraction} interaction 
    */
 
   run: async (client, interaction) => {
-    await interaction.deferReply({});
-
-    const player = interaction.client.manager.get(interaction.guildId);
+    await interaction.deferReply({
+      ephemeral: false
+    });
+    let player = interaction.client.manager.get(interaction.guildId);
     if (player.twentyFourSeven) {
       player.twentyFourSeven = false;
       const embed = new MessageEmbed()
-        .setDescription(i18n.__("cmd.247.off"))
-        .setColor(client.embedColor);
+        .setDescription("24/7 mode is **disabled**")
+        .setColor(client.embedColor)
       return interaction.editReply({ embeds: [embed] });
     } else {
       player.twentyFourSeven = true;
       const embed = new MessageEmbed()
-        .setDescription(i18n.__("cmd.247.on"))
-        .setColor(client.embedColor);
+        .setDescription("24/7 mode is **Enable**")
+        .setColor(client.embedColor)
       return interaction.editReply({ embeds: [embed] });
+
     }
-  },
-};
+  }
+}

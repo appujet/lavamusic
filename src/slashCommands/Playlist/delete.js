@@ -1,17 +1,17 @@
-const { MessageEmbed, CommandInteraction, Client, MessageActionRow, MessageButton } = require("discord.js");
+const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
 const db = require("../../schema/playlist");
-const i18n = require("../../utils/i18n");
 
 module.exports = {
-    name: i18n.__("cmd.playlist.delete.name"),
-    description: i18n.__("cmd.playlist.delete.des"),
+    name: "delete",
+    description: "Delete your saved playlist.",
+    usage: "<playlist name>",
     player: false,
     inVoiceChannel: false,
     sameVoiceChannel: false,
     options: [
         {
-            name: i18n.__("cmd.playlist.slash.name"),
-            description: i18n.__("cmd.playlist.slash.des"),
+            name: "name",
+            description: "Playlist Name",
             required: true,
             type: "STRING"
         }
@@ -26,21 +26,21 @@ module.exports = {
 
         await interaction.deferReply({});
 
-        const Name = interaction.options.getString("name");
+        const Name = interaction.options.getString("name").replace(/_/g, ' ');
         const data = await db.findOne({ UserId: interaction.member.user.id, PlaylistName: Name });
 
         if (!data) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.delete.noname", { name: Name }))] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist with **${Name}** name`)] });
         }
 
         if (data.length == 0) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(i18n.__mf("cmd.playlist.delete.noname", { name: Name }))] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist with **${Name}** name`)] });
         }
 
         await data.delete();
         const embed = new MessageEmbed()
             .setColor(client.embedColor)
-            .setDescription(i18n.__mf("cmd.playlist.delete.mainembed", { name: Name }))
+            .setDescription(`Successfully deleted ${Name} playlist`)
         return interaction.editReply({ embeds: [embed] })
     }
 }

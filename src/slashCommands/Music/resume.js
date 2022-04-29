@@ -1,21 +1,24 @@
-const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
-const i18n = require("../../utils/i18n");
+const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
-  name: i18n.__("cmd.resume.name"),
-  description: i18n.__("cmd.resume.des"),
+  name: "resume",
+  description: "Resume currently playing music",
+  permissions: [],
   player: true,
+  dj: true,
   inVoiceChannel: true,
   sameVoiceChannel: true,
 
   /**
-   *
-   * @param {Client} client
-   * @param {CommandInteraction} interaction
+   * 
+   * @param {Client} client 
+   * @param {CommandInteraction} interaction 
    */
 
   run: async (client, interaction) => {
-    await interaction.deferReply({});
+    await interaction.deferReply({
+      ephemeral: false
+    });
 
     const player = interaction.client.manager.get(interaction.guildId);
     const song = player.queue.current;
@@ -23,7 +26,7 @@ module.exports = {
     if (!player.queue.current) {
       let thing = new MessageEmbed()
         .setColor("RED")
-        .setDescription(i18n.__("player.nomusic"));
+        .setDescription("There is no music playing.");
       return interaction.editReply({ embeds: [thing] });
     }
 
@@ -32,22 +35,18 @@ module.exports = {
     if (!player.paused) {
       let thing = new MessageEmbed()
         .setColor("RED")
-        .setDescription(`${emojiresume} ${i18n.__("cmd.resume.embed")}`)
-        .setTimestamp();
+        .setDescription(`${emojiresume} The player is already **resumed**.`)
+        .setTimestamp()
       return interaction.editReply({ embeds: [thing] });
     }
 
-    await player.pause(false);
+    player.pause(false);
 
     let thing = new MessageEmbed()
-      .setDescription(
-        `${emojiresume} ${i18n.__mf("cmd.resume.embed2", {
-          SongTitle: song.title,
-          SongUrl: song.uri,
-        })}`
-      )
+      .setDescription(`${emojiresume} **Resumed**\n[${song.title}](${song.uri})`)
       .setColor(client.embedColor)
-      .setTimestamp();
+      .setTimestamp()
     return interaction.editReply({ embeds: [thing] });
-  },
+
+  }
 };
