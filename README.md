@@ -39,9 +39,9 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 
 
 ## 🎭 Features
-- [x] Multi languages
 - [x] Music
 - [x] 24/7
+- [x] Dj 
 - [x] Custom Playlist (global)
 - [x] SlashCommand
 - [x] Custom prefix
@@ -170,12 +170,6 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 - [PayPal](https://www.paypal.me/sdip521)
 
-## 🌎 Locales
-
-Currently available locales are:
-- [x] English (en)
-- Check [Contributing](#-contributing) if you wish to help add more languages!
-- For languages please use [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) two letter format
 
 ## 🤝 Contributing
 
