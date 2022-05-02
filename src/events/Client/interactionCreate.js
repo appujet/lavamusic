@@ -51,10 +51,7 @@ module.exports = {
             if (SlashCommands.dj) {
                 let data = await db2.findOne({ Guild: interaction.guildId })
                 let perm = Permissions.FLAGS.MUTE_MEMBERS;
-
-                if (!data) {
-                    if (!interaction.member.permission.has(perm)) return await interaction.reply({ content: `You don't have permission or dj role to use this command`, ephemeral: true })
-                } else {
+                if (data) {
                     if (data.Mode) {
                         let pass = false;
                         if (data.Roles.length > 0) {
