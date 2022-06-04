@@ -3,7 +3,9 @@
 # Sponsor
 ### 
 Deploy High-Performance SSD VPS on the Worldwide Vultr Network in 60 Seconds. Try Vultr for Free with 150$ cradit 
-[![Sponsor][Spon-img]](Spon)
+
+
+[![Sponsor][Spon-img]](spon-url)
 
 
 
@@ -205,4 +207,4 @@ Distributed under the MIT License. See [`LICENSE`](https://github.com/brblacky/l
 [license-shield]: https://img.shields.io/github/license/brblacky/lavamusic.svg?style=for-the-badge
 [license-url]: https://github.com/brblacky/lavamusic/blob/master/LICENSE
 [Spon-img]: https://media.discordapp.net/attachments/979364157541462066/982734017671606322/Vultr_Logo_Download_Vector.png
-[Spon]: https://www.vultr.com/?ref=9149594-8H
+[spon-url]: https://www.vultr.com/?ref=9149594-8H
