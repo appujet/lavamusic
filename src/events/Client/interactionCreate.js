@@ -1,6 +1,7 @@
 const { CommandInteraction, Client, Permissions } = require("discord.js")
-const pre = require("../../schema/prefix.js");
+const db = require("../../schema/prefix.js");
 const db2 = require("../../schema/dj");
+const db3 = require("../../schema/setup");
 
 module.exports = {
     name: "interactionCreate",
@@ -11,7 +12,7 @@ module.exports = {
  */
     run: async (client, interaction) => {
         let prefix = client.prefix;
-        const ress = await pre.findOne({ Guild: interaction.guildId })
+        const ress = await db.findOne({ Guild: interaction.guildId })
         if (ress && ress.Prefix) prefix = ress.Prefix;
 
         if (interaction.isCommand() || interaction.isContextMenu()) {
@@ -96,6 +97,12 @@ module.exports = {
                 }
                 console.error(error);
             };
-        } else return;
+            
+        } 
+
+        if (interaction.isButton()) {
+            let data = await db3.findOne({ Guild: interaction.guildId });
+            if (data && interaction.channelId === data.Channel && interaction.message.id === data.Message) return client.emit("playerButtons", interaction, data);
+        };
     }
 };

@@ -1,14 +1,32 @@
-const delay = require("delay");
 const { MessageEmbed } = require("discord.js");
-const ms = require('ms');
+const db = require("../../schema/setup");
 
 module.exports = async (client, player) => {
 
-	const channel = client.channels.cache.get(player.textChannel);
+	const invite = client.config.links.invite
+
+	let guild = client.guilds.cache.get(player.guild);
+	if (!guild) return;
+	const data = await db.findOne({ Guild: guild.id });
+	if (!data) return;
+	let channel = guild.channels.cache.get(data.Channel);
+	if (!channel) return;
+
+	let message;
+
+	try {
+
+		message = await channel.messages.fetch(data.Message, { cache: true });
+
+	} catch (e) { };
+
+	if (!message) return;
+	await message.edit({ embeds: [new MessageEmbed().setColor(client.embedColor).setTitle(`Nothing playing right now in this server!`).setDescription(`[Invite](${client.config.links.invite}) - [Support Server](${client.config.links.support})`).setImage(client.config.links.img)] }).catch(() => { });
+
 	const emojiwarn = client.emoji.warn;
 	let thing = new MessageEmbed()
 		.setColor(client.embedColor)
-		.setDescription(`${emojiwarn} **Music queue ended**`)
-		.setFooter({text: client.user.username, iconURL: client.user.displayAvatarURL()});
-	channel.send({embeds: [thing] });
+		.setAuthor({name: `Queue Concluded`, iconURL: client.user.displayAvatarURL() })
+		.setDescription(`Enjoying music with me? Consider me by **Inviting**[Click Here](${invite})`)
+	channel.send({ embeds: [thing] }).then(msg => { setTimeout(() => { msg.delete() }, 5000) });
 }

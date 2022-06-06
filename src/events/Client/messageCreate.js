@@ -1,6 +1,7 @@
 const { MessageEmbed, Permissions } = require("discord.js");
 const db = require("../../schema/prefix.js");
 const db2 = require("../../schema/dj");
+const db3 = require("../../schema/setup");
 
 module.exports = {
     name: "messageCreate",
@@ -8,6 +9,8 @@ module.exports = {
 
         if (message.author.bot) return;
         if (!message.guild) return;
+        let data = await db3.findOne({ Guild: message.guildId });
+        if (data && data.Channel && message.channelId === data.Channel) return client.emit("setupSystem", message);
         let prefix = client.prefix;
         const channel = message?.channel;
         const ress = await db.findOne({ Guild: message.guildId })
@@ -40,11 +43,9 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor("RED");
 
-        // args: true,
         if (command.args && !args.length) {
             let reply = `You didn't provide any arguments, ${message.author}!`;
 
-            // usage: '',
             if (command.usage) {
                 reply += `\nUsage: \`${prefix}${command.name} ${command.usage}\``;
             }

@@ -76,7 +76,7 @@ module.exports = {
           .setAuthor({name: `Paused!`})
           .setColor(client.embedColor)
           .setDescription(`The player has been paused because everybody left`);
-        await client.channels.cache.get(player.textChannel).send({embeds: [emb]});
+        await client.channels.cache.get(player?.textChannel).send({embeds: [emb]});
       }
       break;
   }
