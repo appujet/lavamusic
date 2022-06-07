@@ -1,14 +1,5 @@
 [![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://repl.it/github/brblacky/lavamusic)
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/brblacky/lavamusic)
-# Sponsor
-### 
-Deploy High-Performance SSD VPS on the Worldwide Vultr Network in 60 Seconds. Try Vultr for Free with 150$ cradit 
-
-
-[![Sponsor][Spon-img]](https://www.vultr.com/?ref=9149594-8H
-)
-
-
 
 [![Version][version-shield]](version-url)
 [![Contributors][contributors-shield]][contributors-url]
