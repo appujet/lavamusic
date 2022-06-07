@@ -38,6 +38,7 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 
 
 ## 🎭 Features
+- [x] Setup System 
 - [x] Music
 - [x] 24/7
 - [x] Dj 
