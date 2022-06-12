@@ -11,8 +11,7 @@
 <br>
 <h2 align="center">Our Music Bot</h2>
 <h4 align="center">High Quality Music Bot With Dj System, Music Channel , 24/7 In VC, Stage Channels, Slash Commands and more for FREE!</h4>
-<a href="https://discordbotlist.com/bots/977742811132743762"><img src="https://discordbotlist.com/api/v1/bots/977742811132743762/widget"></a>
-<a align="center" href="https://invite.moebot.cf/">Invite MoE Bot</a>
+<a href="https://discordbotlist.com/bots/977742811132743762"><img src="https://discordbotlist.com/api/v1/bots/977742811132743762/widget"></a><a align="center" href="https://invite.moebot.cf/">Invite MoE Bot</a>
 <br />
 <br />
 <br />
