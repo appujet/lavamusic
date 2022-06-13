@@ -44,7 +44,7 @@ module.exports = {
     if (player.state != "CONNECTED") await player.connect();
 
     try {
-      res = await player.search(search);
+      res = await player.search(search, interaction.user);
       if (res.loadType === "LOAD_FAILED") {
         if (!player.queue.current) player.destroy();
         return await interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription(`:x: | **There was an error while searching**`)] });
@@ -57,7 +57,7 @@ module.exports = {
         if (!player.queue.current) player.destroy();
         return await interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription("❌ | **No results were found.**")] });
       case "TRACK_LOADED":
-        player.queue.add(res.tracks[0], interaction.user);
+        player.queue.add(res.tracks[0]);
         if (!player.playing && !player.paused && !player.queue.length)
           player.play();
         const trackload = new MessageEmbed()
