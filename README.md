@@ -10,7 +10,7 @@
 <center><img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=lavamusic&fontSize=80&fontAlignY=35&animation=twinkling&fontColor=gradient" /></center>
 <br>
 <h2 align="center">Our Music Bot</h2>
-<h4 align="center">High Quality Music Bot With Dj System, Music Channel , 24/7 In VC, Stage Channels, Slash Commands and more for FREE!</h4>
+<h4 align="center">High Quality Music Bot With Dj System, Music Channel, 24/7 In VC, Stage Channels, Slash Commands and more for FREE!</h4>
 <p align="center">
 <a href="https://discordbotlist.com/bots/977742811132743762"><img src="https://discordbotlist.com/api/v1/bots/977742811132743762/widget"></a> <br /> <a href="https://invite.moebot.cf/">Invite MoE Bot</a>
 <br />
@@ -115,7 +115,7 @@ After cloning, run an
 ```
 npm install
 ```
-* Start the bot with `node index.js`
+* Start the bot with `node src/index.js`
 
 to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing *much* easier.
 
