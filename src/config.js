@@ -1,3 +1,5 @@
+const client = require("./index");
+
 require("dotenv").config();
 
 module.exports = {
@@ -12,7 +14,7 @@ module.exports = {
     links: {
         img: process.env.IMG || 'https://media.discordapp.net/attachments/963097935820750878/983300268131225651/20220606_145403.png', //setup system background image 
         support: process.env.SUPPORT || 'https://discord.gg/ns8CTk9J3e', //support server invite link
-        invite: process.env.INVITE || 'https://discord.com/oauth2/authorize?client_id=977742811132743762&permissions=8&scope=bot%20applications.commands' //bot invite link
+        invite: process.env.INVITE || 'https://discord.com/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands' //bot invite link
     },
     nodes: [
         {
