@@ -98,7 +98,7 @@ async function playerhandler(query, player, message) {
         }).then((a) => setTimeout(async () => await a.delete().catch(() => { }), 5000)).catch(() => { });
 
         neb(n, player);
-        if (m) await m.edit({ embeds: [q, n], files: [] }).catch(() => { });
+        if (m) await m.edit({ embeds: [n], files: [] }).catch(() => { });
     } else return await oops(message.channel, `No results found for ${query}`);
 };
 
