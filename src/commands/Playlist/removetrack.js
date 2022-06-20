@@ -6,7 +6,7 @@ module.exports = {
     aliases: ["plremovet"],
     category: "Playlist",
     description: "Removetrack from your saved Playlists.",
-    args: false,
+    args: true,
     usage: "<playlist name> <track number>",
     permission: [],
     owner: false,
