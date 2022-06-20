@@ -26,6 +26,7 @@ module.exports = {
         let list = data.map((x, i) => `\`${++i}\` - ${x.PlaylistName} \`${x.Playlist.length}\` - <t:${x.CreatedOn}>`);
         const pages = lodash.chunk(list, 10).map((x) => x.join("\n"));
         let page = 0;
+        let List = list.length;
        
         const embeds = new MessageEmbed()
             .setAuthor({ name: `${interaction.user.username}'s Playlists}`, iconURI: interaction.user.displayAvatarURL() })
