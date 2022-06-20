@@ -6,7 +6,7 @@ module.exports = {
     aliases: ["plload"],
     category: "Playlist",
     description: "Play the saved Playlist.",
-    args: false,
+    args: true,
     usage: "<playlist name>",
     permission: [],
     owner: false,
