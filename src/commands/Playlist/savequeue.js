@@ -6,7 +6,7 @@ module.exports = {
     aliases: ["plsaveq"],
     category: "Playlist",
     description: "Save current playing queue in your playlist.",
-    args: false,
+    args: true,
     usage: "<playlist name>",
     permission: [],
     owner: false,
