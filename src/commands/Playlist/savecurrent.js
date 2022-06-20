@@ -6,7 +6,7 @@ module.exports = {
     aliases: ["plsavec"],
     category: "Playlist",
     description: "Add current playing song in your saved playlist.",
-    args: false,
+    args: true,
     usage: "<playlist name>",
     permission: [],
     owner: false,
