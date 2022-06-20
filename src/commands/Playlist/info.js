@@ -8,7 +8,7 @@ module.exports = {
     aliases: ["plinfo"],
     category: "Playlist",
     description: "Get information about your saved playlist.",
-    args: false,
+    args: true,
     usage: "<playlist name>",
     permission: [],
     owner: false,
