@@ -37,7 +37,9 @@ module.exports = {
         });
 
         if (player && player.state !== "CONNECTED") player.connect();
-
+        let length = data.PlaylistName;
+        let name = Name;
+        
         if (!data) {
             return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] })
         }
