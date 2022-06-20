@@ -6,7 +6,7 @@ module.exports = {
     aliases: ["plcreate"],
     category: "Playlist",
     description: "Creates the user's playlist.",
-    args: false,
+    args: true,
     usage: "<playlist name>",
     permission: [],
     owner: false,
