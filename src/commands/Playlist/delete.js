@@ -6,7 +6,7 @@ module.exports = {
     aliases: ["pldelete"],
     category: "Playlist",
     description: "Delete your saved playlist.",
-    args: false,
+    args: true,
     usage: "<playlist name>",
     permission: [],
     owner: false,
