@@ -24,11 +24,16 @@ module.exports = {
             volume: 100,
             selfDeafen: true,
         });
+        
+        const data = await db.findOne({
+            UserId: message.author.id,
+            PlaylistName: Name,
+        });
+        
         if (player && player.state !== "CONNECTED") player.connect();
         let length = data.PlaylistName;
         let name = Name;
 
-        const data = await db.findOne({ UserId: message.author.id, PlaylistName: Name })
         if (!data) {
             return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`Playlist not found. Please enter the correct playlist name\n\nDo ${prefix}list To see your Playlist`)] })
         }
