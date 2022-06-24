@@ -13,12 +13,17 @@ module.exports = {
   inVoiceChannel: true,
   sameVoiceChannel: true,
   execute: async (message, args, client, prefix) => {
-    const player = message.client.manager.get(message.guild.id);
+    const player = client.manager.get(message.guild.id);
 
     const autoplay = player.get("autoplay");
 
     const emojireplay = client.emoji.autoplay;
-
+    
+    if (!player.queue.current)
+      return message.reply({
+        content: `Please start a music before doing this action`,
+      });
+    
     if (autoplay === false) {
       const identifier = player.queue.current.identifier;
       player.set("autoplay", true);
