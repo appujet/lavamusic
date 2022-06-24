@@ -15,12 +15,17 @@ module.exports = {
 
   run: async (client, interaction) => {
     await interaction.deferReply({});
-    const player = interaction.client.manager.get(interaction.guildId);
+    const player = client.manager.get(interaction.guildId);
 
     const autoplay = player.get("autoplay");
 
     const emojireplay = client.emoji.autoplay;
-
+    
+    if (!player.queue.current)
+      return interaction.reply({
+        content: `Please start a music before doing this action`,
+      });
+    
     if (autoplay === false) {
       const identifier = player.queue.current.identifier;
       player.set("autoplay", true);
