@@ -19,6 +19,11 @@ module.exports = {
   
             const player = client.manager.get(message.guild.id);
        const queue = player.queue;  
+       
+           if (!player.queue.current)
+      return message.reply({
+        content: `Please start a music before doing this action`,
+      });
    if(!player) return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription(`Nothing is playing right now.`)]});
             
             if(!player.queue) return message.channel.send({ embeds: [new MessageEmbed().setColor(client.embedColor).setTimestamp().setDescription(`Nothing is playing right now.`)]});
