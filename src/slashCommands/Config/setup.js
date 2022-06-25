@@ -101,6 +101,11 @@ module.exports = {
                 let disabled = true;
                 let player = client.manager.get(interaction.guildId);
                 if (player) disabled = false;
+                
+                if (!player.queue.current)
+                    return interaction.editReply({
+                       content: `Please start a music before doing this action`,
+                });
 
                 const title = player && player.queue && player.queue.current ? `Now playing` : "Nothing is playing right now";
                 const desc = player && player.queue && player.queue.current ? `[${player.queue.current.title}](${player.queue.current.uri})` : null;
