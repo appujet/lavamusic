@@ -15,7 +15,7 @@ module.exports = {
 
   run: async (client, interaction) => {
     await interaction.deferReply({});
-    const player = client.manager.get(interaction.guildId);
+    const player = interaction.client.manager.get(interaction.guildId);
 
     const autoplay = player.get("autoplay");
 
