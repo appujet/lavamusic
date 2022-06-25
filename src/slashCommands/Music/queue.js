@@ -23,12 +23,12 @@ module.exports = {
     run: async (client, interaction) => {
         await interaction.deferReply().catch(() => {});
       
+        const player = interaction.client.manager.get(interaction.guildId);
          if (!player.queue.current)
       return interaction.editReply({
         content: `Please start a music before doing this action`,
       });
        
-    const player = interaction.client.manager.get(interaction.guildId);
     if(!player) return await interaction.editReply({
             content: `Nothing is playing right now.`
         }).catch(() => {});
