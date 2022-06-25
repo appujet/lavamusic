@@ -24,7 +24,7 @@ module.exports = {
         await interaction.deferReply().catch(() => {});
       
          if (!player.queue.current)
-      return interaction.reply({
+      return interaction.editReply({
         content: `Please start a music before doing this action`,
       });
        
