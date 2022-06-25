@@ -46,7 +46,7 @@ module.exports = {
       return await interaction.editReply({ embeds: [thing] });
     }
 
-    player.queue.remove(0, position - 1);
+    player.queue.remove(0, position);
     player.stop();
 
     const emojijump = client.emoji.jump;
