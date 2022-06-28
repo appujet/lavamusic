@@ -12,8 +12,8 @@ Structure.extend(
       async setNowplayingMessage(message) {
         if (this.nowPlayingMessage) {
           await this.nowPlayingMessage.delete();
+        }
         return (this.nowPlayingMessage = message);
-       }
       }
     }
 );
