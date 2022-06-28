@@ -59,7 +59,7 @@ module.exports = {
          _commands = client.commands.filter((x) => x.category && x.category === "Music").map((x) => `\`${x.name}\``);
              editEmbed.setColor(client.embedColor).setDescription(_commands.join(", ")).setTitle("Music Commands").setFooter({text: `Total ${_commands.length} Music commands.`});
  
-           return await interaction.editReply({ embeds: [editEmbed], components: [new MessageActionRow().addComponents(but1, but2, but3, but4, but4)] })
+           return await interaction.editReply({ embeds: [editEmbed], components: [new MessageActionRow().addComponents(but1, but2, but3, but4, but5)] })
         }
          if(b.customId == "info") {
          _commands = client.commands.filter((x) => x.category && x.category === "Information").map((x) => `\`${x.name}\``);

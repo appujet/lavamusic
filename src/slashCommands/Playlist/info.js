@@ -37,6 +37,9 @@ module.exports = {
         const pages = lodash.chunk(tracks, 10).map((x) => x.join("\n"));
         let page = 0;
 
+        const pname = data.PlaylistName;
+        const plist = data.Playlist.length;
+
         const embed = new MessageEmbed()
             .setTitle(`${interaction.user.username}'s Playlists`)
             .setColor(client.embedColor)
