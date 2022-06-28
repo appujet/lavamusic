@@ -25,6 +25,10 @@ module.exports = {
         let tracks = data.Playlist.map((x, i) => `\`${+i}\` - ${x.title && x.uri ? `[${x.title}](${x.uri})` : `${x.title}`}${x.duration ? ` - \`${convertTime(Number(x.duration))}\`` : ""}`);
         const pages = lodash.chunk(tracks, 10).map((x) => x.join("\n"));
         let page = 0;
+
+        const pname = data.PlaylistName;
+        const plist = data.Playlist.length;
+
         const embed = new MessageEmbed()
             .setTitle(`${message.author.username}'s Playlists`)
             .setColor(client.embedColor)
@@ -37,7 +41,7 @@ module.exports = {
 
             let nextbut = new MessageButton().setCustomId("Next").setEmoji("⏩").setStyle("SECONDARY");
 
-            let stopbut = new MessageButton().setCustomId("stop").setEmoji("⏹️").setStyle("SECONDARY");
+            let stopbut = new MessageButton().setCustomId("Stop").setEmoji("⏹️").setStyle("SECONDARY");
 
             const row = new MessageActionRow().addComponents(previousbut, stopbut, nextbut);
 
@@ -68,7 +72,7 @@ module.exports = {
                     return await m.edit({ embeds: [embed] });
                 } else if (b.customId === "Stop") {
                     return collector.stop();
-                } else if (b.customId === "playlist_cmd_uwu-next")
+                } else if (b.customId === "Next")
                     page = page + 1 >= pages.length ? 0 : ++page;
                 if (!m) return;
 
