@@ -9,11 +9,11 @@ Structure.extend(
        * Sets now playing message for deleting next time
        * @param {Message} message
        */
-      setNowplayingMessage(message) {
+      async setNowplayingMessage(message) {
         if (this.nowPlayingMessage) {
-          this.nowPlayingMessage.delete();
+          await this.nowPlayingMessage.delete();
+        }
         return (this.nowPlayingMessage = message);
-       }
       }
     }
 );

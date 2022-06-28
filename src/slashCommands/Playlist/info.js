@@ -37,6 +37,9 @@ module.exports = {
         const pages = lodash.chunk(tracks, 10).map((x) => x.join("\n"));
         let page = 0;
 
+        const pname = data.PlaylistName;
+        const plist = data.Playlist.length;
+
         const embed = new MessageEmbed()
             .setTitle(`${interaction.user.username}'s Playlists`)
             .setColor(client.embedColor)
@@ -76,7 +79,7 @@ module.exports = {
                     return await interaction.editReply({ embeds: [embed] });
                 } else if (b.customId === "Stop") {
                     return collector.stop();
-                } else if (b.customId === "playlist_cmd_uwu-next")
+                } else if (b.customId === "Next")
                     page = page + 1 >= pages.length ? 0 : ++page;
 
                 embed.setDescription(`**Playlist Name** ${pname} **Total Tracks** \`${plist}\`\n\n${pages[page]}`);

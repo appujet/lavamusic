@@ -25,7 +25,7 @@ module.exports = async (client, player, track, payload) => {
   const thing = new MessageEmbed()
     .setDescription(`${emojiplay} Now Playing [${track.title}](${track.uri}) \`[ ${convertTime(track.duration)} ]\``)
     .setColor(client.embedColor)
-  const m = channel.send({ embeds: [thing] });
+  const m = await channel.send({ embeds: [thing] });
   await player.setNowplayingMessage(m);
 
 };
