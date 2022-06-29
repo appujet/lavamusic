@@ -109,7 +109,7 @@ module.exports = {
                 text: player && player.queue && player.queue.current ? `Requested by ${player.queue.current.requester.username}` : "",
                 iconURL: player && player.queue && player.queue.current ? `${player.queue.current.requester.displayAvatarURL({ dynamic: true })}` : `${client.user.displayAvatarURL({ dynamic: true })}`
             };
-            const image =  client.config.links.img;
+            const image = client.config.links.img;
 
             let embed1 = new MessageEmbed().setColor(client.embedColor).setTitle(title).setFooter({text: footer.text, iconURL: footer.iconURL}).setImage(image);
 
