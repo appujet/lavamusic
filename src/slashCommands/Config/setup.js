@@ -20,6 +20,36 @@ module.exports = {
 
 
     run: async (client, interaction, prefix) => {
+        if (
+      !interaction.guild.me.permissions.has([
+        Permissions.FLAGS.MANAGE_CHANNELS,
+        Permissions.FLAGS.SPEAK,
+      ])
+    )
+      return interaction.editReply({
+        embeds: [
+          new MessageEmbed()
+            .setColor(client.embedColor)
+            .setDescription(
+              `I don't have enough permissions to execute this command! please give me permission \`MANAGE_CHANNELS\` or \`SPEAK\`.`
+            ),
+        ],
+      });
+    const { channel } = interaction.member.voice;
+    if (
+      !interaction.guild.me
+        .permissionsIn(channel)
+        .has([Permissions.FLAGS.MANAGE_CHANNELS, Permissions.FLAGS.SPEAK])
+    )
+      return interaction.editReply({
+        embeds: [
+          new MessageEmbed()
+            .setColor(client.embedColor)
+            .setDescription(
+              `I don't have enough permissions connect your vc please give me permission \`MANAGE_CHANNELS\` or \`SPEAK\`.`
+            ),
+        ],
+      });
 
             let data = await db.findOne({ Guild: interaction.guildId });
             if (interaction.options.getSubcommand() === "set") {
