@@ -10,6 +10,38 @@ module.exports = {
     permission: ["MANAGE_GUILD"],
     owner: false,
   execute: async (message, args, client, prefix) => {
+      if (
+      !message.guild.me.permissions.has([
+        Permissions.FLAGS.MANAGE_CHANNELS,
+        Permissions.FLAGS.SPEAK,
+      ])
+    )
+      return message.channel.send({
+        embeds: [
+          new MessageEmbed()
+            .setColor(client.embedColor)
+            .setDescription(
+              `I don't have enough permissions to execute this command! please give me permission \`MANAGE_CHANNELS \` or \`SPEAK\`.`
+            ),
+        ],
+      });
+
+    const { channel } = message.member.voice;
+
+    if (
+      !message.guild.me
+        .permissionsIn(channel)
+        .has([Permissions.FLAGS.SPEAK, Permissions.FLAGS.MANAGE_CHANNELS])
+    )
+      return message.channel.send({
+        embeds: [
+          new MessageEmbed()
+            .setColor(client.embedColor)
+            .setDescription(
+              `I don't have enough permissions connect your vc please give me permission \`MANAGE_CHANNELS \` or \`SPEAK\`.`
+            ),
+        ],
+      });
     try {
         let data = await db.findOne({ Guild: message.guildId });
         if(args.length) {
