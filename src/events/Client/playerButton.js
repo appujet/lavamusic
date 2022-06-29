@@ -1,7 +1,6 @@
-const { MessageEmbed, Client, ButtonInteraction, MessageButton, MessageActionRow } = require("discord.js");
+const { MessageEmbed, Client, ButtonInteraction } = require("discord.js");
 const { convertTime } = require("../../utils/convert");
 const { buttonReply } = require("../../utils/functions");
-const db = require("../../schema/dj");
 
 module.exports = {
     name: "playerButtons",
@@ -19,7 +18,6 @@ module.exports = {
         const color = client.embedColor;
         if (!interaction.member.voice.channel) return await buttonReply(interaction, `You are not connected to a voice channel to use this button.`, color);
         if (interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return await buttonReply(interaction, `You are not connected to ${interaction.guild.me.voice.channel} to use this buttons.`, color);
-        //let data2 = await db.findOne({ Guild: interaction.guildId })
         const player = interaction.client.manager.get(interaction.guildId);
         
         if(!player) return await buttonReply(interaction, `Nothing is playing right now.`, color);

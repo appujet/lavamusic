@@ -34,7 +34,7 @@ async function oops(channel, args) {
 
 function neb(embed, player, client) {
     const config = require("../config")
-    let icon = config.links.bg;
+    let icon = player.queue.current.identifier ? `https://img.youtube.com/vi/${player.queue.current.identifier}/mqdefault.jpg` : config.links.img;
 
     return embed.setDescription(`[${player.queue.current.title}](${player.queue.current.uri}) • \`[${convertTime(player.queue.current.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue.current.requester.username}`, iconURL: player.queue.current.requester.displayAvatarURL({ dynamic: true }) });
 };
@@ -113,7 +113,7 @@ async function playerhandler(query, player, message) {
 
 async function trackStartEventHandler(msgId, channel, player, track, client) {
     try {
-
+        const emojiplay = client.emoji.play;
         let icon = player.queue.current.identifier ? `https://img.youtube.com/vi/${player.queue.current.identifier}/maxresdefault.jpg` : client.config.links.img;
 
         let message;
@@ -149,7 +149,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
             return await db.findOneAndUpdate({ Guild: channel.guildId }, { Message: m.id });
         } else {
 
-            let embed2 = new MessageEmbed().setColor(message.client.embedColor).setDescription(`Now Playing - [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue.current.requester.username}`, iconURL: player.queue.current.requester.displayAvatarURL({ dynamic: true }) });
+            let embed2 = new MessageEmbed().setColor(message.client.embedColor).setDescription(`${emojiplay} **Started Playing** - [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue.current.requester.username}`, iconURL: player.queue.current.requester.displayAvatarURL({ dynamic: true }) });
 
             await message.edit({
                 content: "__**Join a voice channel and queue songs by name/url.**__\n",
