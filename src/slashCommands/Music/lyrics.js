@@ -13,7 +13,7 @@ module.exports = {
     {
       name: "song",
       description: "The song to get lyrics for.",
-      type: "3",
+      type: "STRING",
       required: false,
     },
   ],
