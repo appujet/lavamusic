@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton, Permissions } = require("discord.js");
 const db = require("../../schema/setup");
 module.exports = {
     name: "setup",
