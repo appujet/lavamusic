@@ -14,7 +14,7 @@ module.exports = {
       name: "song",
       description: "The song to get lyrics for.",
       type: "3",
-      required: true,
+      required: false,
     },
   ],
 
