@@ -120,7 +120,7 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
 Alternatively you can run lavamusic on [docker](https://www.docker.com/). Pull the prebuilt docker image from [here](https://ghcr.io/brblacky/lavamusic).  
 See [here](https://github.com/StefanLobbenmeier/lavamusic-docker-compose) for a complete environment.
 
-## intents
+## Intents
 
 <p align="center">
   <a href="https://github.com/brblacky/lavamusic">
@@ -149,7 +149,7 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
     embedColor: process.env.COlOR || "#303236", // embed colour
     logs: process.env.LOGS || "", // channel id for guild create and delete logs
 ```
-## 🌋 lavalink 
+## 🌋 Lavalink 
 ```js
       "host": "disbotlistlavalink.ml",
       "port": 80,
