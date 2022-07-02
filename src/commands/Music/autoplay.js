@@ -21,7 +21,7 @@ module.exports = {
     
     if (!player.queue.current)
       return message.reply({
-        content: `Please start a music before doing this action`,
+        content: `Please start a song before doing this action`,
       });
     
     if (autoplay === false) {

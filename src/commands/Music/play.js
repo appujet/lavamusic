@@ -45,7 +45,7 @@ module.exports = {
         throw res.exception;
       }
     } catch (err) {
-      return message.reply(`there was an error while searching: ${err.message}`);
+      return message.reply(`There was an error while searching: ${err.message}`);
     }
     switch (res.loadType) {
       case 'NO_MATCHES':

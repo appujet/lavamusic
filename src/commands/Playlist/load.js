@@ -35,7 +35,7 @@ module.exports = {
         let name = Name;
 
         if (!data) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`Playlist not found. Please enter the correct playlist name\n\nDo ${prefix}list To see your Playlist`)] })
+            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`Playlist not found. Please enter the correct playlist name\n\nDo ${prefix}list to see your Playlists`)] })
         }
         if (!player) return;
         let count = 0;

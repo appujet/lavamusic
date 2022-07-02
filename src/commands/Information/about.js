@@ -4,7 +4,7 @@ module.exports = {
     name: "about",
     category: "Information",
     aliases: [ "botinfo" ],
-    description: "See description about this project",
+    description: "See information about this project",
     args: false,
     usage: "",
     permission: [],

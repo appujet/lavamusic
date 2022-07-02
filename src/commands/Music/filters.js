@@ -25,7 +25,7 @@ module.exports = {
         const emojiequalizer = message.client.emoji.filter;
         const embed = new MessageEmbed()
             .setColor(client.embedColor)
-            .setDescription(`Choose what filter you want in tha button`)
+            .setDescription(`Choose what filter you want in the button`)
 
         const but = new MessageButton().setCustomId("clear_but").setLabel("Clear").setStyle("DANGER");
         const but2 = new MessageButton().setCustomId("bass_but").setLabel("Bass").setStyle("PRIMARY");
@@ -51,7 +51,7 @@ module.exports = {
         });
         collector.on("end", async () => {
             if (!m) return;
-            await m.edit({ embeds: [embed1.setDescription(`Time is Out type again ${prefix}filters`)] });
+            await m.edit({ embeds: [embed1.setDescription(`Time is up! Run ${prefix}filters`)] });
         });
         collector.on("collect", async (b) => {
             if (!b.replied) await b.deferUpdate({ ephemeral: true });
