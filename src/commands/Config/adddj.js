@@ -22,13 +22,13 @@ module.exports = {
                 Mode: true
             })
             await data.save();
-            return await message.channel.send({ embeds: [new MessageEmbed().setDescription(`Successfully Added DJ Role ${role}.`).setColor(client.embedColor)] })
+            return await message.channel.send({ embeds: [new MessageEmbed().setDescription(`Successfully added DJ Role ${role}.`).setColor(client.embedColor)] })
         } else {
             let rolecheck = data.Roles.find((x) => x === role.id);
-            if (rolecheck) return message.reply({ embeds: [new MessageEmbed().setDescription(`Role Already Exists in List.`).setColor(client.embedColor)] })
+            if (rolecheck) return message.reply({ embeds: [new MessageEmbed().setDescription(`Role already exists in the List.`).setColor(client.embedColor)] })
             data.Roles.push(role.id);
             await data.save();
-            return await message.channel.send({ embeds: [new MessageEmbed().setDescription(`Successfully Added New DJ Role ${role}.`).setColor(client.embedColor)] })
+            return await message.channel.send({ embeds: [new MessageEmbed().setDescription(`Successfully added the new DJ Role ${role}.`).setColor(client.embedColor)] })
 
         }
     }

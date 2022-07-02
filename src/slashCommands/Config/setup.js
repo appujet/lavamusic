@@ -31,7 +31,7 @@ module.exports = {
           new MessageEmbed()
             .setColor(client.embedColor)
             .setDescription(
-              `I don't have enough permissions to execute this command! please give me permission \`MANAGE_CHANNELS\` or \`SPEAK\`.`
+              `I don't have enough permissions to execute this command! Please give me permission \`MANAGE_CHANNELS\` or \`SPEAK\`.`
             ),
         ],
       });
@@ -46,7 +46,7 @@ module.exports = {
           new MessageEmbed()
             .setColor(client.embedColor)
             .setDescription(
-              `I don't have enough permissions connect your vc please give me permission \`MANAGE_CHANNELS\` or \`SPEAK\`.`
+              `I don't have enough permissions to connect your VC. Please give me permission \`MANAGE_CHANNELS\` or \`SPEAK\`.`
             ),
         ],
       });

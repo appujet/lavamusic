@@ -11,7 +11,7 @@ module.exports = {
   options: [
     {
       name: "number",
-      description: "select a song number",
+      description: "Select a song number",
       required: true,
       type: "NUMBER"
     }

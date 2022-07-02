@@ -26,7 +26,7 @@ module.exports = {
         const player = interaction.client.manager.get(interaction.guildId);
          if (!player.queue.current)
       return interaction.editReply({
-        content: `Please start a music before doing this action`,
+        content: `Please start a song before doing this action`,
       });
        
     if(!player) return await interaction.editReply({

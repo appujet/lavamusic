@@ -16,7 +16,7 @@ module.exports = {
         });
   const embed = new MessageEmbed()
     .setTitle(`${client.user.username} Help`)
-    .setDescription(` Hello **<@${interaction.member.user.id}>**, I am <@${client.user.id}>.  \n\nA Discord Music Bot With Many Awesome Features, \nSupport Many Sources\n\n\`🎵\`•Music\n\`🗒️\`•information\n\`💽\`•Playlists\n\`⚙️\`•Config\n\n*Choose an category below button to see commands* \n\n`)
+    .setDescription(` Hello **<@${interaction.member.user.id}>**, I am <@${client.user.id}>.  \n\nA Discord Music Bot with many awesome Features, \nI support Many Sources\n\n\`🎵\`•Music\n\`🗒️\`•information\n\`💽\`•Playlists\n\`⚙️\`•Config\n\n*Choose an category below button to see commands* \n\n`)
     .setThumbnail(client.user.displayAvatarURL())
     .setColor(client.embedColor)
     .setTimestamp()

@@ -10,7 +10,7 @@
 <center><img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=lavamusic&fontSize=80&fontAlignY=35&animation=twinkling&fontColor=gradient" /></center>
 <br>
 <h2 align="center">Our Music Bot</h2>
-<h4 align="center">High Quality Music Bot With Dj System, Music Channel, 24/7 In VC, Stage Channels, Slash Commands and more for FREE!</h4>
+<h4 align="center">High Quality Music Bot with a DJ System, Music Channel Setup, 24/7 in VC, Stage Channels, Slash Commands Support and more for FREE!</h4>
 <p align="center">
 <a href="https://top.gg/bot/977742811132743762">
   <img src="https://top.gg/api/widget/977742811132743762.svg">
@@ -29,7 +29,7 @@
   <h3 align="center">lavamusic</h3>
 
   <p align="center">
-    Lavamusic is  a powerful music Bot
+    Lavamusic is a powerful music Bot
     <br />
     <br />
     <a href="https://invite.moebot.cf/">Invite Lavamusic</a>
@@ -93,14 +93,14 @@ Warning: Java v14 has issues with Lavalink.
 
 ## 🎶 Available music sources:
 
-- youtube`*`
-- bandcamp`*`
-- soundcloud`*`
-- twitch`*`
-- vimeo`*`
+- YouTube`*`
+- Bandcamp`*`
+- SoundCloud`*`
+- Twitch`*`
+- Vimeo`*`
 - http (you can use radio for it)`*`
-- spotify`*`
-- deezer`*`
+- Spotify`*`
+- Deezer`*`
 
 
 <!-- INSTALL -->
@@ -108,7 +108,7 @@ Warning: Java v14 has issues with Lavalink.
 ```
 git clone https://github.com/brblacky/lavamusic.git
 ```
-After cloning, run an
+After cloning, run
 ```
 npm install
 ```
@@ -120,7 +120,7 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
 Alternatively you can run lavamusic on [docker](https://www.docker.com/). Pull the prebuilt docker image from [here](https://ghcr.io/brblacky/lavamusic).  
 See [here](https://github.com/StefanLobbenmeier/lavamusic-docker-compose) for a complete environment.
 
-## intents
+## Intents
 
 <p align="center">
   <a href="https://github.com/brblacky/lavamusic">
@@ -128,7 +128,7 @@ See [here](https://github.com/StefanLobbenmeier/lavamusic-docker-compose) for a 
 
   </a>
 </p>
-When Your Running The Code You Must Have Gotten This Error To Fix This Head Over To Your Bots Discord Application and Go To The Bot Settings And Find This
+When you are running the Code you must have gotten this Error. To fix this head over to your Bot's Discord Application and go to the Bot Settings and find this:
 
 <p align="center">
   <a href="https://github.com/brblacky/lavamusic">
@@ -136,7 +136,7 @@ When Your Running The Code You Must Have Gotten This Error To Fix This Head Over
 
   </a>
 </p>
-Then Turn On Both Of Those Settings And Click "Save Changes" Then Your Are Done And The It Should Be Fixed
+Then turn on both of those Settings and click "Save Changes". Then you are done and it should be fixed!
 <!-- CONFIGURATION -->
 
 ## ⚙️ Configurations
@@ -149,7 +149,7 @@ Then Turn On Both Of Those Settings And Click "Save Changes" Then Your Are Done 
     embedColor: process.env.COlOR || "#303236", // embed colour
     logs: process.env.LOGS || "", // channel id for guild create and delete logs
 ```
-## 🌋 lavalink 
+## 🌋 Lavalink 
 ```js
       "host": "disbotlistlavalink.ml",
       "port": 80,
@@ -175,7 +175,7 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 # Donate
 
- By Donating, You Will Help Me To Maintain This Project 
+ By donating, you will help me to maintain this Project!
 
 - [PayPal](https://www.paypal.me/sdip521)
 

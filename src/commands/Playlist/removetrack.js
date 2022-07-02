@@ -19,10 +19,10 @@ module.exports = {
         const Name = args[0].replace(/_/g, ' ');
         const data = await db.findOne({ UserId: message.author.id, PlaylistName: Name });
         if (!data) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`You don't have a playlist with **${Name}** name`)] });
+            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`You don't have a playlist called **${Name}**.`)] });
         }
         if (data.length == 0) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`You don't have a playlist with **${Name}** name`)] });
+            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`You don't have a playlist called **${Name}**.`)] });
         }
         const Options = args[1];
         if (!Options || isNaN(Options)) {

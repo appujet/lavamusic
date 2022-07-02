@@ -3,7 +3,7 @@ const db = require("../../schema/playlist");
 
 module.exports = {
     name: "create",
-    description: "Gets the user's playlist.",
+    description: "Creates the user's playlist.",
     player: false,
     inVoiceChannel: false,
     sameVoiceChannel: false,
@@ -29,17 +29,17 @@ module.exports = {
         const data = await db.find({ UserId: interaction.member.user.id, PlaylistName: Name });
 
         if (Name.length > 10) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Playlist Name Cant Be Greater Than 10 Charecters`)] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Playlist Name can't be greater than 10 Characters`)] });
 
         };
         if (data.length > 0) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`This playlist already Exists! delete it using: \`${prefix}\`delete \`${Name}\``)] })
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`This playlist already exists! delete it using: \`${prefix}\`delete \`${Name}\``)] })
         };
         let userData = db.find({
             UserId: interaction.user.id
         });
         if (userData.length >= 10) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You Can Only Create 10 Playlist`)] })
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You can only create 10 Playlists`)] })
         }
         const newData = new db({
             UserName: interaction.user.tag,

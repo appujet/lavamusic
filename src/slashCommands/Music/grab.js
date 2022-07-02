@@ -3,7 +3,7 @@ const { convertTime } = require('../../utils/convert.js');
 
 module.exports = {
   name: "grab",
-  description: "Grabs And Sends You The Song That Is Playing At The Moment",
+  description: "Grabs and sends you the Song that is playing at the Moment",
   permissions: [],
   player: true,
   inVoiceChannel: true,
@@ -20,12 +20,12 @@ module.exports = {
     const total = song.duration;
     const current = player.position;
 
-    const dmbut = new MessageButton().setLabel("Check Your Dm").setStyle("LINK").setURL(`https://discord.com/users/${client.id}`)
+    const dmbut = new MessageButton().setLabel("Check Your DM").setStyle("LINK").setURL(`https://discord.com/users/${client.id}`)
     const row = new MessageActionRow().addComponents(dmbut)
 
     let dm = new MessageEmbed()
     .setAuthor({name: interaction.user.tag, iconURL: interaction.user.avatarURL()})
-    .setDescription(`:mailbox_with_mail: \`Check Your Dms!\``)
+    .setDescription(`:mailbox_with_mail: \`Check Your DMs!\``)
     .setColor(client.embedColor)
     .setFooter({text: `Requested By ${interaction.user.tag}`})
     .setTimestamp()

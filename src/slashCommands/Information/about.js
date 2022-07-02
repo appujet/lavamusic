@@ -2,7 +2,7 @@ const { MessageEmbed, CommandInteraction, Client, MessageButton, MessageActionRo
 
 module.exports = {
     name: "about",
-    description: "Show Lavamusic project information",
+    description: "See information about this project",
 
     /**
      * 

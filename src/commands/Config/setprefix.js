@@ -3,7 +3,7 @@ const db = require("../../schema/prefix.js");
 module.exports = {
   name: "setprefix",
   category: "Config",
-  description: "Set Custom Prefix",
+  description: "Set a custom Prefix",
   args: false,
   usage: "",
   aliases: ["prefix"],
@@ -21,13 +21,13 @@ module.exports = {
     }
     if (pre[1]) {
       const embed = new MessageEmbed()
-        .setDescription("You can not set prefix a double argument")
+        .setDescription("You can not set a prefix with a double argument")
         .setColor(client.embedColor)
       return message.reply({ embeds: [embed] });
     }
     if (pre[0].length > 3) {
       const embed = new MessageEmbed()
-        .setDescription("You can not send prefix more than 3 characters")
+        .setDescription("You can not set a prefix with more than 3 characters")
         .setColor(client.embedColor)
       return message.reply({ embeds: [embed] });
     }

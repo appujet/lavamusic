@@ -7,7 +7,7 @@ const si = require('systeminformation');
 
 module.exports = {
     name: "status",
-    description: "Show status bot",
+    description: "Show the Bot's status",
     run: async (client, interaction) => {
 
       await interaction.deferReply({

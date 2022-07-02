@@ -18,7 +18,7 @@ module.exports = {
 
         let data = await db.find({ UserId: message.author.id });
         if (!data.length) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You Do Not Have Any Playlist`)] })
+            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have any Playlist.`)] })
         }
         if (!args[0]) {
             let list = data.map((x, i) => `\`${++i}\` - ${x.PlaylistName} \`${x.Playlist.length}\` - <t:${x.CreatedOn}>`);

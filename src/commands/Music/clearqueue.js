@@ -31,7 +31,7 @@ module.exports = {
 		let thing = new MessageEmbed()
 			.setColor(message.client.embedColor)
 			.setTimestamp()
-			.setDescription(`${emojieject} Removed all songs from the queue`)
+			.setDescription(`${emojieject} Removed all songs from the queue.`)
 			  return message.reply({embeds: [thing]});
     }
 };

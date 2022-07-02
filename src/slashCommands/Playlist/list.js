@@ -20,7 +20,7 @@ module.exports = {
         const data = await db.find({ UserId: interaction.member.user.id });
 
         if (!data.length) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You Do Not Have Any Playlist`)] })
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have any Playlist`)] })
         }
 
         let list = data.map((x, i) => `\`${++i}\` - ${x.PlaylistName} \`${x.Playlist.length}\` - <t:${x.CreatedOn}>`);
