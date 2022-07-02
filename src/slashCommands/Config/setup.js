@@ -21,163 +21,148 @@ module.exports = {
 
     run: async (client, interaction, prefix) => {
         if (
-      !interaction.guild.me.permissions.has([
-        Permissions.FLAGS.MANAGE_CHANNELS,
-        Permissions.FLAGS.SPEAK,
-      ])
-    )
-      return interaction.editReply({
-        embeds: [
-          new MessageEmbed()
-            .setColor(client.embedColor)
-            .setDescription(
-              `I don't have enough permissions to execute this command! Please give me permission \`MANAGE_CHANNELS\` or \`SPEAK\`.`
-            ),
-        ],
-      });
-    const { channel } = interaction.member.voice;
-    if (
-      !interaction.guild.me
-        .permissionsIn(channel)
-        .has([Permissions.FLAGS.MANAGE_CHANNELS, Permissions.FLAGS.SPEAK])
-    )
-      return interaction.editReply({
-        embeds: [
-          new MessageEmbed()
-            .setColor(client.embedColor)
-            .setDescription(
-              `I don't have enough permissions to connect your VC. Please give me permission \`MANAGE_CHANNELS\` or \`SPEAK\`.`
-            ),
-        ],
-      });
+            !interaction.guild.me.permissions.has([
+                Permissions.FLAGS.MANAGE_CHANNELS,
+                Permissions.FLAGS.SPEAK,
+            ])
+        )
+            return interaction.editReply({
+                embeds: [
+                    new MessageEmbed()
+                        .setColor(client.embedColor)
+                        .setDescription(
+                            `I don't have enough permissions to execute this command! Please give me permission \`MANAGE_CHANNELS\` or \`SPEAK\`.`
+                        ),
+                ],
+            });
+            
+        let data = await db.findOne({ Guild: interaction.guildId });
+        if (interaction.options.getSubcommand() === "set") {
+            if (data) return await interaction.reply({ content: `Music setup is already finished in this server.` });
+            const parent = await interaction.guild.channels.create(`${client.user.username} Music Zone`, {
+                type: "GUILD_CATEGORY",
+                permissionOverwrites: [
+                    {
+                        type: "member",
+                        id: client.user.id,
+                        allow: ["CONNECT", "SPEAK", "VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"]
+                    },
+                    {
+                        type: "role",
+                        id: interaction.guild.roles.cache.find((x) => x.name === "@everyone").id,
+                        allow: ["VIEW_CHANNEL"]
+                    }
+                ]
+            });
 
-            let data = await db.findOne({ Guild: interaction.guildId });
-            if (interaction.options.getSubcommand() === "set") {
-                if (data) return await interaction.reply({ content: `Music setup is already finished in this server.` });
-                const parent = await interaction.guild.channels.create(`${client.user.username} Music Zone`, {
-                    type: "GUILD_CATEGORY",
-                    permissionOverwrites: [
-                        {
-                            type: "member",
-                            id: client.user.id,
-                            allow: ["CONNECT", "SPEAK", "VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"]
-                        },
-                        {
-                            type: "role",
-                            id: interaction.guild.roles.cache.find((x) => x.name === "@everyone").id,
-                            allow: ["VIEW_CHANNEL"]
-                        }
-                    ]
-                });
-    
-                const textChannel = await interaction.guild.channels.create(`${client.user.username}-song-requests`, {
-                    type: "GUILD_TEXT", 
-                    parent: parent.id , 
-                    permissionOverwrites: [
-                        {
-                            type: "member",
-                            id: client.user.id,
-                            allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS", "READ_MESSAGE_HISTORY"]
-                        },
-                        {
-                            type: "role",
-                            id: interaction.guild.roles.cache.find((x) => x.name === "@everyone").id,
-                            allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "READ_MESSAGE_HISTORY"]
-                        }
-                    ]
-                });
-    
-                let rates = [1000*64, 1000*96, 1000*128, 1000*256, 1000*384];
-                let rate = rates[0];
-    
-                switch(interaction.guild.premiumTier) {
-                    case "NONE":
-                        rate = rates[1];
-                        break;
-    
-                    case "TIER_1":
-                        rate = rates[2];
-                        break;
-    
-                    case "TIER_2":
-                        rate = rates[3];
-                        break;
-    
-                    case "TIER_3":
-                        rate = rates[4];
-                        break;
-                };
-    
-                const voiceChannel = await interaction.guild.channels.create(`${client.user.username} Music`, {
-                    type: "GUILD_VOICE",
-                    parent: parent.id,
-                    bitrate: rate,
-                    userLimit: 35,
-                    permissionOverwrites: [
-                        {
-                            type: "member",
-                            id: client.user.id,
-                            allow: ["CONNECT", "SPEAK", "VIEW_CHANNEL", "REQUEST_TO_SPEAK"]
-                        },
-                        {
-                            type: "role",
-                            id: interaction.guild.roles.cache.find((x) => x.name === "@everyone").id,
-                            allow: ["CONNECT", "VIEW_CHANNEL"],
-                            deny: ["SPEAK"]
-                        }
-                    ]
-                });
+            const textChannel = await interaction.guild.channels.create(`${client.user.username}-song-requests`, {
+                type: "GUILD_TEXT",
+                parent: parent.id,
+                permissionOverwrites: [
+                    {
+                        type: "member",
+                        id: client.user.id,
+                        allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS", "READ_MESSAGE_HISTORY"]
+                    },
+                    {
+                        type: "role",
+                        id: interaction.guild.roles.cache.find((x) => x.name === "@everyone").id,
+                        allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "READ_MESSAGE_HISTORY"]
+                    }
+                ]
+            });
 
-                let disabled = true;
-                let player = client.manager.get(interaction.guildId);
-                if (player) disabled = false;
-                
-                const title = player && player.queue && player.queue.current ? `Now playing` : "Nothing is playing right now";
-                const desc = player && player.queue && player.queue.current ? `[${player.queue.current.title}](${player.queue.current.uri})` : null;
-                const footer = {
-                    text: player && player.queue && player.queue.current ? `Requested by ${player.queue.current.requester.username}` : "",
-                    iconURL: player && player.queue && player.queue.current ? `${player.queue.current.requester.displayAvatarURL({ dynamic: true })}` : `${client.user.displayAvatarURL({ dynamic: true })}`
-                };
-                // let image = player.queue.current?.identifier ? `https://img.youtube.com/vi/${player.queue.current.identifier}/maxresdefault.jpg` : client.config.links.img;
-                let image = client.config.links.img;
+            let rates = [1000 * 64, 1000 * 96, 1000 * 128, 1000 * 256, 1000 * 384];
+            let rate = rates[0];
 
-                let embed1 = new  MessageEmbed().setColor(client.embedColor).setTitle(title).setFooter({ text: footer.text, iconURL: footer.iconURL }).setImage(image);
+            switch (interaction.guild.premiumTier) {
+                case "NONE":
+                    rate = rates[1];
+                    break;
 
-                if (player && player.queue && player.queue.current) embed1.setDescription(desc);
+                case "TIER_1":
+                    rate = rates[2];
+                    break;
 
-                let pausebut = new MessageButton().setCustomId(`pause_but_${interaction.guildId}`).setEmoji("⏯️").setStyle("SECONDARY").setDisabled(disabled);
+                case "TIER_2":
+                    rate = rates[3];
+                    break;
 
-                let lowvolumebut = new MessageButton().setCustomId(`lowvolume_but_${interaction.guildId}`).setEmoji("🔉").setStyle("SECONDARY").setDisabled(disabled);
+                case "TIER_3":
+                    rate = rates[4];
+                    break;
+            };
 
-                let highvolumebut = new MessageButton().setCustomId(`highvolume_but_${interaction.guildId}`).setEmoji("🔊").setStyle("SECONDARY").setDisabled(disabled);
+            const voiceChannel = await interaction.guild.channels.create(`${client.user.username} Music`, {
+                type: "GUILD_VOICE",
+                parent: parent.id,
+                bitrate: rate,
+                userLimit: 35,
+                permissionOverwrites: [
+                    {
+                        type: "member",
+                        id: client.user.id,
+                        allow: ["CONNECT", "SPEAK", "VIEW_CHANNEL", "REQUEST_TO_SPEAK"]
+                    },
+                    {
+                        type: "role",
+                        id: interaction.guild.roles.cache.find((x) => x.name === "@everyone").id,
+                        allow: ["CONNECT", "VIEW_CHANNEL"],
+                        deny: ["SPEAK"]
+                    }
+                ]
+            });
 
-                let previousbut = new MessageButton().setCustomId(`previous_but_${interaction.guildId}`).setEmoji("⏮️").setStyle("SECONDARY").setDisabled(disabled);
+            let disabled = true;
+            let player = client.manager.get(interaction.guildId);
+            if (player) disabled = false;
 
-                let skipbut = new MessageButton().setCustomId(`skipbut_but_${interaction.guildId}`).setEmoji("⏭️").setStyle("SECONDARY").setDisabled(disabled);
+            const title = player && player.queue && player.queue.current ? `Now playing` : "Nothing is playing right now";
+            const desc = player && player.queue && player.queue.current ? `[${player.queue.current.title}](${player.queue.current.uri})` : null;
+            const footer = {
+                text: player && player.queue && player.queue.current ? `Requested by ${player.queue.current.requester.username}` : "",
+                iconURL: player && player.queue && player.queue.current ? `${player.queue.current.requester.displayAvatarURL({ dynamic: true })}` : `${client.user.displayAvatarURL({ dynamic: true })}`
+            };
+            // let image = player.queue.current?.identifier ? `https://img.youtube.com/vi/${player.queue.current.identifier}/maxresdefault.jpg` : client.config.links.img;
+            let image = client.config.links.img;
 
-                const row1 = new MessageActionRow().addComponents(lowvolumebut, previousbut, pausebut, skipbut, highvolumebut);
+            let embed1 = new MessageEmbed().setColor(client.embedColor).setTitle(title).setFooter({ text: footer.text, iconURL: footer.iconURL }).setImage(image);
 
-               
-                const msg = await textChannel.send({
-                    embeds: [embed1],
-                    components: [row1]
-                });
+            if (player && player.queue && player.queue.current) embed1.setDescription(desc);
 
-                const Ndata = new db({
-                    Guild: interaction.guildId,
-                    Channel: textChannel.id,
-                    Message: msg.id,
-                    voiceChannel: voiceChannel.id,
-                });
+            let pausebut = new MessageButton().setCustomId(`pause_but_${interaction.guildId}`).setEmoji("⏯️").setStyle("SECONDARY").setDisabled(disabled);
 
-                await Ndata.save();
-                return await interaction.reply({
-                    embeds: [new MessageEmbed().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })]
-                });
-            } else if (interaction.options.getSubcommand() === "delete") {
-                if (!data) return await interaction.reply({ content: `This server doesn't have any song request channel setup to use this sub command.` });
-                await data.delete();
-                return await interaction.reply({ content: `Successfully deleted all the setup data.` });
-            }
+            let lowvolumebut = new MessageButton().setCustomId(`lowvolume_but_${interaction.guildId}`).setEmoji("🔉").setStyle("SECONDARY").setDisabled(disabled);
+
+            let highvolumebut = new MessageButton().setCustomId(`highvolume_but_${interaction.guildId}`).setEmoji("🔊").setStyle("SECONDARY").setDisabled(disabled);
+
+            let previousbut = new MessageButton().setCustomId(`previous_but_${interaction.guildId}`).setEmoji("⏮️").setStyle("SECONDARY").setDisabled(disabled);
+
+            let skipbut = new MessageButton().setCustomId(`skipbut_but_${interaction.guildId}`).setEmoji("⏭️").setStyle("SECONDARY").setDisabled(disabled);
+
+            const row1 = new MessageActionRow().addComponents(lowvolumebut, previousbut, pausebut, skipbut, highvolumebut);
+
+
+            const msg = await textChannel.send({
+                embeds: [embed1],
+                components: [row1]
+            });
+
+            const Ndata = new db({
+                Guild: interaction.guildId,
+                Channel: textChannel.id,
+                Message: msg.id,
+                voiceChannel: voiceChannel.id,
+            });
+
+            await Ndata.save();
+            return await interaction.reply({
+                embeds: [new MessageEmbed().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })]
+            });
+        } else if (interaction.options.getSubcommand() === "delete") {
+            if (!data) return await interaction.reply({ content: `This server doesn't have any song request channel setup to use this sub command.` });
+            await data.delete();
+            return await interaction.reply({ content: `Successfully deleted all the setup data.` });
+        }
     }
 };
