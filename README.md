@@ -75,7 +75,7 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 * [Nodejs](https://nodejs.org/en/)-v16 
 * [Discord.js](https://github.com/discordjs/discord.js/)-v13
 * [Java](https://adoptopenjdk.net/) for lavalink
-* [Lavalink](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1)
+* [Lavalink](https://ci.fredboat.com/repository/download/Lavalink_Build/.lastSuccessful/Lavalink.jar?guest=1&branch=refs/heads/dev)
 
 Note: Java v11 or newer is required to run the Lavalink.jar. Java v13 is recommended. If you are using sdkman then its a manager, not Java, you have to install sdkman and use sdkman to install Java
 
