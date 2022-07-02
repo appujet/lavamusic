@@ -31,7 +31,7 @@ module.exports = {
         const data = await db.findOne({ UserId: interaction.member.user.id, PlaylistName: Name });
 
         if (!data) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist with **${Name}** name`)] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist called **${Name}**.`)] });
         }
         let tracks = data.Playlist.map((x, i) => `\`${+i}\` - ${x.title && x.uri ? `[${x.title}](${x.uri})` : `${x.title}`}${x.duration ? ` - \`${convertTime(Number(x.duration))}\`` : ""}`);
         const pages = lodash.chunk(tracks, 10).map((x) => x.join("\n"));

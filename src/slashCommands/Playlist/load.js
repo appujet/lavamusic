@@ -10,7 +10,7 @@ module.exports = {
     options: [
         {
             name: "name",
-            description: "play the saved playlist",
+            description: "Play the saved playlist",
             required: true,
             type: "STRING"
         }

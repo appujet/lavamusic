@@ -3,7 +3,7 @@ const db = require("../../schema/playlist");
 
 module.exports = {
     name: "removetrack",
-    description: "Removetrack from your saved Playlists.",
+    description: "Remove a track from your saved Playlists.",
     player: false,
     inVoiceChannel: false,
     sameVoiceChannel: false,
@@ -35,14 +35,14 @@ module.exports = {
         const data = await db.findOne({ UserId: interaction.member.user.id, PlaylistName: Name });
 
         if (!data) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist with **${Name}** name`)] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist called **${Name}**.`)] });
         }
         if (data.length == 0) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist with **${Name}** name`)] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist called **${Name}**.`)] });
         }
         const Options = interaction.options.getString("number");
         if (!Options || isNaN(Options)) {
-            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You didn't entered track number (the Track you want to remove (ID OF IT))\nSee all your Tracks: ${prefix}info ${Name}`)] });
+            return interaction.editReply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You didn't enter a track number (the Track you want to remove (ID OF IT))\nSee all your Tracks: ${prefix}info ${Name}`)] });
         }
         let tracks = data.Playlist;
         if (Number(Options) >= tracks.length || Number(Options) < 0) {

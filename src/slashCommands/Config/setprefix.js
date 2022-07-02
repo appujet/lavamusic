@@ -3,12 +3,12 @@ const db = require("../../schema/prefix.js");
 
 module.exports = {
   name: "setprefix",
-  description: "Set Custom Prefix",
+  description: "Set a custom Prefix",
   permissions: ['MANAGE_GUILD'],
   options: [
     {
       name: "prefix",
-      description: "give me new prefix",
+      description: "Give me a new prefix",
       required: true,
       type: "STRING"
     }
@@ -29,13 +29,13 @@ module.exports = {
     }
     if (pre[1]) {
       const embed = new MessageEmbed()
-        .setDescription("You can not set prefix a double argument")
+        .setDescription("You can not set a prefix with a double argument")
         .setColor(client.embedColor)
       return await interaction.editReply({ embeds: [embed] });
     }
     if (pre[0].length > 3) {
       const embed = new MessageEmbed()
-        .setDescription("You can not send prefix more than 3 characters")
+        .setDescription("You can not set prefix with more than 3 characters")
         .setColor(client.embedColor)
       return await interaction.editReply({ embeds: [embed] });
     }

@@ -2,7 +2,7 @@ const { MessageEmbed, CommandInteraction, Client, MessageButton, MessageActionRo
 
 module.exports = {
     name: "invite",
-    description: "get my invite link",
+    description: "Get my invite link",
 
     /**
      * 

@@ -2,7 +2,7 @@ const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "remove",
-  description: "Remove song from the queue",
+  description: "Remove a song from the queue",
   permissions: [],
   player: true,
   dj: true,

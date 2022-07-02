@@ -11,7 +11,7 @@ module.exports = {
   options: [
     {
       name: "number",
-      description: "give your volume number ",
+      description: "Give your volume number between 0 and 100",
       required: true,
       type: "NUMBER"
     }

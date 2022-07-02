@@ -5,7 +5,7 @@ module.exports = {
     name: "grab",
     aliases: ["save"],
     category: "Music",
-    description: "Grabs And Sends You The Song That Is Playing At The Moment",
+    description: "Grabs and sends you the Song that is playing at the Moment",
     args: false,
     usage: "",
     permission: [],
