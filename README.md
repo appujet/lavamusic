@@ -151,9 +151,9 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
 ```
 ## 🌋 Lavalink 
 ```js
-      "host": "disbotlistlavalink.ml",
-      "port": 80,
-      "password": "LAVA",
+      "host": "localhost",
+      "port": 2333,
+      "password": "coders",
       "retryDelay": 3000,
       "secure": false
 ```
