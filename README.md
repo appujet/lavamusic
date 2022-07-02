@@ -175,7 +175,7 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 # Donate
 
- By Donating, You Will Help Me To Maintain This Project 
+ By donating, you will help me to maintain this Project!
 
 - [PayPal](https://www.paypal.me/sdip521)
 
