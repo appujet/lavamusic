@@ -1,12 +1,3 @@
-[![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://repl.it/github/brblacky/lavamusic)
-[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/brblacky/lavamusic)
-
-[![Version][version-shield]](version-url)
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 <center><img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=lavamusic&fontSize=80&fontAlignY=35&animation=twinkling&fontColor=gradient" /></center>
 <br>
 <h2 align="center">Our Music Bot</h2>
@@ -18,6 +9,16 @@
 <br />
 <br />
 <br />
+
+[![Version][version-shield]](version-url)
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+[![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://repl.it/github/brblacky/lavamusic)
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/brblacky/lavamusic)
 
 <!-- PROJECT LOGO -->
 <br />
@@ -40,26 +41,25 @@
   </p>
 </p>
 
-
 ## 📝 Tutorial
 
 A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://youtu.be/x5lQD2rguz0)
 
-
 ## 🎭 Features
-- [x] Setup System 
-- [x] Music
-- [x] 24/7
-- [x] Dj 
-- [x] Custom Playlist (global)
-- [x] SlashCommand
-- [x] Custom prefix
-- [x] Filters
-- [x] Easy to use
-- [x] More
 
+- ✅ Setup System
+- ✅ Music
+- ✅ 24/7
+- ✅ Dj
+- ✅ Custom Playlist (global)
+- ✅ SlashCommand
+- ✅ Custom prefix
+- ✅ Filters
+- ✅ Easy to use
+- ✅ And much more!
 
 ## 🖼️ Screenshots
+
 <br />
 <p align="center">
   <a href="https://github.com/brblacky/lavamusic">
@@ -72,10 +72,11 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 </p>
 
 ## 📎 Requirements
-* [Nodejs](https://nodejs.org/en/)-v16 
-* [Discord.js](https://github.com/discordjs/discord.js/)-v13
-* [Java](https://adoptopenjdk.net/) for lavalink
-* [Lavalink](https://ci.fredboat.com/repository/download/Lavalink_Build/.lastSuccessful/Lavalink.jar?guest=1&branch=refs/heads/dev)
+
+- [Nodejs](https://nodejs.org/en/)-v16
+- [Discord.js](https://github.com/discordjs/discord.js/)-v13
+- [Java](https://adoptopenjdk.net/) for lavalink
+- [Lavalink](https://ci.fredboat.com/repository/download/Lavalink_Build/.lastSuccessful/Lavalink.jar?guest=1&branch=refs/heads/dev)
 
 Note: Java v11 or newer is required to run the Lavalink.jar. Java v13 is recommended. If you are using sdkman then its a manager, not Java, you have to install sdkman and use sdkman to install Java
 
@@ -91,34 +92,78 @@ Warning: Java v14 has issues with Lavalink.
 - Spotify client ID `for spotify support` [Click here to get](https://developer.spotify.com/dashboard/login)
 - Spotify client Secret `for spotify support` [Click here to get](https://developer.spotify.com/dashboard/login)
 
-## 🎶 Available music sources:
+## 🎶 Available music sources
 
-- YouTube`*`
-- Bandcamp`*`
-- SoundCloud`*`
-- Twitch`*`
-- Vimeo`*`
-- http (you can use radio for it)`*`
-- Spotify`*`
-- Deezer`*`
-
+- ✅ YouTube
+- ✅ Bandcamp
+- ✅ SoundCloud
+- ✅ Twitch
+- ✅ Vimeo
+- ✅ http (you can use radio for it)
+- ✅ Spotify
+- ✅ Deezer
 
 <!-- INSTALL -->
-## 🚀 Installation from source
-```
-git clone https://github.com/brblacky/lavamusic.git
-```
-After cloning, run
-```
-npm install
-```
-* Start the bot with `node src/index.js`
-
-to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing *much* easier.
 
 ## 🚀 Installation using docker-compose
-Alternatively you can run lavamusic on [docker](https://www.docker.com/). Pull the prebuilt docker image from [here](https://ghcr.io/brblacky/lavamusic).  
-See [here](https://github.com/StefanLobbenmeier/lavamusic-docker-compose) for a complete environment.
+
+This section assumes you have docker and docker-compose installed and is running correctly.
+
+Download the [Docker-Compose file](https://raw.githubusercontent.com/brblacky/lavamusic/main/docker-compose.yml) in a seperate folder like lavamusic.
+
+Edit the Docker-Compose file and make sure to edit the following variables:
+
+```yaml
+TOKEN: "put your bot token"
+PREFIX: "your bot prefix"
+OWNERID: "your discord id"
+```
+
+For more information how to fill all the varialabes go to this page.
+You do not need to edit anything like the PORT, ADDRESS, PASSWORD, HOST, SECURE and USERNAME. Unless you know what your doing.
+
+After saving your changes you can open a terminal and go to the same location as the docker-compose file. Then type the following:
+
+```bash
+docker-compose up -d
+```
+
+The above command will start all your services and your bot should be up and running!
+
+To update, you only have to type the following:
+
+```bash
+docker-compose up --force-recreate --build -d
+image prune -f
+```
+
+You can automate this by using [Watchtower](https://github.com/containrrr/watchtower). The following should be sufficient:
+
+```bash
+docker run --detach \
+    --name watchtower \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    --restart on-failure \
+    containrrr/watchtower --cleanup
+```
+
+Do note that the bot will restart itself to update to the latest!
+
+## 🚀 Installation from source
+
+```bash
+git clone https://github.com/brblacky/lavamusic.git
+```
+
+After cloning, run
+
+```bash
+npm install
+```
+
+- Start the bot with `node src/index.js`
+
+to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing *much* easier.
 
 ## Intents
 
@@ -140,7 +185,9 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
 <!-- CONFIGURATION -->
 
 ## ⚙️ Configurations
-- edit in `src/config.js` and you can do in `.env` 
+
+- edit in `src/config.js` and you can do in `.env`
+
 ```js
     token: process.env.TOKEN || "",  // your bot token
     prefix: process.env.PREFIX || "!", // bot prefix
@@ -149,7 +196,9 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
     embedColor: process.env.COlOR || "#303236", // embed colour
     logs: process.env.LOGS || "", // channel id for guild create and delete logs
 ```
-## 🌋 Lavalink 
+
+## 🌋 Lavalink
+
 ```js
       "host": "localhost",
       "port": 2333,
@@ -157,19 +206,21 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
       "retryDelay": 3000,
       "secure": false
 ```
+
 - Create an application.yml file in your working directory and copy the [example](https://github.com/freyacodes/Lavalink/blob/master/LavalinkServer/application.yml.example) into the created file and edit it with your configuration.
 - Run the jar file by running `java -jar Lavalink.jar` in a Terminal window.
-
 
 <!-- ABOUT THE PROJECT -->
 
 ## 🌀 About
+
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=brblacky&repo=lavamusic&theme=tokyonight)](https://github.com/brblacky/lavamusic)
 
  Lavamusic is a lavalink music bot base in [erela.js](https://github.com/MenuDocs/erela.js)
 If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 ## 💌 Support Server
+
 [![DiscordBanner](https://invidget.switchblade.xyz/ns8CTk9J3e)](https://discord.gg/ns8CTk9J3e)<br />
 [Support Server](https://discord.gg/ns8CTk9J3e) - lavamusic's Support Server Invite
 
@@ -178,7 +229,6 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
  By donating, you will help me to maintain this Project!
 
 - [PayPal](https://www.paypal.me/sdip521)
-
 
 ## 🤝 Contributing
 
