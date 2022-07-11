@@ -24,7 +24,7 @@
   "bugs": "https://github.com/brblacky/lavamusic/issues",
   "homepage": "https://github.com/brblacky/lavamusic#readme",
   "dependencies": {
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.0",
     "delay": "^5.0.0",
     "discord.js": "^13.8.0",
     "dotenv": "^10.0.0",
