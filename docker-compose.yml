@@ -1,5 +1,15 @@
 version: "3.8"
 services:
+  mongodb:
+    container_name: lavamusic-mongodb
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: mongopassword
+    restart: on-failure
+    volumes:
+      - mongodb_data:/data/db
+
   lavalink:
     container_name: lavamusic-lavalink
     image: fredboat/lavalink:dev
@@ -25,7 +35,19 @@ services:
       #LAVALINK_SERVER_YOUTUBE_CONFIG_PASSWORD:
       LAVALINK_SERVER_SENTRY_DSN: ""
     restart: on-failure
-    
+
+  #lavalink-monitor:
+  #  container_name: Lavalink-Monitor
+  #  image: "No registery image found..."
+  #  environment:
+  #    CHANNEL_ID: "channel id to post stats in"
+  #    TOKEN: "your bot token"
+  #  restart: on-failure
+  #  depends_on:
+  #    - lavalink
+  #  links:
+  #    - lavalink
+
   lavamusic:
     container_name: lavamusic
     image: ghcr.io/brblacky/lavamusic:latest
@@ -34,11 +56,11 @@ services:
       PREFIX: "your bot prefix"
       OWNERID: "your discord id"
       SPOTIFYID: "Spotify client id"
-      SPOTIFYSECRET: "Spotify client secret "
+      SPOTIFYSECRET: "Spotify client secret"
       MONGO_URI: "mongodb://mongoadmin:mongopassword@db:27017"
       COlOR: "embed colour"
       LOGS: "logs channel id"
-      IMG: "setup system background image "
+      IMG: "setup system background image"
       SUPPORT: "support server invite link"
       INVITE: "bot invite link"
       NODE_HOST: "lavalink"
@@ -53,16 +75,6 @@ services:
     links:
       - mongodb:db
       - lavalink
-
-  mongodb:
-    container_name: lavamusic-mongodb
-    image: mongo:latest
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mongoadmin
-      MONGO_INITDB_ROOT_PASSWORD: mongopassword
-    restart: on-failure
-    volumes:
-      - mongodb_data:/data/db
 
 volumes:
   mongodb_data:
