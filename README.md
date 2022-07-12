@@ -33,7 +33,7 @@
     Lavamusic is a powerful music Bot
     <br />
     <br />
-    <a href="https://invite.moebot.cf/">Invite Moe</a>
+    <a href="https://moebot.xyz/invite/">Invite Moe</a>
     ·
     <a href="https://github.com/brblacky/lavamusic/issues">Report Bug</a>
     ·
