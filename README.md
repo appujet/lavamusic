@@ -33,7 +33,7 @@
     Lavamusic is a powerful music Bot
     <br />
     <br />
-    <a href="https://invite.moebot.cf/">Invite Lavamusic</a>
+    <a href="https://invite.moebot.cf/">Invite Moe</a>
     ·
     <a href="https://github.com/brblacky/lavamusic/issues">Report Bug</a>
     ·
@@ -73,8 +73,8 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 
 ## 📎 Requirements
 
-- [Nodejs](https://nodejs.org/en/)-v16
-- [Discord.js](https://github.com/discordjs/discord.js/)-v13
+- [Nodejs](https://nodejs.org/en/) v16
+- [Discord.js](https://github.com/discordjs/discord.js/) v13
 - [Java](https://adoptopenjdk.net/) for lavalink
 - [Lavalink](https://ci.fredboat.com/repository/download/Lavalink_Build/.lastSuccessful/Lavalink.jar?guest=1&branch=refs/heads/dev)
 
@@ -163,7 +163,7 @@ npm install
 
 - Start the bot with `node src/index.js`
 
-to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing *much* easier.
+to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing _much_ easier.
 
 ## Intents
 
@@ -216,7 +216,7 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
 
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=brblacky&repo=lavamusic&theme=tokyonight)](https://github.com/brblacky/lavamusic)
 
- Lavamusic is a lavalink music bot base in [erela.js](https://github.com/MenuDocs/erela.js)
+Lavamusic is a lavalink music bot base in [erela.js](https://github.com/MenuDocs/erela.js)
 If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 ## 💌 Support Server
@@ -226,7 +226,7 @@ If you liked this repository, feel free to leave a star ⭐ to help promote !
 
 # Donate
 
- By donating, you will help me to maintain this Project!
+By donating, you will help me to maintain this Project!
 
 - [PayPal](https://www.paypal.me/sdip521)
 
@@ -258,4 +258,4 @@ Distributed under the MIT License. See [`LICENSE`](https://github.com/brblacky/l
 [issues-url]: https://github.com/brblacky/lavamusic/issues
 [license-shield]: https://img.shields.io/github/license/brblacky/lavamusic.svg?style=for-the-badge
 [license-url]: https://github.com/brblacky/lavamusic/blob/master/LICENSE
-[Spon-img]: https://media.discordapp.net/attachments/979364157541462066/982734017671606322/Vultr_Logo_Download_Vector.png
+[spon-img]: https://media.discordapp.net/attachments/979364157541462066/982734017671606322/Vultr_Logo_Download_Vector.png
