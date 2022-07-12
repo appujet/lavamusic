@@ -259,12 +259,14 @@ class Lavamusic extends Manager {
     if (guild) return guild.shard.send(payload);
   };
   _loadEvents() {
+    let count = 0;
     readdirSync("./src/events/Lavalink/").forEach(file => {
       const event = require(`../events/Lavalink/${file}`);
       let eventName = file.split(".")[0];
-      this.client.logger.log(`Loading Events Lavalink ${eventName}`, "event");
       this.on(eventName, event.bind(null, this.client));
+    count++;
     });
+    this.client.logger.log(`Loading Events Lavalink ${count}`, "event");
   }
 }
 module.exports = Lavamusic;

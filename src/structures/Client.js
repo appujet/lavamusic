@@ -1,4 +1,4 @@
-const { Client, Intents, Collection, MessageEmbed, MessageButton, MessageSelectMenu } = require("discord.js");
+const { Client, Collection, GatewayIntentBits, Partials } = require("discord.js");
 const { Manager } = require("erela.js");
 const { readdirSync } = require("fs");
 const mongoose = require('mongoose');
@@ -9,15 +9,27 @@ class MusicBot extends Client {
     super({
       shards: "auto",
       allowedMentions: {
-        parse: ["roles", "users", "everyone"],
-        repliedUser: false
+        everyone: false,
+        roles: false,
+        users: false
       },
       intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_VOICE_STATES
-      ]
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildIntegrations,
+        GatewayIntentBits.GuildWebhooks,
+        GatewayIntentBits.GuildInvites,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildMessageTyping,
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.DirectMessageReactions,
+        GatewayIntentBits.DirectMessageTyping,
+
+      ],
+      partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember, Partials.Reaction]
     });
     this.commands = new Collection();
     this.slashCommands = new Collection();
@@ -52,51 +64,14 @@ class MusicBot extends Client {
     mongoose.connection.on('disconnected', () => {
       console.log('Mongoose disconnected');
     });
-    /**
-     * Client Events
-     */
-    readdirSync("./src/events/Client/").forEach(file => {
-      const event = require(`../events/Client/${file}`);
-      this.on(event.name, (...args) => event.run(this, ...args));
-    });
- 
-    /**
-     * Import all commands
-     */
-    readdirSync("./src/commands/").forEach(dir => {
-      const commandFiles = readdirSync(`./src/commands/${dir}/`).filter(f => f.endsWith('.js'));
-      for (const file of commandFiles) {
-        const command = require(`../commands/${dir}/${file}`);
-        this.logger.log(`Loading ${command.category} commands ${command.name}`, "cmd");
-        this.commands.set(command.name, command);
-      }
-    })
-    /**
-     * SlashCommands 
-     */
-    const data = [];
 
-    readdirSync("./src/slashCommands/").forEach((dir) => {
-      const slashCommandFile = readdirSync(`./src/slashCommands/${dir}/`).filter((files) => files.endsWith(".js"));
-
-      for (const file of slashCommandFile) {
-        const slashCommand = require(`../slashCommands/${dir}/${file}`);
-
-        if (!slashCommand.name) return console.error(`slashCommandNameError: ${slashCommand.split(".")[0]} application command name is required.`);
-
-        if (!slashCommand.description) return console.error(`slashCommandDescriptionError: ${slashCommand.split(".")[0]} application command description is required.`);
-
-        this.slashCommands.set(slashCommand.name, slashCommand);
-        this.logger.log(`Client SlashCommands Command (/) Loaded: ${slashCommand.name}`, "cmd");
-        data.push(slashCommand);
-      }
-    });
-    this.on("ready", async () => {
-      await this.application.commands.set(data).then(() => this.logger.log(`Client Application (/) Registered.`, "cmd")).catch((e) => console.log(e));
+    ['commands', 'slashCommand', 'events'].forEach((handler) => {
+      require(`../handlers/${handler}`)(this);
     });
   }
   connect() {
     return super.login(this.token);
   };
 };
+
 module.exports = MusicBot;

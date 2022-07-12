@@ -1,4 +1,4 @@
-const { CommandInteraction, Client, Permissions } = require("discord.js")
+const { CommandInteraction, Client, InteractionType } = require("discord.js")
 const db = require("../../schema/prefix.js");
 const db2 = require("../../schema/dj");
 const db3 = require("../../schema/setup");
@@ -15,7 +15,7 @@ module.exports = {
         const ress = await db.findOne({ Guild: interaction.guildId })
         if (ress && ress.Prefix) prefix = ress.Prefix;
 
-        if (interaction.isCommand() || interaction.isContextMenu()) {
+        if (interaction.type === InteractionType.ApplicationCommand) {
             const SlashCommands = client.slashCommands.get(interaction.commandName);
             if (!SlashCommands) return;
 
