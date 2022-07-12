@@ -10,6 +10,7 @@ module.exports = {
   player: true,
   args: true,
   dj: false,
+  cooldown: 2,
   inVoiceChannel: true,
   sameVoiceChannel: true,
 

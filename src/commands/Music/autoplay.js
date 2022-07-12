@@ -7,6 +7,7 @@ module.exports = {
   description: "Toggle music autoplay",
   args: false,
   usage: "",
+  cooldown: 2,
   permission: [],
   owner: false,
   player: true,
@@ -18,12 +19,12 @@ module.exports = {
     const autoplay = player.get("autoplay");
 
     const emojireplay = client.emoji.autoplay;
-    
+
     if (!player.queue.current)
       return message.reply({
         content: `Please start a song before doing this action`,
       });
-    
+
     if (autoplay === false) {
       const identifier = player.queue.current.identifier;
       player.set("autoplay", true);
