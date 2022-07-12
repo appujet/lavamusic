@@ -1,7 +1,8 @@
-const { MessageEmbed, Permissions } = require("discord.js");
+const { MessageEmbed, Permissions, Collection } = require("discord.js");
 const db = require("../../schema/prefix.js");
 const db2 = require("../../schema/dj");
 const db3 = require("../../schema/setup");
+cooldowns = new Collection();
 
 module.exports = {
   name: "messageCreate",
