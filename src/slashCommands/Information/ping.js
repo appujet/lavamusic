@@ -4,7 +4,6 @@ module.exports = {
     name: "ping",
     description: "Return websocket ping",
     type: ApplicationCommandType.ChatInput,
-    default_member_permissions: 'ManageGuild',
 
     /**
      * 
