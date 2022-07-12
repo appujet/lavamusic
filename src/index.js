@@ -15,8 +15,5 @@ process.on('uncaughtExceptionMonitor', (err, origin) => {
     console.log(err, origin);
 });
 
-process.on('multipleResolves', (type, promise, reason) => {
-    console.log(type, promise, reason);
-});
 
-module.exports = client; 
+module.exports = client;
