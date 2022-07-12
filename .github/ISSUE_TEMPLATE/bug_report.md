@@ -1,38 +1,28 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
-
+about: Report incorrect or unexpected behavior of the Music Bot
+title: ""
+labels: "Type: bug"
+assignees: ""
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Please describe the problem you are having in as much detail as possible:**
+<!-- Video / Image of the steps to repreduce the bugs/issue are encouraged. -->
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+### Essentials:
+<!-- Must fill! if not the issue will be closed. -->
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+- Commit Hash:
+- Node.js version:
+- Operating system:
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+#### Additional system info
+- Is it virtualized? (Docker or ...) :
+- What CPU is it running on (X86 or ARM or...):
+- Additional details that might help us figure out the problem:
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+### Relevant client options:
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+- partials: none
+- gateway intents: none
+- other: none

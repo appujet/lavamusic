@@ -1,0 +1,84 @@
+version: "3.8"
+services:
+  mongodb:
+    container_name: lavamusic-mongodb
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: mongopassword
+    restart: on-failure
+    volumes:
+      - mongodb_data:/data/db
+
+  lavalink:
+    container_name: lavamusic-lavalink
+    image: fredboat/lavalink:dev
+    environment:
+      SERVER_PORT: 2333
+      SERVER_ADDRESS: 0.0.0.0
+      LAVALINK_SERVER_PASSWORD: "youshallnotpass"
+      LAVALINK_SERVER_SOURCES_YOUTUBE: 'true'
+      LAVALINK_SERVER_SOURCES_BANDCAMP: 'true'
+      LAVALINK_SERVER_SOURCES_SOUNDCLOUD: 'true'
+      LAVALINK_SERVER_SOURCES_TWITCH: 'true'
+      LAVALINK_SERVER_SOURCES_VIMEO: 'true'
+      LAVALINK_SERVER_SOURCES_HTTP: 'true'
+      LAVALINK_SERVER_SOURCES_LOCAL: 'false'
+      LAVALINK_SERVER_BUFFER_DURATION_MS: 400
+      LAVALINK_SERVER_FRAME_BUFFER_DURATIONS_MS: 5000
+      LAVALINK_SERVER_TRACK_STRUCK_THRESHOLD_MS: 10000
+      LAVALINK_SERVER_YOUTUBE_PLAYLIST_LOAD_LIMIT: 6
+      LAVALINK_SERVER_PLAYER_UPDATE_INTERVAL: 5
+      LAVALINK_SERVER_YOUTUBE_SEARCH_ENABLED: 'true'
+      LAVALINK_SERVER_SOUNDCLOUD_SEARCH_ENABLED: 'true'
+      #LAVALINK_SERVER_YOUTUBE_CONFIG_EMAIL:
+      #LAVALINK_SERVER_YOUTUBE_CONFIG_PASSWORD:
+      LAVALINK_SERVER_SENTRY_DSN: ""
+    restart: on-failure
+
+  #lavalink-monitor:
+  #  container_name: Lavalink-Monitor
+  #  image: "No registery image found..."
+  #  environment:
+  #    CHANNEL_ID: "channel id to post stats in"
+  #    TOKEN: "your bot token"
+  #  restart: on-failure
+  #  depends_on:
+  #    - lavalink
+  #  links:
+  #    - lavalink
+
+  lavamusic:
+    container_name: lavamusic
+    image: ghcr.io/brblacky/lavamusic:latest
+    environment:
+      TOKEN: "put your bot token"
+      PREFIX: "your bot prefix"
+      OWNERID: "your discord id"
+      SPOTIFYID: "Spotify client id"
+      SPOTIFYSECRET: "Spotify client secret"
+      MONGO_URI: "mongodb://mongoadmin:mongopassword@db:27017"
+      COlOR: "embed colour"
+      LOGS: "logs channel id"
+      IMG: "setup system background image"
+      SUPPORT: "support server invite link"
+      INVITE: "bot invite link"
+      NODE_HOST: "lavalink"
+      NODE_ID: "lavamusic-lavalink"
+      NODE_PORT: "2333"
+      NODE_PASSWORD: "youshallnotpass"
+      NODE_SECURE: "false"
+    restart: on-failure
+    depends_on:
+      - lavalink
+      - mongodb
+    links:
+      - mongodb:db
+      - lavalink
+
+volumes:
+  mongodb_data:
+
+networks:
+  default:
+    name: net-lavamusic
