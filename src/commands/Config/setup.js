@@ -1,5 +1,6 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, Permissions } = require("discord.js");
+const { ChannelType, ButtonStyle, EmbedBuilder, ActionRowBuilder, ButtonBuilder, PermissionFlagsBits } = require("discord.js");
 const db = require("../../schema/setup");
+
 module.exports = {
     name: "setup",
     category: "config",
@@ -11,9 +12,9 @@ module.exports = {
     owner: false,
     execute: async (message, args, client, prefix) => {
         if (
-            !message.guild.me.permissions.has([
-                Permissions.FLAGS.MANAGE_CHANNELS,
-                Permissions.FLAGS.SPEAK,
+            !message.guild.members.me.permissions.has([
+                PermissionFlagsBits.ManageChannels,
+                PermissionFlagsBits.Speak,
             ])
         )
             return message.channel.send({
@@ -30,44 +31,45 @@ module.exports = {
             if (args.length) {
                 if (!data) return await message.reply({ content: `This server doesn't have any song request channel setup to use this sub command.` });
                 if (["clear", "delete", "reset"].includes(args[0])) {
-                    console.log(data);
                     await data.delete();
-                    return await message.reply({ content: `Successfully deleted all the setup data.` });
+                    return await message.reply(`Successfully deleted all the setup data.`);
 
-                } else return await message.reply({ content: "Please provide a valid  command." });
+                } else return await message.reply("Please provide a valid  command.");
             } else {
                 if (data) return await message.reply({ content: `Music setup is already finished in this server.` });
 
-                const parentChannel = await message.guild.channels.create(`${client.user.username} Music Zone`, {
-                    type: "GUILD_CATEGORY",
+                const parentChannel = await message.guild.channels.create({
+                    name: `${client.user.username} Music Zone`, 
+                    type: ChannelType.GuildCategory,
                     permissionOverwrites: [
                         {
                             type: "member",
                             id: client.user.id,
-                            allow: ["CONNECT", "SPEAK", "VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"]
+                            allow: ["Connect", "Speak", "ViewChannel", "SendMessages", "EmbedLinks"]
                         },
                         {
                             type: "role",
                             id: message.guild.roles.cache.find((x) => x.name === "@everyone").id,
-                            allow: ["VIEW_CHANNEL"]
+                            allow: ["ViewChannel"]
                         }
                     ]
                 });
 
-                const textChannel = await message.guild.channels.create(`${client.user.username}-song-requests`, {
-                    type: "GUILD_TEXT",
+                const textChannel = await message.guild.channels.create({
+                    name: `${client.user.username}-song-requests`,
+                    type: ChannelType.GuildText,
                     parent: parentChannel.id,
                     topic: '',
                     permissionOverwrites: [
                         {
                             type: "member",
                             id: client.user.id,
-                            allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS", "READ_MESSAGE_HISTORY"]
+                            allow: ["ViewChannel", "SendMessages", "EmbedLinks", "ReadMessageHistory"]
                         },
                         {
                             type: "role",
                             id: message.guild.roles.cache.find((x) => x.name === "@everyone").id,
-                            allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "READ_MESSAGE_HISTORY"]
+                            allow: ["ViewChannnel", "SendMessagss", "ReadMessageHistory"]
                         }
                     ]
                 });
@@ -93,8 +95,9 @@ module.exports = {
                         break;
                 };
 
-                const voiceChannel = await message.guild.channels.create(`${client.user.username} Music`, {
-                    type: "GUILD_VOICE",
+                const voiceChannel = await message.guild.channels.create({
+                    name: `${client.user.username} Music`, 
+                    type: ChannelType.GuildVoice,
                     parent: parentChannel.id,
                     bitrate: rate,
                     userLimit: 35,
@@ -102,13 +105,13 @@ module.exports = {
                         {
                             type: "member",
                             id: client.user.id,
-                            allow: ["CONNECT", "SPEAK", "VIEW_CHANNEL", "REQUEST_TO_SPEAK"]
+                            allow: ["Connecr", "Speak", "ViewChannel", "RequestToSpeak"]
                         },
                         {
                             type: "role",
                             id: message.guild.roles.cache.find((x) => x.name === "@everyone").id,
-                            allow: ["CONNECT", "VIEW_CHANNEL"],
-                            deny: ["SPEAK"]
+                            allow: ["Connect", "ViewChannel"],
+                            deny: ["Speak"]
                         }
                     ]
                 });
@@ -130,15 +133,15 @@ module.exports = {
 
                 if (player && player.queue && player.queue.current) embed1.setDescription(desc);
 
-                let pausebut = new ButtonBuilder().setCustomId(`pause_but_${message.guildId}`).setEmoji("⏯️").setStyle(ButtonStyle.Secondary).setDisabled(disabled);
+                let pausebut = new ButtonBuilder().setCustomId(`pause_but_${message.guildId}`).setEmoji({ name: "⏯️" }).setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-                let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${message.guildId}`).setEmoji("🔉").setStyle(ButtonStyle.Secondary).setDisabled(disabled);
+                let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${message.guildId}`).setEmoji({ name: "🔉" }).setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-                let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${message.guildId}`).setEmoji("🔊").setStyle(ButtonStyle.Secondary).setDisabled(disabled);
+                let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${message.guildId}`).setEmoji({ name: "🔊" }).setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-                let previousbut = new ButtonBuilder().setCustomId(`previous_but_${message.guildId}`).setEmoji("⏮️").setStyle(ButtonStyle.Secondary).setDisabled(disabled);
+                let previousbut = new ButtonBuilder().setCustomId(`previous_but_${message.guildId}`).setEmoji({ name: "⏮️" }).setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-                let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${message.guildId}`).setEmoji("⏭️").setStyle(ButtonStyle.Secondary).setDisabled(disabled);
+                let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${message.guildId}`).setEmoji({ name: "⏭️" }).setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
                 const row1 = new ActionRowBuilder().addComponents(lowvolumebut, previousbut, pausebut, skipbut, highvolumebut);
 
@@ -156,7 +159,7 @@ module.exports = {
 
                 await Ndata.save();
                 return await message.channel.send({
-                    embeds: [new EmbedBuilder().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })]
+                    embeds: [new EmbedBuilder().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })]
                 });
             };
         } catch (error) {
