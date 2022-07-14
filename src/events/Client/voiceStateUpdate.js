@@ -58,7 +58,7 @@ module.exports = {
           .setDescription(
             `Resuming playback because all of you left me with music to play all alone`
           );
-        await client.channels.cache.get(player.textChannel).send({embeds: [emb]});
+        client.channels.cache.get(player.textChannel).send({embeds: [emb]});
 
         let msg2 = await client.channels.cache
           .get(player.textChannel)
@@ -76,7 +76,7 @@ module.exports = {
           .setAuthor({name: `Paused!`})
           .setColor(client.embedColor)
           .setDescription(`The player has been paused because everybody left`);
-        await client.channels.cache.get(player?.textChannel).send({embeds: [emb]});
+        client.channels.cache.get(player?.textChannel).send({embeds: [emb]});
       }
       break;
   }
