@@ -105,7 +105,7 @@ module.exports = {
                         {
                             type: "member",
                             id: client.user.id,
-                            allow: ["Connecr", "Speak", "ViewChannel", "RequestToSpeak"]
+                            allow: ["Connect", "Speak", "ViewChannel", "RequestToSpeak"]
                         },
                         {
                             type: "role",
