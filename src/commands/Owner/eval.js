@@ -31,10 +31,10 @@ module.exports = {
             if (output.length > 1024) {
                
                 const { body } = await post("https://hastebin.com/documents").send(output);
-                embed.addField("Output", `https://hastebin.com/${body.key}.js`).setColor(client.embedColor);
+                embed.addFields([{ name: "Output", value: `https://hastebin.com/${body.key}.js`, inline: true }]).setColor(client.embedColor);
               
             } else {
-                embed.addField("Output", "```js\n" + output + "```").setColor(client.embedColor);
+                embed.addFields([{ name: "Output", value: "```js\n" + output + "```", inline: true }]).setColor(client.embedColor);
             }
 
             message.channel.send({embeds: [embed]});
@@ -44,9 +44,9 @@ module.exports = {
             if (err.length > 1024) {
                
                 const { body } = await post("https://hastebin.com/documents").send(err);
-                embed.addField("Output", `https://hastebin.com/${body.key}.js`).setColor("RED");
+                embed.addFields([{ name: "Output", value: `https://hastebin.com/${body.key}.js`, inline: true }]).setColor("Red");
             } else {
-                embed.addField("Output", "```js\n" + err + "```").setColor("RED");
+                embed.addFields([{ name: "Output", value: "```js\n" + err + "```", inline: true }]).setColor("Red");
             }
 
             message.channel.send({embeds: [embed]});
