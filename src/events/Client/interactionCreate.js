@@ -1,4 +1,4 @@
-const { CommandInteraction, Client, InteractionType } = require("discord.js")
+const { CommandInteraction, Client, InteractionType, PermissionFlagsBits } = require("discord.js")
 const db = require("../../schema/prefix.js");
 const db2 = require("../../schema/dj");
 const db3 = require("../../schema/setup");
@@ -42,8 +42,8 @@ module.exports = {
                 }
             }
             if (SlashCommands.sameVoiceChannel) {
-                if (interaction.guild.me.voice.channel) {
-                    if (interaction.member.voice.channel !== interaction.guild.me.voice.channel) {
+                if (interaction.guild.members.me.voice.channel) {
+                    if (interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) {
                         return await interaction.reply({
                             content: `You must be in the same channel as ${interaction.client.user}`, ephemeral: true
                         }).catch(() => { });
@@ -52,7 +52,7 @@ module.exports = {
             }
             if (SlashCommands.dj) {
                 let data = await db2.findOne({ Guild: interaction.guildId })
-                let perm = Permissions.FLAGS.MUTE_MEMBERS;
+                let perm = PermissionFlagsBits.MuteMembers;
                 if (data) {
                     if (data.Mode) {
                         let pass = false;

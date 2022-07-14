@@ -16,21 +16,21 @@ module.exports = async (client, player) => {
 
 	try {
 
-		message = await channel.messages.fetch(data.Message, { cache: true });
+		message = await channel.messages.fetch({ message: data.Message, cache: true });
 
 	} catch (e) { };
 
 	if (!message) return;
 
-	let pausebut = new ButtonBuilder().setCustomId(`pause_but_${guild.id}`).setEmoji("⏯️").setStyle(ButtonStyle.Secondary).setDisabled(false);
+	let pausebut = new ButtonBuilder().setCustomId(`pause_but_${guild.id}`).setEmoji({ name: "⏯️" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${guild.id}`).setEmoji("🔉").setStyle(ButtonStyle.Secondary).setDisabled(false);
+	let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${guild.id}`).setEmoji({ name: "🔉" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${guild.id}`).setEmoji("🔊").setStyle(ButtonStyle.Secondary).setDisabled(false);
+	let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${guild.id}`).setEmoji({ name: "🔊" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let previousbut = new ButtonBuilder().setCustomId(`previous_but_${guild.id}`).setEmoji("⏮️").setStyle(ButtonStyle.Secondary).setDisabled(false);
+	let previousbut = new ButtonBuilder().setCustomId(`previous_but_${guild.id}`).setEmoji({ name: "⏮️" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${guild.id}`).setEmoji("⏭️").setStyle(ButtonStyle.Secondary).setDisabled(false);
+	let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${guild.id}`).setEmoji({ name: "⏭️" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
 	const row1 = new ActionRowBuilder().addComponents([lowvolumebut, previousbut, pausebut, skipbut, highvolumebut]);
 

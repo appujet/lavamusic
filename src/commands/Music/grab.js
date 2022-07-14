@@ -46,7 +46,7 @@ module.exports = {
             .setThumbnail(song.displayThumbnail())
             .setColor(client.embedColor)
             .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
-         return message.author.send({embeds: [embed], components: [row2]})
+         return message.author.send({embeds: [embed], components: [row2]}).catch(() => null);
             
     }
 };

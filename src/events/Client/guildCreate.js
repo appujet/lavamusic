@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js');
+const { ChannelType, EmbedBuilder } = require('discord.js');
 const moment = require('moment');
 
 module.exports = {
@@ -9,11 +9,11 @@ module.exports = {
     let own = await guild?.fetchOwner();
     let text;
     guild.channels.cache.forEach(c => {
-      if (c.type === "GUILD_TEXT" && !text) text = c;
+      if (c.type === ChannelType.GuildText && !text) text = c;
     });
     const invite = await text.createInvite({ reason: `For ${client.user.tag} Developer(s)`, maxAge: 0 });
     const embed = new EmbedBuilder()
-      .setThumbnail(guild.iconURL({ dynamic: true, size: 1024 }))
+      .setThumbnail(guild.iconURL({ size: 1024 }))
       .setTitle(`📥 Joined a Guild !!`)
       .addFields([
         { name: 'Name', value: `\`${guild.name}\`` },

@@ -32,11 +32,11 @@ module.exports = {
                 if (!data) return await message.reply({ content: `This server doesn't have any song request channel setup to use this sub command.` });
                 if (["clear", "delete", "reset"].includes(args[0])) {
                     await data.delete();
-                    return await message.reply(`Successfully deleted all the setup data.`);
+                    return await message.reply('Successfully deleted all the setup data.');
 
-                } else return await message.reply("Please provide a valid  command.");
+                } else return await message.reply('Please provide a valid  command.');
             } else {
-                if (data) return await message.reply({ content: `Music setup is already finished in this server.` });
+                if (data) return await message.reply('Music setup is already finished in this server.');
 
                 const parentChannel = await message.guild.channels.create({
                     name: `${client.user.username} Music Zone`, 
@@ -49,7 +49,7 @@ module.exports = {
                         },
                         {
                             type: "role",
-                            id: message.guild.roles.cache.find((x) => x.name === "@everyone").id,
+                            id: message.guild.roles.cache.everyone.id,
                             allow: ["ViewChannel"]
                         }
                     ]
@@ -103,13 +103,13 @@ module.exports = {
                     userLimit: 35,
                     permissionOverwrites: [
                         {
-                            type: "member",
+                            type: 'member',
                             id: client.user.id,
                             allow: ["Connect", "Speak", "ViewChannel", "RequestToSpeak"]
                         },
                         {
-                            type: "role",
-                            id: message.guild.roles.cache.find((x) => x.name === "@everyone").id,
+                            type: 'role',
+                            id: message.guild.roles.everyone.id,
                             allow: ["Connect", "ViewChannel"],
                             deny: ["Speak"]
                         }

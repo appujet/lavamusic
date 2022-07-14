@@ -17,7 +17,7 @@ module.exports = async (client, player) => {
 
 	try {
 
-		message = await channel.messages.fetch(data.Message, { cache: true });
+		message = await channel.messages.fetch({ message: data.Message, cache: true });
 
 	} catch (e) { };
 
@@ -27,15 +27,15 @@ module.exports = async (client, player) => {
 		
 	let embed1 = new EmbedBuilder().setColor(client.embedColor).setTitle(`Nothing playing right now in this server!`).setDescription(`[Invite](${client.config.links.invite}) - [Support Server](${client.config.links.support})`).setImage(client.config.links.img);
 
-	let pausebut = new ButtonBuilder().setCustomId(`pause_but_${guild.id}`).setEmoji("⏯️").setStyle(ButtonStyle.Secondary).setDisabled(false);
+	let pausebut = new ButtonBuilder().setCustomId(`pause_but_${guild.id}`).setEmoji({ name: "⏯️" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${guild.id}`).setEmoji("🔉").setStyle(ButtonStyle.Secondary).setDisabled(false);
+	let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${guild.id}`).setEmoji({ name: "🔉" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${guild.id}`).setEmoji("🔊").setStyle(ButtonStyle.Secondary).setDisabled(false);
+	let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${guild.id}`).setEmoji({ name: "🔊" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let previousbut = new ButtonBuilder().setCustomId(`previous_but_${guild.id}`).setEmoji("⏮️").setStyle(ButtonStyle.Secondary).setDisabled(false);
+	let previousbut = new ButtonBuilder().setCustomId(`previous_but_${guild.id}`).setEmoji({ name: "⏮️" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${guild.id}`).setEmoji("⏭️").setStyle(ButtonStyle.Secondary).setDisabled(false);
+	let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${guild.id}`).setEmoji({ name: "⏭️" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
 	const row1 = new ActionRowBuilder().addComponents([lowvolumebut, previousbut, pausebut, skipbut, highvolumebut]);
 	await message.edit({

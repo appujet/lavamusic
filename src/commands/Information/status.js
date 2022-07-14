@@ -19,11 +19,8 @@ module.exports = {
         const about = message.client.emoji.about;
         let ccount = client.channels.cache.size;
         let scount = client.guilds.cache.size;
-        let mcount = 0;
-        client.guilds.cache.forEach((guild) => {
-            mcount += guild.memberCount
-
-        })
+        const memberCount = client.guilds.cache.reduce((acc, curr) => acc + curr.memberCount, 0);
+        
         const embed = new EmbedBuilder()
             .setColor(client.embedColor)
             .setThumbnail(message.client.user.displayAvatarURL())
@@ -31,7 +28,7 @@ module.exports = {
 **= STATISTICS =**
 **• Servers** : ${scount}
 **• Channels** : ${ccount}
-**• Users** : ${mcount}
+**• Users** : ${memberCount}
 **• Discord.js** : v${version}
 **• Node** : ${process.version}
 **= SYSTEM =**
