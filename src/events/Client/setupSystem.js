@@ -1,4 +1,4 @@
-const { Client, Message, Permissions } = require("discord.js")
+const { Client, Message, PermissionsBitField } = require("discord.js")
 const { playerhandler, oops } = require("../../utils/functions");
 
 module.exports = {
@@ -18,14 +18,14 @@ module.exports = {
             return;
         };
 
-        if(!message.member.voice.channel.permissionsFor(client.user).has([Permissions.FLAGS.CONNECT, Permissions.FLAGS.SPEAK])) {
+        if(!message.member.voice.channel.permissionsFor(client.user).has(PermissionsBitField.resolve(['Connect', 'Speak']))) {
             await oops(message.channel,`I don't have enough permission to connect/speak in ${message.member.voice.channel}`);
             if(message) await message.delete().catch(() => {});
             return;
         };
 
-        if(message.guild.me.voice.channel && message.guild.me.voice.channelId !== message.member.voice.channelId) {
-            await oops(message.channel, `You are not connected to <#${message.guild.me.voice.channelId}> to queue songs`);
+        if(message.guild.members.cache.get(client.user.id).voice.channel && message.guild.members.cache.get(client.user.id).voice.channelId !== message.member.voice.channelId) {
+            await oops(message.channel, `You are not connected to <#${message.guild.members.cache.get(client.user.id).voice.channelId}> to queue songs`);
             if(message) await message.delete().catch(() => {});
             return;
         };

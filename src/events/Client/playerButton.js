@@ -17,7 +17,7 @@ module.exports = {
         if (!interaction.replied) await interaction.deferReply().catch(() => { });
         const color = client.embedColor;
         if (!interaction.member.voice.channel) return await buttonReply(interaction, `You are not connected to a voice channel to use this button.`, color);
-        if (interaction.guild.me.voice.channel && interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return await buttonReply(interaction, `You are not connected to ${interaction.guild.me.voice.channel} to use this buttons.`, color);
+        if (interaction.guild.members.cache.get(client.user.id).voice.channel && interaction.guild.members.cache.get(client.user.id).voice.channelId !== interaction.member.voice.channelId) return await buttonReply(interaction, `You are not connected to ${interaction.guild.me.voice.channel} to use this buttons.`, color);
         const player = interaction.client.manager.get(interaction.guildId);
         
         if(!player) return await buttonReply(interaction, `Nothing is playing right now.`, color);

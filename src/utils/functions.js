@@ -58,7 +58,7 @@ async function playerhandler(query, player, message) {
         if (d) m = await message.channel.messages.fetch(d.Message, { cache: true });
     } catch (e) { };
 
-    if (!message.guild.me.voice.channel || player.state !== "CONNECTED") player.connect();
+    if (!message.guild.members.cache.get(message.client.user.id).voice.channel || player.state !== "CONNECTED") player.connect();
     let s = await player.search(query, message.author);
     if (s.loadType === "LOAD_FAILED") {
         if (!player.queue.current) player.destroy();

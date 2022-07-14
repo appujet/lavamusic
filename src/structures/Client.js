@@ -1,6 +1,4 @@
 const { Client, Collection, GatewayIntentBits, Partials } = require("discord.js");
-const { Manager } = require("erela.js");
-const { readdirSync } = require("fs");
 const mongoose = require('mongoose');
 const Lavamusic = require('./Lavamusic');
 
@@ -14,10 +12,10 @@ class MusicBot extends Client {
         users: false
       },
       intents: [
-        GatewayIntentBits.MessageContent,
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildIntegrations,
+        GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildWebhooks,
         GatewayIntentBits.GuildInvites,
         GatewayIntentBits.GuildVoiceStates,
@@ -44,11 +42,11 @@ class MusicBot extends Client {
     this.emoji = require("../utils/emoji.json");
     if (!this.token) this.token = this.config.token;
     this.manager = new Lavamusic(this)
-    
+
     this.rest.on('rateLimited', (info) => {
       this.logger.log(info, 'ratelimit');
     })
-    
+
     /**
      *  Mongose for data base
      */
