@@ -14,7 +14,7 @@ module.exports = {
         await interaction.deferReply({
             ephemeral: false
         });
-
+        
         const button = new ButtonBuilder()
             .setLabel("Invite")
             .setStyle(ButtonStyle.Link)
