@@ -18,21 +18,6 @@ module.exports = {
         if (interaction.type === InteractionType.ApplicationCommand) {
             const SlashCommands = client.slashCommands.get(interaction.commandName);
             if (!SlashCommands) return;
-
-            if (SlashCommands.owner && interaction.author.id !== `${client.owner}`) {
-                if (interaction.replied) {
-                    return await interaction.editReply({
-                        content: `Only <@491577179495333903> can use this command!`
-                    }).catch(() => { });
-                } else {
-                    return await interaction.reply({
-                        content: `Only <@491577179495333903> can use this command!`
-                    }).catch(() => { });
-                }
-            }
-            if (!interaction.member.permissions.has(SlashCommands.permissions || [])) {
-                return await interaction.reply({ content: `You need this \`${SlashCommands.permissions.join(", ")}\` permission to use this command `, ephemeral: true })
-            }
             const player = interaction.client.manager.get(interaction.guildId);
             if (SlashCommands.player && !player) {
                 if (interaction.replied) {

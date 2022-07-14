@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const db = require("../../schema/playlist");
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
     description: "Add current playing song in your saved playlist.",
     args: true,
     usage: "<playlist name>",
-    permission: [],
+    userPerms: [],
     owner: false,
     player: true,
     inVoiceChannel: true,
@@ -19,16 +19,16 @@ module.exports = {
         const data = await db.findOne({ UserId: message.author.id, PlaylistName: Name });
         const player = client.manager.players.get(message.guild.id);
         if (!player.queue.current) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription(i18n.__("player.nomusic"));
             return message.reply({ embeds: [thing] });
         }
         if (!data) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist called **${Name}**.`)] });
+            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You don't have a playlist called **${Name}**.`)] });
         }
         if (data.length == 0) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have a playlist called **${Name}**.`)] });
+            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You don't have a playlist called **${Name}**.`)] });
         }
         const track = player.queue.current;
         let oldSong = data.Playlist;
@@ -54,7 +54,7 @@ module.exports = {
 
                 }
             });
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor(client.embedColor)
             .setDescription(`Added [${track.title.substr(0, 256)}](${track.uri}) in \`${Name}\``)
         return message.channel.send({ embeds: [embed] })

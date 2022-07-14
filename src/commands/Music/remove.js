@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   	name: "remove",
@@ -6,7 +6,7 @@ module.exports = {
   	description: "Remove a song from the queue",
 	args: true,
     usage: "<Number of song in queue>",
-    permission: [],
+    userPerms: [],
     dj: true,
     owner: false,
     player: true,
@@ -17,7 +17,7 @@ module.exports = {
 		const player = client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
             return message.reply({embeds: [thing]});
@@ -26,7 +26,7 @@ module.exports = {
     const position = (Number(args[0]) - 1);
        if (position > player.queue.size) {
         const number = (position + 1);
-         let thing = new MessageEmbed()
+         let thing = new EmbedBuilder()
             .setColor("RED")
             .setDescription(`No songs at number ${number}.\nTotal Songs: ${player.queue.size}`);
             return message.reply({embeds: [thing]});
@@ -37,7 +37,7 @@ module.exports = {
 
 		const emojieject = client.emoji.remove;
 
-		let thing = new MessageEmbed()
+		let thing = new EmbedBuilder()
 			.setColor(client.embedColor)
 			.setTimestamp()
 			.setDescription(`${emojieject} Removed\n[${song.title}](${song.uri})`)

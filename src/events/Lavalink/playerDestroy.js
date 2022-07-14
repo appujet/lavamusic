@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
+const { ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require("discord.js");
 const db = require("../../schema/setup");
 
 module.exports = async (client, player) => {
@@ -25,19 +25,19 @@ module.exports = async (client, player) => {
 	let disabled = true;
         if(player && player.queue && player.queue.current) disabled = false;
 		
-	let embed1 = new MessageEmbed().setColor(client.embedColor).setTitle(`Nothing playing right now in this server!`).setDescription(`[Invite](${client.config.links.invite}) - [Support Server](${client.config.links.support})`).setImage(client.config.links.img);
+	let embed1 = new EmbedBuilder().setColor(client.embedColor).setTitle(`Nothing playing right now in this server!`).setDescription(`[Invite](${client.config.links.invite}) - [Support Server](${client.config.links.support})`).setImage(client.config.links.img);
 
-	let pausebut = new MessageButton().setCustomId(`pause_but_${guild.id}`).setEmoji("⏯️").setStyle("SECONDARY").setDisabled(false);
+	let pausebut = new ButtonBuilder().setCustomId(`pause_but_${guild.id}`).setEmoji("⏯️").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let lowvolumebut = new MessageButton().setCustomId(`lowvolume_but_${guild.id}`).setEmoji("🔉").setStyle("SECONDARY").setDisabled(false);
+	let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${guild.id}`).setEmoji("🔉").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let highvolumebut = new MessageButton().setCustomId(`highvolume_but_${guild.id}`).setEmoji("🔊").setStyle("SECONDARY").setDisabled(false);
+	let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${guild.id}`).setEmoji("🔊").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let previousbut = new MessageButton().setCustomId(`previous_but_${guild.id}`).setEmoji("⏮️").setStyle("SECONDARY").setDisabled(false);
+	let previousbut = new ButtonBuilder().setCustomId(`previous_but_${guild.id}`).setEmoji("⏮️").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let skipbut = new MessageButton().setCustomId(`skipbut_but_${guild.id}`).setEmoji("⏭️").setStyle("SECONDARY").setDisabled(false);
+	let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${guild.id}`).setEmoji("⏭️").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	const row1 = new MessageActionRow().addComponents([lowvolumebut, previousbut, pausebut, skipbut, highvolumebut]);
+	const row1 = new ActionRowBuilder().addComponents([lowvolumebut, previousbut, pausebut, skipbut, highvolumebut]);
 	await message.edit({
 		content: "__**Join a voice channel and queue songs by name/url**__\n\n",
 		embeds: [embed1],

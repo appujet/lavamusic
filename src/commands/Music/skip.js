@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
 	name: "skip",
@@ -7,7 +7,7 @@ module.exports = {
 	description: "Skip the currently playing song",
 	args: false,
   usage: "",
-  permission: [],
+  userPerms: [],
   dj: true,
   owner: false,
   player: true,
@@ -18,7 +18,7 @@ execute: async (message, args, client, prefix) => {
 		const player = message.client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
          return message.reply({embeds: [thing]});
@@ -29,7 +29,7 @@ execute: async (message, args, client, prefix) => {
            
 		const emojiskip = message.client.emoji.skip;
 
-		let thing = new MessageEmbed()
+		let thing = new EmbedBuilder()
 			.setDescription(`${emojiskip} **Skipped**\n[${song.title}](${song.uri})`)
 			.setColor(message.client.embedColor)
 			.setTimestamp()

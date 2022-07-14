@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { convertTime } = require('../../utils/convert.js')
 const ms = require('ms');
 
@@ -9,7 +9,7 @@ module.exports = {
   	description: "Seek the currently playing song",
   	args: true,
     usage: "<10s || 10m || 10h>",
-    permission: [],
+    userPerms: [],
     dj: true,
     owner: false,
     player: true,
@@ -20,7 +20,7 @@ module.exports = {
 		const player = client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
             return message.reply({embeds: [thing]});
@@ -38,21 +38,21 @@ module.exports = {
         if (time <= duration) {
             if (time > position) {
                 player.seek(time);
-                let thing = new MessageEmbed()
+                let thing = new EmbedBuilder()
                     .setDescription(`${emojiforward} **Forward**\n[${song.title}](${song.uri})\n\`${convertTime(time)} / ${convertTime(duration)}\``)
                     .setColor(client.embedColor)
                     .setTimestamp()
                 return message.reply({embeds: [thing]});
             } else {
                 player.seek(time);
-                let thing = new MessageEmbed()
+                let thing = new EmbedBuilder()
                     .setDescription(`${emojirewind} **Rewind**\n[${song.title}](${song.uri})\n\`${convertTime(time)} / ${convertTime(duration)}\``)
                     .setColor(client.embedColor)
                     .setTimestamp()
           return message.reply({embeds: [thing]});
             }
         } else {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription(`Seek duration exceeds Song duration.\nSong duration: \`${convertTime(duration)}\``);
             return message.reply({embeds: [thing]});

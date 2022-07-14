@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton, Permissions } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, Permissions } = require("discord.js");
 const db = require("../../schema/setup");
 module.exports = {
     name: "setup",
@@ -7,7 +7,7 @@ module.exports = {
     args: false,
     usage: "",
     aliases: [],
-    permission: ["MANAGE_GUILD"],
+    userPerms: ["MANAGE_GUILD"],
     owner: false,
     execute: async (message, args, client, prefix) => {
         if (
@@ -18,7 +18,7 @@ module.exports = {
         )
             return message.channel.send({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                         .setColor(client.embedColor)
                         .setDescription(
                             `I don't have enough permissions to execute this command! Please give me permission \`MANAGE_CHANNELS \` or \`SPEAK\`.`
@@ -126,21 +126,21 @@ module.exports = {
                 };
                 const image = client.config.links.img;
 
-                let embed1 = new MessageEmbed().setColor(client.embedColor).setTitle(title).setFooter({ text: footer.text, iconURL: footer.iconURL }).setImage(image);
+                let embed1 = new EmbedBuilder().setColor(client.embedColor).setTitle(title).setFooter({ text: footer.text, iconURL: footer.iconURL }).setImage(image);
 
                 if (player && player.queue && player.queue.current) embed1.setDescription(desc);
 
-                let pausebut = new MessageButton().setCustomId(`pause_but_${message.guildId}`).setEmoji("⏯️").setStyle("SECONDARY").setDisabled(disabled);
+                let pausebut = new ButtonBuilder().setCustomId(`pause_but_${message.guildId}`).setEmoji("⏯️").setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-                let lowvolumebut = new MessageButton().setCustomId(`lowvolume_but_${message.guildId}`).setEmoji("🔉").setStyle("SECONDARY").setDisabled(disabled);
+                let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${message.guildId}`).setEmoji("🔉").setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-                let highvolumebut = new MessageButton().setCustomId(`highvolume_but_${message.guildId}`).setEmoji("🔊").setStyle("SECONDARY").setDisabled(disabled);
+                let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${message.guildId}`).setEmoji("🔊").setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-                let previousbut = new MessageButton().setCustomId(`previous_but_${message.guildId}`).setEmoji("⏮️").setStyle("SECONDARY").setDisabled(disabled);
+                let previousbut = new ButtonBuilder().setCustomId(`previous_but_${message.guildId}`).setEmoji("⏮️").setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-                let skipbut = new MessageButton().setCustomId(`skipbut_but_${message.guildId}`).setEmoji("⏭️").setStyle("SECONDARY").setDisabled(disabled);
+                let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${message.guildId}`).setEmoji("⏭️").setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-                const row1 = new MessageActionRow().addComponents(lowvolumebut, previousbut, pausebut, skipbut, highvolumebut);
+                const row1 = new ActionRowBuilder().addComponents(lowvolumebut, previousbut, pausebut, skipbut, highvolumebut);
 
                 const msg = await textChannel.send({
                     embeds: [embed1],
@@ -156,7 +156,7 @@ module.exports = {
 
                 await Ndata.save();
                 return await message.channel.send({
-                    embeds: [new MessageEmbed().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })]
+                    embeds: [new EmbedBuilder().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })]
                 });
             };
         } catch (error) {

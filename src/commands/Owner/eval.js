@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { post } = require("node-superfetch");
 
 module.exports = {
@@ -7,11 +7,11 @@ module.exports = {
     description: "Eval Code",
     args: false,
     usage: "<string>",
-    permission: [],
+    userPerms: [],
     owner: true,
  execute: async (message, args, client, prefix) => {
        
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .addField("Input", "```js\n" + args.join(" ") + "```");
 
         try {

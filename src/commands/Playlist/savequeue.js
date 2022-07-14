@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const db = require("../../schema/playlist");
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
     description: "Save current playing queue in your playlist.",
     args: true,
     usage: "<playlist name>",
-    permission: [],
+    userPerms: [],
     owner: false,
     player: true,
     inVoiceChannel: true,
@@ -18,17 +18,17 @@ module.exports = {
         const Name = args[0].replace(/_/g, ' ');
         const player = message.client.manager.get(message.guild.id);
         if (!player.queue.current) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription(`Currently No Music Is Playing..`);
             return message.reply({ embeds: [thing] });
         }
         const data = await db.find({ UserId: message.author.id, PlaylistName: Name })
         if (!data) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] })
         }
         if (data.length == 0) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] });
+            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] });
         }
         const song = player.queue.current;
         const tracks = player.queue;
@@ -62,7 +62,7 @@ module.exports = {
                 }
 
             });
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setDescription(`**Added** \`${playlist.length - oldSong.length}\`song in \`${Name}\``)
             .setColor(client.embedColor)
         return message.channel.send({ embeds: [embed] })

@@ -1,4 +1,5 @@
 const { prefix } = require("../../config.js");
+const { Activity } = require("discord.js");
 
 module.exports ={
 name: "ready",
@@ -11,7 +12,7 @@ run: async (client) => {
     let statuses = ['/help', `Prefix ${prefix}`];
     setInterval(function() {
   		let status = statuses[Math.floor(Math.random()*statuses.length)];
-  		client.user.setActivity(status, {type: "PLAYING"});
+  		client.user.setActivity(status, {type: Activity.Playing});
   	}, 10000)
  }
 }

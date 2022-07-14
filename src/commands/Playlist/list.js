@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const db = require("../../schema/playlist");
 const lodash = require("lodash");
 
@@ -9,7 +9,7 @@ module.exports = {
     description: "To List The Playlist.",
     args: false,
     usage: "list",
-    permission: [],
+    userPerms: [],
     owner: false,
     player: true,
     inVoiceChannel: true,
@@ -18,7 +18,7 @@ module.exports = {
 
         let data = await db.find({ UserId: message.author.id });
         if (!data.length) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(client.embedColor).setDescription(`You don't have any Playlist.`)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You don't have any Playlist.`)] })
         }
         if (!args[0]) {
             let list = data.map((x, i) => `\`${++i}\` - ${x.PlaylistName} \`${x.Playlist.length}\` - <t:${x.CreatedOn}>`);
@@ -26,7 +26,7 @@ module.exports = {
             let page = 0;
             let List = list.length;
 
-            const embeds = new MessageEmbed()
+            const embeds = new EmbedBuilder()
                 .setAuthor({ name: `${message.author.username}'s Playlists`, iconURI: message.author.displayAvatarURL() })
                 .setDescription(pages[page])
                 .setFooter({ text: `Playlist (${List} / 10)` })

@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   	name: "shuffle",
@@ -6,7 +6,7 @@ module.exports = {
     description: "Shuffle queue",
     args: false,
     usage: "",
-    permission: [],
+    userPerms: [],
     dj: true,
     owner: false,
     player: true,
@@ -17,7 +17,7 @@ module.exports = {
 		const player = client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
             return message.reply({embeds: [thing]});
@@ -26,7 +26,7 @@ module.exports = {
         
         const emojishuffle = client.emoji.shuffle;
 
-        let thing = new MessageEmbed()
+        let thing = new EmbedBuilder()
             .setDescription(`${emojishuffle} Shuffled the queue`)
             .setColor(client.embedColor)
             .setTimestamp()

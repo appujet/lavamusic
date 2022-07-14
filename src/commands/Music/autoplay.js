@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   name: "autoplay",
@@ -7,7 +7,7 @@ module.exports = {
   description: "Toggle music autoplay",
   args: false,
   usage: "",
-  permission: [],
+  userPerms: [],
   owner: false,
   player: true,
   inVoiceChannel: true,
@@ -32,7 +32,7 @@ module.exports = {
       const search = `https://www.youtube.com/watch?v=${identifier}&list=RD${identifier}`;
       res = await player.search(search, message.author);
       player.queue.add(res.tracks[1]);
-      let thing = new MessageEmbed()
+      let thing = new EmbedBuilder()
         .setColor(client.embedColor)
         .setTimestamp()
         .setDescription(`${emojireplay} Autoplay is now **enabled**`);
@@ -40,7 +40,7 @@ module.exports = {
     } else {
       player.set("autoplay", false);
       player.queue.clear();
-      let thing = new MessageEmbed()
+      let thing = new EmbedBuilder()
         .setColor(client.embedColor)
         .setTimestamp()
         .setDescription(`${emojireplay} Autoplay is now **disabled**`);

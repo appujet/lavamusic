@@ -1,31 +1,33 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
-    name: "ping",
-    category: "Information",
-    description: "Check Ping Bot",
-    args: false,
-    usage: "",
-    permission: [],
-    owner: false,
-    execute: async (message, args, client, prefix) => {
-      
-  await message.reply({ content: "Pinging..." }).then(async (msg) => {
-  const ping = msg.createdAt - message.createdAt;
-  const api_ping = client.ws.ping;
+  name: "ping",
+  category: "Information",
+  description: "Check Ping Bot",
+  args: false,
+  usage: "",
+  userPerms: [],
+  owner: false,
+  execute: async (message, args, client, prefix) => {
 
-  const PingEmbed = new MessageEmbed()
-    .setAuthor({ name: "Pong", iconURL: client.user.displayAvatarURL()})
-    .setColor(client.embedColor)
-    .addField("Bot Latency", `\`\`\`ini\n[ ${ping}ms ]\n\`\`\``, true)
-    .addField("API Latency", `\`\`\`ini\n[ ${api_ping}ms ]\n\`\`\``, true)
-    .setFooter({ text: `Requested by ${message.author.username}`, iconURL:  message.author.avatarURL({ dynamic: true })})
-    .setTimestamp();
+    await message.reply({ content: "Pinging..." }).then(async (msg) => {
+      const ping = msg.createdAt - message.createdAt;
+      const api_ping = client.ws.ping;
 
-  await msg.edit({
-    content: "\`🏓\`",
-    embeds: [PingEmbed]
-  })
- })
- }
+      const PingEmbed = new EmbedBuilder()
+        .setAuthor({ name: "Pong", iconURL: client.user.displayAvatarURL() })
+        .setColor(client.embedColor)
+        .addFields([
+          { name: "Bot Latency", value: `\`\`\`ini\n[ ${ping}ms ]\n\`\`\``, inline: true },
+          { name: "API Latency", value: `\`\`\`ini\n[ ${api_ping}ms ]\n\`\`\``, inline: true }
+        ])
+        .setFooter({ text: `Requested by ${message.author.username}`, iconURL: message.author.avatarURL({ dynamic: true }) })
+        .setTimestamp();
+
+      await msg.edit({
+        content: "\`🏓\`",
+        embeds: [PingEmbed]
+      })
+    })
+  }
 }

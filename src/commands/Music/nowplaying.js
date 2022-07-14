@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { convertTime } = require('../../utils/convert.js');
 const { progressbar } = require('../../utils/progressbar.js')
 
@@ -9,7 +9,7 @@ module.exports = {
     description: "Show the current playing song",
     args: false,
     usage: "",
-    permission: [],
+    userPerms: [],
     owner: false,
     player: true,
     inVoiceChannel: false,
@@ -19,7 +19,7 @@ execute: async (message, args, client, prefix) => {
         const player = message.client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
             return message.channel.send(thing);
@@ -29,7 +29,7 @@ execute: async (message, args, client, prefix) => {
         var total = song.duration;
         var current = player.position;
         
-        let embed = new MessageEmbed()
+        let embed = new EmbedBuilder()
             .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\`- [${song.requester}] \n\n\`${progressbar(player)}\``)
             .setThumbnail(song.displayThumbnail("3"))
             .setColor(client.embedColor)

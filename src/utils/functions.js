@@ -1,4 +1,4 @@
-const { Message, MessageEmbed, Client, TextChannel, MessageButton, MessageActionRow } = require("discord.js");
+const { Message, EmbedBuilder, Client, TextChannel, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js");
 const { Player } = require("erela.js");
 const db = require("../schema/setup");
 const { convertTime } = require("./convert");
@@ -11,7 +11,7 @@ const { convertTime } = require("./convert");
 
 async function oops(channel, args) {
     try {
-        let embed1 = new MessageEmbed().setColor("RED").setDescription(`${args}`);
+        let embed1 = new EmbedBuilder().setColor("RED").setDescription(`${args}`);
 
         const m = await channel.send({
             embeds: [embed1]
@@ -52,7 +52,7 @@ function neb(embed, player, client) {
 async function playerhandler(query, player, message) {
     let m;
     let d = await db.findOne({ Guild: message.guildId });
-    let n = new MessageEmbed().setColor(message.client.embedColor);
+    let n = new EmbedBuilder().setColor(message.client.embedColor);
 
     try {
         if (d) m = await message.channel.messages.fetch(d.Message, { cache: true });
@@ -72,7 +72,7 @@ async function playerhandler(query, player, message) {
         if (player && player.state === "CONNECTED" && !player.playing && !player.paused && player.queue.totalSize === s.tracks.length) await player.play();
 
         await message.channel.send({
-            embeds: [new MessageEmbed().setColor(message.client.embedColor).setDescription(`Added \`[ ${s.tracks.length} ]\` tracks from [${s.playlist.name}](${query}) to the queue.`)]
+            embeds: [new EmbedBuilder().setColor(message.client.embedColor).setDescription(`Added \`[ ${s.tracks.length} ]\` tracks from [${s.playlist.name}](${query}) to the queue.`)]
         }).then((a) => setTimeout(async () => await a.delete().catch(() => { }), 5000)).catch(() => { });
 
         neb(n, player);
@@ -83,7 +83,7 @@ async function playerhandler(query, player, message) {
         if (player && player.state === "CONNECTED" && !player.playing && !player.paused && !player.queue.size) return await player.play();
 
         await message.channel.send({
-            embeds: [new MessageEmbed().setColor(message.client.embedColor).setDescription(`Added [${s.tracks[0].title}](${s.tracks[0].uri}) to the queue.`)]
+            embeds: [new EmbedBuilder().setColor(message.client.embedColor).setDescription(`Added [${s.tracks[0].title}](${s.tracks[0].uri}) to the queue.`)]
         }).then((a) => setTimeout(async () => await a.delete().catch(() => { }), 5000)).catch(() => { });
 
         neb(n, player);
@@ -94,7 +94,7 @@ async function playerhandler(query, player, message) {
         if (player && player.state === "CONNECTED" && !player.playing && !player.paused && !player.queue.size) return await player.play();
 
         await message.channel.send({
-            embeds: [new MessageEmbed().setColor(message.client.embedColor).setDescription(`Added [${s.tracks[0].title}](${s.tracks[0].uri}) to the queue.`)]
+            embeds: [new EmbedBuilder().setColor(message.client.embedColor).setDescription(`Added [${s.tracks[0].title}](${s.tracks[0].uri}) to the queue.`)]
         }).then((a) => setTimeout(async () => await a.delete().catch(() => { }), 5000)).catch(() => { });
 
         neb(n, player);
@@ -127,19 +127,19 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
 
         if (!message) {
 
-            let embed1 = new MessageEmbed().setColor(client.embedColor).setDescription(`[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue.current.requester.username}`, iconURL: player.queue.current.requester.displayAvatarURL({ dynamic: true }) });
+            let embed1 = new EmbedBuilder().setColor(client.embedColor).setDescription(`[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue.current.requester.username}`, iconURL: player.queue.current.requester.displayAvatarURL({ dynamic: true }) });
 
-            let pausebut = new MessageButton().setCustomId(`pause_but_${player.guild}`).setEmoji("⏸️").setStyle("SECONDARY").setDisabled(false);
+            let pausebut = new ButtonBuilder().setCustomId(`pause_but_${player.guild}`).setEmoji("⏸️").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-            let lowvolumebut = new MessageButton().setCustomId(`lowvolume_but_${player.guild}`).setEmoji("🔉").setStyle("SECONDARY").setDisabled(false);
+            let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${player.guild}`).setEmoji("🔉").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-            let highvolumebut = new MessageButton().setCustomId(`highvolume_but_${player.guild}`).setEmoji("🔊").setStyle("SECONDARY").setDisabled(false);
+            let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${player.guild}`).setEmoji("🔊").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-            let previousbut = new MessageButton().setCustomId(`previous_but_${player.guild}`).setEmoji("⏮️").setStyle("SECONDARY").setDisabled(false);
+            let previousbut = new ButtonBuilder().setCustomId(`previous_but_${player.guild}`).setEmoji("⏮️").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-            let skipbut = new MessageButton().setCustomId(`skipbut_but_${player.guild}`).setEmoji("⏭️").setStyle("SECONDARY").setDisabled(false);
+            let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${player.guild}`).setEmoji("⏭️").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-            const row1 = new MessageActionRow().addComponents(lowvolumebut, previousbut, pausebut, skipbut, highvolumebut);
+            const row1 = new ActionRowBuilder().addComponents(lowvolumebut, previousbut, pausebut, skipbut, highvolumebut);
             const m = await channel.send({
                 content: "__**Join a voice channel and queue songs by name/url.**__\n\n",
                 embeds: [embed1],
@@ -149,7 +149,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
             return await db.findOneAndUpdate({ Guild: channel.guildId }, { Message: m.id });
         } else {
 
-            let embed2 = new MessageEmbed().setColor(message.client.embedColor).setDescription(`${emojiplay} **Started Playing** - [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue.current.requester.username}`, iconURL: player.queue.current.requester.displayAvatarURL({ dynamic: true }) });
+            let embed2 = new EmbedBuilder().setColor(message.client.embedColor).setDescription(`${emojiplay} **Started Playing** - [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue.current.requester.username}`, iconURL: player.queue.current.requester.displayAvatarURL({ dynamic: true }) });
 
             await message.edit({
                 content: "__**Join a voice channel and queue songs by name/url.**__\n",
@@ -171,9 +171,9 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
 async function buttonReply(int, args, client) {
 
     if (int.replied) {
-        await int.editReply({ embeds: [new MessageEmbed().setColor(int.client.embedColor).setDescription(args)] })
+        await int.editReply({ embeds: [new EmbedBuilder().setColor(int.client.embedColor).setDescription(args)] })
     } else {
-        await int.followUp({ embeds: [new MessageEmbed().setColor(int.client.embedColor).setDescription(args)] })
+        await int.followUp({ embeds: [new EmbedBuilder().setColor(int.client.embedColor).setDescription(args)] })
     };
 
     setTimeout(async () => {

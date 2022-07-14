@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "loop",
@@ -7,7 +7,7 @@ module.exports = {
     description: "Toggle music loop",
     args: false,
     usage: "",
-    permission: [],
+    userPerms: [],
     dj: true,
     owner: false,
     player: true,
@@ -18,7 +18,7 @@ module.exports = {
         const player = message.client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
             return message.reply({ embeds: [thing] });
@@ -28,7 +28,7 @@ module.exports = {
         if (args.length && /queue/i.test(args[0])) {
             player.setQueueRepeat(!player.queueRepeat);
             const queueRepeat = player.queueRepeat ? "enabled" : "disabled";
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor(message.client.embedColor)
                 .setTimestamp()
                 .setDescription(`${emojiloop} Loop queue is now **${queueRepeat}**`)
@@ -37,7 +37,7 @@ module.exports = {
 
         player.setTrackRepeat(!player.trackRepeat);
         const trackRepeat = player.trackRepeat ? "enabled" : "disabled";
-        let thing = new MessageEmbed()
+        let thing = new EmbedBuilder()
             .setColor(message.client.embedColor)
             .setTimestamp()
             .setDescription(`${emojiloop} Loop track is now **${trackRepeat}**`)

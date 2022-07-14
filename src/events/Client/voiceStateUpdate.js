@@ -1,5 +1,5 @@
 const Client = require("../../index");
-const { VoiceState, MessageEmbed } = require("discord.js");
+const { VoiceState, EmbedBuilder } = require("discord.js");
 /** 
  *
  * @param {Client} client
@@ -52,7 +52,7 @@ module.exports = {
   switch (stateChange.type) {
     case "JOIN":
       if (stateChange.members.size === 1 && player.paused) {
-        let emb = new MessageEmbed()
+        let emb = new EmbedBuilder()
           .setAuthor({name:`Resuming paused queue`})
           .setColor(client.embedColor)
           .setDescription(
@@ -72,7 +72,7 @@ module.exports = {
       if (stateChange.members.size === 0 && !player.paused && player.playing) {
         player.pause(true);
 
-        let emb = new MessageEmbed()
+        let emb = new EmbedBuilder()
           .setAuthor({name: `Paused!`})
           .setColor(client.embedColor)
           .setDescription(`The player has been paused because everybody left`);

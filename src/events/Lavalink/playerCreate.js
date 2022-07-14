@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageButton } = require("discord.js");
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const db = require("../../schema/setup");
 
 module.exports = async (client, player) => {
@@ -22,17 +22,17 @@ module.exports = async (client, player) => {
 
 	if (!message) return;
 
-	let pausebut = new MessageButton().setCustomId(`pause_but_${guild.id}`).setEmoji("⏯️").setStyle("SECONDARY").setDisabled(false);
+	let pausebut = new ButtonBuilder().setCustomId(`pause_but_${guild.id}`).setEmoji("⏯️").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let lowvolumebut = new MessageButton().setCustomId(`lowvolume_but_${guild.id}`).setEmoji("🔉").setStyle("SECONDARY").setDisabled(false);
+	let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${guild.id}`).setEmoji("🔉").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let highvolumebut = new MessageButton().setCustomId(`highvolume_but_${guild.id}`).setEmoji("🔊").setStyle("SECONDARY").setDisabled(false);
+	let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${guild.id}`).setEmoji("🔊").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let previousbut = new MessageButton().setCustomId(`previous_but_${guild.id}`).setEmoji("⏮️").setStyle("SECONDARY").setDisabled(false);
+	let previousbut = new ButtonBuilder().setCustomId(`previous_but_${guild.id}`).setEmoji("⏮️").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	let skipbut = new MessageButton().setCustomId(`skipbut_but_${guild.id}`).setEmoji("⏭️").setStyle("SECONDARY").setDisabled(false);
+	let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${guild.id}`).setEmoji("⏭️").setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-	const row1 = new MessageActionRow().addComponents([lowvolumebut, previousbut, pausebut, skipbut, highvolumebut]);
+	const row1 = new ActionRowBuilder().addComponents([lowvolumebut, previousbut, pausebut, skipbut, highvolumebut]);
 
 	await message.edit({ content: "__**Join a voice channel and queue songs by name/url.**__\n\n", components: [row1] }).catch(() => { });
 

@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
 	name: "resume",
@@ -7,7 +7,7 @@ module.exports = {
     description: "Resume currently playing music",
     args: false,
     usage: "<Number of song in queue>",
-    permission: [],
+    userPerms: [],
     dj: true,
     owner: false,
     player: true,
@@ -19,7 +19,7 @@ module.exports = {
         const song = player.queue.current;
 
         if (!player.queue.current) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
             return message.reply({embeds: [thing]});
@@ -28,7 +28,7 @@ module.exports = {
         const emojiresume = client.emoji.resume;
 
         if (!player.paused) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription(`${emojiresume} The player is already **resumed**.`)
                 .setTimestamp()
@@ -37,7 +37,7 @@ module.exports = {
 
         player.pause(false);
 
-        let thing = new MessageEmbed()
+        let thing = new EmbedBuilder()
             .setDescription(`${emojiresume} **Resumed**\n[${song.title}](${song.uri})`)
             .setColor(client.embedColor)
             .setTimestamp()

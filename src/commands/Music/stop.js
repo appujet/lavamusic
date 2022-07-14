@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   	name: "stop",
@@ -6,7 +6,7 @@ module.exports = {
     description: "Stops the music",
     args: false,
     usage: "",
-    permission: [],
+    userPerms: [],
     dj: true,
     owner: false,
     player: true,
@@ -17,7 +17,7 @@ module.exports = {
         const player = client.manager.get(message.guild.id);
 
         if (!player.queue.current) {
-            let thing = new MessageEmbed()
+            let thing = new EmbedBuilder()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
             return message.reply({embeds: [thing]});
@@ -33,7 +33,7 @@ module.exports = {
 
         const emojistop = client.emoji.stop;
 
-		    let thing = new MessageEmbed()
+		    let thing = new EmbedBuilder()
             .setColor(client.embedColor)
             .setTimestamp()
             .setDescription(`${emojistop} Stopped the music`)

@@ -1,4 +1,4 @@
-const { MessageEmbed, Client, ButtonInteraction } = require("discord.js");
+const { EmbedBuilder, Client, ButtonInteraction } = require("discord.js");
 const { convertTime } = require("../../utils/convert");
 const { buttonReply } = require("../../utils/functions");
 
@@ -39,7 +39,7 @@ module.exports = {
         let icon = player.queue.current.identifier ? `https://img.youtube.com/vi/${player.queue.current.identifier}/maxresdefault.jpg` : client.config.links.img;
 
 
-        let nowplaying = new MessageEmbed().setColor(color).setDescription(`[${title}](${uri}) • \`[${convertTime(duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${requester.username}`, iconURL: requester.displayAvatarURL({ dynamic: true }) });
+        let nowplaying = new EmbedBuilder().setColor(color).setDescription(`[${title}](${uri}) • \`[${convertTime(duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${requester.username}`, iconURL: requester.displayAvatarURL({ dynamic: true }) });
 
         if (interaction.customId === `pause_but_${interaction.guildId}`) {
             if (player.paused) {

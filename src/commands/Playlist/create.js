@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const db = require("../../schema/playlist");
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
     description: "Creates the user's playlist.",
     args: true,
     usage: "<playlist name>",
-    permission: [],
+    userPerms: [],
     owner: false,
     player: true,
     inVoiceChannel: true,
@@ -18,11 +18,11 @@ module.exports = {
         var color = client.embedColor;
         const Name = args[0].replace(/_/g, ' ');
         if (Name[0].length < 0) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription("Provide a playlist name.")] });
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription("Provide a playlist name.")] });
         };
 
         if (Name.length > 10) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription("Playlist name can't be greater than \`10\` Characters")] });
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription("Playlist name can't be greater than \`10\` Characters")] });
         };
         let data = await db.find({
             UserId: message.author.id,
@@ -30,13 +30,13 @@ module.exports = {
         });
 
         if (data.length > 0) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`This playlist already exists! Delete it using: \`${prefix}\`delete \`${Name}\``)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`This playlist already exists! Delete it using: \`${prefix}\`delete \`${Name}\``)] })
         };
         let userData = db.find({
             UserId: message.author.id
         });
         if (userData.length >= 10) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`You can only create \`10\` Playlists`)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`You can only create \`10\` Playlists`)] })
         }
 
         const newData = new db({
@@ -46,7 +46,7 @@ module.exports = {
             CreatedOn: Math.round(Date.now() / 1000)
         });
         await newData.save();
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setDescription(`Successfully created a playlist for you **${Name}**`)
             .setColor(color)
         return message.channel.send({ embeds: [embed] })

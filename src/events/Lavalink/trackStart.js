@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { convertTime } = require('../../utils/convert.js');
 const { trackStartEventHandler } = require("../../utils/functions");
 const db = require("../../schema/setup");
@@ -25,32 +25,32 @@ module.exports = async (client, player, track, payload) => {
   const emojipause = client.emoji.pause;
   const emojiresume = client.emoji.resume;
   const emojiskip = client.emoji.skip;
-  const thing = new MessageEmbed()
+  const thing = new EmbedBuilder()
     .setDescription(`${emojiplay} **Started Playing**\n [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``)
     .setThumbnail(`https://img.youtube.com/vi/${track.identifier}/mqdefault.jpg`)
     .setColor(client.embedColor)
     .setTimestamp()
-  const But1 = new MessageButton().setCustomId("vdown").setEmoji("🔉").setStyle("SECONDARY");
+  const But1 = new ButtonBuilder().setCustomId("vdown").setEmoji("🔉").setStyle(ButtonStyle.Secondary);
 
-  const But2 = new MessageButton().setCustomId("stop").setEmoji("⏹️").setStyle("SECONDARY");
+  const But2 = new ButtonBuilder().setCustomId("stop").setEmoji("⏹️").setStyle(ButtonStyle.Secondary);
 
-  const But3 = new MessageButton().setCustomId("pause").setEmoji("⏸️").setStyle("SECONDARY");
+  const But3 = new ButtonBuilder().setCustomId("pause").setEmoji("⏸️").setStyle(ButtonStyle.Secondary);
 
-  const But4 = new MessageButton().setCustomId("skip").setEmoji("⏭️").setStyle("SECONDARY");
+  const But4 = new ButtonBuilder().setCustomId("skip").setEmoji("⏭️").setStyle(ButtonStyle.Secondary);
 
-  const But5 = new MessageButton().setCustomId("vup").setEmoji("🔊").setStyle("SECONDARY");
+  const But5 = new ButtonBuilder().setCustomId("vup").setEmoji("🔊").setStyle(ButtonStyle.Secondary);
 
-  const row = new MessageActionRow().addComponents(But1, But2, But3, But4, But5);
+  const row = new ActionRowBuilder().addComponents(But1, But2, But3, But4, But5);
 
   const m = await channel.send({ embeds: [thing], components: [row] });
   await player.setNowplayingMessage(m);
 
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setColor(client.embedColor)
     .setTimestamp();
   const collector = m.createMessageComponentCollector({
     filter: (b) => {
-      if (b.guild.me.voice.channel && b.guild.me.voice.channelId === b.member.voice.channelId) return true;
+      if (b.guild.members.cache.get(client.user.id).voice.channel && b.guild.members.cache.get(client.user.id).voice.channelId === b.member.voice.channelId) return true;
       else {
         b.reply({ content: `You are not connected to ${b.guild.me.voice.channel} to use this buttons.`, ephemeral: true }); return false;
       };

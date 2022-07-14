@@ -7,7 +7,7 @@ module.exports = (client) => {
     let count = 0;
     readdirSync("./src/slashCommands/").forEach((dir) => {
         const slashCommandFile = readdirSync(`./src/slashCommands/${dir}/`).filter((files) => files.endsWith(".js"));
-       
+
         for (const file of slashCommandFile) {
             const slashCommand = require(`../slashCommands/${dir}/${file}`);
 
@@ -22,7 +22,7 @@ module.exports = (client) => {
                 description: slashCommand.description,
                 type: slashCommand.type,
                 options: slashCommand.options ? slashCommand.options : null,
-                default_permission: slashCommand.default_permission ? slashCommand.default_permission : null,
+                default_userPerms: slashCommand.default_permission ? slashCommand.default_permission : null,
                 default_member_permissions: slashCommand.default_member_permissions ? PermissionsBitField.resolve(slashCommand.default_member_permissions).toString() : null
             });
             count++;
@@ -33,13 +33,10 @@ module.exports = (client) => {
     (async () => {
         try {
             client.logger.log('Started refreshing application (/) commands.', 'cmd');
-
-            await rest.put(Routes.applicationCommands('960072976412340254', '959703767333359630'), { body: data });
-
+            await rest.put(Routes.applicationCommands('960072976412340254'), { body: data });
             client.logger.log('Successfully reloaded application (/) commands.', 'cmd');
         } catch (error) {
             console.error(error);
         }
     })();
-
 }

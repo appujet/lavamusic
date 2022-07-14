@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const db = require("../../schema/setup");
 
 module.exports = async (client, player) => {
@@ -21,10 +21,10 @@ module.exports = async (client, player) => {
 	} catch (e) { };
 
 	if (!message) return;
-	await message.edit({ embeds: [new MessageEmbed().setColor(client.embedColor).setTitle(`Nothing playing right now in this server!`).setDescription(`[Invite](${client.config.links.invite}) - [Support Server](${client.config.links.support})`).setImage(client.config.links.img)] }).catch(() => { });
+	await message.edit({ embeds: [new EmbedBuilder().setColor(client.embedColor).setTitle(`Nothing playing right now in this server!`).setDescription(`[Invite](${client.config.links.invite}) - [Support Server](${client.config.links.support})`).setImage(client.config.links.img)] }).catch(() => { });
 
 	const emojiwarn = client.emoji.warn;
-	let thing = new MessageEmbed()
+	let thing = new EmbedBuilder()
 		.setColor(client.embedColor)
 		.setAuthor({name: `Queue Concluded`, iconURL: client.user.displayAvatarURL() })
 		.setDescription(`Enjoying music with me? Consider me by **Inviting**[Click Here](${invite})`)

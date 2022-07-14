@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
 	name: "leave",
@@ -7,7 +7,7 @@ module.exports = {
     description: "Leave voice channel",
     args: false,
     usage: "",
-    permission: [],
+    userPerms: [],
     owner: false,
     dj: true,
     player: true,
@@ -21,7 +21,7 @@ module.exports = {
 
         player.destroy();
         
-        let thing = new MessageEmbed()
+        let thing = new EmbedBuilder()
             .setColor(message.client.embedColor)
             .setDescription(`${emojiLeave} **Left the voice channel**\nThank you for using ${message.client.user.username}!`)
           return message.reply({embeds: [thing]});

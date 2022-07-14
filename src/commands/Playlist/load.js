@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const db = require("../../schema/playlist");
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
     description: "Play the saved Playlist.",
     args: true,
     usage: "<playlist name>",
-    permission: [],
+    userPerms: [],
     owner: false,
     player: true,
     inVoiceChannel: true,
@@ -35,11 +35,11 @@ module.exports = {
         let name = Name;
 
         if (!data) {
-            return message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`Playlist not found. Please enter the correct playlist name\n\nDo ${prefix}list to see your Playlists`)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`Playlist not found. Please enter the correct playlist name\n\nDo ${prefix}list to see your Playlists`)] })
         }
         if (!player) return;
         let count = 0;
-        const m = await message.reply({ embeds: [new MessageEmbed().setColor(color).setDescription(`Adding ${length} track(s) from your playlist **${name}** to the queue.`)] })
+        const m = await message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`Adding ${length} track(s) from your playlist **${name}** to the queue.`)] })
         for (const track of data.Playlist) {
             let s = await player.search(track.uri ? track.uri : track.title, message.author);
             if (s.loadType === "TRACK_LOADED") {
@@ -55,8 +55,8 @@ module.exports = {
             };
         };
         if (player && !player.queue.current) player.destroy();
-        if (count <= 0 && m) return await m.edit({ embeds: [new MessageEmbed().setColor(color).setDescription(`Couldn't add any tracks from your playlist **${name}** to the queue.`)] })
-        if (m) return await m.edit({ embeds: [new MessageEmbed().setColor(color).setDescription(`Added ${count} track(s) from your playlist **${name}** to the queue.`)] })
+        if (count <= 0 && m) return await m.edit({ embeds: [new EmbedBuilder().setColor(color).setDescription(`Couldn't add any tracks from your playlist **${name}** to the queue.`)] })
+        if (m) return await m.edit({ embeds: [new EmbedBuilder().setColor(color).setDescription(`Added ${count} track(s) from your playlist **${name}** to the queue.`)] })
     }
 
 };

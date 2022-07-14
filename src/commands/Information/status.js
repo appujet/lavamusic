@@ -1,4 +1,4 @@
-const { MessageEmbed, version } = require("discord.js");
+const { EmbedBuilder, version } = require("discord.js");
 const moment = require("moment");
 require("moment-duration-format");
 const os = require('os')
@@ -11,7 +11,7 @@ module.exports = {
     description: "Show status bot",
     args: false,
     usage: "",
-    permission: [],
+    userPerms: [],
     owner: false,
     execute: async (message, args, client, prefix) => {
        const duration1 = moment.duration(message.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
@@ -24,7 +24,7 @@ client.guilds.cache.forEach((guild) => {
     mcount += guild.memberCount 
 
 })
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor(message.client.embedColor)
             .setThumbnail(message.client.user.displayAvatarURL())
             .setDescription(`${about} **Status**

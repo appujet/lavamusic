@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const fetch = require("node-fetch");
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
   execute: async (message, args, client, prefix) => {
     await message.reply({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
           .setColor(client.embedColor)
           .setDescription("🔎 **Searching...**"),
       ],
@@ -28,7 +28,7 @@ module.exports = {
     } else {
       return message.channel.send({
         embeds: [
-          new MessageEmbed()
+          new EmbedBuilder()
             .setColor("RED")
             .setDescription("Lavalink node is not connected"),
         ],
@@ -38,7 +38,7 @@ module.exports = {
     if (!args && !player) {
       return message.channel.send({
         embeds: [
-          new MessageEmbed()
+          new EmbedBuilder()
             .setColor("RED")
             .setDescription("There's nothing playing"),
         ],
@@ -59,7 +59,7 @@ module.exports = {
     if (!lyrics || lyrics.response !== 200 || lyrics === "FetchError") {
       return message.channel.send({
         embeds: [
-          new MessageEmbed()
+          new EmbedBuilder()
             .setColor("RED")
             .setDescription(
               `❌ | No lyrics found for ${search}!\nMake sure you typed in your search correctly.`
@@ -69,7 +69,7 @@ module.exports = {
     }
 
     let text = lyrics.lyrics;
-    let lyricsEmbed = new MessageEmbed()
+    let lyricsEmbed = new EmbedBuilder()
       .setColor(client.embedColor)
       .setTitle(`${lyrics.full_title}`)
       .setURL(lyrics.url)
