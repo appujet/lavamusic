@@ -3,7 +3,7 @@ const { CommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType }
 module.exports = {
   name: "volume",
   description: "Changes volume of currently playing music.",
-  permissions: [],
+  userPrems: [],
   player: true,
   dj: true,
   inVoiceChannel: true,

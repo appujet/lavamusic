@@ -5,7 +5,7 @@ module.exports = {
   name: "lyrics",
   category: "Music",
   description: "Prints the lyrics of a song",
-  permissions: [],
+  userPrems: [],
   usage: "lyrics <song name>",
   player: true,
   args: true,

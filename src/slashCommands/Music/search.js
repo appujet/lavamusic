@@ -4,7 +4,7 @@ const { convertTime } = require("../../utils/convert");
 module.exports = {
     name: "search",
     description: "Search for a song from youtube",
-    permissions: [],
+    userPrems: [],
     player: false,
     inVoiceChannel: true,
     sameVoiceChannel: true,

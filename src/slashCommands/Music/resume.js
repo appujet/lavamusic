@@ -3,7 +3,7 @@ const { EmbedBuilder, CommandInteraction, Client } = require("discord.js")
 module.exports = {
   name: "resume",
   description: "Resume currently playing music",
-  permissions: [],
+  userPrems: [],
   player: true,
   dj: true,
   inVoiceChannel: true,

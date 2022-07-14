@@ -3,7 +3,7 @@ const { CommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType }
 module.exports = {
   name: "remove",
   description: "Remove a song from the queue",
-  permissions: [],
+  userPrems: [],
   player: true,
   dj: true,
   inVoiceChannel: true,

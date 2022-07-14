@@ -3,7 +3,7 @@ const { EmbedBuilder, CommandInteraction, Client } = require("discord.js")
 module.exports = {
   name: "247",
   description: "Toggles if I should stay in VC 24/7 or not",
-  permissions: ['MUTE_MEMBERS'],
+  default_member_permissions: ['ManageChannels'],
   player: true,
   dj: true,
   inVoiceChannel: true,

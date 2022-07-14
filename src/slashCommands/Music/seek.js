@@ -5,7 +5,7 @@ const ms = require('ms');
 module.exports = {
     name: "seek",
     description: "Seek the currently playing song",
-    permissions: [],
+    userPrems: [],
     player: true,
     dj: true,
     inVoiceChannel: true,

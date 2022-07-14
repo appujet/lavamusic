@@ -3,7 +3,7 @@ const { CommandInteraction, Client, EmbedBuilder } = require("discord.js");
 module.exports = {
   name: "skip",
   description: "To skip a song/track from the queue.",
-  permissions: [],
+  userPrems: [],
   player: true,
   dj: true,
   inVoiceChannel: true,

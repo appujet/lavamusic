@@ -3,7 +3,7 @@ const { EmbedBuilder, CommandInteraction, Client, ApplicationCommandOptionType }
 module.exports = {
     name: "filters",
     description: "Set EqualizerBand",
-    permissions: [],
+    userPrems: [],
     player: true,
     dj: true,
     inVoiceChannel: true,

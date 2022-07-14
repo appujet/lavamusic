@@ -5,7 +5,7 @@ const { progressbar } = require('../../utils/progressbar.js')
 module.exports = {
     name: "nowplaying",
     description: "Show the current playing song",
-    permissions: [],
+    userPrems: [],
     player: true,
     inVoiceChannel: false,
     sameVoiceChannel: false,
@@ -37,7 +37,9 @@ module.exports = {
             .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\`- [${song.requester}] \n\n\`${progressbar(player)}\``)
             .setThumbnail(song.displayThumbnail("3"))
             .setColor(client.embedColor)
-            .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
+            .addFields([
+                {name: '\u200b', value: `\`${convertTime(current)} / ${convertTime(total)}\``},
+            ])
          return interaction.editReply({embeds: [embed]})
             
     }

@@ -3,7 +3,7 @@ const { CommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType }
 module.exports = {
   name: "skipto",
   description: "Forward song",
-  permissions: [],
+  userPrems: [],
   player: true,
   dj: true,
   inVoiceChannel: true,

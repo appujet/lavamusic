@@ -1,4 +1,4 @@
-const { EmbedBuilder, ButtonBuilder, ActionRowBuilder } = require("discord.js");
+const { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
 const { convertTime } = require('../../utils/convert.js');
 
 module.exports = {
@@ -45,7 +45,9 @@ module.exports = {
             .setDescription(`**Song Details** \n\n > **__Song Name__**: [${song.title}](${song.uri}) \n > **__Song Duration__**: \`[${convertTime(song.duration)}]\` \n > **__Song Played By__**: [<@${song.requester.id}>] \n > **__Song Saved By__**: [<@${message.author.id}>]`)
             .setThumbnail(song.displayThumbnail())
             .setColor(client.embedColor)
-            .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
+            .addFields([
+                { name: "\u200b", value: `\`${convertTime(current)} / ${convertTime(total)}\`` }
+            ])
          return message.author.send({embeds: [embed], components: [row2]}).catch(() => null);
             
     }

@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 module.exports = {
   name: "lyrics",
   description: "Prints the lyrics of a song",
-  permissions: [],
+  userPrems: [],
   player: true,
   dj: false,
   inVoiceChannel: true,

@@ -3,7 +3,7 @@ const { EmbedBuilder, CommandInteraction, Client, Permissions } = require("disco
 module.exports = {
   name: "join",
   description: "Join voice channel",
-  permissions: [],
+  userPrems: [],
   player: false,
   inVoiceChannel: true,
   sameVoiceChannel: true,

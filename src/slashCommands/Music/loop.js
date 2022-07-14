@@ -3,7 +3,7 @@ const { CommandInteraction, Client, ApplicationCommandOptionType, EmbedBuilder }
 module.exports = {
   name: "loop",
   description: "Toggle music loop",
-  permissions: [],
+  userPrems: [],
   player: true,
   dj: true,
   inVoiceChannel: true,

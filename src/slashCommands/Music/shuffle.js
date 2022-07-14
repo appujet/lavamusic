@@ -3,7 +3,7 @@ const { EmbedBuilder, CommandInteraction, Client } = require("discord.js")
 module.exports = {
   name: "shuffle",
   description: "Shuffle queue",
-  permissions: [],
+  userPrems: [],
   player: true,
   dj: true,
   inVoiceChannel: true,

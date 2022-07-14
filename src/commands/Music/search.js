@@ -8,7 +8,7 @@ module.exports = {
     aliases: [],
     usage: [`serach Never gonna give you up`],
     args: true,
-    Permissions: [],
+    userPrems: [],
     owner: false,
     player: false,
     inVoiceChannel: true,

@@ -3,7 +3,7 @@ const { EmbedBuilder, CommandInteraction, Client } = require("discord.js")
 module.exports = {
   name: "pause",
   description: "Pause the currently playing music",
-  permissions: [],
+  userPrems: [],
   dj: true,
   player: true,
   inVoiceChannel: true,

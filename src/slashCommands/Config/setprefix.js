@@ -4,7 +4,8 @@ const db = require("../../schema/prefix.js");
 module.exports = {
   name: "setprefix",
   description: "Set a custom Prefix",
-  permissions: ['MANAGE_GUILD'],
+  userPrems: ['MangeGuild'],
+  default_member_permissions: ['ManageGuild'],
   options: [
     {
       name: "prefix",

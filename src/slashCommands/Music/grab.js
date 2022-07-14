@@ -1,10 +1,10 @@
-const { EmbedBuilder, CommandInteraction, Client, Permissions, ButtonBuilder, ActionRowBuilder } = require("discord.js")
+const { EmbedBuilder, CommandInteraction, Client, ButtonStyle, ButtonBuilder, ActionRowBuilder } = require("discord.js")
 const { convertTime } = require('../../utils/convert.js');
 
 module.exports = {
   name: "grab",
   description: "Grabs and sends you the Song that is playing at the Moment",
-  permissions: [],
+  userPrems: [],
   player: true,
   inVoiceChannel: true,
   sameVoiceChannel: true,
@@ -37,7 +37,9 @@ module.exports = {
         .setDescription(`**Song Details** \n\n > **__Song Name__**: [${song.title}](${song.uri}) \n > **__Song Duration__**: \`[${convertTime(song.duration)}]\` \n > **__Song Played By__**: [<@${song.requester.id}>] \n > **__Song Saved By__**: [<@${interaction.user.id}>]`)
         .setThumbnail(song.displayThumbnail())
         .setColor(client.embedColor)
-        .addField("\u200b", `\`${convertTime(current)} / ${convertTime(total)}\``)
+        .addFields([
+            { name: "\u200b", value: `\`${convertTime(current)} / ${convertTime(total)}\`` }
+        ])
      return user.send({embeds: [embed], components: [row2]})
 
    }

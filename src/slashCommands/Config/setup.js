@@ -4,6 +4,8 @@ const db = require("../../schema/setup");
 module.exports = {
     name: "setupmusic",
     description: "Set Song request channel",
+    default_userPerms: ['Administrator'],
+    default_member_permissions: ['ManageGuild'],
     options: [
         {
             name: "set",
@@ -20,22 +22,7 @@ module.exports = {
 
 
     run: async (client, interaction, prefix) => {
-        if (
-            !interaction.guild.me.permissions.has([
-                Permissions.FLAGS.MANAGE_CHANNELS,
-                Permissions.FLAGS.SPEAK,
-            ])
-        )
-            return interaction.editReply({
-                embeds: [
-                    new EmbedBuilder()
-                        .setColor(client.embedColor)
-                        .setDescription(
-                            `I don't have enough permissions to execute this command! Please give me permission \`MANAGE_CHANNELS\` or \`SPEAK\`.`
-                        ),
-                ],
-            });
-            
+        await interaction.deferReply({   });
         let data = await db.findOne({ Guild: interaction.guildId });
         if (interaction.options.getSubcommand() === "set") {
             if (data) return await interaction.reply({ content: `Music setup is already finished in this server.` });
