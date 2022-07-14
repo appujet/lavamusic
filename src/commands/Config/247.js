@@ -6,7 +6,7 @@ module.exports = {
   description: "24/7 in voice channel",
   args: false,
   usage: "",
-  userPerms: ['MUTE_MEMBERS'],
+  userPerms: ['ManageChannels'],
   owner: false,
   player: true,
   inVoiceChannel: true,

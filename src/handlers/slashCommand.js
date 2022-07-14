@@ -33,7 +33,7 @@ module.exports = (client) => {
     (async () => {
         try {
             client.logger.log('Started refreshing application (/) commands.', 'cmd');
-            await rest.put(Routes.applicationCommands('960072976412340254'), { body: data });
+            await rest.put(Routes.applicationCommands(client ? client.config.clientID : process.env. CLIENT_ID), { body: data });
             client.logger.log('Successfully reloaded application (/) commands.', 'cmd');
         } catch (error) {
             console.error(error);

@@ -8,7 +8,7 @@ module.exports = {
     args: false,
     usage: "",
     aliases: ["adj"],
-    userPerms: ['MANAGE_GUILD'],
+    userPerms: ['ManageGuild'],
     owner: false,
     execute: async (message, args, client, prefix) => {
 

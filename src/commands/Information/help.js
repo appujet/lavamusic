@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, ButtonStyle, ButtonBuilder } = require("discord.js");
 
 module.exports = {
     name: "help",
@@ -19,15 +19,15 @@ module.exports = {
     .setTimestamp()
     .setFooter({text: `Requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
                 
-    let but1 = new ButtonBuilder().setCustomId("home").setLabel("Home").setStyle("SUCCESS")
+    let but1 = new ButtonBuilder().setCustomId("home").setLabel("Home").setStyle(ButtonStyle.Success)
   
-    let but2 = new ButtonBuilder().setCustomId("music").setLabel("Music").setStyle("PRIMARY")
+    let but2 = new ButtonBuilder().setCustomId("music").setLabel("Music").setStyle(ButtonStyle.Primary)
   
-    let but3 = new ButtonBuilder().setCustomId("info").setLabel("Info").setStyle("PRIMARY");
+    let but3 = new ButtonBuilder().setCustomId("info").setLabel("Info").setStyle(ButtonStyle.Primary);
     
-    let but4 = new ButtonBuilder().setCustomId("playlist").setLabel("Playlist").setStyle("PRIMARY");
+    let but4 = new ButtonBuilder().setCustomId("playlist").setLabel("Playlist").setStyle(ButtonStyle.Primary);
 
-    let but5 = new ButtonBuilder().setCustomId("config").setLabel("Config").setStyle("PRIMARY");
+    let but5 = new ButtonBuilder().setCustomId("config").setLabel("Config").setStyle(ButtonStyle.Primary);
 
      let _commands;
      let editEmbed = new EmbedBuilder();

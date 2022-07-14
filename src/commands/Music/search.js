@@ -34,11 +34,11 @@ module.exports = {
   
     const msg = await message.channel.send({embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`? Searching ${query} song please wait`)]})
     
-    const but = new ButtonBuilder().setCustomId("s_one").setLabel("1").setStyle("SUCCESS");
-    const but2 = new ButtonBuilder().setCustomId("s_two").setLabel("2").setStyle("SUCCESS");
-    const but3 = new ButtonBuilder().setCustomId("s_three").setLabel("3").setStyle("SUCCESS");
-    const but4 = new ButtonBuilder().setCustomId("s_four").setLabel("4").setStyle("SUCCESS");
-    const but5 = new ButtonBuilder().setCustomId("s_five").setLabel("5").setStyle("SUCCESS");
+    const but = new ButtonBuilder().setCustomId("s_one").setLabel("1").setStyle(ButtonStyle.Success);
+    const but2 = new ButtonBuilder().setCustomId("s_two").setLabel("2").setStyle(ButtonStyle.Success);
+    const but3 = new ButtonBuilder().setCustomId("s_three").setLabel("3").setStyle(ButtonStyle.Success);
+    const but4 = new ButtonBuilder().setCustomId("s_four").setLabel("4").setStyle(ButtonStyle.Success);
+    const but5 = new ButtonBuilder().setCustomId("s_five").setLabel("5").setStyle(ButtonStyle.Success);
     const row = new ActionRowBuilder().addComponents(but, but2, but3, but4, but5);
 
     const emojiplaylist = client.emoji.playlist;

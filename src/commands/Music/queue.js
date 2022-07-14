@@ -68,12 +68,12 @@ module.exports = {
                     .setCustomId("queue_cmd_but_1")
                   
                     .setEmoji("⏭")
-                    .setStyle("PRIMARY")
+                    .setStyle(ButtonStyle.Primary)
 
                     const but2 = new ButtonBuilder()
                     .setCustomId("queue_cmd_but_2")
                     .setEmoji("⏮")
-                    .setStyle("PRIMARY")
+                    .setStyle(ButtonStyle.Primary)
 
                     const but3 = new ButtonBuilder()
                     .setCustomId("queue_cmd_but_3")

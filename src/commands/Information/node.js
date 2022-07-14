@@ -8,10 +8,10 @@ module.exports = {
     usage: "",
     userPerms: [],
     owner: false,
- execute: async (message, args, client, prefix) => {
-  
-  
-     const all = client.manager.nodes.map(node => 
+    execute: async (message, args, client, prefix) => {
+
+
+        const all = client.manager.nodes.map(node =>
             `Node ${(node.options.identifier)} Connected` +
             `\nPlayer: ${node.stats.players}` +
             `\nPlaying Players: ${node.stats.playingPlayers}` +
@@ -28,9 +28,9 @@ module.exports = {
         ).join('\n\n----------------------------\n');
 
         const embed = new EmbedBuilder()
-            .setAuthor({ name: 'Lavalink Node', iconURL: client.user.displayAvatarURL()})
+            .setAuthor({ name: 'Lavalink Node', iconURL: client.user.displayAvatarURL() })
             .setDescription(`\`\`\`${all}\`\`\``)
             .setColor(client.embedColor)
-        message.reply({embeds: [embed]})
+        message.reply({ embeds: [embed] })
     }
-                                          }
+}

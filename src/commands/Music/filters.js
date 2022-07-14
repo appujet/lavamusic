@@ -28,15 +28,15 @@ module.exports = {
             .setDescription(`Choose what filter you want in the button`)
 
         const but = new ButtonBuilder().setCustomId("clear_but").setLabel("Clear").setStyle("DANGER");
-        const but2 = new ButtonBuilder().setCustomId("bass_but").setLabel("Bass").setStyle("PRIMARY");
-        const but3 = new ButtonBuilder().setCustomId("night_but").setLabel("Night Core").setStyle("PRIMARY");
-        const but4 = new ButtonBuilder().setCustomId("picth_but").setLabel("Pitch").setStyle("PRIMARY");
-        const but5 = new ButtonBuilder().setCustomId("distort_but").setLabel("Distort").setStyle("PRIMARY");
-        const but6 = new ButtonBuilder().setCustomId("eq_but").setLabel("Equalizer").setStyle("PRIMARY");
-        const but7 = new ButtonBuilder().setCustomId("8d_but").setLabel("8D").setStyle("PRIMARY");
-        const but8 = new ButtonBuilder().setCustomId("boost_but").setLabel("Bass Boost").setStyle("PRIMARY");
-        const but9 = new ButtonBuilder().setCustomId("speed_but").setLabel("Speed").setStyle("PRIMARY");
-        const but10 = new ButtonBuilder().setCustomId("vapo_but").setLabel("Vaporwave").setStyle("PRIMARY");
+        const but2 = new ButtonBuilder().setCustomId("bass_but").setLabel("Bass").setStyle(ButtonStyle.Primary);
+        const but3 = new ButtonBuilder().setCustomId("night_but").setLabel("Night Core").setStyle(ButtonStyle.Primary);
+        const but4 = new ButtonBuilder().setCustomId("picth_but").setLabel("Pitch").setStyle(ButtonStyle.Primary);
+        const but5 = new ButtonBuilder().setCustomId("distort_but").setLabel("Distort").setStyle(ButtonStyle.Primary);
+        const but6 = new ButtonBuilder().setCustomId("eq_but").setLabel("Equalizer").setStyle(ButtonStyle.Primary);
+        const but7 = new ButtonBuilder().setCustomId("8d_but").setLabel("8D").setStyle(ButtonStyle.Primary);
+        const but8 = new ButtonBuilder().setCustomId("boost_but").setLabel("Bass Boost").setStyle(ButtonStyle.Primary);
+        const but9 = new ButtonBuilder().setCustomId("speed_but").setLabel("Speed").setStyle(ButtonStyle.Primary);
+        const but10 = new ButtonBuilder().setCustomId("vapo_but").setLabel("Vaporwave").setStyle(ButtonStyle.Primary);
 
         const row = new ActionRowBuilder().addComponents(but, but2, but3, but4, but5);
         const row2 = new ActionRowBuilder().addComponents(but6, but7, but8, but9, but10);

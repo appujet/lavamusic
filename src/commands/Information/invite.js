@@ -16,15 +16,15 @@ module.exports = {
 			.addComponents(
     new ButtonBuilder()
     .setLabel("Invite")
-    .setStyle("LINK")
+    .setStyle(ButtonStyle.Link)
     .setURL(`https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=36768832&scope=applications.commands%20bot`),
     new ButtonBuilder()
     .setLabel("GitHub")
-    .setStyle("LINK")
+    .setStyle(ButtonStyle.Link)
     .setURL("https://github.com/brblacky/lavamusic"),
     new ButtonBuilder()
     .setLabel("Support")
-    .setStyle("LINK")
+    .setStyle(ButtonStyle.Link)
     .setURL("https://discord.gg/gfcv94hDhv")
 			);
 

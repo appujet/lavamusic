@@ -28,7 +28,7 @@ module.exports = {
         const total = song.duration;
         const current = player.position;
 
-        const dmbut = new ButtonBuilder().setLabel("Check Your DM").setStyle("LINK").setURL(`https://discord.com/users/${client.id}`)
+        const dmbut = new ButtonBuilder().setLabel("Check Your DM").setStyle(ButtonStyle.Link).setURL(`https://discord.com/users/${client.id}`)
         const row = new ActionRowBuilder().addComponents(dmbut)
 
         let dm = new EmbedBuilder()
@@ -39,7 +39,7 @@ module.exports = {
         .setTimestamp()
         message.reply({embeds: [dm], components: [row]})
         
-        const urlbutt = new ButtonBuilder().setLabel("Search").setStyle("LINK").setURL(song.uri)
+        const urlbutt = new ButtonBuilder().setLabel("Search").setStyle(ButtonStyle.Link).setURL(song.uri)
         const row2 = new ActionRowBuilder().addComponents(urlbutt)
         let embed = new EmbedBuilder()
             .setDescription(`**Song Details** \n\n > **__Song Name__**: [${song.title}](${song.uri}) \n > **__Song Duration__**: \`[${convertTime(song.duration)}]\` \n > **__Song Played By__**: [<@${song.requester.id}>] \n > **__Song Saved By__**: [<@${message.author.id}>]`)

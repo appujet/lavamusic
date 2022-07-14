@@ -14,6 +14,7 @@ module.exports = {
     run: async (client, message) => {
 
         if (message.author.bot) return;
+        
         let prefix = client.prefix;
         const ress = await db.findOne({ Guild: message.guildId })
         if (ress && ress.Prefix) prefix = ress.Prefix;
@@ -28,12 +29,15 @@ module.exports = {
             message.channel.send({ embeds: [embed] })
         };
         const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
         const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`);
         if (!prefixRegex.test(message.content)) return;
+
         const [matchedPrefix] = message.content.match(prefixRegex);
+
         const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
-  
+
         const command = client.commands.get(commandName) ||
             client.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName));
 
