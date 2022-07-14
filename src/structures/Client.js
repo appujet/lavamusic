@@ -14,6 +14,7 @@ class MusicBot extends Client {
         users: false
       },
       intents: [
+        GatewayIntentBits.MessageContent,
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildIntegrations,
@@ -43,6 +44,11 @@ class MusicBot extends Client {
     this.emoji = require("../utils/emoji.json");
     if (!this.token) this.token = this.config.token;
     this.manager = new Lavamusic(this)
+    
+    this.rest.on('rateLimited', (info) => {
+      this.logger.log(info, 'ratelimit');
+    })
+    
     /**
      *  Mongose for data base
      */
