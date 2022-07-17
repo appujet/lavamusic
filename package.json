@@ -28,7 +28,7 @@
     "chalk": "^4.1.2",
     "delay": "^5.0.0",
     "discord-api-types": "^0.36.2",
-    "discord.js": "14.0.0-dev.1657757514-fe34f48",
+    "discord.js": "14.0.1",
     "dotenv": "^10.0.0",
     "erela.js": "^2.3.3",
     "erela.js-apple": "^1.2.6",
