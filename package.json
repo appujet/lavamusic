@@ -26,7 +26,7 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "delay": "^5.0.0",
-    "discord.js": "^13.8.0",
+    "discord.js": "^14.0.0",
     "dotenv": "^16.0.0",
     "erela.js": "^2.3.3",
     "erela.js-apple": "^1.2.5",
