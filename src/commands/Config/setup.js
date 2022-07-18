@@ -11,21 +11,7 @@ module.exports = {
     userPerms: ["ManageGuild"],
     owner: false,
     execute: async (message, args, client, prefix) => {
-        if (
-            !message.guild.members.me.permissions.has([
-                PermissionFlagsBits.ManageChannels,
-                PermissionFlagsBits.Speak,
-            ])
-        )
-            return message.channel.send({
-                embeds: [
-                    new EmbedBuilder()
-                        .setColor(client.embedColor)
-                        .setDescription(
-                            `I don't have enough permissions to execute this command! Please give me permission \`MANAGE_CHANNELS \` or \`SPEAK\`.`
-                        ),
-                ],
-            });
+        
         try {
             let data = await db.findOne({ Guild: message.guildId });
             if (args.length) {
@@ -54,7 +40,6 @@ module.exports = {
                         }
                     ]
                 });
-
                 const textChannel = await message.guild.channels.create({
                     name: `${client.user.username}-song-requests`,
                     type: ChannelType.GuildText,

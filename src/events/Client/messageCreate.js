@@ -43,11 +43,11 @@ module.exports = {
 
         if (!command) return;
 
-        if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve('SendMessages'))) return await message.author.dmChannel.send({ content: `I don't have **\`SEND_MESSAGES\`** permission in <#${message.channelId}> to execute this **\`${command.name}\`** command.` }).catch(() => { });
+        if (!message.guild.members.me.permissions.has(PermissionsBitField.resolve('SendMessages'))) return await message.author.dmChannel.send({ content: `I don't have **\`SEND_MESSAGES\`** permission in <#${message.channelId}> to execute this **\`${command.name}\`** command.` }).catch(() => { });
 
-        if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve('ViewChannel'))) return;
+        if (!message.guild.members.me.permissions.has(PermissionsBitField.resolve('ViewChannel'))) return;
 
-        if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve('EmbedLinks'))) return await message.channel.send({ content: `I don't have **\`EMBED_LINKS\`** permission in <#${message.channelId}> to execute this **\`${command.name}\`** command.` }).catch(() => { });
+        if (!message.guild.members.me.permissions.has(PermissionsBitField.resolve('EmbedLinks'))) return await message.channel.send({ content: `I don't have **\`EMBED_LINKS\`** permission in <#${message.channelId}> to execute this **\`${command.name}\`** command.` }).catch(() => { });
 
         const embed = new EmbedBuilder()
             .setColor('Red')
@@ -64,7 +64,7 @@ module.exports = {
         }
 
         if (command.botPerms) {
-            if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(command.botPerms || []))) {
+            if (!message.guild.members.me.permissions.has(PermissionsBitField.resolve(command.botPerms || []))) {
                 embed.setDescription(`I don't have **\`${command.permission}\`** permission in <#${message.channelId}> to execute this **\`${command.name}\`** command.`);
                 return message.channel.send({ embeds: [embed] });
             }
