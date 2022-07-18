@@ -9,11 +9,12 @@ module.exports = {
     usage: "<string>",
     userPerms: [],
     owner: true,
- execute: async (message, args, client, prefix) => {
+    execute: async (message, args, client, prefix) => {
        
+        
         const embed = new EmbedBuilder()
-            .addField("Input", "```js\n" + args.join(" ") + "```");
-
+       .addFields([{ name: "Input", value: "```js\n" + args.join(" ") + "```"}
+        ])
         try {
             const code = args.join(" ");
             if (!code) return message.channel.send("Please include the code.");
