@@ -74,7 +74,7 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 ## 📎 Requirements
 
 - [Nodejs](https://nodejs.org/en/) v16
-- [Discord.js](https://github.com/discordjs/discord.js/) v13
+- [Discord.js](https://github.com/discordjs/discord.js/) v14
 - [Java](https://adoptopenjdk.net/) for lavalink
 - [Lavalink](https://ci.fredboat.com/repository/download/Lavalink_Build/.lastSuccessful/Lavalink.jar?guest=1&branch=refs/heads/dev)
 
