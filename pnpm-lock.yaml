@@ -4,7 +4,7 @@ specifiers:
   '@discordjs/rest': ^1.0.0
   chalk: ^4.1.2
   delay: ^5.0.0
-  discord.js: 14.0.1
+  discord.js: 14.0.2
   dotenv: ^10.0.0
   erela.js: ^2.3.3
   erela.js-apple: ^1.2.6
@@ -24,7 +24,7 @@ dependencies:
   '@discordjs/rest': 1.0.0
   chalk: 4.1.2
   delay: 5.0.0
-  discord.js: 14.0.1
+  discord.js: 14.0.2
   dotenv: 10.0.0
   erela.js: 2.3.3
   erela.js-apple: 1.2.6
@@ -265,8 +265,8 @@ packages:
     resolution: {integrity: sha512-TunPAvzwneK/m5fr4hxH3bMsrtI22nr9yjfHyo5NBGMjpsAauGNiGCmwoFf0oO3jSd2mZiKUvZwCKDaB166u2Q==}
     dev: false
 
-  /discord.js/14.0.1:
-    resolution: {integrity: sha512-MZ2cvvk1WCpTUCLcchX5e/mBM22JCPAYle76qEuAfQfVTFdxE2YoKgRWMwWm6s/OJdkXyzglRWj405hg4vikEg==}
+  /discord.js/14.0.2:
+    resolution: {integrity: sha512-aHZHwT4i5yyV4IotFm9lSSPq8mTUkYWTrpatPlT53wz8QyFUPw5XjvUxuOXlaioV1kBsgfhSjCP0BNqxfuSjRQ==}
     engines: {node: '>=16.9.0'}
     dependencies:
       '@discordjs/builders': 1.0.0
