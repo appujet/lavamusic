@@ -1,4 +1,4 @@
-const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ApplicationCommandOptionType, PermissionsBitField} = require("discord.js");
+const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ApplicationCommandOptionType, ChannelType, ButtonStyle } = require("discord.js");
 const db = require("../../schema/setup");
 
 module.exports = {
@@ -22,39 +22,41 @@ module.exports = {
 
 
     run: async (client, interaction, prefix) => {
-        await interaction.deferReply({   });
+        await interaction.deferReply();
         let data = await db.findOne({ Guild: interaction.guildId });
         if (interaction.options.getSubcommand() === "set") {
-            if (data) return await interaction.reply({ content: `Music setup is already finished in this server.` });
-            const parent = await interaction.guild.channels.create(`${client.user.username} Music Zone`, {
-                type: "GuildCategory",
+            if (data) return await interaction.reply(`Music setup is already finished in this server.`);
+            const parent = await interaction.guild.channels.create({
+                name: `${client.user.username} Music Zone`, 
+                type: ChannelType.GuildCategory,
                 permissionOverwrites: [
                     {
                         type: "member",
                         id: client.user.id,
-                        allow: ["Connect", "SPEAK", "VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"]
+                        allow: ["Connect", "Speak", "ViewChannel", "SendMessages", "EmbedLinks"]
                     },
                     {
                         type: "role",
-                        id: interaction.guild.roles.cache.find((x) => x.name === "@everyone").id,
-                        allow: ["VIEW_CHANNEL"]
+                        id: interaction.guild.roles.everyone.id,
+                        allow: ["ViewChannel"]
                     }
                 ]
             });
 
-            const textChannel = await interaction.guild.channels.create(`${client.user.username}-song-requests`, {
-                type: "GUILD_TEXT",
+            const textChannel = await interaction.guild.channels.create({
+                name: `${client.user.username}-song-requests`, 
+                type: ChannelType.GuildText,
                 parent: parent.id,
                 permissionOverwrites: [
                     {
                         type: "member",
                         id: client.user.id,
-                        allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS", "READ_MESSAGE_HISTORY"]
+                        allow: ["ViewChannel", "SendMessages", "EmbedLinks", "ReadMessageHistory"]
                     },
                     {
                         type: "role",
-                        id: interaction.guild.roles.cache.find((x) => x.name === "@everyone").id,
-                        allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "READ_MESSAGE_HISTORY"]
+                        id: interaction.guild.roles.everyone.id,
+                        allow: ["ViewChannel", "SendMessages", "ReadMessageHistory"]
                     }
                 ]
             });
@@ -80,8 +82,9 @@ module.exports = {
                     break;
             };
 
-            const voiceChannel = await interaction.guild.channels.create(`${client.user.username} Music`, {
-                type: "GUILD_VOICE",
+            const voiceChannel = await interaction.guild.channels.create({
+                name: `${client.user.username} Music`, 
+                type: ChannelType.GuildVoice,
                 parent: parent.id,
                 bitrate: rate,
                 userLimit: 35,
@@ -89,13 +92,13 @@ module.exports = {
                     {
                         type: "member",
                         id: client.user.id,
-                        allow: ["CONNECT", "SPEAK", "VIEW_CHANNEL", "REQUEST_TO_SPEAK"]
+                        allow: ["Connect", "Speak", "ViewChannel", "RequestToSpeak"]
                     },
                     {
                         type: "role",
-                        id: interaction.guild.roles.cache.find((x) => x.name === "@everyone").id,
-                        allow: ["CONNECT", "VIEW_CHANNEL"],
-                        deny: ["SPEAK"]
+                        id: interaction.guild.roles.everyone.id,
+                        allow: ["Connect", "ViewChannsl"],
+                        deny: ["Speak"]
                     }
                 ]
             });
@@ -108,7 +111,7 @@ module.exports = {
             const desc = player && player.queue && player.queue.current ? `[${player.queue.current.title}](${player.queue.current.uri})` : null;
             const footer = {
                 text: player && player.queue && player.queue.current ? `Requested by ${player.queue.current.requester.username}` : "",
-                iconURL: player && player.queue && player.queue.current ? `${player.queue.current.requester.displayAvatarURL({ dynamic: true })}` : `${client.user.displayAvatarURL({ dynamic: true })}`
+                iconURL: player && player.queue && player.queue.current ? `${player.queue.current.requester.displayAvatarURL()}` : `${client.user.displayAvatarURL()}`
             };
             // let image = player.queue.current?.identifier ? `https://img.youtube.com/vi/${player.queue.current.identifier}/maxresdefault.jpg` : client.config.links.img;
             let image = client.config.links.img;
@@ -117,15 +120,15 @@ module.exports = {
 
             if (player && player.queue && player.queue.current) embed1.setDescription(desc);
 
-            let pausebut = new ButtonBuilder().setCustomId(`pause_but_${interaction.guildId}`).setEmoji("⏯️").setStyle("SECONDARY").setDisabled(disabled);
+            let pausebut = new ButtonBuilder().setCustomId(`pause_but_${interaction.guildId}`).setEmoji({ name: "⏯️" }).setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-            let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${interaction.guildId}`).setEmoji("🔉").setStyle("SECONDARY").setDisabled(disabled);
+            let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${interaction.guildId}`).setEmoji({ name: "🔉" }).setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-            let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${interaction.guildId}`).setEmoji("🔊").setStyle("SECONDARY").setDisabled(disabled);
+            let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${interaction.guildId}`).setEmoji({ name: "🔊" }).setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-            let previousbut = new ButtonBuilder().setCustomId(`previous_but_${interaction.guildId}`).setEmoji("⏮️").setStyle("SECONDARY").setDisabled(disabled);
+            let previousbut = new ButtonBuilder().setCustomId(`previous_but_${interaction.guildId}`).setEmoji({ name: "⏮️" }).setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
-            let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${interaction.guildId}`).setEmoji("⏭️").setStyle("SECONDARY").setDisabled(disabled);
+            let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${interaction.guildId}`).setEmoji({ name: "⏭️" }).setStyle(ButtonStyle.Secondary).setDisabled(disabled);
 
             const row1 = new ActionRowBuilder().addComponents(lowvolumebut, previousbut, pausebut, skipbut, highvolumebut);
 
@@ -144,12 +147,12 @@ module.exports = {
 
             await Ndata.save();
             return await interaction.reply({
-                embeds: [new EmbedBuilder().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })]
+                embeds: [new EmbedBuilder().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL() })]
             });
         } else if (interaction.options.getSubcommand() === "delete") {
-            if (!data) return await interaction.reply({ content: `This server doesn't have any song request channel setup to use this sub command.` });
+            if (!data) return await interaction.reply(`This server doesn't have any song request channel setup to use this sub command.`);
             await data.delete();
-            return await interaction.reply({ content: `Successfully deleted all the setup data.` });
+            return await interaction.reply(`Successfully deleted all the setup data.`);
         }
     }
 };
