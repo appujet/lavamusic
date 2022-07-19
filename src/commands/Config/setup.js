@@ -35,7 +35,7 @@ module.exports = {
                         },
                         {
                             type: "role",
-                            id: message.guild.roles.cache.everyone.id,
+                            id: message.guild.roles.everyone.id,
                             allow: ["ViewChannel"]
                         }
                     ]
@@ -53,7 +53,7 @@ module.exports = {
                         },
                         {
                             type: "role",
-                            id: message.guild.roles.cache.find((x) => x.name === "@everyone").id,
+                            id: message.guild.roles.everyone.id,
                             allow: ["ViewChannnel", "SendMessagss", "ReadMessageHistory"]
                         }
                     ]
@@ -110,7 +110,7 @@ module.exports = {
                 const desc = player && player.queue && player.queue.current ? `[${player.queue.current.title}](${player.queue.current.uri})` : null;
                 const footer = {
                     text: player && player.queue && player.queue.current ? `Requested by ${player.queue.current.requester.username}` : "",
-                    iconURL: player && player.queue && player.queue.current ? `${player.queue.current.requester.displayAvatarURL({ dynamic: true })}` : `${client.user.displayAvatarURL({ dynamic: true })}`
+                    iconURL: player && player.queue && player.queue.current ? `${player.queue.current.requester.displayAvatarURL()}` : `${client.user.displayAvatarURL()}`
                 };
                 const image = client.config.links.img;
 
