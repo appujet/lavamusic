@@ -110,7 +110,7 @@ module.exports = {
             const title = player && player.queue && player.queue.current ? `Now playing` : "Nothing is playing right now";
             const desc = player && player.queue && player.queue.current ? `[${player.queue.current.title}](${player.queue.current.uri})` : null;
             const footer = {
-                text: player && player.queue && player.queue.current ? `Requested by ${player.queue.current.requester.username}` : "",
+                text: player && player.queue && player.queue.current ? `Requested by ${player.queue.current.requester.username}` : "null",
                 iconURL: player && player.queue && player.queue.current ? `${player.queue.current.requester.displayAvatarURL()}` : `${client.user.displayAvatarURL()}`
             };
             // let image = player.queue.current?.identifier ? `https://img.youtube.com/vi/${player.queue.current.identifier}/maxresdefault.jpg` : client.config.links.img;
