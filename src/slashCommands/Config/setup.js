@@ -1,4 +1,4 @@
-const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ApplicationCommandOptionType, ChannelType, ButtonStyle } = require("discord.js");
+const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ApplicationCommandOptionType, ChannelType, ButtonStyle, PermissionFlagsBits } = require("discord.js");
 const db = require("../../schema/setup");
 
 module.exports = {
@@ -33,12 +33,12 @@ module.exports = {
                     {
                         type: "member",
                         id: client.user.id,
-                        allow: ["Connect", "Speak", "ViewChannel", "SendMessages", "EmbedLinks"]
+                        allow: [PermissionFlagsBits.Connect, PermissionFlagsBits.Speak, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]
                     },
                     {
                         type: "role",
                         id: interaction.guild.roles.everyone.id,
-                        allow: ["ViewChannel"]
+                        allow: [PermissionFlagsBits.ViewChannel]
                     }
                 ]
             });
@@ -51,12 +51,12 @@ module.exports = {
                     {
                         type: "member",
                         id: client.user.id,
-                        allow: ["ViewChannel", "SendMessages", "EmbedLinks", "ReadMessageHistory"]
+                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.ReadMessageHistory]
                     },
                     {
                         type: "role",
                         id: interaction.guild.roles.everyone.id,
-                        allow: ["ViewChannel", "SendMessages", "ReadMessageHistory"]
+                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory]
                     }
                 ]
             });
@@ -92,13 +92,13 @@ module.exports = {
                     {
                         type: "member",
                         id: client.user.id,
-                        allow: ["Connect", "Speak", "ViewChannel", "RequestToSpeak"]
+                        allow: [PermissionFlagsBits.Connect, PermissionFlagsBits.Speak, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.RequestToSpeak]
                     },
                     {
                         type: "role",
                         id: interaction.guild.roles.everyone.id,
-                        allow: ["Connect", "ViewChannsl"],
-                        deny: ["Speak"]
+                        allow: [PermissionFlagsBits.Connect, PermissionFlagsBits.ViewChannel],
+                        deny: [PermissionFlagsBits.Speak]
                     }
                 ]
             });

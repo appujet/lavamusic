@@ -11,7 +11,7 @@ module.exports = {
     userPerms: ["ManageGuild"],
     owner: false,
     execute: async (message, args, client, prefix) => {
-        
+
         try {
             let data = await db.findOne({ Guild: message.guildId });
             if (args.length) {
@@ -25,18 +25,18 @@ module.exports = {
                 if (data) return await message.reply('Music setup is already finished in this server.');
 
                 const parentChannel = await message.guild.channels.create({
-                    name: `${client.user.username} Music Zone`, 
+                    name: `${client.user.username} Music Zone`,
                     type: ChannelType.GuildCategory,
                     permissionOverwrites: [
                         {
                             type: "member",
                             id: client.user.id,
-                            allow: ["Connect", "Speak", "ViewChannel", "SendMessages", "EmbedLinks"]
+                            allow: [PermissionFlagsBits.Connect, PermissionFlagsBits.Speak, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]
                         },
                         {
                             type: "role",
                             id: message.guild.roles.everyone.id,
-                            allow: ["ViewChannel"]
+                            allow: [PermissionFlagsBits.ViewChannel]
                         }
                     ]
                 });
@@ -49,12 +49,12 @@ module.exports = {
                         {
                             type: "member",
                             id: client.user.id,
-                            allow: ["ViewChannel", "SendMessages", "EmbedLinks", "ReadMessageHistory"]
+                            allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.ReadMessageHistory]
                         },
                         {
                             type: "role",
                             id: message.guild.roles.everyone.id,
-                            allow: ["ViewChannnel", "SendMessagss", "ReadMessageHistory"]
+                            allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory]
                         }
                     ]
                 });
@@ -81,7 +81,7 @@ module.exports = {
                 };
 
                 const voiceChannel = await message.guild.channels.create({
-                    name: `${client.user.username} Music`, 
+                    name: `${client.user.username} Music`,
                     type: ChannelType.GuildVoice,
                     parent: parentChannel.id,
                     bitrate: rate,
@@ -90,13 +90,15 @@ module.exports = {
                         {
                             type: 'member',
                             id: client.user.id,
-                            allow: ["Connect", "Speak", "ViewChannel", "RequestToSpeak"]
+                            // allow permission to connect, speak, view channel, request to speak
+                            allow: [PermissionFlagsBits.Connect, PermissionFlagsBits.Speak, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.RequestToSpeak]
                         },
                         {
                             type: 'role',
                             id: message.guild.roles.everyone.id,
-                            allow: ["Connect", "ViewChannel"],
-                            deny: ["Speak"]
+                            allow: [PermissionFlagsBits.Connect, PermissionFlagsBits.ViewChannel],
+                            deny: [PermissionFlagsBits.Speak]
+
                         }
                     ]
                 });
@@ -147,8 +149,8 @@ module.exports = {
                     embeds: [new EmbedBuilder().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })]
                 });
             };
-        } catch (error) {
-            console.error(new Error(error));
+        } catch (err) {
+            console.log(err);
         };
     }
 }
