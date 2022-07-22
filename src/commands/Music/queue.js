@@ -120,7 +120,7 @@ module.exports = {
 
                             await msg.edit({
                                 embeds: [embed3],
-                                components: [new ActionRowBuilder().addComponents(but2, but3.setLabel(`${page + 1}/${pages.length}`), but1)]
+                                components: [new ActionRowBuilder().addComponents(but2, but3.setLabel(`Page ${page + 1}/${pages.length}`), but1)]
                             })
                         } else if(button.customId === "queue_cmd_but_2") {
                             await button.deferUpdate().catch(() => {});
