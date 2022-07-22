@@ -1,6 +1,6 @@
 {
   "name": "lavamusic",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "lavalink music bot base in erelajs",
   "main": "src/index.js",
   "scripts": {

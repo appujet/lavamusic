@@ -10,20 +10,17 @@ module.exports = {
     description: "Show the Bot's status",
     run: async (client, interaction) => {
 
-      await interaction.deferReply({
+        await interaction.deferReply({
             ephemeral: false
         });
-        
-       const duration1 = moment.duration(interaction.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
+
+        const duration1 = moment.duration(interaction.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
         const cpu = await si.cpu();
         const about = interaction.client.emoji.about;
         let ccount = client.channels.cache.size;
         let scount = client.guilds.cache.size;
-        let mcount = 0; 
-client.guilds.cache.forEach((guild) => {
-    mcount += guild.memberCount 
-
-})
+        let mcount = 0;
+        client.guilds.cache.forEach((guild) => { mcount += guild.memberCount })
         const embed = new EmbedBuilder()
             .setColor(interaction.client.embedColor)
             .setThumbnail(interaction.client.user.displayAvatarURL())
@@ -47,7 +44,7 @@ client.guilds.cache.forEach((guild) => {
 > **• Heap Total** : ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} Mbps
 > **• Heap Usage** : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Mbps
 `);
-        interaction.followUp({embeds: [embed]});
+        interaction.followUp({ embeds: [embed] });
     }
 }
 
