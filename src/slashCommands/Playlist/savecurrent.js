@@ -32,8 +32,8 @@ module.exports = {
         const player = client.manager.players.get(interaction.guildId);
         if (!player.queue.current) {
             let thing = new EmbedBuilder()
-                .setColor("RED")
-                .setDescription(i18n.__("player.nomusic"));
+                .setColor("Red")
+                .setDescription('Nothing is playing right now.')
             return interaction.editReply({ embeds: [thing] });
         }
         if (!data) {
