@@ -40,7 +40,7 @@ module.exports = {
     let player = client.manager.get(interaction.guildId);
     if (!player.queue.current) {
       let thing = new EmbedBuilder()
-        .setColor("RED")
+        .setColor("Red")
         .setDescription("There is no music playing.");
       return message.channel.send({ embeds: [thing] });
     }
