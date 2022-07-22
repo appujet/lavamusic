@@ -1,4 +1,4 @@
-const { EmbedBuilder, CommandInteraction, Client, ActionRowBuilder, ButtonBuilder, ApplicationCommandOptionType } = require("discord.js");
+const { EmbedBuilder, CommandInteraction, Client, ActionRowBuilder, ButtonBuilder, ApplicationCommandOptionType, ButtonStyle } = require("discord.js");
 const db = require("../../schema/playlist");
 const { convertTime } = require("../../utils/convert.js");
 const lodash = require("lodash");
@@ -49,11 +49,11 @@ module.exports = {
         }
         else {
 
-            let previousbut = new ButtonBuilder().setCustomId("Previous").setEmoji("⏪").setStyle("SECONDARY");
+            let previousbut = new ButtonBuilder().setCustomId("Previous").setEmoji({ name: "⏪" }).setStyle(ButtonStyle.Secondary);
 
-            let nextbut = new ButtonBuilder().setCustomId("Next").setEmoji("⏩").setStyle("SECONDARY");
+            let nextbut = new ButtonBuilder().setCustomId("Next").setEmoji({ name: "⏩" }).setStyle(ButtonStyle.Secondary);
 
-            let stopbut = new ButtonBuilder().setCustomId("Stop").setEmoji("⏹️").setStyle("SECONDARY");
+            let stopbut = new ButtonBuilder().setCustomId("Stop").setEmoji({ name: "⏹️" }).setStyle(ButtonStyle.Secondary);
 
             const row = new ActionRowBuilder().addComponents(previousbut, stopbut, nextbut);
 
