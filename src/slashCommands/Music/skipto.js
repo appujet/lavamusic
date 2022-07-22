@@ -32,7 +32,7 @@ module.exports = {
 
     if (!player.queue.current) {
       let thing = new EmbedBuilder()
-        .setColor("RED")
+        .setColor("Red")
         .setDescription("There is no music playing.");
       return await interaction.editReply({ embeds: [thing] });
     }
@@ -41,7 +41,7 @@ module.exports = {
 
     if (!position || position < 0 || position > player.queue.size) {
       let thing = new EmbedBuilder()
-        .setColor("RED")
+        .setColor("Red")
         .setDescription(`Usage: ${prefix}skipto <Number of song in queue>`)
       return await interaction.editReply({ embeds: [thing] });
     }
