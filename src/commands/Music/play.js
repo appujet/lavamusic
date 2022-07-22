@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionFlagsBits } = require("discord.js");
+const { EmbedBuilder, PermissionsBitField } = require("discord.js");
 const { convertTime } = require('../../utils/convert.js');
 
 module.exports = {
