@@ -30,7 +30,7 @@ module.exports = {
         });
 
         if (data.length > 0) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`This playlist already exists! Delete it using: ${prefix}delete \`${Name}\``)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`This playlist already exists! Delete it using: ${prefix}delete **${Name}**`)] })
         };
         let userData = db.find({
             UserId: message.author.id
