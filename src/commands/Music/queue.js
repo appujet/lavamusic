@@ -1,5 +1,5 @@
 
-const { Client, Message, EmbedBuilder, ButtonBuilder, ActionRowBuilder } = require("discord.js");
+const { Client, Message, EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js");
 const load = require('lodash');
 const { convertTime } = require('../../utils/convert.js');
 
@@ -120,7 +120,7 @@ module.exports = {
 
                             await msg.edit({
                                 embeds: [embed3],
-                                components: [new ActionRowBuilder().addComponents(but2, but3.setLabel(`${page + 1}/${pages.length}`), but1)]
+                                components: [new ActionRowBuilder().addComponents(but2, but3.setLabel(`Page ${page + 1}/${pages.length}`), but1)]
                             })
                         } else if(button.customId === "queue_cmd_but_2") {
                             await button.deferUpdate().catch(() => {});
