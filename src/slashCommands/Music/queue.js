@@ -1,4 +1,4 @@
-const { Client, CommandInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, ApplicationCommandOptionType } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, ApplicationCommandOptionType, ButtonStyle } = require("discord.js");
 const load = require("lodash");
 const { convertTime } = require('../../utils/convert.js');
 
@@ -65,17 +65,17 @@ module.exports = {
             } else {
                 const embed3 = new EmbedBuilder().setTitle(`${interaction.guild.name} Server Queue`).setColor(client.embedColor).setDescription(`**Now playing**\n[${player.queue.current.title}](${player.queue.current.uri}) • \`[ ${convertTime(player.position)} / ${convertTime(player.queue.current.duration)} ]\` • [${player.queue.current.requester}]\n\n**Queued Songs**\n${pages[page]}`).setFooter({text: `Page ${page + 1}/${pages.length}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }),}).setThumbnail(player.queue.current.thumbnail).setTimestamp()
 
-                const but1 = new ButtonBuilder().setCustomId("queue_cmd_but_1_app").setEmoji("⏭️").setStyle(ButtonStyle.Primary)
+                const but1 = new ButtonBuilder().setCustomId("queue_cmd_but_1_app").setEmoji({ name: "⏭️" }).setStyle(ButtonStyle.Primary)
 
-                const dedbut1 = new ButtonBuilder().setDisabled(true).setCustomId("queue_cmd_ded_but_1_app").setEmoji("⏭️").setStyle("SECONDARY")
+                const dedbut1 = new ButtonBuilder().setDisabled(true).setCustomId("queue_cmd_ded_but_1_app").setEmoji("⏭️").setStyle(ButtonStyle.Primary)
 
-                const but2 = new ButtonBuilder().setCustomId("queue_cmd_but_2_app").setEmoji("⏮️").setStyle(ButtonStyle.Primary)
+                const but2 = new ButtonBuilder().setCustomId("queue_cmd_but_2_app").setEmoji({ name: "⏮️" }).setStyle(ButtonStyle.Primary)
 
-                const dedbut2 = new ButtonBuilder().setDisabled(true).setCustomId("queue_cmd_ded_but_2_app").setEmoji("⏮️").setStyle("SECONDARY")
+                const dedbut2 = new ButtonBuilder().setDisabled(true).setCustomId("queue_cmd_ded_but_2_app").setEmoji({ name: "⏮️" }).setStyle(ButtonStyle.Primary)
 
-                const but3 = new ButtonBuilder().setCustomId("queue_cmd_but_3_app").setEmoji("⏹️").setStyle("DANGER")
+                const but3 = new ButtonBuilder().setCustomId("queue_cmd_but_3_app").setEmoji({ name: "⏹️" }).setStyle(ButtonStyle.Danger)
 
-                const dedbut3 = new ButtonBuilder().setDisabled(true).setCustomId("queue_cmd_ded_but_3_app").setEmoji("⏹️").setStyle("SECONDARY")
+                const dedbut3 = new ButtonBuilder().setDisabled(true).setCustomId("queue_cmd_ded_but_3_app").setEmoji({ name: "⏹️" }).setStyle(ButtonStyle.Primary)
 
                 await interaction.editReply({
                     embeds: [embed3],
