@@ -53,7 +53,7 @@ module.exports = {
             }
         } else {
             let thing = new EmbedBuilder()
-                .setColor("RED")
+                .setColor("Red")
                 .setDescription(`Seek duration exceeds Song duration.\nSong duration: \`${convertTime(duration)}\``);
             return message.reply({embeds: [thing]});
         }
