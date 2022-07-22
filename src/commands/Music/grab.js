@@ -19,7 +19,7 @@ module.exports = {
 
         if (!player.queue.current) {
             let thing = new EmbedBuilder()
-            .setColor("#FFC942")
+            .setColor(0xFFC942)
             .setDescription("> There is no music playing.");
             return message.channel.send({embeds: [thing]});
         }
