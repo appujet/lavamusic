@@ -1,4 +1,4 @@
-const { EmbedBuilder, Permissions } = require("discord.js");
+const { EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 const { convertTime } = require('../../utils/convert.js');
 
 module.exports = {
@@ -14,6 +14,10 @@ module.exports = {
   inVoiceChannel: true,
   sameVoiceChannel: true,
   execute: async (message, args, client, prefix) => {
+
+    if (!message.guild.members.me.permissions.has(PermissionsBitField.resolve(['Speak', 'Connect']))) return message.channel.send({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions to execute this command! please give me permission \`CONNECT\` or \`SPEAK\`.`)] });
+    const { channel } = message.member.voice;
+    if (!message.guild.members.cache.get(client.user.id).permissionsIn(channel).has(PermissionsBitField.resolve(['Speak', 'Connect']))) return message.channel.send({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions connect your vc please give me permission \`CONNECT\` or \`SPEAK\`.`)] });
 
     
     const emojiaddsong = message.client.emoji.addsong;
