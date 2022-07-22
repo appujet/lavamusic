@@ -1,4 +1,4 @@
-const { EmbedBuilder, ButtonBuilder, ActionRowBuilder } = require("discord.js");
+const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js");
 
 module.exports = {
     name: "filters",
@@ -18,7 +18,7 @@ module.exports = {
         const player = message.client.manager.get(message.guild.id);
         if (!player.queue.current) {
             let thing = new EmbedBuilder()
-                .setColor("RED")
+                .setColor("Red")
                 .setDescription("There is no music playing.");
             return message.reply({ embeds: [thing] });
         }
@@ -27,7 +27,7 @@ module.exports = {
             .setColor(client.embedColor)
             .setDescription(`Choose what filter you want in the button`)
 
-        const but = new ButtonBuilder().setCustomId("clear_but").setLabel("Clear").setStyle("DANGER");
+        const but = new ButtonBuilder().setCustomId("clear_but").setLabel("Clear").setStyle(ButtonStyle.Danger);
         const but2 = new ButtonBuilder().setCustomId("bass_but").setLabel("Bass").setStyle(ButtonStyle.Primary);
         const but3 = new ButtonBuilder().setCustomId("night_but").setLabel("Night Core").setStyle(ButtonStyle.Primary);
         const but4 = new ButtonBuilder().setCustomId("picth_but").setLabel("Pitch").setStyle(ButtonStyle.Primary);
