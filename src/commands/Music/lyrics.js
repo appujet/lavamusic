@@ -29,7 +29,7 @@ module.exports = {
       return message.channel.send({
         embeds: [
           new EmbedBuilder()
-            .setColor("RED")
+            .setColor("Red")
             .setDescription("Lavalink node is not connected"),
         ],
       });
@@ -39,7 +39,7 @@ module.exports = {
       return message.channel.send({
         embeds: [
           new EmbedBuilder()
-            .setColor("RED")
+            .setColor("Red")
             .setDescription("There's nothing playing"),
         ],
       });
@@ -60,7 +60,7 @@ module.exports = {
       return message.channel.send({
         embeds: [
           new EmbedBuilder()
-            .setColor("RED")
+            .setColor("Red")
             .setDescription(
               `❌ | No lyrics found for ${search}!\nMake sure you typed in your search correctly.`
             ),
