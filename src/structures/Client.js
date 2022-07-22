@@ -44,7 +44,7 @@ class MusicBot extends Client {
     this.manager = new Lavamusic(this)
 
     this.rest.on('rateLimited', (info) => {
-      this.logger.log('ratelimit', "log");
+      this.logger.log(info, "log");
     })
 
     /**
