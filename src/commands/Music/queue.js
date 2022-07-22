@@ -1,5 +1,5 @@
 
-const { Client, Message, EmbedBuilder, ButtonBuilder, ActionRowBuilder } = require("discord.js");
+const { Client, Message, EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js");
 const load = require('lodash');
 const { convertTime } = require('../../utils/convert.js');
 
