@@ -1,4 +1,4 @@
-const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionsBitField, Client, CommandInteraction, ApplicationCommandOptionType } = require("discord.js");
+const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionsBitField, Client, CommandInteraction, ApplicationCommandOptionType, ButtonStyle } = require("discord.js");
 const { convertTime } = require("../../utils/convert");
 
 module.exports = {
