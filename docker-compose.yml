@@ -36,17 +36,22 @@ services:
       LAVALINK_SERVER_SENTRY_DSN: ""
     restart: on-failure
 
-  #lavalink-monitor:
-  #  container_name: Lavalink-Monitor
-  #  image: "No registery image found..."
-  #  environment:
-  #    CHANNEL_ID: "channel id to post stats in"
-  #    TOKEN: "your bot token"
-  #  restart: on-failure
-  #  depends_on:
-  #    - lavalink
-  #  links:
-  #    - lavalink
+  lavalink-monitor:
+    container_name: Lavalink-Monitor
+    image: ghcr.io/brblacky/lavalink-status:latest
+    environment:
+      CHANNEL_ID: "channel id to post stats in"
+      TOKEN: "your lavalink server status bot token"
+      NODE_HOST: "lavalink"
+      NODE_ID: "lavamusic-lavalink"
+      NODE_PORT: "2333"
+      NODE_PASSWORD: "youshallnotpass"
+      NODE_SECURE: "false"
+    restart: on-failure
+    depends_on:
+      - lavalink
+    links:
+      - lavalink
 
   lavamusic:
     container_name: lavamusic
