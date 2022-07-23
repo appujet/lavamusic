@@ -6,14 +6,7 @@ module.exports = {
   description: "Remove Dj Role",
   userPrems: ["MangeGuild"],
   owner: false,
-  options: [
-    {
-      name: "dj",
-      description: "give me a dj role to delete",
-      required: true,
-      type: ApplicationCommandOptionType.Role,
-    },
-  ],
+  
   run: async (client, interaction) => {
     let data = await db.findOne({ Guild: interaction.guild.id });
     if (data) {
