@@ -3,7 +3,7 @@ const db = require("../../schema/setup");
 
 module.exports = {
     name: "setup",
-    category: "config",
+    category: "Config",
     description: "Set custom Music channel",
     args: false,
     usage: "",
