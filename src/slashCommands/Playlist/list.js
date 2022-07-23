@@ -29,7 +29,7 @@ module.exports = {
         let List = list.length;
        
         const embeds = new EmbedBuilder()
-            .setAuthor({ name: `${interaction.user.username}'s Playlists}`, iconURI: interaction.user.displayAvatarURL() })
+            .setAuthor({ name: `${interaction.user.username}'s Playlists`, iconURI: interaction.user.displayAvatarURL() })
             .setDescription(pages[page])
             .setFooter({ text: `Playlist (${List} / 10)` })
             .setColor(client.embedColor);
