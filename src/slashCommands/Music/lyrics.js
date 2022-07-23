@@ -40,7 +40,7 @@ module.exports = {
       return interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setColor("RED")
+            .setColor("Red")
             .setDescription("Lavalink node is not connected"),
         ],
       });
@@ -51,7 +51,7 @@ module.exports = {
       return interaction.editReply({
         embeds: [
           new EmbedBuilder()
-            .setColor("RED")
+            .setColor("Red")
             .setDescription("There's nothing playing"),
         ],
       });
@@ -72,7 +72,7 @@ module.exports = {
       return interaction.editReply({
         embeds: [
           new EmbedBuilder()
-            .setColor("RED")
+            .setColor("Red")
             .setDescription(
               `❌ | No lyrics found for ${search}!\nMake sure you typed in your search correctly.`
             ),

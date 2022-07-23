@@ -23,7 +23,7 @@ module.exports = {
 
         if (!player.queue.current) {
             let thing = new EmbedBuilder()
-                .setColor("RED")
+                .setColor("Red")
                 .setDescription("There is no music playing.");
             return interaction.editReply({embeds: [thing]});
         }
