@@ -4,7 +4,7 @@ specifiers:
   '@discordjs/rest': ^1.0.0
   chalk: ^4.1.2
   delay: ^5.0.0
-  discord.js: 14.1.0
+  discord.js: 14.1.1
   dotenv: ^10.0.0
   erela.js: ^2.3.3
   erela.js-apple: ^1.2.6
@@ -24,7 +24,7 @@ dependencies:
   '@discordjs/rest': 1.0.0
   chalk: 4.1.2
   delay: 5.0.0
-  discord.js: 14.1.0
+  discord.js: 14.1.1
   dotenv: 10.0.0
   erela.js: 2.3.3
   erela.js-apple: 1.2.6
@@ -42,8 +42,8 @@ dependencies:
 
 packages:
 
-  /@discordjs/builders/1.0.0:
-    resolution: {integrity: sha512-8y91ZfpOHubiGJu5tVyGI9tQCEyHZDTeqUWVcJd0dq7B96xIf84S0L4fwmD1k9zTe1eqEFSk0gc7BpY+FKn7Ww==}
+  /@discordjs/builders/1.1.0:
+    resolution: {integrity: sha512-EO8TSltiIc9Z1wE854wAFvv5AccqEtvjFmao9PPoxQhRaJ0hEb7FwWRTCA1jGg4ZWI3hcp4m+RET5ufZQz3rOg==}
     engines: {node: '>=16.9.0'}
     dependencies:
       '@sapphire/shapeshift': 3.5.1
@@ -287,11 +287,11 @@ packages:
     resolution: {integrity: sha512-bz/NDyG0KBo/tY14vSkrwQ/n3HKPf87a0WFW/1M9+tXYK+vp5Z5EksawfCWo2zkAc6o7CClc0eff1Pjrqznlwg==}
     dev: false
 
-  /discord.js/14.1.0:
-    resolution: {integrity: sha512-XC3/AvbJvg1xV34H1h4davzG7KK2bAAQ/Fgw50bswof2aHKXEeqbyPZ2DJhOPb0FgmvMsoyf9Zzz31DYKxbSZA==}
+  /discord.js/14.1.1:
+    resolution: {integrity: sha512-6Oa2f+Y0+s6B5HTTqcAP7Z6tUmguNTKpzbuTmE1JIeT/aUTr9dVe397D/bvcBSRpJERQzMyEWyEiVQnMRHcx4A==}
     engines: {node: '>=16.9.0'}
     dependencies:
-      '@discordjs/builders': 1.0.0
+      '@discordjs/builders': 1.1.0
       '@discordjs/collection': 1.0.1
       '@discordjs/rest': 1.0.1
       '@sapphire/snowflake': 3.2.2
