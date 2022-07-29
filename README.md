@@ -244,7 +244,7 @@ By donating, you will help me to maintain this Project!
 
 ## 🔐 License
 
-Distributed under the MIT License. See [`LICENSE`](https://github.com/brblacky/lavamusic/blob/master/LICENSE) for more information.
+Distributed under the  Apache-2.0 license License. See [`LICENSE`](https://github.com/brblacky/lavamusic/blob/master/LICENSE) for more information.
 
 [version-shield]: https://img.shields.io/github/package-json/v/brblacky/lavamusic?style=for-the-badge
 [version-url]: https://github.com/brblacky/lavamusic
