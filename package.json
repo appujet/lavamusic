@@ -32,7 +32,7 @@
     "@discordjs/rest": "^1.0.0",
     "chalk": "^4.1.2",
     "delay": "^5.0.0",
-    "discord.js": "14.0.3",
+    "discord.js": "14.1.0",
     "dotenv": "^10.0.0",
     "erela.js": "^2.3.3",
     "erela.js-apple": "^1.2.6",
