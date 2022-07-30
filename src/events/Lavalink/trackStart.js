@@ -27,18 +27,18 @@ module.exports = async (client, player, track, payload) => {
   const emojiskip = client.emoji.skip;
   const thing = new EmbedBuilder()
     .setDescription(`${emojiplay} **Started Playing**\n [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``)
-    .setThumbnail(`https://img.youtube.com/vi/${track.identifier}/mqdefault.jpg`)
+    .setThumbnail(track.thumbnail)
     .setColor(client.embedColor)
     .setTimestamp()
-  const But1 = new ButtonBuilder().setCustomId("vdown").setEmoji("🔉").setStyle(ButtonStyle.Secondary);
+  const But1 = new ButtonBuilder().setCustomId("vdown").setEmoji({ name: "🔉" }).setStyle(ButtonStyle.Secondary);
 
-  const But2 = new ButtonBuilder().setCustomId("stop").setEmoji("⏹️").setStyle(ButtonStyle.Secondary);
+  const But2 = new ButtonBuilder().setCustomId("stop").setEmoji({ name: "⏹️" }).setStyle(ButtonStyle.Secondary);
 
-  const But3 = new ButtonBuilder().setCustomId("pause").setEmoji("⏸️").setStyle(ButtonStyle.Secondary);
+  const But3 = new ButtonBuilder().setCustomId("pause").setEmoji({ name: "⏸️" }).setStyle(ButtonStyle.Secondary);
 
-  const But4 = new ButtonBuilder().setCustomId("skip").setEmoji("⏭️").setStyle(ButtonStyle.Secondary);
+  const But4 = new ButtonBuilder().setCustomId("skip").setEmoji({ name: "⏭️" }).setStyle(ButtonStyle.Secondary);
 
-  const But5 = new ButtonBuilder().setCustomId("vup").setEmoji("🔊").setStyle(ButtonStyle.Secondary);
+  const But5 = new ButtonBuilder().setCustomId("vup").setEmoji({ name: "🔊" }).setStyle(ButtonStyle.Secondary);
 
   const row = new ActionRowBuilder().addComponents(But1, But2, But3, But4, But5);
 
@@ -50,7 +50,7 @@ module.exports = async (client, player, track, payload) => {
     .setTimestamp();
   const collector = m.createMessageComponentCollector({
     filter: (b) => {
-      if (b.guild.members.cache.get(client.user.id).voice.channel && b.guild.members.cache.get(client.user.id).voice.channelId === b.member.voice.channelId) return true;
+      if (b.guild.members.cache.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId) return true;
       else {
         b.reply({ content: `You are not connected to ${b.guild.me.voice.channel} to use this buttons.`, ephemeral: true }); return false;
       };
@@ -67,14 +67,14 @@ module.exports = async (client, player, track, payload) => {
       }
       let amount = Number(player.volume) - 10;
       await player.setVolume(amount);
-      i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL({ dynamic: true }) }).setDescription(`${volumeEmoji} The current volume is: **${amount}**`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`${volumeEmoji} The current volume is: **${amount}**`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
     } else if (i.customId === "stop") {
       if (!player) {
         return collector.stop();
       }
       await player.stop();
       await player.queue.clear();
-      i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL({ dynamic: true }) }).setDescription(`${emojistop} Stopped the music`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`${emojistop} Stopped the music`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
       return collector.stop();
     } else if (i.customId === "pause") {
       if (!player) {
@@ -82,13 +82,13 @@ module.exports = async (client, player, track, payload) => {
       }
       player.pause(!player.paused);
       const Text = player.paused ? `${emojipause} **Paused**` : `${emojiresume} **Resume**`;
-      i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL({ dynamic: true }) }).setDescription(`${Text} \n[${player.queue.current.title}](${player.queue.current.uri})`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`${Text} \n[${player.queue.current.title}](${player.queue.current.uri})`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
     } else if (i.customId === "skip") {
       if (!player) {
         return collector.stop();
       }
       await player.stop();
-      i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL({ dynamic: true }) }).setDescription(`${emojiskip} **Skipped**\n[${player.queue.current.title}](${player.queue.current.uri})`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`${emojiskip} **Skipped**\n[${player.queue.current.title}](${player.queue.current.uri})`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
       if (track.length === 1) {
         return collector.stop();
       }
@@ -97,9 +97,9 @@ module.exports = async (client, player, track, payload) => {
         return collector.stop();
       }
       let amount = Number(player.volume) + 10;
-      if (amount >= 150) return i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL({ dynamic: true }) }).setDescription(`Cannot higher the player volume further more.`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      if (amount >= 150) return i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`Cannot higher the player volume further more.`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
       await player.setVolume(amount);
-      i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL({ dynamic: true }) }).setDescription(`${volumeEmoji} The current volume is: **${amount}**`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
+      i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`${volumeEmoji} The current volume is: **${amount}**`)] }).then(msg => { setTimeout(() => { msg.delete() }, 10000) });
       return;
     }
   });
