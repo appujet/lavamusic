@@ -14,16 +14,10 @@ class MusicBot extends Client {
       },
       intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers,
         GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildWebhooks,
-        GatewayIntentBits.GuildInvites,
         GatewayIntentBits.GuildVoiceStates,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildMessageTyping,
         GatewayIntentBits.DirectMessages,
-        GatewayIntentBits.DirectMessageTyping,
-
       ],
       partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember]
     });
