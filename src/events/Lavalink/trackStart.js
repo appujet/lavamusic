@@ -50,9 +50,9 @@ module.exports = async (client, player, track, payload) => {
     .setTimestamp();
   const collector = m.createMessageComponentCollector({
     filter: (b) => {
-      if (b.guild.members.cache.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId) return true;
+      if (b.guild.members.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId) return true;
       else {
-        b.reply({ content: `You are not connected to ${b.guild.me.voice.channel} to use this buttons.`, ephemeral: true }); return false;
+        b.reply({ content: `You are not connected to ${b.guild.members.me.voice.channel.toString()} to use this buttons.`, ephemeral: true }); return false;
       };
     },
     time: track.duration,
