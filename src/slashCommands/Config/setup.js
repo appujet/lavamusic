@@ -146,13 +146,13 @@ module.exports = {
             });
 
             await Ndata.save();
-            return await interaction.reply({
+            return await interaction.editReply({
                 embeds: [new EmbedBuilder().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL() })]
             });
         } else if (interaction.options.getSubcommand() === "delete") {
             if (!data) return await interaction.reply(`This server doesn't have any song request channel setup to use this sub command.`);
             await data.delete();
-            return await interaction.reply(`Successfully deleted all the setup data.`);
+            return await interaction.editReply(`Successfully deleted all the setup data.`);
         }
     }
 };

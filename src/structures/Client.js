@@ -6,6 +6,7 @@ class MusicBot extends Client {
   constructor() {
     super({
       shards: "auto",
+      failIfNotExists: true,
       allowedMentions: {
         everyone: false,
         roles: false,
@@ -13,22 +14,13 @@ class MusicBot extends Client {
       },
       intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildIntegrations,
         GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildWebhooks,
-        GatewayIntentBits.GuildInvites,
         GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.GuildPresences,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildMessageReactions,
-        GatewayIntentBits.GuildMessageTyping,
         GatewayIntentBits.DirectMessages,
-        GatewayIntentBits.DirectMessageReactions,
-        GatewayIntentBits.DirectMessageTyping,
-
+        GatewayIntentBits.GuildInvites,
       ],
-      partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember, Partials.Reaction]
+      partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember]
     });
     this.commands = new Collection();
     this.slashCommands = new Collection();

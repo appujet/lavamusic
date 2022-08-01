@@ -11,7 +11,7 @@ const { convertTime } = require("./convert");
 
 async function oops(channel, args) {
     try {
-        let embed1 = new EmbedBuilder().setColor("RED").setDescription(`${args}`);
+        let embed1 = new EmbedBuilder().setColor("Red").setDescription(`${args}`);
 
         const m = await channel.send({
             embeds: [embed1]
@@ -55,10 +55,10 @@ async function playerhandler(query, player, message) {
     let n = new EmbedBuilder().setColor(message.client.embedColor);
 
     try {
-        if (d) m = await message.channel.messages.fetch(d.Message, { cache: true });
+        if (d) m = await message.channel.messages.fetch({ message: d.Message,  cache: true });
     } catch (e) { };
 
-    if (!message.guild.members.cache.get(message.client.user.id).voice.channel || player.state !== "CONNECTED") player.connect();
+    if (!message.guild.members.me.voice.channel || player.state !== "CONNECTED") player.connect();
     let s = await player.search(query, message.author);
     if (s.loadType === "LOAD_FAILED") {
         if (!player.queue.current) player.destroy();
@@ -76,7 +76,7 @@ async function playerhandler(query, player, message) {
         }).then((a) => setTimeout(async () => await a.delete().catch(() => { }), 5000)).catch(() => { });
 
         neb(n, player);
-        if (m) await m.edit({ embeds: [n], files: [] }).catch(() => { });
+        if (m) await m.edit({ embeds: [n] }).catch(() => { });
     } else if (s.loadType === "SEARCH_RESULT") {
         if (player.state !== "CONNECTED") player.connect();
         if (player) player.queue.add(s.tracks[0]);
@@ -98,7 +98,7 @@ async function playerhandler(query, player, message) {
         }).then((a) => setTimeout(async () => await a.delete().catch(() => { }), 5000)).catch(() => { });
 
         neb(n, player);
-        if (m) await m.edit({ embeds: [n], files: [] }).catch(() => { });
+        if (m) await m.edit({ embeds: [n] }).catch(() => { });
     } else return await oops(message.channel, `No results found for ${query}`);
 };
 
@@ -119,7 +119,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         let message;
         try {
 
-            message = await channel.messages.fetch(msgId, { cache: true });
+            message = await channel.messages.fetch({ message: msgId, cache: true });
 
         } catch (error) { 
             console.log(error)
@@ -127,17 +127,17 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
 
         if (!message) {
 
-            let embed1 = new EmbedBuilder().setColor(client.embedColor).setDescription(`[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue.current.requester.username}`, iconURL: player.queue.current.requester.displayAvatarURL({ dynamic: true }) });
+            let embed1 = new EmbedBuilder().setColor(client.embedColor).setDescription(`[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue.current.requester.username}`, iconURL: player.queue.current.requester.displayAvatarURL() });
 
-            let pausebut = new ButtonBuilder().setCustomId(`pause_but_${player.guild}`).setEmoji("⏸️").setStyle(ButtonStyle.Secondary).setDisabled(false);
+            let pausebut = new ButtonBuilder().setCustomId(`pause_but_${player.guild}`).setEmoji({ name: "⏸️" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-            let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${player.guild}`).setEmoji("🔉").setStyle(ButtonStyle.Secondary).setDisabled(false);
+            let lowvolumebut = new ButtonBuilder().setCustomId(`lowvolume_but_${player.guild}`).setEmoji({ name: "🔉" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-            let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${player.guild}`).setEmoji("🔊").setStyle(ButtonStyle.Secondary).setDisabled(false);
+            let highvolumebut = new ButtonBuilder().setCustomId(`highvolume_but_${player.guild}`).setEmoji({ name: "🔊" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-            let previousbut = new ButtonBuilder().setCustomId(`previous_but_${player.guild}`).setEmoji("⏮️").setStyle(ButtonStyle.Secondary).setDisabled(false);
+            let previousbut = new ButtonBuilder().setCustomId(`previous_but_${player.guild}`).setEmoji({ name: "⏮️" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
-            let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${player.guild}`).setEmoji("⏭️").setStyle(ButtonStyle.Secondary).setDisabled(false);
+            let skipbut = new ButtonBuilder().setCustomId(`skipbut_but_${player.guild}`).setEmoji({ name: "⏭️" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
 
             const row1 = new ActionRowBuilder().addComponents(lowvolumebut, previousbut, pausebut, skipbut, highvolumebut);
             const m = await channel.send({
