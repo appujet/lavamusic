@@ -22,7 +22,6 @@ module.exports = (client) => {
                 description: slashCommand.description,
                 type: slashCommand.type,
                 options: slashCommand.options ? slashCommand.options : null,
-                default_userPerms: slashCommand.default_permission ? slashCommand.default_permission : null,
                 default_member_permissions: slashCommand.default_member_permissions ? PermissionsBitField.resolve(slashCommand.default_member_permissions).toString() : null
             });
             count++;
