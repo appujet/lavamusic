@@ -20,7 +20,7 @@ module.exports = {
             if (!command) return;
             
             const embed = new EmbedBuilder()
-            .setColor('Red)
+            .setColor('Red')
             
             if (command.botPerms) {
               if (!interaction.guild.members.me.permissions.has(PermissionsBitField.resolve(command.botPerms || []))) {
