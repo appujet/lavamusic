@@ -1,4 +1,4 @@
-const { CommandInteraction, Client, InteractionType, PermissionFlagsBits } = require("discord.js")
+const { CommandInteraction, Client, InteractionType, PermissionFlagsBits, EmbedBuilder } = require("discord.js")
 const db = require("../../schema/prefix.js");
 const db2 = require("../../schema/dj");
 const db3 = require("../../schema/setup");
@@ -16,13 +16,30 @@ module.exports = {
         if (ress && ress.Prefix) prefix = ress.Prefix;
 
         if (interaction.type === InteractionType.ApplicationCommand) {
-            const SlashCommands = client.slashCommands.get(interaction.commandName);
-            if (!SlashCommands) return;
+            const command = client.slashCommands.get(interaction.commandName);
+            if (!command) return;
+            
+            const embed = new EmbedBuilder()
+            .setColor('Red)
+            
+            if (command.botPerms) {
+              if (!interaction.guild.members.me.permissions.has(PermissionsBitField.resolve(command.botPerms || []))) {
+                embed.setDescription(`I don't have **\`${command.botPerms}\`** permission in ${interaction.channel.toString()} to execute this **\`${command.name}\`** command.`);
+                return interaction.reply({ embeds: [embed] });
+              }
+            }
+
+            if (command.userPerms) {
+              if (!interaction.member.permissions.has(PermissionsBitField.resolve(command.userPerms || []))) {
+                embed.setDescription(`You don't have **\`${command.userPerms}\`** permission in ${interaction.channel.toStrinf()} to execute this **\`${command.name}\`** command.`);
+                return interaction.reply({ embeds: [embed] });
+              }
+            } 
+            
             const player = interaction.client.manager.get(interaction.guildId);
-            if (SlashCommands.player && !player) {
+            if (command.player && !player) {
                 if (interaction.replied) {
-                    return await interaction.editReply({
-                        content: `There is no player for this guild.`, ephemeral: true
+                    return await interaction.editReply({ content: `There is no player for this guild.`, ephemeral: true
                     }).catch(() => { });
                 } else {
                     return await interaction.reply({
@@ -30,7 +47,7 @@ module.exports = {
                     }).catch(() => { });
                 }
             }
-            if (SlashCommands.inVoiceChannel && !interaction.member.voice.channel) {
+            if (command.inVoiceChannel && !interaction.member.voice.channel) {
                 if (interaction.replied) {
                     return await interaction.editReply({
                         content: `You must be in a voice channel!`, ephemeral: true
@@ -41,16 +58,16 @@ module.exports = {
                     }).catch(() => { });
                 }
             }
-            if (SlashCommands.sameVoiceChannel) {
+            if (command.sameVoiceChannel) {
                 if (interaction.guild.members.me.voice.channel) {
                     if (interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) {
                         return await interaction.reply({
-                            content: `You must be in the same channel as ${interaction.client.user}`, ephemeral: true
+                            content: `You must be in the same ${interaction.guild.members.me.voice.channel.toString()} to use this command!`, ephemeral: true
                         }).catch(() => { });
                     }
                 }
             }
-            if (SlashCommands.dj) {
+            if (command.dj) {
                 let data = await db2.findOne({ Guild: interaction.guildId })
                 let perm = PermissionFlagsBits.MuteMembers;
                 if (data) {
@@ -68,7 +85,7 @@ module.exports = {
             };
 
             try {
-                await SlashCommands.run(client, interaction, prefix);
+                await command.run(client, interaction, prefix);
             } catch (error) {
                 if (interaction.replied) {
                     await interaction.editReply({
