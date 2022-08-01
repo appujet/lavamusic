@@ -65,7 +65,7 @@ module.exports = {
 
         if (command.botPerms) {
             if (!message.guild.members.me.permissions.has(PermissionsBitField.resolve(command.botPerms || []))) {
-                embed.setDescription(`I don't have **\`${command.permission}\`** permission in <#${message.channelId}> to execute this **\`${command.name}\`** command.`);
+                embed.setDescription(`I don't have **\`${command.botPerms}\`** permission in <#${message.channelId}> to execute this **\`${command.name}\`** command.`);
                 return message.channel.send({ embeds: [embed] });
             }
         }
@@ -94,8 +94,8 @@ module.exports = {
         }
 
         if (command.sameVoiceChannel) {
-            if (message.guild.members.cache.get(client.user.id).voice.channel) {
-                if (message.guild.members.cache.get(client.user.id).voice.channelId !== message.member.voice.channelId) {
+            if (message.guild.members.me.voice.channel) {
+                if (message.guild.members.me.voice.channelId !== message.member.voice.channelId) {
                     embed.setDescription(`You must be in the same channel as ${message.client.user}!`);
                     return message.channel.send({ embeds: [embed] });
                 }
