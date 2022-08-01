@@ -16,7 +16,7 @@ module.exports = async (client, player) => {
 
 	try {
 
-		message = await channel.messages.fetch(data.Message, { cache: true });
+		message = await channel.messages.fetch({message: data.Message, cache: true });
 
 	} catch (e) { };
 
