@@ -1,4 +1,4 @@
-<center><img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=lavamusic&fontSize=80&fontAlignY=35&animation=twinkling&fontColor=gradient" /></center>
+<center><img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=Lavamusic&fontSize=80&fontAlignY=35&animation=twinkling&fontColor=gradient" /></center>
 <br>
 <h2 align="center">Our Music Bot</h2>
 <h4 align="center">High Quality Music Bot with a DJ System, Music Channel Setup, 24/7 in VC, Stage Channels, Slash Commands Support and more for FREE!</h4>
@@ -73,7 +73,7 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 
 ## 📎 Requirements
 
-- [Nodejs](https://nodejs.org/en/) v16
+- [Nodejs](https://nodejs.org/en/) v16.9 or higher
 - [Discord.js](https://github.com/discordjs/discord.js/) v14
 - [Java](https://adoptopenjdk.net/) for lavalink
 - [Lavalink](https://ci.fredboat.com/repository/download/Lavalink_Build/.lastSuccessful/Lavalink.jar?guest=1&branch=refs/heads/dev)
