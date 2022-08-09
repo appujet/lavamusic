@@ -1,15 +1,15 @@
 require("dotenv").config();
 
 module.exports = {
-    token: process.env.TOKEN || "",  // your bot token
-    clientID: process.env.CLIENT_ID || "", // your bot client id
+    token: process.env.TOKEN || "MTAwNjM4OTg1OTI3Mjg4ODQxMA.GVBxSW.78mnsD5dl-z76Tl_hrk_hEalzKkPcuG6EHuNls",  // your bot token
+    clientID: process.env.CLIENT_ID || "1006389859272888410", // your bot client id
     prefix: process.env.PREFIX || "!", // bot prefix
-    ownerID: process.env.OWNERID || "", //your discord id
+    ownerID: process.env.OWNERID || "797452849579688018", //your discord id
     SpotifyID: process.env.SPOTIFYID || "",
     SpotifySecret: process.env.SPOTIFYSECRET || "",
     mongourl: process.env.MONGO_URI || "", // MongoDb URL
     embedColor: process.env.COlOR || 0x303236, // embed colour
-    logs: process.env.LOGS || "875254787191504947", // channel id for guild create and delete logs
+    logs: process.env.LOGS || "1006395447872606209", // channel id for guild create and delete logs
     links: {
         img: process.env.IMG || 'https://media.discordapp.net/attachments/963097935820750878/983300268131225651/20220606_145403.png', //setup system background image 
         support: process.env.SUPPORT || 'https://discord.gg/ns8CTk9J3e', //support server invite link
