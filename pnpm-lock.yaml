@@ -4,7 +4,7 @@ specifiers:
   '@discordjs/rest': ^1.0.0
   chalk: ^4.1.2
   delay: ^5.0.0
-  discord.js: 14.1.2
+  discord.js: 14.2.0
   dotenv: ^10.0.0
   erela.js: ^2.3.3
   erela.js-apple: ^1.2.6
@@ -24,7 +24,7 @@ dependencies:
   '@discordjs/rest': 1.0.0
   chalk: 4.1.2
   delay: 5.0.0
-  discord.js: 14.1.2
+  discord.js: 14.2.0
   dotenv: 10.0.0
   erela.js: 2.3.3
   erela.js-apple: 1.2.6
@@ -91,7 +91,7 @@ packages:
       discord-api-types: 0.36.3
       file-type: 17.1.4
       tslib: 2.4.0
-      undici: 5.8.0
+      undici: 5.8.2
     dev: false
 
   /@sapphire/async-queue/1.3.2:
@@ -287,8 +287,8 @@ packages:
     resolution: {integrity: sha512-bz/NDyG0KBo/tY14vSkrwQ/n3HKPf87a0WFW/1M9+tXYK+vp5Z5EksawfCWo2zkAc6o7CClc0eff1Pjrqznlwg==}
     dev: false
 
-  /discord.js/14.1.2:
-    resolution: {integrity: sha512-apdWNLkjAkeEnuNpB8H6rS/4OgrXQlSAjuuzeodjCOdIXy3OwOjD314V/HiSttcAlr9+r3ONhaT5qvbDad5SIg==}
+  /discord.js/14.2.0:
+    resolution: {integrity: sha512-kIGhEeOB1d9k7whL9HCCuRuzK2GL7i/hTesYINOZ2szWm4TOsBVwRU+i9O/zDb2M+Gvff4SJ4EpAtCVV0okgVw==}
     engines: {node: '>=16.9.0'}
     dependencies:
       '@discordjs/builders': 1.1.0
@@ -300,7 +300,7 @@ packages:
       fast-deep-equal: 3.1.3
       lodash.snakecase: 4.1.1
       tslib: 2.4.0
-      undici: 5.8.0
+      undici: 5.8.2
       ws: 8.8.1
     transitivePeerDependencies:
       - bufferutil
@@ -731,8 +731,8 @@ packages:
     engines: {node: '>=12.18'}
     dev: false
 
-  /undici/5.8.0:
-    resolution: {integrity: sha512-1F7Vtcez5w/LwH2G2tGnFIihuWUlc58YidwLiCv+jR2Z50x0tNXpRRw7eOIJ+GvqCqIkg9SB7NWAJ/T9TLfv8Q==}
+  /undici/5.8.2:
+    resolution: {integrity: sha512-3KLq3pXMS0Y4IELV045fTxqz04Nk9Ms7yfBBHum3yxsTR4XNn+ZCaUbf/mWitgYDAhsplQ0B1G4S5D345lMO3A==}
     engines: {node: '>=12.18'}
     dev: false
 
