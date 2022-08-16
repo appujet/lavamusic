@@ -1,15 +1,14 @@
 module.exports = {
-  	name: 'reload',
-  	category: 'Owner',
-  	aliases: ['rd'],
-  	description: 'Reload Command',
-  	args: false,
+    name: 'reload',
+    category: 'Owner',
+    aliases: ['rd'],
+    description: 'Reload Command',
+    args: ture,
     usage: "<string>",
     userPerms: [],
     owner: true,
     execute: async (message, args, client, prefix) => {
       
-    		if (!args.length) return message.channel.send(`mention command`);
     		const commandName = args[0].toLowerCase();
     		const command =
 			message.client.commands.get(commandName)      ||
