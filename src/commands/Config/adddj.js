@@ -14,7 +14,7 @@ module.exports = {
 
         let data = await db.findOne({ Guild: message.guild.id });
         let role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
-        if (!role) return message.reply({ embeds: [new EmbedBuilder().setDescription(`Please add a Role via ping, @role!`).setColor(client.embedColor)] })
+        if (!role) return message.reply({ embeds: [new EmbedBuilder().setDescription(`Please ping the role to add, @role!`).setColor(client.embedColor)] })
         if (!data) {
            data = new db({
                 Guild: message.guild.id,
@@ -22,13 +22,13 @@ module.exports = {
                 Mode: true
             })
             await data.save();
-            return await message.channel.send({ embeds: [new EmbedBuilder().setDescription(`Successfully added DJ Role ${role}.`).setColor(client.embedColor)] })
+            return await message.channel.send({ embeds: [new EmbedBuilder().setDescription(`Successfully added DJ role ${role}.`).setColor(client.embedColor)] })
         } else {
             let rolecheck = data.Roles.find((x) => x === role.id);
-            if (rolecheck) return message.reply({ embeds: [new EmbedBuilder().setDescription(`Role already exists in the List.`).setColor(client.embedColor)] })
+            if (rolecheck) return message.reply({ embeds: [new EmbedBuilder().setDescription(`Role already exists in the list.`).setColor(client.embedColor)] })
             data.Roles.push(role.id);
             await data.save();
-            return await message.channel.send({ embeds: [new EmbedBuilder().setDescription(`Successfully added the new DJ Role ${role}.`).setColor(client.embedColor)] })
+            return await message.channel.send({ embeds: [new EmbedBuilder().setDescription(`Successfully added the new DJ role ${role}.`).setColor(client.embedColor)] })
 
         }
     }
