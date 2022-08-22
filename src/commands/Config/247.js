@@ -18,13 +18,13 @@ module.exports = {
       player.twentyFourSeven = false;
       const embed = new EmbedBuilder()
         .setColor(client.embedColor)
-        .setDescription(`24/7 mode is now **disabled**`);
+        .setDescription(`24/7 mode is now **disabled**.`);
       return message.reply({ embeds: [embed] });
     } else {
       player.twentyFourSeven = true;
       const embed = new EmbedBuilder()
         .setColor(client.embedColor)
-        .setDescription(`24/7 mode is now **enabled**`);
+        .setDescription(`24/7 mode is now **enabled**.`);
 
       return message.reply({ embeds: [embed] });
     }
