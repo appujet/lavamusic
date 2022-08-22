@@ -4,7 +4,7 @@ const db = require("../../schema/dj");
 module.exports = {
     name: "adddj",
     category: "Config",
-    description: "Set Dj Role",
+    description: "Set DJ role.",
     args: false,
     usage: "",
     aliases: ["adj"],
