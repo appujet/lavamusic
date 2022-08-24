@@ -12,7 +12,7 @@ module.exports = {
     options: [
         {
             name: "name",
-            description: "Playlist Name",
+            description: "Playlist name.",
             required: true,
             type: ApplicationCommandOptionType.String
         }

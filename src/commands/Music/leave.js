@@ -2,9 +2,9 @@ const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
 	name: "leave",
-    aliases: ["dc"],
+    aliases: ["dc", "fuckoff"],
     category: "Music",
-    description: "Leave voice channel",
+    description: "Disconnects the bot from your voice channel.",
     args: false,
     usage: "",
     userPerms: [],
@@ -23,7 +23,7 @@ module.exports = {
         
         let thing = new EmbedBuilder()
             .setColor(message.client.embedColor)
-            .setDescription(`${emojiLeave} **Left the voice channel**\nThank you for using ${message.client.user.username}!`)
+            .setDescription(`${emojiLeave} **Left the voice channel.**\nThank you for using ${message.client.user.username}!`)
           return message.reply({embeds: [thing]});
 	
     }

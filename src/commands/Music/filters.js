@@ -4,7 +4,7 @@ module.exports = {
     name: "filters",
     category: "Music",
     aliases: ["eq", "equalizer"],
-    description: "Set EqualizerBand",
+    description: "Sets the bot's sound filter.",
     args: false,
     usage: "",
     userPerms: [],
@@ -25,11 +25,11 @@ module.exports = {
         const emojiequalizer = message.client.emoji.filter;
         const embed = new EmbedBuilder()
             .setColor(client.embedColor)
-            .setDescription(`Choose what filter you want in the button`)
+            .setDescription(`Select your preferred sound filter below.`)
 
         const but = new ButtonBuilder().setCustomId("clear_but").setLabel("Clear").setStyle(ButtonStyle.Danger);
         const but2 = new ButtonBuilder().setCustomId("bass_but").setLabel("Bass").setStyle(ButtonStyle.Primary);
-        const but3 = new ButtonBuilder().setCustomId("night_but").setLabel("Night Core").setStyle(ButtonStyle.Primary);
+        const but3 = new ButtonBuilder().setCustomId("night_but").setLabel("Nightcore").setStyle(ButtonStyle.Primary);
         const but4 = new ButtonBuilder().setCustomId("picth_but").setLabel("Pitch").setStyle(ButtonStyle.Primary);
         const but5 = new ButtonBuilder().setCustomId("distort_but").setLabel("Distort").setStyle(ButtonStyle.Primary);
         const but6 = new ButtonBuilder().setCustomId("eq_but").setLabel("Equalizer").setStyle(ButtonStyle.Primary);
@@ -51,7 +51,7 @@ module.exports = {
         });
         collector.on("end", async () => {
             if (!m) return;
-            await m.edit({ embeds: [embed1.setDescription(`Time is up! Run ${prefix}filters`)] });
+            await m.edit({ embeds: [embed1.setDescription(`Command timed out! Run ${prefix}filters again.`)] });
         });
         collector.on("collect", async (b) => {
             if (!b.replied) await b.deferUpdate({ ephemeral: true });
@@ -66,7 +66,7 @@ module.exports = {
             } else if (b.customId === "night_but") {
                 await player.setNightcore(true);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
-                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Night Core mode is ON`)] });
+                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Nightcore mode is ON`)] });
             } else if (b.customId === "picth_but") {
                 await player.setPitch(2);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
@@ -89,7 +89,7 @@ module.exports = {
                 ));
                 await player.setEQ(...bands);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
-                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Bassboost mode is ON`)] });
+                return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Bass Boost mode is ON`)] });
             } else if (b.customId === "speed_but") {
                 await player.setSpeed(2);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });

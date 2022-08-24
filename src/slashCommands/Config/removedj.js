@@ -3,7 +3,7 @@ const db = require("../../schema/dj");
 
 module.exports = {
   name: "removedj",
-  description: "Remove Dj Role",
+  description: "Removes the DJ role.",
   userPrems: ["MangeGuild"],
   owner: false,
   
@@ -14,7 +14,7 @@ module.exports = {
       return interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setDescription(`Successfully removed all DJ Roles.`)
+            .setDescription(`Successfully removed all DJ roles.`)
             .setColor(client.embedColor),
         ],
       });
@@ -22,7 +22,7 @@ module.exports = {
       return interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setDescription(`You don't have any DJ setup in this Guild!`)
+            .setDescription(`You don't have any DJ roles setup in this guild!`)
             .setColor(client.embedColor),
         ],
       });

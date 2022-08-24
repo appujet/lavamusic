@@ -11,7 +11,7 @@ module.exports = {
   name: "queue",
   category: "Music",
   aliases: ["q"],
-  description: "Show the music queue and now playing.",
+  description: "Displays the music queue and current song.",
   args: false,
   usage: "",
   userPerms: [],
@@ -25,7 +25,7 @@ module.exports = {
 
     if (!player.queue.current)
       return message.reply({
-        content: `Please start a song before doing this action`,
+        content: `Please play a song before running this command.`,
       });
     if (!player)
       return message.channel.send({
@@ -51,7 +51,7 @@ module.exports = {
       const embed = new EmbedBuilder()
         .setColor(client.embedColor)
         .setDescription(
-          `Now playing [${player.queue.current.title}](${
+          `Now Playing [${player.queue.current.title}](${
             player.queue.current.uri
           }) • \`[${convertTime(queue.current.duration)}]\` • [${
             player.queue.current.requester
@@ -79,7 +79,7 @@ module.exports = {
         const embed = new EmbedBuilder()
           .setColor(client.embedColor)
           .setDescription(
-            `**Now playing**\n > [${player.queue.current.title}](${
+            `**Now Playing**\n > [${player.queue.current.title}](${
               player.queue.current.uri
             }) • \`[${convertTime(queue.current.duration)}]\`  • [${
               player.queue.current.requester
@@ -100,7 +100,7 @@ module.exports = {
         const embed2 = new EmbedBuilder()
           .setColor(client.embedColor)
           .setDescription(
-            `**Now playing**\n > [${player.queue.current.title}](${
+            `**Now Playing**\n > [${player.queue.current.title}](${
               player.queue.current.uri
             }) • \`[${convertTime(queue.current.duration)}]\` • [${
               player.queue.current.requester
@@ -160,7 +160,7 @@ module.exports = {
             else {
               b.reply({
                 ephemeral: true,
-                content: `Only **${message.author.tag}** can use this button, if you want then you've to run the command again.`,
+                content: `Only **${message.author.tag}** can use this button, run the command again to use the queue menu.`,
               });
               return false;
             }
@@ -177,7 +177,7 @@ module.exports = {
             const embed3 = new EmbedBuilder()
               .setColor(client.embedColor)
               .setDescription(
-                `**Now playing**\n[${player.queue.current.title}](${
+                `**Now Playing**\n[${player.queue.current.title}](${
                   player.queue.current.uri
                 }) • \`[${convertTime(queue.current.duration)}]\` • [${
                   player.queue.current.requester
@@ -204,7 +204,7 @@ module.exports = {
             const embed4 = new EmbedBuilder()
               .setColor(client.embedColor)
               .setDescription(
-                `**Now playing**\n[${player.queue.current.title}](${
+                `**Now Playing**\n[${player.queue.current.title}](${
                   player.queue.current.uri
                 }) • \`[${convertTime(queue.current.duration)}]\` • [${
                   player.queue.current.requester

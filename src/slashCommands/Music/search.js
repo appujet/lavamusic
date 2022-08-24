@@ -3,7 +3,7 @@ const { convertTime } = require("../../utils/convert");
 
 module.exports = {
     name: "search",
-    description: "Search for a song from youtube",
+    description: "Search for a song on YouTube.",
     userPrems: [],
     player: false,
     inVoiceChannel: true,
@@ -11,7 +11,7 @@ module.exports = {
     options: [
         {
             name: "input",
-            description: "The search input (name/url)",
+            description: "Song to search for.",
             required: true,
             type: ApplicationCommandOptionType.String
         }
@@ -28,9 +28,9 @@ module.exports = {
         });
 
         const query = interaction.options.getString("input");
-        if (!interaction.guild.members.me.permissions.has(PermissionsBitField.resolve(['Speak', 'Connect']))) return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions to execute this command! please give me permission \`CONNECT\` or \`SPEAK\`.`)] });
+        if (!interaction.guild.members.me.permissions.has(PermissionsBitField.resolve(['Speak', 'Connect']))) return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions to execute this command! Please give me permission to \`CONNECT\` or \`SPEAK\`.`)] });
         const { channel } = interaction.member.voice;
-        if (!interaction.guild.members.cache.get(client.user.id).permissionsIn(channel).has(PermissionsBitField.resolve(['Speak', 'Connect']))) return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions connect your vc please give me permission \`CONNECT\` or \`SPEAK\`.`)] });
+        if (!interaction.guild.members.cache.get(client.user.id).permissionsIn(channel).has(PermissionsBitField.resolve(['Speak', 'Connect']))) return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions to connect to your VC. Please give me permission to \`CONNECT\` or \`SPEAK\`.`)] });
 
         let player = interaction.client.manager.get(interaction.guildId);
         if (!player)
@@ -69,7 +69,7 @@ module.exports = {
                 const results = s.tracks.slice(0, 5).map(x => `• ${index++} | [${x.title}](${x.uri}) \`${convertTime(x.duration)}\``)
                     .join("\n");
                 const searched = new EmbedBuilder()
-                    .setTitle("Select the track that you want")
+                    .setTitle("Select the track that you want.")
                     .setColor(client.embedColor)
                     .setDescription(results);
 

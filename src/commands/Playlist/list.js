@@ -6,7 +6,7 @@ module.exports = {
     name: "list",
     aliases: ["pllist"],
     category: "Playlist",
-    description: "To List The Playlist.",
+    description: "List your created playlists.",
     args: false,
     usage: "list",
     userPerms: [],
@@ -18,7 +18,7 @@ module.exports = {
 
         let data = await db.find({ UserId: message.author.id });
         if (!data.length) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You don't have any Playlist.`)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You haven't created any playlists.`)] })
         }
         if (!args[0]) {
             let list = data.map((x, i) => `\`${++i}\` - ${x.PlaylistName} \`${x.Playlist.length}\` - <t:${x.CreatedOn}>`);

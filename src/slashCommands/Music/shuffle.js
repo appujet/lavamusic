@@ -2,7 +2,7 @@ const { EmbedBuilder, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
   name: "shuffle",
-  description: "Shuffle queue",
+  description: "Shuffle the queue.",
   userPrems: [],
   player: true,
   dj: true,
@@ -32,7 +32,7 @@ module.exports = {
     const emojishuffle = client.emoji.shuffle;
 
     let thing = new EmbedBuilder()
-      .setDescription(`${emojishuffle} Shuffled the queue`)
+      .setDescription(`${emojishuffle} Shuffled the queue.`)
       .setColor(client.embedColor)
       .setTimestamp()
     return interaction.editReply({ embeds: [thing] });

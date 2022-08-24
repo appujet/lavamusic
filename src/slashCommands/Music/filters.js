@@ -2,7 +2,7 @@ const { EmbedBuilder, CommandInteraction, Client, ApplicationCommandOptionType }
 
 module.exports = {
     name: "filters",
-    description: "Set EqualizerBand",
+    description: "Sets the bot's sound filter.",
     userPrems: [],
     player: true,
     dj: true,
@@ -11,7 +11,7 @@ module.exports = {
     options: [
         {
             name: "filter",
-            description: "Set EqualizerBand",
+            description: "Select your preferred sound filter.",
             type: ApplicationCommandOptionType.String,
             required: true,
             choices: [
@@ -24,7 +24,7 @@ module.exports = {
                     value: "bass",
                 },
                 {
-                    name: "Night Core",
+                    name: "Nightcore",
                     value: "night"
                 },
                 {
@@ -44,7 +44,7 @@ module.exports = {
                     value: "8d"
                 },
                 {
-                    name: "Bassboost",
+                    name: "Bass Boost",
                     value: "bassboost"
                 },
                 {
@@ -74,7 +74,7 @@ module.exports = {
         const player = interaction.client.manager.get(interaction.guildId);
         if (!player.queue.current) {
             const thing = new EmbedBuilder()
-                .setDescription('there is nothing playing')
+                .setDescription('There is no music playing.')
                 .setColor(client.embedColor)
             return interaction.editReply({ embeds: [thing] });
         }
@@ -98,11 +98,11 @@ module.exports = {
                     { band: i, gain: 0.25 }
                 ));
                 player.setEQ(...bands);
-                thing.setDescription(`${emojiequalizer} Bassboost mode is ON`);
+                thing.setDescription(`${emojiequalizer} Bass Boost mode is ON`);
                 break;
             case 'night':
                 player.setNightcore(true);
-                thing.setDescription(`${emojiequalizer} Night Core Equalizer mode is ON`);
+                thing.setDescription(`${emojiequalizer} Nightcore Equalizer mode is ON`);
                 break;
             case 'pitch':
                 player.setPitch(2);

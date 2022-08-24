@@ -4,7 +4,7 @@ const ms = require('ms');
 
 module.exports = {
     name: "seek",
-    description: "Seek the currently playing song",
+    description: "Seek the currently playing song.",
     userPrems: [],
     player: true,
     dj: true,
@@ -67,7 +67,7 @@ module.exports = {
         } else {
             let thing = new EmbedBuilder()
                 .setColor("Red")
-                .setDescription(`Seek duration exceeds Song duration.\nSong duration: \`${convertTime(duration)}\``);
+                .setDescription(`Seek duration exceeds song duration.\nSong duration: \`${convertTime(duration)}\``);
             return await interaction.editReply({ embeds: [thing] });
         }
 

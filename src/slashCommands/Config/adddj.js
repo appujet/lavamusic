@@ -3,12 +3,12 @@ const db = require("../../schema/dj");
 
 module.exports = {
   name: "adddj",
-  description: "Set Dj Role",
+  description: "Sets the DJ role.",
   userPrems: ["MangeGuild"],
   options: [
     {
       name: "dj",
-      description: "give me new dj role",
+      description: "New DJ role.",
       required: true,
       type: ApplicationCommandOptionType.Role,
     },
@@ -29,7 +29,7 @@ module.exports = {
       return await interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setDescription(`Successfully Added DJ Role ${role}.`)
+            .setDescription(`Successfully added DJ role ${role}.`)
             .setColor(client.embedColor),
         ],
       });
@@ -39,7 +39,7 @@ module.exports = {
         return interaction.reply({
           embeds: [
             new EmbedBuilder()
-              .setDescription(`Role already exists in the List.`)
+              .setDescription(`Role already exists in the list.`)
               .setColor(client.embedColor),
           ],
         });
@@ -48,7 +48,7 @@ module.exports = {
       return await interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setDescription(`Successfully added new DJ Role ${role}.`)
+            .setDescription(`Successfully added the new DJ role ${role}.`)
             .setColor(client.embedColor),
         ],
       });

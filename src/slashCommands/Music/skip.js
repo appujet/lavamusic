@@ -2,7 +2,7 @@ const { CommandInteraction, Client, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   name: "skip",
-  description: "To skip a song/track from the queue.",
+  description: "Skip the song currently playing.",
   userPrems: [],
   player: true,
   dj: true,
@@ -38,7 +38,7 @@ module.exports = {
     }).catch(() => { });
 
     if (!player.queue.size) return await interaction.editReply({
-      embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription("No songs left in the queue to skip.")]
+      embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription("There are no songs left in the queue to skip.")]
     }).catch(() => { });
 
     player.stop();

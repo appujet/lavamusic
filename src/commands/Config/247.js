@@ -3,7 +3,7 @@ module.exports = {
   name: "247",
   aliases: ["24h", "24/7", "24*7"],
   category: "Config",
-  description: "Set 24/7 mode, bot stays in voice channel 24/7.",
+  description: "Sets 24/7 mode, bot stays in voice channel 24/7.",
   args: false,
   usage: "",
   userPerms: ["ManageChannels"],

@@ -2,7 +2,7 @@ const { EmbedBuilder, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
   name: "leave",
-  description: "Leave voice channel",
+  description: "Disconnects the bot from your voice channel.",
   userPrems: [],
   player: true,
   dj: true,
@@ -28,7 +28,7 @@ module.exports = {
 
     let thing = new EmbedBuilder()
       .setColor(client.embedColor)
-      .setDescription(`${emojiLeave} **Left the voice channel**\nThank you for using ${interaction.client.user.username}!`)
+      .setDescription(`${emojiLeave} **Left the voice channel.**\nThank you for using ${interaction.client.user.username}!`)
     return interaction.editReply({ embeds: [thing] });
 
   }

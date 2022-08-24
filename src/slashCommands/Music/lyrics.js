@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 
 module.exports = {
   name: "lyrics",
-  description: "Prints the lyrics of a song",
+  description: "Gets the lyrics of a song.",
   userPrems: [],
   player: true,
   dj: false,
@@ -12,7 +12,7 @@ module.exports = {
   options: [
     {
       name: "song",
-      description: "The song to get lyrics for.",
+      description: "Song name to return lyrics for.",
       type: ApplicationCommandOptionType.String,
       required: false,
     },
@@ -41,7 +41,7 @@ module.exports = {
         embeds: [
           new EmbedBuilder()
             .setColor("Red")
-            .setDescription("Lavalink node is not connected"),
+            .setDescription("Lavalink node is not connected."),
         ],
       });
     }
@@ -52,7 +52,7 @@ module.exports = {
         embeds: [
           new EmbedBuilder()
             .setColor("Red")
-            .setDescription("There's nothing playing"),
+            .setDescription("There's no music playing."),
         ],
       });
     }
@@ -74,7 +74,7 @@ module.exports = {
           new EmbedBuilder()
             .setColor("Red")
             .setDescription(
-              `❌ | No lyrics found for ${search}!\nMake sure you typed in your search correctly.`
+              `❌ | No lyrics found for ${search}!\nMake sure you entered your search correctly.`
             ),
         ],
       });

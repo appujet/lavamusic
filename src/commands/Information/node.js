@@ -3,13 +3,12 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = {
     name: "node",
     category: "Information",
-    description: "Check node information",
+    description: "Displays node information.",
     args: false,
     usage: "",
     userPerms: [],
     owner: false,
     execute: async (message, args, client, prefix) => {
-
 
         const all = client.manager.nodes.map(node =>
             `Node ${(node.options.identifier)} Connected` +

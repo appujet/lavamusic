@@ -2,7 +2,7 @@ const { CommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType }
 
 module.exports = {
   name: "volume",
-  description: "Changes volume of currently playing music.",
+  description: "Change the volume of the bot.",
   userPrems: [],
   player: true,
   dj: true,
@@ -11,7 +11,7 @@ module.exports = {
   options: [
     {
       name: "number",
-      description: "Give your volume number between 0 and 100",
+      description: "Volume between 0 and 100",
       required: true,
       type: ApplicationCommandOptionType.Number,
     }
@@ -42,7 +42,7 @@ module.exports = {
     }).catch(() => { });
     const volume = Number(vol);
     if (!volume || volume < 0 || volume > 100) return await interaction.editReply({
-      embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Usage: ${client.prefix}volume <Number of volume between 0 - 100>`)]
+      embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Usage: ${client.prefix}volume <0 - 100>`)]
     }).catch(() => { });
 
     player.setVolume(volume);

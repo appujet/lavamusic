@@ -10,7 +10,7 @@ module.exports = {
     options: [
         {
             name: "name",
-            description: "Playlist name",
+            description: "Playlist name.",
             required: true,
             type: ApplicationCommandOptionType.String
         }
@@ -29,17 +29,17 @@ module.exports = {
         const data = await db.find({ UserId: interaction.member.user.id, PlaylistName: Name });
 
         if (Name.length > 10) {
-            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist Name can't be greater than 10 Characters`)] });
+            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist name can't be greater than 10 characters.`)] });
 
         };
         if (data.length > 0) {
-            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`This playlist already exists! delete it using: \`${prefix}\`delete \`${Name}\``)] })
+            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`This playlist already exists! Delete it using: \`${prefix}\`delete \`${Name}\`.`)] })
         };
         let userData = db.find({
             UserId: interaction.user.id
         });
         if (userData.length >= 10) {
-            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You can only create 10 Playlists`)] })
+            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You can only create 10 playlists.`)] })
         }
         const newData = new db({
             UserName: interaction.user.tag,
@@ -49,7 +49,7 @@ module.exports = {
         });
         await newData.save();
         const embed = new EmbedBuilder()
-            .setDescription(`Successfully created a playlist for you **${Name}**`)
+            .setDescription(`Successfully created a playlist for you **${Name}**.`)
             .setColor(client.embedColor)
         return interaction.editReply({ embeds: [embed] })
 

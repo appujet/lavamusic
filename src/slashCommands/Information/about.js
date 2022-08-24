@@ -2,7 +2,7 @@ const { EmbedBuilder, CommandInteraction, Client, ActionRowBuilder, ButtonBuilde
 
 module.exports = {
     name: "about",
-    description: "See information about this project",
+    description: "See information about this project.",
     type: ApplicationCommandType.ChatInput,
     /**
      * 
@@ -37,10 +37,10 @@ module.exports = {
             .setThumbnail('https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png')
             .setColor(0x303236)
             .addFields([
-                { name: 'Creator', value: '[Blacky#6618](https://github.com/brblacky) And [Venom#9718](https://github.com/Venom9718/)', inline: true },
+                { name: 'Creator', value: '[Blacky#6618](https://github.com/brblacky) and [Venom#9718](https://github.com/Venom9718/)', inline: true },
                 { name: 'Organization', value: '[Blacky](https://github.com/brblacky)', inline: true },
                 { name: 'Repository', value: '[Here](https://github.com/brblacky/lavamusic)', inline: true },
-                { name: '\u200b', value: `[LavaMusic](https://github.com/brblacky/lavamusic/) is [Blacky](https://github.com/brblacky) and [Venom](https://github.com/Venom9718)'s Was created by blacky and Venom. He really wants to make his first open source project ever. Because he wants more for coding experience. In this project, he was challenged to make project with less bugs. Hope you enjoy using LavaMusic!`, inline: true },
+                { name: '\u200b', value: `[LavaMusic](https://github.com/brblacky/lavamusic/) was created by [Blacky](https://github.com/brblacky) and [Venom](https://github.com/Venom9718). He really wanted to make his first open source project ever for more coding experience. In this project, he was challenged to make a project with less bugs. Hope you enjoy using LavaMusic!`, inline: true },
             ]);
         await interaction.followUp({ embeds: [mainPage], components: [row] });
     }

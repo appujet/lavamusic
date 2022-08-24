@@ -3,14 +3,14 @@ const db = require("../../schema/playlist");
 
 module.exports = {
     name: "load",
-    description: "Play the saved Playlist.",
+    description: "Play the saved playlist.",
     player: false,
     inVoiceChannel: true,
     sameVoiceChannel: true,
     options: [
         {
             name: "name",
-            description: "Play the saved playlist",
+            description: "Playlist name.",
             required: true,
             type: ApplicationCommandOptionType.String
         }

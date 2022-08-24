@@ -5,7 +5,7 @@ module.exports = {
     name: "savequeue",
     aliases: ["plsaveq"],
     category: "Playlist",
-    description: "Save current playing queue in your playlist.",
+    description: "Save the current queue to your playlist.",
     args: true,
     usage: "<playlist name>",
     userPerms: [],
@@ -20,15 +20,15 @@ module.exports = {
         if (!player.queue.current) {
             let thing = new EmbedBuilder()
                 .setColor("RED")
-                .setDescription(`Currently No Music Is Playing..`);
+                .setDescription(`There is no music playing.`);
             return message.reply({ embeds: [thing] });
         }
         const data = await db.find({ UserId: message.author.id, PlaylistName: Name })
         if (!data) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name.`)] })
         }
         if (data.length == 0) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] });
+            return message.reply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name.`)] });
         }
         const song = player.queue.current;
         const tracks = player.queue;
@@ -63,7 +63,7 @@ module.exports = {
 
             });
         const embed = new EmbedBuilder()
-            .setDescription(`**Added** \`${playlist.length - oldSong.length}\`song in \`${Name}\``)
+            .setDescription(`**Added** \`${playlist.length - oldSong.length}\`song(s) in \`${Name}\``)
             .setColor(client.embedColor)
         return message.channel.send({ embeds: [embed] })
 

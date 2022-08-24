@@ -2,14 +2,14 @@ const { CommandInteraction, Client, EmbedBuilder, PermissionsBitField, Applicati
 const { convertTime } = require('../../utils/convert.js');
 module.exports = {
   name: "play",
-  description: "To play some song.",
+  description: "Plays audio from any supported source.",
   player: false,
   inVoiceChannel: true,
   sameVoiceChannel: true,
   options: [
     {
       name: "input",
-      description: "The search input (name/url)",
+      description: "Song name or URL to play.",
       required: true,
       type: ApplicationCommandOptionType.String
     }
@@ -24,9 +24,9 @@ module.exports = {
     await interaction.deferReply({
       ephemeral: false
     });
-    if (!interaction.guild.members.me.permissions.has(PermissionsBitField.resolve(['Speak', 'Connect']))) return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions to execute this command! please give me permission \`CONNECT\` or \`SPEAK\`.`)] });
+    if (!interaction.guild.members.me.permissions.has(PermissionsBitField.resolve(['Speak', 'Connect']))) return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions to execute this command! Please give me permission to \`CONNECT\` or \`SPEAK\`.`)] });
     const { channel } = interaction.member.voice;
-    if (!interaction.guild.members.cache.get(client.user.id).permissionsIn(channel).has(PermissionsBitField.resolve(['Speak', 'Connect']))) return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions connect your vc please give me permission \`CONNECT\` or \`SPEAK\`.`)] });
+    if (!interaction.guild.members.cache.get(client.user.id).permissionsIn(channel).has(PermissionsBitField.resolve(['Speak', 'Connect']))) return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions connect your VC! Please give me permission to \`CONNECT\` or \`SPEAK\`.`)] });
 
     const emojiaddsong = client.emoji.addsong;
     const emojiplaylist = client.emoji.playlist;
@@ -47,7 +47,7 @@ module.exports = {
       res = await player.search(search, interaction.member.user);
       if (res.loadType === "LOAD_FAILED") {
         if (!player.queue.current) player.destroy();
-        return await interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setTimestamp().setDescription(`:x: | **There was an error while searching**`)] });
+        return await interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setTimestamp().setDescription(`❌ | **There was an error while searching.**`)] });
       }
     } catch (err) {
       console.log(err)

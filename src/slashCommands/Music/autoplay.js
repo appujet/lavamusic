@@ -2,7 +2,7 @@ const { EmbedBuilder, CommandInteraction, Client } = require("discord.js");
 
 module.exports = {
   name: "autoplay",
-  description: "Toggle music autoplay",
+  description: "Toggle music autoplay.",
   player: true,
   inVoiceChannel: true,
   sameVoiceChannel: true,
@@ -23,7 +23,7 @@ module.exports = {
     
     if (!player.queue.current)
       return interaction.reply({
-        content: `Please start a song before doing this action`,
+        content: `Please play a song before using this command.`,
       });
     
     if (autoplay === false) {
@@ -37,7 +37,7 @@ module.exports = {
       let thing = new EmbedBuilder()
         .setColor(client.embedColor)
         .setTimestamp()
-        .setDescription(`${emojireplay} Autoplay is now **enabled**`);
+        .setDescription(`${emojireplay} Autoplay is now **enabled**.`);
       return await interaction.editReply({ embeds: [thing] });
     } else {
       player.set("autoplay", false);
@@ -45,7 +45,7 @@ module.exports = {
       let thing = new EmbedBuilder()
         .setColor(client.embedColor)
         .setTimestamp()
-        .setDescription(`${emojireplay} Autoplay is now **disabled**`);
+        .setDescription(`${emojireplay} Autoplay is now **disabled**.`);
 
       return await interaction.editReply({ embeds: [thing] });
     }

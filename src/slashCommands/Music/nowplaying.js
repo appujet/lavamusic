@@ -4,7 +4,7 @@ const { progressbar } = require('../../utils/progressbar.js')
 
 module.exports = {
     name: "nowplaying",
-    description: "Show the current playing song",
+    description: "Show the current playing song.",
     userPrems: [],
     player: true,
     inVoiceChannel: false,

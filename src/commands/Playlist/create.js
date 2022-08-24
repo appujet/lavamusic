@@ -22,7 +22,7 @@ module.exports = {
         };
 
         if (Name.length > 10) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription("Playlist name can't be greater than \`10\` Characters")] });
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription("Playlist name can't be greater than \`10\` characters.")] });
         };
         let data = await db.find({
             UserId: message.author.id,
@@ -30,13 +30,13 @@ module.exports = {
         });
 
         if (data.length > 0) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`This playlist already exists! Delete it using: ${prefix}delete **${Name}**`)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`This playlist already exists! Delete it using: ${prefix}delete **${Name}**.`)] })
         };
         let userData = db.find({
             UserId: message.author.id
         });
         if (userData.length >= 10) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`You can only create \`10\` Playlists`)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`You can only create \`10\` playlists.`)] })
         }
 
         const newData = new db({
@@ -47,7 +47,7 @@ module.exports = {
         });
         await newData.save();
         const embed = new EmbedBuilder()
-            .setDescription(`Successfully created a playlist for you **${Name}**`)
+            .setDescription(`Successfully created a playlist for you **${Name}**.`)
             .setColor(color)
         return message.channel.send({ embeds: [embed] })
 
