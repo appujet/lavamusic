@@ -3,7 +3,7 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = {
   name: "ping",
   category: "Information",
-  description: "Check Ping Bot",
+  description: "Displays the bot's ping.",
   args: false,
   usage: "",
   userPerms: [],

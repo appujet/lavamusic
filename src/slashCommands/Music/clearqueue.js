@@ -2,7 +2,7 @@ const { EmbedBuilder, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
   name: "clearqueue",
-  description: "Clear Queue",
+  description: "Removes all songs in the music queue.",
   userPrems: [],
   player: true,
   dj: true,
@@ -27,7 +27,7 @@ module.exports = {
     let thing = new EmbedBuilder()
       .setColor(client.embedColor)
       .setTimestamp()
-      .setDescription(`${emojieject} Removed all songs from the queue`)
+      .setDescription(`${emojieject} Removed all songs from the queue.`)
     return interaction.editReply({ embeds: [thing] });
 
   }

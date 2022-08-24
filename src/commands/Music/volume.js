@@ -4,7 +4,7 @@ module.exports = {
     name: "volume",
     aliases: ["v", "vol"],
     category: "Music",
-    description: "Change volume of currently playing music",
+    description: "Change the volume of the bot.",
     args: false,
     usage: "",
     userPerms: [],
@@ -39,7 +39,7 @@ execute: async (message, args, client, prefix) => {
 		if (!volume || volume < 0 || volume > 100) { 
 			let thing = new EmbedBuilder()
                 .setColor("Red")
-				.setDescription(`Usage: ${prefix}volume <Number of volume between 0 - 100>`)
+				.setDescription(`Usage: ${prefix}volume <0 - 100>`)
             return message.reply({embeds: [thing]});
 		}
 

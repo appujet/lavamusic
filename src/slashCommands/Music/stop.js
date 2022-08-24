@@ -2,7 +2,7 @@ const { EmbedBuilder, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
   name: "stop",
-  description: "Stops the music",
+  description: "Stops the music.",
   userPrems: [],
   player: true,
   dj: true,
@@ -41,7 +41,7 @@ module.exports = {
     let thing = new EmbedBuilder()
       .setColor(client.embedColor)
       .setTimestamp()
-      .setDescription(`${emojistop} Stopped the music`)
+      .setDescription(`${emojistop} Stopped the music.`)
     return interaction.editReply({ embeds: [thing] });
 
   }

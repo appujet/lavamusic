@@ -5,7 +5,7 @@ module.exports = {
     name: "grab",
     aliases: ["save"],
     category: "Music",
-    description: "Grabs and sends you the Song that is playing at the Moment",
+    description: "Grabs and sends you the song that is currently playing.",
     args: false,
     usage: "",
     userPerms: [],
@@ -28,7 +28,7 @@ module.exports = {
         const total = song.duration;
         const current = player.position;
 
-        const dmbut = new ButtonBuilder().setLabel("Check Your DM").setStyle(ButtonStyle.Link).setURL(`https://discord.com/users/${client.id}`)
+        const dmbut = new ButtonBuilder().setLabel("Check Your DMs").setStyle(ButtonStyle.Link).setURL(`https://discord.com/users/${client.id}`)
         const row = new ActionRowBuilder().addComponents(dmbut)
 
         let dm = new EmbedBuilder()

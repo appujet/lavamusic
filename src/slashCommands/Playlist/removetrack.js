@@ -3,20 +3,20 @@ const db = require("../../schema/playlist");
 
 module.exports = {
     name: "removetrack",
-    description: "Remove a track from your saved Playlists.",
+    description: "Remove a track from your saved playlist.",
     player: false,
     inVoiceChannel: false,
     sameVoiceChannel: false,
     options: [
         {
             name: "name",
-            description: "Playlist Name",
+            description: "Playlist name.",
             required: true,
             type: ApplicationCommandOptionType.String
         },
         {
             name: "number",
-            description: "Song Number",
+            description: "Song number.",
             required: true,
             type: ApplicationCommandOptionType.String
         }
@@ -42,11 +42,11 @@ module.exports = {
         }
         const Options = interaction.options.getString("number");
         if (!Options || isNaN(Options)) {
-            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You didn't enter a track number (the Track you want to remove (ID OF IT))\nSee all your Tracks: ${prefix}info ${Name}`)] });
+            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You didn't enter a valid track number (ID of track to remove)\nSee all your tracks: ${prefix}info ${Name}`)] });
         }
         let tracks = data.Playlist;
         if (Number(Options) >= tracks.length || Number(Options) < 0) {
-            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Your provided track number is out of Range (\`0\` - ${tracks.length - 1})\nSee all your Tracks: \`${prefix}info\` showdetails ${Name}`)] });
+            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Your provided track number is out of range (\`0\` - ${tracks.length - 1})\nSee all your tracks: \`${prefix}info\` showdetails ${Name}`)] });
 
         }
         await db.updateOne({

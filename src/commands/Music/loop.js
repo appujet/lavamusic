@@ -4,7 +4,7 @@ module.exports = {
     name: "loop",
     aliases: ['l'],
     category: "Music",
-    description: "Toggle music loop",
+    description: "Toggles loop mode.",
     args: false,
     usage: "",
     userPerms: [],
@@ -31,7 +31,7 @@ module.exports = {
             let thing = new EmbedBuilder()
                 .setColor(message.client.embedColor)
                 .setTimestamp()
-                .setDescription(`${emojiloop} Loop queue is now **${queueRepeat}**`)
+                .setDescription(`${emojiloop} Loop queue is now **${queueRepeat}**.`)
             return message.reply({ embeds: [thing] });
         }
 
@@ -40,7 +40,7 @@ module.exports = {
         let thing = new EmbedBuilder()
             .setColor(message.client.embedColor)
             .setTimestamp()
-            .setDescription(`${emojiloop} Loop track is now **${trackRepeat}**`)
+            .setDescription(`${emojiloop} Loop track is now **${trackRepeat}**.`)
         return message.reply({ embeds: [thing] });
     }
 };

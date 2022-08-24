@@ -2,7 +2,7 @@ const { EmbedBuilder, CommandInteraction, ButtonStyle, Client, ButtonBuilder, Ac
 
 module.exports = {
     name: "invite",
-    description: "Get my invite link",
+    description: "Get the bot's invite link.",
 
     /**
      * 

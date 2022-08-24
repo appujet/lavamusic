@@ -3,14 +3,14 @@ const db = require("../../schema/playlist");
 
 module.exports = {
     name: "savequeue",
-    description: "Save current playing queue in your playlist.",
+    description: "Save the current queue to your playlist.",
     player: true,
     inVoiceChannel: true,
     sameVoiceChannel: true,
     options: [
         {
             name: "name",
-            description: "Playlist Name",
+            description: "Playlist name.",
             required: true,
             type: ApplicationCommandOptionType.String
         }
@@ -32,15 +32,15 @@ module.exports = {
         if (!player.queue.current) {
             let thing = new EmbedBuilder()
                 .setColor("Red")
-                .setDescription(`Currently No Music Is Playing.`);
+                .setDescription(`There is no music playing.`);
             return interaction.editReply({ embeds: [thing] });
         }
 
         if (!data) {
-            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] })
+            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name.`)] })
         }
         if (data.length == 0) {
-            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] });
+            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name.`)] });
         }
 
         const song = player.queue.current;
@@ -76,7 +76,7 @@ module.exports = {
 
             });
         const embed = new EmbedBuilder()
-            .setDescription(`**Added** \`${playlist.length - oldSong.length}\`song in \`${Name}\``)
+            .setDescription(`**Added** \`${playlist.length - oldSong.length}\`song(s) in \`${Name}\``)
             .setColor(client.embedColor)
         return interaction.editReply({ embeds: [embed] })
 

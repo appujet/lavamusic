@@ -4,7 +4,7 @@ const db = require("../../schema/setup");
 module.exports = {
     name: "setup",
     category: "Config",
-    description: "Set custom Music channel",
+    description: "Sets the music command channel.",
     args: false,
     usage: "",
     aliases: [],
@@ -15,14 +15,14 @@ module.exports = {
         try {
             let data = await db.findOne({ Guild: message.guildId });
             if (args.length) {
-                if (!data) return await message.reply({ content: `This server doesn't have any song request channel setup to use this sub command.` });
+                if (!data) return await message.reply({ content: `This server doesn't have a song request channel setup to use this sub command.` });
                 if (["clear", "delete", "reset"].includes(args[0])) {
                     await data.delete();
-                    return await message.reply('Successfully deleted all the setup data.');
+                    return await message.reply('Successfully deleted all setup data.');
 
-                } else return await message.reply('Please provide a valid  command.');
+                } else return await message.reply('Please provide a valid command.');
             } else {
-                if (data) return await message.reply('Music setup is already finished in this server.');
+                if (data) return await message.reply('Setup has already been completed in this server.');
 
                 const parentChannel = await message.guild.channels.create({
                     name: `${client.user.username} Music Zone`,
@@ -108,7 +108,7 @@ module.exports = {
                 let player = client.manager.get(message.guildId);
                 if (player) disabled = false;
 
-                const title = player && player.queue && player.queue.current ? `Now playing` : "Nothing is playing right now";
+                const title = player && player.queue && player.queue.current ? `Now Playing` : "Nothing is playing right now";
                 const desc = player && player.queue && player.queue.current ? `[${player.queue.current.title}](${player.queue.current.uri})` : null;
                 const footer = {
                     text: player && player.queue && player.queue.current ? `Requested by ${player.queue.current.requester.username}` : null,

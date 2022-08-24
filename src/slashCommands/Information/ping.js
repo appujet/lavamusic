@@ -2,7 +2,7 @@ const { EmbedBuilder, CommandInteraction, Client } = require("discord.js")
 
 module.exports = {
     name: "ping",
-    description: "Return websocket ping",
+    description: "Displays the bot's ping.",
     /**
      * 
      * @param {Client} client 
@@ -13,7 +13,7 @@ module.exports = {
         await interaction.deferReply({
             ephemeral: false
         });
-        await interaction.editReply({ content: "Pining..." }).then(async () => {
+        await interaction.editReply({ content: "Pinging..." }).then(async () => {
             const ping = Date.now() - interaction.createdAt;
             const api_ping = client.ws.ping;
 

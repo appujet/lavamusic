@@ -4,10 +4,10 @@ const db = require("../../schema/dj");
 module.exports = {
     name: "removedj",
     category: "Config",
-    description: "Remove Dj Role",
+    description: "Removes the DJ role.",
     args: false,
     usage: "",
-    aliases: ["romdj"],
+    aliases: ["romdj", "rdj", "rmdj"],
     userPerms: ['ManageGuild'],
     owner: false,
     execute: async (message, args, client, prefix) => {
@@ -15,8 +15,8 @@ module.exports = {
         let data = await db.findOne({ Guild: message.guild.id });
         if (data) {
             await data.delete()
-            return message.reply({ embeds: [new EmbedBuilder().setDescription(`Successfully removed all DJ Roles.`).setColor(client.embedColor)] })
-        } else return message.reply({ embeds: [new EmbedBuilder().setDescription(`You don't have any DJ setup in this Guild!`).setColor(client.embedColor)] })
+            return message.reply({ embeds: [new EmbedBuilder().setDescription(`Successfully removed all DJ roles.`).setColor(client.embedColor)] })
+        } else return message.reply({ embeds: [new EmbedBuilder().setDescription(`You don't have any DJ roles setup in this guild!`).setColor(client.embedColor)] })
 
     }
 }

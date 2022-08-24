@@ -6,7 +6,7 @@ module.exports = {
   	name: "seek",
   	aliases: [],
   	category: "Music",
-  	description: "Seek the currently playing song",
+  	description: "Seek the currently playing song.",
   	args: true,
     usage: "<10s || 10m || 10h>",
     userPerms: [],
@@ -54,7 +54,7 @@ module.exports = {
         } else {
             let thing = new EmbedBuilder()
                 .setColor("Red")
-                .setDescription(`Seek duration exceeds Song duration.\nSong duration: \`${convertTime(duration)}\``);
+                .setDescription(`Seek duration exceeds song duration.\nSong duration: \`${convertTime(duration)}\``);
             return message.reply({embeds: [thing]});
         }
 	

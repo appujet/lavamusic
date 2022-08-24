@@ -5,7 +5,7 @@ module.exports = {
     name: "removetrack",
     aliases: ["plremovet"],
     category: "Playlist",
-    description: "Removetrack from your saved Playlists.",
+    description: "Remove a track from your saved playlist.",
     args: true,
     usage: "<playlist name> <track number>",
     userPerms: [],
@@ -26,11 +26,11 @@ module.exports = {
         }
         const Options = args[1];
         if (!Options || isNaN(Options)) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`You didn't entered track number (the Track you want to remove (ID OF IT))\nSee all your Tracks: ${prefix}info ${Name}`)] });
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`You didn't enter a valid track number (ID of track to remove)\nTo see all your tracks: ${prefix}info ${Name}`)] });
         }
         let tracks = data.Playlist;
         if (Number(Options) >= tracks.length || Number(Options) < 0) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`Your provided track number is out of Range (\`0\` - ${tracks.length - 1})\nSee all your Tracks: \`${prefix}info\` showdetails ${Name}`)] });
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`Your provided track number is out of range (\`0\` - ${tracks.length - 1})\nTo see all your tracks: \`${prefix}info\` showdetails ${Name}`)] });
 
         }
         await db.updateOne({

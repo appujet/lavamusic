@@ -3,9 +3,9 @@ const db = require("../../schema/playlist");
 
 module.exports = {
     name: "load",
-    aliases: ["plload"],
+    aliases: ["plload", "plplay"],
     category: "Playlist",
-    description: "Play the saved Playlist.",
+    description: "Play the saved playlist.",
     args: true,
     usage: "<playlist name>",
     userPerms: [],
@@ -35,7 +35,7 @@ module.exports = {
         let name = Name;
 
         if (!data) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`Playlist not found. Please enter the correct playlist name\n\nDo ${prefix}list to see your Playlists`)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`Playlist not found. Please enter the correct playlist name.\n\nDo ${prefix}list to see your playlists.`)] })
         }
         if (!player) return;
         let count = 0;

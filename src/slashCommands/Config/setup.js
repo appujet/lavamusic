@@ -3,19 +3,19 @@ const db = require("../../schema/setup");
 
 module.exports = {
     name: "setupmusic",
-    description: "Set Song request channel",
+    description: "Sets the music command channel.",
     default_userPerms: ['Administrator'],
     default_member_permissions: ['ManageGuild'],
     options: [
         {
             name: "set",
-            description: "To setup the song request channel setup.",
+            description: "Setup the song request channel.",
             type: ApplicationCommandOptionType.Subcommand
 
         },
         {
             name: "delete",
-            description: "To delete the song request channel setup.",
+            description: "Delete the song request channel.",
             type: ApplicationCommandOptionType.Subcommand
         }
     ],
@@ -25,7 +25,7 @@ module.exports = {
         await interaction.deferReply();
         let data = await db.findOne({ Guild: interaction.guildId });
         if (interaction.options.getSubcommand() === "set") {
-            if (data) return await interaction.reply(`Music setup is already finished in this server.`);
+            if (data) return await interaction.reply(`Setup has already been completed in this server.`);
             const parent = await interaction.guild.channels.create({
                 name: `${client.user.username} Music Zone`, 
                 type: ChannelType.GuildCategory,
@@ -150,7 +150,7 @@ module.exports = {
                 embeds: [new EmbedBuilder().setColor(client.embedColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created.**\n\nChannel: ${textChannel}\n\nNote: Deleting the template embed in there may cause this setup to stop working. (Please don't delete it.)*`).setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL() })]
             });
         } else if (interaction.options.getSubcommand() === "delete") {
-            if (!data) return await interaction.reply(`This server doesn't have any song request channel setup to use this sub command.`);
+            if (!data) return await interaction.reply(`This server doesn't have a song request channel setup to use this sub command.`);
             await data.delete();
             return await interaction.editReply(`Successfully deleted all the setup data.`);
         }

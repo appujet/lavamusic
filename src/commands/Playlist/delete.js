@@ -26,7 +26,7 @@ module.exports = {
         await data.delete();
         const embed = new EmbedBuilder()
             .setColor(client.embedColor)
-            .setDescription(`Successfully deleted ${Name} playlist`)
+            .setDescription(`Successfully deleted ${Name} playlist.`)
         return message.channel.send({ embeds: [embed] })
     }
 }

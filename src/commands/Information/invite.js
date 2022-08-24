@@ -4,13 +4,12 @@ module.exports = {
   name: "invite",
   category: "Information",
   aliases: ["addme"],
-  description: "invite LavaMusic",
+  description: "Get the bot's invite link.",
   args: false,
   usage: "",
   userPerms: [],
   owner: false,
   execute: async (message, args, client, prefix) => {
-
 
     const row = new ActionRowBuilder()
       .addComponents(

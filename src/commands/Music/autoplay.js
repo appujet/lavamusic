@@ -4,7 +4,7 @@ module.exports = {
   name: "autoplay",
   aliases: ["ap"],
   category: "Music",
-  description: "Toggle music autoplay",
+  description: "Toggle music autoplay.",
   args: false,
   usage: "",
   userPerms: [],
@@ -13,6 +13,7 @@ module.exports = {
   inVoiceChannel: true,
   sameVoiceChannel: true,
   execute: async (message, args, client, prefix) => {
+
     const player = client.manager.get(message.guild.id);
 
     const autoplay = player.get("autoplay");
@@ -21,7 +22,7 @@ module.exports = {
     
     if (!player.queue.current)
       return message.reply({
-        content: `Please start a song before doing this action`,
+        content: `Please play a song before using this command.`,
       });
     
     if (autoplay === false) {
@@ -35,7 +36,7 @@ module.exports = {
       let thing = new EmbedBuilder()
         .setColor(client.embedColor)
         .setTimestamp()
-        .setDescription(`${emojireplay} Autoplay is now **enabled**`);
+        .setDescription(`${emojireplay} Autoplay is now **enabled**.`);
       return message.channel.send({ embeds: [thing] });
     } else {
       player.set("autoplay", false);
@@ -43,7 +44,7 @@ module.exports = {
       let thing = new EmbedBuilder()
         .setColor(client.embedColor)
         .setTimestamp()
-        .setDescription(`${emojireplay} Autoplay is now **disabled**`);
+        .setDescription(`${emojireplay} Autoplay is now **disabled**.`);
 
       return message.channel.send({ embeds: [thing] });
     }

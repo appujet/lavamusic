@@ -11,7 +11,7 @@ module.exports = {
     options: [
         {
             name: "name",
-            description: "Playlist Name",
+            description: "Playlist name.",
             required: true,
             type: ApplicationCommandOptionType.String
         }
@@ -40,7 +40,7 @@ module.exports = {
         await data.delete();
         const embed = new EmbedBuilder()
             .setColor(client.embedColor)
-            .setDescription(`Successfully deleted ${Name} playlist`)
+            .setDescription(`Successfully deleted ${Name} playlist.`)
         return interaction.editReply({ embeds: [embed] })
     }
 }

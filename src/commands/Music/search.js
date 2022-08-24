@@ -3,10 +3,10 @@ const { convertTime } = require("../../utils/convert");
 
 module.exports = {
     name: "search",
-    description: "search for a song from youtube",
+    description: "Search for a song on YouTube.",
     category: "Music",
     aliases: [],
-    usage: [`serach Never gonna give you up`],
+    usage: [`<song>`],
     args: true,
     userPrems: [],
     owner: false,
@@ -60,7 +60,7 @@ module.exports = {
              const results = s.tracks.slice(0, 5).map(x => `• ${index++} | [${x.title}](${x.uri}) \`${convertTime(x.duration)}\``)
                     .join("\n");
                     const searched = new EmbedBuilder()
-                        .setTitle("Select the track that you want")
+                        .setTitle("Select the track that you want.")
                         .setColor(client.embedColor)
                         .setDescription(results);
 

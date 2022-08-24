@@ -3,7 +3,7 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = {
   	name: "stop",
     category: "Music",
-    description: "Stops the music",
+    description: "Stops the music.",
     args: false,
     usage: "",
     userPerms: [],
@@ -36,7 +36,7 @@ module.exports = {
 		    let thing = new EmbedBuilder()
             .setColor(client.embedColor)
             .setTimestamp()
-            .setDescription(`${emojistop} Stopped the music`)
+            .setDescription(`${emojistop} Stopped the music.`)
         message.reply({embeds: [thing]});
 	
   	}

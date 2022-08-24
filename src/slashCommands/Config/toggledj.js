@@ -3,7 +3,7 @@ const db = require("../../schema/dj");
 
 module.exports = {
   name: "toggledj",
-  description: "Toggle DJ mode",
+  description: "Toggles DJ mode.",
   userPrems: ["MangeGuild"],
   owner: false,
 
@@ -14,7 +14,7 @@ module.exports = {
       return interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setDescription(`You don't have any DJ setup in this Guild!`)
+            .setDescription(`You don't have a DJ role setup in this guild!`)
             .setColor(client.embedColor),
         ],
       });
@@ -27,7 +27,7 @@ module.exports = {
       await interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setDescription(`Enabled DJ Mode.`)
+            .setDescription(`Enabled DJ mode.`)
             .setColor(client.embedColor),
         ],
       });
@@ -35,7 +35,7 @@ module.exports = {
       return await interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setDescription(`Disabled DJ Mode.`)
+            .setDescription(`Disabled DJ mode.`)
             .setColor(client.embedColor),
         ],
       });
