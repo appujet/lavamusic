@@ -3,7 +3,7 @@ module.exports = {
     category: 'Owner',
     aliases: ['rd'],
     description: 'Reload Command',
-    args: ture,
+    args: true,
     usage: "<string>",
     userPerms: [],
     owner: true,
