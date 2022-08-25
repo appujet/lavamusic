@@ -37,14 +37,14 @@ module.exports = {
         });
 
         if (player && player.state !== "CONNECTED") player.connect();
-        let length = data.PlaylistName;
-        let name = Name;
         
         if (!data) {
             return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist not found. Please enter the correct playlist name`)] })
         }
         if (!player) return;
 
+        let length = data.PlaylistName;
+        let name = Name;
         let count = 0;
         const m = await interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Adding ${length} track(s) from your playlist **${Name}** to the queue.`)] })
         for (const track of data.Playlist) {
