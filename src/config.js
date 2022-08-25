@@ -17,10 +17,9 @@ module.exports = {
     },
     nodes: [
         {
-            host: process.env.NODE_HOST || "localhost",
-            identifier: process.env.NODE_ID || "local",
+            host: process.env.NODE_HOST || "54.37.6.86",
             port: parseInt(process.env.NODE_PORT || "80"),
-            password: process.env.NODE_PASSWORD || "coders",
+            password: process.env.NODE_PASSWORD || "Blacky#9125",
             secure: parseBoolean(process.env.NODE_SECURE || "false"),
 
         }
