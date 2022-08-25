@@ -16,7 +16,7 @@ module.exports = {
         });
   const embed = new EmbedBuilder()
     .setTitle(`${client.user.username} Help`)
-    .setDescription(`Hey**<@${message.author.id}>**, I'm <@${client.user.id}>!\n\nA Discord music bot with many awesome features with support for many sources!\n\n\`🎵\`•Music\n\`🗒️\`•Information\n\`💽\`•Playlists\n\`⚙️\`•Config\n\n*Choose an category below button to see commands.*\n\n`)
+    .setDescription(`Hey**<@${interaction.member.user.id}>**, I'm <@${client.user.id}>!\n\nA Discord music bot with many awesome features with support for many sources!\n\n\`🎵\`•Music\n\`🗒️\`•Information\n\`💽\`•Playlists\n\`⚙️\`•Config\n\n*Choose an category below button to see commands.*\n\n`)
     .setThumbnail(client.user.displayAvatarURL())
     .setColor(client.embedColor)
     .setTimestamp()
@@ -41,7 +41,7 @@ module.exports = {
       filter: (b) => {
       if(b.user.id === interaction.member.user.id) return true;
        else {
-     b.reply({ ephemeral: true, content: `Only **${message.author.tag}** can use this button, run the command again to use the help menu.`}); return false;
+     b.reply({ ephemeral: true, content: `Only **${interaction.member.user.username}** can use this button, run the command again to use the help menu.`}); return false;
            };
       },
       time : 60000,
