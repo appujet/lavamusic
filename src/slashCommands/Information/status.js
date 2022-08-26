@@ -1,34 +1,42 @@
-
-const { EmbedBuilder, version, CommandInteraction, Client } = require("discord.js");
+const {
+  EmbedBuilder,
+  version,
+  CommandInteraction,
+  Client,
+} = require("discord.js");
 const moment = require("moment");
 require("moment-duration-format");
-const os = require('os')
-const si = require('systeminformation');
+const os = require("os");
+const si = require("systeminformation");
 
 module.exports = {
-    name: "status",
-    description: "Displays bot status.",
-    run: async (client, interaction) => {
+  name: "status",
+  description: "Displays bot status.",
+  run: async (client, interaction) => {
+    await interaction.deferReply({
+      ephemeral: false,
+    });
 
-        await interaction.deferReply({
-            ephemeral: false
-        });
+    const duration1 = moment
+      .duration(interaction.client.uptime)
+      .format(" d [days], h [hrs], m [mins], s [secs]");
+    const cpu = await si.cpu();
+    const about = interaction.client.emoji.about;
+    let guildsCounts = await client.shard.fetchClientValues(
+      "guilds.cache.size"
+    );
+    let userCounts = await client.shard.fetchClientValues("users.cache.size");
 
-        const duration1 = moment.duration(interaction.client.uptime).format(" d [days], h [hrs], m [mins], s [secs]");
-        const cpu = await si.cpu();
-        const about = interaction.client.emoji.about;
-        let ccount = client.channels.cache.size;
-        let scount = client.guilds.cache.size;
-        let mcount = 0;
-        client.guilds.cache.forEach((guild) => { mcount += guild.memberCount })
-        const embed = new EmbedBuilder()
-            .setColor(interaction.client.embedColor)
-            .setThumbnail(interaction.client.user.displayAvatarURL())
-            .setDescription(`${about} **Status**
+    const embed = new EmbedBuilder()
+      .setColor(interaction.client.embedColor)
+      .setThumbnail(interaction.client.user.displayAvatarURL())
+      .setDescription(`${about} **Status**
                 **= STATISTICS =**
-                **• Servers** : ${scount}
-                **• Channels** : ${ccount}
-                **• Users** : ${mcount}
+                **• Servers** : ${guildsCounts.reduce(
+                  (x, count) => x + count,
+                  0
+                )}
+                  **• Users** : ${userCounts.reduce((x, count) => x + count, 0)}
                 **• Discord.js** : v${version}
                 **• Node** : ${process.version}
                 **= SYSTEM =**
@@ -39,12 +47,23 @@ module.exports = {
                 > **• Model** : ${os.cpus()[0].model} 
                 > **• Speed** : ${os.cpus()[0].speed} MHz
                 **• MEMORY** :
-                > **• Total Memory** : ${(os.totalmem() / 1024 / 1024).toFixed(2)}mb
-                > **• Free Memory** : ${(os.freemem() / 1024 / 1024).toFixed(2)}mb
-                > **• Heap Total** : ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)}mb
-                > **• Heap Usage** : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}mb
+                > **• Total Memory** : ${(os.totalmem() / 1024 / 1024).toFixed(
+                  2
+                )}mb
+                > **• Free Memory** : ${(os.freemem() / 1024 / 1024).toFixed(
+                  2
+                )}mb
+                > **• Heap Total** : ${(
+                  process.memoryUsage().heapTotal /
+                  1024 /
+                  1024
+                ).toFixed(2)}mb
+                > **• Heap Usage** : ${(
+                  process.memoryUsage().heapUsed /
+                  1024 /
+                  1024
+                ).toFixed(2)}mb
             `);
-        interaction.followUp({ embeds: [embed] });
-    }
-}
-
+    interaction.followUp({ embeds: [embed] });
+  },
+};

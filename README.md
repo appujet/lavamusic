@@ -161,7 +161,7 @@ After cloning, run
 npm install
 ```
 
-- Start the bot with `node src/index.js`
+- Start the bot with `node src/sharder.js`
 
 to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing _much_ easier.
 
@@ -207,6 +207,18 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
       "secure": false
 ```
 
+## ⚙️ SHARDS
+
+- edit in `sharder.js`
+
+```js
+  respawn: true,
+  autoSpawn: true,
+  token: token,
+  totalShards: 1,
+  shardList: "auto",
+```
+
 - Create an application.yml file in your working directory and copy the [example](https://github.com/freyacodes/Lavalink/blob/master/LavalinkServer/application.yml.example) into the created file and edit it with your configuration.
 - Run the jar file by running `java -jar Lavalink.jar` in a Terminal window.
 
@@ -244,7 +256,7 @@ By donating, you will help me to maintain this Project!
 
 ## 🔐 License
 
-Distributed under the  Apache-2.0 license License. See [`LICENSE`](https://github.com/brblacky/lavamusic/blob/master/LICENSE) for more information.
+Distributed under the Apache-2.0 license License. See [`LICENSE`](https://github.com/brblacky/lavamusic/blob/master/LICENSE) for more information.
 
 [version-shield]: https://img.shields.io/github/package-json/v/brblacky/lavamusic?style=for-the-badge
 [version-url]: https://github.com/brblacky/lavamusic

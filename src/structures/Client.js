@@ -1,16 +1,20 @@
-const { Client, Collection, GatewayIntentBits, Partials } = require("discord.js");
-const mongoose = require('mongoose');
-const Lavamusic = require('./Lavamusic');
+const {
+  Client,
+  Collection,
+  GatewayIntentBits,
+  Partials,
+} = require("discord.js");
+const mongoose = require("mongoose");
+const Lavamusic = require("./Lavamusic");
 
 class MusicBot extends Client {
   constructor() {
     super({
-      shards: "auto",
       failIfNotExists: true,
       allowedMentions: {
         everyone: false,
         roles: false,
-        users: false
+        users: false,
       },
       intents: [
         GatewayIntentBits.Guilds,
@@ -20,7 +24,12 @@ class MusicBot extends Client {
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.GuildInvites,
       ],
-      partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember]
+      partials: [
+        Partials.Channel,
+        Partials.Message,
+        Partials.User,
+        Partials.GuildMember,
+      ],
     });
     this.commands = new Collection();
     this.slashCommands = new Collection();
@@ -33,11 +42,11 @@ class MusicBot extends Client {
     this.logger = require("../utils/logger.js");
     this.emoji = require("../utils/emoji.json");
     if (!this.token) this.token = this.config.token;
-    this.manager = new Lavamusic(this)
+    this.manager = new Lavamusic(this);
 
-    this.rest.on('rateLimited', (info) => {
+    this.rest.on("rateLimited", (info) => {
       this.logger.log(info, "log");
-    })
+    });
 
     /**
      *  Mongose for data base
@@ -51,23 +60,23 @@ class MusicBot extends Client {
     };
     mongoose.connect(this.config.mongourl, dbOptions);
     mongoose.Promise = global.Promise;
-    mongoose.connection.on('connected', () => {
-      this.logger.log('[DB] DATABASE CONNECTED', "ready");
+    mongoose.connection.on("connected", () => {
+      this.logger.log("[DB] DATABASE CONNECTED", "ready");
     });
-    mongoose.connection.on('err', (err) => {
+    mongoose.connection.on("err", (err) => {
       console.log(`Mongoose connection error: \n ${err.stack}`, "error");
     });
-    mongoose.connection.on('disconnected', () => {
-      console.log('Mongoose disconnected');
+    mongoose.connection.on("disconnected", () => {
+      console.log("Mongoose disconnected");
     });
 
-    ['commands', 'slashCommand', 'events'].forEach((handler) => {
+    ["commands", "slashCommand", "events"].forEach((handler) => {
       require(`../handlers/${handler}`)(this);
     });
   }
   connect() {
     return super.login(this.token);
-  };
-};
+  }
+}
 
 module.exports = MusicBot;
