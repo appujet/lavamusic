@@ -15,9 +15,8 @@ module.exports = {
   ],
 
   run: async (client, interaction, prefix) => {
-    interaction.reply({
-      content: "Successfully executed",
-      ephemeral: true,
+    await interaction.deferReply({
+      ephemeral: true
     });
 
     const commandName = interaction.options.getString("commandn_name");
@@ -28,9 +27,10 @@ module.exports = {
       );
 
     if (!command)
-      return interaction.channel.send(
-        `There is no command with name or alias \`${commandName}\`, ${interaction.author}!`
-      );
+      return await interaction.editReply({
+        content: `There is no command with name or alias \`${commandName}\`, <@${interaction.member.user.id}>!`,
+        ephemeral: true
+  });
 
     delete require.cache[
       require.resolve(
@@ -43,14 +43,19 @@ module.exports = {
         command.category
       }/${command.name}.js`);
       interaction.client.commands.set(newCommand.name, newCommand);
-      interaction.channel.send({
-        content: `Successfully reload complete **${commandName}**`,
+
+      await interaction.editReply({
+        content: `Successfully Reloaded **${commandName}** Command`,
+        ephemeral: true
       });
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error(error);
-      interaction.channel.send(
-        `There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``
-      );
+      await interaction.editReply({ 
+        content: `There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``,
+        ephemeral: true 
+      });
     }
   },
 };
