@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
-	name: "playprevious",
+	name: "previous",
 	aliases: [],
 	category: "Music",
 	description: "Go Back to Previous Played Song",
