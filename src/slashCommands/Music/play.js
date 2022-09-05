@@ -85,7 +85,7 @@ if (!player.playing && !player.paused && player.queue.totalSize === res.tracks.l
             .setColor(client.embedColor)
             .setTimestamp()
             .setThumbnail(track.displayThumbnail("3"))
-            .setDescription(`${emojiplaylist} **Added song to queue** [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]`);
+            .setDescription(`${emojiplaylist} **Added song to queue** [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``);
 
           player.play();
           return await interaction.editReply({ embeds: [searchresult] });
