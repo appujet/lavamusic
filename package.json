@@ -34,7 +34,7 @@
     "delay": "^5.0.0",
     "discord.js": "14.3.0",
     "dotenv": "^10.0.0",
-    "erela.js": "^2.3.3",
+    "erela.js": "github:brblacky/erela.js#custom",
     "erela.js-apple": "^1.2.6",
     "erela.js-deezer": "^1.0.7",
     "erela.js-facebook": "^1.0.4",
