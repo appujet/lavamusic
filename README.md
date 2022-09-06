@@ -165,14 +165,6 @@ npm install
 
 to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing _much_ easier.
 
-## Trouble shooting errors.
-Shows an error (`there was an error while searching: Unexpected token � in JSON at position 0`) when you try to play any song?
-
-Do this in console
-```bash
-npm i MenuDocs/erela.js#build
-```
-
 ## Intents
 
 <p align="center">
