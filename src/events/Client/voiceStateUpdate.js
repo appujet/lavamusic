@@ -60,11 +60,6 @@ module.exports = {
           );
         client.channels.cache.get(player.textChannel).send({embeds: [emb]});
 
-        let msg2 = await client.channels.cache
-          .get(player.textChannel)
-          .send({embeds: [player.nowPlayingMessage.embeds[0]]});
-        player.setNowplayingMessage(msg2);
-
         player.pause(false);
       }
       break;
