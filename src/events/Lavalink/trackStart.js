@@ -10,24 +10,27 @@ module.exports = async (client, player, track, payload) => {
     let data = await db.findOne({ Guild: guild.id });
     if (data && data.Channel) {
         let textChannel = guild.channels.cache.get(data.Channel);
-        console.log(data.Channel+""+textChannel); 
-		if(!textChannel){
-			try{
-				textChannel=await guild.channels.fetch(data.Channel);
-		    }catch{
-			  console.log("Does the channel even exsist?");
-			  return;
+        console.log(data.Channel + "" + textChannel);
+        if (!textChannel) {
+            try {
+                
+                textChannel = await guild.channels.fetch(data.Channel);
+            } catch {
+                channel.send("Please run /setup")
+
+                console.log("Does the channel even exsit? Falling back to channel the player is made in.");
+                textChannel= channel;
+                
             }
-		}
+        }
         const id = data.Message;
-        if (channel.id === textChannel.id) 
-        {
+        if (channel.id === textChannel.id) {
             return await trackStartEventHandler(id, textChannel, player, track, client);
         } else {
             await trackStartEventHandler(id, textChannel, player, track, client);
         }
     }
-console.log(data.Channel)
+    console.log(data.Channel)
     const emojiplay = client.emoji.play;
     const volumeEmoji = client.emoji.volumehigh;
     const emojistop = client.emoji.stop;
@@ -47,9 +50,9 @@ console.log(data.Channel)
     const row = new ActionRowBuilder().addComponents(But1, But2, But3, But4, But5);
     const m = await channel.send({ embeds: [thing], components: [row] });
     await player.setNowplayingMessage(m);
-    const embed = new EmbedBuilder() 
-        .setColor(client.embedColor) 
-        .setTimestamp(); 
+    const embed = new EmbedBuilder()
+        .setColor(client.embedColor)
+        .setTimestamp();
     const collector = m.createMessageComponentCollector({
         filter: (b) => {
             if (b.guild.members.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId) return true;
@@ -57,7 +60,7 @@ console.log(data.Channel)
                 b.reply({ content: `You are not connected to ${b.guild.members.me.voice.channel.toString()} to use this buttons.`, ephemeral: true });
                 return false;
             }
-        }, 
+        },
         time: track.duration,
     });
     collector.on("collect", async (i) => {
@@ -69,7 +72,7 @@ console.log(data.Channel)
                 return collector.stop();
             }
             let amount = Number(player.volume) - 10;
-            await player.setVolume(amount); 
+            await player.setVolume(amount);
             i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`${volumeEmoji} The current volume is: **${amount}**`)] }).then((msg) => {
                 setTimeout(() => {
                     msg.delete();
@@ -78,21 +81,21 @@ console.log(data.Channel)
         } else if (i.customId === "stop") {
             if (!player) {
                 return collector.stop();
-            } 
-            await player.stop(); 
-            await player.queue.clear(); 
+            }
+            await player.stop();
+            await player.queue.clear();
             i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`${emojistop} Stopped the music`)] }).then((msg) => {
                 setTimeout(() => {
                     msg.delete();
                 }, 10000);
-            }); 
+            });
             return collector.stop();
         } else if (i.customId === "pause") {
             if (!player) {
                 return collector.stop();
-            } 
+            }
             player.pause(!player.paused);
-            const Text = player.paused ? `${emojipause} **Paused**` : `${emojiresume} **Resume**`; 
+            const Text = player.paused ? `${emojipause} **Paused**` : `${emojiresume} **Resume**`;
             i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`${Text} \n[${player.queue.current.title}](${player.queue.current.uri})`)] }).then((msg) => {
                 setTimeout(() => {
                     msg.delete();
@@ -102,7 +105,7 @@ console.log(data.Channel)
             if (!player) {
                 return collector.stop();
             }
- 
+
             await player.stop();
             i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`${emojiskip} **Skipped**\n[${player.queue.current.title}](${player.queue.current.uri})`)] }).then(
                 (msg) => {
@@ -124,13 +127,13 @@ console.log(data.Channel)
                     setTimeout(() => {
                         msg.delete();
                     }, 10000);
-                }); 
-            await player.setVolume(amount); 
+                });
+            await player.setVolume(amount);
             i.editReply({ embeds: [embed.setAuthor({ name: i.member.user.tag, iconURL: i.member.user.displayAvatarURL() }).setDescription(`${volumeEmoji} The current volume is: **${amount}**`)] }).then((msg) => {
                 setTimeout(() => {
                     msg.delete();
                 }, 10000);
-            }); 
+            });
             return;
         }
     });
