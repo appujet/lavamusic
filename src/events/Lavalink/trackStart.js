@@ -9,6 +9,9 @@ module.exports = async (client, player, track, payload) => {
     if (!channel) return;
     let data = await db.findOne({ Guild: guild.id });
     if (data && data.Channel) {
+        if(!data.Channel)
+            data.Channel= channel.id;
+        
         let textChannel = guild.channels.cache.get(data.Channel);
         console.log(data.Channel + "" + textChannel);
         if (!textChannel) {
@@ -16,13 +19,15 @@ module.exports = async (client, player, track, payload) => {
                 
                 textChannel = await guild.channels.fetch(data.Channel);
             } catch {
-                channel.send("Please run /setup")
+                channel.send("Please run /setup as I am unable to find the channel");
 
                 console.log("Does the channel even exsit? Falling back to channel the player is made in.");
                 textChannel= channel;
                 
             }
         }
+
+        
         const id = data.Message;
         if (channel.id === textChannel.id) {
             return await trackStartEventHandler(id, textChannel, player, track, client);
