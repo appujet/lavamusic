@@ -25,7 +25,18 @@ module.exports = {
         content: `Please play a song before using this command.`,
       });
     
-    if (autoplay === false) {
+    if (autoplay === true) {
+
+      player.set("autoplay", false);
+      player.queue.clear();
+      let thing = new EmbedBuilder()
+        .setColor(client.embedColor)
+        .setTimestamp()
+        .setDescription(`${emojireplay} Autoplay is now **disabled**.`);
+
+      return message.channel.send({ embeds: [thing] });
+    } else {
+
       const identifier = player.queue.current.identifier;
       player.set("autoplay", true);
       player.set("requester", message.author);
@@ -37,15 +48,7 @@ module.exports = {
         .setColor(client.embedColor)
         .setTimestamp()
         .setDescription(`${emojireplay} Autoplay is now **enabled**.`);
-      return message.channel.send({ embeds: [thing] });
-    } else {
-      player.set("autoplay", false);
-      player.queue.clear();
-      let thing = new EmbedBuilder()
-        .setColor(client.embedColor)
-        .setTimestamp()
-        .setDescription(`${emojireplay} Autoplay is now **disabled**.`);
-
+    
       return message.channel.send({ embeds: [thing] });
     }
   },
