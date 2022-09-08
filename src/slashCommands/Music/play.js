@@ -1,4 +1,5 @@
-const { CommandInteraction, Client, EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require("discord.js");
+const { CommandInteraction, EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require("discord.js");
+const MusicBot = require("../../structures/Client");
 const { convertTime } = require('../../utils/convert.js');
 module.exports = {
   name: "play",
@@ -11,12 +12,13 @@ module.exports = {
       name: "input",
       description: "Song name or URL to play.",
       required: true,
-      type: ApplicationCommandOptionType.String
+      type: ApplicationCommandOptionType.String,
+      autocomplete: true
     }
   ],
 
   /**
-   * @param {Client} client
+   * @param {MusicBot} client
    * @param {CommandInteraction} interaction
    */
 
@@ -28,8 +30,7 @@ module.exports = {
     const { channel } = interaction.member.voice;
     if (!interaction.guild.members.cache.get(client.user.id).permissionsIn(channel).has(PermissionsBitField.resolve(['Speak', 'Connect']))) return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`I don't have enough permissions connect your VC! Please give me permission to \`CONNECT\` or \`SPEAK\`.`)] });
 
-    const emojiaddsong = client.emoji.addsong;
-    const emojiplaylist = client.emoji.playlist;
+    const { playlist } = client.emoji
     let search = interaction.options.getString("input");
     let res;
 
@@ -63,7 +64,7 @@ module.exports = {
         const trackload = new EmbedBuilder()
           .setColor(client.embedColor)
           .setTimestamp()
-          .setDescription(`${emojiplaylist} **Added song to queue** [${res.tracks[0].title}](${res.tracks[0].uri}) - \`[${convertTime(res.tracks[0].duration)}]\``);
+          .setDescription(`${playlist} **Added song to queue** [${res.tracks[0].title}](${res.tracks[0].uri}) - \`[${convertTime(res.tracks[0].duration)}]\``);
         return await interaction.editReply({ embeds: [trackload] });
       case "PLAYLIST_LOADED":
         player.queue.add(res.tracks);
@@ -71,7 +72,7 @@ module.exports = {
         const playlistloadds = new EmbedBuilder()
           .setColor(client.embedColor)
           .setTimestamp()
-          .setDescription(`${emojiplaylist} **Playlist added to queue** [${res.playlist.name}](${search}) - \`[${convertTime(res.playlist.duration)}]\``);
+          .setDescription(`${playlist} **Playlist added to queue** [${res.playlist.name}](${search}) - \`[${convertTime(res.playlist.duration)}]\``);
 
 if (!player.playing && !player.paused && player.queue.totalSize === res.tracks.length)await player.play();
        
@@ -85,7 +86,7 @@ if (!player.playing && !player.paused && player.queue.totalSize === res.tracks.l
             .setColor(client.embedColor)
             .setTimestamp()
             .setThumbnail(track.displayThumbnail("3"))
-            .setDescription(`${emojiplaylist} **Added song to queue** [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``);
+            .setDescription(`${playlist} **Added song to queue** [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``);
 
           player.play();
           return await interaction.editReply({ embeds: [searchresult] });
@@ -95,7 +96,7 @@ if (!player.playing && !player.paused && player.queue.totalSize === res.tracks.l
             .setColor(client.embedColor)
             .setTimestamp()
             .setThumbnail(track.displayThumbnail("3"))
-            .setDescription(`${emojiplaylist} **Added song to queue** [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``);
+            .setDescription(`${playlist} **Added song to queue** [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``);
 
           return await interaction.editReply({ embeds: [thing] });
 
