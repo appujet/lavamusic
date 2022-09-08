@@ -39,19 +39,22 @@ module.exports = {
               focused.value,
               interaction.user
             );
-            /**
-             * @type {Track[]}
-             */
-            const sliced = result.tracks.slice(0, 5).sort();
 
-            await interaction.respond(
-              sliced.length !== 0
-                ? sliced.map((track) => ({
-                    name: track.title,
-                    value: track.uri,
-                  }))
-                : []
-            );
+            if (result.loadType === "TRACK_LOADED" || "SEARCH_RESULT") {
+              /**
+               * @type {Track[]}
+               */
+              const sliced = result.tracks.slice(0, 5).sort();
+
+              await interaction.respond(
+                sliced.map((track) => ({
+                  name: track.title,
+                  value: track.uri,
+                }))
+              );
+            } else if (result.loadType === "LOAD_FAILED" || "NO_MATCHES") {
+              await interaction.respond([]);
+            }
           }
           break;
       }
