@@ -52,7 +52,7 @@ module.exports = {
                   value:
                     track.identifier ?? focused.value.length >= 100
                       ? focused.name
-                      : focused.value,
+                      : focused.value
                 }))
               );
             } else if (result.loadType === "LOAD_FAILED" || "NO_MATCHES")

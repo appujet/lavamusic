@@ -22,7 +22,7 @@ module.exports = {
     const emojireplay = client.emoji.autoplay;
     
     if (!player.queue.current)
-      return interaction.reply({
+      return interaction.editReply({
         content: `Please play a song before using this command.`,
       });
     

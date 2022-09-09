@@ -240,7 +240,7 @@ class Lavamusic extends Manager {
         new facebook(),
       ],
       autoPlay: true,
-      defaultSearchPlatform : "youtube music",
+      //defaultSearchPlatform : "youtube music",
       send: (id, payload) => this._sendPayload(id, payload)
     });
 
