@@ -40,7 +40,11 @@ module.exports = {
               interaction.user
             );
 
-            if (result.loadType === "TRACK_LOADED" || "SEARCH_RESULT") {
+            if (
+              result.loadType === "TRACK_LOADED" ||
+              "SEARCH_RESULT" ||
+              "PLAYLIST_LOADED"
+            ) {
               /**
                * @type {Track[]}
                */
@@ -49,12 +53,14 @@ module.exports = {
               await interaction.respond(
                 sliced.map((track) => ({
                   name: track.title,
-                  value: track.uri,
+                  value:
+                    track.identifier ?? focused.value.length >= 100
+                      ? focused.name
+                      : focused.value,
                 }))
               );
-            } else if (result.loadType === "LOAD_FAILED" || "NO_MATCHES") {
-              await interaction.respond([]);
-            }
+            } else if (result.loadType === "LOAD_FAILED" || "NO_MATCHES")
+              return;
           }
           break;
       }
