@@ -149,7 +149,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
             return await db.findOneAndUpdate({ Guild: channel.guildId }, { Message: m.id });
         } else {
 
-            let embed2 = new EmbedBuilder().setColor(message.client.embedColor).setDescription(`${emojiplay} **Started Playing** - [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue.current.requester.username}`, iconURL: player.queue.current.requester.displayAvatarURL({ dynamic: true }) });
+            let embed2 = new EmbedBuilder().setColor(message.client.embedColor).setDescription(`${emojiplay} **Started Playing** - [${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${player.queue?.current.requester?.username ?? "Autoplay"}`, iconURL: player.queue.current.requester.displayAvatarURL({ dynamic: true }) });
 
             await message.edit({
                 content: "__**Join a voice channel and queue songs by name/url.**__\n",
