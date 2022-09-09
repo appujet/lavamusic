@@ -40,11 +40,7 @@ module.exports = {
               interaction.user
             );
 
-            if (
-              result.loadType === "TRACK_LOADED" ||
-              "SEARCH_RESULT" ||
-              "PLAYLIST_LOADED"
-            ) {
+            if (result.loadType === "TRACK_LOADED" || "SEARCH_RESULT") {
               /**
                * @type {Track[]}
                */
