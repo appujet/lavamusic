@@ -46,13 +46,29 @@ module.exports = {
                */
               const sliced = result.tracks.slice(0, 5).sort();
 
+              if (
+                focused.value.match(
+                  /(?:https:\/\/open\.spotify\.com\/|spotify:)(?:.+)?(track|playlist|artist|episode|show|album)[\/:]([A-Za-z0-9]+)/ ||
+                    /^(?:https?:\/\/|)?(?:www\.)?deezer\.com\/(?:\w{2}\/)?(track|album|playlist)\/(\d+)/ ||
+                    /(?:https:\/\/music\.apple\.com\/)(?:\w{2}\/)?(track|album|playlist)/g ||
+                    /(http(s|):\/\/music\.apple\.com\/..\/.....\/.*\/([0-9]){1,})\?i=([0-9]){1,}/gim ||
+                    /(?:https?:\/\/)?(?:www.|web.|m.)?(facebook|fb).(com|watch)\/(?:video.php\?v=\d+|(\S+)|photo.php\?v=\d+|\?v=\d+)|\S+\/videos\/((\S+)\/(\d+)|(\d+))\/?/g
+                )
+              ) {
+                await interaction.respond(
+                  sliced.map((track) => ({
+                    name: track.title,
+                    value: focused.value,
+                  }))
+                );
+
+                return;
+              }
+
               await interaction.respond(
                 sliced.map((track) => ({
                   name: track.title,
-                  value:
-                    track.identifier ?? focused.value.length >= 100
-                      ? focused.name
-                      : focused.value
+                  value: track.uri,
                 }))
               );
             } else if (result.loadType === "LOAD_FAILED" || "NO_MATCHES")
