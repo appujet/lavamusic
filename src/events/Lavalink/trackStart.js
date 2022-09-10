@@ -7,7 +7,6 @@ const {
 const { convertTime } = require("../../utils/convert.js");
 const { trackStartEventHandler } = require("../../utils/functions");
 const db = require("../../schema/setup");
-
 module.exports = async (client, player, track, payload) => {
   let guild = client.guilds.cache.get(player.guild);
   if (!guild) return;
@@ -15,7 +14,23 @@ module.exports = async (client, player, track, payload) => {
   if (!channel) return;
   let data = await db.findOne({ Guild: guild.id });
   if (data && data.Channel) {
+    if (!data.Channel) data.Channel = channel.id;
+
     let textChannel = guild.channels.cache.get(data.Channel);
+    console.log(data.Channel + "" + textChannel);
+    if (!textChannel) {
+      try {
+        textChannel = await guild.channels.fetch(data.Channel);
+      } catch {
+        channel.send("Please run /setup as I am unable to find the channel");
+
+        console.log(
+          "Does the channel even exsit? Falling back to channel the player is made in."
+        );
+        textChannel = channel;
+      }
+    }
+
     const id = data.Message;
     if (channel.id === textChannel.id) {
       return await trackStartEventHandler(
@@ -29,6 +44,7 @@ module.exports = async (client, player, track, payload) => {
       await trackStartEventHandler(id, textChannel, player, track, client);
     }
   }
+  console.log(data.Channel);
   const emojiplay = client.emoji.play;
   const volumeEmoji = client.emoji.volumehigh;
   const emojistop = client.emoji.stop;
@@ -41,34 +57,31 @@ module.exports = async (client, player, track, payload) => {
         track.uri
       }) - \`[${convertTime(track.duration)}]\``
     )
-    .setThumbnail(track.thumbnail ?? (await client.manager.getMetaThumbnail(track.uri)))
+    .setThumbnail(
+      track.thumbnail ?? (await client.manager.getMetaThumbnail(track.uri))
+    )
     .setColor(client.embedColor)
     .setTimestamp();
   const But1 = new ButtonBuilder()
     .setCustomId("vdown")
     .setEmoji({ name: "🔉" })
     .setStyle(ButtonStyle.Secondary);
-
   const But2 = new ButtonBuilder()
     .setCustomId("stop")
     .setEmoji({ name: "⏹️" })
     .setStyle(ButtonStyle.Secondary);
-
   const But3 = new ButtonBuilder()
     .setCustomId("pause")
     .setEmoji({ name: "⏸️" })
     .setStyle(ButtonStyle.Secondary);
-
   const But4 = new ButtonBuilder()
     .setCustomId("skip")
     .setEmoji({ name: "⏭️" })
     .setStyle(ButtonStyle.Secondary);
-
   const But5 = new ButtonBuilder()
     .setCustomId("vup")
     .setEmoji({ name: "🔊" })
     .setStyle(ButtonStyle.Secondary);
-
   const row = new ActionRowBuilder().addComponents(
     But1,
     But2,
@@ -76,10 +89,8 @@ module.exports = async (client, player, track, payload) => {
     But4,
     But5
   );
-
   const m = await channel.send({ embeds: [thing], components: [row] });
   await player.setNowplayingMessage(m);
-
   const embed = new EmbedBuilder().setColor(client.embedColor).setTimestamp();
   const collector = m.createMessageComponentCollector({
     filter: (b) => {
@@ -173,6 +184,7 @@ module.exports = async (client, player, track, payload) => {
       if (!player) {
         return collector.stop();
       }
+
       await player.stop();
       i.editReply({
         embeds: [
