@@ -13,7 +13,7 @@ module.exports = async (client, player, track, payload) => {
   let channel = guild.channels.cache.get(player.textChannel);
   if (!channel) return;
   let data = await db.findOne({ Guild: guild.id });
-  if (data && data.Channel) {
+  if (data) {
     if (!data.Channel) data.Channel = channel.id;
 
     let textChannel = guild.channels.cache.get(data.Channel);
@@ -23,10 +23,6 @@ module.exports = async (client, player, track, payload) => {
         textChannel = await guild.channels.fetch(data.Channel);
       } catch {
         channel.send("Please run /setup as I am unable to find the channel");
-
-        console.log(
-          "Does the channel even exsit? Falling back to channel the player is made in."
-        );
         textChannel = channel;
       }
     }
@@ -44,7 +40,6 @@ module.exports = async (client, player, track, payload) => {
       await trackStartEventHandler(id, textChannel, player, track, client);
     }
   }
-  console.log(data.Channel);
   const emojiplay = client.emoji.play;
   const volumeEmoji = client.emoji.volumehigh;
   const emojistop = client.emoji.stop;
