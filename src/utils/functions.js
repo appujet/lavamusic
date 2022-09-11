@@ -196,7 +196,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
     if (player.queue.current === null) id = player.get("dcQ");
     id = player.queue.current;
     let icon = id.identifier
-      ? `https://img.youtube.com/vi/${player.queue.current.identifier}/maxresdefault.jpg`
+      ? `https://img.youtube.com/vi/${id.identifier}/maxresdefault.jpg`
       : client.config.links.img;
 
     let message;
