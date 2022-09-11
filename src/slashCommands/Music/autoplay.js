@@ -32,7 +32,7 @@ module.exports = {
         .setColor(client.embedColor)
         .setTimestamp()
         .setDescription(`${emojireplay} Autoplay is now **disabled**.`);
-      return interaction.channel.send({ embeds: [thing] });
+      return interaction.editReply({ embeds: [thing] });
     } else {
       const identifier = player.queue.current.identifier;
       player.set("autoplay", true);
@@ -48,7 +48,7 @@ module.exports = {
         .setTimestamp()
         .setDescription(`${emojireplay} Autoplay is now **enabled**.`);
 
-      return interaction.channel.send({ embeds: [thing] });
+      return interaction.editReply({ embeds: [thing] });
     }
   },
 };
