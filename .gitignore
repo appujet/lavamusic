@@ -1,6 +1,6 @@
 node_modules
 .vscode
 package-lock.json
-config.js
 .env
 yarn.lock
+/src/config.js
