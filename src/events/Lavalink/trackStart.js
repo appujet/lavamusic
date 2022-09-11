@@ -199,7 +199,7 @@ module.exports = async (client, player, track, payload) => {
           msg.delete();
         }, 10000);
       });
-      if (track.length === 1) {
+      if (player.queue.length === 1) {
         return collector.stop();
       }
     } else if (i.customId === "vup") {
