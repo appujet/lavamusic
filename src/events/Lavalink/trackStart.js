@@ -46,19 +46,16 @@ module.exports = async (client, player, track, payload) => {
   const emojipause = client.emoji.pause;
   const emojiresume = client.emoji.resume;
   const emojiskip = client.emoji.skip;
+  const queue = player.get("dcQ");
   const thing = new EmbedBuilder()
     .setDescription(
-      `${emojiplay} **Started Playing**\n [${
-        track.title ?? player.queue.current.title
-      }](${track.uri ?? player.queue.current.uri}) - \`[${convertTime(
-        track.duration ?? player.queue.current.duration
-      )}]\``
+      `${emojiplay} **Started Playing**\n [${track?.title ?? queue.title}](${
+        track?.uri ?? queue.uri
+      }) - \`[${convertTime(track?.duration ?? queue.duration)}]\``
     )
     .setThumbnail(
-      track.thumbnail ??
-        (await client.manager.getMetaThumbnail(
-          track.uri ?? player.queue.current.uri
-        ))
+      track?.thumbnail ??
+        (await client.manager.getMetaThumbnail(track?.uri ?? queue.uri))
     )
     .setColor(client.embedColor)
     .setTimestamp();
@@ -107,7 +104,7 @@ module.exports = async (client, player, track, payload) => {
         return false;
       }
     },
-    time: track.duration,
+    time: track?.duration ?? queue.duration,
   });
   collector.on("collect", async (i) => {
     await i.deferReply({

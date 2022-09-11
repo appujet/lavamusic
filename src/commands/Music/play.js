@@ -73,10 +73,14 @@ module.exports = {
         selfDeafen: true,
         volume: 80,
       });
+      player.connect();
 
+      player.queue.shift();
+      player.set("dcQ", current);
       player.queue.add(current);
 
-      if (!player.playing && !player.paused) await player.play();
+      if (!player.playing && !player.paused && !player.queue.length)
+        await player.play();
       return;
     }
 
