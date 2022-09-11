@@ -92,9 +92,9 @@ module.exports = {
       });
       player.connect();
 
-      player.queue.shift();
+      const data = await player.search(current.uri, interaction.user);
       player.set("dcQ", current);
-      player.queue.add(current);
+      player.queue.add(data.tracks[0]);
 
       if (!player.playing && !player.paused && !player.queue.length)
         await player.play();
