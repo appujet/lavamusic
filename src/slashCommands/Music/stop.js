@@ -1,4 +1,4 @@
-const { EmbedBuilder, CommandInteraction, Client } = require("discord.js")
+const { EmbedBuilder, CommandInteraction, Client } = require("discord.js");
 
 module.exports = {
   name: "stop",
@@ -10,14 +10,14 @@ module.exports = {
   sameVoiceChannel: true,
 
   /**
-   * 
-   * @param {Client} client 
-   * @param {CommandInteraction} interaction 
+   *
+   * @param {Client} client
+   * @param {CommandInteraction} interaction
    */
 
   run: async (client, interaction) => {
     await interaction.deferReply({
-      ephemeral: false
+      ephemeral: false,
     });
 
     const player = interaction.client.manager.get(interaction.guildId);
@@ -28,21 +28,19 @@ module.exports = {
       return interaction.editReply({ embeds: [thing] });
     }
 
-    const autoplay = player.get("autoplay")
-    if (autoplay === true) {
+    const autoplay = player.get("autoplay");
+    if (autoplay) {
       player.set("autoplay", false);
     }
 
-    player.stop();
-    player.queue.clear();
+    player.destroy();
 
     const emojistop = client.emoji.stop;
 
     let thing = new EmbedBuilder()
       .setColor(client.embedColor)
       .setTimestamp()
-      .setDescription(`${emojistop} Stopped the music.`)
+      .setDescription(`${emojistop} Stopped the music.`);
     return interaction.editReply({ embeds: [thing] });
-
-  }
+  },
 };

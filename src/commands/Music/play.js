@@ -1,5 +1,6 @@
 const { EmbedBuilder, PermissionsBitField } = require("discord.js");
 const { convertTime } = require("../../utils/convert.js");
+const { Player } = require("erela.js");
 
 module.exports = {
   name: "play",
@@ -48,13 +49,28 @@ module.exports = {
     const emojiaddsong = message.client.emoji.addsong;
     const emojiplaylist = message.client.emoji.playlist;
 
-    const player = client.manager.create({
-      guild: message.guild.id,
-      voiceChannel: message.member.voice.channel.id,
-      textChannel: message.channel.id,
-      selfDeafen: true,
-      volume: 80,
-    });
+    /**
+     * @type {Player}
+     */
+    let player = client.manager.get(message.guild.id);
+
+    if (!player)
+      player = client.manager.create({
+        guild: message.guild.id,
+        voiceChannel: message.member.voice.channel.id,
+        textChannel: message.channel.id,
+        selfDeafen: true,
+        volume: 80,
+      });
+
+    if (player.voiceChannel === null) {
+      player.setVoiceChannel(channel.id);
+      player.connect();
+      if (!player.playing && player.paused) {
+        player.pause(false);
+        await player.play();
+      }
+    }
 
     if (player.state != "CONNECTED") await player.connect();
     const search = args.join(" ");

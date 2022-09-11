@@ -66,13 +66,28 @@ module.exports = {
     let search = interaction.options.getString("input");
     let res;
 
-    let player = client.manager.create({
-      guild: interaction.guildId,
-      textChannel: interaction.channelId,
-      voiceChannel: interaction.member.voice.channelId,
-      selfDeafen: true,
-      volume: 100,
-    });
+    /**
+     * @type {Player}
+     */
+    let player = client.manager.get(message.guild.id);
+
+    if (!player)
+      player = client.manager.create({
+        guild: message.guild.id,
+        voiceChannel: message.member.voice.channel.id,
+        textChannel: message.channel.id,
+        selfDeafen: true,
+        volume: 80,
+      });
+
+    if (player.voiceChannel === null) {
+      player.setVoiceChannel(channel.id);
+      player.connect();
+      if (!player.playing && player.paused) {
+        player.pause(false);
+        await player.play();
+      }
+    }
 
     if (player.state != "CONNECTED") await player.connect();
 
