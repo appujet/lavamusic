@@ -61,6 +61,7 @@ module.exports = {
                     value: focused.value,
                   }))
                 );
+                return;
               }
               await interaction.respond(
                 sliced.map((track) => ({

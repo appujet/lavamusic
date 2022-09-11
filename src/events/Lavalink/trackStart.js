@@ -48,12 +48,17 @@ module.exports = async (client, player, track, payload) => {
   const emojiskip = client.emoji.skip;
   const thing = new EmbedBuilder()
     .setDescription(
-      `${emojiplay} **Started Playing**\n [${track.title}](${
-        track.uri
-      }) - \`[${convertTime(track.duration)}]\``
+      `${emojiplay} **Started Playing**\n [${
+        track.title ?? player.queue.current.title
+      }](${track.uri ?? player.queue.current.uri}) - \`[${convertTime(
+        track.duration ?? player.queue.current.duration
+      )}]\``
     )
     .setThumbnail(
-      track.thumbnail ?? (await client.manager.getMetaThumbnail(track.uri))
+      track.thumbnail ??
+        (await client.manager.getMetaThumbnail(
+          track.uri ?? player.queue.current.uri
+        ))
     )
     .setColor(client.embedColor)
     .setTimestamp();
