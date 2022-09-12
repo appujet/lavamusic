@@ -65,6 +65,12 @@ module.exports = {
     const { playlist } = client.emoji;
     let search = interaction.options.getString("input");
     let res;
+    const rejEmbed = new EmbedBuilder()
+      .setAuthor({ name: `Resuming paused queue` })
+      .setColor(client.embedColor)
+      .setDescription(
+        `Resuming playback because all of you left me with music to play all alone`
+      );
 
     /**
      * @type {Player}
@@ -80,44 +86,8 @@ module.exports = {
         volume: 80,
       });
 
-    if (player && player.voiceChannel === null) {
-      const current = player.queue.current;
-      player.destroy();
-      player = await client.manager.create({
-        guild: interaction.guild.id,
-        voiceChannel: interaction.member.voice.channel.id,
-        textChannel: interaction.channel.id,
-        selfDeafen: true,
-        volume: 80,
-      });
-      player.connect();
-
-      const data = await player.search(current.uri, interaction.user);
-      player.set("dcQ", current);
-      const rejEmbed = new EmbedBuilder()
-        .setAuthor({ name: `Queue Failure` })
-        .setColor(client.embedColor)
-        .setDescription(
-          `The playback was interuppted by disconnection so the new song won't be queued.`
-        );
-      if (search) await interaction.editReply({ embeds: [rejEmbed] });
-      player.queue.add(data.tracks[0]);
-
-      if (!player.playing && !player.paused && !player.queue.length)
-        await player.play();
-
-      const embed = new EmbedBuilder()
-        .setAuthor({ name: `Resuming paused queue` })
-        .setColor(client.embedColor)
-        .setDescription(
-          `Resuming playback because all of you left me with music to play all alone`
-        );
-
-      await interaction.editReply({ embeds: [embed] });
-      return;
-    }
-
     if (player.state != "CONNECTED") await player.connect();
+    const payload = client.disconnects.get(message.guild.id);
 
     try {
       res = await player.search(search, interaction.member.user);
@@ -147,7 +117,15 @@ module.exports = {
           ],
         });
       case "TRACK_LOADED":
-        player.queue.add(res.tracks[0]);
+        if (payload !== undefined) {
+          await interaction.editReply({ embeds: [rejEmbed] });
+          const payloadTrack = await player.search(payload, message.author);
+          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
+            player.queue.add(payloadTrack.tracks);
+          } else player.queue.add(payloadTrack.tracks[0]);
+        } else {
+          player.queue.add(res.tracks[0]);
+        }
         if (!player.playing && !player.paused && !player.queue.length)
           player.play();
         const trackload = new EmbedBuilder()
@@ -160,7 +138,15 @@ module.exports = {
           );
         return await interaction.editReply({ embeds: [trackload] });
       case "PLAYLIST_LOADED":
-        player.queue.add(res.tracks);
+        if (payload !== undefined) {
+          await interaction.editReply({ embeds: [rejEmbed] });
+          const payloadTrack = await player.search(payload, message.author);
+          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
+            player.queue.add(payloadTrack.tracks);
+          } else player.queue.add(payloadTrack.tracks[0]);
+        } else {
+          player.queue.add(res.tracks);
+        }
 
         const playlistloadds = new EmbedBuilder()
           .setColor(client.embedColor)
@@ -181,7 +167,15 @@ module.exports = {
         return await interaction.editReply({ embeds: [playlistloadds] });
       case "SEARCH_RESULT":
         const track = res.tracks[0];
-        player.queue.add(track);
+        if (payload !== undefined) {
+          await interaction.editReply({ embeds: [rejEmbed] });
+          const payloadTrack = await player.search(payload, message.author);
+          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
+            player.queue.add(payloadTrack.tracks);
+          } else player.queue.add(payloadTrack.tracks[0]);
+        } else {
+          player.queue.add(track);
+        }
 
         if (!player.playing && !player.paused && !player.queue.length) {
           const searchresult = new EmbedBuilder()

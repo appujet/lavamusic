@@ -63,46 +63,16 @@ module.exports = {
         volume: 80,
       });
 
-    if (player && player.voiceChannel === null) {
-      const current = player.queue.current;
-      player.destroy();
-      player = await client.manager.create({
-        guild: message.guild.id,
-        voiceChannel: message.member.voice.channel.id,
-        textChannel: message.channel.id,
-        selfDeafen: true,
-        volume: 80,
-      });
-      player.connect();
-
-      const data = await player.search(current.uri, message.author);
-      player.set("dcQ", current);
-      const rejEmbed = new EmbedBuilder()
-        .setAuthor({ name: `Queue Failure` })
-        .setColor(client.embedColor)
-        .setDescription(
-          `The playback was interuppted by disconnection so the new song won't be queued.`
-        );
-      let msg;
-      if (args) msg = await message.reply({ embeds: [rejEmbed] });
-      player.queue.add(data.tracks[0]);
-
-      if (!player.playing && !player.paused && !player.queue.length)
-        await player.play();
-
-      const embed = new EmbedBuilder()
-        .setAuthor({ name: `Resuming paused queue` })
-        .setColor(client.embedColor)
-        .setDescription(
-          `Resuming playback because all of you left me with music to play all alone`
-        );
-
-      return await msg.edit({ embeds: [embed] });
-    }
-
     if (player.state != "CONNECTED") await player.connect();
     const search = args.join(" ");
     let res;
+    const payload = client.disconnects.get(message.guild.id);
+    const rejEmbed = new EmbedBuilder()
+      .setAuthor({ name: `Resuming paused queue` })
+      .setColor(client.embedColor)
+      .setDescription(
+        `Resuming playback because all of you left me with music to play all alone`
+      );
 
     try {
       res = await player.search(search, message.author);
@@ -137,7 +107,15 @@ module.exports = {
         });
       case "TRACK_LOADED":
         var track = res.tracks[0];
-        player.queue.add(track);
+        if (payload !== undefined) {
+          await message.reply({ embeds: [rejEmbed] });
+          const payloadTrack = await player.search(payload, message.author);
+          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
+            player.queue.add(payloadTrack.tracks);
+          } else player.queue.add(payloadTrack.tracks[0]);
+        } else {
+          player.queue.add(track);
+        }
         if (!player.playing && !player.paused && !player.queue.size) {
           return player.play();
         } else {
@@ -156,7 +134,15 @@ module.exports = {
           return message.channel.send({ embeds: [thing] });
         }
       case "PLAYLIST_LOADED":
-        player.queue.add(res.tracks);
+        if (payload !== undefined) {
+          await message.reply({ embeds: [rejEmbed] });
+          const payloadTrack = await player.search(payload, message.author);
+          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
+            player.queue.add(payloadTrack.tracks);
+          } else player.queue.add(payloadTrack.tracks[0]);
+        } else {
+          player.queue.add(res.tracks);
+        }
         if (
           !player.playing &&
           !player.paused &&
@@ -176,7 +162,15 @@ module.exports = {
         return message.channel.send({ embeds: [thing] });
       case "SEARCH_RESULT":
         var track = res.tracks[0];
-        player.queue.add(track);
+        if (payload !== undefined) {
+          await message.reply({ embeds: [rejEmbed] });
+          const payloadTrack = await player.search(payload, message.author);
+          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
+            player.queue.add(payloadTrack.tracks);
+          } else player.queue.add(payloadTrack.tracks[0]);
+        } else {
+          player.queue.add(track);
+        }
         if (!player.playing && !player.paused && !player.queue.size) {
           return player.play();
         } else {

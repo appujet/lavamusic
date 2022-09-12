@@ -52,6 +52,10 @@ class MusicBot extends Client {
     this.commands = new Collection();
     this.logger = require("../utils/logger.js");
     this.emoji = require("../utils/emoji.json");
+    /**
+     * @type {Collection<string, Queue>}
+     */
+    this.disconnects = new Collection();
     if (!this.token) this.token = this.config.token;
     this.manager = new Lavamusic(this);
 
