@@ -31,6 +31,7 @@
   "dependencies": {
     "@discordjs/rest": "^1.0.0",
     "chalk": "^4.1.2",
+    "cheerio": "^1.0.0-rc.12",
     "delay": "^5.0.0",
     "discord.js": "14.3.0",
     "dotenv": "^10.0.0",

@@ -42,7 +42,7 @@ module.exports = {
       let thing = new EmbedBuilder()
         .setColor("Red")
         .setDescription("There is no music playing.");
-      return message.channel.send({ embeds: [thing] });
+      return interaction.editReply({ embeds: [thing] });
     }
     const emojiloop = client.emoji.loop;
 
