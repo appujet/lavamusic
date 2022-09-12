@@ -16,6 +16,11 @@ module.exports = {
 
   // check if the bot is active (playing, paused or empty does not matter (return otherwise)
   if (!player || player.state !== "CONNECTED") return;
+    
+  if (!newState.guild.members.cache.get(client.user.id).voice.channelId) { 
+		player.destroy();
+	 return  client.channels.cache.get(player?.textChannel).send({ embeds: [new EmbedBuilder().setDescription("Player Has been Disconnected from Voice Channnel")]})
+  }
 
   // prepreoces the data
   const stateChange = {};
