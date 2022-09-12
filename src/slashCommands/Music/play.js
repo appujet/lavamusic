@@ -80,7 +80,7 @@ module.exports = {
         volume: 80,
       });
 
-    if (player.voiceChannel === null) {
+    if (player && player.voiceChannel === null) {
       const current = player.queue.current;
       player.destroy();
       player = await client.manager.create({
@@ -94,10 +94,26 @@ module.exports = {
 
       const data = await player.search(current.uri, interaction.user);
       player.set("dcQ", current);
+      const rejEmbed = new EmbedBuilder()
+        .setAuthor({ name: `Queue Failure` })
+        .setColor(client.embedColor)
+        .setDescription(
+          `The playback was interuppted by disconnection so the new song won't be queued.`
+        );
+      if (search) await interaction.editReply({ embeds: [rejEmbed] });
       player.queue.add(data.tracks[0]);
 
       if (!player.playing && !player.paused && !player.queue.length)
         await player.play();
+
+      const embed = new EmbedBuilder()
+        .setAuthor({ name: `Resuming paused queue` })
+        .setColor(client.embedColor)
+        .setDescription(
+          `Resuming playback because all of you left me with music to play all alone`
+        );
+
+      await interaction.editReply({ embeds: [embed] });
       return;
     }
 
