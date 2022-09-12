@@ -66,14 +66,6 @@ module.exports = {
     if (player.state != "CONNECTED") await player.connect();
     const search = args.join(" ");
     let res;
-    const payload = client.disconnects.get(message.guild.id);
-    const rejEmbed = new EmbedBuilder()
-      .setAuthor({ name: `Resuming paused queue` })
-      .setColor(client.embedColor)
-      .setDescription(
-        `Resuming playback because all of you left me with music to play all alone`
-      );
-
     try {
       res = await player.search(search, message.author);
       if (!player)
@@ -107,15 +99,7 @@ module.exports = {
         });
       case "TRACK_LOADED":
         var track = res.tracks[0];
-        if (payload !== undefined) {
-          await message.reply({ embeds: [rejEmbed] });
-          const payloadTrack = await player.search(payload, message.author);
-          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
-            player.queue.add(payloadTrack.tracks);
-          } else player.queue.add(payloadTrack.tracks[0]);
-        } else {
-          player.queue.add(track);
-        }
+        player.queue.add(track);
         if (!player.playing && !player.paused && !player.queue.size) {
           return player.play();
         } else {
@@ -134,15 +118,7 @@ module.exports = {
           return message.channel.send({ embeds: [thing] });
         }
       case "PLAYLIST_LOADED":
-        if (payload !== undefined) {
-          await message.reply({ embeds: [rejEmbed] });
-          const payloadTrack = await player.search(payload, message.author);
-          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
-            player.queue.add(payloadTrack.tracks);
-          } else player.queue.add(payloadTrack.tracks[0]);
-        } else {
-          player.queue.add(res.tracks);
-        }
+        player.queue.add(res.tracks);
         if (
           !player.playing &&
           !player.paused &&
@@ -162,15 +138,7 @@ module.exports = {
         return message.channel.send({ embeds: [thing] });
       case "SEARCH_RESULT":
         var track = res.tracks[0];
-        if (payload !== undefined) {
-          await message.reply({ embeds: [rejEmbed] });
-          const payloadTrack = await player.search(payload, message.author);
-          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
-            player.queue.add(payloadTrack.tracks);
-          } else player.queue.add(payloadTrack.tracks[0]);
-        } else {
-          player.queue.add(track);
-        }
+        player.queue.add(track);
         if (!player.playing && !player.paused && !player.queue.size) {
           return player.play();
         } else {

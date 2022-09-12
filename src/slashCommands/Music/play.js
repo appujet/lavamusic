@@ -87,7 +87,6 @@ module.exports = {
       });
 
     if (player.state != "CONNECTED") await player.connect();
-    const payload = client.disconnects.get(interaction.guild.id);
 
     try {
       res = await player.search(search, interaction.member.user);
@@ -117,15 +116,7 @@ module.exports = {
           ],
         });
       case "TRACK_LOADED":
-        if (payload !== undefined) {
-          await interaction.editReply({ embeds: [rejEmbed] });
-          const payloadTrack = await player.search(payload, interaction.user);
-          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
-            player.queue.add(payloadTrack.tracks);
-          } else player.queue.add(payloadTrack.tracks[0]);
-        } else {
-          player.queue.add(res.tracks[0]);
-        }
+        player.queue.add(res.tracks[0]);
         if (!player.playing && !player.paused && !player.queue.length)
           player.play();
         const trackload = new EmbedBuilder()
@@ -138,16 +129,7 @@ module.exports = {
           );
         return await interaction.editReply({ embeds: [trackload] });
       case "PLAYLIST_LOADED":
-        if (payload !== undefined) {
-          await interaction.editReply({ embeds: [rejEmbed] });
-          const payloadTrack = await player.search(payload, interaction.user);
-          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
-            player.queue.add(payloadTrack.tracks);
-          } else player.queue.add(payloadTrack.tracks[0]);
-        } else {
-          player.queue.add(res.tracks);
-        }
-
+        player.queue.add(res.tracks);
         const playlistloadds = new EmbedBuilder()
           .setColor(client.embedColor)
           .setTimestamp()
@@ -167,16 +149,7 @@ module.exports = {
         return await interaction.editReply({ embeds: [playlistloadds] });
       case "SEARCH_RESULT":
         const track = res.tracks[0];
-        if (payload !== undefined) {
-          await interaction.editReply({ embeds: [rejEmbed] });
-          const payloadTrack = await player.search(payload, interaction.user);
-          if (payloadTrack.loadType === "PLAYLIST_LOADED") {
-            player.queue.add(payloadTrack.tracks);
-          } else player.queue.add(payloadTrack.tracks[0]);
-        } else {
-          player.queue.add(track);
-        }
-
+        player.queue.add(track);
         if (!player.playing && !player.paused && !player.queue.length) {
           const searchresult = new EmbedBuilder()
             .setColor(client.embedColor)
