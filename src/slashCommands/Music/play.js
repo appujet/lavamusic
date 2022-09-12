@@ -87,7 +87,7 @@ module.exports = {
       });
 
     if (player.state != "CONNECTED") await player.connect();
-    const payload = client.disconnects.get(message.guild.id);
+    const payload = client.disconnects.get(interaction.guild.id);
 
     try {
       res = await player.search(search, interaction.member.user);
