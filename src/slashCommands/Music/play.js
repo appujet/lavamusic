@@ -119,7 +119,7 @@ module.exports = {
       case "TRACK_LOADED":
         if (payload !== undefined) {
           await interaction.editReply({ embeds: [rejEmbed] });
-          const payloadTrack = await player.search(payload, message.author);
+          const payloadTrack = await player.search(payload, interaction.user);
           if (payloadTrack.loadType === "PLAYLIST_LOADED") {
             player.queue.add(payloadTrack.tracks);
           } else player.queue.add(payloadTrack.tracks[0]);
@@ -140,7 +140,7 @@ module.exports = {
       case "PLAYLIST_LOADED":
         if (payload !== undefined) {
           await interaction.editReply({ embeds: [rejEmbed] });
-          const payloadTrack = await player.search(payload, message.author);
+          const payloadTrack = await player.search(payload, interaction.user);
           if (payloadTrack.loadType === "PLAYLIST_LOADED") {
             player.queue.add(payloadTrack.tracks);
           } else player.queue.add(payloadTrack.tracks[0]);
@@ -169,7 +169,7 @@ module.exports = {
         const track = res.tracks[0];
         if (payload !== undefined) {
           await interaction.editReply({ embeds: [rejEmbed] });
-          const payloadTrack = await player.search(payload, message.author);
+          const payloadTrack = await player.search(payload, interaction.user);
           if (payloadTrack.loadType === "PLAYLIST_LOADED") {
             player.queue.add(payloadTrack.tracks);
           } else player.queue.add(payloadTrack.tracks[0]);
