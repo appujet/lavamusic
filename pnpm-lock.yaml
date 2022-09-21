@@ -18,7 +18,7 @@ specifiers:
   mongoose: ^6.0.12
   ms: ^2.1.3
   node-fetch: 2.6.7
-  node-superfetch: ^0.2.3
+  node-superfetch: ^0.3.0
   systeminformation: ^5.9.13
 
 dependencies:
@@ -39,7 +39,7 @@ dependencies:
   mongoose: 6.4.4
   ms: 2.1.3
   node-fetch: 2.6.7
-  node-superfetch: 0.2.3
+  node-superfetch: 0.3.0
   systeminformation: 5.12.1
 
 packages:
@@ -581,14 +581,11 @@ packages:
       whatwg-url: 5.0.0
     dev: false
 
-  /node-superfetch/0.2.3:
-    resolution: {integrity: sha512-xOqifvw/3N+tIeeC80/TNJXkoxDZm8JWc7/0VBkJ86ttQTlJvoicuVaeJlKKHYRlmC2O6ygNIhNPwLYX4bxqdA==}
-    engines: {node: '>=8'}
+  /node-superfetch/0.3.0:
+    resolution: {integrity: sha512-LZ8riqsTC3g6NhkViQVCl2fXoGwBT/M1e8OEqeQ6sZpYxn5TNtOpfeeXUD6QWnSFYcncflUh8eG4PK74eyUhhA==}
+    engines: {node: '>=18'}
     dependencies:
       form-data: 4.0.0
-      node-fetch: 2.6.7
-    transitivePeerDependencies:
-      - encoding
     dev: false
 
   /nth-check/2.1.1:
