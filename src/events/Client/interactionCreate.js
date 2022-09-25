@@ -109,7 +109,7 @@ module.exports = {
           embed.setDescription(
             `You don't have **\`${
               command.userPerms
-            }\`** permission in ${interaction.channel.toStrinf()} to execute this **\`${
+            }\`** permission in ${interaction.channel.toString()} to execute this **\`${
               command.name
             }\`** command.`
           );

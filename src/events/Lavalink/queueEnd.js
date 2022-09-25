@@ -30,5 +30,12 @@ module.exports = async (client, player) => {
 		.setDescription(`Enjoying music with me? Consider me by **Inviting**[Click Here](${invite})`)
 	channel.send({ embeds: [thing] }).then(msg => { setTimeout(() => { msg.delete() }, 5000) });
 	
-	player.destroy();
+    if (!player.twentyFourSeven) {
+        
+    
+        await player.destroy();
+      } else {
+        
+        await player.stop();
+     }
 }
