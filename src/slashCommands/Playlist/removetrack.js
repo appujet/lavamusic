@@ -27,7 +27,7 @@ module.exports = {
      * @param {CommandInteraction} interaction
      */
 
-    run: async (client, interaction) => {
+  run: async (client, interaction, prefix) => {
 
         await interaction.deferReply({});
 
