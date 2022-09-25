@@ -10,7 +10,7 @@ const db = require("../../schema/dj");
 module.exports = {
   name: "adddj",
   description: "Sets the DJ role.",
-  userPrems: ["MangeGuild"],
+  userPrems: ["ManageGuild"],
   options: [
     {
       name: "dj",

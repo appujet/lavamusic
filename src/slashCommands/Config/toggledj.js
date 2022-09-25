@@ -4,7 +4,7 @@ const db = require("../../schema/dj");
 module.exports = {
   name: "toggledj",
   description: "Toggles DJ mode.",
-  userPrems: ["MangeGuild"],
+  userPrems: ["ManageGuild"],
   owner: false,
 
   run: async (client, interaction) => {

@@ -9,7 +9,7 @@ const MusicBot = require("../../structures/Client.js");
 module.exports = {
   name: "setprefix",
   description: "Sets a custom prefix.",
-  userPrems: ["MangeGuild"],
+  userPrems: ["ManageGuild"],
   default_member_permissions: ["ManageGuild"],
   options: [
     {
