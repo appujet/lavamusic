@@ -2,6 +2,7 @@ const {
   CommandInteraction,
   InteractionType,
   PermissionFlagsBits,
+  PermissionsBitField,
   EmbedBuilder,
 } = require("discord.js");
 const { SearchResult, Track } = require("erela.js");

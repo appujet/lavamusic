@@ -5,7 +5,7 @@ const db = require("../../schema/dj");
 module.exports = {
   name: "removedj",
   description: "Removes the DJ role.",
-  userPrems: ["MangeGuild"],
+  userPrems: ["ManageGuild"],
   owner: false,
 
   /**
