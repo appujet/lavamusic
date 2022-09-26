@@ -6,7 +6,7 @@ specifiers:
   cheerio: ^1.0.0-rc.12
   delay: ^5.0.0
   discord.js: 14.5.0
-  dotenv: ^10.0.0
+  dotenv: ^16.0.0
   erela.js: github:MenuDocs/erela.js#build
   erela.js-apple: ^1.2.6
   erela.js-deezer: ^1.0.7
@@ -27,7 +27,7 @@ dependencies:
   cheerio: 1.0.0-rc.12
   delay: 5.0.0
   discord.js: 14.5.0
-  dotenv: 10.0.0
+  dotenv: 16.0.2
   erela.js: github.com/MenuDocs/erela.js/2e2e65cd9a3bb3bffdc9ef4f4b9953f386096f28
   erela.js-apple: 1.2.6
   erela.js-deezer: 1.0.7
@@ -341,9 +341,9 @@ packages:
       domhandler: 5.0.3
     dev: false
 
-  /dotenv/10.0.0:
-    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
-    engines: {node: '>=10'}
+  /dotenv/16.0.2:
+    resolution: {integrity: sha512-JvpYKUmzQhYoIFgK2MOnF3bciIZoItIIoryihy0rIA+H4Jy0FmgyKYAHCTN98P5ybGSJcIFbh6QKeJdtZd1qhA==}
+    engines: {node: '>=12'}
     dev: false
 
   /entities/4.3.1:
