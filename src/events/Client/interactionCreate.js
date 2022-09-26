@@ -62,13 +62,14 @@ module.exports = {
                   }))
                 );
                 return;
+              } else {
+                await interaction.respond(
+                  sliced.map((track) => ({
+                    name: track.title,
+                    value: track.uri,
+                  }))
+                );
               }
-              await interaction.respond(
-                sliced.map((track) => ({
-                  name: track.title,
-                  value: track.uri,
-                }))
-              );
             } else if (result.loadType === "LOAD_FAILED" || "NO_MATCHES")
               return;
           }
