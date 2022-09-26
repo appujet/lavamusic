@@ -22,21 +22,19 @@ module.exports = {
       .format(" d [days], h [hrs], m [mins], s [secs]");
     const cpu = await si.cpu();
     const about = interaction.client.emoji.about;
-    let guildsCounts = await client.shard.fetchClientValues(
-      "guilds.cache.size"
+    let guildsCounts = await client.guilds.fetch();
+    let userCounts = client.guilds.cache.reduce(
+      (acc, guild) => acc + guild.memberCount,
+      0
     );
-    let userCounts = await client.shard.fetchClientValues("users.cache.size");
 
     const embed = new EmbedBuilder()
       .setColor(interaction.client.embedColor)
       .setThumbnail(interaction.client.user.displayAvatarURL())
       .setDescription(`${about} **Status**
                 **= STATISTICS =**
-                **• Servers** : ${guildsCounts.reduce(
-                  (x, count) => x + count,
-                  0
-                )}
-                  **• Users** : ${userCounts.reduce((x, count) => x + count, 0)}
+                **• Servers** : ${guildsCounts.size}
+                  **• Users** : ${userCounts}
                 **• Discord.js** : v${version}
                 **• Node** : ${process.version}
                 **= SYSTEM =**
