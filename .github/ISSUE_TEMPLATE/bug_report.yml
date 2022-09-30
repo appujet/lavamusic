@@ -25,7 +25,6 @@ body:
   id: error-logs
   attributes:
     label: "Errors / Logs"
-    description: "If you have an error 500, please add error logs (located in `storage/logs`)"
     placeholder: "<!-- Paste your logs here -->"
 - type: input
   id: php-version
