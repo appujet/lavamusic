@@ -22,30 +22,29 @@ const { convertTime } = require("./convert");
 
 /**
  *
- * @param {ConnectionData[]} data
+ * @param {ConnectionData} data
  * @param {MusicBot} client Extended Client
  * @returns {boolean}
  */
 
 function AutoConnect(data, client) {
-  for (const { status, guild, voicechannel, textchannel } of data) {
-    /**
-     * @type {Player}
-     */
-    let player = client.manager.players.get(guild);
-    if (!player && status)
-      player = client.manager.create({
-        guild,
-        voiceChannel: voicechannel,
-        textChannel: textchannel,
-        selfDeafen: true,
-        selfMute: false,
-      });
+  const { status, guild, voicechannel, textchannel } = data;
+  /**
+   * @type {Player}
+   */
+  let player = client.manager.players.get(guild);
+  if (!player && status)
+    player = client.manager.create({
+      guild,
+      voiceChannel: voicechannel,
+      textChannel: textchannel,
+      selfDeafen: true,
+      selfMute: false,
+    });
 
-    player.connect();
+  player.connect();
 
-    return (player.twentyFourSeven = status);
-  }
+  return (player.twentyFourSeven = status);
 }
 
 /**
