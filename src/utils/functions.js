@@ -9,7 +9,43 @@ const {
 } = require("discord.js");
 const { Player } = require("erela.js");
 const db = require("../schema/setup");
+const MusicBot = require("../structures/Client");
 const { convertTime } = require("./convert");
+
+/**
+ * @typedef {Object} ConnectionData
+ * @property {boolean} status 24/7 Status
+ * @property {string} guild Availaible Guild
+ * @property {string} voicechannel Voice Channel
+ * @property {string} textchannel Text Channel
+ */
+
+/**
+ *
+ * @param {ConnectionData} data
+ * @param {MusicBot} client Extended Client
+ * @returns {boolean}
+ */
+
+function AutoConnect(data, client) {
+  const { status, guild, voicechannel, textchannel } = data;
+  /**
+   * @type {Player}
+   */
+  let player;
+  if (status)
+    player = client.manager.create({
+      guild,
+      voiceChannel: voicechannel,
+      textChannel: textchannel,
+      selfDeafen: true,
+      selfMute: false,
+    });
+
+  player.connect();
+
+  return (player.twentyFourSeven = status);
+}
 
 /**
  *
@@ -329,4 +365,5 @@ module.exports = {
   trackStartEventHandler,
   buttonReply,
   oops,
+  AutoConnect,
 };
