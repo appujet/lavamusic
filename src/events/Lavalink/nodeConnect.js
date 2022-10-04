@@ -23,5 +23,7 @@ module.exports = async (client, node) => {
     status: value[247],
   }));
 
-  AutoConnect(ModifyArray, client);
+  for (const obj of ModifyArray) {
+    AutoConnect(obj, client);
+  }
 };
