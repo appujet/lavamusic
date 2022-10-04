@@ -12,16 +12,16 @@ module.exports = async (client, node) => {
   client.logger.log(`Node "${node.options.identifier}" connected.`, "ready");
 
   // 247 Connection
-  const data = await Model.findOne({ 247: true });
+  const data = await Model.find({ 247: true });
 
   if (!data) return;
 
-  const ModifyObject = {
-    guild: data.Guild,
-    voicechannel: data.VoiceChannel,
-    textchannel: data.TextChannel,
-    status: data[247],
-  };
+  const ModifyArray = data.map((value) => ({
+    guild: value.Guild,
+    voicechannel: value.VoiceChannel,
+    textchannel: value.TextChannel,
+    status: value[247],
+  }));
 
-  AutoConnect(ModifyObject, client);
+  AutoConnect(ModifyArray, client);
 };
