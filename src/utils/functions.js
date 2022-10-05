@@ -8,6 +8,7 @@ const {
   ButtonStyle,
 } = require("discord.js");
 const { Player } = require("erela.js");
+const Model = require("../schema/247");
 const db = require("../schema/setup");
 const MusicBot = require("../structures/Client");
 const { convertTime } = require("./convert");
@@ -27,8 +28,16 @@ const { convertTime } = require("./convert");
  * @returns {boolean}
  */
 
-function AutoConnect(data, client) {
+async function AutoConnect(data, client) {
   const { status, guild, voicechannel, textchannel } = data;
+  const obtainedBool = await check(client, guild, textchannel, voicechannel);
+
+  if (!obtainedBool) {
+    const data = await Model.findOne({ Guild: guild, VoiceChannel: voicechannel, TextChannel: textchannel });
+    await data.delete();
+    return
+  }
+
   /**
    * @type {Player}
    */
@@ -48,6 +57,28 @@ function AutoConnect(data, client) {
 }
 
 /**
+ * @param {MusicBot} client
+ * @param {string} guild 
+ * @param {string} textchannel 
+ * @param {string} voicechannel
+ * @returns {boolean}
+ */
+async function check(client, guild, textchannel, voicechannel) {
+  let isGuild;
+  let isChannel;
+  const resolveGuild = await client.guilds.fetch(guild).catch(() => isGuild = false);
+
+  if (isGuild === false) return false;
+
+  await resolveGuild.channels.fetch(textchannel).catch(() => isChannel = false);
+  await resolveGuild.channels.fetch(voicechannel).catch(() => isChannel = false);
+
+  if (isChannel === false) return false;
+
+  return true;
+}
+
+/**
  *
  * @param {TextChannel} channel
  * @param {String} args
@@ -61,7 +92,7 @@ async function oops(channel, args) {
       embeds: [embed1],
     });
 
-    setTimeout(async () => await m.delete().catch(() => {}), 12000);
+    setTimeout(async () => await m.delete().catch(() => { }), 12000);
   } catch (e) {
     return console.error(e);
   }
@@ -83,8 +114,7 @@ function neb(embed, player, client) {
 
   return embed
     .setDescription(
-      `[${player.queue.current.title}](${
-        player.queue.current.uri
+      `[${player.queue.current.title}](${player.queue.current.uri
       }) • \`[${convertTime(player.queue.current.duration)}]\``
     )
     .setImage(icon)
@@ -115,7 +145,7 @@ async function playerhandler(query, player, message) {
         message: d.Message,
         cache: true,
       });
-  } catch (e) {}
+  } catch (e) { }
 
   if (!message.guild.members.me.voice.channel || player.state !== "CONNECTED")
     player.connect();
@@ -149,12 +179,12 @@ async function playerhandler(query, player, message) {
         ],
       })
       .then((a) =>
-        setTimeout(async () => await a.delete().catch(() => {}), 5000)
+        setTimeout(async () => await a.delete().catch(() => { }), 5000)
       )
-      .catch(() => {});
+      .catch(() => { });
 
     neb(n, player);
-    if (m) await m.edit({ embeds: [n] }).catch(() => {});
+    if (m) await m.edit({ embeds: [n] }).catch(() => { });
   } else if (s.loadType === "SEARCH_RESULT") {
     if (player.state !== "CONNECTED") player.connect();
     if (player) player.queue.add(s.tracks[0]);
@@ -178,12 +208,12 @@ async function playerhandler(query, player, message) {
         ],
       })
       .then((a) =>
-        setTimeout(async () => await a.delete().catch(() => {}), 5000)
+        setTimeout(async () => await a.delete().catch(() => { }), 5000)
       )
-      .catch(() => {});
+      .catch(() => { });
 
     neb(n, player);
-    if (m) await m.edit({ embeds: [n], files: [] }).catch(() => {});
+    if (m) await m.edit({ embeds: [n], files: [] }).catch(() => { });
   } else if (s.loadType === "TRACK_LOADED") {
     if (player.state !== "CONNECTED") player.connect();
     if (player) player.queue.add(s.tracks[0]);
@@ -207,12 +237,12 @@ async function playerhandler(query, player, message) {
         ],
       })
       .then((a) =>
-        setTimeout(async () => await a.delete().catch(() => {}), 5000)
+        setTimeout(async () => await a.delete().catch(() => { }), 5000)
       )
-      .catch(() => {});
+      .catch(() => { });
 
     neb(n, player);
-    if (m) await m.edit({ embeds: [n] }).catch(() => {});
+    if (m) await m.edit({ embeds: [n] }).catch(() => { });
   } else return await oops(message.channel, `No results found for ${query}`);
 }
 
@@ -308,15 +338,13 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
       let embed2 = new EmbedBuilder()
         .setColor(message.client.embedColor)
         .setDescription(
-          `${emojiplay} **Started Playing** - [${track.title}](${
-            track.uri
+          `${emojiplay} **Started Playing** - [${track.title}](${track.uri
           }) - \`[${convertTime(track.duration)}]\``
         )
         .setImage(icon)
         .setFooter({
-          text: `Requested by ${
-            player.queue?.current.requester?.username ?? "Autoplay"
-          }`,
+          text: `Requested by ${player.queue?.current.requester?.username ?? "Autoplay"
+            }`,
           iconURL: player.queue.current.requester.displayAvatarURL({
             dynamic: true,
           }),
@@ -355,7 +383,7 @@ async function buttonReply(int, args, client) {
 
   setTimeout(async () => {
     if (int && !int.ephemeral) {
-      await int.deleteReply().catch(() => {});
+      await int.deleteReply().catch(() => { });
     }
   }, 2000);
 }

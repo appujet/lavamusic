@@ -1,9 +1,34 @@
 const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle } = require("discord.js");
+const { Player } = require("erela.js");
+const Model = require("../../schema/247");
 const db = require("../../schema/setup");
+const MusicBot = require("../../structures/Client");
+const { AutoConnect } = require("../../utils/functions");
 
+/**
+ * 
+ * @param {MusicBot} client 
+ * @param {Player} player 
+ * @returns 
+ */
 module.exports = async (client, player) => {
 
 	client.logger.log(`Player has been destroyed in ${player.guild}`, "log");
+
+	const twentyFourSeven = await Model.findOne({ Guild: player.guild, TextChannel: player.textChannel, 247: true });
+
+	if (twentyFourSeven) {
+		const obj = {
+			guild: player.guild,
+			voicechannel: twentyFourSeven.VoiceChannel,
+			textchannel: player.textChannel,
+			status: true,
+		}
+
+		await AutoConnect(obj, client);
+
+		return;
+	}
 
 	let guild = client.guilds.cache.get(player.guild);
 	if (!guild) return;
@@ -23,8 +48,8 @@ module.exports = async (client, player) => {
 
 	if (!message) return;
 	let disabled = true;
-        if(player && player.queue && player.queue.current) disabled = false;
-		
+	if (player && player.queue && player.queue.current) disabled = false;
+
 	let embed1 = new EmbedBuilder().setColor(client.embedColor).setTitle(`Nothing playing right now in this server!`).setDescription(`[Invite](${client.config.links.invite}) - [Support Server](${client.config.links.support})`).setImage(client.config.links.img);
 
 	let pausebut = new ButtonBuilder().setCustomId(`pause_but_${guild.id}`).setEmoji({ name: "⏯️" }).setStyle(ButtonStyle.Secondary).setDisabled(false);
