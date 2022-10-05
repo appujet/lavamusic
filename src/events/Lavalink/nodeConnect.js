@@ -24,6 +24,6 @@ module.exports = async (client, node) => {
   }));
 
   for (const obj of ModifyArray) {
-    AutoConnect(obj, client);
+    await AutoConnect(obj, client);
   }
 };
