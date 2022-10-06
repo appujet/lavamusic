@@ -20,42 +20,6 @@ const { convertTime } = require("./convert");
  * @property {string} voicechannel Voice Channel
  * @property {string} textchannel Text Channel
  */
-
-/**
- *
- * @param {ConnectionData} data
- * @param {MusicBot} client Extended Client
- * @returns {boolean}
- */
-
-async function AutoConnect(data, client) {
-  const { status, guild, voicechannel, textchannel } = data;
-  const obtainedBool = await check(client, guild, textchannel, voicechannel);
-
-  if (!obtainedBool) {
-    const data = await Model.findOne({ Guild: guild, VoiceChannel: voicechannel, TextChannel: textchannel });
-    await data.delete();
-    return
-  }
-
-  /**
-   * @type {Player}
-   */
-  let player = client.manager.players.get(guild);
-  if (!player && status)
-    player = client.manager.create({
-      guild,
-      voiceChannel: voicechannel,
-      textChannel: textchannel,
-      selfDeafen: true,
-      selfMute: false,
-    });
-
-  player.connect();
-
-  return (player.twentyFourSeven = status);
-}
-
 /**
  * @param {MusicBot} client
  * @param {string} guild 
@@ -77,6 +41,49 @@ async function check(client, guild, textchannel, voicechannel) {
 
   return true;
 }
+/**
+ *
+ * @param {ConnectionData} data
+ * @param {MusicBot} client Extended Client
+ * @returns {boolean}
+ */
+
+async function AutoConnect(data, client) {
+  const { status, guild, voicechannel, textchannel } = data;
+  const obtainedBool = await check(client, guild, textchannel, voicechannel);
+
+  if (!obtainedBool) {
+    const data = await Model.findOne({ Guild: guild, VoiceChannel: voicechannel, TextChannel: textchannel });
+    
+    return
+  }
+
+  /**
+   * @type {Player}
+   */
+  let player = client.manager.players.get(guild);
+  if (!player && status)
+    player = client.manager.create({
+      guild,
+      voiceChannel: voicechannel,
+      textChannel: textchannel,
+      selfDeafen: true,
+      selfMute: false,
+    });
+
+  if(player && player.state !== "CONNECTED") player.connect();
+
+  return (player.twentyFourSeven = status);
+}
+
+/**
+ * @param {MusicBot} client
+ * @param {string} guild 
+ * @param {string} textchannel 
+ * @param {string} voicechannel
+ * @returns {boolean}
+ */
+
 
 /**
  *
