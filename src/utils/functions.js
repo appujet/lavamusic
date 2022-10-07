@@ -284,7 +284,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         .setImage(icon)
         .setFooter({
           text: `Requested by ${player.queue.current.requester.username}`,
-          iconURL: player.queue.current.requester.displayAvatarURL(),
+          iconURL: player.queue.current.requester?.displayAvatarURL({ dynamic: true }),
         });
 
       let pausebut = new ButtonBuilder()
@@ -346,7 +346,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         .setFooter({
           text: `Requested by ${player.queue?.current.requester?.username ?? "Autoplay"
             }`,
-          iconURL: player.queue.current.requester.displayAvatarURL({
+          iconURL: player.queue.current.requester?.displayAvatarURL({
             dynamic: true,
           }),
         });
