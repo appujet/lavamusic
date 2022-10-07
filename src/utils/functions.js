@@ -14,13 +14,6 @@ const MusicBot = require("../structures/Client");
 const { convertTime } = require("./convert");
 
 /**
- * @typedef {Object} ConnectionData
- * @property {boolean} status 24/7 Status
- * @property {string} guild Availaible Guild
- * @property {string} voicechannel Voice Channel
- * @property {string} textchannel Text Channel
- */
-/**
  * @param {MusicBot} client
  * @param {string} guild 
  * @param {string} textchannel 
@@ -41,6 +34,15 @@ async function check(client, guild, textchannel, voicechannel) {
 
   return true;
 }
+
+/**
+ * @typedef {Object} ConnectionData
+ * @property {boolean} status 24/7 Status
+ * @property {string} guild Availaible Guild
+ * @property {string} voicechannel Voice Channel
+ * @property {string} textchannel Text Channel
+ */
+
 /**
  *
  * @param {ConnectionData} data
@@ -54,7 +56,8 @@ async function AutoConnect(data, client) {
 
   if (!obtainedBool) {
     const data = await Model.findOne({ Guild: guild, VoiceChannel: voicechannel, TextChannel: textchannel });
-    
+    if (!data) return;
+    await data.delete();
     return
   }
 
@@ -75,15 +78,6 @@ async function AutoConnect(data, client) {
 
   return (player.twentyFourSeven = status);
 }
-
-/**
- * @param {MusicBot} client
- * @param {string} guild 
- * @param {string} textchannel 
- * @param {string} voicechannel
- * @returns {boolean}
- */
-
 
 /**
  *
@@ -290,7 +284,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         .setImage(icon)
         .setFooter({
           text: `Requested by ${player.queue.current.requester.username}`,
-          iconURL: player.queue.current.requester.displayAvatarURL(),
+          iconURL: player.queue.current.requester?.displayAvatarURL({ dynamic: true }),
         });
 
       let pausebut = new ButtonBuilder()
@@ -352,7 +346,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         .setFooter({
           text: `Requested by ${player.queue?.current.requester?.username ?? "Autoplay"
             }`,
-          iconURL: player.queue.current.requester.displayAvatarURL({
+          iconURL: player.queue.current.requester?.displayAvatarURL({
             dynamic: true,
           }),
         });
