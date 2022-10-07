@@ -270,8 +270,8 @@ class Lavamusic extends Manager {
         new facebook(),
       ],
       autoPlay: true,
-      //defaultSearchPlatform : "youtube music",
-      send: (id, payload) => this._sendPayload(id, payload),
+      defaultSearchPlatform: "youtube music",
+      send: async (id, payload) => await this._sendPayload(id, payload),
     });
 
     this.client = client;
@@ -302,10 +302,10 @@ class Lavamusic extends Manager {
    * @param {String} id
    * @param {import("erela.js").Payload} payload
    * @private
-   * @returns {void}
+   * @returns {Promise<void>}
    */
-  _sendPayload(id, payload) {
-    const guild = this.client.guilds.cache.get(id);
+  async _sendPayload(id, payload) {
+    const guild = await this.client.guilds.fetch(id);
     if (guild) return guild.shard.send(payload);
   }
   _loadEvents() {
