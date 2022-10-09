@@ -27,6 +27,12 @@ module.exports = async (client, player) => {
 
 		await AutoConnect(obj, client);
 
+		const channel = client.channels.cache.get(player.textChannel);
+
+		const { join } = client.emoji
+
+		await channel.send({ embeds: [new EmbedBuilder({ color: client.embedColor, description: `${join} 247 player recreated!` })] })
+
 		return;
 	}
 
