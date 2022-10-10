@@ -1,12 +1,12 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@discordjs/rest': ^1.0.0
+  '@discordjs/rest': ^1.2.0
   chalk: ^4.1.2
   cheerio: ^1.0.0-rc.12
   delay: ^5.0.0
-  discord.js: 14.5.0
-  dotenv: ^16.0.0
+  discord.js: 14.6.0
+  dotenv: ^16.0.3
   erela.js: github:MenuDocs/erela.js#build
   erela.js-apple: ^1.2.6
   erela.js-deezer: ^1.0.7
@@ -15,20 +15,20 @@ specifiers:
   lodash: ^4.17.21
   moment: ^2.29.4
   moment-duration-format: ^2.3.2
-  mongoose: ^6.0.12
+  mongoose: ^6.0.14
   ms: ^2.1.3
   node-fetch: 2.6.7
   node-superfetch: ^0.2.3
-  systeminformation: ^5.9.13
+  systeminformation: ^5.9.16
 
 dependencies:
-  '@discordjs/rest': 1.0.0
+  '@discordjs/rest': 1.2.0
   chalk: 4.1.2
   cheerio: 1.0.0-rc.12
   delay: 5.0.0
-  discord.js: 14.5.0
-  dotenv: 16.0.2
-  erela.js: github.com/MenuDocs/erela.js/2e2e65cd9a3bb3bffdc9ef4f4b9953f386096f28
+  discord.js: 14.6.0
+  dotenv: 16.0.3
+  erela.js: github.com/MenuDocs/erela.js/8912254c7ea30aa34a102c28fb97ef0f92d366a9
   erela.js-apple: 1.2.6
   erela.js-deezer: 1.0.7
   erela.js-facebook: 1.0.4
@@ -44,25 +44,16 @@ dependencies:
 
 packages:
 
-  /@discordjs/builders/1.2.0:
-    resolution: {integrity: sha512-ARy4BUTMU+S0ZI6605NDqfWO+qZqV2d/xfY32z3hVSsd9IaAKJBZ1ILTZLy87oIjW8+gUpQmk9Kt0ZP9bmmd8Q==}
+  /@discordjs/builders/1.3.0:
+    resolution: {integrity: sha512-Pvca6Nw8Hp+n3N+Wp17xjygXmMvggbh5ywUsOYE2Et4xkwwVRwgzxDJiMUuYapPtnYt4w/8aKlf5khc8ipLvhg==}
     engines: {node: '>=16.9.0'}
     dependencies:
-      '@sapphire/shapeshift': 3.5.1
-      discord-api-types: 0.37.10
+      '@discordjs/util': 0.1.0
+      '@sapphire/shapeshift': 3.7.0
+      discord-api-types: 0.37.12
       fast-deep-equal: 3.1.3
       ts-mixer: 6.0.1
       tslib: 2.4.0
-    dev: false
-
-  /@discordjs/collection/0.1.6:
-    resolution: {integrity: sha512-utRNxnd9kSS2qhyivo9lMlt5qgAUasH2gb7BEOn6p0efFh24gjGomHzWKMAPn2hEReOPQZCJaRKoURwRotKucQ==}
-    deprecated: no longer supported
-    dev: false
-
-  /@discordjs/collection/1.0.0:
-    resolution: {integrity: sha512-nAxDQYE5dNAzEGQ7HU20sujDsG5vLowUKCEqZkKUIlrXERZFTt/60zKUj/g4+AVCGeq+pXC5hivMaNtiC+PY5Q==}
-    engines: {node: '>=16.9.0'}
     dev: false
 
   /@discordjs/collection/1.1.0:
@@ -70,17 +61,9 @@ packages:
     engines: {node: '>=16.9.0'}
     dev: false
 
-  /@discordjs/rest/1.0.0:
-    resolution: {integrity: sha512-uDAvnE0P2a8axMdD4C51EGjvCRQ2HZk2Yxf6vHWZgIqG87D8DGKMPwmquIxrrB07MjV+rwci2ObU+mGhGP+bJg==}
+  /@discordjs/collection/1.2.0:
+    resolution: {integrity: sha512-VvrrtGb7vbfPHzbhGq9qZB5o8FOB+kfazrxdt0OtxzSkoBuw9dURMkCwWizZ00+rDpiK2HmLHBZX+y6JsG9khw==}
     engines: {node: '>=16.9.0'}
-    dependencies:
-      '@discordjs/collection': 1.0.0
-      '@sapphire/async-queue': 1.3.2
-      '@sapphire/snowflake': 3.2.2
-      discord-api-types: 0.36.2
-      file-type: 17.1.2
-      tslib: 2.4.0
-      undici: 5.7.0
     dev: false
 
   /@discordjs/rest/1.2.0:
@@ -96,9 +79,23 @@ packages:
       undici: 5.10.0
     dev: false
 
-  /@sapphire/async-queue/1.3.2:
-    resolution: {integrity: sha512-rUpMLATsoAMnlN3gecAcr9Ecnw1vG7zi5Xr+IX22YzRzi1k9PF9vKzoT8RuEJbiIszjcimu3rveqUnvwDopz8g==}
-    engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
+  /@discordjs/rest/1.3.0:
+    resolution: {integrity: sha512-U6X5J+r/MxYpPTlHFuPxXEf92aKsBaD2teBC7sWkKILIr30O8c9+XshfL7KFBCavnAqS/qE+PF9fgRilO3N44g==}
+    engines: {node: '>=16.9.0'}
+    dependencies:
+      '@discordjs/collection': 1.2.0
+      '@discordjs/util': 0.1.0
+      '@sapphire/async-queue': 1.5.0
+      '@sapphire/snowflake': 3.2.2
+      discord-api-types: 0.37.12
+      file-type: 18.0.0
+      tslib: 2.4.0
+      undici: 5.11.0
+    dev: false
+
+  /@discordjs/util/0.1.0:
+    resolution: {integrity: sha512-e7d+PaTLVQav6rOc2tojh2y6FE8S7REkqLldq1XF4soCx74XB/DIjbVbVLtBemf0nLW77ntz0v+o5DytKwFNLQ==}
+    engines: {node: '>=16.9.0'}
     dev: false
 
   /@sapphire/async-queue/1.5.0:
@@ -106,8 +103,8 @@ packages:
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dev: false
 
-  /@sapphire/shapeshift/3.5.1:
-    resolution: {integrity: sha512-7JFsW5IglyOIUQI1eE0g6h06D/Far6HqpcowRScgCiLSqTf3hhkPWCWotVTtVycnDCMYIwPeaw6IEPBomKC8pA==}
+  /@sapphire/shapeshift/3.7.0:
+    resolution: {integrity: sha512-A6vI1zJoxhjWo4grsxpBRBgk96SqSdjLX5WlzKp9H+bJbkM07mvwcbtbVAmUZHbi/OG3HLfiZ1rlw4BhH6tsBQ==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dependencies:
       fast-deep-equal: 3.1.3
@@ -192,6 +189,13 @@ packages:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
+    dev: false
+
+  /busboy/1.6.0:
+    resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
+    engines: {node: '>=10.16.0'}
+    dependencies:
+      streamsearch: 1.1.0
     dev: false
 
   /chalk/4.1.2:
@@ -286,28 +290,29 @@ packages:
     engines: {node: '>=0.10'}
     dev: false
 
-  /discord-api-types/0.36.2:
-    resolution: {integrity: sha512-TunPAvzwneK/m5fr4hxH3bMsrtI22nr9yjfHyo5NBGMjpsAauGNiGCmwoFf0oO3jSd2mZiKUvZwCKDaB166u2Q==}
-    dev: false
-
   /discord-api-types/0.37.10:
     resolution: {integrity: sha512-NvDh2Puc3wZQzQt2zLavlI5ewBnLFjI46/NJmvWIs6OC0JOkq7KcmH4s80X2+22mSQ3wUyge2mxq3cGYRT2noQ==}
     dev: false
 
-  /discord.js/14.5.0:
-    resolution: {integrity: sha512-Kd5OqdeiXe3t9eHUHCzf1r3LmKpeJJ7lKqwlWX1qdC0WfsbO2K3kucIDLfe0INnZVZaErUQ6/U6kGbTDnGgwZg==}
+  /discord-api-types/0.37.12:
+    resolution: {integrity: sha512-SMBP4V6/A9mE7shBQAiTxNWnQlYTdiKMGvc7G23neayxaTJeFYh5FviJSWUa0BTdXcph1h/jT03Nbyv5XgZkzw==}
+    dev: false
+
+  /discord.js/14.6.0:
+    resolution: {integrity: sha512-On1K7xpJZRe0KsziIaDih2ksYPhgxym/ZqV45i1f3yig4vUotikqs7qp5oXiTzQ/UTiNRCixUWFTh7vA1YBCqw==}
     engines: {node: '>=16.9.0'}
     dependencies:
-      '@discordjs/builders': 1.2.0
-      '@discordjs/collection': 1.1.0
-      '@discordjs/rest': 1.2.0
+      '@discordjs/builders': 1.3.0
+      '@discordjs/collection': 1.2.0
+      '@discordjs/rest': 1.3.0
+      '@discordjs/util': 0.1.0
       '@sapphire/snowflake': 3.2.2
       '@types/ws': 8.5.3
-      discord-api-types: 0.37.10
+      discord-api-types: 0.37.12
       fast-deep-equal: 3.1.3
       lodash.snakecase: 4.1.1
       tslib: 2.4.0
-      undici: 5.10.0
+      undici: 5.11.0
       ws: 8.9.0
     transitivePeerDependencies:
       - bufferutil
@@ -341,8 +346,8 @@ packages:
       domhandler: 5.0.3
     dev: false
 
-  /dotenv/16.0.2:
-    resolution: {integrity: sha512-JvpYKUmzQhYoIFgK2MOnF3bciIZoItIIoryihy0rIA+H4Jy0FmgyKYAHCTN98P5ybGSJcIFbh6QKeJdtZd1qhA==}
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
     dev: false
 
@@ -356,7 +361,7 @@ packages:
     dependencies:
       axios: 0.21.4
       cheerio: 1.0.0-rc.12
-      erela.js: 2.3.3
+      erela.js: 2.4.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -367,7 +372,7 @@ packages:
     resolution: {integrity: sha512-14dlDL0bhNZprGFnueqyBNzBzOAvoNK02EIjNvPtpjX0WbUOmToaVp+h+Kqev4uaIfjZ5vl3kNFvP9HpmTurAw==}
     dependencies:
       axios: 0.21.4
-      erela.js: 2.3.3
+      erela.js: 2.4.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -387,19 +392,21 @@ packages:
     resolution: {integrity: sha512-FbkdVK7OquVzyNVl4aZ3AU6RHRrHzBpORGorK5q+L26y3hB/7ze9mQ7uiOa5PsskskELRWepoluqke3U8edbmQ==}
     dependencies:
       axios: 0.20.0
-      erela.js: 2.3.3
+      erela.js: 2.4.0
     transitivePeerDependencies:
       - bufferutil
       - debug
       - utf-8-validate
     dev: false
 
-  /erela.js/2.3.3:
-    resolution: {integrity: sha512-tzowGHLSodZr2j311csFSqm9lwE6plqeULTAwPwuRX9PQbXg4Ohdy/3MTMWrltiFAMSIG/5r9GQtTUt9Mqzhhw==}
+  /erela.js/2.4.0:
+    resolution: {integrity: sha512-wLfPvfzbDZTDV0zwJYXGkjO9Q6mkXi3PNf984apdv58Ktt0cv1Zp8og3hmp7Ose4C4iwAKitHxV/yiP+pt3FRQ==}
+    engines: {node: '>=16.0.0'}
     dependencies:
-      '@discordjs/collection': 0.1.6
-      petitio: 1.4.0
-      ws: 7.5.9
+      '@discordjs/collection': 1.2.0
+      tslib: 2.4.0
+      undici: 5.11.0
+      ws: 8.9.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -407,15 +414,6 @@ packages:
 
   /fast-deep-equal/3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
-    dev: false
-
-  /file-type/17.1.2:
-    resolution: {integrity: sha512-3thBUSfa9YEUEGO/NAAiQGvjujZxZiJTF6xNwyDn6kB0NcEtwMn5ttkGG9jGwm/Nt/t8U1bpBNqyBNZCz4F4ig==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    dependencies:
-      readable-web-to-node-stream: 3.0.2
-      strtok3: 7.0.0
-      token-types: 5.0.1
     dev: false
 
   /file-type/18.0.0:
@@ -615,11 +613,6 @@ packages:
     engines: {node: '>=14.16'}
     dev: false
 
-  /petitio/1.4.0:
-    resolution: {integrity: sha512-9LaVd/5BLmbNU8Q4Ax8NezihiPt2ISNqi2vKilEchSSf+YSOXxfsLUb0SUmDskm1WkBOVTsqdyuyYI0RYKqr0Q==}
-    engines: {node: '>=12.3.0'}
-    dev: false
-
   /punycode/2.1.1:
     resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
     engines: {node: '>=6'}
@@ -677,6 +670,11 @@ packages:
       memory-pager: 1.5.0
     dev: false
     optional: true
+
+  /streamsearch/1.1.0:
+    resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
+    engines: {node: '>=10.0.0'}
+    dev: false
 
   /string_decoder/1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
@@ -738,9 +736,11 @@ packages:
     engines: {node: '>=12.18'}
     dev: false
 
-  /undici/5.7.0:
-    resolution: {integrity: sha512-ORgxwDkiPS+gK2VxE7iyVeR7JliVn5DqhZ4LgQqYLBXsuK+lwOEmnJ66dhvlpLM0tC3fC7eYF1Bti2frbw2eAA==}
+  /undici/5.11.0:
+    resolution: {integrity: sha512-oWjWJHzFet0Ow4YZBkyiJwiK5vWqEYoH7BINzJAJOLedZ++JpAlCbUktW2GQ2DS2FpKmxD/JMtWUUWl1BtghGw==}
     engines: {node: '>=12.18'}
+    dependencies:
+      busboy: 1.6.0
     dev: false
 
   /util-deprecate/1.0.2:
@@ -771,19 +771,6 @@ packages:
       webidl-conversions: 3.0.1
     dev: false
 
-  /ws/7.5.9:
-    resolution: {integrity: sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==}
-    engines: {node: '>=8.3.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: false
-
   /ws/8.9.0:
     resolution: {integrity: sha512-Ja7nszREasGaYUYCI2k4lCKIRTt+y7XuqVoHR44YpI49TtryyqbqvDMn5eqfW7e6HzTukDRIsXqzVHScqRcafg==}
     engines: {node: '>=10.0.0'}
@@ -797,15 +784,15 @@ packages:
         optional: true
     dev: false
 
-  github.com/MenuDocs/erela.js/2e2e65cd9a3bb3bffdc9ef4f4b9953f386096f28:
-    resolution: {tarball: https://codeload.github.com/MenuDocs/erela.js/tar.gz/2e2e65cd9a3bb3bffdc9ef4f4b9953f386096f28}
+  github.com/MenuDocs/erela.js/8912254c7ea30aa34a102c28fb97ef0f92d366a9:
+    resolution: {tarball: https://codeload.github.com/MenuDocs/erela.js/tar.gz/8912254c7ea30aa34a102c28fb97ef0f92d366a9}
     name: erela.js
-    version: 2.3.3
+    version: 2.4.0
     engines: {node: '>=16.0.0'}
     dependencies:
-      '@discordjs/collection': 1.1.0
+      '@discordjs/collection': 1.2.0
       tslib: 2.4.0
-      undici: 5.10.0
+      undici: 5.11.0
       ws: 8.9.0
     transitivePeerDependencies:
       - bufferutil
