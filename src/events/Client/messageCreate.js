@@ -77,7 +77,7 @@ module.exports = {
         }
 
         if (command.owner && message.author.id !== `${client.owner}`) {
-            embed.setDescription("Only <@491577179495333903> can use this command!");
+            embed.setDescription(`Only <@${client.owner}> Can Use this Command`);
             return message.channel.send({ embeds: [embed] });
         }
 
