@@ -25,11 +25,11 @@ module.exports = {
                 content: "`🏓`",
                 embeds: [new EmbedBuilder()
                     .setAuthor({ name: `Pong`, iconURL: client.user.displayAvatarURL() })
-                    .setColor(client.embedColor).setFooter({ text: `Requested by ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
+                    .setColor(client.embedColor)
                     .addFields([{ name: "Bot Latency", value: `\`\`\`ini\n[ ${ping}ms ]\n\`\`\``, inline: true }, 
                                 { name: "API Latency", value: `\`\`\`ini\n[ ${api_ping}ms ]\n\`\`\``, inline: true },
                                 { name: "Uptime", value: `\`\`\`ini\n[ ${uptime} ]\n\`\`\``, inline: true }])
-                    .setFooter({ text: `Requested by ${interaction.member.user.username}`, iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) })
+                    .setFooter({ text: `Requested by ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
                     .setTimestamp()]
             });
         })
