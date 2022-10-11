@@ -81,7 +81,7 @@ class MusicBot extends Client {
       console.log("Mongoose disconnected");
     });
 
-    ["commands", "slashCommand", "events"].forEach((handler) => {
+    ["commands", "slashCommand", "events", "errorHandler"].forEach((handler) => {
       require(`../handlers/${handler}`)(this);
     });
   }
