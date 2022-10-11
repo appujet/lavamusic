@@ -19,7 +19,7 @@ module.exports = {
 
             const ping = Date.now() - interaction.createdAt;
             const api_ping = client.ws.ping;
-            const uptime = moment.duration(message.client.uptime).format(" D[d], H[h], m[m], s[s]");
+            const uptime = moment.duration(interaction.client.uptime).format(" D[d], H[h], m[m], s[s]");
 
             await interaction.editReply({
                 content: "`🏓`",
