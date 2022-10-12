@@ -31,7 +31,7 @@ module.exports = async (client, player) => {
 
 		const { join } = client.emoji
 
-		await channel.send({ embeds: [new EmbedBuilder({ color: client.embedColor, description: `${join} 247 player recreated!` })] })
+		await channel.send({ embeds: [new EmbedBuilder({ color: client.embedColor, description: `${join} 24/7 player recreated!` })] })
 
 		return;
 	}
