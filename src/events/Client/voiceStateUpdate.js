@@ -1,6 +1,7 @@
 const Client = require("../../index");
 const { VoiceState, EmbedBuilder } = require("discord.js");
 const MusicBot = require("../../structures/Client");
+const Model = require("../../schema/247");
 /**
  *
  * @param {MusicBot} client
@@ -25,15 +26,21 @@ module.exports = {
     // check if the bot is active (playing, paused or empty does not matter (return otherwise)
     if (!player || player.state !== "CONNECTED") return;
 
+    const twentyFourSeven = await Model.findOne({ Guild: player.guild, TextChannel: player.textChannel, 247: true });
+    
     if (!newState.guild.members.cache.get(client.user.id).voice.channelId) {
       player.destroy();
-      return client.channels.cache.get(player?.textChannel).send({
-        embeds: [
-          new EmbedBuilder()
-            .setDescription("Player Has been Disconnected from Voice Channnel")
-            .setColor(client.embedColor),
-        ],
-      });
+      
+      // We shouldn't display the text if we are going to re-connect to the voice channel. Otherwise if 24/7 is disabled, then go ahead and display the text. We will still allow destroying the player to prevent any issues.
+      if (!twentyFourSeven) {
+        return client.channels.cache.get(player?.textChannel).send({
+          embeds: [
+            new EmbedBuilder()
+              .setDescription("Player has been Disconnected from Voice Channnel")
+              .setColor(client.embedColor),
+          ],
+        });
+      }
     }
 
     // prepreoces the data
