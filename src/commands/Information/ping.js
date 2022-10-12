@@ -24,7 +24,7 @@ module.exports = {
         .addFields([
           { name: "Bot Latency", value: `\`\`\`ini\n[ ${pping}ms ]\n\`\`\``, inline: true },
           { name: "API Latency", value: `\`\`\`ini\n[ ${api_ping}ms ]\n\`\`\``, inline: true },
-          { name: "Uptime", value: `\`\`\`ini\n[ ${uptime}ms ]\n\`\`\``, inline: true }
+          { name: "Uptime", value: `\`\`\`ini\n[ ${uptime} ]\n\`\`\``, inline: true }
         ])
         .setFooter({ text: `Requested by ${message.author.username}`, iconURL: message.author.avatarURL({ dynamic: true }) })
         .setTimestamp();
