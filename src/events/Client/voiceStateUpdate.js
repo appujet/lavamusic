@@ -1,7 +1,7 @@
 const Client = require("../../index");
 const { VoiceState, EmbedBuilder } = require("discord.js");
 const MusicBot = require("../../structures/Client");
-const Model = require("../schema/247");
+const Model = require("../../schema/247");
 /**
  *
  * @param {MusicBot} client
