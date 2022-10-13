@@ -28,8 +28,8 @@ module.exports = {
                     value: "night"
                 },
                 {
-                    name: "Picth",
-                    value: "picth"
+                    name: "Pitch",
+                    value: "pitch"
                 },
                 {
                     name: "Distort",
