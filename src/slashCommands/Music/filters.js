@@ -66,7 +66,7 @@ module.exports = {
             description: "Specify the filter's value",
             type: ApplicationCommandOptionType.Number,
             min_value: 0.05,
-            max_value: 8.0
+            max_value: 5.0
         }
     ],
 
@@ -119,7 +119,7 @@ module.exports = {
                 break;
             case 'pitch':
                 player.setPitch(amount);
-                thing.setDescription(`${emojiequalizer} Pitch shift has been SET (${amount}×)`);
+                thing.setDescription(`${emojiequalizer} Pitch shift has been SET (${player.getPitch()}×)`);
                 break;
             case 'distort':
                 player.setDistortion(true);
@@ -135,11 +135,11 @@ module.exports = {
                 break;
             case 'speed':
                 player.setSpeed(amount);
-                thing.setDescription(`${emojiequalizer} Tempo has been SET (${amount}×)`);
+                thing.setDescription(`${emojiequalizer} Tempo has been SET (${player.getSpeed()}×)`);
                 break;
             case 'rate':
                 player.setRate(amount);
-                thing.setDescription(`${emojiequalizer} Rate has been SET (${amount}×)`);
+                thing.setDescription(`${emojiequalizer} Rate has been SET (${player.getRate()}×)`);
                 break;
             case '8d':
                 player.set8D(true);
