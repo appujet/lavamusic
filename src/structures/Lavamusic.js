@@ -83,6 +83,15 @@ Structure.extend(
         this.setTimescale(this.speed, pitch);
         return this;
       }
+      setRate(rate) {
+        if (isNaN(rate)) {
+          throw new RangeError("Player#setRate() Rate must be a number.");
+        }
+        this.rate = Math.max(Math.min(rate, 5), 0.05);
+        this.setTimescale(this.speed, this.pitch, rate);
+        return this;
+      }
+      
 
       setNightcore(nighcore) {
         if (typeof nighcore !== "boolean") {

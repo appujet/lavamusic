@@ -21,7 +21,7 @@ module.exports = {
                 },
                 {
                     name: "Bass",
-                    value: "bass",
+                    value: "bass"
                 },
                 {
                     name: "Nightcore",
@@ -52,10 +52,21 @@ module.exports = {
                     value: "speed"
                 },
                 {
+                    name: "Speed (w/o pitch correction)",
+                    value: "rate"
+                },
+                {
                     name: "Vaporwave",
                     value: "vapo"
                 }
             ]
+        },
+        {
+            name: "amount",
+            description: "Specify the filter's value",
+            type: ApplicationCommandOptionType.Number,
+            min_value: 0.05,
+            max_value: 8.0
         }
     ],
 
@@ -70,6 +81,8 @@ module.exports = {
             ephemeral: false
         });
         const filter = interaction.options.getString("filter");
+        let amount = interaction.options.getNumber("amount")
+        if(typeof amount === 'undefined' || amount === null) amount = 2; // default value
 
         const player = interaction.client.manager.get(interaction.guildId);
         if (!player.queue.current) {
@@ -87,46 +100,50 @@ module.exports = {
 
             case 'bass':
                 player.setBassboost(true);
-                thing.setDescription(`${emojiequalizer} Bass mode is ON`);
+                thing.setDescription(`${emojiequalizer} Bass EQ preset has been turned ON`);
                 break;
             case 'eq':
                 player.setEqualizer(true);
-                thing.setDescription(`${emojiequalizer} Trablebass mode is ON`);
+                thing.setDescription(`${emojiequalizer} Equalizer has been turned ON`);
                 break;
             case 'bassboost':
                 var bands = new Array(7).fill(null).map((_, i) => (
                     { band: i, gain: 0.25 }
                 ));
                 player.setEQ(...bands);
-                thing.setDescription(`${emojiequalizer} Bass Boost mode is ON`);
+                thing.setDescription(`${emojiequalizer} Bass Boost (custom EQ) has been turned ON`);
                 break;
             case 'night':
                 player.setNightcore(true);
-                thing.setDescription(`${emojiequalizer} Nightcore Equalizer mode is ON`);
+                thing.setDescription(`${emojiequalizer} Nightcore EQ preset has been turned ON`);
                 break;
             case 'pitch':
-                player.setPitch(2);
-                thing.setDescription(`${emojiequalizer} Pitch Equalizer mode is ON`);
+                player.setPitch(amount);
+                thing.setDescription(`${emojiequalizer} Pitch shift has been SET (${amount}×)`);
                 break;
             case 'distort':
                 player.setDistortion(true);
-                thing.setDescription(`${emojiequalizer} Distort Equalizer mode is ON`);
+                thing.setDescription(`${emojiequalizer} Distortion EQ preset has been turned ON`);
                 break;
             case 'vapo':
                 player.setVaporwave(true);
-                thing.setDescription(`${emojiequalizer} Vaporwave Equalizer mode is ON`);
+                thing.setDescription(`${emojiequalizer} Vaporwave EQ preset has been turned ON`);
                 break;
             case 'clear':
                 player.clearEffects();
-                thing.setDescription(`${emojiequalizer} Equalizer mode is OFF`);
+                thing.setDescription(`${emojiequalizer} Equalizer has been turned OFF`);
                 break;
             case 'speed':
-                player.setSpeed(2);
-                thing.setDescription(`${emojiequalizer} Speed mode is ON`);
+                player.setSpeed(amount);
+                thing.setDescription(`${emojiequalizer} Tempo has been SET (${amount}×)`);
+                break;
+            case 'rate':
+                player.setRate(amount);
+                thing.setDescription(`${emojiequalizer} Rate has been SET (${amount}×)`);
                 break;
             case '8d':
                 player.set8D(true);
-                thing.setDescription(`${emojiequalizer} 8D mode is ON`);
+                thing.setDescription(`${emojiequalizer} 8D mode has been turned ON`);
         }
         return interaction.editReply({ embeds: [thing] });
     }
