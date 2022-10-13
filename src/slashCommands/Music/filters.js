@@ -81,7 +81,7 @@ module.exports = {
             ephemeral: false
         });
         const filter = interaction.options.getString("filter");
-        let amount = interaction.options.getNumber("amount")
+        let amount = interaction.options.getNumber("amount");
         if(typeof amount === 'undefined' || amount === null) amount = 2; // default value
 
         const player = interaction.client.manager.get(interaction.guildId);
