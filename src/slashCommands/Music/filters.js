@@ -131,7 +131,7 @@ module.exports = {
                 break;
             case 'clear':
                 player.clearEffects();
-                thing.setDescription(`${emojiequalizer} Equalizer has been turned OFF`);
+                thing.setDescription(`${emojiequalizer} Filters have been turned OFF`);
                 break;
             case 'speed':
                 player.setSpeed(amount);

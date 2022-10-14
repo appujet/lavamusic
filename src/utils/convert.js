@@ -1,4 +1,5 @@
 module.exports = {
+  
   convertTime: function(duration) {
 
     var milliseconds = parseInt((duration % 1000) / 100),
@@ -16,6 +17,7 @@ module.exports = {
       return hours + ":" + minutes + ":" + seconds;
     }
   },
+
   convertNumber: function(number, decPlaces) {
 
     decPlaces = Math.pow(10, decPlaces);
@@ -45,6 +47,7 @@ module.exports = {
 
     return number;
   },
+
   chunk: function(arr, size) {
     const temp = [];
     for (let i = 0; i < arr.length; i += size) {
@@ -52,15 +55,15 @@ module.exports = {
     }
     return temp;
   },
+
   convertHmsToMs: function(hms) {
-    if (hms.length < 3) {
-      return hms = ((+a[0]) * 1000)
-    } else if (hms.length < 6) {
-      const a = hms.split(':')
-      return hms = (((+a[0]) * 60 + (+a[1])) * 1000)
-    } else {
-      const a = hms.split(':')
-      return hms = (((+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2])) * 1000)
+    var p = hms.split(':'),
+        s = 0, m = 1;
+
+    while (p.length > 0) {
+        s += m * parseInt(p.pop(), 10);
+        m *= 60;
     }
+    return s*1000;
   }
 						 }
