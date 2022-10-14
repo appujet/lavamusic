@@ -1,17 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
-const { convertTime } = require('../../utils/convert.js')
+const { convertTime, convertHmsToMs } = require('../../utils/convert.js')
 const ms = require('ms');
-
-function hmsToMiliseconds(str) {
-    var p = str.split(':'),
-        s = 0, m = 1;
-
-    while (p.length > 0) {
-        s += m * parseInt(p.pop(), 10);
-        m *= 60;
-    }
-    return s*1000;
-}
 
 module.exports = {
   	name: "seek",
@@ -38,7 +27,7 @@ module.exports = {
         }
 
         let time = args[0];
-        time.includes(":") || Number.isInteger(time) ? time = hmsToMiliseconds(time) : time = ms(time);
+        time.includes(":") || Number.isInteger(time) ? time = convertHmsToMs(time) : time = ms(time);
         const position = player.position;
         const duration = player.queue.current.duration;
 
