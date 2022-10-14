@@ -37,7 +37,7 @@ module.exports = {
             return message.reply({embeds: [thing]});
         }
 
-        let time = interaction.options.getString("time");
+        let time = args[0];
         time.includes(":") || Number.isInteger(time) ? time = hmsToMiliseconds(time) : time = ms(time);
         const position = player.position;
         const duration = player.queue.current.duration;
