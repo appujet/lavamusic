@@ -30,7 +30,7 @@ module.exports = {
         const but = new ButtonBuilder().setCustomId("clear_but").setLabel("Clear").setStyle(ButtonStyle.Danger);
         const but2 = new ButtonBuilder().setCustomId("bass_but").setLabel("Bass").setStyle(ButtonStyle.Primary);
         const but3 = new ButtonBuilder().setCustomId("night_but").setLabel("Nightcore").setStyle(ButtonStyle.Primary);
-        const but4 = new ButtonBuilder().setCustomId("picth_but").setLabel("Pitch").setStyle(ButtonStyle.Primary);
+        const but4 = new ButtonBuilder().setCustomId("pitch_but").setLabel("Pitch").setStyle(ButtonStyle.Primary);
         const but5 = new ButtonBuilder().setCustomId("distort_but").setLabel("Distort").setStyle(ButtonStyle.Primary);
         const but6 = new ButtonBuilder().setCustomId("eq_but").setLabel("Equalizer").setStyle(ButtonStyle.Primary);
         const but7 = new ButtonBuilder().setCustomId("8d_but").setLabel("8D").setStyle(ButtonStyle.Primary);
@@ -67,7 +67,7 @@ module.exports = {
                 await player.setNightcore(true);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
                 return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Nightcore mode is ON`)] });
-            } else if (b.customId === "picth_but") {
+            } else if (b.customId === "pitch_but") {
                 await player.setPitch(2);
                 if (m) await m.edit({ embeds: [embed], components: [row, row2] });
                 return await b.editReply({ embeds: [embed1.setDescription(`${emojiequalizer} Pitch mode is ON`)] });

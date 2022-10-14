@@ -37,6 +37,17 @@ Structure.extend(
         }
         return (this.nowPlayingMessage = message);
       }
+
+      getSpeed() {
+        return this.speed;
+      }
+      getPitch() {
+        return this.pitch;
+      }
+      getRate() {
+        return this.rate;
+      }
+
       set8D(value) {
         if (typeof value !== "boolean") {
           throw new RangeError(
@@ -67,6 +78,7 @@ Structure.extend(
 
         return this;
       }
+
       setSpeed(speed) {
         if (isNaN(speed)) {
           throw new RangeError("Player#setSpeed() Speed must be a number.");
@@ -75,12 +87,22 @@ Structure.extend(
         this.setTimescale(speed);
         return this;
       }
+
       setPitch(pitch) {
         if (isNaN(pitch)) {
           throw new RangeError("Player#setPitch() Pitch must be a number.");
         }
         this.pitch = Math.max(Math.min(pitch, 5), 0.05);
         this.setTimescale(this.speed, pitch);
+        return this;
+      }
+
+      setRate(rate) {
+        if (isNaN(rate)) {
+          throw new RangeError("Player#setRate() Rate must be a number.");
+        }
+        this.rate = Math.max(Math.min(rate, 5), 0.05);
+        this.setTimescale(this.speed, this.pitch, rate);
         return this;
       }
 
@@ -105,6 +127,7 @@ Structure.extend(
         }
         return this;
       }
+
       setVaporwave(vaporwave) {
         if (typeof vaporwave !== "boolean") {
           throw new RangeError(
@@ -126,6 +149,7 @@ Structure.extend(
         }
         return this;
       }
+
       setDistortion(distortion) {
         if (typeof distortion !== "boolean") {
           throw new RangeError(
@@ -147,6 +171,7 @@ Structure.extend(
         }
         return this;
       }
+
       setBassboost(bassboost) {
         if (typeof bassboost !== "boolean") {
           throw new RangeError(

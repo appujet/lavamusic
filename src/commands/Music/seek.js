@@ -2,13 +2,24 @@ const { EmbedBuilder } = require("discord.js");
 const { convertTime } = require('../../utils/convert.js')
 const ms = require('ms');
 
+function hmsToMiliseconds(str) {
+    var p = str.split(':'),
+        s = 0, m = 1;
+
+    while (p.length > 0) {
+        s += m * parseInt(p.pop(), 10);
+        m *= 60;
+    }
+    return s*1000;
+}
+
 module.exports = {
   	name: "seek",
   	aliases: [],
   	category: "Music",
   	description: "Seek the currently playing song.",
-  	args: true,
-    usage: "<10s || 10m || 10h>",
+    args: false,
+    usage: "<10s || 10m || 10h || HH:mm:ss || mm:ss>",
     userPerms: [],
     dj: true,
     owner: false,
@@ -26,7 +37,8 @@ module.exports = {
             return message.reply({embeds: [thing]});
         }
 
-        const time = ms(args[0])
+        let time = interaction.options.getString("time");
+        time.includes(":") || Number.isInteger(time) ? time = hmsToMiliseconds(time) : time = ms(time);
         const position = player.position;
         const duration = player.queue.current.duration;
 
@@ -54,7 +66,7 @@ module.exports = {
         } else {
             let thing = new EmbedBuilder()
                 .setColor("Red")
-                .setDescription(`Seek duration exceeds song duration.\nSong duration: \`${convertTime(duration)}\``);
+                .setDescription(`Seek duration exceeds song duration.\nRequested: \`${convertTime(time)}\`\nSong duration: \`${convertTime(duration)}\``);
             return message.reply({embeds: [thing]});
         }
 	
