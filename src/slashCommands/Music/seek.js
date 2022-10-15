@@ -13,7 +13,7 @@ module.exports = {
     options: [
         {
             name: "time",
-            description: "<10s || 10m || 10h || HH:mm:ss || mm:ss>",
+            description: "<10s || 10m || 10h || HH:mm:ss || mm:ss || mm ss>",
             required: true,
             type: ApplicationCommandOptionType.String
         }
@@ -39,7 +39,7 @@ module.exports = {
         }
 
         let time = interaction.options.getString("time");
-        time.includes(":") || Number.isInteger(time) ? time = convertHmsToMs(time) : time = ms(time);
+        /^[0-9 :.-]+$/.test(time) ? time = convertHmsToMs(time) : time = ms(time);
         const position = player.position;
         const duration = player.queue.current.duration;
 

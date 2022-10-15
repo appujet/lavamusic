@@ -1,5 +1,5 @@
 module.exports = {
-  
+
   convertTime: function(duration) {
 
     var milliseconds = parseInt((duration % 1000) / 100),
@@ -57,7 +57,7 @@ module.exports = {
   },
 
   convertHmsToMs: function(hms) {
-    var p = hms.split(':'),
+    var p = hms.trim().replace(/[. -]/g,':').split(':'),  // allow dots '.', spaces ' ' and hyphens '-' the same way as colons ':'
         s = 0, m = 1;
 
     while (p.length > 0) {

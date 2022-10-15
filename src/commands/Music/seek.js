@@ -8,7 +8,7 @@ module.exports = {
   	category: "Music",
   	description: "Seek the currently playing song.",
     args: false,
-    usage: "<10s || 10m || 10h || HH:mm:ss || mm:ss>",
+    usage: "<10s || 10m || 10h || HH:mm:ss || mm:ss || mm ss>",
     userPerms: [],
     dj: true,
     owner: false,
@@ -27,7 +27,7 @@ module.exports = {
         }
 
         let time = args[0];
-        time.includes(":") || Number.isInteger(time) ? time = convertHmsToMs(time) : time = ms(time);
+        /^[0-9 :.-]+$/.test(time) ? time = convertHmsToMs(time) : time = ms(time);
         const position = player.position;
         const duration = player.queue.current.duration;
 
