@@ -26,7 +26,7 @@ module.exports = {
             return message.reply({embeds: [thing]});
         }
 
-        let time = args[0];
+        let time = args.join(" ");
         /^[0-9 :.-]+$/.test(time) ? time = convertHmsToMs(time) : time = ms(time);
         const position = player.position;
         const duration = player.queue.current.duration;
