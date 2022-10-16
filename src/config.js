@@ -11,6 +11,7 @@ module.exports = {
     embedColor: process.env.COlOR || 0x303236, // embed colour
     logs: process.env.LOGS || "875254787191504947", // channel id for guild create and delete logs
     errorLogsChannel: process.env.errLogs || "channel_id", //error logs channel id
+    SearchPlatform: process.env.searchPlatform || "youtube music", // Sets the Search Platform. Possibilities: youtube || youtube music || soundcloud
     links: {
         img: process.env.IMG || 'https://media.discordapp.net/attachments/963097935820750878/983300268131225651/20220606_145403.png', //setup system background image 
         support: process.env.SUPPORT || 'https://discord.gg/ns8CTk9J3e', //support server invite link
