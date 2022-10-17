@@ -169,7 +169,7 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
 
 <p align="center">
   <a href="https://github.com/brblacky/lavamusic">
-    <img src="https://media.discordapp.net/attachments/848492641585725450/894114853382410260/unknown.png">
+    <img src="![image](https://user-images.githubusercontent.com/50886682/196232974-d9cfc18c-92c5-43bd-b1bc-ff1cae3df701.png)">
 
   </a>
 </p>
