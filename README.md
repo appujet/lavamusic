@@ -190,11 +190,16 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
 
 ```js
     token: process.env.TOKEN || "",  // your bot token
+    clientID: process.env.CLIENT_ID || "", // your bot client id
     prefix: process.env.PREFIX || "!", // bot prefix
-    ownerID: process.env.OWNERID || "491577179495333903", //your discord id
+    ownerID: process.env.OWNERID || "", //your discord id
+    SpotifyID: process.env.SPOTIFYID || "",
+    SpotifySecret: process.env.SPOTIFYSECRET || "",
     mongourl: process.env.MONGO_URI || "", // MongoDb URL
-    embedColor: process.env.COlOR || "#303236", // embed colour
-    logs: process.env.LOGS || "", // channel id for guild create and delete logs
+    embedColor: process.env.COlOR || 0x303236, // embed colour
+    logs: process.env.LOGS || "channel_id", // channel id for guild create and delete logs
+    errorLogsChannel: process.env.errLogs || "channel_id", //error logs channel id
+    SearchPlatform: process.env.searchPlatform || "youtube music", // Sets the Search Platform. Possibilities: youtube || youtube music || soundcloud
 ```
 
 ## 🌋 Lavalink
