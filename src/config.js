@@ -9,7 +9,7 @@ module.exports = {
     SpotifySecret: process.env.SPOTIFYSECRET || "",
     mongourl: process.env.MONGO_URI || "", // MongoDb URL
     embedColor: process.env.COlOR || 0x303236, // embed colour
-    logs: process.env.LOGS || "875254787191504947", // channel id for guild create and delete logs
+    logs: process.env.LOGS || "channel_id", // channel id for guild create and delete logs
     errorLogsChannel: process.env.errLogs || "channel_id", //error logs channel id
     SearchPlatform: process.env.searchPlatform || "youtube music", // Sets the Search Platform. Possibilities: youtube || youtube music || soundcloud
     links: {
