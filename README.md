@@ -63,10 +63,10 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 <br />
 <p align="center">
   <a href="https://github.com/brblacky/lavamusic">
-    <img src="https://media.discordapp.net/attachments/876035356460462090/912404827118641202/Screenshot_20211122-234019__01.jpg">
-    <img src="https://media.discordapp.net/attachments/876035356460462090/910856250084970518/Screenshot_20211118-170634__01.jpg">
-    <img src="https://media.discordapp.net/attachments/876035356460462090/910855739969527849/Screenshot_20211118-170456__01.jpg">
-    <img src="https://media.discordapp.net/attachments/876035356460462090/911442921738350622/Screenshot_20211120-075640__01.jpg">
+    <img src="https://user-images.githubusercontent.com/50886682/196234856-1c80302f-eb5c-4687-9b1d-1e6d365fde3f.png">
+    <img src="https://user-images.githubusercontent.com/50886682/196235575-27d0c2b2-cbe0-462b-b2b9-e04df329a4dc.png">
+    <img src="https://user-images.githubusercontent.com/50886682/196235487-9b1cb8b6-9c1d-4a8e-b000-5d1435fcd6eb.png">
+    <img src="https://user-images.githubusercontent.com/50886682/196235372-1844f0ce-3f86-45b9-9931-b225a53f3c80.png">
 
   </a>
 </p>
