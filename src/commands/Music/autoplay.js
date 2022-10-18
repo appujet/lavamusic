@@ -23,6 +23,12 @@ module.exports = {
       return message.reply({
         content: `Please play a song before using this command.`,
       });
+    
+    const uri = player.queue.current.uri;
+    if (!(uri.includes("youtube.") || uri.includes("youtu.be")))
+    return message.reply({
+      content: `Autoplay feature is currently **not available** for this source.\nSupported sources: \`YouTube\`, \`YouTube Music\``
+    });
 
     if (autoplay) {
       player.set("autoplay", false);
