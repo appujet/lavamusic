@@ -33,7 +33,11 @@ module.exports = {
       player.set("autoplay", false);
     }
 
-    player.destroy();
+    if (!player.twentyFourSeven) {
+        await player.destroy();
+    } else {
+        await player.stop();
+    }
 
     const emojistop = client.emoji.stop;
 
