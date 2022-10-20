@@ -98,7 +98,7 @@ module.exports = async (client, player, track, payload) => {
         return true;
       else {
         b.reply({
-          content: `You are not connected to ${b.guild.members.me.voice.channel.toString()} to use this buttons.`,
+          content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? 'None'}> to use this buttons.`,
           ephemeral: true,
         });
         return false;
