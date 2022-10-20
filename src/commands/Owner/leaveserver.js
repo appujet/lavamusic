@@ -1,6 +1,3 @@
-const { MessageEmbed } = require("discord.js");
-const { post } = require("node-superfetch");
-
 module.exports = {
     name: "leaveserver",
     category: "Owner",
