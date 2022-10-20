@@ -1,5 +1,5 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require("discord.js");
-const fetch = require("node-fetch");
+const { get } = require("node-superfetch");
 
 module.exports = {
   name: "lyrics",
@@ -61,14 +61,9 @@ module.exports = {
     // Lavalink api for lyrics
     let url = `https://api.darrennathanael.com/lyrics?song=${search}`;
 
-    let lyrics = await fetch(url)
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        return err.name;
-      });
-    if (!lyrics || lyrics.response !== 200 || lyrics === "FetchError") {
+    let lyrics = await get(url);
+
+    if (!lyrics || lyrics.status !== 200) {
       return interaction.editReply({
         embeds: [
           new EmbedBuilder()
@@ -80,12 +75,12 @@ module.exports = {
       });
     }
 
-    let text = lyrics.lyrics;
+    let text = lyrics.body.lyrics;
     let lyricsEmbed = new EmbedBuilder()
       .setColor(client.embedColor)
-      .setTitle(`${lyrics.full_title}`)
+      .setTitle(`${lyrics.body.full_title}`)
       .setURL(lyrics.url)
-      .setThumbnail(lyrics.thumbnail)
+      .setThumbnail(lyrics.body.thumbnail)
       .setDescription(text);
 
     if (text.length > 4096) {
@@ -95,6 +90,6 @@ module.exports = {
         .setFooter({ text: "Truncated, the lyrics were too long." });
     }
 
-    return interaction.editReply({ embeds: [lyricsEmbed] });
+    return await interaction.editReply({ embeds: [lyricsEmbed] });
   },
 };
