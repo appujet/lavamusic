@@ -51,18 +51,19 @@ module.exports = {
                 focused.value.match(
                   /(?:https:\/\/open\.spotify\.com\/|spotify:)(?:.+)?(track|playlist|artist|episode|show|album)[\/:]([A-Za-z0-9]+)/ ||
                     /^(?:https?:\/\/|)?(?:www\.)?deezer\.com\/(?:\w{2}\/)?(track|album|playlist)\/(\d+)/ ||
+                    /^((?:https?:)\/\/)?((?:deezer)\.)?((?:page.link))\/([a-zA-Z0-9]+)/ ||
                     /(?:https:\/\/music\.apple\.com\/)(?:\w{2}\/)?(track|album|playlist)/g ||
                     /(http(s|):\/\/music\.apple\.com\/..\/.....\/.*\/([0-9]){1,})\?i=([0-9]){1,}/gim ||
                     /(?:https?:\/\/)?(?:www.|web.|m.)?(facebook|fb).(com|watch)\/(?:video.php\?v=\d+|(\S+)|photo.php\?v=\d+|\?v=\d+)|\S+\/videos\/((\S+)\/(\d+)|(\d+))\/?/g
                 )
               ) {
-                await interaction.respond(
-                  sliced.map((track) => ({
-                    name: track.title,
-                    value: focused.value,
-                  }))
-                );
-                return;
+                  await interaction.respond(
+                    sliced.map((track) => ({
+                      name: track.title,
+                      value: focused.value,
+                    }))
+                  );
+                  return;
               } else {
                 await interaction.respond(
                   sliced.map((track) => ({
