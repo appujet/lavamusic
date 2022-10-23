@@ -51,7 +51,7 @@ module.exports = async (client, player, track, payload) => {
     .setDescription(
       `${emojiplay} **Started Playing**\n [${track?.title ?? queue.title}](${
         track?.uri ?? queue.uri
-      }) - \`[${convertTime(track?.duration ?? queue.duration)}]\``
+      }) by ${track.author} - \`[${convertTime(track?.duration ?? queue.duration)}]\``
     )
     .setThumbnail(
       track?.thumbnail ??
