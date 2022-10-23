@@ -27,7 +27,7 @@ module.exports = {
             player.destroy();
             return await buttonReply(interaction, `Nothing is playing right now.`, color);
         };
-        const { title, uri, duration, requester } = player.queue.current;
+        const { title, uri, duration, requester, author } = player.queue.current;
 
         let message;
         try {
@@ -39,7 +39,7 @@ module.exports = {
         let icon = player.queue.current.identifier ? `https://img.youtube.com/vi/${player.queue.current.identifier}/maxresdefault.jpg` : client.config.links.img;
 
 
-        let nowplaying = new EmbedBuilder().setColor(color).setDescription(`[${title}](${uri}) • \`[${convertTime(duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${requester.username}`, iconURL: requester.displayAvatarURL({ dynamic: true }) });
+        let nowplaying = new EmbedBuilder().setColor(color).setDescription(`[${title}](${uri}) by ${author} • \`[${convertTime(duration)}]\``).setImage(icon).setFooter({ text: `Requested by ${requester.username}`, iconURL: requester.displayAvatarURL({ dynamic: true }) });
 
         if (interaction.customId === `pause_but_${interaction.guildId}`) {
             if (player.paused) {
@@ -109,4 +109,3 @@ module.exports = {
         };
     }
 }
-
