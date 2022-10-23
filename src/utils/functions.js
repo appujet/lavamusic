@@ -107,7 +107,7 @@ async function oops(channel, args) {
  * @param {Client}  client
  */
 
-function neb(embed, player, client) {
+function neb(embed, player, client, track, author) {
   const config = require("../config");
   let icon = player.queue.current.identifier
     ? `https://img.youtube.com/vi/${player.queue.current.identifier}/mqdefault.jpg`
@@ -116,7 +116,7 @@ function neb(embed, player, client) {
   return embed
     .setDescription(
       `[${player.queue.current.title}](${player.queue.current.uri
-      }) • \`[${convertTime(player.queue.current.duration)}]\``
+      }) by ${player.queue.current.author}  • \`[${convertTime(player.queue.current.duration)}]\``
     )
     .setImage(icon)
     .setFooter({
@@ -277,7 +277,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
       let embed1 = new EmbedBuilder()
         .setColor(client.embedColor)
         .setDescription(
-          `[${track.title}](${track.uri}) - \`[${convertTime(
+          `[${track.title}](${track.uri}) by ${track.author} - \`[${convertTime(
             track.duration
           )}]\``
         )
@@ -316,6 +316,18 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         .setEmoji({ name: "⏭️" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
+	  
+										  
+												   
+								   
+										
+							
+	  
+									   
+												
+									 
+										
+							
 
       const row1 = new ActionRowBuilder().addComponents(
         lowvolumebut,
@@ -323,6 +335,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         pausebut,
         skipbut,
         highvolumebut
+					   
       );
       const m = await channel.send({
         content:
@@ -340,7 +353,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         .setColor(message.client.embedColor)
         .setDescription(
           `${emojiplay} **Started Playing** - [${track.title}](${track.uri
-          }) - \`[${convertTime(track.duration)}]\``
+          }) by ${track.author} - \`[${convertTime(track.duration)}]\``
         )
         .setImage(icon)
         .setFooter({
