@@ -79,16 +79,7 @@ module.exports = {
             if (!player.queue.size) return await buttonReply(interaction, `No more songs left in the queue to skip.`, color);
 
             player.stop();
-            return await buttonReply(interaction, `Skipped [${title}](${uri})`, color);
-                                                                                   
-                                                                                                                  
-              
-                                   
-                                                                                
-                                                                                
-                                 
-                          
-                                                                 
+            return await buttonReply(interaction, `Skipped [${title}](${uri})`, color);                                          
         } else if (interaction.customId === `highvolume_but_${interaction.guildId}`) {
             let amount = Number(player.volume) + 10;
             if (amount >= 200) return await buttonReply(interaction, `Cannot higher the player volume further more.`, color);
