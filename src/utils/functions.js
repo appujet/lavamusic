@@ -316,19 +316,6 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         .setEmoji({ name: "⏭️" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
-	  
-										  
-												   
-								   
-										
-							
-	  
-									   
-												
-									 
-										
-							
-
       const row1 = new ActionRowBuilder().addComponents(
         lowvolumebut,
         previousbut,
