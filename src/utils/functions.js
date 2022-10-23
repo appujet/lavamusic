@@ -321,8 +321,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         previousbut,
         pausebut,
         skipbut,
-        highvolumebut
-					   
+        highvolumebut				   
       );
       const m = await channel.send({
         content:
