@@ -116,7 +116,7 @@ function neb(embed, player, client) {
   return embed
     .setDescription(
       `[${player.queue.current.title}](${player.queue.current.uri
-      }) • \`[${convertTime(player.queue.current.duration)}]\``
+      }) by ${player.queue.current.author} • \`[${convertTime(player.queue.current.duration)}]\``
     )
     .setImage(icon)
     .setFooter({
@@ -277,7 +277,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
       let embed1 = new EmbedBuilder()
         .setColor(client.embedColor)
         .setDescription(
-          `[${track.title}](${track.uri}) - \`[${convertTime(
+          `[${track.title}](${track.uri}) by ${track.author} - \`[${convertTime(
             track.duration
           )}]\``
         )
@@ -340,7 +340,7 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         .setColor(message.client.embedColor)
         .setDescription(
           `${emojiplay} **Started Playing** - [${track.title}](${track.uri
-          }) - \`[${convertTime(track.duration)}]\``
+          }) by ${track.author} - \`[${convertTime(track.duration)}]\``
         )
         .setImage(icon)
         .setFooter({
