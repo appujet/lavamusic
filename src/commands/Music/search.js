@@ -124,6 +124,7 @@ module.exports = {
                 }
  
             });
+        break;
         case "PLAYLIST_LOADED":
             player.queue.add(s.tracks)
                 const playlist = new EmbedBuilder()
