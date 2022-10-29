@@ -73,7 +73,7 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 
 ## 📎 Requirements
 
-- [Nodejs](https://nodejs.org/en/) v16.18 and more
+- [Nodejs](https://nodejs.org/en/) v18 and more
 - [Discord.js](https://github.com/discordjs/discord.js/) v14
 - [Java](https://adoptopenjdk.net/) for lavalink
 - [Lavalink](https://ci.fredboat.com/repository/download/Lavalink_Build/.lastSuccessful/Lavalink.jar?guest=1&branch=refs/heads/dev)
@@ -212,6 +212,9 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
       "secure": false
 ```
 
+- Create an application.yml file in your working directory and copy the [example](https://github.com/freyacodes/Lavalink/blob/master/LavalinkServer/application.yml.example) into the created file and edit it with your configuration.
+- Run the jar file by running `java -jar Lavalink.jar` in a Terminal window.
+
 ## ⚙️ SHARDS
 
 - edit in `sharder.js`
@@ -223,9 +226,6 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
   totalShards: 1,
   shardList: "auto",
 ```
-
-- Create an application.yml file in your working directory and copy the [example](https://github.com/freyacodes/Lavalink/blob/master/LavalinkServer/application.yml.example) into the created file and edit it with your configuration.
-- Run the jar file by running `java -jar Lavalink.jar` in a Terminal window.
 
 <!-- ABOUT THE PROJECT -->
 

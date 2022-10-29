@@ -45,6 +45,15 @@ module.exports = {
  
     let s = await player.search(query, message.author);
     switch (s.loadType) {
+        case "NO_MATCHES":
+                const nomatch = new EmbedBuilder()
+                    .setDescription(`No search results found for ${query}`)
+                    .setColor("Red")
+                msg.edit({ embeds: [nomatch] });
+                if (!player.playing){
+                    player.destroy()
+                }
+                break;
         case "TRACK_LOADED":
             player.queue.add(s.tracks[0]);
             const embed = new EmbedBuilder()
@@ -115,6 +124,15 @@ module.exports = {
                 }
  
             });
+        break;
+        case "PLAYLIST_LOADED":
+            player.queue.add(s.tracks)
+                const playlist = new EmbedBuilder()
+                    .setDescription(`Playlist Loaded [${s.playlist.name}](${query})`)
+                    .setColor(client.embedColor)
+                    msg.edit({embeds: [playlist] });
+            if(!player.playing) player.play()
+
 
         }
         
