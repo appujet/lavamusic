@@ -116,7 +116,7 @@ Edit the Docker-Compose file and make sure to edit the following variables:
 ```yaml
 TOKEN: "put your bot token"
 PREFIX: "your bot prefix"
-OWNERID: "your discord id"
+OWNER_ID: "your discord id"
 ```
 
 For more information how to fill all the varialabes go to this page.
@@ -192,14 +192,14 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
     token: process.env.TOKEN || "",  // your bot token
     clientID: process.env.CLIENT_ID || "", // your bot client id
     prefix: process.env.PREFIX || "!", // bot prefix
-    ownerID: process.env.OWNERID || "", //your discord id
-    SpotifyID: process.env.SPOTIFYID || "",
-    SpotifySecret: process.env.SPOTIFYSECRET || "",
-    mongourl: process.env.MONGO_URI || "", // MongoDb URL
-    embedColor: process.env.COlOR || 0x303236, // embed colour
+    ownerID: process.env.OWNER_ID || "", //your discord id
+    SpotifyID: process.env.SPOTIFY_ID || "",
+    SpotifySecret: process.env.SPOTIFY_SECRET || "",
+    mongourl: process.env.MONGO_URL || "", // MongoDb URL
+    embedColor: process.env.EMBED_COLOR || 0x303236, // embed colour
     logs: process.env.LOGS || "channel_id", // channel id for guild create and delete logs
-    errorLogsChannel: process.env.errLogs || "channel_id", //error logs channel id
-    SearchPlatform: process.env.searchPlatform || "youtube music", // Sets the Search Platform. Possibilities: youtube || youtube music || soundcloud
+    errorLogsChannel: process.env.ERROR_LOGS_CHANNEL || "channel_id", //error logs channel id
+    SearchPlatform: process.env.SEARCH_PLATFORM || "youtube music", // Sets the Search Platform. Possibilities: youtube || youtube music || soundcloud
 ```
 
 ## 🌋 Lavalink
