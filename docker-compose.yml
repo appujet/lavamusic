@@ -59,12 +59,14 @@ services:
     environment:
       TOKEN: "put your bot token"
       PREFIX: "your bot prefix"
-      OWNERID: "your discord id"
-      SPOTIFYID: "Spotify client id"
-      SPOTIFYSECRET: "Spotify client secret"
-      MONGO_URI: "mongodb://mongoadmin:mongopassword@db:27017"
-      COlOR: "embed colour"
+      OWNER_ID: "your discord id"
+      CLIENT_ID: "your id linked to the bot"
+      SPOTIFY_ID: "Spotify client id"
+      SPOTIFY_SECRET: "Spotify client secret"
+      MONGO_URL: "mongodb://mongoadmin:mongopassword@db:27017"
+      EMBED_COLOR: "embed color"
       LOGS: "logs channel id"
+      ERROR_LOGS_CHANNEL: "error logs channel"
       IMG: "setup system background image"
       SUPPORT: "support server invite link"
       INVITE: "bot invite link"
@@ -73,6 +75,8 @@ services:
       NODE_PORT: "2333"
       NODE_PASSWORD: "youshallnotpass"
       NODE_SECURE: "false"
+      SEARCH_PLATFORM: "youtube music"
+      AGGREGATED_SEARCH_ORDER: "youtube music,youtube,soundcloud"
     restart: on-failure
     depends_on:
       - lavalink
