@@ -38,7 +38,7 @@ module.exports = {
         TextChannel: message.channelId,
       });
 
-    await data.update({
+    await data.updateOne({
       Guild: player.guild,
       247: player.twentyFourSeven,
       VoiceChannel: message.guild.members.me.voice?.channelId,
