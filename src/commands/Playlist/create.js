@@ -21,8 +21,8 @@ module.exports = {
             return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription("Provide a playlist name.")] });
         };
 
-        if (Name.length > 10) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription("Playlist name can't be greater than \`10\` characters.")] });
+        if (Name.length > 100) {
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription("Playlist name can't be greater than \`100\` characters.")] });
         };
         let data = await db.find({
             UserId: message.author.id,
@@ -36,7 +36,7 @@ module.exports = {
             UserId: message.author.id
         });
         if (userData.length >= 10) {
-            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`You can only create \`10\` playlists.`)] })
+            return message.reply({ embeds: [new EmbedBuilder().setColor(color).setDescription(`You can only create up to \`10\` playlists.`)] })
         }
 
         const newData = new db({
