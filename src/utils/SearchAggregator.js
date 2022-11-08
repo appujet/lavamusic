@@ -43,7 +43,7 @@ module.exports = {
     {
         const sortCriteria = [
             "author", //ASC   //DESC = "~name"
-            "name"
+            "title"
         ]
 
         if(isUrl(query)) {

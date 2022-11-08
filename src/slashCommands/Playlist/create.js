@@ -28,8 +28,8 @@ module.exports = {
         const Name = interaction.options.getString("name").replace(/_/g, ' ');
         const data = await db.find({ UserId: interaction.member.user.id, PlaylistName: Name });
 
-        if (Name.length > 10) {
-            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist name can't be greater than 10 characters.`)] });
+        if (Name.length > 100) {
+            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`Playlist name can't be greater than \`100\` characters.`)] });
 
         };
         if (data.length > 0) {
@@ -39,7 +39,7 @@ module.exports = {
             UserId: interaction.user.id
         });
         if (userData.length >= 10) {
-            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You can only create 10 playlists.`)] })
+            return interaction.editReply({ embeds: [new EmbedBuilder().setColor(client.embedColor).setDescription(`You can only create up to \`10\` playlists.`)] })
         }
         const newData = new db({
             UserName: interaction.user.tag,
