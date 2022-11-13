@@ -55,7 +55,7 @@ services:
 
   lavamusic:
     container_name: lavamusic
-    image: ghcr.io/brblacky/lavamusic:latest
+    image: ghcr.io/brblacky/lavamusic:main
     environment:
       TOKEN: "put your bot token"
       PREFIX: "your bot prefix"
