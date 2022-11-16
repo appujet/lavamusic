@@ -66,4 +66,4 @@ module.exports = {
     }
     return s*1000;
   }
-						 }
+}
