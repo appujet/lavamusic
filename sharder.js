@@ -1,5 +1,5 @@
-const { token } = require("./src/config.js");
-const { ShardingManager } = require("discord.js");
+import { token } from "./src/config.js";
+import { ShardingManager } from "discord.js";
 
 const manager = new ShardingManager("./src/index.js", {
   respawn: true,

@@ -1,5 +1,5 @@
-const MusicBot = require("./structures/Client");
+import MusicBot from "./structures/Client";
 const client = new MusicBot();
 
 client.connect()
-module.exports = client;
+export default client;
