@@ -1,6 +1,5 @@
 import { CommandInteraction, Message } from "discord.js";
 
-
 export default class Context {
     constructor(ctx, args) {
         this.ctx = ctx;
@@ -14,6 +13,7 @@ export default class Context {
         this.channel = ctx.channel;
         this.guild = ctx.guild;
         this.createdAt = ctx.createdAt;
+        this.createdTimestamp = ctx.createdTimestamp;
         this.member = ctx.member;
         this.setArgs(args);
     }
@@ -27,7 +27,7 @@ export default class Context {
     }
     sendMessage(content) {
         if(this.isInteraction) {
-            this.msg = this.interaction.deferred ? await this.interaction.followUp(content) : await this.interaction.reply(content);
+            this.msg = this.interaction.reply(content);
             return this.msg;
         } else {
             this.msg = this.message.channel.send(content);
@@ -36,7 +36,7 @@ export default class Context {
     }
     async editMessage(content) {
         if(this.isInteraction) {
-            this.msg = await this.msg.edit(content);
+            this.msg = await this.interaction.editReply(content);
             return this.msg;
         } else {
             this.msg = await this.msg.edit(content);

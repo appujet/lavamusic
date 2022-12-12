@@ -30,7 +30,6 @@ export default class Command {
         this.aliases = options.aliases || 'N/A';
         this.cooldown = options.cooldown || 3;
         this.args = options.args || false;
-        this.voteReq = options.voteReq || false;
         this.player = {
             voice: options.player ? (options.player.voice || false) : false,
             dj: options.player ? (options.player.dj || false) : false,
