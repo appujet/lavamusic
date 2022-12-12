@@ -71,34 +71,34 @@ export default class ShoukakuClient extends EventEmitter {
       * @param { Node } givenNode Node
       * @returns { Promise < Dispatcher >}
       */
-     async spawn(guild, member, channel, givenNode) {
-     const existing = this.getPlayer(guild.id);
- 
-     if (existing) return existing;
- 
-     const node = givenNode || this.shoukaku.getNode();
- 
-     const player = await node.joinChannel({
-         guildId: guild.id,
-         shardId: guild.shardId,
-         channelId: member.voice.channelId,
-         deaf: true,
-     });
- 
-     const dispatcher = new Dispatcher(this.client, guild, channel, player, member.user);
- 
-     this.emit('playerCreate', dispatcher.player);
- 
-     this.players.set(guild.id, dispatcher);
- 
-     return dispatcher;
- }
- 
-     /**
-      *
-      * @param {string} query
-      * @returns {Promise<import('shoukaku').LavalinkResponse>}
-      */
+    async create(guild, member, channel, givenNode) {
+        const existing = this.getPlayer(guild.id);
+
+        if (existing) return existing;
+
+        const node = givenNode || this.shoukaku.getNode();
+
+        const player = await node.joinChannel({
+            guildId: guild.id,
+            shardId: guild.shardId,
+            channelId: member.voice.channelId,
+            deaf: true,
+        });
+
+        const dispatcher = new Dispatcher(this.client, guild, channel, player, member.user);
+
+        this.emit('playerCreate', dispatcher.player);
+
+        this.players.set(guild.id, dispatcher);
+
+        return dispatcher;
+    }
+
+    /**
+     *
+     * @param {string} query
+     * @returns {Promise<import('shoukaku').LavalinkResponse>}
+     */
     async search(query) {
         const node = await this.shoukaku.getNode();
 

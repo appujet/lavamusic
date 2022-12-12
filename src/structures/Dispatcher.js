@@ -106,7 +106,6 @@ export default class Dispatcher extends EventEmitter {
         this.matchedTracks.push(...search.tracks.slice(0, 11));
         this.player.playTrack({ track: this.current.track });
     }
-
     destroy() {
         this.queue.length = 0;
         this.player.connection.disconnect();
@@ -122,12 +121,15 @@ export default class Dispatcher extends EventEmitter {
      */
     displayThumbnail(providedTrack) {
         const track = providedTrack || this.current;
-        return track.info.uri.includes('youtube')
-            ? `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`
-            : null;
+        if (track.info.uri.includes('youtube')) {
+            return `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`;
+        } else if (track.info.uri.includes('soundcloud')) {
+            return track.info.thumbnail;
+        }
+        return null;
     }
 
-    async check() {
+    async isPlaying() {
         if (this.queue.length && !this.current && !this.player.paused) {
             this.play();
         }

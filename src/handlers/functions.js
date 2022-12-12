@@ -14,6 +14,16 @@ async function getPrefix(guildId, client) {
     }
     return prefix;
 }
+function checkURL(string) {
+    try {
+        new URL(string);
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
 export {
     getPrefix,
+    checkURL
 }

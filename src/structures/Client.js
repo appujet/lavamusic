@@ -69,7 +69,7 @@ export class BotClient extends Client {
                 }
             });
         });
-        this.logger.event(`Loaded ${this.events.size} events`);
+        this.logger.event(`Loaded events`);
     }
     async loadCommands() {
         let i = 0;
@@ -104,14 +104,14 @@ export class BotClient extends Client {
                 (async () => {
                     try {
                         const rest = new REST({ version: '10' }).setToken(this ? this.config.token : config.token);
-                        const loaded = await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
-                        this.logger.ready(`Successfully registered application ${loaded ? loaded.length : 0} commands.`);
+                        await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
+                
                     } catch (e) {
                         this.logger.error(e);
                     }
                 })();
             });
-             // this.logger.ready(`Successfully loaded message command ${i}.`);
+            this.logger.cmd(`Successfully loaded all commands`);
         });
 
     }
