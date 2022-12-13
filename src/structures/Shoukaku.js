@@ -30,7 +30,6 @@ export default class ShoukakuClient extends EventEmitter {
          * @type {Collection<string, Dispatcher>}
          */
         this.players = new Collection();
-
         this.shoukaku.on('ready', (name, resumed) =>
             this.emit(
                 resumed ? 'nodeReconnect' : 'nodeConnect',

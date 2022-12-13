@@ -40,6 +40,10 @@ export default class Dispatcher extends EventEmitter {
         /**
          * @type {import('shoukaku').Track}
          */
+        this.previous = null;
+        /**
+         * @type {import('shoukaku').Track}
+         */
         this.current = null;
         /**
          * @type {'off'|'repeat'|'queue'}
@@ -53,6 +57,10 @@ export default class Dispatcher extends EventEmitter {
          * @type {User}
          */
         this.requester = user;
+        /**
+         * @type {number}
+         */
+        this.repeat = 0;
 
         this.player
             .on('start', (data) =>
@@ -78,7 +86,6 @@ export default class Dispatcher extends EventEmitter {
     get manager() {
         return this.client.manager;
     }
-
     /**
      *
      * @param {Error} data
@@ -106,6 +113,20 @@ export default class Dispatcher extends EventEmitter {
         this.matchedTracks.push(...search.tracks.slice(0, 11));
         this.player.playTrack({ track: this.current.track });
     }
+    pause() {
+        if (!this.player) return;
+        if (!this.player.paused) {
+            this.player.setPaused(true);
+        } else if (this.player.paused) {
+            this.player.setPaused(false);
+        }
+    }
+    previous() {
+        if (!this.player) return;
+        if (!this.previous) return;
+        this.queue.unshift(this.previous);
+        this.player.stopTrack();
+    }
     destroy() {
         this.queue.length = 0;
         this.player.connection.disconnect();
@@ -113,7 +134,16 @@ export default class Dispatcher extends EventEmitter {
         if (this.stopped) return;
         this.manager.emit('playerDestroy', this.player);
     }
-
+    skip() {
+        if (!this.player) return;
+        this.player.stopTrack();
+    }
+    stop() {
+        if (!this.player) return;
+        this.queue.length = 0;
+        this.repeat = 0;
+        this.player.stopTrack();
+    }
     /**
      *
      * @param {import('shoukaku').Track} providedTrack

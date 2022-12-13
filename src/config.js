@@ -4,7 +4,7 @@ export const config = {
      token: process.env.TOKEN || "",
      clientId: process.env.CLIENT_ID || "",
      prefix: process.env.PREFIX || "!",
-     ownerID: process.env.OWNER_ID || "",
+    ownerID: process.env.OWNER_ID || [ "959276033683628122"],
      SpotifyID: process.env.SPOTIFY_ID || "",
      SpotifySecret: process.env.SPOTIFY_SECRET || "",
      mongourl: process.env.MONGO_URL || "",

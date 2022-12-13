@@ -111,9 +111,8 @@ export class BotClient extends Client {
                     }
                 })();
             });
-            this.logger.cmd(`Successfully loaded all commands`);
         });
-
+        this.logger.cmd(`Successfully loaded all commands`);
     }
     async connectMongodb() {
         await connect(this.config.mongourl);
