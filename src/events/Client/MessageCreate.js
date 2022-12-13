@@ -56,11 +56,10 @@ export default class MessageCreate extends Event {
 
             }
             if (command.permissions.dev) {
-                if (this.client.config.owners) {
-                    const findDev = this.client.config.owners.find((x) => x === message.author.id);
+                if (this.client.config.ownerID) {
+                    const findDev = this.client.config.ownerID.find((x) => x === message.author.id);
                     if (!findDev) return;
                 }
-F
             }
         }
 
@@ -80,9 +79,9 @@ F
             }
 
             if (command.player.active) {
-                if (!this.client.player.get(message.guildId)) return await message.reply({ content: 'Nothing is playing right now.' });
-                if (!this.client.player.get(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
-                if (!this.client.player.get(message.guildId).queue.current) return await message.reply({ content: 'Nothing is playing right now.' });
+                if (!this.client.manager.getPlayer(message.guildId)) return await message.reply({ content: 'Nothing is playing right now.' });
+                if (!this.client.manager.getPlayer(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
+                if (!this.client.manager.getPlayer(message.guildId).queue.current) return await message.reply({ content: 'Nothing is playing right now.' });
             }
         }
         if (command.args) {
