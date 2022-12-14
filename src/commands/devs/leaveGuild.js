@@ -7,7 +7,7 @@ export default class LeaveGuild extends Command {
             description: {
                 content: 'Leave a guild',
                 usage: '<server id>',
-                examples: ['client.commands.size', 'client.config.prefix'],
+                examples: ['leave-guild 123456789'],
             },
             aliases: ['gleave'],
             category: 'dev',
@@ -28,14 +28,13 @@ export default class LeaveGuild extends Command {
         });
     }
     async run(ctx, args) {
-     if(!args.join(" ")) return ctx.sendMessage("No server id provided.");
+        
+        const guild = this.client.guilds.cache.get(args.join(" "));
 
-     let guild = client.guilds.cache.get(args.join(" "));
+        if (!guild) return ctx.sendMessage("Guild not found.");
 
-if(!guild) return ctx.sendMessage("Guild not found.");
+        await guild.leave()
+        await ctx.sendMessage(`Left guild: ${guild.name}`);
 
-await guild.leave()
-await ctx.sendMessage("Left Guild: "+ guild.name)
-
-
-}}
+    }
+};
