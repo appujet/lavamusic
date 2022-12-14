@@ -41,7 +41,7 @@ export default class Play extends Command {
         const isURL = checkURL(query);
         const player = await this.client.manager.create(ctx.guild, ctx.member, ctx.channel)
         const res = await this.client.manager.search(isURL ? query : `ytmsearch:${query}`);
-        const embed = this.client.embed()
+        const embed = this.client.embed();
 
         switch (res.loadType) {
             case 'LOAD_FAILED':
@@ -53,7 +53,7 @@ export default class Play extends Command {
             case 'TRACK_LOADED':
                 player.queue.push(res.tracks[0]);
                 await player.isPlaying()
-                ctx.sendMessage({ embeds: [embed.setColor(this.client.color.default).setDescription(`Added ${res.tracks[0].info.title} to the queue.`)] });
+                ctx.sendMessage({ embeds: [embed.setColor(this.client.color.default).setDescription(`Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`)] });
                 break;
             case 'PLAYLIST_LOADED':
                 player.queue.push(...res.tracks);
@@ -63,7 +63,7 @@ export default class Play extends Command {
             case 'SEARCH_RESULT':
                 player.queue.push(res.tracks[0]);
                 await player.isPlaying()
-                ctx.sendMessage({ embeds: [embed.setColor(this.client.color.default).setDescription(`Added ${res.tracks[0].info.title} to the queue.`)] });
+                ctx.sendMessage({ embeds: [embed.setColor(this.client.color.default).setDescription(`Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`)] });
                 break;
         }
 

@@ -62,6 +62,8 @@ export default class Dispatcher extends EventEmitter {
          */
         this.repeat = 0;
 
+        this.nowPlayingMessage = null;
+
         this.player
             .on('start', (data) =>
                 this.manager.emit('trackStart', this.player, this.current, this.channel, this.matchedTracks, this, data),
@@ -148,6 +150,13 @@ export default class Dispatcher extends EventEmitter {
         this.queue.length = 0;
         this.repeat = 0;
         this.player.stopTrack();
+    }
+    // delete the now playing message if it exists
+    async deleteNowPlayingMessage() {
+        if (this.nowPlayingMessage) {
+            await this.nowPlayingMessage.delete();
+            this.nowPlayingMessage = null;
+        }
     }
     /**
      *

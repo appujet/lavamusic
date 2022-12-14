@@ -1,6 +1,7 @@
 import Event from "../../structures/Event.js";
 import Dispatcher from "../../structures/Dispatcher.js";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import { formatTime } from "../../handlers/functions.js";
 export default class TrackStart extends Event {
     constructor(...args) {
         super(...args, {
@@ -26,11 +27,23 @@ export default class TrackStart extends Event {
         const embed = this.client.embed().setTitle('Now Playing')
             .setDescription(`[${track.info.title}](${track.info.uri})`)
             .setThumbnail(dispatcher.displayThumbnail(track.info.ur))
+            .addFields(
+                {
+                    name: 'Duration',
+                    value: track.info.isStream ? 'LIVE' : `\`${formatTime(track.info.length)}\``,
+                    inline: true,
+                },
+                {
+                    name: 'Author',
+                    value: track.info.author,
+                    inline: true,
+                }
+            )
             .setFooter({ text: `Requested by ${dispatcher.requester.tag}`, iconURL: dispatcher.requester.avatarURL({ dynamic: true }) })
             .setColor(this.client.color.default)
         const message = await channel.send({ embeds: [embed], components: [button] });
 
-
+        dispatcher.nowPlayingMessage = message;
         const collector = message.createMessageComponentCollector({
             filter: (b) => {
                 if (b.guild.members.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId)
@@ -86,9 +99,6 @@ export default class TrackStart extends Event {
                     break;
             }
             await interaction.deferUpdate();
-        });
-        collector.on('end', async () => {
-            if (message) await message.edit({ embeds: [embed.setFooter({ text: `Time out`, iconURL: interaction.user.avatarURL({ dynamic: true }) })], components: [button] });
         });
 
     }
