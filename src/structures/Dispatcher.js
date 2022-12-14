@@ -151,7 +151,6 @@ export default class Dispatcher extends EventEmitter {
         this.repeat = 0;
         this.player.stopTrack();
     }
-    // delete the now playing message if it exists
     async deleteNowPlayingMessage() {
         if (this.nowPlayingMessage) {
             await this.nowPlayingMessage.delete();

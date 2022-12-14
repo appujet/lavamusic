@@ -2,7 +2,7 @@ import pkg from 'mongoose';
 const { Schema, model } = pkg;
 
 let Dj = new Schema({
-    Guild: {
+    _id: {
         type: String,
         required: true
     },
