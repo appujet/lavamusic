@@ -50,7 +50,7 @@ export default class TrackStart extends Event {
 
             switch (interaction.customId) {
                 case 'previous':
-                    dispatcher.previous();
+                    dispatcher.previousTrack();
                     if (message) await message.edit({ embeds: [embed.setFooter({ text: `Previous by ${interaction.user.tag}`, iconURL: interaction.user.avatarURL({ dynamic: true }) })], components: [button] });
                     break;
                 case 'resume':

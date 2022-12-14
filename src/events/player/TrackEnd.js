@@ -15,7 +15,11 @@ export default class TrackEnd extends Event {
      * @param {import('shoukaku').Track[]} matchedTracks 
      * @param {Dispatcher} dispatcher 
      */
-    async run(player, track, channel, matchedTracks, dispatcher) {
+    async run(player, track, channel, dispatcher) {
         dispatcher.previous = dispatcher.current;
+        dispatcher.current = null;
+        if (dispatcher.loop === 'repeat') dispatcher.queue.unshift(track);
+        if (dispatcher.loop === 'queue') dispatcher.queue.push(track);
+        await dispatcher.play();
     }
 }

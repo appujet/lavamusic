@@ -121,7 +121,7 @@ export default class Dispatcher extends EventEmitter {
             this.player.setPaused(false);
         }
     }
-    previous() {
+    previousTrack() {
         if (!this.player) return;
         if (!this.previous) return;
         this.queue.unshift(this.previous);
@@ -133,6 +133,11 @@ export default class Dispatcher extends EventEmitter {
         this.manager.players.delete(this.guild.id);
         if (this.stopped) return;
         this.manager.emit('playerDestroy', this.player);
+    }
+    shuffle() {
+        if (!this.player) return;
+        if (this.queue.length < 2) return;
+        this.queue = this.queue.sort(() => Math.random() - 0.5);
     }
     skip() {
         if (!this.player) return;

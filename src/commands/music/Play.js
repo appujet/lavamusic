@@ -11,6 +11,7 @@ export default class Play extends Command {
                 examples: ['play despacito'],
             },
             aliases: ['p'],
+            args: true,
             category: 'music',
             cooldown: 3,
             permissions: {
@@ -55,7 +56,7 @@ export default class Play extends Command {
                 ctx.sendMessage({ embeds: [embed.setColor(this.client.color.default).setDescription(`Added ${res.tracks[0].info.title} to the queue.`)] });
                 break;
             case 'PLAYLIST_LOADED':
-                player.queue.push(res.tracks);
+                player.queue.push(...res.tracks);
                 await player.isPlaying()
                 ctx.sendMessage({ embeds: [embed.setColor(this.client.color.default).setDescription(`Added ${res.tracks.length} songs to the queue.`)] });
                 break;

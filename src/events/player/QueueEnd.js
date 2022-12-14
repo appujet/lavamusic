@@ -15,6 +15,5 @@ export default class QueueEnd extends Event {
      * @param {Dispatcher} dispatcher 
      */
     async run(player, track, channel, matchedTracks, dispatcher) {
-
     }
 }
