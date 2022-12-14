@@ -28,14 +28,14 @@ export default class LeaveGuild extends Command {
         });
     }
     async run(ctx, args) {
-if(!args.join(" ")) return ctx.reply("No server id provided.");
+if(!args.join(" ")) return ctx.sendMessage("No server id provided.");
 
-guild = ctx.client.guilds.cache.get(args.join(" "));
+guild = client.guilds.cache.get(args.join(" "));
 
-if(!guild) return message.reply("Guild not found.");
+if(!guild) return ctx.sendMessage("Guild not found.");
 
 await guild.leave()
-await ctx.reply("Left Guild: "+ guild.name)
+await ctx.sendMessage("Left Guild: "+ guild.name)
 
 
 }}
