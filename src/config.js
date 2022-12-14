@@ -8,6 +8,7 @@ export const config = {
      SpotifyID: process.env.SPOTIFY_ID || "",
      SpotifySecret: process.env.SPOTIFY_SECRET || "",
      mongourl: process.env.MONGO_URL || "",
+     
     color: {
         default: process.env.DEFAULT_COLOR || "#00FF00",
         error: process.env.ERROR_COLOR || "#FF0000",
@@ -15,6 +16,19 @@ export const config = {
         info: process.env.INFO_COLOR || "#00FFFF",
         warn: process.env.WARN_COLOR || "#FFFF00",
      },
+
+     emotes: {
+      //MUSIC
+      stop: "⏹️",
+      skip: "⏭️",
+      resume: "▶️",
+      play: "▶️",
+      pause: "⏸️",
+      loop: "🔁",
+      jump: "⏭️",
+      previous: "👀",
+    },
+
      logs: process.env.LOGS || "channel_id",
      errorLogsChannel: process.env.ERROR_LOGS_CHANNEL || "channel_id",
      SearchPlatform: process.env.SEARCH_PLATFORM || "youtube music",

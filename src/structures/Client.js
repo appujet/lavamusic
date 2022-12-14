@@ -34,6 +34,7 @@ export class BotClient extends Client {
         if (!this.token) this.token = this.config.bot.token;
         this.manager = new ShoukakuClient(this);
         this.color = this.config.color
+        this.emotes = this.config.emotes
         this.commands = new Collection();
         this.cooldowns = new Collection();
         this.aliases = new Collection();

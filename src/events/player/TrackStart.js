@@ -18,11 +18,11 @@ export default class TrackStart extends Event {
     async run(player, track, channel, matchedTracks, dispatcher) {
 
         const button = new ActionRowBuilder().addComponents(
-            new ButtonBuilder().setCustomId('previous').setLabel('Previous').setStyle(ButtonStyle.Secondary),
-            new ButtonBuilder().setCustomId('resume').setLabel(player.paused ? 'Resume' : 'Pause').setStyle(player.paused ? ButtonStyle.Success : ButtonStyle.Secondary),
-            new ButtonBuilder().setCustomId('stop').setLabel('Stop').setStyle(ButtonStyle.Danger),
-            new ButtonBuilder().setCustomId('skip').setLabel('Skip').setStyle(ButtonStyle.Secondary),
-            new ButtonBuilder().setCustomId('loop').setLabel('Loop').setStyle(ButtonStyle.Secondary),
+            new ButtonBuilder().setCustomId('previous').setLabel(`${this.client.emotes.previous} Previous`).setStyle(ButtonStyle.Secondary),
+            new ButtonBuilder().setCustomId('resume').setLabel(player.paused ? `${this.client.emotes.resume} Resume` : `${this.client.emotes.pause} Pause`).setStyle(player.paused ? ButtonStyle.Success : ButtonStyle.Secondary),
+            new ButtonBuilder().setCustomId('stop').setLabel(`${this.client.emotes.stop} Stop`).setStyle(ButtonStyle.Danger),
+            new ButtonBuilder().setCustomId('skip').setLabel(`${this.client.emotes.skip} Skip`).setStyle(ButtonStyle.Secondary),
+            new ButtonBuilder().setCustomId('loop').setLabel(`${this.client.emotes.loop} Loop`).setStyle(ButtonStyle.Secondary),
         );
         const embed = this.client.embed().setTitle('Now Playing')
             .setDescription(`[${track.info.title}](${track.info.uri})`)
