@@ -30,7 +30,7 @@ export default class LeaveGuild extends Command {
     async run(ctx, args) {
 if(!args.join(" ")) return ctx.sendMessage("No server id provided.");
 
-guild = client.guilds.cache.get(args.join(" "));
+let guild = client.guilds.cache.get(args.join(" "));
 
 if(!guild) return ctx.sendMessage("Guild not found.");
 
