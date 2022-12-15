@@ -46,7 +46,7 @@ export default class Volume extends Command {
         if (volume < 1 || volume > 200) {
             return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.error).setDescription("Please provide a number between 1 and 200")] });
         }
-        player.setVolume(volume / 100);
+        player.player.setVolume(volume / 100)
         return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.default).setDescription(`Set the volume to \`${volume}\``)] });
     }
 }

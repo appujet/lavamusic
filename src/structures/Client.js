@@ -104,7 +104,7 @@ export class BotClient extends Client {
                 }
                 (async () => {
                     try {
-                        const rest = new REST({ version: '10' }).setToken(this ? this.config.token : config.token);
+                        const rest = new REST({ version: '9' }).setToken(this ? this.config.token : config.token);
                         await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
                 
                     } catch (e) {

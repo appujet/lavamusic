@@ -141,9 +141,14 @@ export default class Dispatcher extends EventEmitter {
         if (this.queue.length < 2) return;
         this.queue = this.queue.sort(() => Math.random() - 0.5);
     }
-    skip() {
+    async skip(skipto = 1) {
         if (!this.player) return;
-        this.player.stopTrack();
+        if (skipto > 1) {
+            this.queue.unshift(this.queue[skipto - 1]);
+            this.queue.splice(skipto, 1);
+        }
+        this.repeat = this.repeat == 1 ? 0 : this.repeat
+        await this.player.stopTrack();
     }
     stop() {
         if (!this.player) return;

@@ -85,7 +85,7 @@ export default class ShoukakuClient extends EventEmitter {
         });
 
         const dispatcher = new Dispatcher(this.client, guild, channel, player, member.user);
-
+        
         this.emit('playerCreate', dispatcher.player);
 
         this.players.set(guild.id, dispatcher);
