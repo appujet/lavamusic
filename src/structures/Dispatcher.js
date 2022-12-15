@@ -123,6 +123,11 @@ export default class Dispatcher extends EventEmitter {
             this.player.setPaused(false);
         }
     }
+    remove(index) {
+        if (!this.player) return;
+        if (index > this.queue.length) return;
+        this.queue.splice(index, 1);
+    }
     previousTrack() {
         if (!this.player) return;
         if (!this.previous) return;

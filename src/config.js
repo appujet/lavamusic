@@ -16,19 +16,19 @@ export const config = {
         info: process.env.INFO_COLOR || "#00FFFF",
         warn: process.env.WARN_COLOR || "#FFFF00",
     },
-    production: process.env.PRODUCTION || false,
-    // if production is true, that need guildid
-    guildId: process.env.GUILD_ID || "959703767333359630",
+    production: process.env.PRODUCTION || true,
+    guildId: process.env.GUILD_ID || "",
     emotes: {
-        //MUSIC
+        success: "✅",
+        error: "❌",
+        info: "ℹ️",
+        warn: "⚠️",
         stop: "⏹️",
         skip: "⏭️",
-        resume: "▶️",
         play: "▶️",
         pause: "⏸️",
         loop: "🔁",
-        jump: "⏭️",
-        previous: "👀",
+        previous: "⏮️",
     },
 
     logs: process.env.LOGS || "channel_id",

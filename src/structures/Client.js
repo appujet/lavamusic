@@ -12,7 +12,7 @@ export class BotClient extends Client {
                 parse: ['users', 'roles', 'everyone'],
                 repliedUser: false,
             },
-             intents: [
+            intents: [
                 GatewayIntentBits.Guilds,
                 GatewayIntentBits.GuildMembers,
                 GatewayIntentBits.GuildMessages,
@@ -106,9 +106,7 @@ export class BotClient extends Client {
                 if (this.config.production) {
                     (async () => {
                         try {
-
-                            await rest.put(Routes.applicationGuildCommands(this.config.clientId, this.config.guildId), { body: cmdData });
-
+                            await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
                         } catch (e) {
                             this.logger.error(e);
                         }
@@ -116,9 +114,7 @@ export class BotClient extends Client {
                 } else {
                     (async () => {
                         try {
-                       
-                            await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
-                
+                            await rest.put(Routes.applicationGuildCommands(this.config.clientId, this.config.guildId), { body: cmdData });
                         } catch (e) {
                             this.logger.error(e);
                         }
