@@ -1,7 +1,7 @@
 import Command from "../../structures/Command.js"; 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 
-export default class Ping extends Command {
+export default class About extends Command {
     constructor(client) {
         super(client, {
             name: 'about',

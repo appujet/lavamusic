@@ -38,7 +38,7 @@ export default class Dispatcher extends EventEmitter {
          */
         this.stopped = false;
         /**
-         * @type {import('shoukaku').Track}
+         * @type {Array<import('shoukaku').Track>}
          */
         this.previous = null;
         /**

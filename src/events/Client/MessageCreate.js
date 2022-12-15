@@ -81,7 +81,7 @@ export default class MessageCreate extends Event {
             if (command.player.active) {
                 if (!this.client.manager.getPlayer(message.guildId)) return await message.reply({ content: 'Nothing is playing right now.' });
                 if (!this.client.manager.getPlayer(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
-                if (!this.client.manager.getPlayer(message.guildId).queue.current) return await message.reply({ content: 'Nothing is playing right now.' });
+                if (!this.client.manager.getPlayer(message.guildId).current) return await message.reply({ content: 'Nothing is playing right now.' });
             }
         }
         if (command.args) {
