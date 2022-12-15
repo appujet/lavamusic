@@ -1,6 +1,5 @@
 import Command from "../../structures/Command.js";
 
-
 export default class Leave extends Command {
     constructor(client) {
         super(client, {

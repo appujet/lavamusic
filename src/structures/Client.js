@@ -102,15 +102,28 @@ export class BotClient extends Client {
                     cmdData.push(data);
                     i++;
                 }
-                (async () => {
-                    try {
-                        const rest = new REST({ version: '9' }).setToken(this ? this.config.token : config.token);
-                        await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
+                const rest = new REST({ version: '10' }).setToken(this ? this.config.token : config.token);
+                if (this.config.production) {
+                    (async () => {
+                        try {
+
+                            await rest.put(Routes.applicationGuildCommands(this.config.clientId, this.config.guildId), { body: cmdData });
+
+                        } catch (e) {
+                            this.logger.error(e);
+                        }
+                    })();
+                } else {
+                    (async () => {
+                        try {
+                       
+                            await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
                 
-                    } catch (e) {
-                        this.logger.error(e);
-                    }
-                })();
+                        } catch (e) {
+                            this.logger.error(e);
+                        }
+                    })();
+                }
             });
         });
         this.logger.cmd(`Successfully loaded all commands`);

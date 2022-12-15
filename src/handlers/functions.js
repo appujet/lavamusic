@@ -53,6 +53,36 @@ function formatTime(ms) {
         return `${sec.padStart(1, "0")}s`;
     }
 }
+
+/**
+ * @param {string} string
+ */
+function stringToTime(string) {
+    const time = string.match(/([0-9]+[d,h,m,s])/g);
+    if (!time) return 0;
+    let ms = 0;
+    for (const t of time) {
+        const type = t.slice(-1);
+        const num = parseInt(t.slice(0, -1));
+        switch (type) {
+            case "d":
+                ms += num * 86400000;
+                break;
+            case "h":
+                ms += num * 3600000;
+                break;
+            case "m":
+                ms += num * 60000;
+                break;
+            case "s":
+                ms += num * 1000;
+                break;
+            default:
+                break;
+        }
+    }
+    return ms;
+}
 /**
  * 
  * @param {Array} array
@@ -177,5 +207,6 @@ export {
     progressBar,
     formatTime,
     chunk,
-    paginate
+    paginate,
+    stringToTime
 }

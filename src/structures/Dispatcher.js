@@ -150,6 +150,10 @@ export default class Dispatcher extends EventEmitter {
         this.repeat = this.repeat == 1 ? 0 : this.repeat
         await this.player.stopTrack();
     }
+    seek(time) {
+        if (!this.player) return;
+        this.player.seekTo(time);
+    }
     stop() {
         if (!this.player) return;
         this.queue.length = 0;
