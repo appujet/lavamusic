@@ -1,7 +1,7 @@
 import { Client, ButtonStyle, Routes, REST, ActionRowBuilder, PermissionsBitField, ApplicationCommandType, GatewayIntentBits, Partials, Collection, EmbedBuilder, ButtonBuilder } from 'discord.js';
 import { readdirSync } from 'fs';
 import pkg from 'mongoose';
-const { connect } = pkg;
+const { connect, set } = pkg;
 import { config } from '../config.js';
 import Logger from './Logger.js';
 import ShoukakuClient from './Shoukaku.js';
@@ -125,6 +125,7 @@ export class BotClient extends Client {
         this.logger.cmd(`Successfully loaded all commands`);
     }
     async connectMongodb() {
+        set('strictQuery', true);
         await connect(this.config.mongourl);
         this.logger.ready('Connected to MongoDB');
     }
