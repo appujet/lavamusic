@@ -125,7 +125,7 @@ export class BotClient extends Client {
         this.logger.cmd(`Successfully loaded all commands`);
     }
     async connectMongodb() {
-        set('strictQuery', true);
+       // set('strictQuery', true);
         await connect(this.config.mongourl);
         this.logger.ready('Connected to MongoDB');
     }
