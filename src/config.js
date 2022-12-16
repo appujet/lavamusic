@@ -58,6 +58,6 @@ function parseBoolean(value) {
         case "true":
             return true;
         default:
-            return false;
+            rturn false;
     }
 }
