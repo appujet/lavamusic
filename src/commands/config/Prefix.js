@@ -32,13 +32,17 @@ export default class Prefix extends Command {
                     description: "The new prefix",
                     type: 3,
                     required: true,
-                }
+                },
             ]
         });
     }
     async run(ctx, args) {
         const embed = this.client.embed();
         const prefix = args.join(" ");
+
+        if (args[0].length > 3)
+        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.default).setDescription("Your new prefix must be under `3` characters!")] });
+
         let data = await PrefixData.findOne({ _id: ctx.guild.id });
         if (!data) {
             data = new PrefixData({
