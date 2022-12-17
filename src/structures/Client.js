@@ -104,28 +104,24 @@ export class BotClient extends Client {
                 }
                 const rest = new REST({ version: '10' }).setToken(this ? this.config.token : config.token);
                 if (this.config.production) {
-                    (async () => {
-                        try {
-                            await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
-                        } catch (e) {
-                            this.logger.error(e);
-                        }
-                    })();
+                    try {
+                        await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
+                    } catch (e) {
+                        this.logger.error(e);
+                    }
                 } else {
-                    (async () => {
-                        try {
-                            await rest.put(Routes.applicationGuildCommands(this.config.clientId, this.config.guildId), { body: cmdData });
-                        } catch (e) {
-                            this.logger.error(e);
-                        }
-                    })();
+                    try {
+                        await rest.put(Routes.applicationGuildCommands(this.config.clientId, this.config.guildId), { body: cmdData });
+                    } catch (e) {
+                        this.logger.error(e);
+                    }
                 }
             });
         });
         this.logger.cmd(`Successfully loaded all commands`);
     }
     async connectMongodb() {
-       // set('strictQuery', true);
+        // set('strictQuery', true);
         await connect(this.config.mongourl);
         this.logger.ready('Connected to MongoDB');
     }

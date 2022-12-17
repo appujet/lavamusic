@@ -53,4 +53,4 @@ export default class Prefix extends Command {
             return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.default).setDescription(`Update the prefix to \`${prefix}\``)] });
         }
     }
-}
+};

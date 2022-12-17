@@ -2,6 +2,9 @@ import Event from "../../structures/Event.js";
 import Context from "../../structures/Context.js";
 import { getPrefix } from "../../handlers/functions.js";
 import { Message, ChannelType, PermissionFlagsBits, Collection } from "discord.js";
+import Dj from "../../schemas/dj.js";
+import { getSetup } from "../../handlers/setup.js";
+
 
 export default class MessageCreate extends Event {
     constructor(...args) {
@@ -13,7 +16,8 @@ export default class MessageCreate extends Event {
     async run(message) {
         if (message.author.bot || message.channel.type === ChannelType.DM) return;
         if (message.partial) await message.fetch();
-        
+        const data = await getSetup(message.guild.id);
+        if (data && data.Channel && message.channelId === data.Channel) return this.client.emit("setupSystem", message);
         const ctx = new Context(message);
         const prefix = await getPrefix(message.guild.id, this.client);
         
@@ -82,6 +86,22 @@ export default class MessageCreate extends Event {
                 if (!this.client.manager.getPlayer(message.guildId)) return await message.reply({ content: 'Nothing is playing right now.' });
                 if (!this.client.manager.getPlayer(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
                 if (!this.client.manager.getPlayer(message.guildId).current) return await message.reply({ content: 'Nothing is playing right now.' });
+            }
+            if (command.player.dj) {
+                let data = await Dj.findOne({ _id: message.guildId });
+                let perm = 'MuteMembers';
+                if (data) {
+                    if (data.Mode) {
+                        let pass = false;
+                        if (data.Roles.length > 0) {
+                            message.member.roles.cache.forEach((x) => {
+                                let role = data.Roles.find((r) => r === x.id);
+                                if (role) pass = true;
+                            });
+                        };
+                        if (!pass && !message.member.permissions.has(perm)) return message.channel.send({ content: `You need to have the \`${perm}\` permission or a DJ role to use this command.` });
+                    };
+                };
             }
         }
         if (command.args) {

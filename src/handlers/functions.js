@@ -1,6 +1,7 @@
 import Ptefix from "../schemas/prefix.js";
 import { BotClient } from "../structures/Client.js";
-import { ButtonStyle, CommandInteraction, ButtonBuilder, ActionRowBuilder } from "discord.js";
+import { ButtonStyle, CommandInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder } from "discord.js";
+import _247 from "../schemas/247.js";
 
 /**
  * @param {string} guildId
@@ -15,6 +16,28 @@ async function getPrefix(guildId, client) {
         prefix = client.config.prefix;
     }
     return prefix;
+}
+async function oops(channel, args) {
+    try {
+        let embed1 = new EmbedBuilder().setColor("Red").setDescription(`${args}`);
+
+        const m = await channel.send({
+            embeds: [embed1],
+        });
+
+        setTimeout(async () => await m.delete().catch(() => { }), 12000);
+    } catch (e) {
+        return console.error(e);
+    }
+}
+/**
+ * 
+ * @param {string} guildId 
+ * @returns 
+ */
+async function get247(guildId) {
+    let data = await _247.findOne({ _id: guildId });  
+    return data;
 }
 function checkURL(string) {
     try {
@@ -208,5 +231,7 @@ export {
     formatTime,
     chunk,
     paginate,
-    stringToTime
+    stringToTime,
+    get247,
+    oops
 }

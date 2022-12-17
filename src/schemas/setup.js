@@ -5,7 +5,6 @@ let Setup = new Schema({
     _id: String,
     Channel: String,
     Message: String,
-    voiceChannel: String,
 })
 
 export default model('Setup', Setup);

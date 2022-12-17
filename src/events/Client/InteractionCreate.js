@@ -1,7 +1,8 @@
 import Event from "../../structures/Event.js";
 import Context from "../../structures/Context.js";
 import { InteractionType, Collection, PermissionFlagsBits, ActionRowBuilder, EmbedBuilder, ChannelType, CommandInteraction } from "discord.js";
-import { getPrefix } from "../../handlers/functions.js";
+import Dj from "../../schemas/dj.js";
+
 
 export default class InteractionCreate extends Event {
     constructor(...args) {
@@ -66,6 +67,24 @@ export default class InteractionCreate extends Event {
                     if (!this.client.manager.getPlayer(interaction.guildId)) return await interaction.reply({ content: 'Nothing is playing right now.', ephemeral: true }).catch(() => { });
                     if (!this.client.manager.getPlayer(interaction.guildId).queue) return await interaction.reply({ content: 'Nothing is playing right now.', ephemeral: true }).catch(() => { });
                     if (!this.client.manager.getPlayer(interaction.guildId).current) return await interaction.reply({ content: 'Nothing is playing right now.', ephemeral: true }).catch(() => { });
+                }
+
+                if (cmd.player.dj) {
+                    const data = await Dj.findOne({ _id: interaction.guildId });
+                    let perm = 'MuteMembers';
+                    if (data) {
+                        if (data.Mode) {
+                            let pass = false;
+                            if (data.Roles.length > 0) {
+                                interaction.member.roles.cache.forEach((x) => {
+                                    let role = data.Roles.find((r) => r === x.id);
+                                    if (role) pass = true;
+                                });
+                            }
+                            if (!pass && !interaction.member.permissions.has(perm))
+                                return await interaction.reply({ content: `You don't have permission or dj role to use this command`, ephemeral: true }).catch(() => { });
+                        }
+                    }
                 }
 
             }
