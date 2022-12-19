@@ -30,7 +30,13 @@ export const config = {
         loop: "🔁",
         previous: "⏮️",
     },
-
+    icons: {
+        youtube: 'https://media.discordapp.net/attachments/963097935820750878/1054328059639111700/3670147.png',
+        spotify: 'https://media.discordapp.net/attachments/963097935820750878/1054333449252655104/spotify.png',
+        soundcloud: 'https://media.discordapp.net/attachments/963097935820750878/1054333449638526986/145809.png',
+        applemusic: 'https://media.discordapp.net/attachments/963097935820750878/1054333450368340018/apple-music-icon.png',
+        deezer: 'https://media.discordapp.net/attachments/963097935820750878/1054333450024394802/5968803.png'
+    },
     logs: process.env.LOGS || "channel_id",
     errorLogsChannel: process.env.ERROR_LOGS_CHANNEL || "channel_id",
     SearchPlatform: process.env.SEARCH_PLATFORM || "youtube music",

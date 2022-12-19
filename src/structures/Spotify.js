@@ -137,7 +137,7 @@ export default class Spotify {
     }
     buildSearch(playlistInfo, tracks, loadType) {
         return {
-            loadType,
+            loadType : loadType ? loadType : 'NO_MATCHES',
             playlistInfo: {
                 name: playlistInfo,
                 selectedTrack: 0,
