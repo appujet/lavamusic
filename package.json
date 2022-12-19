@@ -34,7 +34,8 @@
     "dotenv": "^16.0.3",
     "mongoose": "^6.8.0",
     "shoukaku": "^3.2.2",
-    "signale": "^1.4.0"
+    "signale": "^1.4.0",
+    "undici": "^5.14.0"
   },
   "engines": {
     "node": ">=18"

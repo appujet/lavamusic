@@ -2,6 +2,7 @@ import { Node, Shoukaku, Connectors } from "shoukaku";
 import { EventEmitter } from "events";
 import { Collection, Guild } from "discord.js";
 import Dispatcher from "./Dispatcher.js";
+import Spotify from "./Spotify.js";
 
 export default class ShoukakuClient extends EventEmitter {
     /**
@@ -30,6 +31,10 @@ export default class ShoukakuClient extends EventEmitter {
          * @type {Collection<string, Dispatcher>}
          */
         this.players = new Collection();
+        /**
+         * @type {Spotify}
+         */
+        this.spotify = new Spotify(this)
         this.shoukaku.on('ready', (name, resumed) =>
             this.emit(
                 resumed ? 'nodeReconnect' : 'nodeConnect',
@@ -85,7 +90,7 @@ export default class ShoukakuClient extends EventEmitter {
         });
 
         const dispatcher = new Dispatcher(this.client, guild, channel, player, member.user);
-        
+
         this.emit('playerCreate', dispatcher.player);
 
         this.players.set(guild.id, dispatcher);
@@ -98,19 +103,39 @@ export default class ShoukakuClient extends EventEmitter {
      * @param {string} query
      * @returns {Promise<import('shoukaku').LavalinkResponse>}
      */
-    async search(query) {
+    async search(query, options) {
         const node = await this.shoukaku.getNode();
-
-        /**
-         * @type {import('shoukaku').LavalinkResponse}
-         */
-        let result;
-        try {
-            result = await node.rest.resolve(query);
-        } catch (err) {
-            return null;
+        const regex = /^https?:\/\//;
+        if (regex.test(query)) {
+            return await this.fetchURL(query, options);
+        } else {
+            let result;
+            try {
+                result = await node.rest.resolve(`ytsearch:${query}`);
+            } catch (err) {
+                return null;
+            }
+            return result;
         }
+    }
+    async fetchURL(query, options) {
+        if (this.spotify.checkURL(query)) {
+            return await this.spotify.resolve(query, options);
+        } else {
+            const node = this.shoukaku.getNode();
+            let result;
+            try {
+                result = await node.rest.resolve(`ytsearch:${query}`);
+            } catch (err) {
+                return null;
+            }
 
-        return result;
+            return result;
+        }
+    }
+    // decode track 
+    async decode(track) {
+        const node = await this.shoukaku.getNode();
+        return await node.rest.decode(track);
     }
 }

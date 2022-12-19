@@ -1,11 +1,11 @@
 import { Guild, TextChannel, User } from 'discord.js';
 import { Player } from 'shoukaku';
 import { EventEmitter } from 'events';
-
+import { BotClient } from './Client.js';
 export default class Dispatcher extends EventEmitter {
     /**
      *
-     * @param {Moe} client
+     * @param {BotClient} client
      * @param {Guild} guild
      * @param {TextChannel} channel
      * @param {Player} player
@@ -14,7 +14,7 @@ export default class Dispatcher extends EventEmitter {
     constructor(client, guild, channel, player, user) {
         super();
         /**
-         * @type {Moe}
+         * @type {BotClient}
          */
         this.client = client;
         /**
@@ -103,7 +103,9 @@ export default class Dispatcher extends EventEmitter {
     get exists() {
         return this.manager.players.has(this.guild.id);
     }
-
+    setRequester(user) {
+        this.requester = user;
+    }
     async play() {
         if (!this.exists || (!this.queue.length && !this.current)) {
             this.destroy();
@@ -111,7 +113,7 @@ export default class Dispatcher extends EventEmitter {
         }
         this.current = this.queue.length !== 0 ? this.queue.shift() : this.queue[0];
         if (this.matchedTracks.length !== 0) this.matchedTracks = [];
-        const search = await this.manager.search(`ytsearch:${this.current.info.title}`);
+        const search = await this.manager.search(this.current.info.title, { requester: this.requester });
         this.matchedTracks.push(...search.tracks.slice(0, 11));
         this.player.playTrack({ track: this.current.track });
     }
@@ -181,6 +183,8 @@ export default class Dispatcher extends EventEmitter {
         if (track.info.uri.includes('youtube')) {
             return `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`;
         } else if (track.info.uri.includes('soundcloud')) {
+            return track.info.thumbnail;
+        } else if (track.info.uri.includes('spotify')) {
             return track.info.thumbnail;
         }
         return null;

@@ -5,6 +5,7 @@ const { connect, set } = pkg;
 import { config } from '../config.js';
 import Logger from './Logger.js';
 import ShoukakuClient from './Shoukaku.js';
+
 export class BotClient extends Client {
     constructor() {
         super({
@@ -102,8 +103,9 @@ export class BotClient extends Client {
                     cmdData.push(data);
                     i++;
                 }
-                const rest = new REST({ version: '10' }).setToken(this ? this.config.token : config.token);
-                if (this.config.production) {
+               
+               const rest = new REST({ version: '10' }).setToken(this ? this.config.token : config.token);
+                if (!this.config.production) {
                     try {
                         await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
                     } catch (e) {
@@ -121,7 +123,7 @@ export class BotClient extends Client {
         this.logger.cmd(`Successfully loaded all commands`);
     }
     async connectMongodb() {
-        // set('strictQuery', true);
+         set('strictQuery', true);
         await connect(this.config.mongourl);
         this.logger.ready('Connected to MongoDB');
     }
