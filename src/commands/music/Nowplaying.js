@@ -39,6 +39,7 @@ export default class Nowplaying extends Command {
         const embed = this.client.embed()
             .setColor(this.client.color.default)
             .setAuthor({ name: "Now Playing", iconURL: ctx.guild.iconURL({ }) })
+            .setThumbnail(player.displayThumbnail(player.current))
             .setDescription(`[${track.info.title}](${track.info.uri}) - Request By: ${track.requester}\n\n\`${bar}\``)
             .addFields({
                 name: '\u200b',
