@@ -39,8 +39,10 @@ export default class TrackStart extends Event {
                 new ButtonBuilder().setCustomId('skip').setLabel(`Skip`).setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder().setCustomId('loop').setLabel(`Loop`).setStyle(ButtonStyle.Secondary),
             );
+            let iconUrl = this.client.config.icons[track.info.sourceName];
+            if (!iconUrl) iconUrl = this.client.user.defaultAvatarURL({ dynamic: true})
             const embed = this.client.embed()
-                .setTitle('Now Playing')
+                .setAuthor({name: `Now Playing`, iconURL: iconUrl})
                 .setDescription(`[${track.info.title}](${track.info.uri})`)
                 .setThumbnail(dispatcher.displayThumbnail(track))
                 .addFields(

@@ -33,9 +33,9 @@ export default class Queue extends Command {
         const player = this.client.manager.getPlayer(ctx.guild.id);
         
         const queus = player.queue.map((track, i) => {
-            return `\`${i + 1}.\` [${track.info.title}](${track.info.uri}) - Request By: ${track.info.requester} - \`${formatTime(track.info.length)}\``;
+            return `\`${i + 1}.\` [${track.info.title}](${track.info.uri}) - Request By: ${track?.requester} - \`${formatTime(track.info.length)}\``;
         });
-        let chunks = chunk(queus, 5);
+        let chunks = chunk(queus, 10);
         if (chunks.length === 0) chunks = 1;
         const pages = [];
         for (let i = 0; i < chunks.length; i++) {

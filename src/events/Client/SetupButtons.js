@@ -1,5 +1,7 @@
 import Event from "../../structures/Event.js";
 import { buttonReply } from "../../handlers/setup.js";
+import { formatTime } from "../../handlers/functions.js";
+
 
 export default class SetupButtons extends Event {
     constructor(...args) {
@@ -28,8 +30,24 @@ export default class SetupButtons extends Event {
 
         } catch (e) { };
         const icon = player ? player.displayThumbnail(player.current) : this.client.config.links.img;
+        let iconUrl = this.client.config.icons[player.current.info.sourceName];
+        if (!iconUrl) iconUrl = this.client.user.defaultAvatarURL({ dynamic: true })
 
         const embed = this.client.embed()
+            .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
+            .setDescription(`[${title}](${uri}) - ${formatTime(length)}`)
+            .setColor(this.client.color.default)
+            .setImage(icon)
         
+        if (message) {
+            switch (interaction.customId) {
+                case 'LOW_VOL_BUT':
+                    const vol = player.player.filters.volume * 100 - 10;
+                    player.player.setVolume(vol);
+                    await buttonReply(interaction, `Volume set to ${vol}%`, this.client.color.default);
+                    await message.edit({ embeds: [embed.setFooter({ text: `Volume: ${vol}%`, iconURL: interaction.member.displayAvatarURL({ dynamic: true }) })] });
+                    break;
+            }
+        }
     }
 }

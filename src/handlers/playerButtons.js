@@ -23,12 +23,38 @@ async function getButtons() {
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
     let lowvolumebut = new ButtonBuilder()
-        .setCustomId(`lowvolume_but`)
+        .setCustomId(`LOW_VOL_BUT`)
         .setEmoji({ name: "🔉" })
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(false)
+    let forwardbut = new ButtonBuilder()
+        .setCustomId(`forward_but`)
+        .setEmoji({ name: "⏩" })
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(false);
+    let stopbut = new ButtonBuilder()
+        .setCustomId(`stop_but`)
+        .setEmoji({ name: "⏹️" })
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(false);
+    let loopbut = new ButtonBuilder()
+        .setCustomId(`loop_but`)
+        .setEmoji({ name: "🔁" })
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(false);
+    let shufflebut = new ButtonBuilder()
+        .setCustomId(`shuffle_but`)
+        .setEmoji({ name: "🔀" })
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(false);
+    let rewindbut = new ButtonBuilder()
+        .setCustomId(`rewind_but`)
+        .setEmoji({ name: "⏪" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
     let row = new ActionRowBuilder().addComponents(lowvolumebut, previousbut, pausebut, skipbut, highvolumebut);
-    return row;
+    let row2 = new ActionRowBuilder().addComponents(rewindbut, loopbut, stopbut, shufflebut, forwardbut);
+    return [row, row2]
 }
 
 export { getButtons };

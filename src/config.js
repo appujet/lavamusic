@@ -17,7 +17,7 @@ export const config = {
         warn: process.env.WARN_COLOR || "#FFFF00",
     },
     production: process.env.PRODUCTION || false,
-    guildId: process.env.GUILD_ID || "",
+    guildId: process.env.GUILD_ID || "959703767333359630",
     emotes: {
         success: "✅",
         error: "❌",

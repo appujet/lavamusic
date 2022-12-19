@@ -84,7 +84,8 @@ export default class Setup extends Command {
                         .setImage(image)
                         .setFooter({ text: footer.text, iconURL: footer.iconURL });
                     const buttons = await getButtons();
-                    const msg = await textChannel.send({ embeds: [embed1], components: [buttons] });
+                   
+                    const msg = await textChannel.send({ embeds: [embed1], components: buttons });
                     data = new SetupData({
                         _id: ctx.guild.id,
                         Channel: textChannel.id,

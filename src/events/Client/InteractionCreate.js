@@ -2,7 +2,7 @@ import Event from "../../structures/Event.js";
 import Context from "../../structures/Context.js";
 import { InteractionType, Collection, PermissionFlagsBits, ActionRowBuilder, EmbedBuilder, ChannelType, CommandInteraction } from "discord.js";
 import Dj from "../../schemas/dj.js";
-
+import { getSetup } from "../../handlers/setup.js";
 
 export default class InteractionCreate extends Event {
     constructor(...args) {
@@ -13,6 +13,13 @@ export default class InteractionCreate extends Event {
      * @param {CommandInteraction} interaction
      */
     async run(interaction) {
+        if (interaction.isButton()) {
+            const setup = await getSetup(interaction.guildId);
+            if (setup && interaction.channelId === setup.Channel && interaction.message.id === setup.Message) {
+                return this.client.emit('setupButtons', interaction, setup);
+            }
+        }
+       
         if (interaction.type === InteractionType.ApplicationCommand) {
             const { commandName } = interaction;
             if (!commandName) return await interaction.reply({ content: 'Unknow interaction!' }).catch(() => { });

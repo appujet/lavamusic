@@ -103,6 +103,9 @@ export default class Dispatcher extends EventEmitter {
     get exists() {
         return this.manager.players.has(this.guild.id);
     }
+    get volume() {
+        return this.player.filters.volume;
+    }
     setRequester(user) {
         this.requester = user;
     }

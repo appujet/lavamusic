@@ -1,3 +1,4 @@
+import { EmbedBuilder } from 'discord.js';
 import Setup from '../schemas/setup.js';
 import { formatTime, checkURL } from './functions.js';
 import { getButtons } from './playerButtons.js';
@@ -40,7 +41,8 @@ async function setupStart(client, query, player, message) {
         console.log(error);
     }
     if (m) {
-        let res = await client.manager.search(isURL ? query : `ytmsearch:${query}`);
+        try {
+            let res = await client.manager.search(query, { requester: message.author })
         switch (res.loadType) {
             case 'LOAD_FAILED':
                 message.channel.send({ embeds: [embed.setColor(client.color.error).setDescription('There was an error while searching.')] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000)});
@@ -69,6 +71,9 @@ async function setupStart(client, query, player, message) {
                 neb(n, player, client);
                 if (m) await m.edit({ embeds: [n] }).catch(() => { });
                 break;
+            }
+        } catch (error) {
+            await message.channel.send({ embeds: [embed.setColor(client.color.error).setDescription('There was an error while searching.')] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000)});
         }
     }
 }
@@ -101,7 +106,7 @@ async function trackStart(msgId, channel, player, track, client) {
             .setDescription(`[${track.info.title}](${track.info.uri}) by ${track.info.author} • \`[${formatTime(track.info.length)}]\``)
             .setImage(icon)
         const button = await getButtons()
-        await channel.send({ embeds: [embed], components: [button] });
+        await channel.send({ embeds: [embed], components: button });
     }
 }
 
@@ -111,12 +116,12 @@ async function trackStart(msgId, channel, player, track, client) {
  * @param {string[]} args
  * @param {import('../structures/Client.js').BotClient} client
  */
-async function buttonReply(int, args, client) {
-    const embed = client.embed()
+async function buttonReply(int, args, color) {
+    const embed = new EmbedBuilder()
     if (int.replied) {
-        await int.editReply({ embeds: [embed.setColor(client.color.default).setDescription(args)] }).catch(() => { });
+        await int.editReply({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => { });
     } else {
-        await int.followUp({ embeds: [embed.setColor(client.color.default).setDescription(args)] }).catch(() => { });
+        await int.followUp({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => { });
     }
 }
 

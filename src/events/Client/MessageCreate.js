@@ -121,7 +121,7 @@ export default class MessageCreate extends Event {
             const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
             const timeLeft = (expirationTime - now) / 1000;
             if (now < expirationTime && timeLeft > 0.9) {
-                return message.reply({ content: `${this.client.config.emojis.error} Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${commandName}\` command.` });
+                return message.reply({ content: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${commandName}\` command.` });
             }
             timestamps.set(message.author.id, now);
             setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
