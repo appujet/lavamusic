@@ -103,7 +103,7 @@ export class BotClient extends Client {
                     cmdData.push(data);
                     i++;
                 }
-               
+               /*
                const rest = new REST({ version: '10' }).setToken(this ? this.config.token : config.token);
                 if (!this.config.production) {
                     try {
@@ -117,7 +117,7 @@ export class BotClient extends Client {
                     } catch (e) {
                         this.logger.error(e);
                     }
-                }
+                }*/
             });
         });
         this.logger.cmd(`Successfully loaded all commands`);

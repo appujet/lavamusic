@@ -18,7 +18,7 @@ async function getButtons() {
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
     let highvolumebut = new ButtonBuilder()
-        .setCustomId(`highvolume_but`)
+        .setCustomId(`HIGH_VOL_BUT`)
         .setEmoji({ name: "🔊" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);

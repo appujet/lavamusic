@@ -33,7 +33,7 @@ async function setupStart(client, query, player, message) {
     let m;
     const embed = client.embed()
     let n = client.embed().setColor(client.color.default);
-    const isURL = checkURL(query);
+
     const data = await getSetup(message.guild.id);
     try {
         if (data) m = await message.channel.messages.fetch({ message: data.Message, cache: true });
@@ -97,13 +97,13 @@ async function trackStart(msgId, channel, player, track, client) {
     if (m) {
         const embed = client.embed()
             .setColor(client.color.default)
-            .setDescription(`[${track.info.title}](${track.info.uri}) by ${track.info.author} • \`[${formatTime(track.info.length)}]\``)
+            .setDescription(`[${track.info.title}](${track.info.uri}) - \`[${formatTime(track.info.length)}]\``)
             .setImage(icon)
         await m.edit({ embeds: [embed] }).catch(() => { });
     } else {
         const embed = client.embed()
             .setColor(client.color.default)
-            .setDescription(`[${track.info.title}](${track.info.uri}) by ${track.info.author} • \`[${formatTime(track.info.length)}]\``)
+            .setDescription(`[${track.info.title}](${track.info.uri}) - \`[${formatTime(track.info.length)}]\``)
             .setImage(icon)
         const button = await getButtons()
         await channel.send({ embeds: [embed], components: button });
@@ -123,6 +123,11 @@ async function buttonReply(int, args, color) {
     } else {
         await int.followUp({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => { });
     }
+    setTimeout(async () => {
+        if (int && !int.ephemeral) {
+            await int.deleteReply().catch(() => { });
+        }
+    }, 2000);
 }
 
 export {
