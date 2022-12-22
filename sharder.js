@@ -4,7 +4,7 @@ import Logger from "./src/structures/Logger.js";
 const logger = new Logger({
   displayTimestamp: true,
   displayDate: true,
-})
+});
 const manager = new ShardingManager("./src/index.js", {
   respawn: true,
   autoSpawn: true,

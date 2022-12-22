@@ -74,15 +74,11 @@ export default class Setup extends Command {
                     const player = await this.client.manager.getPlayer(ctx.guild.id);
                     const image = this.client.config.links.img;
                     const desc = player && player.queue && player.current ? `[${player.current.info.title}](${player.current.info.uri})` : 'Nothing playing right now';
-                    const footer = {
-                        text: player && player.queue && player.current ? `Requested by ${player.current.info.requester.username}` : `Thanks for using ${this.client.user.username}!`,
-                        iconURL: player && player.queue && player.current ? `${player.current.info.requester.displayAvatarURL()}` : `${this.client.user.displayAvatarURL()}`
-                    };
+                   
                     let embed1 = this.client.embed()
                         .setColor(this.client.color.default)
                         .setDescription(desc)
                         .setImage(image)
-                        .setFooter({ text: footer.text, iconURL: footer.iconURL });
                     const buttons = await getButtons();
                    
                     const msg = await textChannel.send({ embeds: [embed1], components: buttons });

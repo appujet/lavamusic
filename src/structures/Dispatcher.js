@@ -61,6 +61,10 @@ export default class Dispatcher extends EventEmitter {
          * @type {number}
          */
         this.repeat = 0;
+        /**
+         * @type {boolean}
+         */
+        this.shuffle = false;
 
         this.nowPlayingMessage = null;
 
@@ -146,10 +150,18 @@ export default class Dispatcher extends EventEmitter {
         if (this.stopped) return;
         this.manager.emit('playerDestroy', this.player);
     }
-    shuffle() {
+    setShuffle(shuffle) {
         if (!this.player) return;
-        if (this.queue.length < 2) return;
-        this.queue = this.queue.sort(() => Math.random() - 0.5);
+        this.shuffle = shuffle;
+        if (shuffle) {
+            const current = this.queue.shift();
+            this.queue = this.queue.sort(() => Math.random() - 0.5);
+            this.queue.unshift(current);
+        } else {
+            const current = this.queue.shift();
+            this.queue = this.queue.sort((a, b) => a - b);
+            this.queue.unshift(current);
+        }
     }
     async skip(skipto = 1) {
         if (!this.player) return;
@@ -169,6 +181,9 @@ export default class Dispatcher extends EventEmitter {
         this.queue.length = 0;
         this.repeat = 0;
         this.player.stopTrack();
+    }
+    setLoop(loop) {
+        this.loop = loop;
     }
     async deleteNowPlayingMessage() {
         if (this.nowPlayingMessage) {

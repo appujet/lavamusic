@@ -1,5 +1,5 @@
 import { fetch } from 'undici'
-import { Tracks } from './Tracks.js'
+import { Tracks } from '../Tracks.js'
 const BASE_URL = 'https://api.spotify.com/v1';
 const REGEX = /(?:https:\/\/open\.spotify\.com\/|spotify:)(?:.+)?(track|playlist|album|artist)[\/:]([A-Za-z0-9]+)/;
 
@@ -7,7 +7,7 @@ const REGEX = /(?:https:\/\/open\.spotify\.com\/|spotify:)(?:.+)?(track|playlist
 export default class Spotify {
     /**
      * 
-     * @param {import('./Shoukaku.js').ShoukakuClient} client
+     * @param {import('../Shoukaku.js').ShoukakuClient} client
      */
     constructor(client) {
         this.shoukaku = client;
@@ -137,7 +137,7 @@ export default class Spotify {
     }
     buildSearch(playlistInfo, tracks, loadType) {
         return {
-            loadType : loadType ? loadType : 'NO_MATCHES',
+            loadType: loadType ? loadType : 'NO_MATCHES',
             playlistInfo: {
                 name: playlistInfo,
                 selectedTrack: 0,

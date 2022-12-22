@@ -3,17 +3,17 @@ import { ButtonBuilder, ActionRowBuilder, ButtonStyle } from "discord.js";
 
 async function getButtons() {
     let pausebut = new ButtonBuilder()
-        .setCustomId(`pause_but`)
+        .setCustomId(`PAUSE_BUT`)
         .setEmoji({ name: "⏸️" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
     let previousbut = new ButtonBuilder()
-        .setCustomId(`previous_but`)
+        .setCustomId(`PREV_BUT`)
         .setEmoji({ name: "⏮️" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
     let skipbut = new ButtonBuilder()
-        .setCustomId(`skip_but`)
+        .setCustomId(`SKIP_BUT`)
         .setEmoji({ name: "⏭️" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
@@ -28,27 +28,27 @@ async function getButtons() {
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false)
     let forwardbut = new ButtonBuilder()
-        .setCustomId(`forward_but`)
+        .setCustomId(`FORWARD_BUT`)
         .setEmoji({ name: "⏩" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
     let stopbut = new ButtonBuilder()
-        .setCustomId(`stop_but`)
+        .setCustomId(`STOP_BUT`)
         .setEmoji({ name: "⏹️" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
     let loopbut = new ButtonBuilder()
-        .setCustomId(`loop_but`)
+        .setCustomId(`LOOP_BUT`)
         .setEmoji({ name: "🔁" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
     let shufflebut = new ButtonBuilder()
-        .setCustomId(`shuffle_but`)
+        .setCustomId(`SHUFFLE_BUT`)
         .setEmoji({ name: "🔀" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);
     let rewindbut = new ButtonBuilder()
-        .setCustomId(`rewind_but`)
+        .setCustomId(`REWIND_BUT`)
         .setEmoji({ name: "⏪" })
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(false);

@@ -10,14 +10,18 @@ async function getSetup(guildId) {
 }
 /**
  * 
- * @param {import('discord.js').EmbedData} embed
+ * @param {import('discord.js').EmbedBuilder} embed
  * @param {import('shoukaku').PlayOptions} player
  * @param {import('../structures/Client.js').BotClient} client
  * @returns 
  */
 function neb(embed, player, client) {
+    let iconUrl = client.config.icons[player.current.info.sourceName];
+    if (!iconUrl) iconUrl = client.user.defaultAvatarURL({ dynamic: true })
+
     let icon = player.current ? player.displayThumbnail(player.current) : client.config.links.img;
     return embed
+        .setAuthor({ name: 'Now Playing', iconURL: iconUrl })
         .setDescription(`[${player.current.info.title}](${player.current.info.uri}) by ${player.current.info.author} • \`[${formatTime(player.current.info.length)}]\``)
         .setImage(icon)
        // .setFooter({ text: `Requested by ${player.current.info.requester.tag}`, iconURL: player.current.info.requester.displayAvatarURL({ dynamic: true }) });
@@ -95,20 +99,27 @@ async function trackStart(msgId, channel, player, track, client) {
         console.log(error);
     }
     if (m) {
+        let iconUrl = client.config.icons[player.current.info.sourceName];
+        if (!iconUrl) iconUrl = client.user.defaultAvatarURL({ dynamic: true })
         const embed = client.embed()
+            .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
             .setColor(client.color.default)
             .setDescription(`[${track.info.title}](${track.info.uri}) - \`[${formatTime(track.info.length)}]\``)
             .setImage(icon)
         await m.edit({ embeds: [embed] }).catch(() => { });
     } else {
+        let iconUrl = client.config.icons[player.current.info.sourceName];
+        if (!iconUrl) iconUrl = client.user.defaultAvatarURL({ dynamic: true })
         const embed = client.embed()
             .setColor(client.color.default)
+            .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
             .setDescription(`[${track.info.title}](${track.info.uri}) - \`[${formatTime(track.info.length)}]\``)
             .setImage(icon)
         const button = await getButtons()
         await channel.send({ embeds: [embed], components: button });
     }
 }
+
 
 /**
  * 

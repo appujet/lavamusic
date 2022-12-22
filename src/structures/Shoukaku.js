@@ -2,7 +2,7 @@ import { Node, Shoukaku, Connectors } from "shoukaku";
 import { EventEmitter } from "events";
 import { Collection, Guild } from "discord.js";
 import Dispatcher from "./Dispatcher.js";
-import Spotify from "./Spotify.js";
+import Spotify from "./sources/Spotify.js";
 
 export default class ShoukakuClient extends EventEmitter {
     /**
@@ -132,10 +132,5 @@ export default class ShoukakuClient extends EventEmitter {
 
             return result;
         }
-    }
-    // decode track 
-    async decode(track) {
-        const node = await this.shoukaku.getNode();
-        return await node.rest.decode(track);
     }
 }

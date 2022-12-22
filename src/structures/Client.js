@@ -58,9 +58,8 @@ export class BotClient extends Client {
                 const eventClass = new Event(this, Event);
                 this.events.set(eventClass.name, eventClass);
                 const eventName = event.split('.')[0].charAt(0).toLowerCase() + event.split('.')[0].slice(1);
-
                 switch (file) {
-                    case 'player':
+                    case 'Player':
                         this.manager.on(eventName, (...args) => eventClass.run(...args));
                         i++;
                         break;
@@ -71,7 +70,7 @@ export class BotClient extends Client {
                 }
             });
         });
-        this.logger.event(`Loaded events`);
+        this.logger.event(`Loaded ${i} events`);
     }
     async loadCommands() {
         let i = 0;
@@ -103,27 +102,26 @@ export class BotClient extends Client {
                     cmdData.push(data);
                     i++;
                 }
-               /*
-               const rest = new REST({ version: '10' }).setToken(this ? this.config.token : config.token);
-                if (!this.config.production) {
-                    try {
-                        await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
-                    } catch (e) {
-                        this.logger.error(e);
-                    }
-                } else {
-                    try {
-                        await rest.put(Routes.applicationGuildCommands(this.config.clientId, this.config.guildId), { body: cmdData });
-                    } catch (e) {
-                        this.logger.error(e);
-                    }
-                }*/
             });
         });
-        this.logger.cmd(`Successfully loaded all commands`);
+        const rest = new REST({ version: '10' }).setToken(this ? this.config.token : config.token);
+        if (!this.config.production) {
+            try {
+                await rest.put(Routes.applicationCommands(this ? this.config.clientId : config.clientId), { body: cmdData });
+            } catch (e) {
+                this.logger.error(e);
+            }
+        } else {
+            try {
+                await rest.put(Routes.applicationGuildCommands(this.config.clientId, this.config.guildId), { body: cmdData });
+            } catch (e) {
+                this.logger.error(e);
+            }
+        }
+        this.logger.cmd(`Successfully loaded ${i} commands`);
     }
     async connectMongodb() {
-         set('strictQuery', true);
+        set('strictQuery', true);
         await connect(this.config.mongourl);
         this.logger.ready('Connected to MongoDB');
     }
