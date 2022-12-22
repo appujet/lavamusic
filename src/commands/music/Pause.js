@@ -28,7 +28,7 @@ export default class Pause extends Command {
         });
     }
     async run(ctx, args) {
-        const player = this.client.manager.get(ctx.guild.id);
+        const player = this.client.manager.getPlayer(ctx.guild.id);
         const embed = this.client.embed();
         if (player.paused) {
             ctx.sendMessage({ embeds: [embed.setColor(this.client.color.error).setDescription('The player is already paused.')] });
