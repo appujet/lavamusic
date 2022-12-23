@@ -1,4 +1,4 @@
-import { Guild, TextChannel, User } from 'discord.js';
+import { Guild, TextChannel, User, Message } from 'discord.js';
 import { Player } from 'shoukaku';
 import { EventEmitter } from 'events';
 import { BotClient } from './Client.js';
@@ -65,7 +65,13 @@ export default class Dispatcher extends EventEmitter {
          * @type {boolean}
          */
         this.shuffle = false;
-
+        /**
+         * @type {boolean}
+         */
+        this.paused = false;
+        /**
+         * @type {Message}
+         */
         this.nowPlayingMessage = null;
 
         this.player
@@ -126,10 +132,12 @@ export default class Dispatcher extends EventEmitter {
     }
     pause() {
         if (!this.player) return;
-        if (!this.player.paused) {
+        if(!this.paused) {
             this.player.setPaused(true);
-        } else if (this.player.paused) {
+            this.paused = true;
+        } else {
             this.player.setPaused(false);
+            this.paused = false;
         }
     }
     remove(index) {

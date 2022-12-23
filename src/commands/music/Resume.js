@@ -33,7 +33,7 @@ export default class Resume extends Command {
         if (!player.paused) {
             return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.error).setDescription("The player is already playing")] });
         }
-        player.pause(false);
+        player.pause();
         return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.default).setDescription("Resumed the player")] });
     }
 }
