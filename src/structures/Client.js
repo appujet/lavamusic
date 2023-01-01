@@ -69,6 +69,7 @@ class MusicBot extends Client {
       family: 4,
       useUnifiedTopology: true,
     };
+    mongoose.set('strictQuery', true);
     mongoose.connect(this.config.mongourl, dbOptions);
     mongoose.Promise = global.Promise;
     mongoose.connection.on("connected", () => {
