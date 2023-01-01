@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 services:
   mongodb:
     container_name: lavamusic-mongodb
@@ -38,9 +38,9 @@ services:
 
   lavalink-monitor:
     container_name: Lavalink-Monitor
-    image: ghcr.io/brblacky/lavalink-status:latest
+    image: ghcr.io/brblacky/lavalink-status:main
     environment:
-      CHANNEL_ID: "channel id to post stats in"
+      LOGS: "channel id to post stats in"
       TOKEN: "your lavalink server status bot token"
       NODE_HOST: "lavalink"
       NODE_ID: "lavamusic-lavalink"
@@ -52,6 +52,9 @@ services:
       - lavalink
     links:
       - lavalink
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2333"]
+      interval: 5s
 
   lavamusic:
     container_name: lavamusic
@@ -84,6 +87,9 @@ services:
     links:
       - mongodb:db
       - lavalink
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2333"]
+      interval: 5s
 
 volumes:
   mongodb_data:
