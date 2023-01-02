@@ -37,10 +37,6 @@ export const config = {
         applemusic: 'https://media.discordapp.net/attachments/963097935820750878/1054333450368340018/apple-music-icon.png',
         deezer: 'https://media.discordapp.net/attachments/963097935820750878/1054333450024394802/5968803.png'
     },
-    logs: process.env.LOGS || "channel_id",
-    errorLogsChannel: process.env.ERROR_LOGS_CHANNEL || "channel_id",
-    SearchPlatform: process.env.SEARCH_PLATFORM || "youtube music",
-    AggregatedSearchOrder: process.env.AGGREGATED_SEARCH_ORDER || "youtube music,youtube,soundcloud",
     links: {
         img: process.env.IMG || 'https://media.discordapp.net/attachments/963097935820750878/983300268131225651/20220606_145403.png',
         support: process.env.SUPPORT || 'https://discord.gg/ns8CTk9J3e',
