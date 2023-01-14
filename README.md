@@ -49,12 +49,12 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 
 - ✅ Setup System
 - ✅ Music
-- ✅ 24/7
-- ✅ Dj
-- ✅ Custom Playlist (global)
+- ❌ 24/7
+- ❌ Dj
+- ❌ Custom Playlist (global)
 - ✅ SlashCommand
 - ✅ Custom prefix
-- ✅ Filters
+- ❌ Filters
 - ✅ Easy to use
 - ✅ And much more!
 
@@ -95,13 +95,13 @@ Warning: Java v14 has issues with Lavalink.
 ## 🎶 Available music sources
 
 - ✅ YouTube
-- ✅ Bandcamp
-- ✅ SoundCloud
-- ✅ Twitch
-- ✅ Vimeo
-- ✅ http (you can use radio for it)
+- ❌ Bandcamp
+- ❌ SoundCloud
+- ❌ Twitch
+- ❌ Vimeo
+- ❌ http (you can use radio for it)
 - ✅ Spotify
-- ✅ Deezer
+- ❌ Deezer
 
 <!-- INSTALL -->
 
