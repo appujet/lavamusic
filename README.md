@@ -95,11 +95,11 @@ Warning: Java v14 has issues with Lavalink.
 ## 🎶 Available music sources
 
 - ✅ YouTube
-- ❌ Bandcamp
-- ❌ SoundCloud
-- ❌ Twitch
-- ❌ Vimeo
-- ❌ http (you can use radio for it)
+- ✅ Bandcamp
+- ✅ SoundCloud
+- ✅ Twitch
+- ✅ Vimeo
+- ✅ http (you can use radio for it)
 - ✅ Spotify
 - ❌ Deezer
 
