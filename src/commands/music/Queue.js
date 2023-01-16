@@ -31,6 +31,22 @@ export default class Queue extends Command {
     }
     async run(ctx, args) {
         const player = this.client.manager.getPlayer(ctx.guild.id);
+        const embed = this.client.embed();
+        const track = player.current;
+        
+            if (!player.queue.length || player.queue.length === 0) {
+      return ctx.sendMessage({
+        embeds: [
+          embed
+            .setColor(this.client.color.default)
+            .setDescription(
+              `[${track.info.title}](${track.info.uri}) - Request By: ${
+                player?.current.info.requester
+              } - \`${formatTime(track.info.length)}\``
+            ),
+        ],
+      });
+    }
         
         const queus = player.queue.map((track, i) => {
             return `\`${i + 1}.\` [${track.info.title}](${track.info.uri}) - Request By: ${track?.requester} - \`${formatTime(track.info.length)}\``;
