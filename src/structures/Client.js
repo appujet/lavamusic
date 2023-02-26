@@ -51,9 +51,9 @@ export class BotClient extends Client {
     async loadEvents() {
         let i = 0;
         const eventFiles = readdirSync('./src/events');
-        eventFiles.forEach(async (file) => {
+        for (const file of eventFiles) {
             const events = readdirSync(`./src/events/${file}`).filter(c => c.split('.').pop() === 'js');
-            events.forEach(async (event) => {
+            for (const event of events) {
                 const Event = (await import(`../events/${file}/${event}`)).default;
                 const eventClass = new Event(this, Event);
                 this.events.set(eventClass.name, eventClass);
@@ -68,8 +68,8 @@ export class BotClient extends Client {
                         i++;
                         break;
                 }
-            });
-        });
+            }
+        }
         this.logger.event(`Loaded ${i} events`);
     }
     async loadCommands() {
