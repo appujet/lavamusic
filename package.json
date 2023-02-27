@@ -32,7 +32,7 @@
   "dependencies": {
     "discord.js": "14.7.1",
     "dotenv": "^16.0.3",
-    "mongoose": "^6.8.0",
+    "mongoose": "^7.0.0",
     "shoukaku": "^3.2.2",
     "signale": "^1.4.0",
     "undici": "^5.14.0"
