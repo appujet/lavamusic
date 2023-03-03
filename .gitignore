@@ -1,6 +1,0 @@
-node_modules
-.vscode
-package-lock.json
-.env
-yarn.lock
-/src/config.js

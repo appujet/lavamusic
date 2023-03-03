@@ -47,16 +47,9 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 
 ## 🎭 Features
 
-- ✅ Setup System
-- ✅ Music
-- ❌ 24/7
-- ❌ Dj
-- ❌ Custom Playlist (global)
-- ✅ SlashCommand
-- ✅ Custom prefix
-- ❌ Filters
-- ✅ Easy to use
-- ✅ And much more!
+- [x] Setup System
+- [x] Music
+
 
 ## 🖼️ Screenshots
 
