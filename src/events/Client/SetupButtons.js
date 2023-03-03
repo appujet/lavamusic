@@ -42,13 +42,13 @@ export default class SetupButtons extends Event {
         if (message) {
             switch (interaction.customId) {
                 case 'LOW_VOL_BUT':
-                    const vol = player.volume * 100 - 10;
+                    const vol = ((player.volume * 100) - 10).toFixed(0);
                     player.player.setVolume(vol / 100);
                     await buttonReply(interaction, `Volume set to ${vol}%`, this.client.color.default);
                     await message.edit({ embeds: [embed.setFooter({ text: `Volume: ${vol}%`, iconURL: interaction.member.displayAvatarURL({ dynamic: true }) })] });
                     break;
                 case 'HIGH_VOL_BUT':
-                    const vol2 = player.volume * 100 + 10;
+                    const vol2 = ((player.volume * 100) + 10).toFixed(0);
                     player.player.setVolume(vol2 / 100);
                     await buttonReply(interaction, `Volume set to ${vol2}%`, this.client.color.default);
                     await message.edit({ embeds: [embed.setFooter({ text: `Volume: ${vol2}%`, iconURL: interaction.member.displayAvatarURL({ dynamic: true }) })] });
