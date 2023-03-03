@@ -9,9 +9,20 @@ export default class MessageCreate extends Event {
     }
     public async run(message: Message): Promise<void> {
         if (message.author.bot) return;
-      
-        if (!message.content.startsWith(this.client.config.PREFIX)) return;
-        const args = message.content.slice(this.client.config.PREFIX.length).trim().split(/ +/g);
+    
+        let prefix = await this.client.prisma.guild.findUnique({
+            where: {
+                guildId: message.guildId
+            }
+        }) as any;
+        if (!prefix) {
+            prefix = this.client.config.prefix;
+        } else {
+            prefix = prefix.prefix;
+        }
+
+        if (!message.content.startsWith(prefix)) return;
+        const args = message.content.slice(prefix.length).trim().split(/ +/g);
         const cmd = args.shift().toLowerCase();
         const command = this.client.commands.get(cmd);
         if (!command) return;
@@ -25,4 +36,14 @@ export default class MessageCreate extends Event {
              await message.reply({ content: `An error occured: \`${error}\``})
         }
     }
-}
+};
+
+/**
+ * Project: lavamusic
+ * Author: Blacky
+ * Company: Coders
+ * Copyright (c) 2023. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

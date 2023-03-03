@@ -1,10 +1,10 @@
-import { Collection, ClientOptions, Client } from "discord.js";
+import { Collection, ClientOptions, Client, EmbedBuilder } from "discord.js";
 import { prisma } from "../prisma.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from 'url';
 import Logger from "./Logger.js";
-import { Config, IConfig } from "../config.js";
+import config from "../config.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
@@ -13,13 +13,16 @@ export default class Lavamusic extends Client {
     public aliases: Collection<string, any> = new Collection();
     public prisma = prisma;
     public cooldowns: Collection<string, any> = new Collection();
-    public config: IConfig = Config();
+    public config = config;
     public logger: Logger = new Logger();
+    
     public constructor(options: ClientOptions) {
         super(options);
         
     }
-
+    public embed(): EmbedBuilder {
+        return new EmbedBuilder();
+    }
     public async start(token: string): Promise<string> {
         this.loadCommands();
         this.loadEvents();

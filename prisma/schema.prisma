@@ -11,7 +11,29 @@ datasource db {
 }
 
 model Guild {
-  id       String   @id @map("_id") @db.ObjectId
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  guildId String  @unique
   prefix  String? @default("!")
+  setup   Setup?
+  stay    stay?
+}
 
+model Setup {
+  id      String  @id @map("_id") @db.ObjectId
+  guildId String  @map("guildId") @db.ObjectId
+  guild   Guild   @relation(fields: [guildId], references: [id])
+  channel String? @map("channelId") @db.ObjectId
+  message String? @map("messageId") @db.ObjectId
+
+  @@unique([guildId])
+}
+
+model stay {
+  id      String  @id @map("_id") @db.ObjectId
+  guildId String  @map("guildId") @db.ObjectId
+  guild   Guild   @relation(fields: [guildId], references: [id])
+  channel String? @map("channelId") @db.ObjectId
+  voice   String? @map("voiceId") @db.ObjectId
+
+  @@unique([guildId])
 }

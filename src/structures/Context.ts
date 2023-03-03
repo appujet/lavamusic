@@ -1,4 +1,4 @@
-import { CommandInteraction, Message, Guild, GuildMember, TextChannel, GuildChannel } from "discord.js";
+import { CommandInteraction, Message, APIInteractionGuildMember, Guild, GuildMember, TextChannel, GuildChannel, User } from "discord.js";
 import { Lavamusic } from './index.js';
 
 export default class Context {
@@ -9,12 +9,12 @@ export default class Context {
     public id: string;
     public channelId: string;
     public client: Lavamusic;
-    public author: GuildMember | null;
+    public author: User | null;
     public channel: GuildChannel | TextChannel | null;
     public guild: Guild | null;
     public createdAt: Date;
     public createdTimestamp: number;
-    public member: GuildMember | null;
+    public member: GuildMember | APIInteractionGuildMember | null;
     public args: any[];
     public msg: any;
     constructor(ctx, args) {
