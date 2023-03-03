@@ -5,11 +5,9 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --project tsconfig.json",
     "start": "npm run start:bot",
     "start:bot": "npm run build && node --enable-source-maps dist/index.js",
-    "dev": "nodemon --watch src --exec \"ts-node\" src/index.ts"
+    "build": "tsc --project tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -39,9 +37,21 @@
   },
   "dependencies": {
     "@prisma/client": "^4.11.0",
+    "@types/signale": "^1.4.4",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "shoukaku": "^3.3.1",
+    "signale": "^1.4.0",
     "undici": "^5.20.0"
+  },
+
+  "signale": {
+    "displayScope": true,
+    "displayBadge": true,
+    "displayDate": true,
+    "displayFilename": true,
+    "displayLabel": true,
+    "displayTimestamp": true,
+    "underlineLabel": true
   }
 }

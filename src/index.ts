@@ -1,9 +1,9 @@
 import Lavamusic from "./structures/Lavamusic.js";
-import { ClientOptions } from "discord.js";
+import { ClientOptions, GatewayIntentBits } from "discord.js";
 import { Config } from "./config.js";
-
+const { GuildMembers, MessageContent, GuildVoiceStates, GuildMessages, Guilds, GuildMessageTyping } = GatewayIntentBits;
 const clientOptions: ClientOptions = {
-    intents: 32767,
+    intents: [Guilds, GuildMessages, MessageContent, GuildVoiceStates, GuildMembers, GuildMessageTyping],
     allowedMentions: {
         parse: ["users", "roles"],
         repliedUser: false
@@ -12,8 +12,5 @@ const clientOptions: ClientOptions = {
 
 const client = new Lavamusic(clientOptions);
 
-async function start() {
-    await client.start(Config().TOKEN);
-}
 
-start();
+client.start(Config().TOKEN);
