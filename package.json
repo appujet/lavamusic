@@ -5,7 +5,11 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --project tsconfig.json",
+    "start": "npm run start:bot",
+    "start:bot": "npm run build && node --enable-source-maps dist/index.js",
+    "dev": "nodemon --watch src --exec \"ts-node\" src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -34,7 +38,9 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@prisma/client": "^4.11.0",
     "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
     "shoukaku": "^3.3.1",
     "undici": "^5.20.0"
   }
