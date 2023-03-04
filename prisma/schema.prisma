@@ -16,6 +16,8 @@ model Guild {
   prefix  String? @default("!")
   setup   Setup?
   stay    stay?
+  dj      Dj?
+  botchannel Botchannel?
 }
 
 model Setup {
@@ -36,4 +38,38 @@ model stay {
   voice   String? @map("voiceId") @db.ObjectId
 
   @@unique([guildId])
+}
+
+model Botchannel {
+  id      String  @id @map("_id") @db.ObjectId
+  guildId String  @map("guildId") @db.ObjectId
+  guild   Guild   @relation(fields: [guildId], references: [id])
+  channel String? @map("channelId") @db.ObjectId
+
+  @@unique([guildId])
+}
+model Dj {
+  id      String  @id @map("_id") @db.ObjectId
+  guildId String  @map("guildId") @db.ObjectId
+  guild   Guild   @relation(fields: [guildId], references: [id])
+  role    String[]
+
+  @@unique([guildId])
+}
+
+model User {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String  @unique
+  playlists Playlist[]
+
+}
+
+model Playlist {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String  @map("userId") @db.ObjectId
+  user     User    @relation(fields: [userId], references: [id])
+  name     String
+  songs    String[]
+
+  @@unique([userId, name])
 }

@@ -32,10 +32,10 @@ export default class Ping extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
 
         const msg = await ctx.sendDeferMessage('Pinging...');
-
+     
         const embed = client.embed()
             .setAuthor({ name: "Pong", iconURL: this.client.user.displayAvatarURL() })
-            .setColor(this.client.config.color)
+            .setColor(this.client.color.main)
             .addFields([
                 { name: "Bot Latency", value: `\`\`\`ini\n[ ${msg.createdTimestamp - ctx.createdTimestamp}ms ]\n\`\`\``, inline: true },
                 { name: "API Latency", value: `\`\`\`ini\n[ ${Math.round(ctx.client.ws.ping)}ms ]\n\`\`\``, inline: true }

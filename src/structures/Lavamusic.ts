@@ -1,4 +1,4 @@
-import { Collection, ClientOptions, Routes, REST, RESTPostAPIChatInputApplicationCommandsJSONBody, PermissionsBitField, ApplicationCommandType, Client, EmbedBuilder } from "discord.js";
+import { Collection, ClientOptions, Routes, ColorResolvable, REST, RESTPostAPIChatInputApplicationCommandsJSONBody, PermissionsBitField, ApplicationCommandType, Client, EmbedBuilder } from "discord.js";
 import { prisma } from "../prisma.js";
 import fs from "fs";
 import path from "path";
@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 import Logger from "./Logger.js";
 import config from "../config.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
+import loadPlugins from "../plugin/index.js";
 
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
@@ -15,11 +15,12 @@ export default class Lavamusic extends Client {
     public cooldowns: Collection<string, any> = new Collection();
     public config = config;
     public logger: Logger = new Logger();
+    public readonly color = config.color;
     private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 
     public constructor(options: ClientOptions) {
         super(options);
-        
+
     }
     public embed(): EmbedBuilder {
         return new EmbedBuilder();
@@ -29,8 +30,14 @@ export default class Lavamusic extends Client {
         this.logger.info(`Successfully loaded commands!`);
         this.loadEvents();
         this.logger.info(`Successfully loaded events!`);
-        this.slashCommands();
-        this.logger.info(`Successfully loaded slash commands!`);
+        this.prisma.$connect().then(() => {
+            this.logger.success(`Connected to the database!`);
+        }).catch((err) => {
+            this.logger.error(`Unable to connect to the database!`);
+            this.logger.error(err);
+        });
+        const plugin = new loadPlugins(this);
+        await plugin.loadPlugins();
         return await this.login(token);
     };
 
@@ -63,15 +70,16 @@ export default class Lavamusic extends Client {
                     const json = JSON.stringify(data);
                     this.body.push(JSON.parse(json));
                 }
+                this.slashCommands();
             });
         });
     };
     private async slashCommands(): Promise<void> {
         const applicationCommands = this.config.production === true ? Routes.applicationCommands(this.config.clientId ?? "") : Routes.applicationGuildCommands(this.config.clientId ?? "", this.config.guildId ?? "");
-
         try {
             const rest = new REST({ version: '10' }).setToken(this.config.token ?? "");
             await rest.put(applicationCommands, { body: this.body });
+            this.logger.info(`Successfully loaded slash commands!`);
         } catch (error) {
             this.logger.error(error);
         }

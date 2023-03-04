@@ -1,5 +1,5 @@
 import { Event, Lavamusic, Context } from "../../structures/index.js";
-import { Message } from "discord.js";
+import { Message, PermissionFlagsBits, ChannelType } from "discord.js";
 
 export default class MessageCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -7,7 +7,7 @@ export default class MessageCreate extends Event {
             name: "messageCreate",
         });
     }
-    public async run(message: Message): Promise<void> {
+    public async run(message: Message): Promise<any> {
         if (message.author.bot) return;
     
         let prefix = await this.client.prisma.guild.findUnique({
@@ -20,20 +20,77 @@ export default class MessageCreate extends Event {
         } else {
             prefix = prefix.prefix;
         }
+        const mention = new RegExp(`^<@!?${this.client.user.id}>( |)$`);
+        if (message.content.match(mention)) {
+            await message.reply({ content: `Hey, my prefix for this server is \`${prefix}\` Want more info? then do \`${prefix}help\`\nStay Safe, Stay Awesome!` });
+            return;
+        }
+        const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const prefixRegex = new RegExp(`^(<@!?${this.client.user.id}>|${escapeRegex(prefix)})\\s*`);
+        if (!prefixRegex.test(message.content)) return;
+        const [matchedPrefix] = message.content.match(prefixRegex);
 
-        if (!message.content.startsWith(prefix)) return;
-        const args = message.content.slice(prefix.length).trim().split(/ +/g);
+        const args = message.content.slice(matchedPrefix.length).trim().split(/ +/g);
+
         const cmd = args.shift().toLowerCase();
         const command = this.client.commands.get(cmd);
         if (!command) return;
         const ctx = new Context(message, args);
         ctx.setArgs(args);
+
+        let dm = message.author.dmChannel;
+        if (typeof dm === 'undefined') dm = await message.author.createDM();
+
+        if (!message.inGuild() || !message.channel.permissionsFor(message.guild.members.me).has(PermissionFlagsBits.ViewChannel)) return;
+
+        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.SendMessages)) return await message.author.send({ content: `I don't have **\`SendMessage\`** permission in \`${message.guild.name}\`\nchannel: <#${message.channelId}>` }).catch(() => { });
+
+        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks)) return await message.reply({ content: 'I don\'t have **`\EmbedLinks\`** permission.' });
+
+        if (command.permissions) {
+            if (command.permissions.client) {
+                if (!message.guild.members.me.permissions.has(command.permissions.client)) return await message.reply({ content: 'I don\'t have enough permissions to execute this command.' });
+            }
+
+            if (command.permissions.user) {
+                if (!message.member.permissions.has(command.permissions.user)) return await message.reply({ content: 'You don\'t have enough permissions to use this command.' });
+
+            }
+            if (command.permissions.dev) {
+                if (this.client.config.owners) {
+                    const findDev = this.client.config.owners.find((x) => x === message.author.id);
+                    if (!findDev) return;
+                }
+            }
+        }
+        if (command.player) {
+            if (command.player.voice) {
+                if (!message.member.voice.channel) return await message.reply({ content: `You must be connected to a voice channel to use this \`${command.name}\` command.` });
+
+                if (!message.guild.members.me.permissions.has(PermissionFlagsBits.Speak)) return await message.reply({ content: `I don't have \`CONNECT\` permissions to execute this \`${command.name}\` command.` });
+
+                if (!message.guild.members.me.permissions.has(PermissionFlagsBits.Speak)) return await message.reply({ content: `I don't have \`SPEAK\` permissions to execute this \`${command.name}\` command.` });
+
+                if (message.member.voice.channel.type === ChannelType.GuildStageVoice && !message.guild.members.me.permissions.has(PermissionFlagsBits.RequestToSpeak)) return await message.reply({ content: `I don't have \`REQUEST TO SPEAK\` permission to execute this \`${command.name}\` command.` });
+
+                if (message.guild.members.me.voice.channel) {
+                    if (message.guild.members.me.voice.channelId !== message.member.voice.channelId) return await message.reply({ content: `You are not connected to ${message.guild.members.me.voice.channel} to use this \`${command.name}\` command.` });
+                }
+            }
+            /*
+                        if (command.player.active) {
+                            if (!this.client.manager.getPlayer(message.guildId)) return await message.reply({ content: 'Nothing is playing right now.' });
+                            if (!this.client.manager.getPlayer(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
+                            if (!this.client.manager.getPlayer(message.guildId).current) return await message.reply({ content: 'Nothing is playing right now.' });
+                        }*/
+        }
         
         try {
             await command.run(this.client, ctx, ctx.args);
         } catch (error) {
             this.client.logger.error(error);
-             await message.reply({ content: `An error occured: \`${error}\``})
+            await message.reply({ content: `An error occured: \`${error}\`` });
+            return;
         }
     }
 };

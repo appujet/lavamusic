@@ -39,7 +39,7 @@ export default class Prefix extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
         
         const pre = args[0];
-        const embed = client.embed().setColor(client.config.color)
+        const embed = client.embed().setColor(client.color.main)
         let prefix = await this.client.prisma.guild.findUnique({
             where: {
                 guildId: ctx.guild.id

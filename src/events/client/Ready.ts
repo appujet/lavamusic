@@ -1,5 +1,5 @@
 import { Event, Lavamusic } from "../../structures/index.js";
-
+import { ActivityType } from "discord.js";
 export default class Ready extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
@@ -8,6 +8,11 @@ export default class Ready extends Event {
     }
     public async run(): Promise<void> {
         this.client.logger.success(`${this.client.user?.tag} is ready!`);
+    
+        this.client.user?.setActivity({
+            name: "GitHub/Lavamusic",
+            type: ActivityType.Listening,
+        })
     }
 };
 
