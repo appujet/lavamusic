@@ -7,6 +7,8 @@ import Logger from "./Logger.js";
 import config from "../config.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import loadPlugins from "../plugin/index.js";
+import { ShoukakuClient } from "./index.js";
+
 
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
@@ -17,10 +19,10 @@ export default class Lavamusic extends Client {
     public logger: Logger = new Logger();
     public readonly color = config.color;
     private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
-
+    public manager: ShoukakuClient;
     public constructor(options: ClientOptions) {
         super(options);
-
+        this.manager = new ShoukakuClient(this);
     }
     public embed(): EmbedBuilder {
         return new EmbedBuilder();
@@ -36,8 +38,7 @@ export default class Lavamusic extends Client {
             this.logger.error(`Unable to connect to the database!`);
             this.logger.error(err);
         });
-        const plugin = new loadPlugins(this);
-        await plugin.loadPlugins();
+        loadPlugins(this);
         return await this.login(token);
     };
 
@@ -91,7 +92,14 @@ export default class Lavamusic extends Client {
             events.forEach(async (file) => {
                 const event = (await import(`../events/${dir}/${file}`)).default;
                 const evt = new event(this, file);
-                this.on(evt.name, (...args: any) => evt.run(...args));
+                switch (dir) {
+                    case 'player':
+                        this.manager.on(evt.name, (...args) => evt.run(...args));
+                        break;
+                    default:
+                        this.on(evt.name, (...args) => evt.run(...args));
+                        break;
+                }
             });
         });
     };

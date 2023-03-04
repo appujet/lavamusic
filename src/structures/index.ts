@@ -2,8 +2,10 @@ import Event from "./Event.js";
 import Command from "./Command.js";
 import Lavamusic from "./Lavamusic.js";
 import Context from "./Context.js";
+import Dispatcher from "./Dispatcher.js";
+import ShoukakuClient from "./Shoukaku.js";
 
-export { Event, Command, Lavamusic, Context };
+export { Event, Command, Lavamusic, Context, ShoukakuClient, Dispatcher }
 
 /**
  * Project: lavamusic
