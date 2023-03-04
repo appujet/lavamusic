@@ -77,7 +77,6 @@ export default class MessageCreate extends Event {
                     if (message.guild.members.me.voice.channelId !== message.member.voice.channelId) return await message.reply({ content: `You are not connected to ${message.guild.members.me.voice.channel} to use this \`${command.name}\` command.` });
                 }
             }
-
             if (command.player.active) {
                 if (!this.client.manager.getPlayer(message.guildId)) return await message.reply({ content: 'Nothing is playing right now.' });
                 if (!this.client.manager.getPlayer(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
@@ -85,8 +84,16 @@ export default class MessageCreate extends Event {
             }
         }
         if (command.args) {
-            if (!args.length) return await message.reply({ content: `Please provide the required arguments. \`${command.description.examples ? command.description.examples.join(' | ') : command.name}\`` });
+            if (!args.length) {
+                const embed = this.client.embed()
+                    .setColor(this.client.color.red)
+                    .setTitle('Missing Arguments')
+                    .setDescription(`Please provide the required arguments for the \`${command.name}\` command.\n\nExamples:\n${command.description.examples ? command.description.examples.join('\n') : 'None'}`)
+                    .setFooter({ text: 'Syntax: [] = required, <> = optional' });
+                return await message.reply({ embeds: [embed] });
+            }
         }
+
         if (!this.client.cooldowns.has(cmd)) {
             this.client.cooldowns.set(cmd, new Collection());
         }

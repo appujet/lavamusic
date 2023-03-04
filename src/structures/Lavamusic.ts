@@ -1,19 +1,20 @@
-import { Collection, ClientOptions, Routes, ColorResolvable, REST, RESTPostAPIChatInputApplicationCommandsJSONBody, PermissionsBitField, ApplicationCommandType, Client, EmbedBuilder } from "discord.js";
-import { prisma } from "../prisma.js";
+import { Collection, ClientOptions, Routes, REST, RESTPostAPIChatInputApplicationCommandsJSONBody, PermissionsBitField, ApplicationCommandType, Client, EmbedBuilder } from "discord.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from 'url';
 import Logger from "./Logger.js";
 import config from "../config.js";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import loadPlugins from "../plugin/index.js";
 import { ShoukakuClient } from "./index.js";
 import { Utils } from "../utils/Utils.js";
+import { PrismaClient } from '@prisma/client';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
     public aliases: Collection<string, any> = new Collection();
-    public prisma = prisma;
+    public prisma = new PrismaClient();
     public cooldowns: Collection<string, any> = new Collection();
     public config = config;
     public logger: Logger = new Logger();

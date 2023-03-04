@@ -11,7 +11,8 @@ export default class Ready extends Event {
     
         this.client.user?.setActivity({
             name: "GitHub/Lavamusic",
-            type: ActivityType.Listening,
+            type: ActivityType.Streaming,
+            url: 'https://github.com/brblacky/lavamusic/'
         })
     }
 };
