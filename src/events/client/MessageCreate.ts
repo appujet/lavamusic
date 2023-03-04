@@ -1,5 +1,5 @@
 import { Event, Lavamusic, Context } from "../../structures/index.js";
-import { Message, PermissionFlagsBits, ChannelType } from "discord.js";
+import { Message, PermissionFlagsBits, Collection, ChannelType } from "discord.js";
 
 export default class MessageCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -9,7 +9,7 @@ export default class MessageCreate extends Event {
     }
     public async run(message: Message): Promise<any> {
         if (message.author.bot) return;
-    
+
         let prefix = await this.client.prisma.guild.findUnique({
             where: {
                 guildId: message.guildId
@@ -33,7 +33,7 @@ export default class MessageCreate extends Event {
         const args = message.content.slice(matchedPrefix.length).trim().split(/ +/g);
 
         const cmd = args.shift().toLowerCase();
-        const command = this.client.commands.get(cmd);
+        const command = this.client.commands.get(cmd) || this.client.commands.get(this.client.aliases.get(cmd) as string);
         if (!command) return;
         const ctx = new Context(message, args);
         ctx.setArgs(args);
@@ -77,14 +77,36 @@ export default class MessageCreate extends Event {
                     if (message.guild.members.me.voice.channelId !== message.member.voice.channelId) return await message.reply({ content: `You are not connected to ${message.guild.members.me.voice.channel} to use this \`${command.name}\` command.` });
                 }
             }
-            /*
-                        if (command.player.active) {
-                            if (!this.client.manager.getPlayer(message.guildId)) return await message.reply({ content: 'Nothing is playing right now.' });
-                            if (!this.client.manager.getPlayer(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
-                            if (!this.client.manager.getPlayer(message.guildId).current) return await message.reply({ content: 'Nothing is playing right now.' });
-                        }*/
+
+            if (command.player.active) {
+                if (!this.client.manager.getPlayer(message.guildId)) return await message.reply({ content: 'Nothing is playing right now.' });
+                if (!this.client.manager.getPlayer(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
+                if (!this.client.manager.getPlayer(message.guildId).current) return await message.reply({ content: 'Nothing is playing right now.' });
+            }
         }
-        
+        if (command.args) {
+            if (!args.length) return await message.reply({ content: `Please provide the required arguments. \`${command.description.examples ? command.description.examples.join(' | ') : command.name}\`` });
+        }
+        if (!this.client.cooldowns.has(cmd)) {
+            this.client.cooldowns.set(cmd, new Collection());
+        }
+        const now = Date.now();
+        const timestamps = this.client.cooldowns.get(cmd);
+
+        const cooldownAmount = Math.floor(command.cooldown || 5) * 1000;
+        if (!timestamps.has(message.author.id)) {
+            timestamps.set(message.author.id, now);
+            setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+        } else {
+            const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+            const timeLeft = (expirationTime - now) / 1000;
+            if (now < expirationTime && timeLeft > 0.9) {
+                return message.reply({ content: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${cmd}\` command.` });
+            }
+            timestamps.set(message.author.id, now);
+            setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+        }
+
         try {
             await command.run(this.client, ctx, ctx.args);
         } catch (error) {

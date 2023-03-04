@@ -8,7 +8,6 @@ export default class ShoukakuClient extends EventEmitter {
     public client: Lavamusic;
     public shoukaku: Shoukaku;
     public players: Collection<string, Dispatcher>;
-    public spotify: any
 
     constructor(client: Lavamusic) {
         super();
@@ -24,7 +23,6 @@ export default class ShoukakuClient extends EventEmitter {
             },
         );
         this.players = new Collection();
-        this.spotify = null;
         this.shoukaku.on('ready', (name, resumed) =>
             this.emit(
                 resumed ? 'nodeReconnect' : 'nodeConnect',
@@ -33,16 +31,16 @@ export default class ShoukakuClient extends EventEmitter {
         );
 
         this.shoukaku.on('error', (name, error) =>
-            this.emit('nodeError', this.shoukaku.getNode(name), error),
+            this.emit('nodeError', name, error),
         );
 
         this.shoukaku.on('close', (name, code, reason) =>
-            this.emit('nodeDestroy', this.shoukaku.getNode(name), code, reason),
+            this.emit('nodeDestroy', name, code, reason),
         );
 
         this.shoukaku.on('disconnect', (name, players, moved) => {
             if (moved) this.emit('playerMove', players);
-            this.emit('nodeDisconnect', this.shoukaku.getNode(name), players);
+            this.emit('nodeDisconnect', name, players);
         });
 
         this.shoukaku.on('debug', (name, reason) =>
@@ -54,7 +52,7 @@ export default class ShoukakuClient extends EventEmitter {
         return this.players.get(guildId);
     }
 
-    public async create(guild: any, member: any, channel: TextChannel, givenNode: Node) {
+    public async create(guild: any, member: any, channel: any, givenNode: Node) {
         const existing = this.getPlayer(guild.id);
 
         if (existing) return existing;
@@ -68,7 +66,7 @@ export default class ShoukakuClient extends EventEmitter {
             deaf: true,
         });
 
-        const dispatcher = new Dispatcher(this.client, guild, channel, player, member.user);
+        const dispatcher = new Dispatcher(this.client, guild, channel, player, member.user, node);
 
         this.emit('playerCreate', dispatcher.player);
 
@@ -78,35 +76,17 @@ export default class ShoukakuClient extends EventEmitter {
     }
 
 
-    public async search(query: string, options: { requester: User; }) {
+    public async search(query: string) {
         const node = this.shoukaku.getNode();
         const regex = /^https?:\/\//;
-        if (regex.test(query)) {
-            return await this.fetchURL(query, options);
-        } else {
-            let result: any;
-            try {
-                result = await node.rest.resolve(`ytsearch:${query}`);
-            } catch (err) {
-                return null;
-            }
-            return result;
+        let result: any;
+        try {
+            result = await node.rest.resolve(regex.test(query) ? query : `ytsearch:${query}`);
+        } catch (err) {
+            return null;
         }
-    }
-    public async fetchURL(query: any, options: any) {
-        if (this.spotify.checkURL(query)) {
-            return await this.spotify.resolve(query, options);
-        } else {
-            const node = this.shoukaku.getNode();
-            let result: any;
-            try {
-                result = await node.rest.resolve(`ytsearch:${query}`);
-            } catch (err) {
-                return null;
-            }
+        return result;
 
-            return result;
-        }
     }
 };
 

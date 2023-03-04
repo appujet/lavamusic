@@ -1,5 +1,5 @@
 import { Guild, TextChannel, User, Message } from 'discord.js';
-import { Player, Track } from 'shoukaku';
+import { Player, Track, Node } from 'shoukaku';
 import { EventEmitter } from 'events';
 import { Lavamusic } from './index.js';
 
@@ -16,12 +16,17 @@ export class Song implements Track {
         uri: string;
         sourceName: string;
         thumbnail: string;
-        requester: User;
+        requester?: User;
     }
     constructor(track: Song, user: User) {
         this.track = track.track;
         this.info = track.info;
-        this.info.requester = user;
+        if (this.info && this.info.requester === undefined) this.info.requester = user;
+        if (track.info && !track.info.uri === undefined) {
+            if (track.info.uri.includes('youtube')) {
+                track.info.thumbnail = `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`;
+            }
+        }
     }
 }
 
@@ -38,10 +43,12 @@ export default class Dispatcher extends EventEmitter {
     public matchedTracks: Song[];
     public requester: User;
     public repeat: number;
+    public node: Node;
     public shuffle: boolean;
     public paused: boolean;
-    public nowPlayingMessage: Message | null;
-    constructor(client: Lavamusic, guild: Guild, channel: TextChannel, player: Player, user: User) {
+    public nowPlayingMessage: Message | null
+
+    constructor(client: Lavamusic, guild: Guild, channel: TextChannel, player: Player, user: User, node: Node) {
         super();
         this.client = client;
         this.guild = guild;
@@ -55,6 +62,7 @@ export default class Dispatcher extends EventEmitter {
         this.matchedTracks = [];
         this.requester = user;
         this.repeat = 0;
+        this.node = node;
         this.shuffle = false;
         this.paused = false;
         this.nowPlayingMessage = null;
@@ -85,16 +93,17 @@ export default class Dispatcher extends EventEmitter {
     get volume() {
         return this.player.filters.volume;
     }
-    public async play() {
+    public async play(): Promise<void> {
         if (!this.exists || (!this.queue.length && !this.current)) {
             this.destroy();
             return;
         }
         this.current = this.queue.length !== 0 ? this.queue.shift() : this.queue[0];
         if (this.matchedTracks.length !== 0) this.matchedTracks = [];
-        const search = await this.manager.search(this.current.info.title, { requester: this.requester });
-        this.matchedTracks.push(...search.tracks.slice(0, 11));
-        this.player.playTrack({ track: this.current.track });
+        const search = await this.node.rest.resolve(`ytsearch:${this.current?.info.title} ${this.current?.info.author}`) as any;
+        
+        this.matchedTracks.push(...search.tracks);
+        this.player.playTrack({ track: this.current?.track });
     }
     public pause() {
         if (!this.player) return;

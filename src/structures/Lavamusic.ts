@@ -8,7 +8,7 @@ import config from "../config.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import loadPlugins from "../plugin/index.js";
 import { ShoukakuClient } from "./index.js";
-
+import { Utils } from "../utils/Utils.js";
 
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
@@ -20,6 +20,7 @@ export default class Lavamusic extends Client {
     public readonly color = config.color;
     private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
     public manager: ShoukakuClient;
+    public utils = Utils;
     public constructor(options: ClientOptions) {
         super(options);
         this.manager = new ShoukakuClient(this);

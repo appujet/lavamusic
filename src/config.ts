@@ -22,6 +22,7 @@ export default {
         name: process.env.LAVALINK_NAME,
         secure: parseBoolean(process.env.LAVALINK_SECURE) || false,
     }],
+
 }
 
 function parseBoolean(value: string | undefined): boolean {
