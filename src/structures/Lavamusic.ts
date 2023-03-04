@@ -1,4 +1,4 @@
-import { Collection, ClientOptions, Client, EmbedBuilder } from "discord.js";
+import { Collection, ClientOptions, Routes, REST, RESTPostAPIChatInputApplicationCommandsJSONBody, PermissionsBitField, ApplicationCommandType, Client, EmbedBuilder } from "discord.js";
 import { prisma } from "../prisma.js";
 import fs from "fs";
 import path from "path";
@@ -15,7 +15,8 @@ export default class Lavamusic extends Client {
     public cooldowns: Collection<string, any> = new Collection();
     public config = config;
     public logger: Logger = new Logger();
-    
+    private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
+
     public constructor(options: ClientOptions) {
         super(options);
         
@@ -25,7 +26,11 @@ export default class Lavamusic extends Client {
     }
     public async start(token: string): Promise<string> {
         this.loadCommands();
+        this.logger.info(`Successfully loaded commands!`);
         this.loadEvents();
+        this.logger.info(`Successfully loaded events!`);
+        this.slashCommands();
+        this.logger.info(`Successfully loaded slash commands!`);
         return await this.login(token);
     };
 
@@ -44,10 +49,33 @@ export default class Lavamusic extends Client {
                         this.aliases.set(alias, command.name);
                     });
                 }
+                if (command.slashCommand) {
+                    const data = {
+                        name: command.name,
+                        description: command.description.content,
+                        type: ApplicationCommandType.ChatInput,
+                        options: command.options ? command.options : null,
+                        name_localizations: command.nameLocalizations ? command.nameLocalizations : null,
+                        description_localizations: command.descriptionLocalizations ? cmd.descriptionLocalizations : null,
+                        default_member_permissions: command.permissions.user ? PermissionsBitField.resolve(command.permissions.user).toString() : 0,
+                    };
+                    if (command.permissions.user.length > 0) data.default_member_permissions = command.permissions.user ? PermissionsBitField.resolve(command.permissions.user).toString() : 0;
+                    const json = JSON.stringify(data);
+                    this.body.push(JSON.parse(json));
+                }
             });
         });
     };
+    private async slashCommands(): Promise<void> {
+        const applicationCommands = this.config.production === true ? Routes.applicationCommands(this.config.clientId ?? "") : Routes.applicationGuildCommands(this.config.clientId ?? "", this.config.guildId ?? "");
 
+        try {
+            const rest = new REST({ version: '10' }).setToken(this.config.token ?? "");
+            await rest.put(applicationCommands, { body: this.body });
+        } catch (error) {
+            this.logger.error(error);
+        }
+    }
     private loadEvents(): void {
         const eventsPath = fs.readdirSync(path.join(__dirname, "../events"));
         eventsPath.forEach((dir) => {

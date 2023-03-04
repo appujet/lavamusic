@@ -44,7 +44,6 @@
     "signale": "^1.4.0",
     "undici": "^5.20.0"
   },
-
   "signale": {
     "displayScope": true,
     "displayBadge": true,
