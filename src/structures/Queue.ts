@@ -8,7 +8,7 @@ export class Queue extends Map {
         super();
         this.client = client;
     }
-    public get(guildId: string) {
+    public get(guildId: string): Dispatcher {
         return super.get(guildId);
     }
     public set(guildId: string, dispatcher: Dispatcher) {
