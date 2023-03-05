@@ -18,6 +18,7 @@ model Guild {
   stay    stay?
   dj      Dj?
   botchannel Botchannel?
+  premium Premium?
 }
 
 model Setup {
@@ -61,6 +62,7 @@ model User {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
   userId   String  @unique
   playlists Playlist[]
+  premium  Premium?
 
 }
 
@@ -72,4 +74,13 @@ model Playlist {
   songs    String[]
 
   @@unique([userId, name])
+}
+
+model Premium {
+  isPremium Boolean @default(false)
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String  @unique @map("userId") @db.ObjectId
+  guildId   String  @unique @map("guildId") @db.ObjectId
+  user      User?   @relation(fields: [userId], references: [id])
+  guild     Guild?  @relation(fields: [guildId], references: [id])
 }

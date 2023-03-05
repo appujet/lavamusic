@@ -69,17 +69,17 @@ export default class InteractionCreate extends Event {
             const timestamps = this.client.cooldowns.get(commandName);
 
             const cooldownAmount = Math.floor(command.cooldown || 5) * 1000;
-            if (!timestamps.has(interaction.author.id)) {
-                timestamps.set(interaction.author.id, now);
-                setTimeout(() => timestamps.delete(interaction.author.id), cooldownAmount);
+            if (!timestamps.has(interaction.user.id)) {
+                timestamps.set(interaction.user.id, now);
+                setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
             } else {
-                const expirationTime = timestamps.get(interaction.author.id) + cooldownAmount;
+                const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
                 const timeLeft = (expirationTime - now) / 1000;
                 if (now < expirationTime && timeLeft > 0.9) {
                     return interaction.reply({ content: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${commandName}\` command.` });
                 }
-                timestamps.set(interaction.author.id, now);
-                setTimeout(() => timestamps.delete(interaction.author.id), cooldownAmount);
+                timestamps.set(interaction.user.id, now);
+                setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
             }
             try {
                 await command.run(this.client, ctx, ctx.args);
@@ -93,7 +93,7 @@ export default class InteractionCreate extends Event {
 
 /**
  * Project: lavamusic
- * Author: Blacky
+ * user: Blacky
  * Company: Coders
  * Copyright (c) 2023. All rights reserved.
  * This code is the property of Coder and may not be reproduced or
