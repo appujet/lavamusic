@@ -10,10 +10,10 @@ export default class TrackStart extends Event {
             name: "trackStart",
         });
     }
-    public async run(player: Player, track: Song, channel: TextChannel, matchedTracks: Song[], dispatcher: Dispatcher): Promise<any> {
+    public async run(player: Player, track: Song, dispatcher: Dispatcher) {
         const guild = this.client.guilds.cache.get(player.connection.guildId);
         if (!guild) return;
-        const textChannel = guild.channels.cache.get(channel.id) as TextChannel;
+        const textChannel = guild.channels.cache.get(dispatcher.channelId) as TextChannel;
         if (!textChannel) return;
 
         const button = new ActionRowBuilder().addComponents(

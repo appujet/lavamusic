@@ -12,7 +12,7 @@ export default class Ready extends Event {
         this.client.user?.setActivity({
             name: "GitHub/Lavamusic",
             type: ActivityType.Streaming,
-            url: 'https://github.com/brblacky/lavamusic/'
+            url: 'https://m.twitch.tv/tarik'
         })
     }
 };

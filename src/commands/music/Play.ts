@@ -39,11 +39,11 @@ export default class Play extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
 
         const query = args.join(" ");
-        let player = client.manager.getPlayer(ctx.guild.id);
+        let player = client.queue.get(ctx.guild.id);
 
-        if (!player) player = await client.manager.create(ctx.guild, ctx.member, ctx.channel, client.manager.shoukaku.getNode());
+        if (!player) player = await client.queue.create(ctx.guild, ctx.member, ctx.channel, client.shoukaku.getNode());
 
-        const res = await this.client.manager.search(query);
+        const res = await this.client.queue.search(query);
         const embed = this.client.embed();
         switch (res.loadType) {
             case 'LOAD_FAILED':

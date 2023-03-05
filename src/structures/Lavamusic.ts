@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import Logger from "./Logger.js";
 import config from "../config.js";
 import loadPlugins from "../plugin/index.js";
-import { ShoukakuClient } from "./index.js";
+import { ShoukakuClient, Queue } from "./index.js";
 import { Utils } from "../utils/Utils.js";
 import { PrismaClient } from '@prisma/client';
 
@@ -20,11 +20,12 @@ export default class Lavamusic extends Client {
     public logger: Logger = new Logger();
     public readonly color = config.color;
     private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
-    public manager: ShoukakuClient;
+    public shoukaku: ShoukakuClient;
     public utils = Utils;
+    public queue = new Queue(this);
     public constructor(options: ClientOptions) {
         super(options);
-        this.manager = new ShoukakuClient(this);
+        this.shoukaku = new ShoukakuClient(this);
     }
     public embed(): EmbedBuilder {
         return new EmbedBuilder();
@@ -73,20 +74,21 @@ export default class Lavamusic extends Client {
                     const json = JSON.stringify(data);
                     this.body.push(JSON.parse(json));
                 }
-                this.slashCommands();
+                
             });
         });
+        this.once('ready', async () => {
+            const applicationCommands = this.config.production === true ? Routes.applicationCommands(this.config.clientId ?? "") : Routes.applicationGuildCommands(this.config.clientId ?? "", this.config.guildId ?? "");
+            try {
+                const rest = new REST({ version: '10' }).setToken(this.config.token ?? "");
+                await rest.put(applicationCommands, { body: this.body });
+                this.logger.info(`Successfully loaded slash commands!`);
+            } catch (error) {
+                this.logger.error(error);
+            }
+        });
     };
-    private async slashCommands(): Promise<void> {
-        const applicationCommands = this.config.production === true ? Routes.applicationCommands(this.config.clientId ?? "") : Routes.applicationGuildCommands(this.config.clientId ?? "", this.config.guildId ?? "");
-        try {
-            const rest = new REST({ version: '10' }).setToken(this.config.token ?? "");
-            await rest.put(applicationCommands, { body: this.body });
-            this.logger.info(`Successfully loaded slash commands!`);
-        } catch (error) {
-            this.logger.error(error);
-        }
-    }
+
     private loadEvents(): void {
         const eventsPath = fs.readdirSync(path.join(__dirname, "../events"));
         eventsPath.forEach((dir) => {
@@ -96,7 +98,7 @@ export default class Lavamusic extends Client {
                 const evt = new event(this, file);
                 switch (dir) {
                     case 'player':
-                        this.manager.on(evt.name, (...args) => evt.run(...args));
+                        this.shoukaku.on(evt.name, (...args) => evt.run(...args));
                         break;
                     default:
                         this.on(evt.name, (...args) => evt.run(...args));

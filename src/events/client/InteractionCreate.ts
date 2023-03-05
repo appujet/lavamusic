@@ -57,9 +57,9 @@ export default class InteractionCreate extends Event {
                     }
                 }
                 if (command.player.active) {
-                    if (!this.client.manager.getPlayer(interaction.guildId)) return await interaction.reply({ content: 'Nothing is playing right now.' });
-                    if (!this.client.manager.getPlayer(interaction.guildId).queue) return await interaction.reply({ content: 'Nothing is playing right now.' });
-                    if (!this.client.manager.getPlayer(interaction.guildId).current) return await interaction.reply({ content: 'Nothing is playing right now.' });
+                    if (!this.client.queue.get(interaction.guildId)) return await interaction.reply({ content: 'Nothing is playing right now.' });
+                    if (!this.client.queue.get(interaction.guildId).queue) return await interaction.reply({ content: 'Nothing is playing right now.' });
+                    if (!this.client.queue.get(interaction.guildId).current) return await interaction.reply({ content: 'Nothing is playing right now.' });
                 }
             }
             if (!this.client.cooldowns.has(commandName)) {

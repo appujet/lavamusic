@@ -1,6 +1,7 @@
 import { Event, Lavamusic, Context } from "../../structures/index.js";
 import { Message, PermissionFlagsBits, Collection, ChannelType } from "discord.js";
 
+
 export default class MessageCreate extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
@@ -78,9 +79,9 @@ export default class MessageCreate extends Event {
                 }
             }
             if (command.player.active) {
-                if (!this.client.manager.getPlayer(message.guildId)) return await message.reply({ content: 'Nothing is playing right now.' });
-                if (!this.client.manager.getPlayer(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
-                if (!this.client.manager.getPlayer(message.guildId).current) return await message.reply({ content: 'Nothing is playing right now.' });
+                if (!this.client.queue.get(message.guildId)) return await message.reply({ content: 'Nothing is playing right now.' });
+                if (!this.client.queue.get(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
+                if (!this.client.queue.get(message.guildId).current) return await message.reply({ content: 'Nothing is playing right now.' });
             }
         }
         if (command.args) {

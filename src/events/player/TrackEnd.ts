@@ -1,7 +1,6 @@
 import { Event, Lavamusic, Dispatcher } from "../../structures/index.js";
 import { Player } from "shoukaku";
 import { Song } from "../../structures/Dispatcher.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel } from "discord.js"
 
 
 export default class TrackEnd extends Event {
@@ -10,7 +9,7 @@ export default class TrackEnd extends Event {
             name: "trackEnd",
         });
     }
-    public async run(player: Player, track: Song, channel: TextChannel, dispatcher: Dispatcher): Promise<void> {
+    public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
 
         dispatcher.previous = dispatcher.current;
         dispatcher.current = null;
@@ -20,5 +19,14 @@ export default class TrackEnd extends Event {
         await dispatcher.deleteNowPlayingMessage();
 
     }
-
 }
+
+/**
+ * Project: lavamusic
+ * Author: Blacky
+ * Company: Coders
+ * Copyright (c) 2023. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

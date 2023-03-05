@@ -1,6 +1,5 @@
-import { Guild, TextChannel, User, Message } from 'discord.js';
+import { User, Message } from 'discord.js';
 import { Player, Track, Node } from 'shoukaku';
-import { EventEmitter } from 'events';
 import { Lavamusic } from './index.js';
 
 export class Song implements Track {
@@ -30,10 +29,10 @@ export class Song implements Track {
     }
 }
 
-export default class Dispatcher extends EventEmitter {
+export default class Dispatcher {
     public client: Lavamusic;
-    public guild: Guild;
-    public channel: TextChannel;
+    public guildId: string;
+    public channelId: string;
     public player: Player;
     public queue: Song[];
     public stopped: boolean;
@@ -48,47 +47,45 @@ export default class Dispatcher extends EventEmitter {
     public paused: boolean;
     public nowPlayingMessage: Message | null
 
-    constructor(client: Lavamusic, guild: Guild, channel: TextChannel, player: Player, user: User, node: Node) {
-        super();
-        this.client = client;
-        this.guild = guild;
-        this.channel = channel;
-        this.player = player;
+    constructor(options: DispatcherOptions) {
+        this.client = options.client;
+        this.guildId = options.guildId;
+        this.channelId = options.channelId;
+        this.player = options.player;
         this.queue = [];
         this.stopped = false;
         this.previous = null;
         this.current = null;
         this.loop = 'off';
         this.matchedTracks = [];
-        this.requester = user;
         this.repeat = 0;
-        this.node = node;
+        this.node = options.node;
         this.shuffle = false;
         this.paused = false;
         this.nowPlayingMessage = null;
 
         this.player
             .on('start', (data) =>
-                this.manager.emit('trackStart', this.player, this.current, this.channel, this.matchedTracks, this, data),
+                this.client.shoukaku.emit('trackStart', this.player, this.current, this),
             )
             .on('end', (data) => {
-                if (!this.queue.length) this.manager.emit('queueEnd', this.player, this.current, this.channel, this, data);
-                this.manager.emit('trackEnd', this.player, this.current, this.channel, this, data);
+                if (!this.queue.length) this.client.shoukaku.emit('queueEnd', this.player, this.current, this);
+                this.client.shoukaku.emit('trackEnd', this.player, this.current, this);
             })
             .on('stuck', (data) =>
-                this.manager.emit('trackStuck', this.player, this.current, data),
+                this.client.shoukaku.emit('trackStuck', this.player, this.current),
             )
             .on('closed', (...arr) => {
-                this.manager.emit('socketClosed', this.player, ...arr);
+                this.client.shoukaku.emit('socketClosed', this.player, ...arr);
             });
     }
 
     get manager() {
-        return this.client.manager;
+        return this.client.shoukaku;
     }
 
     get exists() {
-        return this.manager.players.has(this.guild.id);
+        return this.client.queue.has(this.guildId);
     }
     get volume() {
         return this.player.filters.volume;
@@ -129,9 +126,9 @@ export default class Dispatcher extends EventEmitter {
     public destroy() {
         this.queue.length = 0;
         this.player.connection.disconnect();
-        this.manager.players.delete(this.guild.id);
+        this.client.queue.delete(this.guildId);
         if (this.stopped) return;
-        this.manager.emit('playerDestroy', this.player);
+        this.client.shoukaku.emit('playerDestroy', this.player);
     }
     public setShuffle(shuffle: boolean) {
         if (!this.player) return;
@@ -184,6 +181,13 @@ export default class Dispatcher extends EventEmitter {
     }
 };
 
+export interface DispatcherOptions {
+    client: Lavamusic;
+    guildId: string;
+    channelId: string;
+    player: Player;
+    node: Node;
+}
 
 /**
  * Project: lavamusic
