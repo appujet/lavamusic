@@ -16,7 +16,8 @@ export default class TrackEnd extends Event {
         if (dispatcher.loop === 'repeat') dispatcher.queue.unshift(track);
         if (dispatcher.loop === 'queue') dispatcher.queue.push(track);
         await dispatcher.play();
-        await dispatcher.deleteNowPlayingMessage();
+        const m = await dispatcher.nowPlayingMessage?.fetch();
+        if (m && m.deletable) m.delete().catch(() => { });
 
     }
 }

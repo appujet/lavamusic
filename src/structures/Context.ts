@@ -1,4 +1,4 @@
-import { CommandInteraction, Message, APIInteractionGuildMember, Guild, GuildMember, TextChannel, GuildChannel, User } from "discord.js";
+import { CommandInteraction, GuildMemberResolvable, Message, APIInteractionGuildMember, Guild, GuildMember, TextChannel, GuildChannel, User } from "discord.js";
 import { Lavamusic } from './index.js';
 
 export default class Context {
@@ -14,7 +14,7 @@ export default class Context {
     public guild: Guild | null;
     public createdAt: Date;
     public createdTimestamp: number;
-    public member: GuildMember | APIInteractionGuildMember | null;
+    public member: GuildMemberResolvable | GuildMember | APIInteractionGuildMember | null;
     public args: any[];
     public msg: any;
     constructor(ctx, args) {

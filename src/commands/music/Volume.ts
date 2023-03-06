@@ -45,6 +45,6 @@ export default class Volume extends Command {
         if (number > 200) return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription("The volume can't be higher than 200.")] });
         if (number < 0) return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription("The volume can't be lower than 0.")] });
         player.player.setVolume(number / 100);
-        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Set the volume to ${player.volume.toFixed()}`)] });
+        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Set the volume to ${(player.volume * 100).toFixed()}`)] });
     }
 }

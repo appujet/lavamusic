@@ -65,23 +65,19 @@ export default class Dispatcher {
         this.nowPlayingMessage = null;
 
         this.player
-            .on('start', (data) =>
+            .on('start', () =>
                 this.client.shoukaku.emit('trackStart', this.player, this.current, this),
             )
-            .on('end', (data) => {
+            .on('end', () => {
                 if (!this.queue.length) this.client.shoukaku.emit('queueEnd', this.player, this.current, this);
                 this.client.shoukaku.emit('trackEnd', this.player, this.current, this);
             })
-            .on('stuck', (data) =>
+            .on('stuck', () =>
                 this.client.shoukaku.emit('trackStuck', this.player, this.current),
             )
             .on('closed', (...arr) => {
                 this.client.shoukaku.emit('socketClosed', this.player, ...arr);
             });
-    }
-
-    get manager() {
-        return this.client.shoukaku;
     }
 
     get exists() {
@@ -165,12 +161,7 @@ export default class Dispatcher {
     public setLoop(loop: any) {
         this.loop = loop;
     }
-    public async deleteNowPlayingMessage() {
-        if (this.nowPlayingMessage) {
-            await this.nowPlayingMessage.delete();
-            this.nowPlayingMessage = null;
-        }
-    }
+   
     public buildTrack(track: Song, user: User) {
         return new Song(track, user);
     }

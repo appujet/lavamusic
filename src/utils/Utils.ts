@@ -25,6 +25,17 @@ export class Utils {
         }
         return chunked_arr;
     }
+
+    public static progressBar(current: number, total: number, size = 20, color = 0x00FF00): string {
+        const percent = Math.round((current / total) * 100);
+        const filledSize = Math.round((size * current) / total);
+        const emptySize = size - filledSize;
+        const filledBar = "▓".repeat(filledSize);
+        const emptyBar = "‎".repeat(emptySize);
+        const progressBar = `${filledBar}${emptyBar} ${percent}%`;
+        return progressBar;
+    }
+
     public static async paginate(ctx, embed) {
         if (embed.length < 2) {
             if (ctx instanceof CommandInteraction) {
