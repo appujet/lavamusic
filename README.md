@@ -199,7 +199,7 @@ Generate an invite link for your bot and invite it to your server using the Disc
 ## 🔗 Useful Links
 
 - [Discord.js](https://discord.js.org/)
-- [Shoukaku](https://shoukaku.js.org/)
+- [Shoukaku](https://github.com/Deivu/Shoukaku)
 - [Prisma](https://www.prisma.io/)
 - [MongoDB](https://www.mongodb.com/)
 - [Lavalink](https://github.com/freyacodes/Lavalink)
