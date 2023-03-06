@@ -11,7 +11,7 @@ export default class Leave extends Command {
                 usage: "leave"
             },
             category: "music",
-            aliases: ["l"],
+            aliases: ["dc"],
             cooldown: 3,
             args: false,
             player: {
@@ -38,3 +38,13 @@ export default class Leave extends Command {
         player.destroy();
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Blacky
+ * Company: Coders
+ * Copyright (c) 2023. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

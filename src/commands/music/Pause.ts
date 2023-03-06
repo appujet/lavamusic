@@ -1,17 +1,17 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Lavamusic, Context, Command } from "../../structures/index.js";
 
 
-export default class Join extends Command {
+export default class Pause extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "join",
+            name: "pause",
             description: {
-                content: "Joins the voice channel",
-                examples: ["join"],
-                usage: "join"
+                content: "Pauses the current song",
+                examples: ["pause"],
+                usage: "pause"
             },
             category: "music",
-            aliases: ["j"],
+            aliases: [],
             cooldown: 3,
             args: false,
             player: {
@@ -31,13 +31,13 @@ export default class Join extends Command {
     };
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
 
-        let player = client.queue.get(ctx.guild.id) as any;
+        const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-        if (!player) {
-            player = this.client.queue.create(ctx.guild, ctx.member, ctx.channel);
-            return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Joined <#${player.player.connection.channelId}>`)] });
+        if (!player.paused) {
+            player.pause();
+            return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Paused the song`)] });
         } else {
-            return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`I'm already connected to <#${player.player.connection.channelId}>`)] });
+            return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription(`The song is already paused`)] });
         }
     }
 }

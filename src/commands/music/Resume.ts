@@ -1,17 +1,17 @@
 import { Command, Lavamusic, Context } from "../../structures/index.js";
 
 
-export default class Nowplaying extends Command {
+export default class Resume extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "nowplaying",
+            name: "resume",
             description: {
-                content: "Shows the currently playing song",
-                examples: ["nowplaying"],
-                usage: "nowplaying"
+                content: "Resumes the current song",
+                examples: ["resume"],
+                usage: "resume"
             },
             category: "music",
-            aliases: ["np"],
+            aliases: ["r"],
             cooldown: 3,
             args: false,
             player: {
@@ -32,22 +32,11 @@ export default class Nowplaying extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
 
         const player = client.queue.get(ctx.guild.id);
-       
-        const track = player.current;
-        const position = player.player.position
-        const duration = track.info.length;
-        const bar = client.utils.progressBar(position, duration, 20);
-        const embed1 = this.client.embed()
-            .setColor(this.client.color.main)
-            .setAuthor({ name: "Now Playing", iconURL: ctx.guild.iconURL({}) })
-            .setThumbnail(track.info.thumbnail)
-            .setDescription(`[${track.info.title}](${track.info.uri}) - Request By: ${track.info.requester}\n\n\`${bar}\``)
-            .addFields({
-                name: '\u200b',
-                value: `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(duration)}\``,
-            })
-        return ctx.sendMessage({ embeds: [embed1] });
-        
+        const embed = this.client.embed();
+        if (!player.paused) return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription("The player is not paused.")] });
+        player.pause();
+
+        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Resumed the player`)] });
     }
 }
 
