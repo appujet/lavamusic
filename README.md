@@ -189,7 +189,7 @@ LAVALINK_SECURE="false" # "true" for secure Lavalink
 6. Run the bot:
   
   ```bash
-  npm run start of npm start
+  npm run start or npm start
 ```
 
 7. Invite the bot to your server:
