@@ -17,7 +17,7 @@ export default class Join extends Command {
             player: {
                 voice: true,
                 dj: false,
-                active: true,
+                active: false,
                 djPerm: null
             },
             permissions: {
