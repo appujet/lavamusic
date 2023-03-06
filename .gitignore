@@ -7,3 +7,7 @@ node_modules
 
 # Ignore all files in the node_modules folder
 /node_modules
+
+command.ts
+
+commands.json
