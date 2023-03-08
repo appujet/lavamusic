@@ -181,6 +181,7 @@ LAVALINK_NAME="Blacky" # Your Lavalink name
 LAVALINK_SECURE="false" # "true" for secure Lavalink
 ```
 5. Generate the Prisma client:
+
 **If you using replit than read this:** 
 
 go to `prisma/schema.prisma` and add engine type like this `engineType = "binary"` and then run this command
