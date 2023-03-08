@@ -192,7 +192,7 @@ go to `prisma/schema.prisma` and add engine type like this `engineType = "binary
 6. Run the bot:
   
   ```bash
-  npm run start of npm start
+  npm run start or npm start
 ```
 
 7. Invite the bot to your server:
@@ -202,7 +202,7 @@ Generate an invite link for your bot and invite it to your server using the Disc
 ## 🔗 Useful Links
 
 - [Discord.js](https://discord.js.org/)
-- [Shoukaku](https://shoukaku.js.org/)
+- [Shoukaku](https://github.com/Deivu/Shoukaku)
 - [Prisma](https://www.prisma.io/)
 - [MongoDB](https://www.mongodb.com/)
 - [Lavalink](https://github.com/freyacodes/Lavalink)
