@@ -12,20 +12,20 @@ datasource db {
 }
 
 model Guild {
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
-  guildId String  @unique
-  prefix  String? @default("!")
-  setup   Setup?
-  stay    stay?
-  dj      Dj?
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  guildId    String      @unique
+  prefix     String?     @default("!")
+  setup      Setup?
+  stay       stay?
+  dj         Dj?
   botchannel Botchannel?
-  premium Premium?
+  premium    Premium?
 }
 
 model Setup {
   id      String  @id @map("_id") @db.ObjectId
   guildId String  @map("guildId") @db.ObjectId
-  guild   Guild   @relation(fields: [guildId], references: [id])
+  guild   Guild?  @relation(fields: [guildId], references: [id])
   channel String? @map("channelId") @db.ObjectId
   message String? @map("messageId") @db.ObjectId
 
@@ -50,29 +50,39 @@ model Botchannel {
 
   @@unique([guildId])
 }
+
 model Dj {
-  id      String  @id @map("_id") @db.ObjectId
-  guildId String  @map("guildId") @db.ObjectId
-  guild   Guild   @relation(fields: [guildId], references: [id])
-  role    String[]
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  guildId String? @map("guildId") @db.ObjectId
+  guild   Guild?   @relation(fields: [guildId], references: [id])
+  roles   Roles[]
+  mode    Boolean @default(false)
 
   @@unique([guildId])
 }
 
-model User {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId   String  @unique
-  playlists Playlist[]
-  premium  Premium?
+model Roles {
+  id   String  @id @default(auto()) @map("_id") @db.ObjectId
+  role String
+  Dj   Dj?     @relation(fields: [djId], references: [id])
+  djId String? @db.ObjectId
 
+  @@unique([role])
+}
+
+model User {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String     @unique
+  playlists Playlist[]
+  premium   Premium?
 }
 
 model Playlist {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId   String  @map("userId") @db.ObjectId
-  user     User    @relation(fields: [userId], references: [id])
-  name     String
-  songs    String[]
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId String   @map("userId") @db.ObjectId
+  user   User     @relation(fields: [userId], references: [id])
+  name   String
+  songs  String[]
 
   @@unique([userId, name])
 }

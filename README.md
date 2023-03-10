@@ -168,7 +168,7 @@ npm install
 Create a `.env` file in the root directory of your project with the following variables:
   
   ```bash
-  TOKEN="." # Your bot token
+TOKEN="." # Your bot token
 PREFIX="!" # Your prefix
 OWNER_IDS="859640640640640640, 859640640640640640" # Your ID
 CLIENT_ID="960072976412340254" # Your bot client ID
@@ -184,7 +184,15 @@ LAVALINK_SECURE="false" # "true" for secure Lavalink
 
 **If you using replit than read this:** 
 
-go to `prisma/schema.prisma` and add engine type like this `engineType = "binary"` and then run this command
+go to `prisma/schema.prisma` and add engine type like this
+
+```bash
+generator client {
+  provider = "prisma-client-js"
+  engineType = "binary"
+}
+```
+ and then run this command
   
   ```bash
   npx prisma generate
