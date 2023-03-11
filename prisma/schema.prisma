@@ -23,38 +23,38 @@ model Guild {
 }
 
 model Setup {
-  id      String  @id @map("_id") @db.ObjectId
-  guildId String  @map("guildId") @db.ObjectId
-  guild   Guild?  @relation(fields: [guildId], references: [id])
-  channel String? @map("channelId") @db.ObjectId
-  message String? @map("messageId") @db.ObjectId
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  guildId   String
+  guild     Guild?  @relation(fields: [guildId], references: [guildId])
+  textId    String?
+  messageId String?
 
   @@unique([guildId])
 }
 
 model stay {
-  id      String  @id @map("_id") @db.ObjectId
-  guildId String  @map("guildId") @db.ObjectId
-  guild   Guild   @relation(fields: [guildId], references: [id])
-  channel String? @map("channelId") @db.ObjectId
-  voice   String? @map("voiceId") @db.ObjectId
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  guildId String
+  guild   Guild   @relation(fields: [guildId], references: [guildId])
+  textId  String?
+  voiceId String?
 
   @@unique([guildId])
 }
 
 model Botchannel {
-  id      String  @id @map("_id") @db.ObjectId
-  guildId String  @map("guildId") @db.ObjectId
-  guild   Guild   @relation(fields: [guildId], references: [id])
-  channel String? @map("channelId") @db.ObjectId
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  guildId String
+  guild   Guild   @relation(fields: [guildId], references: [guildId])
+  textId  String?
 
   @@unique([guildId])
 }
 
 model Dj {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
-  guildId String? @map("guildId") @db.ObjectId
-  guild   Guild?   @relation(fields: [guildId], references: [id])
+  guildId String?
+  guild   Guild?  @relation(fields: [guildId], references: [guildId])
   roles   Roles[]
   mode    Boolean @default(false)
 
@@ -62,12 +62,12 @@ model Dj {
 }
 
 model Roles {
-  id   String  @id @default(auto()) @map("_id") @db.ObjectId
-  role String
-  Dj   Dj?     @relation(fields: [djId], references: [id])
-  djId String? @db.ObjectId
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  guildId String
+  Dj      Dj?    @relation(fields: [guildId], references: [guildId])
+  roleId  String @unique
 
-  @@unique([role])
+  @@unique([guildId])
 }
 
 model User {
@@ -79,8 +79,8 @@ model User {
 
 model Playlist {
   id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId String   @map("userId") @db.ObjectId
-  user   User     @relation(fields: [userId], references: [id])
+  userId String  
+  user   User?    @relation(fields: [userId], references: [userId])
   name   String
   songs  String[]
 
@@ -90,8 +90,8 @@ model Playlist {
 model Premium {
   isPremium Boolean @default(false)
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String  @unique @map("userId") @db.ObjectId
-  guildId   String  @unique @map("guildId") @db.ObjectId
-  user      User?   @relation(fields: [userId], references: [id])
-  guild     Guild?  @relation(fields: [guildId], references: [id])
+  userId    String  @unique
+  guildId   String  @unique
+  user      User?   @relation(fields: [userId], references: [userId])
+  guild     Guild?  @relation(fields: [guildId], references: [guildId])
 }

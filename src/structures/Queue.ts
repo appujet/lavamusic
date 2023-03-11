@@ -21,7 +21,7 @@ export class Queue extends Map {
         return super.clear();
     }
 
-    public async create(guild: Guild, member: any, channel: any, givenNode?: Node) {
+    public async create(guild: Guild, voice: any, channel: any, givenNode?: Node) {
         let dispatcher = this.get(guild.id);
 
         if (!dispatcher) {
@@ -30,7 +30,7 @@ export class Queue extends Map {
 
             const player = await node.joinChannel({
                 guildId: guild.id,
-                channelId: member.voice.channel.id,
+                channelId: voice.id,
                 shardId: guild.shard.id,
                 deaf: true,
             });

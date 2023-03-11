@@ -68,9 +68,16 @@ export default class Lavamusic extends Client {
                         options: command.options ? command.options : null,
                         name_localizations: command.nameLocalizations ? command.nameLocalizations : null,
                         description_localizations: command.descriptionLocalizations ? cmd.descriptionLocalizations : null,
-                        default_member_permissions: command.permissions.user ? PermissionsBitField.resolve(command.permissions.user).toString() : 0,
+                        default_member_permissions: command.permissions.user.length > 0 ? command.permissions.user : null
                     };
-                    if (command.permissions.user.length > 0) data.default_member_permissions = command.permissions.user ? PermissionsBitField.resolve(command.permissions.user).toString() : 0;
+                    if (command.permissions.user.length > 0) {
+                        const permissionValue = PermissionsBitField.resolve(command.permissions.user);
+                        if (typeof permissionValue === 'bigint') {
+                            data.default_member_permissions = permissionValue.toString();
+                        } else {
+                            data.default_member_permissions = permissionValue;
+                        }
+                    }
                     const json = JSON.stringify(data);
                     this.body.push(JSON.parse(json));
                 }
@@ -80,7 +87,7 @@ export default class Lavamusic extends Client {
         this.once('ready', async () => {
             const applicationCommands = this.config.production === true ? Routes.applicationCommands(this.config.clientId ?? "") : Routes.applicationGuildCommands(this.config.clientId ?? "", this.config.guildId ?? "");
             try {
-                const rest = new REST({ version: '10' }).setToken(this.config.token ?? "");
+                const rest = new REST({ version: '9' }).setToken(this.config.token ?? "");
                 await rest.put(applicationCommands, { body: this.body });
                 this.logger.info(`Successfully loaded slash commands!`);
             } catch (error) {

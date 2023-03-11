@@ -16,7 +16,7 @@ export default class Volume extends Command {
             args: true,
             player: {
                 voice: true,
-                dj: false,
+                dj: true,
                 active: true,
                 djPerm: null
             },

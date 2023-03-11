@@ -17,7 +17,7 @@ export class Song implements Track {
         thumbnail: string;
         requester?: User;
     }
-    constructor(track: Song, user: User) {
+    constructor(track: any, user: User) {
         this.track = track.track;
         this.info = track.info;
         if (this.info && this.info.requester === undefined) this.info.requester = user;
@@ -30,7 +30,7 @@ export class Song implements Track {
 }
 
 export default class Dispatcher {
-    public client: Lavamusic;
+    private client: Lavamusic;
     public guildId: string;
     public channelId: string;
     public player: Player;
@@ -45,6 +45,8 @@ export default class Dispatcher {
     public node: Node;
     public shuffle: boolean;
     public paused: boolean;
+    public filters: Array<string>;
+    public autoplay: boolean;
     public nowPlayingMessage: Message | null
 
     constructor(options: DispatcherOptions) {
@@ -62,6 +64,8 @@ export default class Dispatcher {
         this.node = options.node;
         this.shuffle = false;
         this.paused = false;
+        this.filters = [];
+        this.autoplay = false;
         this.nowPlayingMessage = null;
 
         this.player
@@ -170,7 +174,18 @@ export default class Dispatcher {
             this.play();
         }
     }
+    public async Autoplay(song: Song) {
+        const resolve = await this.node.rest.resolve(`ytmsearch:${song.info.author}`);
+        if (!resolve || !resolve.tracks.length) return this.destroy()
+        let choosed = new Song(resolve.tracks[Math.floor(Math.random() * resolve.tracks.length)], this.client.user);
+        if (this.queue.some((s) => s.track === choosed.track)) {
+            return this.Autoplay(song);
+        }
+        this.queue.push(choosed);
+        return this.isPlaying();
+    }
 };
+
 
 export interface DispatcherOptions {
     client: Lavamusic;

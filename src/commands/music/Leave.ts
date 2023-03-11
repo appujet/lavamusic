@@ -16,7 +16,7 @@ export default class Leave extends Command {
             args: false,
             player: {
                 voice: true,
-                dj: false,
+                dj: true,
                 active: true,
                 djPerm: null
             },
