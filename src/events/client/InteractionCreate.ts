@@ -61,6 +61,30 @@ export default class InteractionCreate extends Event {
                     if (!this.client.queue.get(interaction.guildId).queue) return await interaction.reply({ content: 'Nothing is playing right now.' });
                     if (!this.client.queue.get(interaction.guildId).current) return await interaction.reply({ content: 'Nothing is playing right now.' });
                 }
+                if (command.player.dj) {
+                    const data = await this.client.prisma.guild.findUnique({
+                        where: {
+                            guildId: interaction.guildId
+                        }
+                    });
+                    if (data) {
+                        const djRole = await this.client.prisma.dj.findUnique({
+                            where: {
+                                guildId: interaction.guildId
+                            },
+                            include: { roles: true }
+                        })
+                        if (djRole) {
+                            const djRoles = djRole.roles;
+                            const findDJRole = interaction.member.roles.cache.find((x) => djRoles.includes(x.id));
+                            if (!findDJRole) {
+                                if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+                                    return await interaction.reply({ content: 'You need to have the DJ role to use this command.', ephemeral: true });
+                                }
+                            }
+                        }
+                    }
+                }
             }
             if (!this.client.cooldowns.has(commandName)) {
                 this.client.cooldowns.set(commandName, new Collection());

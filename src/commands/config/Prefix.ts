@@ -95,10 +95,13 @@ export default class Prefix extends Command {
                 }
             case "reset":
                 if (!prefix) return await ctx.sendMessage({ embeds: [embed.setDescription(`The prefix for this server is \`${client.config.prefix}\``)] })
-                prefix = await this.client.prisma.guild.delete({
+                prefix = await this.client.prisma.guild.update({
                     where: {
                         guildId: ctx.guild.id
                     },
+                    data: {
+                        prefix: client.config.prefix
+                    }
                 });
                 return await ctx.sendMessage({ embeds: [embed.setDescription(`The prefix for this server is now \`${client.config.prefix}\``)] })
         }

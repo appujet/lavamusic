@@ -1,6 +1,5 @@
 import { Command, Lavamusic, Context } from "../../structures/index.js";
 
-
 export default class Join extends Command {
     constructor(client: Lavamusic) {
         super(client, {
@@ -34,7 +33,8 @@ export default class Join extends Command {
         let player = client.queue.get(ctx.guild.id) as any;
         const embed = this.client.embed();
         if (!player) {
-            player = this.client.queue.create(ctx.guild, ctx.member, ctx.channel);
+            const vc = ctx.member as any;
+            player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel, client.shoukaku.getNode());
             return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Joined <#${player.player.connection.channelId}>`)] });
         } else {
             return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`I'm already connected to <#${player.player.connection.channelId}>`)] });

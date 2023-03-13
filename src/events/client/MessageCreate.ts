@@ -83,6 +83,30 @@ export default class MessageCreate extends Event {
                 if (!this.client.queue.get(message.guildId).queue) return await message.reply({ content: 'Nothing is playing right now.' });
                 if (!this.client.queue.get(message.guildId).current) return await message.reply({ content: 'Nothing is playing right now.' });
             }
+            if (command.player.dj) {
+                const data = await this.client.prisma.guild.findUnique({
+                    where: {
+                        guildId: message.guildId
+                    }
+                });
+                if (data) {
+                    const djRole = await this.client.prisma.dj.findUnique({
+                        where: {
+                            guildId: message.guildId
+                        },
+                        include: { roles: true }
+                    })
+                    if (djRole && djRole.mode) {
+                        const djRoles = djRole.roles;
+                        const findDJRole = message.member.roles.cache.find((x: any) => djRoles.includes(x.id));
+                        if (!findDJRole) {
+                            if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+                                return await message.reply({ content: 'You need to have the DJ role to use this command.' }).then((msg) => setTimeout(() => msg.delete(), 5000));
+                            }
+                        }
+                    }
+                }
+            }
         }
         if (command.args) {
             if (!args.length) {

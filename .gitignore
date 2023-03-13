@@ -6,7 +6,7 @@ node_modules
 /.vscode
 
 # Ignore all files in the dist folder
-/dist
+dist
 
 # Ignore all files in the node_modules folder
 /node_modules

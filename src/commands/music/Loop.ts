@@ -1,22 +1,22 @@
 import { Command, Lavamusic, Context } from "../../structures/index.js";
 
 
-export default class Autoplay extends Command {
+export default class Loop extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "autoplay",
+            name: "loop",
             description: {
-                content: "Toggles autoplay",
-                examples: ["autoplay"],
-                usage: "autoplay"
+                content: "loop the current song or the queue",
+                examples: ["loop", "loop queue", "loop song"],
+                usage: "loop"
             },
-            category: "music",
-            aliases: ["ap"],
+            category: "general",
+            aliases: ["loop"],
             cooldown: 3,
             args: false,
             player: {
                 voice: true,
-                dj: true,
+                dj: false,
                 active: true,
                 djPerm: null
             },
@@ -31,13 +31,20 @@ export default class Autoplay extends Command {
     };
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
 
+        const embed = client.embed().setColor(client.color.main)
         const player = client.queue.get(ctx.guild.id);
-        const embed = this.client.embed();
 
-        const autoplay = player.autoplay;
-        player.autoplay = !autoplay;
-
-        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Autoplay has been ${autoplay ? "disabled" : "enabled"}`)] });
+        switch (player.loop) {
+            case "off":
+                player.loop = "queue";
+                return ctx.sendMessage({ embeds: [embed.setDescription(`**Looping the queue**`).setColor(client.color.main)] });
+            case "queue":
+                player.loop = "repeat";
+                return ctx.sendMessage({ embeds: [embed.setDescription(`**Looping the song**`).setColor(client.color.main)] });
+            case "repeat":
+                player.loop = "off";
+                return ctx.sendMessage({ embeds: [embed.setDescription(`**Looping is now off**`).setColor(client.color.main)] });
+        }
     }
 };
 

@@ -19,9 +19,8 @@ export default class TrackEnd extends Event {
         if (dispatcher.autoplay) {
             await dispatcher.Autoplay(track)
         }
-        const m = await dispatcher.nowPlayingMessage?.fetch();
+        const m = await dispatcher.nowPlayingMessage?.fetch().catch(() => { });
         if (m && m.deletable) m.delete().catch(() => { });
-
     }
 }
 
