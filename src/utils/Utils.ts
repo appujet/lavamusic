@@ -58,7 +58,7 @@ export class Utils {
         const filledSize = Math.round((size * current) / total);
         const emptySize = size - filledSize;
         const filledBar = "▓".repeat(filledSize);
-        const emptyBar = "‎".repeat(emptySize);
+        const emptyBar = "░".repeat(emptySize);
         const progressBar = `${filledBar}${emptyBar} ${percent}%`;
         return progressBar;
     }

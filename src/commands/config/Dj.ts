@@ -73,166 +73,73 @@ export default class Dj extends Command {
         let role: any;
         if (ctx.isInteraction) {
             subCommand = ctx.interaction.options.data[0].name;
-            role = ctx.interaction.options.data[0].options[0].value;
+            role = ctx.interaction.options.data[0].options[0]?.value;
         } else {
             subCommand = args[0];
             role = ctx.message.mentions.roles.first() || ctx.guild.roles.cache.get(args[1])
         }
-
+        let roleId: string | any;
+        if (role) roleId = ctx.guild.roles.cache.get(role).id;
         const embed = client.embed().setColor(client.color.main)
-
-        let djrole = await this.client.prisma.guild.findUnique({
-            where: {
-                guildId: ctx.guild?.id
-            },
-            include: {
-                dj: true
-            }
-        });
-        let roleId: any;
-        if (role) ctx.guild.roles.cache.get(role.id) ? roleId = role.id : roleId = role.id;
+        let dj = await this.client.prisma.dj.findUnique({ where: { guildId: ctx.guild.id } });
         if (subCommand === "add") {
-            if (!role) {
-                return await ctx.sendMessage({ embeds: [embed.setDescription("Please provide a role")] })
-            }
-            if (!djrole) {
-                const guildId = ctx.guild?.id;
-                if (guildId) {
-                    await this.client.prisma.guild.create({
-                        data: {
-                            guildId: guildId,
-                            dj: {
-                                create: {
-                                    mode: true,
-                                    roles: {
-                                        create: [
-                                            {
-                                                role: roleId
-                                            }
-                                        ]
-                                    }
-                                }
+            if (!role) return await ctx.sendMessage({ embeds: [embed.setDescription("Please provide a role to add")] });
+            console.log(role)
+            const isExRole = await this.client.prisma.roles.findFirst({ where: { roleId:roleId } });
+            if (isExRole) return await ctx.sendMessage({ embeds: [embed.setDescription(`The dj role <@&${roleId}> is already added`)] });
+
+            if (!dj) {
+                await this.client.prisma.dj.create({
+                    data: {
+                        guildId: ctx.guild.id,
+                        roles: {
+                            create: {
+                                roleId: roleId
                             }
                         }
-                    });
-                    return await ctx.sendMessage({ embeds: [embed.setDescription(`Added ${roleId} to the dj roles`)] })
-                }
-            } else {
-                const roleExists = await this.client.prisma.roles.findUnique({
-                    where: {
-                        role: roleId,
                     }
-                });
-                if (roleExists) {
-                    return await ctx.sendMessage({ embeds: [embed.setDescription(`${roleId} is already a dj role`)] })
-                }
-                const guildId = ctx.guild?.id;
-                if (guildId) {
-                    await this.client.prisma.guild.update({
-                        where: {
-                            guildId: guildId
-                        },
-                        data: {
-                            dj: {
-                                update: {
-                                    roles: {
-                                        create: [
-                                            {
-                                                role: roleId
-                                            }
-                                        ]
-                                    }
-                                }
+                })
+                return await ctx.sendMessage({ embeds: [embed.setDescription(`The dj role <@&${roleId}> has been added`)] });
+            } else {
+                await this.client.prisma.dj.update({
+                    where: {
+                        guildId: ctx.guild.id
+                    },
+                    data: {
+                        mode: true,
+                        roles: {
+                            create: {
+                                roleId: roleId
                             }
                         }
-                    })
-                    return await ctx.sendMessage({ embeds: [embed.setDescription(`Added ${roleId} to the dj roles`)] })
-                }
+                    }
+                })
+                return await ctx.sendMessage({ embeds: [embed.setDescription(`The dj role <@&${roleId}> has been added`)] });
             }
         } else if (subCommand === "remove") {
-            if (!role) {
-                return await ctx.sendMessage({ embeds: [embed.setDescription("Please provide a role")] })
-            }
-            if (!djrole) {
-                return await ctx.sendMessage({ embeds: [embed.setDescription(`${roleId} is not a dj role`)] })
-            }
-            const roleExists = await this.client.prisma.roles.findUnique({
-                where: {
-                    role: roleId,
-                }
-            });
-            if (!roleExists) {
-                return await ctx.sendMessage({ embeds: [embed.setDescription(`${roleId} is not a dj role`)] })
-            }
-            const guildId = ctx.guild?.id;
-            if (guildId) {
-                await this.client.prisma.guild.update({
-                    where: {
-                        guildId: guildId
-                    },
-                    data: {
-                        dj: {
-                            update: {
-                                roles: {
-                                    delete: {
-                                        role: roleId
-                                    }
-                                }
-                            }
-                        }
-                    }
-                })
-                return await ctx.sendMessage({ embeds: [embed.setDescription(`Removed ${roleId} from the dj roles`)] })
-            }
+            if (!role) return await ctx.sendMessage({ embeds: [embed.setDescription("Please provide a role to remove")] });
+            const isExRole = await this.client.prisma.roles.findFirst({ where: { roleId: roleId } });
+            if (!isExRole) return await ctx.sendMessage({ embeds: [embed.setDescription(`The dj role <@&${roleId}> is not added`)] });
+            await this.client.prisma.roles.delete({ where: { roleId: roleId } });
+            return await ctx.sendMessage({ embeds: [embed.setDescription(`The dj role <@&${roleId}> has been removed`)] });
         } else if (subCommand === "clear") {
-            if (!djrole) {
-                return await ctx.sendMessage({ embeds: [embed.setDescription("There are no dj roles")] })
-            }
-            const guildId = ctx.guild?.id;
-            if (guildId) {
-                await this.client.prisma.guild.update({
-                    where: {
-                        guildId: guildId,
-                    },
-                    data: {
-                        dj: {
-                            delete: true
-                        }
-                    }
-                })
-                return await ctx.sendMessage({ embeds: [embed.setDescription("Cleared all dj roles")] })
-            }
+            if (!dj) return await ctx.sendMessage({ embeds: [embed.setDescription("There are no dj roles to clear")] });
+            await this.client.prisma.roles.deleteMany({ where: { guildId: ctx.guild.id } });
+            return await ctx.sendMessage({ embeds: [embed.setDescription(`All dj roles have been removed`)] });
         } else if (subCommand === "toggle") {
-            if (!djrole) {
-                return await ctx.sendMessage({ embeds: [embed.setDescription("There are no dj roles")] })
-            }
-            const guildId = ctx.guild?.id;
-            if (guildId) {
-                await this.client.prisma.guild.update({
+            if (!dj) return await ctx.sendMessage({ embeds: [embed.setDescription("There are no dj roles to toggle")] });
+            const data = await this.client.prisma.dj.findUnique({ where: { guildId: ctx.guild.id } });
+            if (data) {
+                await this.client.prisma.dj.update({
                     where: {
-                        guildId: guildId,
+                        guildId: ctx.guild.id
                     },
                     data: {
-                        dj: {
-                            update: {
-                                mode: !djrole.dj.mode
-                            }
-                        }
+                        mode: !data.mode
                     }
                 })
-                return await ctx.sendMessage({ embeds: [embed.setDescription(`Toggled dj mode to \`${djrole.dj.mode}\``)] })
-            }
+                return await ctx.sendMessage({ embeds: [embed.setDescription(`The dj mode has been toggled to ${!data.mode ? "enabled" : "disabled"}`)] });
+            } 
         }
     }
 };
-
-
-/**
- * Project: lavamusic
- * Author: Blacky
- * Company: Coders
- * Copyright (c) 2023. All rights reserved.
- * This code is the property of Coder and may not be reproduced or
- * modified without permission. For more information, contact us at
- * https://discord.gg/ns8CTk9J3e
- */
