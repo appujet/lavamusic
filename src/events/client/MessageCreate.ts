@@ -114,9 +114,10 @@ export default class MessageCreate extends Event {
             timestamps.set(message.author.id, now);
             setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
         }
-
+        if (args.includes("@everyone") || args.includes("@here")) return await message.reply({ content: 'You can\'t use this command with everyone or here.' });
+        
         try {
-            await command.run(this.client, ctx, ctx.args);
+           return await command.run(this.client, ctx, ctx.args);
         } catch (error) {
             this.client.logger.error(error);
             await message.reply({ content: `An error occured: \`${error}\`` });

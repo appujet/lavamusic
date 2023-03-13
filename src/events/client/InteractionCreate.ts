@@ -81,6 +81,7 @@ export default class InteractionCreate extends Event {
                 timestamps.set(interaction.user.id, now);
                 setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
             }
+            if(ctx.args.includes('@everyone') || ctx.args.includes('@here')) return interaction.reply({ content: 'You can\'t mention everyone or here.', ephemeral: true });
             try {
                 await command.run(this.client, ctx, ctx.args);
             } catch (error) {

@@ -17,7 +17,7 @@ export default class TrackStart extends Event {
         if (!textChannel) return;
 
         const button = new ActionRowBuilder().addComponents(
-            new ButtonBuilder().setCustomId('previous').setLabel(`Previous`).setStyle(ButtonStyle.Secondary),
+            new ButtonBuilder().setCustomId('previous').setLabel(`Previous`).setStyle(ButtonStyle.Secondary).setDisabled(dispatcher.previous ? false : true),
             new ButtonBuilder().setCustomId('resume').setLabel(player.paused ? `Resume` : `Pause`).setStyle(player.paused ? ButtonStyle.Success : ButtonStyle.Secondary),
             new ButtonBuilder().setCustomId('stop').setLabel(`Stop`).setStyle(ButtonStyle.Danger),
             new ButtonBuilder().setCustomId('skip').setLabel(`Skip`).setStyle(ButtonStyle.Secondary),
@@ -55,6 +55,10 @@ export default class TrackStart extends Event {
         collector.on('collect', async (interaction) => {
             switch (interaction.customId) {
                 case 'previous':
+                    if (!dispatcher.previous) {
+                        await interaction.reply({ content: `There is no previous song.`, ephemeral: true });
+                        return;
+                    } else
                     dispatcher.previousTrack();
                     if (message) await message.edit({ embeds: [embed.setFooter({ text: `Previous by ${interaction.user.tag}`, iconURL: interaction.user.avatarURL({}) })], components: [button] });
                     break;

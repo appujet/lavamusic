@@ -32,8 +32,7 @@ export default class Queue extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
 
         const player = client.queue.get(ctx.guild.id);
-        const embed = this.client.embed();
-        if (!player.queue.length) return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")] });
+        if (player.queue.length === 0) return ctx.sendMessage({ embeds: [this.client.embed().setColor(this.client.color.main).setDescription(`Now playing: [${player.current.info.title}](${player.current.info.uri}) - Request By: ${player.current?.info.requester} - Duration: ${player.current.info.isStream ? "LIVE" : this.client.utils.formatTime(player.current.info.length)}`)] });
         const queue = player.queue.map((track, index) => `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info.requester} - Duration: ${track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.length)}`); 
 
         let chunks = client.utils.chunk(queue, 10) as any

@@ -7,8 +7,8 @@ export default class Prefix extends Command {
             name: "prefix",
             description: {
                 content: "Shows the bot's prefix",
-                examples: ["prefix"],
-                usage: "prefix"
+                examples: ["prefix", "prefix reset", "prefix !"],
+                usage: "prefix, prefix reset, prefix !"
             },
             category: "general",
             aliases: ["prefix"],
@@ -32,6 +32,11 @@ export default class Prefix extends Command {
                     description: "The prefix you want to set",
                     type: 3,
                     required: false
+                },
+                {
+                    name: "reset",
+                    description: "Resets the prefix to the default",
+                    type: 1,
                 }
             ]
         });
@@ -45,10 +50,21 @@ export default class Prefix extends Command {
                 guildId: ctx.guild.id
             }
         }) as any;
+        if (pre === "reset") {
+            if (!prefix) return await ctx.sendMessage({ embeds: [embed.setDescription(`The prefix for this server is \`${client.config.prefix}\``)] })
+            prefix = await this.client.prisma.guild.delete({
+                where: {
+                    guildId: ctx.guild.id
+                },
+            });
+            return await ctx.sendMessage({ embeds: [embed.setDescription(`The prefix for this server is now \`${client.config.prefix}\``)] })
+        }
         if (!pre) {
             embed.setDescription(`The prefix for this server is \`${prefix ? prefix.prefix : client.config.prefix}\``)
             return await ctx.sendMessage({ embeds: [embed] })
         }
+        if (pre.length > 3) return await ctx.sendMessage({ embeds: [embed.setDescription(`The prefix can't be longer than 3 characters`)] })
+        
         if (!prefix) {
             prefix = await this.client.prisma.guild.create({
                 data: {
