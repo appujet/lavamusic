@@ -184,7 +184,7 @@ LAVALINK_SECURE="false" # "true" for secure Lavalink
 
 **If you using replit than read this:** 
 
-go to `prisma/schema.prisma` and add engine type like this
+go to **[prisma/schema.prisma](https://github.com/brblacky/lavamusic/blob/main/prisma/schema.prisma)** and add engine type like this
 
 ```bash
 generator client {
