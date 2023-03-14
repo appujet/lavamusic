@@ -1,23 +1,21 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
-
-
-export default class Leave extends Command {
-    constructor(client: Lavamusic) {
+import { Command } from "../../structures/index.js";
+export default class Autoplay extends Command {
+    constructor(client) {
         super(client, {
-            name: "leave",
+            name: "autoplay",
             description: {
-                content: "Leaves the voice channel",
-                examples: ["leave"],
-                usage: "leave"
+                content: "Toggles autoplay",
+                examples: ["autoplay"],
+                usage: "autoplay"
             },
             category: "music",
-            aliases: ["dc"],
+            aliases: ["ap"],
             cooldown: 3,
             args: false,
             player: {
                 voice: true,
                 dj: true,
-                active: false,
+                active: true,
                 djPerm: null
             },
             permissions: {
@@ -28,20 +26,17 @@ export default class Leave extends Command {
             slashCommand: true,
             options: []
         });
-    };
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
-
+    }
+    ;
+    async run(client, ctx, args) {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-        if (player) {
-            ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Left <#${player.player.connection.channelId}>`)] });
-            player.destroy();
-        } else {
-            ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription(`I'm not in a voice channel`)] });
-        }
+        const autoplay = player.autoplay;
+        player.autoplay = !autoplay;
+        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Autoplay has been ${autoplay ? "disabled" : "enabled"}`)] });
     }
 }
-
+;
 /**
  * Project: lavamusic
  * Author: Blacky
@@ -50,4 +45,5 @@ export default class Leave extends Command {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */
+ */ 
+//# sourceMappingURL=Autoplay.js.map
