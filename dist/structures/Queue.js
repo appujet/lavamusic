@@ -43,7 +43,7 @@ export class Queue extends Map {
         const regex = /^https?:\/\//;
         let result;
         try {
-            result = await node.rest.resolve(regex.test(query) ? query : `ytsearch:${query}`);
+            result = await node.rest.resolve(regex.test(query) ? query : `${this.client.config.searchEngine}:${encodeURIComponent(query)}`);
         }
         catch (err) {
             return null;

@@ -52,13 +52,19 @@ export default class Play extends Command {
                 break;
             case 'TRACK_LOADED':
                 const track = player.buildTrack(res.tracks[0], ctx.author);
+                if (player.queue.length > client.config.maxQueueSize)
+                    return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`)] });
                 player.queue.push(track);
                 await player.isPlaying();
                 ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`)] });
                 break;
             case 'PLAYLIST_LOADED':
+                if (res.length > client.config.maxPlaylistSize)
+                    return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription(`The playlist is too long. The maximum length is ${client.config.maxPlaylistSize} songs.`)] });
                 for (const track of res.tracks) {
                     const pl = player.buildTrack(track, ctx.author);
+                    if (player.queue.length > client.config.maxQueueSize)
+                        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`)] });
                     player.queue.push(pl);
                 }
                 await player.isPlaying();
@@ -66,6 +72,8 @@ export default class Play extends Command {
                 break;
             case 'SEARCH_RESULT':
                 const track1 = player.buildTrack(res.tracks[0], ctx.author);
+                if (player.queue.length > client.config.maxQueueSize)
+                    return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`)] });
                 player.queue.push(track1);
                 await player.isPlaying();
                 ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`)] });

@@ -42,7 +42,8 @@ export default class Grab extends Command {
                 .setThumbnail(song.info.thumbnail)
                 .setDescription(`**Duration:** ${song.info.isStream ? "LIVE" : client.utils.formatTime(song.info.length)}\n**Requested by:** ${song.info.requester}\n**Link:** [Click here](${song.info.uri})`)
                 .setColor(client.color.main)
-            await ctx.author.send({ embeds: [dm] })
+            await ctx.author.send({ embeds: [dm] });
+            return ctx.sendMessage({ embeds: [embed.setDescription(`**I sent you a DM.**`).setColor(client.color.green)] });
         } catch (e) {
             return ctx.sendMessage({ embeds: [embed.setDescription(`**I couldn't send you a DM.**`).setColor(client.color.red)] });
         }

@@ -34,7 +34,6 @@ export default class Queue extends Command {
         const player = client.queue.get(ctx.guild.id);
         if (player.queue.length === 0) return ctx.sendMessage({ embeds: [this.client.embed().setColor(this.client.color.main).setDescription(`Now playing: [${player.current.info.title}](${player.current.info.uri}) - Request By: ${player.current?.info.requester} - Duration: ${player.current.info.isStream ? "LIVE" : this.client.utils.formatTime(player.current.info.length)}`)] });
         const queue = player.queue.map((track, index) => `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info.requester} - Duration: ${track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.length)}`); 
-
         let chunks = client.utils.chunk(queue, 10) as any
         if (chunks.length === 0) chunks = 1;
         const pages = [];

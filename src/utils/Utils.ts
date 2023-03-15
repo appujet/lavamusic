@@ -1,4 +1,5 @@
-import { ButtonStyle, CommandInteraction, ButtonBuilder, ActionRowBuilder } from "discord.js";
+import { ButtonStyle, CommandInteraction, TextChannel, ButtonBuilder, ActionRowBuilder } from "discord.js";
+import {Context} from '../structures/index.js';
 
 export class Utils {
     public static formatTime(ms: number): string {
@@ -8,11 +9,11 @@ export class Utils {
         if (ms < minuteMs) {
             return `${ms / 1000}s`;
         } else if (ms < hourMs) {
-            return `${Math.floor(ms / minuteMs)}m`;
+            return `${Math.floor(ms / minuteMs)}m ${Math.floor((ms % minuteMs) / 1000)}s`;
         } else if (ms < dayMs) {
-            return `${Math.floor(ms / hourMs)}h`;
+            return `${Math.floor(ms / hourMs)}h ${Math.floor((ms % hourMs) / minuteMs)}m`;
         } else {
-            return `${Math.floor(ms / dayMs)}d`;
+            return `${Math.floor(ms / dayMs)}d ${Math.floor((ms % dayMs) / hourMs)}h`;
         }
     }
 
@@ -63,13 +64,13 @@ export class Utils {
         return progressBar;
     }
 
-    public static async paginate(ctx, embed) {
+    public static async paginate(ctx: Context, embed: any[]) {
         if (embed.length < 2) {
-            if (ctx instanceof CommandInteraction) {
-                ctx.deferred ? ctx.followUp({ embeds: embed }) : ctx.reply({ embeds: embed });
+            if (ctx.isInteraction) {
+                ctx.deferred ? ctx.interaction.followUp({ embeds: embed }) : ctx.interaction.reply({ embeds: embed });
                 return;
             } else {
-                ctx.channel.send({ embeds: embed });
+                (ctx.channel as TextChannel).send({ embeds: embed });
                 return;
             }
         }
@@ -108,10 +109,10 @@ export class Utils {
         };
         const msgOptions = getButton(0);
         let msg: any;
-        if (ctx instanceof CommandInteraction) {
-            msg = await ctx.deferred ? ctx.followUp({ ...msgOptions as any }) : ctx.reply({ ...msgOptions as any });
+        if (ctx.isInteraction) {
+            msg = ctx.deferred ? await ctx.interaction.followUp({ ...msgOptions as any, fetchReply: true as boolean }) : await ctx.interaction.reply({ ...msgOptions as any, fetchReply: true });
         } else {
-            msg = await ctx.channel.send({ ...msgOptions });
+            msg = await (ctx.channel as TextChannel).send({ ...msgOptions as any, fetchReply: true });
         }
         let author: any;
         if (ctx instanceof CommandInteraction) {

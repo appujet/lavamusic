@@ -24,7 +24,14 @@ export default class Skipto extends Command {
                 user: []
             },
             slashCommand: true,
-            options: []
+            options: [
+                {
+                    name: "number",
+                    description: "The number of the song you want to skip to",
+                    type: 4,
+                    required: true
+                }
+            ]
         });
     }
     ;
@@ -39,7 +46,7 @@ export default class Skipto extends Command {
             return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid number.")] });
         if (Number(args[0]) < 1)
             return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid number.")] });
-        player.skip(Number(args[0]) - 1);
+        player.skip(Number(args[0]));
         return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Skipped to song number ${args[0]}`)] });
     }
 }

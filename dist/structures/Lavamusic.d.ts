@@ -18,6 +18,9 @@ export default class Lavamusic extends Client {
             yellow: number;
             main: number;
         };
+        searchEngine: string;
+        maxPlaylistSize: number;
+        maxQueueSize: number;
         owners: string[];
         database: string;
         clientId: string;

@@ -56,7 +56,7 @@ export default class Help extends Command {
                 fildes.push({
                     name: category,
                     value: commands.filter((cmd) => cmd.category === category).map((cmd) => `\`${cmd.name}\``).join(", "),
-                    inline: true
+                    inline: false
                 });
             });
             const helpEmbed = embed.setColor(this.client.color.main)
@@ -102,5 +102,5 @@ export default class Help extends Command {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Help.js.map

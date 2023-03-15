@@ -8,13 +8,13 @@ export class Utils {
             return `${ms / 1000}s`;
         }
         else if (ms < hourMs) {
-            return `${Math.floor(ms / minuteMs)}m`;
+            return `${Math.floor(ms / minuteMs)}m ${Math.floor((ms % minuteMs) / 1000)}s`;
         }
         else if (ms < dayMs) {
-            return `${Math.floor(ms / hourMs)}h`;
+            return `${Math.floor(ms / hourMs)}h ${Math.floor((ms % hourMs) / minuteMs)}m`;
         }
         else {
-            return `${Math.floor(ms / dayMs)}d`;
+            return `${Math.floor(ms / dayMs)}d ${Math.floor((ms % dayMs) / hourMs)}h`;
         }
     }
     static chunk(array, size) {
@@ -68,8 +68,8 @@ export class Utils {
     }
     static async paginate(ctx, embed) {
         if (embed.length < 2) {
-            if (ctx instanceof CommandInteraction) {
-                ctx.deferred ? ctx.followUp({ embeds: embed }) : ctx.reply({ embeds: embed });
+            if (ctx.isInteraction) {
+                ctx.deferred ? ctx.interaction.followUp({ embeds: embed }) : ctx.interaction.reply({ embeds: embed });
                 return;
             }
             else {
@@ -116,11 +116,11 @@ export class Utils {
         };
         const msgOptions = getButton(0);
         let msg;
-        if (ctx instanceof CommandInteraction) {
-            msg = await ctx.deferred ? ctx.followUp({ ...msgOptions }) : ctx.reply({ ...msgOptions });
+        if (ctx.isInteraction) {
+            msg = ctx.deferred ? await ctx.interaction.followUp({ ...msgOptions, fetchReply: true }) : await ctx.interaction.reply({ ...msgOptions, fetchReply: true });
         }
         else {
-            msg = await ctx.channel.send({ ...msgOptions });
+            msg = await ctx.channel.send({ ...msgOptions, fetchReply: true });
         }
         let author;
         if (ctx instanceof CommandInteraction) {

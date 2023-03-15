@@ -75,6 +75,15 @@ export default class Context {
             this.msg = await (this.message.channel as TextChannel).send(content);
         }
     };
+    public get deferred() {
+        if (this.isInteraction) {
+            return this.interaction.deferred;
+        };
+
+        if (this.msg) return true;
+
+        return false;
+    };
 };
 
 

@@ -63,6 +63,16 @@ export default class Context {
         }
     }
     ;
+    get deferred() {
+        if (this.isInteraction) {
+            return this.interaction.deferred;
+        }
+        ;
+        if (this.msg)
+            return true;
+        return false;
+    }
+    ;
 }
 ;
 /**

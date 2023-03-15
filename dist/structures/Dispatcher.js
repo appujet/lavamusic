@@ -56,7 +56,7 @@ export default class Dispatcher {
         this.current = this.queue.length !== 0 ? this.queue.shift() : this.queue[0];
         if (this.matchedTracks.length !== 0)
             this.matchedTracks = [];
-        const search = await this.node.rest.resolve(`ytsearch:${this.current?.info.title} ${this.current?.info.author}`);
+        const search = await this.node.rest.resolve(`${this.client.config.searchEngine}:${this.current?.info.title} ${this.current?.info.author}`);
         this.matchedTracks.push(...search.tracks);
         this.player.playTrack({ track: this.current?.track });
     }

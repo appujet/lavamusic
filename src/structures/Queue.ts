@@ -1,7 +1,6 @@
 import { Node } from "shoukaku";
 import { Lavamusic, Dispatcher } from "./index.js";
 import { Guild } from 'discord.js';
-
 export class Queue extends Map {
     public client: Lavamusic;
     constructor(client: Lavamusic) {
@@ -54,7 +53,7 @@ export class Queue extends Map {
         const regex = /^https?:\/\//;
         let result: any;
         try {
-            result = await node.rest.resolve(regex.test(query) ? query : `ytsearch:${query}`);
+            result = await node.rest.resolve(regex.test(query) ? query : `${this.client.config.searchEngine}:${encodeURIComponent(query)}`);
         } catch (err) {
             return null;
         }

@@ -22,6 +22,7 @@ export default class Context {
     editMessage(content: any): Promise<any>;
     sendDeferMessage(content: any): Promise<any>;
     sendFollowUp(content: any): Promise<void>;
+    get deferred(): boolean;
 }
 /**
  * Project: lavamusic
