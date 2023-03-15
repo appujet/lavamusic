@@ -12,7 +12,7 @@ export default {
         yellow: 0xffff00,
         main: 0x2F3136,
     },
-    searchEngine: process.env.SEARCH_ENGINE || SearchEngine.YOUTUBE as SearchEngine,
+    searchEngine: process.env.SEARCH_ENGINE || SearchEngine.SOUNDCLOUD as SearchEngine,
     maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE) || 100,
     maxQueueSize: parseInt(process.env.MAX_QUEUE_SIZE) || 100,
     owners: process.env.OWNERS?.split(','),

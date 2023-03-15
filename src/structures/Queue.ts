@@ -53,7 +53,7 @@ export class Queue extends Map {
         const regex = /^https?:\/\//;
         let result: any;
         try {
-            result = await node.rest.resolve(regex.test(query) ? query : `${this.client.config.searchEngine}:${encodeURIComponent(query)}`);
+            result = await node.rest.resolve(regex.test(query) ? query : `${this.client.config.searchEngine}:${query}`);
         } catch (err) {
             return null;
         }

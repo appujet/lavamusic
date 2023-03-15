@@ -38,7 +38,11 @@
 
 - ✅ Music
 - ✅ Prefix
-
+- ✅ Search Engine
+- ✅ Hybrid Command Handler(Slash and Normal Commands)
+- ✅ Customizable
+- ✅ Easy to use
+- ✅ 24/7 Music
 ## 🎶 Support Sources
 
 - ✅ YouTube
@@ -47,29 +51,20 @@
 - ✅ Bandcamp
 - ✅ Vimeo
 - ✅ Https (Radio)
-<details><summary>More source(s)</summary>
+- ✅ Spotify([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
+- ✅ Deezer([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
+- ✅ Apple Music([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
+- ✅ Yandex Music([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
+- ✅ Mixcloud([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- ✅ Ocremix([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- ✅ Clyp([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- ✅ Reddit([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- ✅ Getyarn([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- ✅ TikTok([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- ✅ P**nHub([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- ✅ Soundgasm([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
 
-**Plugins (Require: LavaLink v3.6.x)**
-
-- [x] [LavaSrc](https://github.com/TopiSenpai/LavaSrc)
-- Spotify
-- Deezer
-- Apple
-- Yandex
-
-- [x] [skybot-lavalink-plugin](https://github.com/DuncteBot/skybot-lavalink-plugin)
-- Mixcloud
-- Ocremix
-- Clyp
-- Reddit
-- Getyarn
-- TikTok
-- PornHub
-- Soundgasm
-
-- **Need Help with plugins?** Join our [Discord Server](https://discord.gg/ns8CTk9J3e) and ask in the `#support` channel.
-
-</details>
+### **Need Help with plugins?** Join our [Discord Server](https://discord.gg/ns8CTk9J3e) and ask in the `#support` channel.
 
 ## 📚 Commands
 
