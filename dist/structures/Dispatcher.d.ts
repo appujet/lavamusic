@@ -53,6 +53,7 @@ export default class Dispatcher {
     buildTrack(track: Song, user: User): Song;
     isPlaying(): Promise<void>;
     Autoplay(song: Song): any;
+    setAutoplay(autoplay: boolean): Promise<void>;
 }
 export interface DispatcherOptions {
     client: Lavamusic;

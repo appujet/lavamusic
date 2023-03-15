@@ -80,7 +80,7 @@ export class Utils {
             const lastEmbed = page === embed.length - 1;
             const pageEmbed = embed[page];
             const first = new ButtonBuilder()
-                .setCustomId('first')
+                .setCustomId('fast')
                 .setEmoji('⏪')
                 .setStyle(ButtonStyle.Primary);
             if (firstEmbed) first.setDisabled(true);

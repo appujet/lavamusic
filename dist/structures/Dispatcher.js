@@ -154,6 +154,12 @@ export default class Dispatcher {
         this.queue.push(choosed);
         return this.isPlaying();
     }
+    async setAutoplay(autoplay) {
+        this.autoplay = autoplay;
+        if (autoplay) {
+            this.Autoplay(this.current ? this.current : this.queue[0]);
+        }
+    }
 }
 ;
 /**

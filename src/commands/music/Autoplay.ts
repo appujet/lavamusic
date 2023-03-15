@@ -35,10 +35,15 @@ export default class Autoplay extends Command {
         const embed = this.client.embed();
 
         const autoplay = player.autoplay;
-        player.autoplay = !autoplay;
-
-        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Autoplay has been ${autoplay ? "disabled" : "enabled"}`)] });
-    }
+        if (!autoplay) {
+            embed.setDescription(`Autoplay has been enabled`).setColor(client.color.main)
+            player.setAutoplay(true);
+        } else {
+            embed.setDescription(`Autoplay has been disabled`).setColor(client.color.main)
+            player.setAutoplay(false);
+        }
+        ctx.sendMessage({ embeds: [embed] });
+    };
 };
 
 /**
