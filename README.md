@@ -46,29 +46,29 @@
 
 🔍 **Default Sources**:
 
-- ![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)
-- ![SoundCloud](https://img.shields.io/badge/SoundCloud-FF3300?style=flat-square&logo=soundcloud&logoColor=white)
-- ![Twitch](https://img.shields.io/badge/Twitch-9146FF?style=flat-square&logo=twitch&logoColor=white)
-- ![Bandcamp](https://img.shields.io/badge/Bandcamp-629AA9?style=flat-square&logo=bandcamp&logoColor=white)
-- ![Vimeo](https://img.shields.io/badge/Vimeo-1AB7EA?style=flat-square&logo=vimeo&logoColor=white)
-- ![http](https://img.shields.io/badge/http-FFA500?style=flat-square&logo=http&logoColor=white)
+- ![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=plastic&logo=youtube&logoColor=white)
+- ![SoundCloud](https://img.shields.io/badge/SoundCloud-FF3300?style=plastic&logo=soundcloud&logoColor=white)
+- ![Twitch](https://img.shields.io/badge/Twitch-9146FF?style=plastic&logo=twitch&logoColor=white)
+- ![Bandcamp](https://img.shields.io/badge/Bandcamp-629AA9?style=plastic&logo=bandcamp&logoColor=white)
+- ![Vimeo](https://img.shields.io/badge/Vimeo-1AB7EA?style=plastic&logo=vimeo&logoColor=white)
+- ![http](https://img.shields.io/badge/http-FFA500?style=plastic&logo=http&logoColor=white)
 
 🔌 **Plugin Sources**: `(Require: LavaLink v3.6.x)`
 
 **Note: You need to install the plugins to use these sources**
 
-- ![Spotify](https://img.shields.io/badge/Spotify-1ED760?style=flat-square&logo=spotify&logoColor=white) ([Required Plugin][LavaSry])
-- ![Deezer](https://img.shields.io/badge/Deezer-FF0000?style=flat-square&logo=deezer&logoColor=white) ([Required Plugin][LavaSry])
-- ![Apple Music](https://img.shields.io/badge/Apple%20Music-000000?style=flat-square&logo=apple-music&logoColor=white) ([Required Plugin][LavaSry])
-- ![Yandex Music](https://img.shields.io/badge/Yandex%20Music-FF0066?style=flat-square&logo=yandex-music&logoColor=white) ([Required Plugin][LavaSry])
-- ![Mixcloud](https://img.shields.io/badge/Mixcloud-51C4D3?style=flat-square&logo=mixcloud&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
-- ![Ocremix](https://img.shields.io/badge/Ocremix-FF6600?style=flat-square&logo=ocremix&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
-- ![Clyp](https://img.shields.io/badge/Clyp-6BB5A6?style=flat-square&logo=clyp&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
-- ![Reddit](https://img.shields.io/badge/Reddit-FF4500?style=flat-square&logo=reddit&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
-- ![Getyarn](https://img.shields.io/badge/Getyarn-FF9000?style=flat-square&logo=getyarn&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
-- ![TikTok](https://img.shields.io/badge/TikTok-FF2D55?style=flat-square&logo=tiktok&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
-- ![Soundgasm](https://img.shields.io/badge/Soundgasm-F1672F?style=flat-square&logo=soundgasm&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
-- ![Text To Speech](https://img.shields.io/badge/Text%20To%20Speech-3080ff?style=flat-square&logo=google-translate&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Spotify](https://img.shields.io/badge/Spotify-1ED760?style=plastic&logo=spotify&logoColor=white) ([Required Plugin][LavaSry])
+- ![Deezer](https://img.shields.io/badge/Deezer-FF0000?style=plastic&logo=deezer&logoColor=white) ([Required Plugin][LavaSry])
+- ![Apple Music](https://img.shields.io/badge/Apple%20Music-000000?style=plastic&logo=apple-music&logoColor=white) ([Required Plugin][LavaSry])
+- ![Yandex Music](https://img.shields.io/badge/Yandex%20Music-FF0066?style=plastic&logo=yandex-music&logoColor=white) ([Required Plugin][LavaSry])
+- ![Mixcloud](https://img.shields.io/badge/Mixcloud-51C4D3?style=plastic&logo=mixcloud&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Ocremix](https://img.shields.io/badge/Ocremix-FF6600?style=plastic&logo=ocremix&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Clyp](https://img.shields.io/badge/Clyp-6BB5A6?style=plastic&logo=clyp&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Reddit](https://img.shields.io/badge/Reddit-FF4500?style=plastic&logo=reddit&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Getyarn](https://img.shields.io/badge/Getyarn-FF9000?style=plastic&logo=getyarn&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![TikTok](https://img.shields.io/badge/TikTok-FF2D55?style=plastic&logo=tiktok&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Soundgasm](https://img.shields.io/badge/Soundgasm-F1672F?style=plastic&logo=soundgasm&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Text To Speech](https://img.shields.io/badge/Text%20To%20Speech-3080ff?style=plastic&logo=google-translate&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
 
 
 [LavaSry]: https://github.com/TopiSenpai/LavaSrc
@@ -80,60 +80,30 @@
 
 <details><summary>Click to expand</summary>
 
-| Name | Description |
-|------|-------------|
-| prefix | Shows the bot's prefix |
-|      | Options     |
-|      |-------------|
-|      | prefix: The prefix you want to set |
-| about | Shows information about the bot |
-|      | None        |
-| help | Shows the help menu |
-|      | Options     |
-|      |-------------|
-|      | command: The command you want to get info on |
-| info | Ingormation about the bot |
-|      | None        |
-| invite | Sends the bot's invite link |
-|      | None        |
-| ping | Shows the bot's ping |
-|      | None        |
-| clearqueue | Clears the queue |
-|      | None        |
-| join | Joins the voice channel |
-|      | None        |
-| leave | Leaves the voice channel |
-|      | None        |
-| nowplaying | Shows the currently playing song |
-|      | None        |
-| play | Plays a song from YouTube or Spotify |
-|      | Options     |
-|      |-------------|
-|      | song: The song you want to play |
-| pause | Pauses the current song |
-|      | None        |
-| queue | Shows the current queue |
-|      | None        |
-| remove | Removes a song from the queue |
-|      | Options     |
-|      |-------------|
-|      | song: The song number |
-| resume | Resumes the current song |
-|      | None        |
-| seek | Seeks to a certain time in the song |
-|      | None        |
-| shuffle | Shuffles the queue |
-|      | None        |
-| skip | Skips the current song |
-|      | None        |
-| skipto | Skips to a specific song in the queue |
-|      | None        |
-| stop | Stops the music and clears the queue |
-|      | None        |
-| volume | Sets the volume of the player |
-|      | Options     |
-|      |-------------|
-|      | number: The volume you want to set |
+| Name        | Description                              | Options                                   |
+|-------------|------------------------------------------|-------------------------------------------|
+| `prefix`      | Shows the bot's prefix                    |                                           |
+| `help`        | Shows the help menu                       | `command`: The command you want to get info  |
+|               |                                          |          on                               |
+| `info`        | Shows information about the bot           |                                           |
+| `invite`      | Sends the bot's invite link               |                                           |
+| `ping`        | Shows the bot's ping                      |                                           |
+| `clearqueue`  | Clears the queue                          |                                           |
+| `join`        | Joins the voice channel                   |                                           |
+| `leave`       | Leaves the voice channel                  |                                           |
+| `nowplaying`  | Shows the currently playing song          |                                           |
+| `play`        | Plays a song from YouTube or Spotify      | `song`: The song you want to play            |
+| `pause`       | Pauses the current song                   |                                           |
+| `queue`       | Shows the current queue                   |                                           |
+| `remove`      | Removes a song from the queue             | `song`: The song number                      |
+| `resume`      | Resumes the current song                  |                                           |
+| `seek`        | Seeks to a certain time in the song        |                                           |
+| `shuffle`     | Shuffles the queue                        |                                           |
+| `skip`        | Skips the current song                    |                                           |
+| `skipto`      | Skips to a specific song in the queue      |                                           |
+| `stop`        | Stops the music and clears the queue      |                                           |
+| `volume`      | Sets the volume of the player             | `number`: The volume you want to set         |
+
 
 </details>
 
