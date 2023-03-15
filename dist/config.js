@@ -11,7 +11,7 @@ export default {
         yellow: 0xffff00,
         main: 0x2F3136,
     },
-    searchEngine: process.env.SEARCH_ENGINE || SearchEngine.YouTube,
+    searchEngine: process.env.SEARCH_ENGINE || SearchEngine.SoundCloud,
     maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE) || 100,
     maxQueueSize: parseInt(process.env.MAX_QUEUE_SIZE) || 100,
     owners: process.env.OWNERS?.split(','),

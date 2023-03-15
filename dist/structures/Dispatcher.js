@@ -1,12 +1,19 @@
+import SoundCloud from 'soundcloud-scraper';
 export class Song {
     constructor(track, user) {
         this.track = track.track;
         this.info = track.info;
         if (this.info && this.info.requester === undefined)
             this.info.requester = user;
-        if (track.info && !track.info.uri === undefined) {
-            if (track.info.uri.includes('youtube')) {
-                track.info.thumbnail = `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`;
+        if (track.info.sourceName === 'youtube') {
+            track.info.thumbnail = `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`;
+        }
+        else if (track.info.sourceName === 'soundcloud') {
+            if (track.info && track.info.uri) {
+                const scClient = new SoundCloud.Client();
+                scClient.getSongInfo(track.info.uri).then(async (song) => {
+                    track.info.thumbnail = song.thumbnail;
+                }).catch((err) => { });
             }
         }
     }

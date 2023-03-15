@@ -32,37 +32,45 @@
   </p>
 </p>
 
-## 🎭 Features
 
-- Build with typescript and discord.js v14
-- Music
-- Prefix
-- Search Engine
-- Hybrid Command Handler(Slash and Normal Commands)
-- Customizable
-- Easy to use
-- 24/7 Music
+## 🔥 Unique Features
+
+- Developed using Typescript and Discord.js v14
+- Advanced Music System
+- Customizable Prefix
+- Powerful Search Engine
+- Hybrid Command Handling (Slash and Normal Commands)
+- Highly Configurable
+- User-friendly and Easy to Use
+- 24/7 Music Playback
+
 
 ## 🎶 Support Sources
 
+🔍 **Default Sources**:
 - YouTube
 - SoundCloud
 - Twitch
 - Bandcamp
 - Vimeo
 - Https (Radio)
-- Spotify([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
-- Deezer([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
-- Apple Music([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
-- Yandex Music([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
-- Mixcloud([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- Ocremix([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- Clyp([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- Reddit([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- Getyarn([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- TikTok([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- P**nHub([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- Soundgasm([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+
+🔌 **Plugin Sources**: `(Require: LavaLink v3.6.x)`
+
+**Note: You need to install the plugins to use these sources**
+- Spotify ([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
+- Deezer ([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
+- Apple Music ([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
+- Yandex Music ([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
+- Mixcloud ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- Ocremix ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- Clyp ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- Reddit ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- Getyarn ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- TikTok ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- P**nHub ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+- Soundgasm ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
+
 
 ### **Need Help with plugins?** Join our [Discord Server](https://discord.gg/ns8CTk9J3e) and ask in the `#support` channel
 
@@ -280,6 +288,14 @@ Your contribution will be reviewed by the project maintainers, and any necessary
 ## 🔐 License
 
 Distributed under the Apache-2.0 license License. See [`LICENSE`](https://github.com/brblacky/lavamusic/blob/master/LICENSE) for more information.
+
+## 👥 Contributors
+
+Thanks goes to these wonderful people :
+
+<a href="https://github.com/brblacky/lavamusic/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=brblacky/lavamusic" />
+</a>
 
 [version-shield]: https://img.shields.io/github/package-json/v/brblacky/lavamusic?style=for-the-badge
 [contributors-shield]: https://img.shields.io/github/contributors/brblacky/lavamusic.svg?style=for-the-badge

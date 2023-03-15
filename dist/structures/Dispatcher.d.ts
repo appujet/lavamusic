@@ -13,10 +13,10 @@ export declare class Song implements Track {
         title: string;
         uri: string;
         sourceName: string;
-        thumbnail: string;
+        thumbnail?: string;
         requester?: User;
     };
-    constructor(track: any, user: User);
+    constructor(track: Song, user: User);
 }
 export default class Dispatcher {
     private client;

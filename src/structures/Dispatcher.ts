@@ -14,17 +14,15 @@ export class Song implements Track {
         title: string;
         uri: string;
         sourceName: string;
-        thumbnail: string;
+        thumbnail?: string;
         requester?: User;
     }
-    constructor(track: any, user: User) {
+    constructor(track: Song, user: User) {
         this.track = track.track;
         this.info = track.info;
         if (this.info && this.info.requester === undefined) this.info.requester = user;
-        if (track.info && !track.info.uri === undefined) {
-            if (track.info.uri.includes('youtube')) {
-                track.info.thumbnail = `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`;
-            }
+        if (track.info.sourceName === 'youtube') {
+            track.info.thumbnail = `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`;
         }
     }
 }
@@ -98,7 +96,7 @@ export default class Dispatcher {
         this.current = this.queue.length !== 0 ? this.queue.shift() : this.queue[0];
         if (this.matchedTracks.length !== 0) this.matchedTracks = [];
         const search = await this.node.rest.resolve(`${this.client.config.searchEngine}:${this.current?.info.title} ${this.current?.info.author}`) as any;
-        
+
         this.matchedTracks.push(...search.tracks);
         this.player.playTrack({ track: this.current?.track });
     }
@@ -165,7 +163,7 @@ export default class Dispatcher {
     public setLoop(loop: any) {
         this.loop = loop;
     }
-   
+
     public buildTrack(track: Song, user: User) {
         return new Song(track, user);
     }
