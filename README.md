@@ -1,7 +1,6 @@
 
 <center><img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=Lavamusic&fontSize=80&fontAlignY=35&animation=twinkling&fontColor=gradient" /></center>
 
-
 [![Version][version-shield]](version-url)
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -32,7 +31,6 @@
   </p>
 </p>
 
-
 ## 🔥 Unique Features
 
 - Developed using Typescript and Discord.js v14
@@ -44,33 +42,37 @@
 - User-friendly and Easy to Use
 - 24/7 Music Playback
 
-
 ## 🎶 Support Sources
 
 🔍 **Default Sources**:
-- YouTube
-- SoundCloud
-- Twitch
-- Bandcamp
-- Vimeo
-- Https (Radio)
+
+- ![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)
+- ![SoundCloud](https://img.shields.io/badge/SoundCloud-FF3300?style=flat-square&logo=soundcloud&logoColor=white)
+- ![Twitch](https://img.shields.io/badge/Twitch-9146FF?style=flat-square&logo=twitch&logoColor=white)
+- ![Bandcamp](https://img.shields.io/badge/Bandcamp-629AA9?style=flat-square&logo=bandcamp&logoColor=white)
+- ![Vimeo](https://img.shields.io/badge/Vimeo-1AB7EA?style=flat-square&logo=vimeo&logoColor=white)
+- ![http](https://img.shields.io/badge/http-FFA500?style=flat-square&logo=http&logoColor=white)
 
 🔌 **Plugin Sources**: `(Require: LavaLink v3.6.x)`
 
 **Note: You need to install the plugins to use these sources**
-- Spotify ([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
-- Deezer ([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
-- Apple Music ([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
-- Yandex Music ([Required Plugin](https://github.com/TopiSenpai/LavaSrc))
-- Mixcloud ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- Ocremix ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- Clyp ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- Reddit ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- Getyarn ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- TikTok ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- P**nHub ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
-- Soundgasm ([Required Plugin](https://github.com/DuncteBot/skybot-lavalink-plugin))
 
+- ![Spotify](https://img.shields.io/badge/Spotify-1ED760?style=flat-square&logo=spotify&logoColor=white) ([Required Plugin][LavaSry])
+- ![Deezer](https://img.shields.io/badge/Deezer-FF0000?style=flat-square&logo=deezer&logoColor=white) ([Required Plugin][LavaSry])
+- ![Apple Music](https://img.shields.io/badge/Apple%20Music-000000?style=flat-square&logo=apple-music&logoColor=white) ([Required Plugin][LavaSry])
+- ![Yandex Music](https://img.shields.io/badge/Yandex%20Music-FF0066?style=flat-square&logo=yandex-music&logoColor=white) ([Required Plugin][LavaSry])
+- ![Mixcloud](https://img.shields.io/badge/Mixcloud-51C4D3?style=flat-square&logo=mixcloud&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Ocremix](https://img.shields.io/badge/Ocremix-FF6600?style=flat-square&logo=ocremix&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Clyp](https://img.shields.io/badge/Clyp-6BB5A6?style=flat-square&logo=clyp&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Reddit](https://img.shields.io/badge/Reddit-FF4500?style=flat-square&logo=reddit&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Getyarn](https://img.shields.io/badge/Getyarn-FF9000?style=flat-square&logo=getyarn&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![TikTok](https://img.shields.io/badge/TikTok-FF2D55?style=flat-square&logo=tiktok&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Soundgasm](https://img.shields.io/badge/Soundgasm-F1672F?style=flat-square&logo=soundgasm&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+- ![Text To Speech](https://img.shields.io/badge/Text%20To%20Speech-3080ff?style=flat-square&logo=google-translate&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
+
+
+[LavaSry]: https://github.com/TopiSenpai/LavaSrc
+[skybot-lavalink-plugin]: https://github.com/DuncteBot/skybot-lavalink-plugin
 
 ### **Need Help with plugins?** Join our [Discord Server](https://discord.gg/ns8CTk9J3e) and ask in the `#support` channel
 
@@ -140,10 +142,8 @@
 Before starting with the installation, you need to have the following:
 
 - ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) [v18.0.0 or higher](https://nodejs.org/en/download/)
-- ![NPM](https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white) [v7.0.0 or higher](https://www.npmjs.com/get-npm)
 - ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white) [v4.4.0 or higher](https://www.mongodb.com/try/download/community)
 - ![Lavalink](https://img.shields.io/badge/Lavalink-7289DA?style=for-the-badge&logo=discord&logoColor=white) [v3.3.2.3 or higher](https://github.com/freyacodes/Lavalink)
-
 
 ## 🚀 Installation from source
 
@@ -263,11 +263,13 @@ Do note that the bot will restart itself to update to the latest!
 
 ## 🔗 Useful Links
 
-- [Discord.js](https://discord.js.org/)
-- [Shoukaku](https://github.com/Deivu/Shoukaku)
-- [Prisma](https://www.prisma.io/)
-- [MongoDB](https://www.mongodb.com/)
-- [Lavalink](https://github.com/freyacodes/Lavalink)
+- ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) [Node.js](https://nodejs.org/en/download/)
+- ![Discord.js](https://img.shields.io/badge/Discord.js-7289DA?style=for-the-badge&logo=discord&logoColor=white) [Discord.js](https://discord.js.org/#/)
+- ![Prisma](https://img.shields.io/badge/Prisma-1B222D?style=for-the-badge&logo=prisma&logoColor=white) [Prisma](https://www.prisma.io/)
+- ![Lavalink](https://img.shields.io/badge/Lavalink-7289DA?style=for-the-badge&logo=discord&logoColor=white) [Lavalink](https://github.com/freyacodes/Lavalink)
+- ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white) [MongoDB](https://www.mongodb.com/)
+- ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) [Docker](https://www.docker.com/)
+- ![Docker-Compose](https://img.shields.io/badge/Docker--Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white) [Docker-Compose](https://docs.docker.com/compose/)
 
 ## 📝 Tutorial
 
@@ -287,7 +289,7 @@ Your contribution will be reviewed by the project maintainers, and any necessary
 
 ## 🔐 License
 
-Distributed under the Apache-2.0 license License. See [`LICENSE`](https://github.com/brblacky/lavamusic/blob/master/LICENSE) for more information.
+Distributed under the Apache-2.0 license License. See ![LICENSE](https://img.shields.io/github/license/brblacky/lavamusic?style=social) for more information.
 
 ## 👥 Contributors
 
