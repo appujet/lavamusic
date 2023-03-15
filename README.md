@@ -35,7 +35,7 @@
 
 
 ## 🎭 Features
-
+- ✅ Build with typescript and discord.js v14
 - ✅ Music
 - ✅ Prefix
 - ✅ Search Engine
