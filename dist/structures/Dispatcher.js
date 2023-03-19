@@ -1,4 +1,3 @@
-import SoundCloud from 'soundcloud-scraper';
 export class Song {
     constructor(track, user) {
         this.track = track.track;
@@ -7,14 +6,6 @@ export class Song {
             this.info.requester = user;
         if (track.info.sourceName === 'youtube') {
             track.info.thumbnail = `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`;
-        }
-        else if (track.info.sourceName === 'soundcloud') {
-            if (track.info && track.info.uri) {
-                const scClient = new SoundCloud.Client();
-                scClient.getSongInfo(track.info.uri).then(async (song) => {
-                    track.info.thumbnail = song.thumbnail;
-                }).catch((err) => { });
-            }
         }
     }
 }

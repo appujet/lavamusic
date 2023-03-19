@@ -37,6 +37,7 @@
 - Advanced Music System
 - Customizable Prefix
 - Powerful Search Engine
+- 12 + Music Filters
 - Hybrid Command Handling (Slash and Normal Commands)
 - Highly Configurable
 - User-friendly and Easy to Use
@@ -78,7 +79,7 @@
 
 ## 📚 Commands
 
-<details><summary>Click to expand</summary>
+<details><summary>Click to View Commands</summary>
 
 | Name        | Description                              | Options                                   |
 |-------------|------------------------------------------|-------------------------------------------|
