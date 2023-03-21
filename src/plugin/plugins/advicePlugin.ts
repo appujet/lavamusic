@@ -16,7 +16,7 @@ const advicePlugin: BotPlugin = {
             'Don\'t be too hard on yourself.'
         ];
 
-        client.on('message', (message: Message) => {
+        client.on('messageCreate', (message: Message) => {
             if (message.content.startsWith('!advice')) {
                 const randomIndex = Math.floor(Math.random() * adviceList.length);
                 const advice = adviceList[randomIndex];
