@@ -148,10 +148,11 @@ CLIENT_ID="960072976412340254" # Your bot client ID
 GUILD_ID="859640640640640640" # Your server ID (if you want to use it for a single server)
 PRODUCTION="true" # "true" for production
 DATABASE_URL="mongodb+srv://Blacky:xxxxxxxxxxxx" # Your MongoDB URL
-LAVALINK_URL="localhost:2333" # Your Lavalink URL
-LAVALINK_AUTH="youshallnotpass" # Your Lavalink password
-LAVALINK_NAME="Blacky" # Your Lavalink name
-LAVALINK_SECURE="false" # "true" for secure Lavalink
+LAVALINK_URL="lava.moebot.xyz:443" # Your lavalink url
+LAVALINK_AUTH="youshallnotpass" # Your lavalink password
+LAVALINK_NAME="Blacky" # Your lavalink name
+LAVALINK_SECURE= "true" # true for secure lavalink
+
 ```
 
 5. Generate the Prisma client:
