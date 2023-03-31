@@ -62,6 +62,7 @@ export default class Prefix extends Command {
         let pre: string;
         if (ctx.isInteraction) {
             subCommand = ctx.interaction.options.data[0].name;
+            pre = ctx.interaction.options.data[0].options[0]?.value.toString();
         } else {
             subCommand = args[0];
             pre = args[1];
