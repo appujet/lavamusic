@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Rotation extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "rotation",
+      name: 'rotation',
       description: {
-        content: "on/off rotation filter",
-        examples: ["rotation"],
-        usage: "rotation",
+        content: 'on/off rotation filter',
+        examples: ['rotation'],
+        usage: 'rotation',
       },
-      category: "filters",
-      aliases: ["rt"],
+      category: 'filters',
+      aliases: ['rt'],
       cooldown: 3,
       args: false,
       player: {
@@ -21,8 +21,8 @@ export default class Rotation extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-        user: ["ManageGuild"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+        user: ['ManageGuild'],
       },
       slashCommand: true,
       options: [],
@@ -31,24 +31,24 @@ export default class Rotation extends Command {
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
     const player = client.queue.get(ctx.guild.id);
 
-    if (player.filters.includes("rotation")) {
+    if (player.filters.includes('rotation')) {
       player.player.setRotation();
-      player.filters.splice(player.filters.indexOf("rotation"), 1);
+      player.filters.splice(player.filters.indexOf('rotation'), 1);
       ctx.sendMessage({
         embeds: [
           {
-            description: "rotation filter has been disabled",
+            description: 'rotation filter has been disabled',
             color: client.color.main,
           },
         ],
       });
     } else {
       player.player.setRotation({ rotationHz: 0 });
-      player.filters.push("rotation");
+      player.filters.push('rotation');
       ctx.sendMessage({
         embeds: [
           {
-            description: "rotation filter has been enabled",
+            description: 'rotation filter has been enabled',
             color: client.color.main,
           },
         ],

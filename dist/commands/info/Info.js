@@ -1,35 +1,34 @@
-import { Command } from "../../structures/index.js";
-import os from "os";
-import { version } from "discord.js";
+import { Command } from '../../structures/index.js';
+import os from 'os';
+import { version } from 'discord.js';
 export default class Info extends Command {
     constructor(client) {
         super(client, {
-            name: "info",
+            name: 'info',
             description: {
-                content: "Ingormation about the bot",
-                examples: ["info"],
-                usage: "info"
+                content: 'Ingormation about the bot',
+                examples: ['info'],
+                usage: 'info',
             },
-            category: "info",
-            aliases: ["botinfo", "bi"],
+            category: 'info',
+            aliases: ['botinfo', 'bi'],
             cooldown: 3,
             args: false,
             player: {
                 voice: false,
                 dj: false,
                 active: false,
-                djPerm: null
+                djPerm: null,
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: []
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: [],
             },
             slashCommand: true,
-            options: []
+            options: [],
         });
     }
-    ;
     async run(client, ctx, args) {
         const osType = os.type();
         const osRelease = os.release();
@@ -58,7 +57,9 @@ export default class Info extends Command {
 - **Total Commands**: ${botCommands}
   `;
         const embed = this.client.embed();
-        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(botInfo)] });
+        return ctx.sendMessage({
+            embeds: [embed.setColor(this.client.color.main).setDescription(botInfo)],
+        });
     }
 }
 /**
@@ -69,5 +70,5 @@ export default class Info extends Command {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Info.js.map

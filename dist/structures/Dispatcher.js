@@ -54,7 +54,7 @@ export default class Dispatcher {
         this.current = this.queue.length !== 0 ? this.queue.shift() : this.queue[0];
         if (this.matchedTracks.length !== 0)
             this.matchedTracks = [];
-        const search = await this.node.rest.resolve(`${this.client.config.searchEngine}:${this.current?.info.title} ${this.current?.info.author}`);
+        const search = (await this.node.rest.resolve(`${this.client.config.searchEngine}:${this.current?.info.title} ${this.current?.info.author}`));
         this.matchedTracks.push(...search.tracks);
         this.player.playTrack({ track: this.current?.track });
     }
@@ -159,7 +159,6 @@ export default class Dispatcher {
         }
     }
 }
-;
 /**
  * Project: lavamusic
  * Author: Blacky
@@ -168,5 +167,5 @@ export default class Dispatcher {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Dispatcher.js.map

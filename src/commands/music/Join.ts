@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Join extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "join",
+      name: 'join',
       description: {
-        content: "Joins the voice channel",
-        examples: ["join"],
-        usage: "join",
+        content: 'Joins the voice channel',
+        examples: ['join'],
+        usage: 'join',
       },
-      category: "music",
-      aliases: ["j"],
+      category: 'music',
+      aliases: ['j'],
       cooldown: 3,
       args: false,
       player: {
@@ -21,7 +21,7 @@ export default class Join extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,

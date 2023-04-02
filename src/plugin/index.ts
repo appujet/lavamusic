@@ -1,13 +1,13 @@
-import { Lavamusic } from "../structures/index.js";
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
+import { Lavamusic } from '../structures/index.js';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-import { BotPlugin } from "./types.js";
+import { BotPlugin } from './types.js';
 
 export default function loadPlugins(client: Lavamusic): void {
-  const pluginsFolder = path.join(__dirname, "./plugins");
-  const pluginFiles = fs.readdirSync(pluginsFolder).filter((file) => file.endsWith(".js"));
+  const pluginsFolder = path.join(__dirname, './plugins');
+  const pluginFiles = fs.readdirSync(pluginsFolder).filter((file) => file.endsWith('.js'));
 
   pluginFiles.forEach(async (file: string) => {
     const plugin = (await import(`./plugins/${file}`)).default as BotPlugin;

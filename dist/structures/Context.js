@@ -1,4 +1,4 @@
-import { CommandInteraction, Message } from "discord.js";
+import { CommandInteraction, Message, } from 'discord.js';
 export default class Context {
     constructor(ctx, args) {
         this.ctx = ctx;
@@ -64,19 +64,15 @@ export default class Context {
             this.msg = await this.message.channel.send(content);
         }
     }
-    ;
     get deferred() {
         if (this.isInteraction) {
             return this.interaction.deferred;
         }
-        ;
         if (this.msg)
             return true;
         return false;
     }
-    ;
 }
-;
 /**
  * Project: lavamusic
  * Author: Blacky
@@ -85,5 +81,5 @@ export default class Context {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Context.js.map

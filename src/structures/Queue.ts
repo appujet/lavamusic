@@ -1,6 +1,6 @@
-import { Node } from "shoukaku";
-import { Lavamusic, Dispatcher } from "./index.js";
-import { Guild } from "discord.js";
+import { Node } from 'shoukaku';
+import { Lavamusic, Dispatcher } from './index.js';
+import { Guild } from 'discord.js';
 export class Queue extends Map {
   public client: Lavamusic;
   constructor(client: Lavamusic) {
@@ -42,7 +42,7 @@ export class Queue extends Map {
       });
 
       this.set(guild.id, dispatcher);
-      this.client.shoukaku.emit("playerCreate", dispatcher.player);
+      this.client.shoukaku.emit('playerCreate', dispatcher.player);
       return dispatcher;
     }
   }

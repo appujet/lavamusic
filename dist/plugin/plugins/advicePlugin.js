@@ -5,10 +5,10 @@ const advicePlugin = {
     initialize: (client) => {
         const adviceList = [
             'Take a break and relax for a bit.',
-            'Don\'t be afraid to ask for help.',
+            "Don't be afraid to ask for help.",
             'Try to focus on one task at a time.',
             'Take care of yourself before you take care of others.',
-            'Don\'t be too hard on yourself.'
+            "Don't be too hard on yourself.",
         ];
         client.on('messageCreate', (message) => {
             if (message.content.startsWith('!advice')) {
@@ -17,7 +17,7 @@ const advicePlugin = {
                 message.reply(advice);
             }
         });
-    }
+    },
 };
 export default advicePlugin;
 /**

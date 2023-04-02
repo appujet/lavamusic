@@ -1,4 +1,4 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 export default class Info extends Command {
     constructor(client: Lavamusic);
     run(client: Lavamusic, ctx: Context, args: string[]): Promise<void>;
@@ -11,4 +11,4 @@ export default class Info extends Command {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */

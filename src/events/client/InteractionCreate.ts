@@ -1,4 +1,4 @@
-import { Event, Lavamusic, Context } from "../../structures/index.js";
+import { Event, Lavamusic, Context } from '../../structures/index.js';
 import {
   CommandInteraction,
   Interaction,
@@ -6,12 +6,12 @@ import {
   ChannelType,
   InteractionType,
   PermissionFlagsBits,
-} from "discord.js";
+} from 'discord.js';
 
 export default class InteractionCreate extends Event {
   constructor(client: Lavamusic, file: string) {
     super(client, file, {
-      name: "interactionCreate",
+      name: 'interactionCreate',
     });
   }
   public async run(interaction: Interaction | CommandInteraction | any): Promise<void> {
@@ -99,15 +99,15 @@ export default class InteractionCreate extends Event {
         if (command.player.active) {
           if (!this.client.queue.get(interaction.guildId))
             return await interaction.reply({
-              content: "Nothing is playing right now.",
+              content: 'Nothing is playing right now.',
             });
           if (!this.client.queue.get(interaction.guildId).queue)
             return await interaction.reply({
-              content: "Nothing is playing right now.",
+              content: 'Nothing is playing right now.',
             });
           if (!this.client.queue.get(interaction.guildId).current)
             return await interaction.reply({
-              content: "Nothing is playing right now.",
+              content: 'Nothing is playing right now.',
             });
         }
         if (command.player.dj) {
@@ -129,7 +129,7 @@ export default class InteractionCreate extends Event {
               if (!findDJRole) {
                 if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
                   return await interaction.reply({
-                    content: "You need to have the DJ role to use this command.",
+                    content: 'You need to have the DJ role to use this command.',
                     ephemeral: true,
                   });
                 }
@@ -159,7 +159,7 @@ export default class InteractionCreate extends Event {
         timestamps.set(interaction.user.id, now);
         setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
       }
-      if (ctx.args.includes("@everyone") || ctx.args.includes("@here"))
+      if (ctx.args.includes('@everyone') || ctx.args.includes('@here'))
         return interaction.reply({
           content: "You can't mention everyone or here.",
           ephemeral: true,

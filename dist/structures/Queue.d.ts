@@ -1,5 +1,5 @@
-import { Node } from "shoukaku";
-import { Lavamusic, Dispatcher } from "./index.js";
+import { Node } from 'shoukaku';
+import { Lavamusic, Dispatcher } from './index.js';
 import { Guild } from 'discord.js';
 export declare class Queue extends Map {
     client: Lavamusic;
@@ -19,4 +19,4 @@ export declare class Queue extends Map {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */

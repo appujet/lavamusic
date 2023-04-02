@@ -1,59 +1,58 @@
-import { Command } from "../../structures/index.js";
+import { Command } from '../../structures/index.js';
 export default class Prefix extends Command {
     constructor(client) {
         super(client, {
-            name: "prefix",
+            name: 'prefix',
             description: {
                 content: "Shows the bot's prefix",
-                examples: ["prefix set", "prefix reset", "prefix set !"],
-                usage: "prefix set, prefix reset, prefix set !"
+                examples: ['prefix set', 'prefix reset', 'prefix set !'],
+                usage: 'prefix set, prefix reset, prefix set !',
             },
-            category: "general",
-            aliases: ["prefix"],
+            category: 'general',
+            aliases: ['prefix'],
             cooldown: 3,
             args: true,
             player: {
                 voice: false,
                 dj: false,
                 active: false,
-                djPerm: null
+                djPerm: null,
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ['ManageGuild']
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: ['ManageGuild'],
             },
             slashCommand: true,
             options: [
                 {
-                    name: "set",
-                    description: "Sets the prefix",
+                    name: 'set',
+                    description: 'Sets the prefix',
                     type: 1,
                     options: [
                         {
-                            name: "prefix",
-                            description: "The prefix you want to set",
+                            name: 'prefix',
+                            description: 'The prefix you want to set',
                             type: 3,
-                            required: false
-                        }
-                    ]
+                            required: false,
+                        },
+                    ],
                 },
                 {
-                    name: "reset",
-                    description: "Resets the prefix to the default one",
+                    name: 'reset',
+                    description: 'Resets the prefix to the default one',
                     type: 1,
-                }
-            ]
+                },
+            ],
         });
     }
-    ;
     async run(client, ctx, args) {
         const embed = client.embed().setColor(client.color.main);
-        let prefix = await this.client.prisma.guild.findUnique({
+        let prefix = (await this.client.prisma.guild.findUnique({
             where: {
-                guildId: ctx.guild.id
-            }
-        });
+                guildId: ctx.guild.id,
+            },
+        }));
         let subCommand;
         let pre;
         if (ctx.isInteraction) {
@@ -65,49 +64,58 @@ export default class Prefix extends Command {
             pre = args[1];
         }
         switch (subCommand) {
-            case "set":
+            case 'set':
                 if (!pre) {
                     embed.setDescription(`The prefix for this server is \`${prefix ? prefix.prefix : client.config.prefix}\``);
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
                 if (pre.length > 3)
-                    return await ctx.sendMessage({ embeds: [embed.setDescription(`The prefix can't be longer than 3 characters`)] });
+                    return await ctx.sendMessage({
+                        embeds: [embed.setDescription(`The prefix can't be longer than 3 characters`)],
+                    });
                 if (!prefix) {
                     prefix = await this.client.prisma.guild.create({
                         data: {
                             guildId: ctx.guild.id,
-                            prefix: pre
-                        }
+                            prefix: pre,
+                        },
                     });
-                    return await ctx.sendMessage({ embeds: [embed.setDescription(`The prefix for this server is now \`${prefix.prefix}\``)] });
+                    return await ctx.sendMessage({
+                        embeds: [embed.setDescription(`The prefix for this server is now \`${prefix.prefix}\``)],
+                    });
                 }
                 else {
                     prefix = await this.client.prisma.guild.update({
                         where: {
-                            guildId: ctx.guild.id
+                            guildId: ctx.guild.id,
                         },
                         data: {
-                            prefix: pre
-                        }
+                            prefix: pre,
+                        },
                     });
-                    return await ctx.sendMessage({ embeds: [embed.setDescription(`The prefix for this server is now \`${prefix.prefix}\``)] });
+                    return await ctx.sendMessage({
+                        embeds: [embed.setDescription(`The prefix for this server is now \`${prefix.prefix}\``)],
+                    });
                 }
-            case "reset":
+            case 'reset':
                 if (!prefix)
-                    return await ctx.sendMessage({ embeds: [embed.setDescription(`The prefix for this server is \`${client.config.prefix}\``)] });
+                    return await ctx.sendMessage({
+                        embeds: [embed.setDescription(`The prefix for this server is \`${client.config.prefix}\``)],
+                    });
                 prefix = await this.client.prisma.guild.update({
                     where: {
-                        guildId: ctx.guild.id
+                        guildId: ctx.guild.id,
                     },
                     data: {
-                        prefix: client.config.prefix
-                    }
+                        prefix: client.config.prefix,
+                    },
                 });
-                return await ctx.sendMessage({ embeds: [embed.setDescription(`The prefix for this server is now \`${client.config.prefix}\``)] });
+                return await ctx.sendMessage({
+                    embeds: [embed.setDescription(`The prefix for this server is now \`${client.config.prefix}\``)],
+                });
         }
     }
 }
-;
 /**
  * Project: lavamusic
  * Author: Blacky
@@ -116,5 +124,5 @@ export default class Prefix extends Command {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Prefix.js.map

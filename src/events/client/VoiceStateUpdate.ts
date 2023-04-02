@@ -1,10 +1,10 @@
-import { Event, Lavamusic } from "../../structures/index.js";
-import { ChannelType } from "discord.js";
+import { Event, Lavamusic } from '../../structures/index.js';
+import { ChannelType } from 'discord.js';
 
 export default class VoiceStateUpdate extends Event {
   constructor(client: Lavamusic, file: string) {
     super(client, file, {
-      name: "voiceStateUpdate",
+      name: 'voiceStateUpdate',
     });
   }
   public async run(oldState: any, newState: any): Promise<void> {
@@ -27,8 +27,8 @@ export default class VoiceStateUpdate extends Event {
       newState.guild.members.me.voice.suppress
     ) {
       if (
-        newState.guild.members.me.permissions.has(["Connect", "Speak"]) ||
-        newState.channel.permissionsFor(newState.guild.members.me).has("MuteMembers")
+        newState.guild.members.me.permissions.has(['Connect', 'Speak']) ||
+        newState.channel.permissionsFor(newState.guild.members.me).has('MuteMembers')
       ) {
         await newState.guild.members.me.voice.setSuppressed(false).catch(() => {});
       }
@@ -39,7 +39,7 @@ export default class VoiceStateUpdate extends Event {
       newState.id === this.client.user.id &&
       !newState.serverDeaf &&
       vc &&
-      vc.permissionsFor(newState.guild.member.me).has("DeafenMembers")
+      vc.permissionsFor(newState.guild.member.me).has('DeafenMembers')
     )
       await newState.setDeaf(true);
     if (newState.id === this.client.user.id && newState.serverMute && !player.paused) player.pause();

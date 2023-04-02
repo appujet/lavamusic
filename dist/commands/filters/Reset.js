@@ -1,30 +1,30 @@
-import { Command } from "../../structures/index.js";
+import { Command } from '../../structures/index.js';
 export default class Reset extends Command {
     constructor(client) {
         super(client, {
-            name: "reset",
+            name: 'reset',
             description: {
-                content: "Resets the active filters",
-                examples: ["reset"],
-                usage: "reset"
+                content: 'Resets the active filters',
+                examples: ['reset'],
+                usage: 'reset',
             },
-            category: "filters",
-            aliases: ["reset"],
+            category: 'filters',
+            aliases: ['reset'],
             cooldown: 3,
             args: false,
             player: {
                 voice: false,
                 dj: true,
                 active: false,
-                djPerm: null
+                djPerm: null,
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ['ManageGuild']
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: ['ManageGuild'],
             },
             slashCommand: true,
-            options: []
+            options: [],
         });
     }
     async run(client, ctx, args) {
@@ -32,10 +32,12 @@ export default class Reset extends Command {
         player.player.clearFilters();
         player.filters = [];
         return ctx.sendMessage({
-            embeds: [{
-                    description: "Filters have been reset",
-                    color: client.color.main
-                }]
+            embeds: [
+                {
+                    description: 'Filters have been reset',
+                    color: client.color.main,
+                },
+            ],
         });
     }
 }

@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Leave extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "leave",
+      name: 'leave',
       description: {
-        content: "Leaves the voice channel",
-        examples: ["leave"],
-        usage: "leave",
+        content: 'Leaves the voice channel',
+        examples: ['leave'],
+        usage: 'leave',
       },
-      category: "music",
-      aliases: ["dc"],
+      category: 'music',
+      aliases: ['dc'],
       cooldown: 3,
       args: false,
       player: {
@@ -21,7 +21,7 @@ export default class Leave extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,

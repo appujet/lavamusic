@@ -1,5 +1,5 @@
-import { ButtonStyle, CommandInteraction, TextChannel, ButtonBuilder, ActionRowBuilder } from "discord.js";
-import { Context } from "../structures/index.js";
+import { ButtonStyle, CommandInteraction, TextChannel, ButtonBuilder, ActionRowBuilder } from 'discord.js';
+import { Context } from '../structures/index.js';
 
 export class Utils {
   public static formatTime(ms: number): string {
@@ -28,16 +28,16 @@ export class Utils {
   }
 
   public static formatBytes(bytes: number, decimals = 2): string {
-    if (bytes === 0) return "0 Bytes";
+    if (bytes === 0) return '0 Bytes';
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
   public static formatNumber(number: number): string {
-    return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   }
 
   public static parseTime(string: string): number {
@@ -47,10 +47,10 @@ export class Utils {
     for (const t of time) {
       const unit = t[t.length - 1];
       const amount = Number(t.slice(0, -1));
-      if (unit === "d") ms += amount * 24 * 60 * 60 * 1000;
-      else if (unit === "h") ms += amount * 60 * 60 * 1000;
-      else if (unit === "m") ms += amount * 60 * 1000;
-      else if (unit === "s") ms += amount * 1000;
+      if (unit === 'd') ms += amount * 24 * 60 * 60 * 1000;
+      else if (unit === 'h') ms += amount * 60 * 60 * 1000;
+      else if (unit === 'm') ms += amount * 60 * 1000;
+      else if (unit === 's') ms += amount * 1000;
     }
     return ms;
   }
@@ -58,8 +58,8 @@ export class Utils {
     const percent = Math.round((current / total) * 100);
     const filledSize = Math.round((size * current) / total);
     const emptySize = size - filledSize;
-    const filledBar = "▓".repeat(filledSize);
-    const emptyBar = "░".repeat(emptySize);
+    const filledBar = '▓'.repeat(filledSize);
+    const emptyBar = '░'.repeat(emptySize);
     const progressBar = `${filledBar}${emptyBar} ${percent}%`;
     return progressBar;
   }
@@ -79,15 +79,15 @@ export class Utils {
       const firstEmbed = page === 0;
       const lastEmbed = page === embed.length - 1;
       const pageEmbed = embed[page];
-      const first = new ButtonBuilder().setCustomId("fast").setEmoji("⏪").setStyle(ButtonStyle.Primary);
+      const first = new ButtonBuilder().setCustomId('fast').setEmoji('⏪').setStyle(ButtonStyle.Primary);
       if (firstEmbed) first.setDisabled(true);
-      const back = new ButtonBuilder().setCustomId("back").setEmoji("◀️").setStyle(ButtonStyle.Primary);
+      const back = new ButtonBuilder().setCustomId('back').setEmoji('◀️').setStyle(ButtonStyle.Primary);
       if (firstEmbed) back.setDisabled(true);
-      const next = new ButtonBuilder().setCustomId("next").setEmoji("▶️").setStyle(ButtonStyle.Primary);
+      const next = new ButtonBuilder().setCustomId('next').setEmoji('▶️').setStyle(ButtonStyle.Primary);
       if (lastEmbed) next.setDisabled(true);
-      const last = new ButtonBuilder().setCustomId("last").setEmoji("⏩").setStyle(ButtonStyle.Primary);
+      const last = new ButtonBuilder().setCustomId('last').setEmoji('⏩').setStyle(ButtonStyle.Primary);
       if (lastEmbed) last.setDisabled(true);
-      const stop = new ButtonBuilder().setCustomId("stop").setEmoji("⏹️").setStyle(ButtonStyle.Danger);
+      const stop = new ButtonBuilder().setCustomId('stop').setEmoji('⏹️').setStyle(ButtonStyle.Danger);
       const row = new ActionRowBuilder().addComponents(first, back, stop, next, last);
       return { embeds: [pageEmbed], components: [row] };
     };
@@ -120,38 +120,38 @@ export class Utils {
       filter,
       time: 60000,
     });
-    collector.on("collect", async (interaction) => {
+    collector.on('collect', async (interaction) => {
       if (interaction.user.id === author.id) {
         await interaction.deferUpdate();
-        if (interaction.customId === "fast") {
+        if (interaction.customId === 'fast') {
           if (page !== 0) {
             page = 0;
             const newEmbed = getButton(page);
             await interaction.editReply(newEmbed);
           }
         }
-        if (interaction.customId === "back") {
+        if (interaction.customId === 'back') {
           if (page !== 0) {
             page--;
             const newEmbed = getButton(page);
             await interaction.editReply(newEmbed);
           }
         }
-        if (interaction.customId === "stop") {
+        if (interaction.customId === 'stop') {
           collector.stop();
           await interaction.editReply({
             embeds: [embed[page]],
             components: [],
           });
         }
-        if (interaction.customId === "next") {
+        if (interaction.customId === 'next') {
           if (page !== embed.length - 1) {
             page++;
             const newEmbed = getButton(page);
             await interaction.editReply(newEmbed);
           }
         }
-        if (interaction.customId === "last") {
+        if (interaction.customId === 'last') {
           if (page !== embed.length - 1) {
             page = embed.length - 1;
             const newEmbed = getButton(page);
@@ -166,7 +166,7 @@ export class Utils {
       }
     });
 
-    collector.on("end", async () => {
+    collector.on('end', async () => {
       await msg.edit({ embeds: [embed[page]], components: [] });
     });
   }

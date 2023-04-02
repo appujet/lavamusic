@@ -1,17 +1,17 @@
-import { ApplicationCommandOptionType } from "discord.js";
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { ApplicationCommandOptionType } from 'discord.js';
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Speed extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "speed",
+      name: 'speed',
       description: {
-        content: "Sets the speed of the song",
-        examples: ["speed 1.5"],
-        usage: "speed <number>",
+        content: 'Sets the speed of the song',
+        examples: ['speed 1.5'],
+        usage: 'speed <number>',
       },
-      category: "filters",
-      aliases: ["speed"],
+      category: 'filters',
+      aliases: ['speed'],
       cooldown: 3,
       args: true,
       player: {
@@ -22,14 +22,14 @@ export default class Speed extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-        user: ["ManageGuild"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+        user: ['ManageGuild'],
       },
       slashCommand: true,
       options: [
         {
-          name: "speed",
-          description: "The speed you want to set",
+          name: 'speed',
+          description: 'The speed you want to set',
           type: ApplicationCommandOptionType.Integer,
           required: true,
         },
@@ -44,7 +44,7 @@ export default class Speed extends Command {
       return ctx.sendMessage({
         embeds: [
           {
-            description: "Please provide a valid number",
+            description: 'Please provide a valid number',
             color: client.color.red,
           },
         ],
@@ -54,7 +54,7 @@ export default class Speed extends Command {
       return ctx.sendMessage({
         embeds: [
           {
-            description: "Please provide a number between 0.5 and 5",
+            description: 'Please provide a number between 0.5 and 5',
             color: client.color.red,
           },
         ],

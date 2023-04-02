@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class _247 extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "247",
+      name: '247',
       description: {
-        content: "set the bot to stay in the vc",
-        examples: ["247"],
-        usage: "247",
+        content: 'set the bot to stay in the vc',
+        examples: ['247'],
+        usage: '247',
       },
-      category: "config",
-      aliases: ["stay"],
+      category: 'config',
+      aliases: ['stay'],
       cooldown: 3,
       args: false,
       player: {
@@ -21,8 +21,8 @@ export default class _247 extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-        user: ["ManageGuild"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+        user: ['ManageGuild'],
       },
       slashCommand: true,
       options: [],

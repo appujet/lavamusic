@@ -1,8 +1,8 @@
-import { Event } from "../../structures/index.js";
+import { Event } from '../../structures/index.js';
 export default class NodeConnect extends Event {
     constructor(client, file) {
         super(client, file, {
-            name: "nodeConnect",
+            name: 'nodeConnect',
         });
     }
     async run(node) {

@@ -1,10 +1,10 @@
-import { Event, Lavamusic, Context } from "../../structures/index.js";
-import { Message, PermissionFlagsBits, Collection, ChannelType } from "discord.js";
+import { Event, Lavamusic, Context } from '../../structures/index.js';
+import { Message, PermissionFlagsBits, Collection, ChannelType } from 'discord.js';
 
 export default class MessageCreate extends Event {
   constructor(client: Lavamusic, file: string) {
     super(client, file, {
-      name: "messageCreate",
+      name: 'messageCreate',
     });
   }
   public async run(message: Message): Promise<any> {
@@ -27,7 +27,7 @@ export default class MessageCreate extends Event {
       });
       return;
     }
-    const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const prefixRegex = new RegExp(`^(<@!?${this.client.user.id}>|${escapeRegex(prefix)})\\s*`);
     if (!prefixRegex.test(message.content)) return;
     const [matchedPrefix] = message.content.match(prefixRegex);
@@ -41,7 +41,7 @@ export default class MessageCreate extends Event {
     ctx.setArgs(args);
 
     let dm = message.author.dmChannel;
-    if (typeof dm === "undefined") dm = await message.author.createDM();
+    if (typeof dm === 'undefined') dm = await message.author.createDM();
 
     if (
       !message.inGuild() ||
@@ -117,15 +117,15 @@ export default class MessageCreate extends Event {
       if (command.player.active) {
         if (!this.client.queue.get(message.guildId))
           return await message.reply({
-            content: "Nothing is playing right now.",
+            content: 'Nothing is playing right now.',
           });
         if (!this.client.queue.get(message.guildId).queue)
           return await message.reply({
-            content: "Nothing is playing right now.",
+            content: 'Nothing is playing right now.',
           });
         if (!this.client.queue.get(message.guildId).current)
           return await message.reply({
-            content: "Nothing is playing right now.",
+            content: 'Nothing is playing right now.',
           });
       }
       if (command.player.dj) {
@@ -148,7 +148,7 @@ export default class MessageCreate extends Event {
               if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
                 return await message
                   .reply({
-                    content: "You need to have the DJ role to use this command.",
+                    content: 'You need to have the DJ role to use this command.',
                   })
                   .then((msg) => setTimeout(() => msg.delete(), 5000));
               }
@@ -162,13 +162,13 @@ export default class MessageCreate extends Event {
         const embed = this.client
           .embed()
           .setColor(this.client.color.red)
-          .setTitle("Missing Arguments")
+          .setTitle('Missing Arguments')
           .setDescription(
             `Please provide the required arguments for the \`${command.name}\` command.\n\nExamples:\n${
-              command.description.examples ? command.description.examples.join("\n") : "None"
+              command.description.examples ? command.description.examples.join('\n') : 'None'
             }`,
           )
-          .setFooter({ text: "Syntax: [] = required, <> = optional" });
+          .setFooter({ text: 'Syntax: [] = required, <> = optional' });
         return await message.reply({ embeds: [embed] });
       }
     }
@@ -194,7 +194,7 @@ export default class MessageCreate extends Event {
       timestamps.set(message.author.id, now);
       setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     }
-    if (args.includes("@everyone") || args.includes("@here"))
+    if (args.includes('@everyone') || args.includes('@here'))
       return await message.reply({
         content: "You can't use this command with everyone or here.",
       });

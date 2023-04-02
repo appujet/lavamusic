@@ -1,10 +1,10 @@
-import { Event, Lavamusic } from "../../structures/index.js";
-import { Node } from "shoukaku";
+import { Event, Lavamusic } from '../../structures/index.js';
+import { Node } from 'shoukaku';
 
 export default class NodeConnect extends Event {
   constructor(client: Lavamusic, file: string) {
     super(client, file, {
-      name: "nodeConnect",
+      name: 'nodeConnect',
     });
   }
   public async run(node: Node): Promise<void> {

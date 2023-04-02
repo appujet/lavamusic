@@ -1,33 +1,32 @@
-import { Command } from "../../structures/index.js";
+import { Command } from '../../structures/index.js';
 export default class Autoplay extends Command {
     constructor(client) {
         super(client, {
-            name: "autoplay",
+            name: 'autoplay',
             description: {
-                content: "Toggles autoplay",
-                examples: ["autoplay"],
-                usage: "autoplay"
+                content: 'Toggles autoplay',
+                examples: ['autoplay'],
+                usage: 'autoplay',
             },
-            category: "music",
-            aliases: ["ap"],
+            category: 'music',
+            aliases: ['ap'],
             cooldown: 3,
             args: false,
             player: {
                 voice: true,
                 dj: true,
                 active: true,
-                djPerm: null
+                djPerm: null,
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: []
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: [],
             },
             slashCommand: true,
-            options: []
+            options: [],
         });
     }
-    ;
     async run(client, ctx, args) {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
@@ -42,9 +41,7 @@ export default class Autoplay extends Command {
         }
         ctx.sendMessage({ embeds: [embed] });
     }
-    ;
 }
-;
 /**
  * Project: lavamusic
  * Author: Blacky
@@ -53,5 +50,5 @@ export default class Autoplay extends Command {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Autoplay.js.map

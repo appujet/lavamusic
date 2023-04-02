@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Queue extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "queue",
+      name: 'queue',
       description: {
-        content: "Shows the current queue",
-        examples: ["queue"],
-        usage: "queue",
+        content: 'Shows the current queue',
+        examples: ['queue'],
+        usage: 'queue',
       },
-      category: "music",
-      aliases: ["q"],
+      category: 'music',
+      aliases: ['q'],
       cooldown: 3,
       args: false,
       player: {
@@ -21,7 +21,7 @@ export default class Queue extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,
@@ -40,7 +40,7 @@ export default class Queue extends Command {
               `Now playing: [${player.current.info.title}](${player.current.info.uri}) - Request By: ${
                 player.current?.info.requester
               } - Duration: ${
-                player.current.info.isStream ? "LIVE" : this.client.utils.formatTime(player.current.info.length)
+                player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(player.current.info.length)
               }`,
             ),
         ],
@@ -48,7 +48,7 @@ export default class Queue extends Command {
     const queue = player.queue.map(
       (track, index) =>
         `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info.requester} - Duration: ${
-          track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.length)
+          track.info.isStream ? 'LIVE' : this.client.utils.formatTime(track.info.length)
         }`,
     );
     let chunks = client.utils.chunk(queue, 10) as any;
@@ -58,8 +58,8 @@ export default class Queue extends Command {
       const embed = this.client
         .embed()
         .setColor(this.client.color.main)
-        .setAuthor({ name: "Queue", iconURL: ctx.guild.iconURL({}) })
-        .setDescription(chunks[i].join("\n"))
+        .setAuthor({ name: 'Queue', iconURL: ctx.guild.iconURL({}) })
+        .setDescription(chunks[i].join('\n'))
         .setFooter({ text: `Page ${i + 1} of ${chunks.length}` });
       pages.push(embed);
     }

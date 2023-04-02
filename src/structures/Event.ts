@@ -1,4 +1,4 @@
-import Lavamusic from "./Lavamusic.js";
+import Lavamusic from './Lavamusic.js';
 
 export default class Event {
   public client: Lavamusic;
@@ -11,7 +11,7 @@ export default class Event {
     this.file = file;
     this.name = options.name;
     this.one = options.one || false;
-    this.fileName = file.split(".")[0];
+    this.fileName = file.split('.')[0];
   }
   public async run(...args: any[]): Promise<any> {
     return Promise.resolve();

@@ -1,18 +1,18 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
-import os from "os";
-import { version } from "discord.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
+import os from 'os';
+import { version } from 'discord.js';
 
 export default class Info extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "info",
+      name: 'info',
       description: {
-        content: "Ingormation about the bot",
-        examples: ["info"],
-        usage: "info",
+        content: 'Ingormation about the bot',
+        examples: ['info'],
+        usage: 'info',
       },
-      category: "info",
-      aliases: ["botinfo", "bi"],
+      category: 'info',
+      aliases: ['botinfo', 'bi'],
       cooldown: 3,
       args: false,
       player: {
@@ -23,7 +23,7 @@ export default class Info extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,

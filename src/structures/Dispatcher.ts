@@ -1,6 +1,6 @@
-import { User, Message } from "discord.js";
-import { Player, Track, Node } from "shoukaku";
-import { Lavamusic } from "./index.js";
+import { User, Message } from 'discord.js';
+import { Player, Track, Node } from 'shoukaku';
+import { Lavamusic } from './index.js';
 
 export class Song implements Track {
   track: string;
@@ -21,7 +21,7 @@ export class Song implements Track {
     this.track = track.track;
     this.info = track.info;
     if (this.info && this.info.requester === undefined) this.info.requester = user;
-    if (track.info.sourceName === "youtube") {
+    if (track.info.sourceName === 'youtube') {
       track.info.thumbnail = `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`;
     }
   }
@@ -36,7 +36,7 @@ export default class Dispatcher {
   public stopped: boolean;
   public previous: Song | null;
   public current: Song | null;
-  public loop: "off" | "repeat" | "queue";
+  public loop: 'off' | 'repeat' | 'queue';
   public matchedTracks: Song[];
   public requester: User;
   public repeat: number;
@@ -56,7 +56,7 @@ export default class Dispatcher {
     this.stopped = false;
     this.previous = null;
     this.current = null;
-    this.loop = "off";
+    this.loop = 'off';
     this.matchedTracks = [];
     this.repeat = 0;
     this.node = options.node;
@@ -67,14 +67,14 @@ export default class Dispatcher {
     this.nowPlayingMessage = null;
 
     this.player
-      .on("start", () => this.client.shoukaku.emit("trackStart", this.player, this.current, this))
-      .on("end", () => {
-        if (!this.queue.length) this.client.shoukaku.emit("queueEnd", this.player, this.current, this);
-        this.client.shoukaku.emit("trackEnd", this.player, this.current, this);
+      .on('start', () => this.client.shoukaku.emit('trackStart', this.player, this.current, this))
+      .on('end', () => {
+        if (!this.queue.length) this.client.shoukaku.emit('queueEnd', this.player, this.current, this);
+        this.client.shoukaku.emit('trackEnd', this.player, this.current, this);
       })
-      .on("stuck", () => this.client.shoukaku.emit("trackStuck", this.player, this.current))
-      .on("closed", (...arr) => {
-        this.client.shoukaku.emit("socketClosed", this.player, ...arr);
+      .on('stuck', () => this.client.shoukaku.emit('trackStuck', this.player, this.current))
+      .on('closed', (...arr) => {
+        this.client.shoukaku.emit('socketClosed', this.player, ...arr);
       });
   }
 
@@ -124,7 +124,7 @@ export default class Dispatcher {
     this.player.connection.disconnect();
     this.client.queue.delete(this.guildId);
     if (this.stopped) return;
-    this.client.shoukaku.emit("playerDestroy", this.player);
+    this.client.shoukaku.emit('playerDestroy', this.player);
   }
   public setShuffle(shuffle: boolean) {
     if (!this.player) return;

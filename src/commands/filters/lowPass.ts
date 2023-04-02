@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class lowPass extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "lowpass",
+      name: 'lowpass',
       description: {
-        content: "on/off lowpass filter",
-        examples: ["lowpass"],
-        usage: "lowpass <number>",
+        content: 'on/off lowpass filter',
+        examples: ['lowpass'],
+        usage: 'lowpass <number>',
       },
-      category: "filters",
-      aliases: ["lp"],
+      category: 'filters',
+      aliases: ['lp'],
       cooldown: 3,
       args: false,
       player: {
@@ -21,8 +21,8 @@ export default class lowPass extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-        user: ["ManageGuild"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+        user: ['ManageGuild'],
       },
       slashCommand: false,
     });
@@ -30,24 +30,24 @@ export default class lowPass extends Command {
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
     const player = client.queue.get(ctx.guild.id);
 
-    if (player.filters.includes("lowpass")) {
+    if (player.filters.includes('lowpass')) {
       player.player.setLowPass({});
-      player.filters.splice(player.filters.indexOf("lowpass"), 1);
+      player.filters.splice(player.filters.indexOf('lowpass'), 1);
       ctx.sendMessage({
         embeds: [
           {
-            description: "Lowpass filter has been disabled",
+            description: 'Lowpass filter has been disabled',
             color: client.color.main,
           },
         ],
       });
     } else {
       player.player.setLowPass({ smoothing: 20 });
-      player.filters.push("lowpass");
+      player.filters.push('lowpass');
       ctx.sendMessage({
         embeds: [
           {
-            description: "Lowpass filter has been enabled",
+            description: 'Lowpass filter has been enabled',
             color: client.color.main,
           },
         ],

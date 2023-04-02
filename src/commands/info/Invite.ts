@@ -1,17 +1,17 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
 export default class Invite extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "invite",
+      name: 'invite',
       description: {
         content: "Sends the bot's invite link",
-        examples: ["invite"],
-        usage: "invite",
+        examples: ['invite'],
+        usage: 'invite',
       },
-      category: "info",
-      aliases: ["inv"],
+      category: 'info',
+      aliases: ['inv'],
       cooldown: 3,
       args: false,
       player: {
@@ -22,7 +22,7 @@ export default class Invite extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,
@@ -33,12 +33,12 @@ export default class Invite extends Command {
     const embed = this.client.embed();
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setLabel("Invite Lavamusic")
+        .setLabel('Invite Lavamusic')
         .setStyle(ButtonStyle.Link)
         .setURL(
           `https://discord.com/api/oauth2/authorize?client_id=875635121770889257&permissions=8&scope=bot%20applications.commands`,
         ),
-      new ButtonBuilder().setLabel("Support Server").setStyle(ButtonStyle.Link).setURL("https://discord.gg/ns8CTk9J3e"),
+      new ButtonBuilder().setLabel('Support Server').setStyle(ButtonStyle.Link).setURL('https://discord.gg/ns8CTk9J3e'),
     );
 
     return ctx.sendMessage({

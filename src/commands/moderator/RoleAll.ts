@@ -1,17 +1,17 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
-import { ApplicationCommandOptionType, GuildMember, Role } from "discord.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { ApplicationCommandOptionType, GuildMember, Role } from 'discord.js';
 
 export default class RoleAll extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "roleall",
+      name: 'roleall',
       description: {
-        content: "Adds a role to all users in the server",
-        examples: ["roleall @role"],
-        usage: "roleall",
+        content: 'Adds a role to all users in the server',
+        examples: ['roleall @role'],
+        usage: 'roleall',
       },
-      category: "moderator",
-      aliases: ["rall"],
+      category: 'moderator',
+      aliases: ['rall'],
       cooldown: 3,
       args: true,
       player: {
@@ -22,14 +22,14 @@ export default class RoleAll extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks", "ManageRoles"],
-        user: ["ManageRoles"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks', 'ManageRoles'],
+        user: ['ManageRoles'],
       },
       slashCommand: false,
       options: [
         {
-          name: "role",
-          description: "The role you want to add to all users",
+          name: 'role',
+          description: 'The role you want to add to all users',
           type: ApplicationCommandOptionType.Role,
           required: true,
         },
@@ -46,7 +46,7 @@ export default class RoleAll extends Command {
     }
 
     if (!role) {
-      embed.setDescription("Please provide a valid role").setColor(client.color.red);
+      embed.setDescription('Please provide a valid role').setColor(client.color.red);
       return ctx.sendMessage({ embeds: [embed] });
     }
 

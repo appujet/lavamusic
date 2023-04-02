@@ -1,16 +1,16 @@
-import { Lavamusic, Context, Command } from "../../structures/index.js";
+import { Lavamusic, Context, Command } from '../../structures/index.js';
 
 export default class Help extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "help",
+      name: 'help',
       description: {
-        content: "Shows the help menu",
-        examples: ["help"],
-        usage: "help",
+        content: 'Shows the help menu',
+        examples: ['help'],
+        usage: 'help',
       },
-      category: "info",
-      aliases: ["h"],
+      category: 'info',
+      aliases: ['h'],
       cooldown: 3,
       args: false,
       player: {
@@ -21,14 +21,14 @@ export default class Help extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,
       options: [
         {
-          name: "command",
-          description: "The command you want to get info on",
+          name: 'command',
+          description: 'The command you want to get info on',
           type: 3,
           required: false,
         },
@@ -47,7 +47,7 @@ export default class Help extends Command {
     } else {
       prefix = prefix.prefix;
     }
-    const commands = this.client.commands.filter((cmd) => cmd.category !== "dev");
+    const commands = this.client.commands.filter((cmd) => cmd.category !== 'dev');
     const categories = commands
       .map((cmd) => cmd.category)
       .filter((value, index, self) => self.indexOf(value) === index);
@@ -60,13 +60,13 @@ export default class Help extends Command {
           value: commands
             .filter((cmd) => cmd.category === category)
             .map((cmd) => `\`${cmd.name}\``)
-            .join(", "),
+            .join(', '),
           inline: false,
         });
       });
       const helpEmbed = embed
         .setColor(this.client.color.main)
-        .setTitle("Help Menu")
+        .setTitle('Help Menu')
         .setDescription(
           `Hey there! I'm ${this.client.user.username}, a music bot made with [Lavamusic](https://github.com/brblacky/lavamusic) and Discord.js. You can use \`${prefix}help <command>\` to get more info on a command.`,
         )
@@ -85,21 +85,21 @@ export default class Help extends Command {
       const helpEmbed = embed.setColor(this.client.color.main).setTitle(`Help Menu - ${command.name}`)
         .setDescription(`**Description:** ${command.description.content}
 **Usage:** ${prefix}${command.description.usage}
-**Examples:** ${command.description.examples.map((example) => `${prefix}${example}`).join(", ")}
-**Aliases:** ${command.aliases.map((alias) => `\`${alias}\``).join(", ")}
+**Examples:** ${command.description.examples.map((example) => `${prefix}${example}`).join(', ')}
+**Aliases:** ${command.aliases.map((alias) => `\`${alias}\``).join(', ')}
 **Category:** ${command.category}
 **Cooldown:** ${command.cooldown} seconds
 **Permissions:** ${
-        command.permissions.user.length > 0 ? command.permissions.user.map((perm) => `\`${perm}\``).join(", ") : "None"
+        command.permissions.user.length > 0 ? command.permissions.user.map((perm) => `\`${perm}\``).join(', ') : 'None'
       }
-**Bot Permissions:** ${command.permissions.client.map((perm) => `\`${perm}\``).join(", ")}
-**Developer Only:** ${command.permissions.dev ? "Yes" : "No"}
-**Slash Command:** ${command.slashCommand ? "Yes" : "No"}
-**Args:** ${command.args ? "Yes" : "No"}
-**Player:** ${command.player.active ? "Yes" : "No"}
-**DJ:** ${command.player.dj ? "Yes" : "No"}
-**DJ Permissions:** ${command.player.djPerm ? command.player.djPerm : "None"}
-**Voice:** ${command.player.voice ? "Yes" : "No"}`);
+**Bot Permissions:** ${command.permissions.client.map((perm) => `\`${perm}\``).join(', ')}
+**Developer Only:** ${command.permissions.dev ? 'Yes' : 'No'}
+**Slash Command:** ${command.slashCommand ? 'Yes' : 'No'}
+**Args:** ${command.args ? 'Yes' : 'No'}
+**Player:** ${command.player.active ? 'Yes' : 'No'}
+**DJ:** ${command.player.dj ? 'Yes' : 'No'}
+**DJ Permissions:** ${command.player.djPerm ? command.player.djPerm : 'None'}
+**Voice:** ${command.player.voice ? 'Yes' : 'No'}`);
       ctx.sendMessage({ embeds: [helpEmbed] });
     }
   }

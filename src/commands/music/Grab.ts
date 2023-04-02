@@ -1,15 +1,15 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Grab extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "grab",
+      name: 'grab',
       description: {
-        content: "Grabs the current playing song",
-        examples: ["grab"],
-        usage: "grab",
+        content: 'Grabs the current playing song',
+        examples: ['grab'],
+        usage: 'grab',
       },
-      category: "music",
+      category: 'music',
       aliases: [],
       cooldown: 3,
       args: false,
@@ -21,7 +21,7 @@ export default class Grab extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,
@@ -41,7 +41,7 @@ export default class Grab extends Command {
         .setThumbnail(song.info.thumbnail)
         .setDescription(
           `**Duration:** ${
-            song.info.isStream ? "LIVE" : client.utils.formatTime(song.info.length)
+            song.info.isStream ? 'LIVE' : client.utils.formatTime(song.info.length)
           }\n**Requested by:** ${song.info.requester}\n**Link:** [Click here](${song.info.uri})`,
         )
         .setColor(client.color.main);

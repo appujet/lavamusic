@@ -1,19 +1,19 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Play extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "play",
+      name: 'play',
       description: {
-        content: "Plays a song from YouTube or Spotify",
+        content: 'Plays a song from YouTube or Spotify',
         examples: [
-          "play https://www.youtube.com/watch?v=QH2-TGUlwu4",
-          "play https://open.spotify.com/track/6WrI0LAC5M1Rw2MnX2ZvEg",
+          'play https://www.youtube.com/watch?v=QH2-TGUlwu4',
+          'play https://open.spotify.com/track/6WrI0LAC5M1Rw2MnX2ZvEg',
         ],
-        usage: "play <song>",
+        usage: 'play <song>',
       },
-      category: "music",
-      aliases: ["p"],
+      category: 'music',
+      aliases: ['p'],
       cooldown: 3,
       args: true,
       player: {
@@ -24,14 +24,14 @@ export default class Play extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks", "Connect", "Speak"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks', 'Connect', 'Speak'],
         user: [],
       },
       slashCommand: true,
       options: [
         {
-          name: "song",
-          description: "The song you want to play",
+          name: 'song',
+          description: 'The song you want to play',
           type: 3,
           required: true,
         },
@@ -39,7 +39,7 @@ export default class Play extends Command {
     });
   }
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
-    const query = args.join(" ");
+    const query = args.join(' ');
     let player = client.queue.get(ctx.guild.id);
     const vc = ctx.member as any;
     if (!player)
@@ -48,17 +48,17 @@ export default class Play extends Command {
     const res = await this.client.queue.search(query);
     const embed = this.client.embed();
     switch (res.loadType) {
-      case "LOAD_FAILED":
+      case 'LOAD_FAILED':
         ctx.sendMessage({
-          embeds: [embed.setColor(this.client.color.red).setDescription("There was an error while searching.")],
+          embeds: [embed.setColor(this.client.color.red).setDescription('There was an error while searching.')],
         });
         break;
-      case "NO_MATCHES":
+      case 'NO_MATCHES':
         ctx.sendMessage({
-          embeds: [embed.setColor(this.client.color.red).setDescription("There were no results found.")],
+          embeds: [embed.setColor(this.client.color.red).setDescription('There were no results found.')],
         });
         break;
-      case "TRACK_LOADED":
+      case 'TRACK_LOADED':
         const track = player.buildTrack(res.tracks[0], ctx.author);
         if (player.queue.length > client.config.maxQueueSize)
           return ctx.sendMessage({
@@ -78,7 +78,7 @@ export default class Play extends Command {
           ],
         });
         break;
-      case "PLAYLIST_LOADED":
+      case 'PLAYLIST_LOADED':
         if (res.length > client.config.maxPlaylistSize)
           return ctx.sendMessage({
             embeds: [
@@ -108,7 +108,7 @@ export default class Play extends Command {
           ],
         });
         break;
-      case "SEARCH_RESULT":
+      case 'SEARCH_RESULT':
         const track1 = player.buildTrack(res.tracks[0], ctx.author);
         if (player.queue.length > client.config.maxQueueSize)
           return ctx.sendMessage({

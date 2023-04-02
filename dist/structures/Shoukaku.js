@@ -1,4 +1,4 @@
-import { Shoukaku, Connectors } from "shoukaku";
+import { Shoukaku, Connectors } from 'shoukaku';
 export default class ShoukakuClient extends Shoukaku {
     constructor(client) {
         super(new Connectors.DiscordJS(client), client.config.lavalink, {
@@ -20,7 +20,6 @@ export default class ShoukakuClient extends Shoukaku {
         this.on('debug', (name, reason) => this.client.shoukaku.emit('nodeRaw', name, reason));
     }
 }
-;
 /**
  * Project: lavamusic
  * Author: Blacky
@@ -29,5 +28,5 @@ export default class ShoukakuClient extends Shoukaku {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Shoukaku.js.map

@@ -1,5 +1,5 @@
-import { Shoukaku } from "shoukaku";
-import { Lavamusic } from "./index.js";
+import { Shoukaku } from 'shoukaku';
+import { Lavamusic } from './index.js';
 export default class ShoukakuClient extends Shoukaku {
     client: Lavamusic;
     constructor(client: Lavamusic);
@@ -12,4 +12,4 @@ export default class ShoukakuClient extends Shoukaku {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */

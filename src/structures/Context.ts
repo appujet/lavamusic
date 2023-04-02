@@ -8,8 +8,8 @@ import {
   TextChannel,
   GuildChannel,
   User,
-} from "discord.js";
-import { Lavamusic } from "./index.js";
+} from 'discord.js';
+import { Lavamusic } from './index.js';
 
 export default class Context {
   public ctx: CommandInteraction | Message;

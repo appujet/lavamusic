@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Prefix extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "prefix",
+      name: 'prefix',
       description: {
         content: "Shows the bot's prefix",
-        examples: ["prefix set", "prefix reset", "prefix set !"],
-        usage: "prefix set, prefix reset, prefix set !",
+        examples: ['prefix set', 'prefix reset', 'prefix set !'],
+        usage: 'prefix set, prefix reset, prefix set !',
       },
-      category: "general",
-      aliases: ["prefix"],
+      category: 'general',
+      aliases: ['prefix'],
       cooldown: 3,
       args: true,
       player: {
@@ -21,27 +21,27 @@ export default class Prefix extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-        user: ["ManageGuild"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+        user: ['ManageGuild'],
       },
       slashCommand: true,
       options: [
         {
-          name: "set",
-          description: "Sets the prefix",
+          name: 'set',
+          description: 'Sets the prefix',
           type: 1,
           options: [
             {
-              name: "prefix",
-              description: "The prefix you want to set",
+              name: 'prefix',
+              description: 'The prefix you want to set',
               type: 3,
               required: false,
             },
           ],
         },
         {
-          name: "reset",
-          description: "Resets the prefix to the default one",
+          name: 'reset',
+          description: 'Resets the prefix to the default one',
           type: 1,
         },
       ],
@@ -65,7 +65,7 @@ export default class Prefix extends Command {
       pre = args[1];
     }
     switch (subCommand) {
-      case "set":
+      case 'set':
         if (!pre) {
           embed.setDescription(`The prefix for this server is \`${prefix ? prefix.prefix : client.config.prefix}\``);
           return await ctx.sendMessage({ embeds: [embed] });
@@ -98,7 +98,7 @@ export default class Prefix extends Command {
             embeds: [embed.setDescription(`The prefix for this server is now \`${prefix.prefix}\``)],
           });
         }
-      case "reset":
+      case 'reset':
         if (!prefix)
           return await ctx.sendMessage({
             embeds: [embed.setDescription(`The prefix for this server is \`${client.config.prefix}\``)],

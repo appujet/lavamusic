@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Karaoke extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "karaoke",
+      name: 'karaoke',
       description: {
-        content: "on/off the karaoke filter",
-        examples: ["karaoke"],
-        usage: "karaoke",
+        content: 'on/off the karaoke filter',
+        examples: ['karaoke'],
+        usage: 'karaoke',
       },
-      category: "filters",
-      aliases: ["kk"],
+      category: 'filters',
+      aliases: ['kk'],
       cooldown: 3,
       args: false,
       player: {
@@ -21,8 +21,8 @@ export default class Karaoke extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-        user: ["ManageGuild"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+        user: ['ManageGuild'],
       },
       slashCommand: true,
       options: [],
@@ -31,13 +31,13 @@ export default class Karaoke extends Command {
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
     const player = client.queue.get(ctx.guild.id);
 
-    if (player.filters.includes("karaoke")) {
+    if (player.filters.includes('karaoke')) {
       player.player.setKaraoke();
-      player.filters.splice(player.filters.indexOf("karaoke"), 1);
+      player.filters.splice(player.filters.indexOf('karaoke'), 1);
       ctx.sendMessage({
         embeds: [
           {
-            description: "Karaoke filter has been disabled",
+            description: 'Karaoke filter has been disabled',
             color: client.color.main,
           },
         ],
@@ -49,11 +49,11 @@ export default class Karaoke extends Command {
         filterBand: 220,
         filterWidth: 100,
       });
-      player.filters.push("karaoke");
+      player.filters.push('karaoke');
       ctx.sendMessage({
         embeds: [
           {
-            description: "Karaoke filter has been enabled",
+            description: 'Karaoke filter has been enabled',
             color: client.color.main,
           },
         ],

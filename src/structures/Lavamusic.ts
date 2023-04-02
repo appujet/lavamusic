@@ -8,16 +8,16 @@ import {
   ApplicationCommandType,
   Client,
   EmbedBuilder,
-} from "discord.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import Logger from "./Logger.js";
-import config from "../config.js";
-import loadPlugins from "../plugin/index.js";
-import { ShoukakuClient, Queue } from "./index.js";
-import { Utils } from "../utils/Utils.js";
-import { PrismaClient } from "@prisma/client";
+} from 'discord.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import Logger from './Logger.js';
+import config from '../config.js';
+import loadPlugins from '../plugin/index.js';
+import { ShoukakuClient, Queue } from './index.js';
+import { Utils } from '../utils/Utils.js';
+import { PrismaClient } from '@prisma/client';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -59,11 +59,11 @@ export default class Lavamusic extends Client {
   }
 
   private loadCommands(): void {
-    const commandsPath = fs.readdirSync(path.join(__dirname, "../commands"));
+    const commandsPath = fs.readdirSync(path.join(__dirname, '../commands'));
     commandsPath.forEach((dir) => {
       const commandFiles = fs
         .readdirSync(path.join(__dirname, `../commands/${dir}`))
-        .filter((file) => file.endsWith(".js"));
+        .filter((file) => file.endsWith('.js'));
       commandFiles.forEach(async (file) => {
         const cmd = (await import(`../commands/${dir}/${file}`)).default;
         const command = new cmd(this, file);
@@ -87,7 +87,7 @@ export default class Lavamusic extends Client {
           };
           if (command.permissions.user.length > 0) {
             const permissionValue = PermissionsBitField.resolve(command.permissions.user);
-            if (typeof permissionValue === "bigint") {
+            if (typeof permissionValue === 'bigint') {
               data.default_member_permissions = permissionValue.toString();
             } else {
               data.default_member_permissions = permissionValue;
@@ -98,13 +98,13 @@ export default class Lavamusic extends Client {
         }
       });
     });
-    this.once("ready", async () => {
+    this.once('ready', async () => {
       const applicationCommands =
         this.config.production === true
-          ? Routes.applicationCommands(this.config.clientId ?? "")
-          : Routes.applicationGuildCommands(this.config.clientId ?? "", this.config.guildId ?? "");
+          ? Routes.applicationCommands(this.config.clientId ?? '')
+          : Routes.applicationGuildCommands(this.config.clientId ?? '', this.config.guildId ?? '');
       try {
-        const rest = new REST({ version: "9" }).setToken(this.config.token ?? "");
+        const rest = new REST({ version: '9' }).setToken(this.config.token ?? '');
         await rest.put(applicationCommands, { body: this.body });
         this.logger.info(`Successfully loaded slash commands!`);
       } catch (error) {
@@ -114,14 +114,14 @@ export default class Lavamusic extends Client {
   }
 
   private loadEvents(): void {
-    const eventsPath = fs.readdirSync(path.join(__dirname, "../events"));
+    const eventsPath = fs.readdirSync(path.join(__dirname, '../events'));
     eventsPath.forEach((dir) => {
-      const events = fs.readdirSync(path.join(__dirname, `../events/${dir}`)).filter((file) => file.endsWith(".js"));
+      const events = fs.readdirSync(path.join(__dirname, `../events/${dir}`)).filter((file) => file.endsWith('.js'));
       events.forEach(async (file) => {
         const event = (await import(`../events/${dir}/${file}`)).default;
         const evt = new event(this, file);
         switch (dir) {
-          case "player":
+          case 'player':
             this.shoukaku.on(evt.name, (...args) => evt.run(...args));
             break;
           default:

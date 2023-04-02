@@ -1,9 +1,9 @@
-import { Event } from "../../structures/index.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, } from "discord.js";
+import { Event } from '../../structures/index.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 export default class TrackStart extends Event {
     constructor(client, file) {
         super(client, file, {
-            name: "trackStart",
+            name: 'trackStart',
         });
     }
     async run(player, track, dispatcher) {
@@ -15,32 +15,23 @@ export default class TrackStart extends Event {
             return;
         function buttonBuilder() {
             const previousButton = new ButtonBuilder()
-                .setCustomId("previous")
+                .setCustomId('previous')
                 .setLabel(`Previous`)
                 .setStyle(ButtonStyle.Secondary)
                 .setDisabled(dispatcher.previous ? false : true);
             const resumeButton = new ButtonBuilder()
-                .setCustomId("resume")
+                .setCustomId('resume')
                 .setLabel(player.paused ? `Resume` : `Pause`)
                 .setStyle(player.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
-            const stopButton = new ButtonBuilder()
-                .setCustomId("stop")
-                .setLabel(`Stop`)
-                .setStyle(ButtonStyle.Danger);
-            const skipButton = new ButtonBuilder()
-                .setCustomId("skip")
-                .setLabel(`Skip`)
-                .setStyle(ButtonStyle.Secondary);
-            const loopButton = new ButtonBuilder()
-                .setCustomId("loop")
-                .setLabel(`Loop`)
-                .setStyle(ButtonStyle.Secondary);
+            const stopButton = new ButtonBuilder().setCustomId('stop').setLabel(`Stop`).setStyle(ButtonStyle.Danger);
+            const skipButton = new ButtonBuilder().setCustomId('skip').setLabel(`Skip`).setStyle(ButtonStyle.Secondary);
+            const loopButton = new ButtonBuilder().setCustomId('loop').setLabel(`Loop`).setStyle(ButtonStyle.Secondary);
             return new ActionRowBuilder().addComponents(previousButton, resumeButton, stopButton, skipButton, loopButton);
         }
         const embed = this.client
             .embed()
             .setAuthor({
-            name: "Now Playing",
+            name: 'Now Playing',
             iconURL: this.client.user.displayAvatarURL(),
         })
             .setColor(this.client.color.main)
@@ -51,12 +42,10 @@ export default class TrackStart extends Event {
         })
             .setThumbnail(track.info.thumbnail)
             .addFields({
-            name: "Duration",
-            value: track.info.isStream
-                ? "LIVE"
-                : this.client.utils.formatTime(track.info.length),
+            name: 'Duration',
+            value: track.info.isStream ? 'LIVE' : this.client.utils.formatTime(track.info.length),
             inline: true,
-        }, { name: "Author", value: track.info.author, inline: true })
+        }, { name: 'Author', value: track.info.author, inline: true })
             .setTimestamp();
         const message = await textChannel.send({
             embeds: [embed],
@@ -65,12 +54,11 @@ export default class TrackStart extends Event {
         dispatcher.nowPlayingMessage = message;
         const collector = message.createMessageComponentCollector({
             filter: (b) => {
-                if (b.guild.members.me.voice.channel &&
-                    b.guild.members.me.voice.channelId === b.member.voice.channelId)
+                if (b.guild.members.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId)
                     return true;
                 else {
                     b.reply({
-                        content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? "None"}> to use this buttons.`,
+                        content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? 'None'}> to use this buttons.`,
                         ephemeral: true,
                     });
                     return false;
@@ -78,9 +66,9 @@ export default class TrackStart extends Event {
             },
             time: track.info.isStream ? 86400000 : track.info.length,
         });
-        collector.on("collect", async (interaction) => {
+        collector.on('collect', async (interaction) => {
             switch (interaction.customId) {
-                case "previous":
+                case 'previous':
                     if (!dispatcher.previous) {
                         await interaction.reply({
                             content: `There is no previous song.`,
@@ -101,20 +89,20 @@ export default class TrackStart extends Event {
                             components: [buttonBuilder()],
                         });
                     break;
-                case "resume":
+                case 'resume':
                     dispatcher.pause();
                     if (message)
                         await message.edit({
                             embeds: [
                                 embed.setFooter({
-                                    text: `${player.paused ? "Paused" : "Resumed"} by ${interaction.user.tag}`,
+                                    text: `${player.paused ? 'Paused' : 'Resumed'} by ${interaction.user.tag}`,
                                     iconURL: interaction.user.avatarURL({}),
                                 }),
                             ],
                             components: [buttonBuilder()],
                         });
                     break;
-                case "stop":
+                case 'stop':
                     dispatcher.stop();
                     if (message)
                         await message.edit({
@@ -127,7 +115,7 @@ export default class TrackStart extends Event {
                             components: [],
                         });
                     break;
-                case "skip":
+                case 'skip':
                     if (!dispatcher.queue.length) {
                         await interaction.reply({
                             content: `There is no more song in the queue.`,
@@ -147,10 +135,10 @@ export default class TrackStart extends Event {
                             components: [buttonBuilder()],
                         });
                     break;
-                case "loop":
+                case 'loop':
                     switch (dispatcher.loop) {
-                        case "off":
-                            dispatcher.loop = "repeat";
+                        case 'off':
+                            dispatcher.loop = 'repeat';
                             if (message)
                                 await message.edit({
                                     embeds: [
@@ -162,8 +150,8 @@ export default class TrackStart extends Event {
                                     components: [buttonBuilder()],
                                 });
                             break;
-                        case "repeat":
-                            dispatcher.loop = "queue";
+                        case 'repeat':
+                            dispatcher.loop = 'queue';
                             if (message)
                                 await message.edit({
                                     embeds: [
@@ -175,8 +163,8 @@ export default class TrackStart extends Event {
                                     components: [buttonBuilder()],
                                 });
                             break;
-                        case "queue":
-                            dispatcher.loop = "off";
+                        case 'queue':
+                            dispatcher.loop = 'off';
                             if (message)
                                 await message.edit({
                                     embeds: [

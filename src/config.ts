@@ -1,5 +1,5 @@
-import dotent from "dotenv";
-import { SearchEngine } from "./types.js";
+import dotent from 'dotenv';
+import { SearchEngine } from './types.js';
 dotent.config();
 
 export default {
@@ -15,7 +15,7 @@ export default {
   searchEngine: process.env.SEARCH_ENGINE || (SearchEngine.YouTube as SearchEngine),
   maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE) || 100,
   maxQueueSize: parseInt(process.env.MAX_QUEUE_SIZE) || 100,
-  owners: process.env.OWNERS?.split(","),
+  owners: process.env.OWNERS?.split(','),
   database: process.env.DATABASE_URL,
   clientId: process.env.CLIENT_ID,
   guildId: process.env.GUILD_ID,
@@ -31,11 +31,11 @@ export default {
 };
 
 function parseBoolean(value: string | undefined): boolean {
-  if (typeof value === "string") {
+  if (typeof value === 'string') {
     value = value.trim().toLowerCase();
   }
   switch (value) {
-    case "true":
+    case 'true':
       return true;
     default:
       return false;

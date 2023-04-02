@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Remove extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "remove",
+      name: 'remove',
       description: {
-        content: "Removes a song from the queue",
-        examples: ["remove 1"],
-        usage: "remove <song number>",
+        content: 'Removes a song from the queue',
+        examples: ['remove 1'],
+        usage: 'remove <song number>',
       },
-      category: "music",
-      aliases: ["rm"],
+      category: 'music',
+      aliases: ['rm'],
       cooldown: 3,
       args: true,
       player: {
@@ -21,14 +21,14 @@ export default class Remove extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,
       options: [
         {
-          name: "song",
-          description: "The song number",
+          name: 'song',
+          description: 'The song number',
           type: 4,
           required: true,
         },
@@ -40,19 +40,19 @@ export default class Remove extends Command {
     const embed = this.client.embed();
     if (!player.queue.length)
       return ctx.sendMessage({
-        embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
+        embeds: [embed.setColor(this.client.color.red).setDescription('There are no songs in the queue.')],
       });
     if (isNaN(Number(args[0])))
       return ctx.sendMessage({
-        embeds: [embed.setColor(this.client.color.red).setDescription("That is not a valid number.")],
+        embeds: [embed.setColor(this.client.color.red).setDescription('That is not a valid number.')],
       });
     if (Number(args[0]) > player.queue.length)
       return ctx.sendMessage({
-        embeds: [embed.setColor(this.client.color.red).setDescription("That is not a valid number.")],
+        embeds: [embed.setColor(this.client.color.red).setDescription('That is not a valid number.')],
       });
     if (Number(args[0]) < 1)
       return ctx.sendMessage({
-        embeds: [embed.setColor(this.client.color.red).setDescription("That is not a valid number.")],
+        embeds: [embed.setColor(this.client.color.red).setDescription('That is not a valid number.')],
       });
     player.remove(Number(args[0]) - 1);
     return ctx.sendMessage({

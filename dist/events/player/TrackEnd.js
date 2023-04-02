@@ -1,8 +1,8 @@
-import { Event } from "../../structures/index.js";
+import { Event } from '../../structures/index.js';
 export default class TrackEnd extends Event {
     constructor(client, file) {
         super(client, file, {
-            name: "trackEnd",
+            name: 'trackEnd',
         });
     }
     async run(player, track, dispatcher) {
@@ -29,5 +29,5 @@ export default class TrackEnd extends Event {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=TrackEnd.js.map

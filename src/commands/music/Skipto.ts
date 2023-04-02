@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Skipto extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "skipto",
+      name: 'skipto',
       description: {
-        content: "Skips to a specific song in the queue",
-        examples: ["skipto 3"],
-        usage: "skipto <number>",
+        content: 'Skips to a specific song in the queue',
+        examples: ['skipto 3'],
+        usage: 'skipto <number>',
       },
-      category: "music",
-      aliases: ["st"],
+      category: 'music',
+      aliases: ['st'],
       cooldown: 3,
       args: true,
       player: {
@@ -21,14 +21,14 @@ export default class Skipto extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,
       options: [
         {
-          name: "number",
-          description: "The number of the song you want to skip to",
+          name: 'number',
+          description: 'The number of the song you want to skip to',
           type: 4,
           required: true,
         },
@@ -40,19 +40,19 @@ export default class Skipto extends Command {
     const embed = this.client.embed();
     if (!player.queue.length)
       return ctx.sendMessage({
-        embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
+        embeds: [embed.setColor(this.client.color.red).setDescription('There are no songs in the queue.')],
       });
     if (isNaN(Number(args[0])))
       return ctx.sendMessage({
-        embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid number.")],
+        embeds: [embed.setColor(this.client.color.red).setDescription('Please provide a valid number.')],
       });
     if (Number(args[0]) > player.queue.length)
       return ctx.sendMessage({
-        embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid number.")],
+        embeds: [embed.setColor(this.client.color.red).setDescription('Please provide a valid number.')],
       });
     if (Number(args[0]) < 1)
       return ctx.sendMessage({
-        embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid number.")],
+        embeds: [embed.setColor(this.client.color.red).setDescription('Please provide a valid number.')],
       });
     player.skip(Number(args[0]));
 

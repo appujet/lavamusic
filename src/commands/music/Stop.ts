@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Stop extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "stop",
+      name: 'stop',
       description: {
-        content: "Stops the music and clears the queue",
-        examples: ["stop"],
-        usage: "stop",
+        content: 'Stops the music and clears the queue',
+        examples: ['stop'],
+        usage: 'stop',
       },
-      category: "music",
-      aliases: ["st"],
+      category: 'music',
+      aliases: ['st'],
       cooldown: 3,
       args: false,
       player: {
@@ -21,7 +21,7 @@ export default class Stop extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,

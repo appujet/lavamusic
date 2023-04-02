@@ -4,7 +4,7 @@ const options = {
     disabled: false,
     interactive: false,
     logLevel: 'info',
-    scope: 'Lavamusic'
+    scope: 'Lavamusic',
 };
 export default class Logger extends Signale {
     constructor() {
@@ -50,12 +50,11 @@ export default class Logger extends Signale {
                     badge: '▶',
                     color: 'green',
                     label: 'start',
-                }
+                },
             },
         });
     }
 }
-;
 /**
  * Project: lavamusic
  * Author: Blacky
@@ -64,5 +63,5 @@ export default class Logger extends Signale {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Logger.js.map

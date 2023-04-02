@@ -1,6 +1,6 @@
-import { Event, Lavamusic, Dispatcher } from "../../structures/index.js";
-import { Player } from "shoukaku";
-import { Song } from "../../structures/Dispatcher.js";
+import { Event, Lavamusic, Dispatcher } from '../../structures/index.js';
+import { Player } from 'shoukaku';
+import { Song } from '../../structures/Dispatcher.js';
 export default class TrackStart extends Event {
     constructor(client: Lavamusic, file: string);
     run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void>;

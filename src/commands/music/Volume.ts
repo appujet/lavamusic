@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Volume extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "volume",
+      name: 'volume',
       description: {
-        content: "Sets the volume of the player",
-        examples: ["volume 100"],
-        usage: "volume <number>",
+        content: 'Sets the volume of the player',
+        examples: ['volume 100'],
+        usage: 'volume <number>',
       },
-      category: "music",
-      aliases: ["vol"],
+      category: 'music',
+      aliases: ['vol'],
       cooldown: 3,
       args: true,
       player: {
@@ -21,14 +21,14 @@ export default class Volume extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,
       options: [
         {
-          name: "number",
-          description: "The volume you want to set",
+          name: 'number',
+          description: 'The volume you want to set',
           type: 4,
           required: true,
         },
@@ -41,7 +41,7 @@ export default class Volume extends Command {
     const number = Number(args[0]);
     if (isNaN(number))
       return ctx.sendMessage({
-        embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid number.")],
+        embeds: [embed.setColor(this.client.color.red).setDescription('Please provide a valid number.')],
       });
     if (number > 200)
       return ctx.sendMessage({

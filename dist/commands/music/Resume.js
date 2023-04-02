@@ -1,40 +1,43 @@
-import { Command } from "../../structures/index.js";
+import { Command } from '../../structures/index.js';
 export default class Resume extends Command {
     constructor(client) {
         super(client, {
-            name: "resume",
+            name: 'resume',
             description: {
-                content: "Resumes the current song",
-                examples: ["resume"],
-                usage: "resume"
+                content: 'Resumes the current song',
+                examples: ['resume'],
+                usage: 'resume',
             },
-            category: "music",
-            aliases: ["r"],
+            category: 'music',
+            aliases: ['r'],
             cooldown: 3,
             args: false,
             player: {
                 voice: true,
                 dj: false,
                 active: true,
-                djPerm: null
+                djPerm: null,
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: []
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: [],
             },
             slashCommand: true,
-            options: []
+            options: [],
         });
     }
-    ;
     async run(client, ctx, args) {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
         if (!player.paused)
-            return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription("The player is not paused.")] });
+            return ctx.sendMessage({
+                embeds: [embed.setColor(this.client.color.red).setDescription('The player is not paused.')],
+            });
         player.pause();
-        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Resumed the player`)] });
+        return ctx.sendMessage({
+            embeds: [embed.setColor(this.client.color.main).setDescription(`Resumed the player`)],
+        });
     }
 }
 /**
@@ -45,5 +48,5 @@ export default class Resume extends Command {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Resume.js.map

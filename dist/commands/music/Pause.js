@@ -1,14 +1,14 @@
-import { Command } from "../../structures/index.js";
+import { Command } from '../../structures/index.js';
 export default class Pause extends Command {
     constructor(client) {
         super(client, {
-            name: "pause",
+            name: 'pause',
             description: {
-                content: "Pauses the current song",
-                examples: ["pause"],
-                usage: "pause"
+                content: 'Pauses the current song',
+                examples: ['pause'],
+                usage: 'pause',
             },
-            category: "music",
+            category: 'music',
             aliases: [],
             cooldown: 3,
             args: false,
@@ -16,27 +16,30 @@ export default class Pause extends Command {
                 voice: true,
                 dj: false,
                 active: true,
-                djPerm: null
+                djPerm: null,
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: []
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: [],
             },
             slashCommand: true,
-            options: []
+            options: [],
         });
     }
-    ;
     async run(client, ctx, args) {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
         if (!player.paused) {
             player.pause();
-            return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Paused the song`)] });
+            return ctx.sendMessage({
+                embeds: [embed.setColor(this.client.color.main).setDescription(`Paused the song`)],
+            });
         }
         else {
-            return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription(`The song is already paused`)] });
+            return ctx.sendMessage({
+                embeds: [embed.setColor(this.client.color.red).setDescription(`The song is already paused`)],
+            });
         }
     }
 }
@@ -48,5 +51,5 @@ export default class Pause extends Command {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Pause.js.map

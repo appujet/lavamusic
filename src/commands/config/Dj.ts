@@ -1,17 +1,17 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
-import { ApplicationCommandOptionType } from "discord.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { ApplicationCommandOptionType } from 'discord.js';
 
 export default class Dj extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "dj",
+      name: 'dj',
       description: {
         content: "Shows the bot's prefix",
-        examples: ["dj add @role", "dj remove @role", "dj clear", "dj toggle"],
-        usage: "dj",
+        examples: ['dj add @role', 'dj remove @role', 'dj clear', 'dj toggle'],
+        usage: 'dj',
       },
-      category: "general",
-      aliases: ["dj"],
+      category: 'general',
+      aliases: ['dj'],
       cooldown: 3,
       args: true,
       player: {
@@ -22,45 +22,45 @@ export default class Dj extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-        user: ["ManageGuild"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+        user: ['ManageGuild'],
       },
       slashCommand: true,
       options: [
         {
-          name: "add",
-          description: "The dj role you want to add",
+          name: 'add',
+          description: 'The dj role you want to add',
           type: ApplicationCommandOptionType.Subcommand,
           options: [
             {
-              name: "role",
-              description: "The dj role you want to add",
+              name: 'role',
+              description: 'The dj role you want to add',
               type: ApplicationCommandOptionType.Role,
               required: true,
             },
           ],
         },
         {
-          name: "remove",
-          description: "The dj role you want to remove",
+          name: 'remove',
+          description: 'The dj role you want to remove',
           type: ApplicationCommandOptionType.Subcommand,
           options: [
             {
-              name: "role",
-              description: "The dj role you want to remove",
+              name: 'role',
+              description: 'The dj role you want to remove',
               type: ApplicationCommandOptionType.Role,
               required: true,
             },
           ],
         },
         {
-          name: "clear",
-          description: "Clears all dj roles",
+          name: 'clear',
+          description: 'Clears all dj roles',
           type: ApplicationCommandOptionType.Subcommand,
         },
         {
-          name: "toggle",
-          description: "Toggles the dj role",
+          name: 'toggle',
+          description: 'Toggles the dj role',
           type: ApplicationCommandOptionType.Subcommand,
         },
       ],
@@ -82,10 +82,10 @@ export default class Dj extends Command {
     let dj = await this.client.prisma.dj.findUnique({
       where: { guildId: ctx.guild.id },
     });
-    if (subCommand === "add") {
+    if (subCommand === 'add') {
       if (!role)
         return await ctx.sendMessage({
-          embeds: [embed.setDescription("Please provide a role to add")],
+          embeds: [embed.setDescription('Please provide a role to add')],
         });
       console.log(role);
       const isExRole = await this.client.prisma.roles.findFirst({
@@ -128,10 +128,10 @@ export default class Dj extends Command {
           embeds: [embed.setDescription(`The dj role <@&${roleId}> has been added`)],
         });
       }
-    } else if (subCommand === "remove") {
+    } else if (subCommand === 'remove') {
       if (!role)
         return await ctx.sendMessage({
-          embeds: [embed.setDescription("Please provide a role to remove")],
+          embeds: [embed.setDescription('Please provide a role to remove')],
         });
       const isExRole = await this.client.prisma.roles.findFirst({
         where: { roleId: roleId },
@@ -144,10 +144,10 @@ export default class Dj extends Command {
       return await ctx.sendMessage({
         embeds: [embed.setDescription(`The dj role <@&${roleId}> has been removed`)],
       });
-    } else if (subCommand === "clear") {
+    } else if (subCommand === 'clear') {
       if (!dj)
         return await ctx.sendMessage({
-          embeds: [embed.setDescription("There are no dj roles to clear")],
+          embeds: [embed.setDescription('There are no dj roles to clear')],
         });
       await this.client.prisma.roles.deleteMany({
         where: { guildId: ctx.guild.id },
@@ -155,10 +155,10 @@ export default class Dj extends Command {
       return await ctx.sendMessage({
         embeds: [embed.setDescription(`All dj roles have been removed`)],
       });
-    } else if (subCommand === "toggle") {
+    } else if (subCommand === 'toggle') {
       if (!dj)
         return await ctx.sendMessage({
-          embeds: [embed.setDescription("There are no dj roles to toggle")],
+          embeds: [embed.setDescription('There are no dj roles to toggle')],
         });
       const data = await this.client.prisma.dj.findUnique({
         where: { guildId: ctx.guild.id },
@@ -173,7 +173,7 @@ export default class Dj extends Command {
           },
         });
         return await ctx.sendMessage({
-          embeds: [embed.setDescription(`The dj mode has been toggled to ${!data.mode ? "enabled" : "disabled"}`)],
+          embeds: [embed.setDescription(`The dj mode has been toggled to ${!data.mode ? 'enabled' : 'disabled'}`)],
         });
       }
     }

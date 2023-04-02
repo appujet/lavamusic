@@ -1,5 +1,5 @@
-import Lavamusic from "./Lavamusic.js";
-import { ApplicationCommandOption, PermissionResolvable } from "discord.js";
+import Lavamusic from './Lavamusic.js';
+import { ApplicationCommandOption, PermissionResolvable } from 'discord.js';
 export default class Command {
     client: Lavamusic;
     name: string;
@@ -66,4 +66,4 @@ export {};
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */

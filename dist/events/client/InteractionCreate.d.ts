@@ -1,5 +1,5 @@
-import { Event, Lavamusic } from "../../structures/index.js";
-import { CommandInteraction, Interaction } from "discord.js";
+import { Event, Lavamusic } from '../../structures/index.js';
+import { CommandInteraction, Interaction } from 'discord.js';
 export default class InteractionCreate extends Event {
     constructor(client: Lavamusic, file: string);
     run(interaction: Interaction | CommandInteraction | any): Promise<void>;
@@ -12,4 +12,4 @@ export default class InteractionCreate extends Event {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */

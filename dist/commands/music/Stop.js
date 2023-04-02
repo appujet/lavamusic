@@ -1,39 +1,40 @@
-import { Command } from "../../structures/index.js";
+import { Command } from '../../structures/index.js';
 export default class Stop extends Command {
     constructor(client) {
         super(client, {
-            name: "stop",
+            name: 'stop',
             description: {
-                content: "Stops the music and clears the queue",
-                examples: ["stop"],
-                usage: "stop"
+                content: 'Stops the music and clears the queue',
+                examples: ['stop'],
+                usage: 'stop',
             },
-            category: "music",
-            aliases: ["st"],
+            category: 'music',
+            aliases: ['st'],
             cooldown: 3,
             args: false,
             player: {
                 voice: true,
                 dj: true,
                 active: true,
-                djPerm: null
+                djPerm: null,
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: []
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: [],
             },
             slashCommand: true,
-            options: []
+            options: [],
         });
     }
-    ;
     async run(client, ctx, args) {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
         player.queue = [];
         player.stop();
-        return ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Stopped the music and cleared the queue`)] });
+        return ctx.sendMessage({
+            embeds: [embed.setColor(this.client.color.main).setDescription(`Stopped the music and cleared the queue`)],
+        });
     }
 }
 /**
@@ -44,5 +45,5 @@ export default class Stop extends Command {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Stop.js.map

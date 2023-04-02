@@ -1,4 +1,4 @@
-import { Dispatcher } from "./index.js";
+import { Dispatcher } from './index.js';
 export class Queue extends Map {
     constructor(client) {
         super();
@@ -51,7 +51,6 @@ export class Queue extends Map {
         return result;
     }
 }
-;
 /**
  * Project: lavamusic
  * Author: Blacky
@@ -60,5 +59,5 @@ export class Queue extends Map {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Queue.js.map

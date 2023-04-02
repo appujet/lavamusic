@@ -5,12 +5,10 @@ export default class Command {
         this.nameLocalizations = options.nameLocalizations;
         this.description = {
             content: options.description
-                ? options.description.content || "No description provided"
-                : "No description provided",
-            usage: options.description
-                ? options.description.usage || "No usage provided"
-                : "No usage provided",
-            examples: options.description ? options.description.examples || [""] : [""],
+                ? options.description.content || 'No description provided'
+                : 'No description provided',
+            usage: options.description ? options.description.usage || 'No usage provided' : 'No usage provided',
+            examples: options.description ? options.description.examples || [''] : [''],
         };
         this.descriptionLocalizations = options.descriptionLocalizations;
         this.aliases = options.aliases || [];
@@ -24,22 +22,17 @@ export default class Command {
         };
         this.permissions = {
             dev: options.permissions ? options.permissions.dev || false : false,
-            client: options.permissions
-                ? options.permissions.client || []
-                : ["SendMessages", "ViewChannel", "EmbedLinks"],
+            client: options.permissions ? options.permissions.client || [] : ['SendMessages', 'ViewChannel', 'EmbedLinks'],
             user: options.permissions ? options.permissions.user || [] : [],
         };
         this.slashCommand = options.slashCommand || false;
         this.options = options.options || [];
-        this.category = options.category || "general";
+        this.category = options.category || 'general';
     }
-    ;
     async run(client, message, args) {
         return Promise.resolve();
     }
-    ;
 }
-;
 /**
  * Project: lavamusic
  * Author: Blacky
@@ -48,5 +41,5 @@ export default class Command {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */
 //# sourceMappingURL=Command.js.map

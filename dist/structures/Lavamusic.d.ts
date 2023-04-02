@@ -1,7 +1,7 @@
-import { Collection, ClientOptions, Client, EmbedBuilder } from "discord.js";
-import Logger from "./Logger.js";
-import { ShoukakuClient, Queue } from "./index.js";
-import { Utils } from "../utils/Utils.js";
+import { Collection, ClientOptions, Client, EmbedBuilder } from 'discord.js';
+import Logger from './Logger.js';
+import { ShoukakuClient, Queue } from './index.js';
+import { Utils } from '../utils/Utils.js';
 import { PrismaClient } from '@prisma/client';
 export default class Lavamusic extends Client {
     commands: Collection<string, any>;
@@ -59,4 +59,4 @@ export default class Lavamusic extends Client {
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
- */ 
+ */

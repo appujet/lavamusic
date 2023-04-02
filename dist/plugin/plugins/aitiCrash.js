@@ -9,7 +9,7 @@ const aintiCrash = {
         process.on('uncaughtException', (err) => {
             client.logger.error('Uncaught Exception thrown:', err);
         });
-    }
+    },
 };
 export default aintiCrash;
 //# sourceMappingURL=aitiCrash.js.map

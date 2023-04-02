@@ -1,15 +1,15 @@
-import { Lavamusic, Context, Command } from "../../structures/index.js";
+import { Lavamusic, Context, Command } from '../../structures/index.js';
 
 export default class Pause extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "pause",
+      name: 'pause',
       description: {
-        content: "Pauses the current song",
-        examples: ["pause"],
-        usage: "pause",
+        content: 'Pauses the current song',
+        examples: ['pause'],
+        usage: 'pause',
       },
-      category: "music",
+      category: 'music',
       aliases: [],
       cooldown: 3,
       args: false,
@@ -21,7 +21,7 @@ export default class Pause extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,

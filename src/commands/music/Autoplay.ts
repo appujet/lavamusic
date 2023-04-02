@@ -1,16 +1,16 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { Command, Lavamusic, Context } from '../../structures/index.js';
 
 export default class Autoplay extends Command {
   constructor(client: Lavamusic) {
     super(client, {
-      name: "autoplay",
+      name: 'autoplay',
       description: {
-        content: "Toggles autoplay",
-        examples: ["autoplay"],
-        usage: "autoplay",
+        content: 'Toggles autoplay',
+        examples: ['autoplay'],
+        usage: 'autoplay',
       },
-      category: "music",
-      aliases: ["ap"],
+      category: 'music',
+      aliases: ['ap'],
       cooldown: 3,
       args: false,
       player: {
@@ -21,7 +21,7 @@ export default class Autoplay extends Command {
       },
       permissions: {
         dev: false,
-        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
         user: [],
       },
       slashCommand: true,
