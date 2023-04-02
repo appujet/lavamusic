@@ -1,12 +1,7 @@
 import { Event, Lavamusic, Dispatcher } from "../../structures/index.js";
 import { Player } from "shoukaku";
 import { Song } from "../../structures/Dispatcher.js";
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  TextChannel,
-} from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel } from "discord.js";
 
 export default class TrackStart extends Event {
   constructor(client: Lavamusic, file: string) {
@@ -17,9 +12,7 @@ export default class TrackStart extends Event {
   public async run(player: Player, track: Song, dispatcher: Dispatcher) {
     const guild = this.client.guilds.cache.get(player.connection.guildId);
     if (!guild) return;
-    const textChannel = guild.channels.cache.get(
-      dispatcher.channelId
-    ) as TextChannel;
+    const textChannel = guild.channels.cache.get(dispatcher.channelId) as TextChannel;
     if (!textChannel) return;
 
     function buttonBuilder() {
@@ -32,25 +25,16 @@ export default class TrackStart extends Event {
         .setCustomId("resume")
         .setLabel(player.paused ? `Resume` : `Pause`)
         .setStyle(player.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
-      const stopButton = new ButtonBuilder()
-        .setCustomId("stop")
-        .setLabel(`Stop`)
-        .setStyle(ButtonStyle.Danger);
-      const skipButton = new ButtonBuilder()
-        .setCustomId("skip")
-        .setLabel(`Skip`)
-        .setStyle(ButtonStyle.Secondary);
-      const loopButton = new ButtonBuilder()
-        .setCustomId("loop")
-        .setLabel(`Loop`)
-        .setStyle(ButtonStyle.Secondary);
+      const stopButton = new ButtonBuilder().setCustomId("stop").setLabel(`Stop`).setStyle(ButtonStyle.Danger);
+      const skipButton = new ButtonBuilder().setCustomId("skip").setLabel(`Skip`).setStyle(ButtonStyle.Secondary);
+      const loopButton = new ButtonBuilder().setCustomId("loop").setLabel(`Loop`).setStyle(ButtonStyle.Secondary);
 
       return new ActionRowBuilder<ButtonBuilder>().addComponents(
         previousButton,
         resumeButton,
         stopButton,
         skipButton,
-        loopButton
+        loopButton,
       );
     }
 
@@ -70,12 +54,10 @@ export default class TrackStart extends Event {
       .addFields(
         {
           name: "Duration",
-          value: track.info.isStream
-            ? "LIVE"
-            : this.client.utils.formatTime(track.info.length),
+          value: track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.length),
           inline: true,
         },
-        { name: "Author", value: track.info.author, inline: true }
+        { name: "Author", value: track.info.author, inline: true },
       )
       .setTimestamp();
     const message = await textChannel.send({
@@ -85,10 +67,7 @@ export default class TrackStart extends Event {
     dispatcher.nowPlayingMessage = message;
     const collector = message.createMessageComponentCollector({
       filter: (b) => {
-        if (
-          b.guild.members.me.voice.channel &&
-          b.guild.members.me.voice.channelId === b.member.voice.channelId
-        )
+        if (b.guild.members.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId)
           return true;
         else {
           b.reply({
@@ -130,9 +109,7 @@ export default class TrackStart extends Event {
             await message.edit({
               embeds: [
                 embed.setFooter({
-                  text: `${player.paused ? "Paused" : "Resumed"} by ${
-                    interaction.user.tag
-                  }`,
+                  text: `${player.paused ? "Paused" : "Resumed"} by ${interaction.user.tag}`,
                   iconURL: interaction.user.avatarURL({}),
                 }),
               ],

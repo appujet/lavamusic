@@ -36,11 +36,13 @@ export default class Context {
     }
     async editMessage(content) {
         if (this.isInteraction) {
-            this.msg = await this.interaction.editReply(content);
+            if (this.msg)
+                this.msg = await this.interaction.editReply(content);
             return this.msg;
         }
         else {
-            this.msg = await this.msg.edit(content);
+            if (this.msg)
+                this.msg = await this.msg.edit(content);
             return this.msg;
         }
     }

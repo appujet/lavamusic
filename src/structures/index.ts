@@ -6,7 +6,7 @@ import Dispatcher from "./Dispatcher.js";
 import ShoukakuClient from "./Shoukaku.js";
 import { Queue } from "./Queue.js";
 
-export { Event, Queue, Command, Lavamusic, Context, ShoukakuClient, Dispatcher }
+export { Event, Queue, Command, Lavamusic, Context, ShoukakuClient, Dispatcher };
 
 /**
  * Project: lavamusic

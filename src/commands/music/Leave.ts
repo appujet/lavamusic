@@ -1,45 +1,49 @@
 import { Command, Lavamusic, Context } from "../../structures/index.js";
 
-
 export default class Leave extends Command {
-    constructor(client: Lavamusic) {
-        super(client, {
-            name: "leave",
-            description: {
-                content: "Leaves the voice channel",
-                examples: ["leave"],
-                usage: "leave"
-            },
-            category: "music",
-            aliases: ["dc"],
-            cooldown: 3,
-            args: false,
-            player: {
-                voice: true,
-                dj: true,
-                active: false,
-                djPerm: null
-            },
-            permissions: {
-                dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: []
-            },
-            slashCommand: true,
-            options: []
-        });
-    };
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
-
-        const player = client.queue.get(ctx.guild.id);
-        const embed = this.client.embed();
-        if (player) {
-            ctx.sendMessage({ embeds: [embed.setColor(this.client.color.main).setDescription(`Left <#${player.player.connection.channelId}>`)] });
-            player.destroy();
-        } else {
-            ctx.sendMessage({ embeds: [embed.setColor(this.client.color.red).setDescription(`I'm not in a voice channel`)] });
-        }
+  constructor(client: Lavamusic) {
+    super(client, {
+      name: "leave",
+      description: {
+        content: "Leaves the voice channel",
+        examples: ["leave"],
+        usage: "leave",
+      },
+      category: "music",
+      aliases: ["dc"],
+      cooldown: 3,
+      args: false,
+      player: {
+        voice: true,
+        dj: true,
+        active: false,
+        djPerm: null,
+      },
+      permissions: {
+        dev: false,
+        client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+        user: [],
+      },
+      slashCommand: true,
+      options: [],
+    });
+  }
+  public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
+    const player = client.queue.get(ctx.guild.id);
+    const embed = this.client.embed();
+    if (player) {
+      ctx.sendMessage({
+        embeds: [
+          embed.setColor(this.client.color.main).setDescription(`Left <#${player.player.connection.channelId}>`),
+        ],
+      });
+      player.destroy();
+    } else {
+      ctx.sendMessage({
+        embeds: [embed.setColor(this.client.color.red).setDescription(`I'm not in a voice channel`)],
+      });
     }
+  }
 }
 
 /**
