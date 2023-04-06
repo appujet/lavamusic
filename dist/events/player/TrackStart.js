@@ -64,7 +64,7 @@ export default class TrackStart extends Event {
                     return false;
                 }
             },
-            time: track.info.isStream ? 86400000 : track.info.length,
+            // time: track.info.isStream ? 86400000 : track.info.length,
         });
         collector.on('collect', async (interaction) => {
             switch (interaction.customId) {
