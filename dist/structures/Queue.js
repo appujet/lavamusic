@@ -37,6 +37,9 @@ export class Queue extends Map {
             this.client.shoukaku.emit('playerCreate', dispatcher.player);
             return dispatcher;
         }
+        else {
+            return dispatcher;
+        }
     }
     async search(query) {
         const node = this.client.shoukaku.getNode();

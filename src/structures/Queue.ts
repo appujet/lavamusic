@@ -44,6 +44,8 @@ export class Queue extends Map {
       this.set(guild.id, dispatcher);
       this.client.shoukaku.emit('playerCreate', dispatcher.player);
       return dispatcher;
+    } else {
+      return dispatcher;
     }
   }
 
