@@ -25,7 +25,7 @@ export default class Seek extends Command {
         user: [],
       },
       slashCommand: true,
-      options: [],
+      options: ['time'],
     });
   }
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
