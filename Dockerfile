@@ -1,22 +1,33 @@
-FROM node:18
+FROM node:18 as builder
 
-# Set the working directory for the container
+# Create app directory
 WORKDIR /opt/lavamusic/
 
-# Copy the package.json and package-lock.json files to the container
+# Install app dependencies
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+RUN npm ci
 
-# Copy the code to the container
 COPY . .
 
-# Generate Prisma client
-RUN npx prisma generate
-
-# Compile TypeScript code into JavaScript
 RUN npm run build
 
-# Run CODE
-CMD [ "node", "./dist/index.js" ]
+FROM node:18-slim
+
+ENV NODE_ENV production
+
+# Create app directory
+WORKDIR /opt/lavamusic/
+
+# Install app dependencies
+COPY package*.json ./
+
+RUN npm ci --production
+
+COPY --from=builder /opt/lavamusic/dist ./dist
+COPY --from=builder /opt/lavamusic/src ./src
+COPY --from=builder /opt/lavamusic/prisma ./prisma
+
+RUN npx prisma generate
+
+CMD [ "node", "dist/index.js" ]
