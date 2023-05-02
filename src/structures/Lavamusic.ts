@@ -50,7 +50,7 @@ export default class Lavamusic extends Client {
       .then(() => {
         this.logger.success(`Connected to the database!`);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         this.logger.error(`Unable to connect to the database!`);
         this.logger.error(err);
       });

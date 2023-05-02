@@ -25,7 +25,14 @@ export default class Seek extends Command {
         user: [],
       },
       slashCommand: true,
-      options: [],
+      options: [
+        {
+          name: 'time',
+          description: 'The time to seek to',
+          type: 3,
+          required: true,
+        }
+      ]
     });
   }
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {

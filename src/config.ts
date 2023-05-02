@@ -1,6 +1,6 @@
-import dotent from 'dotenv';
+import dotenv from 'dotenv';
 import { SearchEngine } from './types.js';
-dotent.config();
+dotenv.config();
 
 export default {
   token: process.env.TOKEN,
