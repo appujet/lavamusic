@@ -138,11 +138,11 @@ export default class InteractionCreate extends Event {
           }
         }
       }
-      if (!this.client.cooldowns.has(commandName)) {
-        this.client.cooldowns.set(commandName, new Collection());
+      if (!this.client.cooldown.has(commandName)) {
+        this.client.cooldown.set(commandName, new Collection());
       }
       const now = Date.now();
-      const timestamps = this.client.cooldowns.get(commandName);
+      const timestamps = this.client.cooldown.get(commandName);
 
       const cooldownAmount = Math.floor(command.cooldown || 5) * 1000;
       if (!timestamps.has(interaction.user.id)) {
@@ -168,7 +168,7 @@ export default class InteractionCreate extends Event {
         await command.run(this.client, ctx, ctx.args);
       } catch (error) {
         this.client.logger.error(error);
-        await interaction.reply({ content: `An error occured: \`${error}\`` });
+        await interaction.reply({ content: `An error occurred: \`${error}\`` });
       }
     }
   }

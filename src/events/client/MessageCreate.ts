@@ -173,11 +173,11 @@ export default class MessageCreate extends Event {
       }
     }
 
-    if (!this.client.cooldowns.has(cmd)) {
-      this.client.cooldowns.set(cmd, new Collection());
+    if (!this.client.cooldown.has(cmd)) {
+      this.client.cooldown.set(cmd, new Collection());
     }
     const now = Date.now();
-    const timestamps = this.client.cooldowns.get(cmd);
+    const timestamps = this.client.cooldown.get(cmd);
 
     const cooldownAmount = Math.floor(command.cooldown || 5) * 1000;
     if (!timestamps.has(message.author.id)) {
@@ -203,7 +203,7 @@ export default class MessageCreate extends Event {
       return await command.run(this.client, ctx, ctx.args);
     } catch (error) {
       this.client.logger.error(error);
-      await message.reply({ content: `An error occured: \`${error}\`` });
+      await message.reply({ content: `An error occurred: \`${error}\`` });
       return;
     }
   }

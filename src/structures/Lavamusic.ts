@@ -25,7 +25,7 @@ export default class Lavamusic extends Client {
   public commands: Collection<string, any> = new Collection();
   public aliases: Collection<string, any> = new Collection();
   public prisma = new PrismaClient();
-  public cooldowns: Collection<string, any> = new Collection();
+  public cooldown: Collection<string, any> = new Collection();
   public config = config;
   public logger: Logger = new Logger();
   public readonly color = config.color;
