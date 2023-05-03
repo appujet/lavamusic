@@ -1,7 +1,7 @@
 import { Event, Lavamusic, Dispatcher } from '../../structures/index.js';
 import { Player } from 'shoukaku';
 import { Song } from '../../structures/Dispatcher.js';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, TextChannel } from 'discord.js';
 
 export default class TrackStart extends Event {
   constructor(client: Lavamusic, file: string) {
@@ -66,7 +66,7 @@ export default class TrackStart extends Event {
     });
     dispatcher.nowPlayingMessage = message;
     const collector = message.createMessageComponentCollector({
-      filter: (b) => {
+      filter: (async(b) => {
         if (b.guild.members.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId)
           return true;
         else {
@@ -78,11 +78,30 @@ export default class TrackStart extends Event {
           });
           return false;
         }
-      },
+      }),
       //time: track.info.isStream ? 86400000 : track.info.length,
     });
 
     collector.on('collect', async (interaction) => {
+      const djRole = await this.client.prisma.dj.findUnique({
+        where: {
+          guildId: interaction.guildId,
+        },
+        include: { roles: true },
+      });
+      if (djRole && djRole.mode) {
+        const djRoles = djRole.roles;
+        const findDJRole = interaction.member.roles.cache.find((x: any) => djRoles.includes(x.id));
+        if (!findDJRole) {
+          if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+             await interaction.reply({
+              content: 'You need to have the DJ role to use this command.',
+              ephemeral: true,
+             });
+            return;
+          }
+        }
+      }
       switch (interaction.customId) {
         case 'previous':
           if (!dispatcher.previous) {

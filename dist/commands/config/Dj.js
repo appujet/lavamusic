@@ -76,9 +76,6 @@ export default class Dj extends Command {
             subCommand = args[0];
             role = ctx.message.mentions.roles.first() || ctx.guild.roles.cache.get(args[1]);
         }
-        let roleId;
-        if (role)
-            roleId = ctx.guild.roles.cache.get(role)?.id;
         const embed = client.embed().setColor(client.color.main);
         let dj = await this.client.prisma.dj.findUnique({
             where: { guildId: ctx.guild.id },
@@ -88,13 +85,12 @@ export default class Dj extends Command {
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription('Please provide a role to add')],
                 });
-            console.log(role);
             const isExRole = await this.client.prisma.roles.findFirst({
-                where: { roleId: roleId },
+                where: { roleId: role.id },
             });
             if (isExRole)
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj role <@&${roleId}> is already added`)],
+                    embeds: [embed.setDescription(`The dj role <@&${role.id}> is already added`)],
                 });
             if (!dj) {
                 await this.client.prisma.dj.create({
@@ -102,13 +98,14 @@ export default class Dj extends Command {
                         guildId: ctx.guild.id,
                         roles: {
                             create: {
-                                roleId: roleId,
+                                roleId: role.id,
                             },
                         },
+                        mode: true,
                     },
                 });
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj role <@&${roleId}> has been added`)],
+                    embeds: [embed.setDescription(`The dj role <@&${role.id}> has been added`)],
                 });
             }
             else {
@@ -120,13 +117,13 @@ export default class Dj extends Command {
                         mode: true,
                         roles: {
                             create: {
-                                roleId: roleId,
+                                roleId: role.id,
                             },
                         },
                     },
                 });
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj role <@&${roleId}> has been added`)],
+                    embeds: [embed.setDescription(`The dj role <@&${role.id}> has been added`)],
                 });
             }
         }
@@ -136,15 +133,15 @@ export default class Dj extends Command {
                     embeds: [embed.setDescription('Please provide a role to remove')],
                 });
             const isExRole = await this.client.prisma.roles.findFirst({
-                where: { roleId: roleId },
+                where: { roleId: role.id },
             });
             if (!isExRole)
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj role <@&${roleId}> is not added`)],
+                    embeds: [embed.setDescription(`The dj role <@&${role.id}> is not added`)],
                 });
-            await this.client.prisma.roles.delete({ where: { roleId: roleId } });
+            await this.client.prisma.roles.delete({ where: { roleId: role.id } });
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(`The dj role <@&${roleId}> has been removed`)],
+                embeds: [embed.setDescription(`The dj role <@&${role.id}> has been removed`)],
             });
         }
         else if (subCommand === 'clear') {
@@ -180,6 +177,11 @@ export default class Dj extends Command {
                     embeds: [embed.setDescription(`The dj mode has been toggled to ${!data.mode ? 'enabled' : 'disabled'}`)],
                 });
             }
+        }
+        else {
+            return await ctx.sendMessage({
+                embeds: [embed.setDescription('Please provide a valid subcommand').addFields({ name: 'Subcommands', value: '`add`, `remove`, `clear`, `toggle`' })],
+            });
         }
     }
 }

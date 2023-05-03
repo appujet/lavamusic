@@ -7,7 +7,7 @@ export default class Lavamusic extends Client {
     commands: Collection<string, any>;
     aliases: Collection<string, any>;
     prisma: PrismaClient<import(".prisma/client").Prisma.PrismaClientOptions, never, import(".prisma/client").Prisma.RejectOnNotFound | import(".prisma/client").Prisma.RejectPerOperation>;
-    cooldowns: Collection<string, any>;
+    cooldown: Collection<string, any>;
     config: {
         token: string;
         prefix: string;
@@ -20,6 +20,8 @@ export default class Lavamusic extends Client {
         };
         searchEngine: string;
         maxPlaylistSize: number;
+        botStatus: string;
+        botActivity: string;
         maxQueueSize: number;
         owners: string[];
         database: string;

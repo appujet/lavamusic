@@ -117,29 +117,22 @@ export default class MessageCreate extends Event {
                     });
             }
             if (command.player.dj) {
-                const data = await this.client.prisma.guild.findUnique({
+                const djRole = await this.client.prisma.dj.findUnique({
                     where: {
                         guildId: message.guildId,
                     },
+                    include: { roles: true },
                 });
-                if (data) {
-                    const djRole = await this.client.prisma.dj.findUnique({
-                        where: {
-                            guildId: message.guildId,
-                        },
-                        include: { roles: true },
-                    });
-                    if (djRole && djRole.mode) {
-                        const djRoles = djRole.roles;
-                        const findDJRole = message.member.roles.cache.find((x) => djRoles.includes(x.id));
-                        if (!findDJRole) {
-                            if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
-                                return await message
-                                    .reply({
-                                    content: 'You need to have the DJ role to use this command.',
-                                })
-                                    .then((msg) => setTimeout(() => msg.delete(), 5000));
-                            }
+                if (djRole && djRole.mode) {
+                    const djRoles = djRole.roles;
+                    const findDJRole = message.member.roles.cache.find((x) => djRoles.includes(x.id));
+                    if (!findDJRole) {
+                        if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+                            return await message
+                                .reply({
+                                content: 'You need to have the DJ role to use this command.',
+                            })
+                                .then((msg) => setTimeout(() => msg.delete(), 5000));
                         }
                     }
                 }
@@ -156,11 +149,11 @@ export default class MessageCreate extends Event {
                 return await message.reply({ embeds: [embed] });
             }
         }
-        if (!this.client.cooldowns.has(cmd)) {
-            this.client.cooldowns.set(cmd, new Collection());
+        if (!this.client.cooldown.has(cmd)) {
+            this.client.cooldown.set(cmd, new Collection());
         }
         const now = Date.now();
-        const timestamps = this.client.cooldowns.get(cmd);
+        const timestamps = this.client.cooldown.get(cmd);
         const cooldownAmount = Math.floor(command.cooldown || 5) * 1000;
         if (!timestamps.has(message.author.id)) {
             timestamps.set(message.author.id, now);
@@ -186,7 +179,7 @@ export default class MessageCreate extends Event {
         }
         catch (error) {
             this.client.logger.error(error);
-            await message.reply({ content: `An error occured: \`${error}\`` });
+            await message.reply({ content: `An error occurred: \`${error}\`` });
             return;
         }
     }

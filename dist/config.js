@@ -1,6 +1,6 @@
-import dotent from 'dotenv';
+import dotenv from 'dotenv';
 import { SearchEngine } from './types.js';
-dotent.config();
+dotenv.config();
 export default {
     token: process.env.TOKEN,
     prefix: process.env.PREFIX,
@@ -13,6 +13,8 @@ export default {
     },
     searchEngine: process.env.SEARCH_ENGINE || SearchEngine.YouTube,
     maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE) || 100,
+    botStatus: process.env.BOT_STATUS || 'online',
+    botActivity: process.env.BOT_ACTIVITY || 'Lavamusic',
     maxQueueSize: parseInt(process.env.MAX_QUEUE_SIZE) || 100,
     owners: process.env.OWNERS?.split(','),
     database: process.env.DATABASE_URL,

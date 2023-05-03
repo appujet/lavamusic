@@ -15,7 +15,7 @@ export default class Lavamusic extends Client {
         this.commands = new Collection();
         this.aliases = new Collection();
         this.prisma = new PrismaClient();
-        this.cooldowns = new Collection();
+        this.cooldown = new Collection();
         this.config = config;
         this.logger = new Logger();
         this.color = config.color;

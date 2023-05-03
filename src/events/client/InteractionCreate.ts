@@ -32,7 +32,7 @@ export default class InteractionCreate extends Event {
           .send({
             content: `I don't have **\`SendMessage\`** permission in \`${interaction.guild.name}\`\nchannel: <#${interaction.channelId}>`,
           })
-          .catch(() => {});
+          .catch(() => { });
       }
 
       if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks))
@@ -88,7 +88,6 @@ export default class InteractionCreate extends Event {
             return await interaction.reply({
               content: `I don't have \`REQUEST TO SPEAK\` permission to execute this \`${command.name}\` command.`,
             });
-
           if (interaction.guild.members.me.voice.channel) {
             if (interaction.guild.members.me.voice.channelId !== interaction.member.voice.channelId)
               return await interaction.reply({
@@ -111,28 +110,21 @@ export default class InteractionCreate extends Event {
             });
         }
         if (command.player.dj) {
-          const data = await this.client.prisma.guild.findUnique({
+          const djRole = await this.client.prisma.dj.findUnique({
             where: {
               guildId: interaction.guildId,
             },
+            include: { roles: true },
           });
-          if (data) {
-            const djRole = await this.client.prisma.dj.findUnique({
-              where: {
-                guildId: interaction.guildId,
-              },
-              include: { roles: true },
-            });
-            if (djRole) {
-              const djRoles = djRole.roles;
-              const findDJRole = interaction.member.roles.cache.find((x) => djRoles.includes(x.id));
-              if (!findDJRole) {
-                if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
-                  return await interaction.reply({
-                    content: 'You need to have the DJ role to use this command.',
-                    ephemeral: true,
-                  });
-                }
+          if (djRole && djRole.mode) {
+            const djRoles = djRole.roles;
+            const findDJRole = interaction.member.roles.cache.find((x: any) => djRoles.includes(x.id));
+            if (!findDJRole) {
+              if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+                return await interaction.reply({
+                  content: 'You need to have the DJ role to use this command.',
+                  ephemeral: true,
+                });
               }
             }
           }

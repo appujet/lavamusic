@@ -10,6 +10,8 @@ declare const _default: {
     };
     searchEngine: string;
     maxPlaylistSize: number;
+    botStatus: string;
+    botActivity: string;
     maxQueueSize: number;
     owners: string[];
     database: string;

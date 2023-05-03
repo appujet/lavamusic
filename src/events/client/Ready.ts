@@ -1,3 +1,4 @@
+import config from '../../config.js';
 import { Event, Lavamusic } from '../../structures/index.js';
 import { ActivityType } from 'discord.js';
 export default class Ready extends Event {
@@ -9,10 +10,14 @@ export default class Ready extends Event {
   public async run(): Promise<void> {
     this.client.logger.success(`${this.client.user?.tag} is ready!`);
 
-    this.client.user?.setActivity({
-      name: 'GitHub/Lavamusic',
-      type: ActivityType.Streaming,
-      url: 'https://m.twitch.tv/tarik',
+    this.client.user?.setPresence({
+      activities: [
+        {
+          name: config.botActivity,
+          type: ActivityType.Listening,
+        },
+      ],
+      status: config.botStatus as any,
     });
   }
 }

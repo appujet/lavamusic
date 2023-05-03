@@ -54,7 +54,7 @@ export default class MessageCreate extends Event {
         .send({
           content: `I don't have **\`SendMessage\`** permission in \`${message.guild.name}\`\nchannel: <#${message.channelId}>`,
         })
-        .catch(() => {});
+        .catch(() => { });
 
     if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks))
       return await message.reply({
@@ -129,29 +129,22 @@ export default class MessageCreate extends Event {
           });
       }
       if (command.player.dj) {
-        const data = await this.client.prisma.guild.findUnique({
+        const djRole = await this.client.prisma.dj.findUnique({
           where: {
             guildId: message.guildId,
           },
+          include: { roles: true },
         });
-        if (data) {
-          const djRole = await this.client.prisma.dj.findUnique({
-            where: {
-              guildId: message.guildId,
-            },
-            include: { roles: true },
-          });
-          if (djRole && djRole.mode) {
-            const djRoles = djRole.roles;
-            const findDJRole = message.member.roles.cache.find((x: any) => djRoles.includes(x.id));
-            if (!findDJRole) {
-              if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
-                return await message
-                  .reply({
-                    content: 'You need to have the DJ role to use this command.',
-                  })
-                  .then((msg) => setTimeout(() => msg.delete(), 5000));
-              }
+        if (djRole && djRole.mode) {
+          const djRoles = djRole.roles;
+          const findDJRole = message.member.roles.cache.find((x: any) => djRoles.includes(x.id));
+          if (!findDJRole) {
+            if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+              return await message
+                .reply({
+                  content: 'You need to have the DJ role to use this command.',
+                })
+                .then((msg) => setTimeout(() => msg.delete(), 5000));
             }
           }
         }
@@ -164,8 +157,7 @@ export default class MessageCreate extends Event {
           .setColor(this.client.color.red)
           .setTitle('Missing Arguments')
           .setDescription(
-            `Please provide the required arguments for the \`${command.name}\` command.\n\nExamples:\n${
-              command.description.examples ? command.description.examples.join('\n') : 'None'
+            `Please provide the required arguments for the \`${command.name}\` command.\n\nExamples:\n${command.description.examples ? command.description.examples.join('\n') : 'None'
             }`,
           )
           .setFooter({ text: 'Syntax: [] = required, <> = optional' });

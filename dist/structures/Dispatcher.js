@@ -48,7 +48,6 @@ export default class Dispatcher {
     }
     async play() {
         if (!this.exists || (!this.queue.length && !this.current)) {
-            this.destroy();
             return;
         }
         this.current = this.queue.length !== 0 ? this.queue.shift() : this.queue[0];
