@@ -1,6 +1,14 @@
 node_modules
-.vscode
-package-lock.json
+# Keep environment variables out of version control
 .env
-yarn.lock
-/src/config.js
+
+# Ignore all files in the .vscode folder
+/.vscode
+
+
+# Ignore all files in the node_modules folder
+/node_modules
+
+command.ts
+
+commands.json

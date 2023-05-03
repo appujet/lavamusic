@@ -1,53 +1,55 @@
 {
   "name": "lavamusic",
-  "version": "2.0.2",
-  "description": "lavalink music bot base in erelajs",
-  "main": "sharder.js",
+  "version": "3.1.0",
+  "description": "LavaMusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, Shoukak (Lavalink) library.",
+  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node sharder.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon sharder.js"
+    "start": "npm run start:bot",
+    "start:bot": "npm run build && node --enable-source-maps dist/index.js",
+    "build": "tsc --project tsconfig.json"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brblacky/lavamusic.git"
   },
   "keywords": [
-    "lavalink",
-    "erela",
+    "discord",
     "music",
     "bot",
-    "discord-music",
-    "discord",
-    "musicbot",
-    "music-bot",
-    "music-bot-discord",
-    "discord.js-v14"
+    "lavalink",
+    "shoukaku",
+    "lavamusic",
+    "typescript",
+    "prisma"
   ],
   "author": "blacky",
-  "license ": "GPL",
-  "bugs": "https://github.com/brblacky/lavamusic/issues",
-  "homepage": "https://github.com/brblacky/lavamusic#readme",
-  "dependencies": {
-    "@discordjs/rest": "^1.3.0",
-    "chalk": "^4.1.2",
-    "cheerio": "^1.0.0-rc.12",
-    "discord.js": "14.6.0",
-    "dotenv": "^16.0.3",
-    "erela.js": "github:MenuDocs/erela.js#build",
-    "erela.js-apple": "^1.2.6",
-    "erela.js-deezer": "^1.0.7",
-    "erela.js-facebook": "^1.0.4",
-    "erela.js-spotify": "^1.2.0",
-    "lodash": "^4.17.21",
-    "moment": "^2.29.4",
-    "moment-duration-format": "^2.3.2",
-    "mongoose": "^6.6.7",
-    "ms": "^2.1.3",
-    "multisort": "^0.5.3",
-    "node-superfetch": "^0.3.3"
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/brblacky/lavamusic/issues"
   },
-  "engines": {
-    "node": ">=18"
+  "homepage": "https://github.com/brblacky/lavamusic#readme",
+  "devDependencies": {
+    "@types/node": "^18.14.5",
+    "@types/signale": "^1.4.4",
+    "prisma": "^4.11.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.11.0",
+    "discord.js": "^14.9.0",
+    "dotenv": "^16.0.3",
+    "shoukaku": "^3.3.1",
+    "signale": "^1.4.0"
+  },
+  "signale": {
+    "displayScope": true,
+    "displayBadge": true,
+    "displayDate": true,
+    "displayFilename": true,
+    "displayLabel": true,
+    "displayTimestamp": true,
+    "underlineLabel": true
   }
 }
