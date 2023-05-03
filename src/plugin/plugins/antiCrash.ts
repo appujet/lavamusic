@@ -1,8 +1,8 @@
 import { BotPlugin } from '../types.js';
 import { Lavamusic } from '../../structures/index.js';
 
-const aintiCrash: BotPlugin = {
-  name: 'AintiCrash Plugin',
+const antiCrash: BotPlugin = {
+  name: 'AntiCrash Plugin',
   version: '1.0.0',
   author: 'Blacky',
   initialize: (client: Lavamusic) => {
@@ -15,4 +15,4 @@ const aintiCrash: BotPlugin = {
   },
 };
 
-export default aintiCrash;
+export default antiCrash;
