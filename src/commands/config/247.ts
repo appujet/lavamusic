@@ -1,11 +1,13 @@
+import { Player } from 'shoukaku';
 import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { GuildMember } from 'discord.js';
 
 export default class _247 extends Command {
   constructor(client: Lavamusic) {
     super(client, {
       name: '247',
       description: {
-        content: 'set the bot to stay in the vc',
+        content: 'set the bot to stay in the mem',
         examples: ['247'],
         usage: '247',
       },
@@ -30,24 +32,23 @@ export default class _247 extends Command {
   }
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
     const embed = client.embed();
-    let player = client.shoukaku.players.get(ctx.guild.id) as any;
+    let player = client.shoukaku.players.get(ctx.guild.id) as Player;
 
     const data = await client.prisma.stay.findFirst({
       where: {
         guildId: ctx.guild.id,
       },
     });
-    const vc = ctx.member as any;
+    const mem = ctx.member as GuildMember;
     if (!data) {
       await client.prisma.stay.create({
         data: {
           guildId: ctx.guild.id,
           textId: ctx.channel.id,
-          voiceId: vc.voice.channelId,
+          voiceId: mem.voice.channelId,
         },
       });
-      if (!player)
-        player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel, client.shoukaku.getNode());
+      if (!player) await client.queue.create(ctx.guild, mem.voice.channel, ctx.channel, client.shoukaku.getNode());
       return ctx.sendMessage({
         embeds: [embed.setDescription(`**247 mode has been enabled**`).setColor(client.color.main)],
       });
