@@ -1,5 +1,5 @@
 import { Command, Lavamusic, Context } from '../../structures/index.js';
-import { ApplicationCommandOptionType } from 'discord.js';
+import { ApplicationCommandOptionType, Role } from 'discord.js';
 
 export default class Dj extends Command {
   constructor(client: Lavamusic) {
@@ -68,18 +68,17 @@ export default class Dj extends Command {
   }
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
     let subCommand: string;
-    let role: string;
+    let role: Role;
     if (ctx.isInteraction) {
       subCommand = ctx.interaction.options.data[0].name;
-      role = ctx.interaction.options.data[0].options[0]?.value as unknown as string;
+      const roleId = ctx.interaction.options.data[0].options[0]?.value.toString();
+      role = ctx.interaction.guild.roles.cache.get(roleId);
     } else {
       subCommand = args[0];
-      role =
-        (ctx.message.mentions.roles.first() as unknown as string) ||
-        (ctx.guild.roles.cache.get(args[1]) as unknown as string);
+      role = ctx.message.mentions.roles.first() || ctx.guild.roles.cache.get(args[1]);
     }
-    let roleId: string;
-    if (role) roleId = ctx.guild.roles.cache.get(role)?.id;
+    let roleID: string;
+    if (role) roleID = ctx.guild.roles.cache.get(role.id).id;
     const embed = client.embed().setColor(client.color.main);
     let dj = await this.client.prisma.dj.findUnique({
       where: { guildId: ctx.guild.id },
@@ -90,11 +89,11 @@ export default class Dj extends Command {
           embeds: [embed.setDescription('Please provide a role to add')],
         });
       const isExRole = await this.client.prisma.roles.findFirst({
-        where: { roleId: roleId },
+        where: { roleId: roleID },
       });
       if (isExRole)
         return await ctx.sendMessage({
-          embeds: [embed.setDescription(`The dj role <@&${roleId}> is already added`)],
+          embeds: [embed.setDescription(`The dj role <@&${roleID}> is already added`)],
         });
 
       if (!dj) {
@@ -103,14 +102,14 @@ export default class Dj extends Command {
             guildId: ctx.guild.id,
             roles: {
               create: {
-                roleId: roleId,
+                roleId: roleID,
               },
             },
             mode: true,
           },
         });
         return await ctx.sendMessage({
-          embeds: [embed.setDescription(`The dj role <@&${roleId}> has been added`)],
+          embeds: [embed.setDescription(`The dj role <@&${roleID}> has been added`)],
         });
       } else {
         await this.client.prisma.dj.update({
@@ -121,13 +120,13 @@ export default class Dj extends Command {
             mode: true,
             roles: {
               create: {
-                roleId: roleId,
+                roleId: roleID,
               },
             },
           },
         });
         return await ctx.sendMessage({
-          embeds: [embed.setDescription(`The dj role <@&${roleId}> has been added`)],
+          embeds: [embed.setDescription(`The dj role <@&${roleID}> has been added`)],
         });
       }
     } else if (subCommand === 'remove') {
@@ -136,15 +135,15 @@ export default class Dj extends Command {
           embeds: [embed.setDescription('Please provide a role to remove')],
         });
       const isExRole = await this.client.prisma.roles.findFirst({
-        where: { roleId: roleId },
+        where: { roleId: roleID },
       });
       if (!isExRole)
         return await ctx.sendMessage({
-          embeds: [embed.setDescription(`The dj role <@&${roleId}> is not added`)],
+          embeds: [embed.setDescription(`The dj role <@&${roleID}> is not added`)],
         });
-      await this.client.prisma.roles.delete({ where: { roleId: roleId } });
+      await this.client.prisma.roles.delete({ where: { roleId: roleID } });
       return await ctx.sendMessage({
-        embeds: [embed.setDescription(`The dj role <@&${roleId}> has been removed`)],
+        embeds: [embed.setDescription(`The dj role <@&${roleID}> has been removed`)],
       });
     } else if (subCommand === 'clear') {
       if (!dj)
