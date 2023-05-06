@@ -49,11 +49,11 @@ export default class Prefix extends Command {
   }
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
     const embed = client.embed().setColor(client.color.main);
-    let prefix = (await this.client.prisma.guild.findUnique({
+    let guild = await this.client.prisma.guild.findUnique({
       where: {
         guildId: ctx.guild.id,
       },
-    })) as any;
+    });
 
     let subCommand: string;
     let pre: string;
@@ -67,7 +67,7 @@ export default class Prefix extends Command {
     switch (subCommand) {
       case 'set':
         if (!pre) {
-          embed.setDescription(`The prefix for this server is \`${prefix ? prefix.prefix : client.config.prefix}\``);
+          embed.setDescription(`The prefix for this server is \`${guild ? guild.prefix : client.config.prefix}\``);
           return await ctx.sendMessage({ embeds: [embed] });
         }
         if (pre.length > 3)
@@ -75,18 +75,18 @@ export default class Prefix extends Command {
             embeds: [embed.setDescription(`The prefix can't be longer than 3 characters`)],
           });
 
-        if (!prefix) {
-          prefix = await this.client.prisma.guild.create({
+        if (!guild) {
+          guild = await this.client.prisma.guild.create({
             data: {
               guildId: ctx.guild.id,
               prefix: pre,
             },
           });
           return await ctx.sendMessage({
-            embeds: [embed.setDescription(`The prefix for this server is now \`${prefix.prefix}\``)],
+            embeds: [embed.setDescription(`The prefix for this server is now \`${guild.prefix}\``)],
           });
         } else {
-          prefix = await this.client.prisma.guild.update({
+          guild = await this.client.prisma.guild.update({
             where: {
               guildId: ctx.guild.id,
             },
@@ -95,15 +95,15 @@ export default class Prefix extends Command {
             },
           });
           return await ctx.sendMessage({
-            embeds: [embed.setDescription(`The prefix for this server is now \`${prefix.prefix}\``)],
+            embeds: [embed.setDescription(`The prefix for this server is now \`${guild.prefix}\``)],
           });
         }
       case 'reset':
-        if (!prefix)
+        if (!guild)
           return await ctx.sendMessage({
             embeds: [embed.setDescription(`The prefix for this server is \`${client.config.prefix}\``)],
           });
-        prefix = await this.client.prisma.guild.update({
+        guild = await this.client.prisma.guild.update({
           where: {
             guildId: ctx.guild.id,
           },
