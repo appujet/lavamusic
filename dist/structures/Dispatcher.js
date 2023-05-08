@@ -54,7 +54,6 @@ export default class Dispatcher {
         if (this.matchedTracks.length !== 0)
             this.matchedTracks = [];
         const search = (await this.node.rest.resolve(`${this.client.config.searchEngine}:${this.current?.info.title} ${this.current?.info.author}`));
-        console.log(this.current);
         this.matchedTracks.push(...search.tracks);
         this.player.playTrack({ track: this.current?.track });
     }
