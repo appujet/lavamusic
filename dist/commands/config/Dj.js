@@ -70,7 +70,9 @@ export default class Dj extends Command {
         let role;
         if (ctx.isInteraction) {
             subCommand = ctx.interaction.options.data[0].name;
-            role = ctx.interaction.options.data[0].options[0].role;
+            if (subCommand === 'add' || subCommand === 'remove') {
+                role = ctx.interaction.options.data[0].options[0].role;
+            }
         }
         else {
             subCommand = args[0];
