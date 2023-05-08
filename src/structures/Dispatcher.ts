@@ -153,7 +153,9 @@ export default class Dispatcher {
   public stop() {
     if (!this.player) return;
     this.queue.length = 0;
+    this.loop = 'off';
     this.repeat = 0;
+    this.stopped = true;
     this.player.stopTrack();
   }
   public setLoop(loop: any) {

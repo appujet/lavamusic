@@ -1,7 +1,7 @@
 import { Event, Lavamusic, Dispatcher } from '../../structures/index.js';
 import { Player } from 'shoukaku';
 import { Song } from '../../structures/Dispatcher.js';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, TextChannel } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, TextChannel, Interaction, ButtonInteraction, ChannelSelectMenuInteraction, MentionableSelectMenuInteraction, RoleSelectMenuInteraction, StringSelectMenuInteraction, UserSelectMenuInteraction } from 'discord.js';
 
 export default class TrackStart extends Event {
   constructor(client: Lavamusic, file: string) {
@@ -66,14 +66,13 @@ export default class TrackStart extends Event {
     });
     dispatcher.nowPlayingMessage = message;
     const collector = message.createMessageComponentCollector({
-      filter: (async(b) => {
+      filter: (async (b) => {
         if (b.guild.members.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId)
           return true;
         else {
           b.reply({
-            content: `You are not connected to <#${
-              b.guild.members.me.voice?.channelId ?? 'None'
-            }> to use this buttons.`,
+            content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? 'None'
+              }> to use this buttons.`,
             ephemeral: true,
           });
           return false;
@@ -82,26 +81,26 @@ export default class TrackStart extends Event {
       //time: track.info.isStream ? 86400000 : track.info.length,
     });
 
-    function checkDj(client): Boolean {
-      const djRole = client.prisma.dj.findUnique({
+    async function checkDj(client: Lavamusic, interaction: ButtonInteraction<"cached"> | StringSelectMenuInteraction<"cached"> | UserSelectMenuInteraction<"cached"> | RoleSelectMenuInteraction<"cached"> | MentionableSelectMenuInteraction<"cached"> | ChannelSelectMenuInteraction<"cached">) {
+      const djRole = await client.prisma.dj.findUnique({
         where: {
-          guildId: guild.id,
+          guildId: interaction.guildId,
         },
         include: { roles: true },
       });
       if (djRole && djRole.mode) {
-        const djRoles = djRole.roles;
-        const findDJRole = guild.members.cache.get(dispatcher.player.connection.guildId).roles.cache.find((x: any) => djRoles.includes(x.id));
+        const findDJRole = interaction.member.roles.cache.find((x: any) => djRole.roles.map((y: any) => y.roleId).includes(x.id));
         if (!findDJRole) {
-          if (!guild.members.cache.get(dispatcher.player.connection.guildId).permissions.has(PermissionFlagsBits.ManageGuild)) {
+          if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
             return false;
           }
-        }
+        } else return true;
       }
       return true;
     }
     collector.on('collect', async (interaction) => {
-      if (!checkDj(this.client)) {
+
+      if (!(await checkDj(this.client, interaction))) {
         await interaction.reply({
           content: `You need to have the DJ role to use this command.`,
           ephemeral: true,

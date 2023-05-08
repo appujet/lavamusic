@@ -146,8 +146,7 @@ export default class InteractionCreate extends Event {
             include: { roles: true },
           });
           if (djRole && djRole.mode) {
-            const djRoles = djRole.roles;
-            const findDJRole = interaction.member.roles.cache.find((x: any) => djRoles.includes(x.id));
+            const findDJRole = interaction.member.roles.cache.find((x: any) => djRole.roles.map((y: any) => y.roleId).includes(x.id));
             if (!findDJRole) {
               if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
                 return await interaction.reply({
