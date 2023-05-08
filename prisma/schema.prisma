@@ -20,6 +20,7 @@ model Guild {
   dj         Dj?
   botchannel Botchannel?
   premium    Premium?
+  tracks     Tracks[]
 }
 
 model Setup {
@@ -94,4 +95,16 @@ model Premium {
   guildId   String  @unique
   user      User?   @relation(fields: [userId], references: [userId])
   guild     Guild?  @relation(fields: [guildId], references: [guildId])
+}
+
+model Tracks {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  trackId    String  @unique
+  title      String
+  url        String
+  duration   String
+  thumbnail  String
+  played     Int     @default(0)
+  guildId    String
+  guild      Guild?  @relation(fields: [guildId], references: [guildId])
 }

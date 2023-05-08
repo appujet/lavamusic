@@ -152,6 +152,14 @@ export default class Dj extends Command {
       await this.client.prisma.roles.deleteMany({
         where: { guildId: ctx.guild.id },
       });
+      await this.client.prisma.dj.update({
+        where: {
+          guildId: ctx.guild.id,
+        },
+        data: {
+          mode: false,
+        },
+      });
       return await ctx.sendMessage({
         embeds: [embed.setDescription(`All dj roles have been removed`)],
       });

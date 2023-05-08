@@ -38,10 +38,7 @@ export default class Seek extends Command {
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
     const player = client.queue.get(ctx.guild.id);
     const embed = this.client.embed();
-    if (!player.queue.length)
-      return ctx.sendMessage({
-        embeds: [embed.setColor(this.client.color.red).setDescription('There are no songs in the queue.')],
-      });
+    
     const time = client.utils.parseTime(args[0]);
     if (!time)
       return ctx.sendMessage({

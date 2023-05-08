@@ -22,7 +22,7 @@ export default class Add extends Command {
             permissions: {
                 dev: false,
                 client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ['ManageGuild']
+                user: []
             },
             slashCommand: true,
             options: [
@@ -42,7 +42,6 @@ export default class Add extends Command {
         });
     }
     async run(client, ctx, args) {
-        const player = client.queue.get(ctx.guild.id);
         const playlist = args[0];
         const song = args[1];
         if (!playlist)

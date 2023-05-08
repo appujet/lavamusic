@@ -9,6 +9,16 @@ export default class MessageCreate extends Event {
     async run(message) {
         if (message.author.bot)
             return;
+        const setup = await this.client.prisma.setup.findUnique({
+            where: {
+                guildId: message.guildId,
+            },
+        });
+        if (setup && setup.textId) {
+            if (setup.textId === message.channelId) {
+                return this.client.emit("setupSystem", message);
+            }
+        }
         let prefix = (await this.client.prisma.guild.findUnique({
             where: {
                 guildId: message.guildId,
@@ -144,7 +154,7 @@ export default class MessageCreate extends Event {
                     .setColor(this.client.color.red)
                     .setTitle('Missing Arguments')
                     .setDescription(`Please provide the required arguments for the \`${command.name}\` command.\n\nExamples:\n${command.description.examples ? command.description.examples.join('\n') : 'None'}`)
-                    .setFooter({ text: 'Syntax: [] = required, <> = optional' });
+                    .setFooter({ text: 'Syntax: [] = optional, <> = required' });
                 return await message.reply({ embeds: [embed] });
             }
         }

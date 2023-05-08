@@ -24,7 +24,7 @@ export default class Create extends Command {
             permissions: {
                 dev: false,
                 client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ['ManageGuild']
+                user: []
             },
             slashCommand: true,
             options: [

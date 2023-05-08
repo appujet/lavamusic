@@ -17,6 +17,16 @@ declare const _default: {
     database: string;
     clientId: string;
     guildId: string;
+    links: {
+        img: string;
+    };
+    icons: {
+        youtube: string;
+        spotify: string;
+        soundcloud: string;
+        applemusic: string;
+        deezer: string;
+    };
     production: true;
     lavalink: {
         url: string;

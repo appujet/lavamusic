@@ -14,7 +14,17 @@ export default class InteractionCreate extends Event {
       name: 'interactionCreate',
     });
   }
-  public async run(interaction: Interaction | CommandInteraction | any): Promise<void> {
+  public async run(interaction: Interaction | CommandInteraction | any): Promise<any> {
+    if (interaction.isButton()) {
+      const setup = await this.client.prisma.setup.findUnique({
+        where: {
+          guildId: interaction.guildId,
+        },
+      });
+      if (setup && interaction.channelId === setup.textId && interaction.message.id === setup.messageId) {
+        return this.client.emit('setupButtons', interaction);
+      }
+    }
     if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
       if (interaction.commandName == "play") {
         const song = interaction.options.getString("song")

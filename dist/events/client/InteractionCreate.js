@@ -7,6 +7,16 @@ export default class InteractionCreate extends Event {
         });
     }
     async run(interaction) {
+        if (interaction.isButton()) {
+            const setup = await this.client.prisma.setup.findUnique({
+                where: {
+                    guildId: interaction.guildId,
+                },
+            });
+            if (setup && interaction.channelId === setup.textId && interaction.message.id === setup.messageId) {
+                return this.client.emit('setupButtons', interaction);
+            }
+        }
         if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
             if (interaction.commandName == "play") {
                 const song = interaction.options.getString("song");

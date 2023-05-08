@@ -21,6 +21,16 @@ export default {
   database: process.env.DATABASE_URL,
   clientId: process.env.CLIENT_ID,
   guildId: process.env.GUILD_ID,
+  links: {
+    img: process.env.IMG_LINK || 'https://i.imgur.com/ud3EWNh.jpg'
+  },
+  icons: {
+    youtube: 'https://media.discordapp.net/attachments/963097935820750878/1054328059639111700/3670147.png',
+    spotify: 'https://media.discordapp.net/attachments/963097935820750878/1054333449252655104/spotify.png',
+    soundcloud: 'https://media.discordapp.net/attachments/963097935820750878/1054333449638526986/145809.png',
+    applemusic: 'https://media.discordapp.net/attachments/963097935820750878/1054333450368340018/apple-music-icon.png',
+    deezer: 'https://media.discordapp.net/attachments/963097935820750878/1054333450024394802/5968803.png'
+  },
   production: parseBoolean(process.env.PRODUCTION) || true,
   lavalink: [
     {

@@ -2,6 +2,7 @@ import { Event, Lavamusic, Dispatcher } from '../../structures/index.js';
 import { Player } from 'shoukaku';
 import { Song } from '../../structures/Dispatcher.js';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, TextChannel, Interaction, ButtonInteraction, ChannelSelectMenuInteraction, MentionableSelectMenuInteraction, RoleSelectMenuInteraction, StringSelectMenuInteraction, UserSelectMenuInteraction } from 'discord.js';
+import { trackStart } from '../../utils/SetupSystem.js';
 
 export default class TrackStart extends Event {
   constructor(client: Lavamusic, file: string) {
@@ -12,8 +13,8 @@ export default class TrackStart extends Event {
   public async run(player: Player, track: Song, dispatcher: Dispatcher) {
     const guild = this.client.guilds.cache.get(player.connection.guildId);
     if (!guild) return;
-    const textChannel = guild.channels.cache.get(dispatcher.channelId) as TextChannel;
-    if (!textChannel) return;
+    const channel = guild.channels.cache.get(dispatcher.channelId) as TextChannel;
+    if (!channel) return;
 
     function buttonBuilder() {
       const previousButton = new ButtonBuilder()
@@ -42,7 +43,7 @@ export default class TrackStart extends Event {
       .embed()
       .setAuthor({
         name: 'Now Playing',
-        iconURL: this.client.user.displayAvatarURL(),
+        iconURL: this.client.config.icons[track.info.sourceName] ?? this.client.user.displayAvatarURL({ extension: 'png' }),
       })
       .setColor(this.client.color.main)
       .setDescription(`**[${track.info.title}](${track.info.uri})**`)
@@ -60,165 +61,181 @@ export default class TrackStart extends Event {
         { name: 'Author', value: track.info.author, inline: true },
       )
       .setTimestamp();
-    const message = await textChannel.send({
-      embeds: [embed],
-      components: [buttonBuilder()],
+    let setup = await this.client.prisma.setup.findUnique({
+      where: {
+        guildId: guild.id,
+      },
     });
-    dispatcher.nowPlayingMessage = message;
-    const collector = message.createMessageComponentCollector({
-      filter: (async (b) => {
-        if (b.guild.members.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId)
-          return true;
-        else {
-          b.reply({
-            content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? 'None'
-              }> to use this buttons.`,
-            ephemeral: true,
-          });
-          return false;
-        }
-      }),
-      //time: track.info.isStream ? 86400000 : track.info.length,
-    });
-
-    async function checkDj(client: Lavamusic, interaction: ButtonInteraction<"cached"> | StringSelectMenuInteraction<"cached"> | UserSelectMenuInteraction<"cached"> | RoleSelectMenuInteraction<"cached"> | MentionableSelectMenuInteraction<"cached"> | ChannelSelectMenuInteraction<"cached">) {
-      const djRole = await client.prisma.dj.findUnique({
-        where: {
-          guildId: interaction.guildId,
-        },
-        include: { roles: true },
+    if (setup && setup.textId) {
+      const textChannel = guild.channels.cache.get(setup.textId) as TextChannel;
+      const id = setup.messageId
+      if (!textChannel) return;
+      if (channel && textChannel && channel.id === textChannel.id) {
+        await trackStart(id, textChannel, dispatcher, track, this.client);
+      } else {
+        await trackStart(id, textChannel, dispatcher, track, this.client);
+      }
+    } else {
+      const message = await channel.send({
+        embeds: [embed],
+        components: [buttonBuilder()],
       });
-      if (djRole && djRole.mode) {
-        const findDJRole = interaction.member.roles.cache.find((x: any) => djRole.roles.map((y: any) => y.roleId).includes(x.id));
-        if (!findDJRole) {
-          if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+      dispatcher.nowPlayingMessage = message;
+      const collector = message.createMessageComponentCollector({
+        filter: (async (b) => {
+          if (b.guild.members.me.voice.channel && b.guild.members.me.voice.channelId === b.member.voice.channelId)
+            return true;
+          else {
+            b.reply({
+              content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? 'None'
+                }> to use this buttons.`,
+              ephemeral: true,
+            });
             return false;
           }
-        } else return true;
-      }
-      return true;
-    }
-    collector.on('collect', async (interaction) => {
+        }),
+        //time: track.info.isStream ? 86400000 : track.info.length,
+      });
 
-      if (!(await checkDj(this.client, interaction))) {
-        await interaction.reply({
-          content: `You need to have the DJ role to use this command.`,
-          ephemeral: true,
+      async function checkDj(client: Lavamusic, interaction: ButtonInteraction<"cached"> | StringSelectMenuInteraction<"cached"> | UserSelectMenuInteraction<"cached"> | RoleSelectMenuInteraction<"cached"> | MentionableSelectMenuInteraction<"cached"> | ChannelSelectMenuInteraction<"cached">) {
+        const djRole = await client.prisma.dj.findUnique({
+          where: {
+            guildId: interaction.guildId,
+          },
+          include: { roles: true },
         });
-        return;
+        if (djRole && djRole.mode) {
+          const findDJRole = interaction.member.roles.cache.find((x: any) => djRole.roles.map((y: any) => y.roleId).includes(x.id));
+          if (!findDJRole) {
+            if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+              return false;
+            }
+          } else return true;
+        }
+        return true;
       }
-      switch (interaction.customId) {
-        case 'previous':
-          if (!dispatcher.previous) {
-            await interaction.reply({
-              content: `There is no previous song.`,
-              ephemeral: true,
-            });
-            return;
-          } else dispatcher.previousTrack();
-          if (message)
-            await message.edit({
-              embeds: [
-                embed.setFooter({
-                  text: `Previous by ${interaction.user.tag}`,
-                  iconURL: interaction.user.avatarURL({}),
-                }),
-              ],
-              components: [buttonBuilder()],
-            });
-          break;
-        case 'resume':
-          dispatcher.pause();
-          if (message)
-            await message.edit({
-              embeds: [
-                embed.setFooter({
-                  text: `${player.paused ? 'Paused' : 'Resumed'} by ${interaction.user.tag}`,
-                  iconURL: interaction.user.avatarURL({}),
-                }),
-              ],
-              components: [buttonBuilder()],
-            });
-          break;
-        case 'stop':
-          dispatcher.stop();
-          if (message)
-            await message.edit({
-              embeds: [
-                embed.setFooter({
-                  text: `Stopped by ${interaction.user.tag}`,
-                  iconURL: interaction.user.avatarURL({}),
-                }),
-              ],
-              components: [],
-            });
-          break;
-        case 'skip':
-          if (!dispatcher.queue.length) {
-            await interaction.reply({
-              content: `There is no more song in the queue.`,
-              ephemeral: true,
-            });
-            return;
-          }
-          dispatcher.skip();
-          if (message)
-            await message.edit({
-              embeds: [
-                embed.setFooter({
-                  text: `Skipped by ${interaction.user.tag}`,
-                  iconURL: interaction.user.avatarURL({}),
-                }),
-              ],
-              components: [buttonBuilder()],
-            });
-          break;
-        case 'loop':
-          switch (dispatcher.loop) {
-            case 'off':
-              dispatcher.loop = 'repeat';
-              if (message)
-                await message.edit({
-                  embeds: [
-                    embed.setFooter({
-                      text: `Looping by ${interaction.user.tag}`,
-                      iconURL: interaction.user.avatarURL({}),
-                    }),
-                  ],
-                  components: [buttonBuilder()],
-                });
-              break;
-            case 'repeat':
-              dispatcher.loop = 'queue';
-              if (message)
-                await message.edit({
-                  embeds: [
-                    embed.setFooter({
-                      text: `Looping Queue by ${interaction.user.tag}`,
-                      iconURL: interaction.user.avatarURL({}),
-                    }),
-                  ],
-                  components: [buttonBuilder()],
-                });
-              break;
-            case 'queue':
-              dispatcher.loop = 'off';
-              if (message)
-                await message.edit({
-                  embeds: [
-                    embed.setFooter({
-                      text: `Looping Off by ${interaction.user.tag}`,
-                      iconURL: interaction.user.avatarURL({}),
-                    }),
-                  ],
-                  components: [buttonBuilder()],
-                });
-              break;
-          }
-          break;
-      }
-      await interaction.deferUpdate();
-    });
+      collector.on('collect', async (interaction) => {
+
+        if (!(await checkDj(this.client, interaction))) {
+          await interaction.reply({
+            content: `You need to have the DJ role to use this command.`,
+            ephemeral: true,
+          });
+          return;
+        }
+        switch (interaction.customId) {
+          case 'previous':
+            if (!dispatcher.previous) {
+              await interaction.reply({
+                content: `There is no previous song.`,
+                ephemeral: true,
+              });
+              return;
+            } else dispatcher.previousTrack();
+            if (message)
+              await message.edit({
+                embeds: [
+                  embed.setFooter({
+                    text: `Previous by ${interaction.user.tag}`,
+                    iconURL: interaction.user.avatarURL({}),
+                  }),
+                ],
+                components: [buttonBuilder()],
+              });
+            break;
+          case 'resume':
+            dispatcher.pause();
+            if (message)
+              await message.edit({
+                embeds: [
+                  embed.setFooter({
+                    text: `${player.paused ? 'Paused' : 'Resumed'} by ${interaction.user.tag}`,
+                    iconURL: interaction.user.avatarURL({}),
+                  }),
+                ],
+                components: [buttonBuilder()],
+              });
+            break;
+          case 'stop':
+            dispatcher.stop();
+            if (message)
+              await message.edit({
+                embeds: [
+                  embed.setFooter({
+                    text: `Stopped by ${interaction.user.tag}`,
+                    iconURL: interaction.user.avatarURL({}),
+                  }),
+                ],
+                components: [],
+              });
+            break;
+          case 'skip':
+            if (!dispatcher.queue.length) {
+              await interaction.reply({
+                content: `There is no more song in the queue.`,
+                ephemeral: true,
+              });
+              return;
+            }
+            dispatcher.skip();
+            if (message)
+              await message.edit({
+                embeds: [
+                  embed.setFooter({
+                    text: `Skipped by ${interaction.user.tag}`,
+                    iconURL: interaction.user.avatarURL({}),
+                  }),
+                ],
+                components: [buttonBuilder()],
+              });
+            break;
+          case 'loop':
+            switch (dispatcher.loop) {
+              case 'off':
+                dispatcher.loop = 'repeat';
+                if (message)
+                  await message.edit({
+                    embeds: [
+                      embed.setFooter({
+                        text: `Looping by ${interaction.user.tag}`,
+                        iconURL: interaction.user.avatarURL({}),
+                      }),
+                    ],
+                    components: [buttonBuilder()],
+                  });
+                break;
+              case 'repeat':
+                dispatcher.loop = 'queue';
+                if (message)
+                  await message.edit({
+                    embeds: [
+                      embed.setFooter({
+                        text: `Looping Queue by ${interaction.user.tag}`,
+                        iconURL: interaction.user.avatarURL({}),
+                      }),
+                    ],
+                    components: [buttonBuilder()],
+                  });
+                break;
+              case 'queue':
+                dispatcher.loop = 'off';
+                if (message)
+                  await message.edit({
+                    embeds: [
+                      embed.setFooter({
+                        text: `Looping Off by ${interaction.user.tag}`,
+                        iconURL: interaction.user.avatarURL({}),
+                      }),
+                    ],
+                    components: [buttonBuilder()],
+                  });
+                break;
+            }
+            break;
+        }
+        await interaction.deferUpdate();
+      });
+    }
   }
 }
 
