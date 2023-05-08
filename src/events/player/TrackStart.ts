@@ -81,8 +81,9 @@ export default class TrackStart extends Event {
       }),
       //time: track.info.isStream ? 86400000 : track.info.length,
     });
-    function checkDj(): Boolean {
-      const djRole = this.client.prisma.dj.findUnique({
+
+    function checkDj(client): Boolean {
+      const djRole = client.prisma.dj.findUnique({
         where: {
           guildId: guild.id,
         },
@@ -100,7 +101,7 @@ export default class TrackStart extends Event {
       return true;
     }
     collector.on('collect', async (interaction) => {
-      if (!checkDj()) {
+      if (!checkDj(this.client)) {
         await interaction.reply({
           content: `You need to have the DJ role to use this command.`,
           ephemeral: true,

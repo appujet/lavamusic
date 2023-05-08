@@ -34,6 +34,7 @@ export default class Play extends Command {
           description: 'The song you want to play',
           type: 3,
           required: true,
+          autocomplete: true,
         },
       ],
     });
