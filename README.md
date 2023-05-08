@@ -25,9 +25,7 @@
     <br />
     <a href="https://discord.com/api/oauth2/authorize?client_id=875635121770889257&permissions=8&scope=bot%20applications.commands">Invite Lavamusic</a>
     ·
-    <a href="https://github.com/brblacky/lavamusic/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/brblacky/lavamusic/issues">Request Feature</a>
+    <a href="https://github.com/brblacky/lavamusic/issues">Report Bug & Request Feature</a>
   </p>
 </p>
 
@@ -42,6 +40,7 @@
 - Highly Configurable
 - User-friendly and Easy to Use
 - 24/7 Music Playback
+- Playlist commands
 
 ## 🎶 Support Sources
 
@@ -159,7 +158,7 @@ LAVALINK_SECURE= "true" # true for secure lavalink
 
 **If you using replit than read this:**
 
-go to **[prisma/schema.prisma](https://github.com/brblacky/lavamusic/blob/main/prisma/schema.prisma)** and add engine type like this
+go to **[prisma/schema.prisma](https://github.com/brblacky/lavamusic/blob/main/prisma/schema.prisma)** and add engine type like this or remove `//` behind the `engineType`
 
 ```bash
 generator client {
@@ -182,7 +181,7 @@ generator client {
 
 7. Invite the bot to your server:
 
-Generate an invite link for your bot and invite it to your server using the Discord Developer Portal.
+Generate an invite link for your bot and invite it to your server using the Discord Developer Portal or using permissions calculator: https://discordapi.com/permissions.html
 
 ## 🚀 Installation using docker-compose
 
@@ -193,7 +192,7 @@ Download the [Docker-Compose file](https://raw.githubusercontent.com/brblacky/la
 Edit the Docker-Compose file and make sure to edit the following variables:
 
 ```yaml
-TOKEN="." # Your bot token
+TOKEN="." # Your bot token and remember, don't show everyone your bot token
 PREFIX="!" # Your prefix
 OWNER_IDS="859640640640640640, 859640640640640640" # Your ID
 CLIENT_ID="960072976412340254" # Your bot client ID
