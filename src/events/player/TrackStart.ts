@@ -81,26 +81,31 @@ export default class TrackStart extends Event {
       }),
       //time: track.info.isStream ? 86400000 : track.info.length,
     });
-
-    collector.on('collect', async (interaction) => {
-      const djRole = await this.client.prisma.dj.findUnique({
+    function checkDj(): Boolean {
+      const djRole = this.client.prisma.dj.findUnique({
         where: {
-          guildId: interaction.guildId,
+          guildId: guild.id,
         },
         include: { roles: true },
       });
       if (djRole && djRole.mode) {
         const djRoles = djRole.roles;
-        const findDJRole = interaction.member.roles.cache.find((x: any) => djRoles.includes(x.id));
+        const findDJRole = guild.members.cache.get(dispatcher.player.connection.guildId).roles.cache.find((x: any) => djRoles.includes(x.id));
         if (!findDJRole) {
-          if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
-             await interaction.reply({
-              content: 'You need to have the DJ role to use this command.',
-              ephemeral: true,
-             });
-            return;
+          if (!guild.members.cache.get(dispatcher.player.connection.guildId).permissions.has(PermissionFlagsBits.ManageGuild)) {
+            return false;
           }
         }
+      }
+      return true;
+    }
+    collector.on('collect', async (interaction) => {
+      if (!checkDj()) {
+        await interaction.reply({
+          content: `You need to have the DJ role to use this command.`,
+          ephemeral: true,
+        });
+        return;
       }
       switch (interaction.customId) {
         case 'previous':

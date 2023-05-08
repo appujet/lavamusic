@@ -34,7 +34,7 @@ export default class Prefix extends Command {
                             name: 'prefix',
                             description: 'The prefix you want to set',
                             type: 3,
-                            required: false,
+                            required: true,
                         },
                     ],
                 },

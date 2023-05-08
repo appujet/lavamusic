@@ -71,12 +71,11 @@ export default class Dj extends Command {
     let role: any;
     if (ctx.isInteraction) {
       subCommand = ctx.interaction.options.data[0].name;
-      role = ctx.interaction.options.data[0].options[0]?.value;
+      role = ctx.interaction.options.data[0].options[0].role;
     } else {
       subCommand = args[0];
       role = ctx.message.mentions.roles.first() || ctx.guild.roles.cache.get(args[1]);
     }
-
     const embed = client.embed().setColor(client.color.main);
     let dj = await this.client.prisma.dj.findUnique({
       where: { guildId: ctx.guild.id },
