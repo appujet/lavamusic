@@ -8,7 +8,8 @@ function neb(embed, player, client) {
     return embed
         .setAuthor({ name: 'Now Playing', iconURL: iconUrl })
         .setDescription(`[${player.current.info.title}](${player.current.info.uri}) by ${player.current.info.author} • \`[${client.utils.formatTime(player.current.info.length)}]\` - Requested by ${player.current.info.requester}`)
-        .setImage(icon);
+        .setImage(icon)
+        .setColor(client.color.main);
 }
 async function setupStart(client, query, player, message) {
     let m;

@@ -13,6 +13,7 @@ function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic) {
         .setAuthor({ name: 'Now Playing', iconURL: iconUrl })
         .setDescription(`[${player.current.info.title}](${player.current.info.uri}) by ${player.current.info.author} • \`[${client.utils.formatTime(player.current.info.length)}]\` - Requested by ${player.current.info.requester}`)
         .setImage(icon)
+        .setColor(client.color.main)
 }
 
 async function setupStart(client: Lavamusic, query: string, player: Dispatcher, message: Message) {
