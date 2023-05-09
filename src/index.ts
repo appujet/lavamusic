@@ -6,6 +6,7 @@ import * as fs from 'fs';
 const logger = new Logger();
 
 if (!fs.existsSync("./src/utils/LavaLogo.txt")) {
+  logger.error("LavaLogo.txt file is missing", err);
   process.exit(1);
 }
 
