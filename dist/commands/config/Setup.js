@@ -53,6 +53,8 @@ export default class Setup extends Command {
         else {
             subCommand = args[0];
         }
+        const embed = client.embed()
+            .setColor(client.color.main);
         switch (subCommand) {
             case 'create':
                 const data = await client.prisma.setup.findFirst({
@@ -84,8 +86,6 @@ export default class Setup extends Command {
                         }
                     ]
                 });
-                const embed = client.embed()
-                    .setColor(client.color.main);
                 const player = this.client.queue.get(ctx.guild.id);
                 const image = this.client.config.links.img;
                 const desc = player && player.queue && player.current ? `[${player.current.info.title}](${player.current.info.uri})` : 'Nothing playing right now';

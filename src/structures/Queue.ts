@@ -22,10 +22,11 @@ export class Queue extends Map {
 
   public async create(guild: Guild, voice: any, channel: any, givenNode?: Node) {
     let dispatcher = this.get(guild.id);
-
+    if (!voice) throw new Error('No voice channel was provided');
+    if (!channel) throw new Error('No text channel was provided');
+    if (!guild) throw new Error('No guild was provided');
     if (!dispatcher) {
       const node = givenNode || this.client.shoukaku.getNode();
-
       const player = await node.joinChannel({
         guildId: guild.id,
         channelId: voice.id,
