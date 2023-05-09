@@ -7,47 +7,7 @@ export default class InteractionCreate extends Event {
         });
     }
     async run(interaction) {
-        if (interaction.isButton()) {
-            const setup = await this.client.prisma.setup.findUnique({
-                where: {
-                    guildId: interaction.guildId,
-                },
-            });
-            if (setup && interaction.channelId === setup.textId && interaction.message.id === setup.messageId) {
-                return this.client.emit('setupButtons', interaction);
-            }
-        }
-        if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
-            if (interaction.commandName == "play") {
-                const song = interaction.options.getString("song");
-                let player = this.client.queue.get(interaction.guildId);
-                if (!player) {
-                    player = await this.client.queue.create(interaction.guild, interaction.member.voice.channel, interaction.channel, this.client.shoukaku.getNode());
-                }
-                const res = await this.client.queue.search(song);
-                let songs = [];
-                switch (res.loadType) {
-                    case 'LOAD_FAILED':
-                        break;
-                    case 'NO_MATCHES':
-                        break;
-                    case 'TRACK_LOADED':
-                        break;
-                    case 'PLAYLIST_LOADED':
-                        break;
-                    case 'SEARCH_RESULT':
-                        songs.push({
-                            name: res.tracks[0].info.title,
-                            value: res.tracks[0].info.uri
-                        });
-                        break;
-                    default:
-                        break;
-                }
-                interaction.respond(songs).catch(() => { });
-            }
-        }
-        else if (interaction.type === InteractionType.ApplicationCommand) {
+        if (interaction.type === InteractionType.ApplicationCommand) {
             const { commandName } = interaction;
             const command = this.client.commands.get(interaction.commandName);
             if (!command)
@@ -184,6 +144,42 @@ export default class InteractionCreate extends Event {
             catch (error) {
                 this.client.logger.error(error);
                 await interaction.reply({ content: `An error occurred: \`${error}\`` });
+            }
+        }
+        else if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
+            if (interaction.commandName == "play") {
+                const song = interaction.options.getString("song");
+                const res = await this.client.queue.search(song);
+                let songs = [];
+                switch (res.loadType) {
+                    case 'LOAD_FAILED':
+                        break;
+                    case 'NO_MATCHES':
+                        break;
+                    case 'TRACK_LOADED':
+                        break;
+                    case 'PLAYLIST_LOADED':
+                        break;
+                    case 'SEARCH_RESULT':
+                        songs.push({
+                            name: res.tracks[0].info.title,
+                            value: res.tracks[0].info.uri
+                        });
+                        break;
+                    default:
+                        break;
+                }
+                interaction.respond(songs).catch(() => { });
+            }
+        }
+        else if (interaction.isButton()) {
+            const setup = await this.client.prisma.setup.findUnique({
+                where: {
+                    guildId: interaction.guildId,
+                },
+            });
+            if (setup && interaction.channelId === setup.textId && interaction.message.id === setup.messageId) {
+                return this.client.emit('setupButtons', interaction);
             }
         }
     }
