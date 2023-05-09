@@ -6,11 +6,12 @@ import * as fs from 'fs';
 const logger = new Logger();
 
 if (!fs.existsSync("./src/utils/LavaLogo.txt")) {
+  logger.error("LavaLogo.txt file is missing", err);
   process.exit(1);
 }
 
-const logFile = fs.readFileSync("./src/utils/LavaLogo.txt", "utf-8");
 try {
+  const logFile = fs.readFileSync("./src/utils/LavaLogo.txt", "utf-8");
   console.log('\x1b[35m%s\x1b[0m', logFile);
 } catch (err) {
   logger.error("[CLIENT] An error has occurred :", err);
