@@ -1,7 +1,7 @@
 {
   "name": "lavamusic",
-  "version": "3.1.0",
-  "description": "LavaMusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, Shoukak (Lavalink) library.",
+  "version": "3.2.0",
+  "description": "LavaMusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, Shoukaku (Lavalink) library.",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "keywords": [
     "discord",
-    "music",
+    "music", 
     "bot",
     "lavalink",
     "shoukaku",
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.11.0",
-    //"canvas": "^2.11.2",
+    "canvas": "^2.11.2",
     "discord.js": "^14.9.0",
     "dotenv": "^16.0.3",
     "shoukaku": "^3.3.1",

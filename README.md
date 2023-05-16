@@ -71,7 +71,6 @@
 - ![Soundgasm](https://img.shields.io/badge/Soundgasm-F1672F?style=plastic&logo=soundgasm&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
 - ![Text To Speech](https://img.shields.io/badge/Text%20To%20Speech-3080ff?style=plastic&logo=google-translate&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
 
-
 [LavaSry]: https://github.com/TopiSenpai/LavaSrc
 [skybot-lavalink-plugin]: https://github.com/DuncteBot/skybot-lavalink-plugin
 
@@ -104,7 +103,6 @@
 | `skipto`      | Skips to a specific song in the queue      |                                           |
 | `stop`        | Stops the music and clears the queue      |                                           |
 | `volume`      | Sets the volume of the player             | `number`: The volume you want to set         |
-
 
 </details>
 
@@ -182,7 +180,7 @@ generator client {
 
 7. Invite the bot to your server:
 
-Generate an invite link for your bot and invite it to your server using the Discord Developer Portal or using permissions calculator: https://discordapi.com/permissions.html
+Generate an invite link for your bot and invite it to your server using the Discord Developer Portal or using permissions calculator: <https://discordapi.com/permissions.html>
 
 ## 🚀 Installation using docker-compose
 

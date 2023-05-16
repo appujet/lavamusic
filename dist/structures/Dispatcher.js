@@ -143,7 +143,7 @@ export default class Dispatcher {
         }
     }
     async Autoplay(song) {
-        const resolve = await this.node.rest.resolve(`ytmsearch:${song.info.author}`);
+        const resolve = await this.node.rest.resolve(`${this.client.config.searchEngine}:${song.info.author}`);
         if (!resolve || !resolve.tracks.length)
             return this.destroy();
         let choosed = new Song(resolve.tracks[Math.floor(Math.random() * resolve.tracks.length)], this.client.user);
