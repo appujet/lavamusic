@@ -30,15 +30,21 @@ export default class Invite extends Command {
     });
   }
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
+    const clientId = process.env.CLIENT_ID;
+    if (!clientId) {
+      console.error('Client ID not found in environment variables, cannot generate invite link.');
+      return ctx.sendMessage('Sorry, my invite link is not available at this time. Please tell the bot developer to check their console.')
+    }
+
     const embed = this.client.embed();
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setLabel('Invite Lavamusic')
+        .setLabel('Invite')
         .setStyle(ButtonStyle.Link)
         .setURL(
-          `https://discord.com/api/oauth2/authorize?client_id=875635121770889257&permissions=8&scope=bot%20applications.commands`,
+          `https://discord.com/api/oauth2/authorize?client_id=${clientId}&permissions=8&scope=bot%20applications.commands`,
         ),
-      new ButtonBuilder().setLabel('Support Server').setStyle(ButtonStyle.Link).setURL('https://discord.gg/ns8CTk9J3e'),
+      new ButtonBuilder().setLabel('My Server').setStyle(ButtonStyle.Link).setURL('https://discord.gg/U4k6v7Dagr'),
     );
 
     return ctx.sendMessage({
@@ -46,20 +52,10 @@ export default class Invite extends Command {
         embed
           .setColor(this.client.color.main)
           .setDescription(
-            `[Invite Lavamusic](https://discord.com/api/oauth2/authorize?client_id=875635121770889257&permissions=8&scope=bot%20applications.commands) | [Support Server](https://discord.gg/ns8CTk9J3e)`,
+            `You can invite me by clicking the button below. Any bugs or outages? Join the support server!`,
           ),
       ],
       components: [row],
     });
   }
 }
-
-/**
- * Project: lavamusic
- * Author: Blacky
- * Company: Coders
- * Copyright (c) 2023. All rights reserved.
- * This code is the property of Coder and may not be reproduced or
- * modified without permission. For more information, contact us at
- * https://discord.gg/ns8CTk9J3e
- */
