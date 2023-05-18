@@ -10,7 +10,7 @@ export default class Stop extends Command {
         usage: 'stop',
       },
       category: 'music',
-      aliases: ['st'],
+      aliases: ['sp'],
       cooldown: 3,
       args: false,
       player: {
