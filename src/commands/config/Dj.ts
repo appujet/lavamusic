@@ -6,7 +6,7 @@ export default class Dj extends Command {
     super(client, {
       name: 'dj',
       description: {
-        content: "Shows the bot's prefix",
+        content: "Manage the DJ mode and associated roles",
         examples: ['dj add @role', 'dj remove @role', 'dj clear', 'dj toggle'],
         usage: 'dj',
       },
