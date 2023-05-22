@@ -44,7 +44,7 @@ export default class Invite extends Command {
         .setURL(
           `https://discord.com/api/oauth2/authorize?client_id=${clientId}&permissions=8&scope=bot%20applications.commands`,
         ),
-      new ButtonBuilder().setLabel('My Server').setStyle(ButtonStyle.Link).setURL('https://discord.gg/U4k6v7Dagr'),
+      new ButtonBuilder().setLabel('My Server').setStyle(ButtonStyle.Link).setURL('https://discord.gg/STXurwnZD5'),
     );
 
     return ctx.sendMessage({
