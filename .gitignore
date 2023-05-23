@@ -11,3 +11,6 @@
 # Ignore all files in the node_modules folder
 /node_modules
 
+# Ignore target folder
+
+target
