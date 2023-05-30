@@ -13,17 +13,17 @@ export default class QueueEnd extends Event {
     public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
         const guild = this.client.guilds.cache.get(dispatcher.guildId)
         if (!guild) return;
-        dispatcher.stopped = true;
-        dispatcher.queue = [];
-        dispatcher.previous = null;
-        dispatcher.current = null;
-        dispatcher.loop = 'off';
-        dispatcher.matchedTracks = [];
-        dispatcher.repeat = 0;
-        dispatcher.shuffle = false;
-        dispatcher.paused = false;
-        dispatcher.filters = [];
-        dispatcher.autoplay = false;
+        if (dispatcher.loop === 'repeat') dispatcher.queue.unshift(track);
+        if (dispatcher.loop === 'queue') dispatcher.queue.push(track);
+        if (dispatcher.autoplay) {
+            await dispatcher.Autoplay(track);
+        } else {
+            dispatcher.autoplay = false;
+        }
+        if (dispatcher.loop === 'off') {
+            dispatcher.previous = dispatcher.current;
+            dispatcher.current = null;
+        }
         await updateSetup(this.client, guild);
     }
 }

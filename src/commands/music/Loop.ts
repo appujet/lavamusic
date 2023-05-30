@@ -34,16 +34,16 @@ export default class Loop extends Command {
 
     switch (player.loop) {
       case 'off':
-        player.loop = 'queue';
-        return ctx.sendMessage({
-          embeds: [embed.setDescription(`**Looping the queue**`).setColor(client.color.main)],
-        });
-      case 'queue':
         player.loop = 'repeat';
         return ctx.sendMessage({
           embeds: [embed.setDescription(`**Looping the song**`).setColor(client.color.main)],
         });
       case 'repeat':
+        player.loop = 'queue';
+        return ctx.sendMessage({
+          embeds: [embed.setDescription(`**Looping the queue**`).setColor(client.color.main)],
+        });
+      case 'queue':
         player.loop = 'off';
         return ctx.sendMessage({
           embeds: [embed.setDescription(`**Looping is now off**`).setColor(client.color.main)],

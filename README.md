@@ -10,6 +10,7 @@
 [![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://repl.it/github/brblacky/lavamusic)
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/brblacky/lavamusic)
 
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -260,6 +261,14 @@ Your contribution will be reviewed by the project maintainers, and any necessary
 
 Distributed under the Apache-2.0 license License. See ![LICENSE](https://img.shields.io/github/license/brblacky/lavamusic?style=social) for more information.
 
+
+## ☕ Donate
+Do you like this project? Support it by donating
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H7LKT9L)
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/sdip521)
+
+
 ## 👥 Contributors
 
 Thanks goes to these wonderful people :
@@ -267,6 +276,7 @@ Thanks goes to these wonderful people :
 <a href="https://github.com/brblacky/lavamusic/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=brblacky/lavamusic" />
 </a>
+
 
 [version-shield]: https://img.shields.io/github/package-json/v/brblacky/lavamusic?style=for-the-badge
 [contributors-shield]: https://img.shields.io/github/contributors/brblacky/lavamusic.svg?style=for-the-badge
