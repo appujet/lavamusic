@@ -5,7 +5,8 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run start:bot",
+    "start": "npm run prisma:generate && npm run start:bot",
+    "prisma:generate": "npx prisma generate",
     "start:bot": "npm run build && node --enable-source-maps dist/index.js",
     "build": "tsc --project tsconfig.json"
   },

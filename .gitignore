@@ -14,3 +14,7 @@
 # Ignore target folder
 
 target
+
+package-lock.json
+
+yarn.lock

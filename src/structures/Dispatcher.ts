@@ -18,6 +18,7 @@ export class Song implements Track {
     requester?: User;
   };
   constructor(track: Song, user: User) {
+    if (!track) throw new Error('Track is not provided');
     this.track = track.track;
     this.info = track.info;
     if (this.info && this.info.requester === undefined) this.info.requester = user;

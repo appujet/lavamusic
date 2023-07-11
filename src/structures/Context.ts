@@ -6,8 +6,10 @@ import {
   Guild,
   GuildMember,
   TextChannel,
-  GuildChannel,
   User,
+  PartialDMChannel,
+  GuildTextBasedChannel,
+  DMChannel
 } from 'discord.js';
 import { Lavamusic } from './index.js';
 
@@ -20,7 +22,7 @@ export default class Context {
   public channelId: string;
   public client: Lavamusic;
   public author: User | null;
-  public channel: GuildChannel | TextChannel | null;
+  public channel: PartialDMChannel | GuildTextBasedChannel | TextChannel | DMChannel | any | null = null;
   public guild: Guild | null;
   public createdAt: Date;
   public createdTimestamp: number;

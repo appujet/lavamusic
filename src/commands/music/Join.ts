@@ -29,7 +29,7 @@ export default class Join extends Command {
     });
   }
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
-    let player = client.queue.get(ctx.guild.id) as any;
+    let player = client.queue.get(ctx.guild.id);
     const embed = this.client.embed();
     if (!player) {
       const vc = ctx.member as any;

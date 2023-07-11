@@ -81,7 +81,7 @@ export default class Search extends Command {
         });
         break;
     }
-    const collector = msg.createMessageComponentCollector({
+    const collector = ctx.channel.createMessageComponentCollector({
       filter: (f: any) => (f.user.id === ctx.author.id ? true : false && f.deferUpdate()),
       max: 1,
       time: 60000,
