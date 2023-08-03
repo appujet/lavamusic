@@ -119,7 +119,7 @@ Before starting with the installation, you need to have the following:
 1. Clone the Lavamusic repository:
   
   ```bash
-  git clone  https://github.com/brblacky/lavamusic.git
+  git clone https://github.com/brblacky/lavamusic.git
 ```
 
 2. change the directory to Lavamusic
@@ -131,7 +131,7 @@ cd lavamusic
 3. Install the required packages:
 
 ```bash
-npm install
+npm i
 ```
 
 4. Set up your environment variables:
