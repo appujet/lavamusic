@@ -1,7 +1,7 @@
 {
   "name": "lavamusic",
   "version": "3.2.0",
-  "description": "LavaMusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, Shoukaku (Lavalink) library.",
+  "description": "LavaMusic is a fonnaya for Discord, written in JavaScript using the Discord.js, Typescript, Shoukaku (Lavalink) library.",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "keywords": [
     "discord",
-    "music",
+    "mu",
     "bot",
     "lavalink",
     "shoukaku",

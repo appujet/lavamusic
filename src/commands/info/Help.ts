@@ -68,7 +68,7 @@ export default class Help extends Command {
         .setColor(this.client.color.main)
         .setTitle('Help Menu')
         .setDescription(
-          `Hey there! I'm ${this.client.user.username}, a music bot made with [Lavamusic](https://github.com/brblacky/lavamusic) and Discord.js. You can use \`${prefix}help <command>\` to get more info on a command.`,
+          `Hey there! I'm ${this.client.user.username}, a fonnaya made with [Lavamusic](https://github.com/brblacky/lavamusic) and Discord.js. You can use \`${prefix}help <command>\` to get more info on a command.`,
         )
         .setFooter({
           text: `Use ${prefix}help <command> for more info on a command`,

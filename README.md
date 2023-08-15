@@ -20,7 +20,7 @@
 
   <h1 align="center">lavamusic</h1>
 
-  <p align="center">Lavamusic is a Discord music bot that uses Discord.js, Shoukaku, Prisma Client (ORM) database (MongoDB), and TypeScript.
+  <p align="center">Lavamusic is a Discord fonnaya that uses Discord.js, Shoukaku, Prisma Client (ORM) database (MongoDB), and TypeScript.
     <br />
     <br />
     <a href="https://discord.com/api/oauth2/authorize?client_id=875635121770889257&permissions=8&scope=bot%20applications.commands">Invite Lavamusic</a>
@@ -117,12 +117,6 @@ Before starting with the installation, you need to have the following:
 ## 🚀 Installation from source
 
 1. Clone the Lavamusic repository:
-  
-  ```bash
-  git clone https://github.com/brblacky/lavamusic.git
-```
-
-2. change the directory to Lavamusic
 
 ```bash
 cd lavamusic
