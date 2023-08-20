@@ -150,6 +150,7 @@ LAVALINK_URL="lava.moebot.xyz:443" # Your lavalink url
 LAVALINK_AUTH="youshallnotpass" # Your lavalink password
 LAVALINK_NAME="Blacky" # Your lavalink name
 LAVALINK_SECURE= "true" # true for secure lavalink
+BOT_ACTIVITY_TYPE=0 # Activity type is a number from 0 to 5 see more here https://discord.com/developers/docs/topics/gateway-events#activity-object-activity-types
 
 ```
 

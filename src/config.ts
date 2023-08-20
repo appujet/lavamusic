@@ -16,6 +16,7 @@ export default {
   maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE) || 100,
   botStatus: process.env.BOT_STATUS || 'online', // online, idle, dnd, invisible
   botActivity: process.env.BOT_ACTIVITY || 'Lavamusic', // set the bot activity
+  botActivityType: parseInt(process.env.BOT_ACTIVITY_TYPE || '2'), // 0 to 5 get more info - https://discord.com/developers/docs/topics/gateway-events#activity-object-activity-types
   maxQueueSize: parseInt(process.env.MAX_QUEUE_SIZE) || 100,
   owners: process.env.OWNERS?.split(','),
   database: process.env.DATABASE_URL,
