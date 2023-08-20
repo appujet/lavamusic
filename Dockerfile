@@ -9,7 +9,10 @@ COPY package*.json ./
 
 # Update NPM and Clean Install Packages
 RUN npm install -g npm@latest
-RUN npm ci
+# delete node_modules and package-lock.json
+RUN rm -rf node_modules package-lock.json
+# install packages
+RUN npm install
 
 COPY . .
 
@@ -34,7 +37,10 @@ COPY --from=builder /opt/lavamusic/prisma ./prisma
 
 ## Update NPM, Clean Install Packages, and Generate Prisma Files
 RUN npm install -g npm@latest
-RUN npm ci --omit=dev
+# delete node_modules and package-lock.json
+RUN rm -rf node_modules package-lock.json
+# install packages
+RUN npm install
 RUN npx prisma generate
 
 CMD [ "node", "dist/index.js" ]
