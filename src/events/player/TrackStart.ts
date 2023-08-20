@@ -189,7 +189,7 @@ export default class TrackStart extends Event {
                     iconURL: interaction.user.avatarURL({}),
                   }),
                 ],
-                components: [buttonBuilder()],
+                components: [],
               });
             break;
           case 'loop':
