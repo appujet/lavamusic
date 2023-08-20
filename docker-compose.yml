@@ -40,20 +40,20 @@ services:
     container_name: lavamusic
     image: ghcr.io/brblacky/lavamusic:main
     environment:
-     TOKEN: "your bot token" # Your bot token
-     PREFIX: "your bot prefix" # Your bot prefix
-     OWNER_IDS: "your id" # Your id
-     CLIENT_ID: "your bot id" # Your bot id
-     GUILD_ID: "" # Your server Id if you want to use the for single server
-     PRODUCTION: "true" # true for production 
-     SEARCH_ENGINE: "ytsearch" # ytsearch, scsearch or ytmsearch
-     MAX_PLAYLIST_SIZE: "100" # Max playlist size
-     MAX_QUEUE_SIZE: "100" # Max queue size
-     DATABASE_URL: "mongodb://mongoadmin:mongopassword@db:27017" # Your mongodb url
-     LAVALINK_URL: "localhost:2333" # Your lavalink url
-     LAVALINK_AUTH: "youshallnotpass" # Your lavalink password
-     LAVALINK_NAME: "Blacky" # Your lavalink name
-     LAVALINK_SECURE: "false" # true if you are using https
+      TOKEN: "your bot token" # Your bot token
+      PREFIX: "your bot prefix" # Your bot prefix
+      OWNER_IDS: "your id" # Your id
+      CLIENT_ID: "your bot id" # Your bot id
+      GUILD_ID: "" # Your server Id if you want to use the for single server
+      PRODUCTION: "true" # true for production 
+      SEARCH_ENGINE: "ytsearch" # ytsearch, scsearch or ytmsearch
+      MAX_PLAYLIST_SIZE: "100" # Max playlist size
+      MAX_QUEUE_SIZE: "100" # Max queue size
+      DATABASE_URL: "mongodb://mongoadmin:mongopassword@db:27017" # Your mongodb url
+      LAVALINK_URL: "localhost:2333" # Your lavalink url
+      LAVALINK_AUTH: "youshallnotpass" # Your lavalink password
+      LAVALINK_NAME: "Blacky" # Your lavalink name
+      LAVALINK_SECURE: "false" # true if you are using https
     restart: on-failure
     depends_on:
       - lavalink
@@ -64,6 +64,7 @@ services:
 
 volumes:
   mongodb_data:
+
 
 networks:
   default:

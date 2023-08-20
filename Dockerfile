@@ -12,7 +12,7 @@ RUN npm install -g npm@latest
 # delete node_modules and package-lock.json
 RUN rm -rf node_modules package-lock.json
 # install packages
-RUN npm install --force
+RUN npm install
 
 COPY . .
 
@@ -40,7 +40,7 @@ RUN npm install -g npm@latest
 # delete node_modules and package-lock.json
 RUN rm -rf node_modules package-lock.json
 # install packages
-RUN npm install --force
+RUN npm install
 RUN npx prisma generate
 
 CMD [ "node", "dist/index.js" ]
