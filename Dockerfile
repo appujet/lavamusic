@@ -9,7 +9,8 @@ COPY package*.json ./
 
 # Update NPM and Clean Install Packages
 RUN npm install -g npm@latest
-RUN npm ci
+RUN npm config set cache /tmp/.npm  # Set npm cache directory
+RUN npm ci --registry=https://registry.npmjs.org/  # Use a specific registry if needed
 
 COPY . .
 
@@ -34,7 +35,8 @@ COPY --from=builder /opt/lavamusic/prisma ./prisma
 
 ## Update NPM, Clean Install Packages, and Generate Prisma Files
 RUN npm install -g npm@latest
-RUN npm ci --omit=dev
+RUN npm config set cache /tmp/.npm  # Set npm cache directory
+RUN npm ci --omit=dev --registry=https://registry.npmjs.org/
 RUN npx prisma generate
 
 CMD [ "node", "dist/index.js" ]
