@@ -9,7 +9,9 @@ COPY package*.json ./
 
 # Update NPM and Clean Install Packages
 RUN npm install -g npm@latest
-RUN npm config set cache /tmp/.npm
+# delete node_modules and package-lock.json
+RUN rm -rf node_modules package-lock.json
+# install packages
 RUN npm ci
 
 COPY . .
@@ -35,7 +37,9 @@ COPY --from=builder /opt/lavamusic/prisma ./prisma
 
 ## Update NPM, Clean Install Packages, and Generate Prisma Files
 RUN npm install -g npm@latest
-RUN npm config set cache /tmp/.npm
+# delete node_modules and package-lock.json
+RUN rm -rf node_modules package-lock.json
+# install packages
 RUN npm ci
 RUN npx prisma generate
 
