@@ -28,7 +28,10 @@ export default class TrackStart extends Event {
         .setStyle(player.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
       const stopButton = new ButtonBuilder().setCustomId('stop').setEmoji('⏹️').setStyle(ButtonStyle.Danger);
       const skipButton = new ButtonBuilder().setCustomId('skip').setEmoji('⏩').setStyle(ButtonStyle.Secondary);
-      const loopButton = new ButtonBuilder().setCustomId('loop').setEmoji('🔁').setStyle(ButtonStyle.Secondary);
+      const loopButton = new ButtonBuilder()
+        .setCustomId('loop')
+        .setEmoji(dispatcher.loop === 'repeat' ? '🔂' : '🔁')
+        .setStyle(dispatcher.loop !== 'off' ? ButtonStyle.Success : ButtonStyle.Secondary);
 
       return new ActionRowBuilder<ButtonBuilder>().addComponents(
         previousButton,
