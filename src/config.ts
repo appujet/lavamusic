@@ -27,7 +27,7 @@ export default {
     img: process.env.IMG_LINK || 'https://i.imgur.com/ud3EWNh.jpg'
   },
   icons: {
-    youtube: 'https://media.discordapp.net/attachments/963097935820750878/1054328059639111700/3670147.png',
+    youtube: 'https://cdn.discordapp.com/attachments/852316384289619968/1142853793822822551/3670147.png',
     spotify: 'https://media.discordapp.net/attachments/963097935820750878/1054333449252655104/spotify.png',
     soundcloud: 'https://media.discordapp.net/attachments/963097935820750878/1054333449638526986/145809.png',
     applemusic: 'https://media.discordapp.net/attachments/963097935820750878/1054333450368340018/apple-music-icon.png',
