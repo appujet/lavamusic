@@ -15,8 +15,9 @@ export default {
   searchEngine: process.env.SEARCH_ENGINE || (SearchEngine.YouTube as SearchEngine),
   dashboard: {
     port: parseInt(process.env.DASHBOARD_PORT) || 3000,
-    website: process.env.DASHBOARD_WEBSITE || 'http://localhost:3000',
+    website: process.env.DASHBOARD_WEBSITE || 'http://localhost',
     enable: parseBoolean(process.env.DASHBOARD_ENABLE) || true,
+    redirectUri: process.env.DASHBOARD_REDIRECT_URI || 'http://localhost:3000/api/auth/redirect',
   },
   maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE) || 100,
   botStatus: process.env.BOT_STATUS || 'online', // online, idle, dnd, invisible
@@ -26,6 +27,7 @@ export default {
   owners: process.env.OWNERS?.split(','),
   database: process.env.DATABASE_URL,
   clientId: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET || "",
   guildId: process.env.GUILD_ID,
   logChannelId: process.env.LOG_CHANNEL_ID || "",
   links: {

@@ -73,6 +73,11 @@ model Roles {
 model User {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   userId    String     @unique
+  accessToken String?
+  refreshToken String?
+  avatar    String?
+  username  String?
+  discriminator String?
   playlists Playlist[]
   premium   Premium?
 }
@@ -94,12 +99,4 @@ model Premium {
   guildId   String  @unique
   user      User?   @relation(fields: [userId], references: [userId])
   guild     Guild?  @relation(fields: [guildId], references: [guildId])
-}
-
-
-model Session {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  sid       String   @unique
-  data      String
-  expiresAt   DateTime
 }

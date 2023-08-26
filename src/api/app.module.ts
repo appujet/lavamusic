@@ -1,13 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { PassportModule } from '@nestjs/passport';
-import { AppService } from './app.service';
-
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { DiscordModule } from './discord/discord.module';
+import { GuildsModule } from './guilds/guilds.module';
+import { WebSocketModule } from './websocket/websocket.module';
 @Module({
-  imports: [
-    PassportModule.register({ session: true }),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        AuthModule,
+        UserModule,
+        DiscordModule,
+        GuildsModule,
+        WebSocketModule,
+    ],
+    controllers: [],
+    providers: [],
 })
-export class AppModule {}
+export class AppModule { }

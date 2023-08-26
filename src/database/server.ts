@@ -1,4 +1,4 @@
-import {PrismaClient } from '@prisma/client';
+import {Guild, PrismaClient } from '@prisma/client';
 
 export default class ServerData {
     static prisma = new PrismaClient();
@@ -23,7 +23,7 @@ export default class ServerData {
         return data.prefix;
     }
 
-    static async setPrefix(guildId: string, prefix: string): Promise<void> {
+    static async setPrefix(guildId: string, prefix: string): Promise<Guild> {
         let data = await this.get(guildId);
         if (!data) {
             await this.prisma.guild.create({
@@ -42,6 +42,7 @@ export default class ServerData {
                 }
             });
         }
+        return data;
     }
 
     static async set_247(guildId: string, textId: string, voiceId: string): Promise<void> {
