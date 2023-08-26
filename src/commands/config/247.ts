@@ -1,4 +1,5 @@
 import { Command, Lavamusic, Context } from '../../structures/index.js';
+import ServerData from '../../database/server.js';
 
 export default class _247 extends Command {
   constructor(client: Lavamusic) {
@@ -39,13 +40,7 @@ export default class _247 extends Command {
     });
     const vc = ctx.member as any;
     if (!data) {
-      await client.prisma.stay.create({
-        data: {
-          guildId: ctx.guild.id,
-          textId: ctx.channel.id,
-          voiceId: vc.voice.channelId,
-        },
-      });
+      await ServerData.set_247(ctx.guild.id, ctx.channel.id, vc.voice.channelId);
       if (!player)
         player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel, client.shoukaku.getNode());
       return ctx.sendMessage({
@@ -57,7 +52,6 @@ export default class _247 extends Command {
           guildId: ctx.guild.id,
         },
       });
-
       return ctx.sendMessage({
         embeds: [embed.setDescription(`**247 mode has been disabled**`).setColor(client.color.red)],
       });

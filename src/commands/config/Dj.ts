@@ -1,5 +1,6 @@
 import { Command, Lavamusic, Context } from '../../structures/index.js';
 import { ApplicationCommandOptionType } from 'discord.js';
+import ServerData from '../../database/server.js';
 
 export default class Dj extends Command {
   constructor(client: Lavamusic) {
@@ -96,34 +97,12 @@ export default class Dj extends Command {
         });
 
       if (!dj) {
-        await this.client.prisma.dj.create({
-          data: {
-            guildId: ctx.guild.id,
-            roles: {
-              create: {
-                roleId: role.id,
-              },
-            },
-            mode: true,
-          },
-        });
+        await ServerData.setDj(ctx.guild.id, role.id);
         return await ctx.sendMessage({
           embeds: [embed.setDescription(`The dj role <@&${role.id}> has been added`)],
         });
       } else {
-        await this.client.prisma.dj.update({
-          where: {
-            guildId: ctx.guild.id,
-          },
-          data: {
-            mode: true,
-            roles: {
-              create: {
-                roleId: role.id,
-              },
-            },
-          },
-        });
+        await ServerData.setDj(ctx.guild.id, role.id);
         return await ctx.sendMessage({
           embeds: [embed.setDescription(`The dj role <@&${role.id}> has been added`)],
         });
@@ -149,17 +128,7 @@ export default class Dj extends Command {
         return await ctx.sendMessage({
           embeds: [embed.setDescription('There are no dj roles to clear')],
         });
-      await this.client.prisma.roles.deleteMany({
-        where: { guildId: ctx.guild.id },
-      });
-      await this.client.prisma.dj.update({
-        where: {
-          guildId: ctx.guild.id,
-        },
-        data: {
-          mode: false,
-        },
-      });
+      await ServerData.setDj(ctx.guild.id);
       return await ctx.sendMessage({
         embeds: [embed.setDescription(`All dj roles have been removed`)],
       });

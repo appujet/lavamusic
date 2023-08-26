@@ -1,4 +1,5 @@
 import { Command, Lavamusic, Context } from '../../structures/index.js';
+import ServerData from '../../database/server.js';
 
 export default class Prefix extends Command {
   constructor(client: Lavamusic) {
@@ -49,11 +50,7 @@ export default class Prefix extends Command {
   }
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
     const embed = client.embed().setColor(client.color.main);
-    let prefix = (await this.client.prisma.guild.findUnique({
-      where: {
-        guildId: ctx.guild.id,
-      },
-    })) as any;
+    let prefix = await ServerData.get(ctx.guild.id);
 
     let subCommand: string;
     let pre: string;
@@ -76,24 +73,14 @@ export default class Prefix extends Command {
           });
 
         if (!prefix) {
-          prefix = await this.client.prisma.guild.create({
-            data: {
-              guildId: ctx.guild.id,
-              prefix: pre,
-            },
-          });
+          await ServerData.setPrefix(ctx.guild.id, pre);
+          prefix = await ServerData.get(ctx.guild.id);
           return await ctx.sendMessage({
             embeds: [embed.setDescription(`The prefix for this server is now \`${prefix.prefix}\``)],
           });
         } else {
-          prefix = await this.client.prisma.guild.update({
-            where: {
-              guildId: ctx.guild.id,
-            },
-            data: {
-              prefix: pre,
-            },
-          });
+          await ServerData.setPrefix(ctx.guild.id, pre);
+          prefix = await ServerData.get(ctx.guild.id);
           return await ctx.sendMessage({
             embeds: [embed.setDescription(`The prefix for this server is now \`${prefix.prefix}\``)],
           });
@@ -103,14 +90,8 @@ export default class Prefix extends Command {
           return await ctx.sendMessage({
             embeds: [embed.setDescription(`The prefix for this server is \`${client.config.prefix}\``)],
           });
-        prefix = await this.client.prisma.guild.update({
-          where: {
-            guildId: ctx.guild.id,
-          },
-          data: {
-            prefix: client.config.prefix,
-          },
-        });
+        await ServerData.setPrefix(ctx.guild.id, client.config.prefix);
+        prefix = await ServerData.get(ctx.guild.id);
         return await ctx.sendMessage({
           embeds: [embed.setDescription(`The prefix for this server is now \`${client.config.prefix}\``)],
         });
