@@ -1,5 +1,5 @@
-import { Command, Lavamusic, Context } from "../../structures/index.js";
-import { ApplicationCommandOptionType } from "discord.js";
+import { Command, Lavamusic, Context } from "../../structures/index";
+import { ApplicationCommandOptionType } from 'discord.js';
 
 export default class Delete extends Command {
     constructor(client: Lavamusic) {
@@ -38,7 +38,7 @@ export default class Delete extends Command {
     }
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
         const playlist = args.join(" ").replace(/\s/g, "");
-        
+
         const playlistExists = await client.prisma.playlist.findFirst({
             where: {
                 userId: ctx.author.id,

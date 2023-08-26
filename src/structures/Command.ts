@@ -1,4 +1,4 @@
-import Lavamusic from './Lavamusic.js';
+import Lavamusic from './Lavamusic';
 import { ApplicationCommandOption, PermissionResolvable } from 'discord.js';
 
 export default class Command {

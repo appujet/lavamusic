@@ -1,13 +1,13 @@
-import { Event, Lavamusic, Dispatcher } from '../../structures/index.js';
+import { Event, Lavamusic, Dispatcher } from '../../structures/index';
 import { Player } from 'shoukaku';
-import { Song } from '../../structures/Dispatcher.js';
-import { updateSetup } from '../../utils/SetupSystem.js';
+import { Song } from '../../structures/Dispatcher';
+import { updateSetup } from '../../utils/SetupSystem';
 
 
 export default class QueueEnd extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-        name: 'queueEnd',
+            name: 'queueEnd',
         });
     }
     public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {

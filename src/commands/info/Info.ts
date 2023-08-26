@@ -1,4 +1,4 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
 import os from 'os';
 import { version } from 'discord.js';
 
@@ -55,8 +55,8 @@ export default class Info extends Command {
 - **Memory Usage**: ${client.utils.formatBytes(usedMem)} / ${client.utils.formatBytes(totalMem)} (${Math.round(
       (usedMem / totalMem) * 100,
     )}%)
-- **Node.js Version**: ${nodeVersion}
-- **Discord.js Version**: ${discordJsVersion}
+- **Node Version**: ${nodeVersion}
+- **Discord Version**: ${discordJsVersion}
 - **Connected to** ${botGuilds} guilds, ${botChannels} channels, and ${botUsers} users
 - **Total Commands**: ${botCommands}
   `;

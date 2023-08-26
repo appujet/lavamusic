@@ -1,4 +1,4 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
 
 export default class Grab extends Command {
   constructor(client: Lavamusic) {
@@ -40,8 +40,7 @@ export default class Grab extends Command {
         .setURL(song.info.uri)
         .setThumbnail(song.info.thumbnail)
         .setDescription(
-          `**Duration:** ${
-            song.info.isStream ? 'LIVE' : client.utils.formatTime(song.info.length)
+          `**Duration:** ${song.info.isStream ? 'LIVE' : client.utils.formatTime(song.info.length)
           }\n**Requested by:** ${song.info.requester}\n**Link:** [Click here](${song.info.uri})`,
         )
         .setColor(client.color.main);

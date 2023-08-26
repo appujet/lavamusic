@@ -1,4 +1,4 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
 
 export default class Seek extends Command {
   constructor(client: Lavamusic) {
@@ -38,7 +38,7 @@ export default class Seek extends Command {
   public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
     const player = client.queue.get(ctx.guild.id);
     const embed = this.client.embed();
-    
+
     const time = client.utils.parseTime(args[0]);
     if (!time)
       return ctx.sendMessage({

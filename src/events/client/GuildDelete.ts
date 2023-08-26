@@ -1,5 +1,5 @@
 import { EmbedBuilder, Guild, TextChannel } from 'discord.js';
-import { Event, Lavamusic } from '../../structures/index.js';
+import { Event, Lavamusic } from '../../structures/index';
 
 
 export default class GuildDelete extends Event {

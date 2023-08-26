@@ -1,4 +1,4 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
 export default class About extends Command {

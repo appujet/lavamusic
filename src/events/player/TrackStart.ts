@@ -1,8 +1,8 @@
-import { Event, Lavamusic, Dispatcher } from '../../structures/index.js';
+import { Event, Lavamusic, Dispatcher } from '../../structures/index';
 import { Player } from 'shoukaku';
-import { Song } from '../../structures/Dispatcher.js';
+import { Song } from '../../structures/Dispatcher';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, TextChannel, Interaction, ButtonInteraction, ChannelSelectMenuInteraction, MentionableSelectMenuInteraction, RoleSelectMenuInteraction, StringSelectMenuInteraction, UserSelectMenuInteraction } from 'discord.js';
-import { trackStart } from '../../utils/SetupSystem.js';
+import { trackStart } from '../../utils/SetupSystem';
 
 export default class TrackStart extends Event {
   constructor(client: Lavamusic, file: string) {

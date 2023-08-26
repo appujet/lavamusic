@@ -1,4 +1,4 @@
-import { Event, Lavamusic } from '../../structures/index.js';
+import { Event, Lavamusic } from '../../structures/index';
 import { ChannelType } from 'discord.js';
 
 export default class VoiceStateUpdate extends Event {
@@ -30,7 +30,7 @@ export default class VoiceStateUpdate extends Event {
         newState.guild.members.me.permissions.has(['Connect', 'Speak']) ||
         newState.channel.permissionsFor(newState.guild.members.me).has('MuteMembers')
       ) {
-        await newState.guild.members.me.voice.setSuppressed(false).catch(() => {});
+        await newState.guild.members.me.voice.setSuppressed(false).catch(() => { });
       }
     }
     if (newState.id == this.client.user.id) return;

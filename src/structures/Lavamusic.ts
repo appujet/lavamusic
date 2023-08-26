@@ -11,15 +11,14 @@ import {
 } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import Logger from './Logger.js';
-import config from '../config.js';
-import loadPlugins from '../plugin/index.js';
-import { ShoukakuClient, Queue } from './index.js';
-import { Utils } from '../utils/Utils.js';
+import Logger from './Logger';
+import config from '../config';
+import loadPlugins from '../plugin/index';
+import { ShoukakuClient, Queue } from './index';
+import { Utils } from '../utils/Utils';
 import { PrismaClient } from '@prisma/client';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 
 export default class Lavamusic extends Client {
   public commands: Collection<string, any> = new Collection();

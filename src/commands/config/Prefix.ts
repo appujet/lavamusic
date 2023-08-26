@@ -1,5 +1,5 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
-import ServerData from '../../database/server.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
+import ServerData from '../../database/server';
 
 export default class Prefix extends Command {
   constructor(client: Lavamusic) {

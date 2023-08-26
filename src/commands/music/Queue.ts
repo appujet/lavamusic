@@ -1,4 +1,4 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
 
 export default class Queue extends Command {
   constructor(client: Lavamusic) {
@@ -37,18 +37,15 @@ export default class Queue extends Command {
             .embed()
             .setColor(this.client.color.main)
             .setDescription(
-              `Now playing: [${player.current.info.title}](${player.current.info.uri}) - Request By: ${
-                player.current?.info.requester
-              } - Duration: ${
-                player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(player.current.info.length)
+              `Now playing: [${player.current.info.title}](${player.current.info.uri}) - Request By: ${player.current?.info.requester
+              } - Duration: ${player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(player.current.info.length)
               }`,
             ),
         ],
       });
     const queue = player.queue.map(
       (track, index) =>
-        `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info.requester} - Duration: ${
-          track.info.isStream ? 'LIVE' : this.client.utils.formatTime(track.info.length)
+        `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info.requester} - Duration: ${track.info.isStream ? 'LIVE' : this.client.utils.formatTime(track.info.length)
         }`,
     );
     let chunks = client.utils.chunk(queue, 10) as any;

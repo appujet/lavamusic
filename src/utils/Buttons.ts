@@ -1,4 +1,4 @@
-import { ButtonBuilder, ActionRowBuilder, ButtonStyle } from "discord.js";
+import { ButtonBuilder, ActionRowBuilder, ButtonStyle } from 'discord.js';
 
 function getButtons(): ActionRowBuilder<ButtonBuilder>[] {
     let pausebut = new ButtonBuilder()

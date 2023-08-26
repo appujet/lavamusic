@@ -1,4 +1,4 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
 
 export default class NightCore extends Command {
   constructor(client: Lavamusic) {

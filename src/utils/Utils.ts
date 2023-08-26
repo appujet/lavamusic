@@ -1,5 +1,5 @@
 import { ButtonStyle, CommandInteraction, TextChannel, ButtonBuilder, ActionRowBuilder } from 'discord.js';
-import { Context } from '../structures/index.js';
+import { Context } from '../structures/index';
 
 export class Utils {
   public static formatTime(ms: number): string {
@@ -96,13 +96,13 @@ export class Utils {
     if (ctx.isInteraction) {
       msg = ctx.deferred
         ? await ctx.interaction.followUp({
-            ...(msgOptions as any),
-            fetchReply: true as boolean,
-          })
+          ...(msgOptions as any),
+          fetchReply: true as boolean,
+        })
         : await ctx.interaction.reply({
-            ...(msgOptions as any),
-            fetchReply: true,
-          });
+          ...(msgOptions as any),
+          fetchReply: true,
+        });
     } else {
       msg = await (ctx.channel as TextChannel).send({
         ...(msgOptions as any),

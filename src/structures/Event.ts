@@ -1,4 +1,4 @@
-import Lavamusic from './Lavamusic.js';
+import Lavamusic from './Lavamusic';
 
 export default class Event {
   public client: Lavamusic;

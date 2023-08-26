@@ -1,4 +1,4 @@
-import { Lavamusic, Context, Command } from '../../structures/index.js';
+import { Lavamusic, Context, Command } from '../../structures/index';
 
 export default class Pause extends Command {
   constructor(client: Lavamusic) {

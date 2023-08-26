@@ -1,5 +1,5 @@
 import { Shoukaku, Connectors } from 'shoukaku';
-import { Lavamusic } from './index.js';
+import { Lavamusic } from './index';
 
 export default class ShoukakuClient extends Shoukaku {
   public client: Lavamusic;

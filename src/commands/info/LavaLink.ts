@@ -1,30 +1,30 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
 
 export default class LavaLink extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-        name: 'lavalink',
-        description: {
-            content: 'Shows the current Lavalink stats',
-            examples: ['lavalink'],
-            usage: 'lavalink',
-        },
-        category: 'info',
-        aliases: ['ll'],
-        cooldown: 3,
-        args: false,
-        player: {
-            voice: false,
-            dj: false,
-            active: false,
-            djPerm: null,
-        },
-        permissions: {
-            dev: false,
-            client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
-            user: [],
-        },
-        slashCommand: true,
+            name: 'lavalink',
+            description: {
+                content: 'Shows the current Lavalink stats',
+                examples: ['lavalink'],
+                usage: 'lavalink',
+            },
+            category: 'info',
+            aliases: ['ll'],
+            cooldown: 3,
+            args: false,
+            player: {
+                voice: false,
+                dj: false,
+                active: false,
+                djPerm: null,
+            },
+            permissions: {
+                dev: false,
+                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                user: [],
+            },
+            slashCommand: true,
         });
     }
     public async run(client: Lavamusic, ctx: Context): Promise<void> {
@@ -33,7 +33,7 @@ export default class LavaLink extends Command {
         embed.setColor(this.client.color.main)
         embed.setThumbnail(this.client.user.avatarURL({}))
         embed.setTimestamp()
-         client.shoukaku.nodes.forEach((node) => {
+        client.shoukaku.nodes.forEach((node) => {
             try {
                 embed.addFields({ name: "Name", value: `${node.name} (${node.stats ? "🟢" : "🔴"})` })
                 embed.addFields({ name: "Player", value: `${node.stats.players}` })
@@ -46,7 +46,7 @@ export default class LavaLink extends Command {
             } catch (e) {
                 console.log(e);
             }
-         });
+        });
         return await ctx.sendMessage({ embeds: [embed] });
     }
 }

@@ -1,7 +1,7 @@
-import { EmbedBuilder, Message, TextChannel } from "discord.js";
-import { Lavamusic, Dispatcher } from "../structures/index.js";
-import { Song } from '../structures/Dispatcher.js';
-import { getButtons } from "./Buttons.js";
+import { EmbedBuilder, Message, TextChannel } from 'discord.js';
+import { Lavamusic, Dispatcher } from "../structures/index";
+import { Song } from '../structures/Dispatcher';
+import { getButtons } from "./Buttons";
 
 
 function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic) {

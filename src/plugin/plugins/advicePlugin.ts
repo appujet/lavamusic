@@ -1,5 +1,5 @@
-import { BotPlugin } from '../types.js';
-import { Lavamusic } from '../../structures/index.js';
+import { BotPlugin } from '../index';
+import { Lavamusic } from '../../structures/index';
 import { Message } from 'discord.js';
 
 const advicePlugin: BotPlugin = {

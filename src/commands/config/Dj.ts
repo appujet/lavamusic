@@ -1,6 +1,6 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
 import { ApplicationCommandOptionType } from 'discord.js';
-import ServerData from '../../database/server.js';
+import ServerData from '../../database/server';
 
 export default class Dj extends Command {
   constructor(client: Lavamusic) {

@@ -1,4 +1,4 @@
-import { Event, Lavamusic, Context } from '../../structures/index.js';
+import { Event, Lavamusic, Context } from '../../structures/index';
 import { Message, PermissionFlagsBits, Collection, ChannelType } from 'discord.js';
 
 export default class MessageCreate extends Event {

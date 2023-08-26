@@ -1,6 +1,7 @@
-import config from "./config.js";
+import 'reflect-metadata';
+import config from "./config";
 import { ShardingManager } from "discord.js";
-import Logger from "./structures/Logger.js";
+import Logger from "./structures/Logger";
 import * as fs from 'fs';
 
 const logger = new Logger();

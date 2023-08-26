@@ -1,5 +1,5 @@
-import { ApplicationCommandOptionType } from "discord.js";
-import { Command, Lavamusic, Context } from "../../structures/index.js";
+import { ApplicationCommandOptionType } from 'discord.js';
+import { Command, Lavamusic, Context } from "../../structures/index";
 
 
 export default class Create extends Command {

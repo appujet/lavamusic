@@ -1,4 +1,4 @@
-import { Lavamusic, Context, Command } from '../../structures/index.js';
+import { Lavamusic, Context, Command } from '../../structures/index';
 
 export default class Help extends Command {
   constructor(client: Lavamusic) {
@@ -68,7 +68,7 @@ export default class Help extends Command {
         .setColor(this.client.color.main)
         .setTitle('Help Menu')
         .setDescription(
-          `Hey there! I'm ${this.client.user.username}, a music bot made with [Lavamusic](https://github.com/brblacky/lavamusic) and Discord.js. You can use \`${prefix}help <command>\` to get more info on a command.`,
+          `Hey there! I'm ${this.client.user.username}, a music bot made with [Lavamusic](https://github.com/brblacky/lavamusic) and Discord. You can use \`${prefix}help <command>\` to get more info on a command.`,
         )
         .setFooter({
           text: `Use ${prefix}help <command> for more info on a command`,
@@ -89,9 +89,8 @@ export default class Help extends Command {
 **Aliases:** ${command.aliases.map((alias) => `\`${alias}\``).join(', ')}
 **Category:** ${command.category}
 **Cooldown:** ${command.cooldown} seconds
-**Permissions:** ${
-        command.permissions.user.length > 0 ? command.permissions.user.map((perm) => `\`${perm}\``).join(', ') : 'None'
-      }
+**Permissions:** ${command.permissions.user.length > 0 ? command.permissions.user.map((perm) => `\`${perm}\``).join(', ') : 'None'
+          }
 **Bot Permissions:** ${command.permissions.client.map((perm) => `\`${perm}\``).join(', ')}
 **Developer Only:** ${command.permissions.dev ? 'Yes' : 'No'}
 **Slash Command:** ${command.slashCommand ? 'Yes' : 'No'}

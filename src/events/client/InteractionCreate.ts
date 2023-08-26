@@ -1,4 +1,4 @@
-import { Event, Lavamusic, Context } from '../../structures/index.js';
+import { Event, Lavamusic, Context } from '../../structures/index';
 import {
   CommandInteraction,
   Interaction,
@@ -164,7 +164,7 @@ export default class InteractionCreate extends Event {
       }
     } else if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
       if (interaction.commandName == "play") {
-        const song = interaction.options.getString("song")        
+        const song = interaction.options.getString("song")
         const res = await this.client.queue.search(song)
         let songs = []
         switch (res.loadType) {

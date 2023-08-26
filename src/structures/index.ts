@@ -1,10 +1,10 @@
-import Event from './Event.js';
-import Command from './Command.js';
-import Lavamusic from './Lavamusic.js';
-import Context from './Context.js';
-import Dispatcher from './Dispatcher.js';
-import ShoukakuClient from './Shoukaku.js';
-import { Queue } from './Queue.js';
+import Event from './Event';
+import Command from './Command';
+import Lavamusic from './Lavamusic';
+import Context from './Context';
+import Dispatcher from './Dispatcher';
+import ShoukakuClient from './Shoukaku';
+import { Queue } from './Queue';
 
 export { Event, Queue, Command, Lavamusic, Context, ShoukakuClient, Dispatcher };
 

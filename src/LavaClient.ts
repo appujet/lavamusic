@@ -1,6 +1,7 @@
-import Lavamusic from './structures/Lavamusic.js';
+import Lavamusic from './structures/Lavamusic';
 import { ClientOptions, GatewayIntentBits } from 'discord.js';
-import config from './config.js';
+import config from './config';
+import { bootstrap } from './api/main';
 const { GuildMembers, MessageContent, GuildVoiceStates, GuildMessages, Guilds, GuildMessageTyping } = GatewayIntentBits;
 const clientOptions: ClientOptions = {
     intents: [Guilds, GuildMessages, MessageContent, GuildVoiceStates, GuildMembers, GuildMessageTyping],
@@ -13,6 +14,10 @@ const clientOptions: ClientOptions = {
 const client = new Lavamusic(clientOptions);
 
 client.start(config.token);
+
+if (config.dashboard.enable) {
+    bootstrap();
+}
 
 /**
  * Project: lavamusic

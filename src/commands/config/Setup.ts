@@ -1,6 +1,6 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
 import { ApplicationCommandOptionType, OverwriteType, ChannelType, PermissionFlagsBits } from 'discord.js';
-import { getButtons } from '../../utils/Buttons.js';
+import { getButtons } from '../../utils/Buttons';
 
 
 export default class Setup extends Command {
@@ -90,7 +90,7 @@ export default class Setup extends Command {
                 const player = this.client.queue.get(ctx.guild.id);
                 const image = this.client.config.links.img;
                 const desc = player && player.queue && player.current ? `[${player.current.info.title}](${player.current.info.uri})` : 'Nothing playing right now';
-            
+
                 embed.setDescription(desc)
                     .setImage(image)
                 await textChannel.send({

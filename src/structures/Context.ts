@@ -11,7 +11,7 @@ import {
   GuildTextBasedChannel,
   DMChannel
 } from 'discord.js';
-import { Lavamusic } from './index.js';
+import { Lavamusic } from './index';
 
 export default class Context {
   public ctx: CommandInteraction | Message;

@@ -1,6 +1,6 @@
-import { Event, Lavamusic } from '../../structures/index.js';
+import { Event, Lavamusic } from '../../structures/index';
 import { Message, PermissionsBitField } from 'discord.js';
-import { oops, setupStart } from '../../utils/SetupSystem.js';
+import { oops, setupStart } from '../../utils/SetupSystem';
 
 
 export default class SetupSystem extends Event {

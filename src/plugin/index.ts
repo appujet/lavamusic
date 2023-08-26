@@ -1,9 +1,6 @@
-import { Lavamusic } from '../structures/index.js';
+import { Lavamusic } from '../structures/index';
 import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-import { BotPlugin } from './types.js';
 
 export default function loadPlugins(client: Lavamusic): void {
   const pluginsFolder = path.join(__dirname, './plugins');
@@ -16,6 +13,15 @@ export default function loadPlugins(client: Lavamusic): void {
   });
 }
 
+
+export interface BotPlugin {
+  name: string;
+  version: string;
+  author: string;
+  description?: string;
+  initialize: (client: Lavamusic) => void;
+  shutdown?: (client: Lavamusic) => void;
+}
 /**
  * Project: lavamusic
  * Author: Blacky

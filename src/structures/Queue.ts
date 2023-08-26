@@ -1,5 +1,5 @@
 import { Node } from 'shoukaku';
-import { Lavamusic, Dispatcher } from './index.js';
+import { Lavamusic, Dispatcher } from './index';
 import { Guild } from 'discord.js';
 export class Queue extends Map {
   public client: Lavamusic;

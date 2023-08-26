@@ -1,4 +1,4 @@
-import { Command, Lavamusic, Context } from '../../structures/index.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
 
 export default class GuildLeave extends Command {
     constructor(client: Lavamusic) {
@@ -38,7 +38,7 @@ export default class GuildLeave extends Command {
         } catch (e) {
             ctx.sendMessage(`Failed to leave guild ${guild.name}`);
         }
-        
+
     }
 }
 

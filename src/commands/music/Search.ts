@@ -1,6 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
-import { Command, Lavamusic, Context } from '../../structures/index.js';
-import { Song } from '../../structures/Dispatcher.js';
+import { Command, Lavamusic, Context } from '../../structures/index';
+import { Song } from '../../structures/Dispatcher';
 
 export default class Search extends Command {
   constructor(client: Lavamusic) {

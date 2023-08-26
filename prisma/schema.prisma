@@ -95,3 +95,11 @@ model Premium {
   user      User?   @relation(fields: [userId], references: [userId])
   guild     Guild?  @relation(fields: [guildId], references: [guildId])
 }
+
+
+model Session {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  sid       String   @unique
+  data      String
+  expiresAt   DateTime
+}

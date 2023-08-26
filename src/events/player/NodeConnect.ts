@@ -1,4 +1,4 @@
-import { Event, Lavamusic } from '../../structures/index.js';
+import { Event, Lavamusic } from '../../structures/index';
 import { Node } from 'shoukaku';
 
 export default class NodeConnect extends Event {
