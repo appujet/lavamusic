@@ -1,9 +1,8 @@
 import {PrismaClient } from '@prisma/client';
-import type { Guild } from '@prisma/client';
 
 export default class ServerData {
     static prisma = new PrismaClient();
-    static async get(guildId: string): Promise<Guild> {
+    static async get(guildId: string) {
         let data = await this.prisma.guild.findFirst({
             where: {
                 guildId: guildId
