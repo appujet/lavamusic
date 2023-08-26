@@ -1,5 +1,5 @@
-import { Guild, PrismaClient } from '@prisma/client';
-
+import {PrismaClient } from '@prisma/client';
+import type { Guild } from '@prisma/client';
 
 export default class ServerData {
     static prisma = new PrismaClient();
