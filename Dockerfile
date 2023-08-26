@@ -13,6 +13,7 @@ RUN npm install -g npm@latest
 RUN rm -rf node_modules package-lock.json
 # install packages
 RUN npm install
+RUN npx prisma generate
 
 COPY . .
 

@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm run start:bot",
     "prisma:generate": "npx prisma generate",
-    "start:bot": "npm run clean && npm run build && node dist/index.js",
+    "start:bot": "npm run build && node dist/index.js",
     "build": "tsc --project tsconfig.json",
     "clean": "rm -rf dist"
   },
