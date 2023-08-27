@@ -34,11 +34,7 @@ export class DiscordService implements IDiscordService {
         return this.discordHttpService.fetchGuildChannels(guildId);
     }
 
-    getGuildBans(guildId: string) {
-        return this.discordHttpService.fetchGuildBans(guildId);
-    }
-
-    deleteGuildBan(guildId: string, userId: string): Promise<AxiosResponse> {
-        return this.discordHttpService.deleteGuildBan(guildId, userId);
+    getUserDetails(accessToken: string) {
+        return this.discordHttpService.fetchUserDetails(accessToken);
     }
 }

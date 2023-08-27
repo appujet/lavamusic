@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { IDiscordHttpService } from '../interfaces/discord-http';
 import axios, { AxiosResponse } from 'axios';
 import {
-    GuildBanType,
     PartialGuild,
     PartialGuildChannel,
 } from '../../utils/types';
@@ -30,28 +29,6 @@ export class DiscordHttpService implements IDiscordHttpService {
     fetchGuildChannels(guildId: string) {
         return axios.get<PartialGuildChannel[]>(
             `${DISCORD_BASE_URL}/guilds/${guildId}/channels`,
-            {
-                headers: {
-                    Authorization: `Bot ${config.token}`,
-                },
-            },
-        );
-    }
-
-    fetchGuildBans(guildId: string) {
-        return axios.get<GuildBanType[]>(
-            `${DISCORD_BASE_URL}/guilds/${guildId}/bans`,
-            {
-                headers: {
-                    Authorization: `Bot ${config.token}`,
-                },
-            },
-        );
-    }
-
-    deleteGuildBan(guildId: string, userId: string): Promise<AxiosResponse> {
-        return axios.delete(
-            `${DISCORD_BASE_URL}/guilds/${guildId}/bans/${userId}`,
             {
                 headers: {
                     Authorization: `Bot ${config.token}`,

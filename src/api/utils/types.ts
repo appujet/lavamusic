@@ -5,6 +5,7 @@ export type UserDetails = {
     accessToken: string;
     refreshToken: string;
     username: string;
+    avatar: string;
     discriminator: string;
 };
 

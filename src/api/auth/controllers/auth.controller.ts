@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ROUTES } from '../../utils/constants';
 import { AuthUser } from '../../utils/decorators';
 import { User } from "@prisma/client";
@@ -16,8 +15,8 @@ export class AuthController {
 
     @Get('redirect')
     @UseGuards(DiscordAuthGuard)
-    redirect(@AuthUser() user: User) {
-        return user;
+    redirect() {
+        return "Authenticated"
     }
     
     @Get('check')

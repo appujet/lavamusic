@@ -21,18 +21,9 @@ export class DiscordController {
         return data.filter((channel) => channel.type === 0);
     }
 
-    @Get('guilds/:guildId/bans')
-    async getGuildBans(@Param('guildId') guildId: string) {
-        const { data } = await this.discordService.getGuildBans(guildId);
-        return data;
+    @Get('user/:userId')
+    getUserDetails(@Param('userId') userId: string) {
+        return this.discordService.getUserDetails(userId);
     }
 
-    @Delete('guilds/:guildId/bans/:userId')
-    async deleteGuildBan(
-        @Param('guildId') guildId: string,
-        @Param('userId') userId: string,
-    ) {
-        const { data } = await this.discordService.deleteGuildBan(guildId, userId);
-        return data;
-    }
 }

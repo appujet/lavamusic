@@ -23,6 +23,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy) {
             userId: profile.id,
             username: profile.username,
             discriminator: profile.discriminator,
+            avatar: `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`,
             accessToken,
             refreshToken,
         });
