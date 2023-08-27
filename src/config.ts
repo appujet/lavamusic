@@ -18,6 +18,7 @@ export default {
     website: process.env.DASHBOARD_WEBSITE || 'http://localhost',
     enable: parseBoolean(process.env.DASHBOARD_ENABLE) || true,
     redirectUri: process.env.DASHBOARD_REDIRECT_URI || 'http://localhost:3000/api/auth/redirect',
+    sessionSecret: "AMVCXSZXGCHGCTEAEWATRCHVKHGXHDTEWGCJGDZDS",
   },
   maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE) || 100,
   botStatus: process.env.BOT_STATUS || 'online', // online, idle, dnd, invisible

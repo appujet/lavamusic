@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import config from "./config";
 import { ShardingManager } from "discord.js";
 import Logger from "./structures/Logger";
