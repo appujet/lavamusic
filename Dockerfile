@@ -7,11 +7,11 @@ WORKDIR /opt/lavamusic/
 COPY package*.json ./
 RUN npm install
 
-# Generate Prisma files (Ensure you have schema.prisma in your project)
-RUN npx prisma generate
-
 # Copy source code
 COPY . .
+
+# Generate Prisma files (Ensure you have schema.prisma in your project)
+RUN npx prisma generate
 
 # Build TypeScript
 RUN npm run build
