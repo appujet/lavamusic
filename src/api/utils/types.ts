@@ -39,7 +39,6 @@ export type PartialGuildChannel = {
     banner?: string;
 };
 
-export type ModerationActionType = 'ban' | 'kick' | 'timeout';
 
 export type DiscordUserType = {
     id: string;
@@ -59,10 +58,6 @@ export type DiscordUserType = {
     public_flags?: number;
 };
 
-export type GuildBanType = {
-    reason?: string;
-    user: DiscordUserType;
-};
 
 export type Done = (err: Error, user: User) => void;
 
