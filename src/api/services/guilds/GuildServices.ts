@@ -5,13 +5,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 export async function getBotGuildsService() {
-    let res = await fetch(`${DISCORD_API_URL}/users/@me/guilds`, {
-        headers: {
-            Authorization: `Bot ${config.token}`
-        }
-    });
-    let data = await res.json();
-    return data;
+    return await fetchRequest(`${DISCORD_API_URL}/users/@me/guilds`, `Bot ${config.token}`);
 }
 
 export async function getUserGuildsService(id: string) {
@@ -20,31 +14,30 @@ export async function getUserGuildsService(id: string) {
             id: id
         }
     });
+    return await fetchRequest(`${DISCORD_API_URL}/users/@me/guilds`, `Bearer ${user.accessToken}`);
+}
 
-    let res = await fetch(`${DISCORD_API_URL}/users/@me/guilds`, {
-        headers: {
-            Authorization: `Bearer ${user.accessToken}`
-        }
+export async function getMutualGuildsService(id: string) {
+    const botGuilds = await getBotGuildsService(); 
+    const userGuilds = await getUserGuildsService(id);
+    const adminUserGuilds = userGuilds.filter(({ permissions }) => (parseInt(permissions) & 0x8) === 0x8);
+    return adminUserGuilds.filter((guild) => {
+        return botGuilds.some((botGuild) => botGuild.id === guild.id);
     });
-    let data = await res.json();
-    return data;
 }
 
 export async function getGuild(guildId: string) {
-    let res = await fetch(`${DISCORD_API_URL}/guilds/${guildId}`, {
-        headers: {
-            Authorization: `Bot ${config.token}`
-        }
-    });
-    let data = await res.json();
-    return data;
+    return await fetchRequest(`${DISCORD_API_URL}/guilds/${guildId}`, `Bot ${config.token}`);
 }
 
 export async function getGuildChannels(guildId: string) {
-    let res = await fetch(`${DISCORD_API_URL}/guilds/${guildId}/channels`, {
+    return await fetchRequest(`${DISCORD_API_URL}/guilds/${guildId}/channels`, `Bot ${config.token}`);
+}
+
+export async function fetchRequest(url: string, auth): Promise<any> {
+    let res = await fetch(url, {
         headers: {
-            Authorization: `Bot ${config.token}`
-        
+            Authorization: auth
         }
     });
     let data = await res.json();
