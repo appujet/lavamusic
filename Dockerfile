@@ -1,5 +1,5 @@
 # Stage 1: Build TypeScript
-FROM node:14 as builder
+FROM node:18 as builder
 
 WORKDIR /opt/lavamusic/
 
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Create production image
-FROM node:14-slim
+FROM node:18-slim
 
 ENV NODE_ENV production
 
