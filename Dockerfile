@@ -14,10 +14,9 @@ RUN rm -rf node_modules package-lock.json
 # install packages
 RUN npm install
 
-COPY . .
-
 RUN npm run build
 
+COPY . .
 
 ## final image delivery
 FROM node:18-slim
@@ -41,6 +40,8 @@ RUN npm install -g npm@latest
 RUN rm -rf node_modules package-lock.json
 # install packages
 RUN npm install
+
 RUN npx prisma generate
+
 
 CMD [ "node", "dist/index.js" ]
