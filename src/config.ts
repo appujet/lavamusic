@@ -14,7 +14,7 @@ export default {
   },
   searchEngine: process.env.SEARCH_ENGINE || (SearchEngine.YouTube as SearchEngine),
   dashboard: {
-    port: parseInt(process.env.DASHBOARD_PORT) || 3000,
+    port: parseInt(process.env.DASHBOARD_PORT) || 3001,
     website: process.env.DASHBOARD_WEBSITE || 'http://localhost',
     enable: parseBoolean(process.env.DASHBOARD_ENABLE) || true,
     redirectUri: process.env.DASHBOARD_REDIRECT_URI || 'http://localhost:3000/api/auth/redirect',

@@ -1,7 +1,8 @@
-import { fetch } from "undici";
 import { DISCORD_API_URL } from "../../types/types";
 import config from "../../../config";
 import { PrismaClient } from "@prisma/client";
+import { fetch } from "undici";
+
 
 const prisma = new PrismaClient();
 export async function getBotGuildsService() {
@@ -35,13 +36,13 @@ export async function getGuildChannels(guildId: string) {
 }
 
 export async function fetchRequest(url: string, auth): Promise<any> {
-    let res = await fetch(url, {
+    const response = await fetch(url, {
+        method: "GET",
         headers: {
             Authorization: auth
         }
     });
-    let data = await res.json();
-    return data;
+    return await response.json();
 }
 
 
