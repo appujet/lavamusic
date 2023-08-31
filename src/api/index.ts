@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction, Router } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import passport from "passport";
 import Logger from '../structures/Logger';
 import config from '../config';
@@ -21,7 +21,7 @@ export class DiscordDashboard {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(this.errorHandler.bind(this));
         this.app.use(cors({
-            origin: config.dashboard.host + ':' + config.dashboard.port,
+            origin: config.dashboard.website,
             credentials: true
         }));
         this.app.use(session({
