@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import AuthRouter from "./auth/AuthRouter";
 import GuildsRouter from "./guilds/GuildsRouter";
+import GuildRouter from "./guilds/GuildRouter";
 
 export default class MainRouter {
     public router: Router;
@@ -12,6 +13,7 @@ export default class MainRouter {
     private initializeRoutes() {
         this.router.use("/auth", AuthRouter);
         this.router.use("/guilds", GuildsRouter);
+        this.router.use("/guild", GuildRouter);
     }
 }
 

@@ -15,9 +15,10 @@ export default {
   searchEngine: process.env.SEARCH_ENGINE || (SearchEngine.YouTube as SearchEngine),
   dashboard: {
     port: parseInt(process.env.DASHBOARD_PORT) || 3001,
-    website: process.env.DASHBOARD_WEBSITE || 'http://localhost',
+    website: process.env.DASHBOARD_WEBSITE || 'http://localhost:3000',
+    host: process.env.DASHBOARD_HOST || 'http://localhost',
     enable: parseBoolean(process.env.DASHBOARD_ENABLE) || true,
-    redirectUri: process.env.DASHBOARD_REDIRECT_URI || 'http://localhost:3000/api/auth/redirect',
+    redirectUri: process.env.DASHBOARD_REDIRECT_URI || 'http://localhost:3001/api/auth/redirect',
     sessionSecret: "AMVCXSZXGCHGCTEAEWATRCHVKHGXHDTEWGCJGDZDS",
   },
   maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE) || 100,

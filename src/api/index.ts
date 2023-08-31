@@ -21,7 +21,7 @@ export class DiscordDashboard {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(this.errorHandler.bind(this));
         this.app.use(cors({
-            origin: config.dashboard.website + ':' + config.dashboard.port,
+            origin: config.dashboard.host + ':' + config.dashboard.port,
             credentials: true
         }));
         this.app.use(session({

@@ -12,10 +12,6 @@ class GuildsRouter {
     private initializeRoutes() {
         this.router.get("/", IsAuth, getGuildController);
     }
-
-    private getHello(req: Request, res: Response) {
-        res.json({ message: "Hello World" });
-    }
 }
 
 const guildsRouter = new GuildsRouter();

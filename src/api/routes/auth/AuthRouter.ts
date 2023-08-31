@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import passport from "passport";
+import config from "../../../config";
 
 class AuthRouter {
     public router: Router;
@@ -13,13 +14,13 @@ class AuthRouter {
             res.sendStatus(200);
         });
         this.router.get("/redirect", passport.authenticate("discord"), (req, res) => {
-            res.redirect("/dashboard");
+            res.redirect(`${config.dashboard.website}/dashboard`);
         });
         this.router.get("/me", this.getLogin);
     }
 
     private getHello(req: Request, res: Response) {
-        res.json({ message: "Hello World" });
+        res.json({ message: "lavamusic api v1 made by devblacky" });
     }
 
     private async getLogin(req: Request, res: Response) {

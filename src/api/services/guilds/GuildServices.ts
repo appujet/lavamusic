@@ -35,6 +35,18 @@ export async function getGuildChannels(guildId: string) {
     return await fetchRequest(`${DISCORD_API_URL}/guilds/${guildId}/channels`, `Bot ${config.token}`);
 }
 
+export async function getGuildRoles(guildId: string) {
+    return await fetchRequest(`${DISCORD_API_URL}/guilds/${guildId}/roles`, `Bot ${config.token}`);
+}
+
+export async function getGuildMembers(guildId: string) {
+    return await fetchRequest(`${DISCORD_API_URL}/guilds/${guildId}/members`, `Bot ${config.token}`);
+}
+
+export async function getGuildMember(guildId: string, userId: string) {
+    return await fetchRequest(`${DISCORD_API_URL}/guilds/${guildId}/members/${userId}`, `Bot ${config.token}`);
+}
+
 export async function fetchRequest(url: string, auth): Promise<any> {
     const response = await fetch(url, {
         method: "GET",
