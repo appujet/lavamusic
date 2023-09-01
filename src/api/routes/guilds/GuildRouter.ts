@@ -13,7 +13,7 @@ class GuildRouter {
     private initializeRoutes() {
         this.router.get("/:id", IsAuth, this.getGuild);
         this.router.get("/:id/members", IsAuth, this.getGuildsMembers);
-        this.router.post("/:id/prefix", IsAuth, this.updateGuildPrefix);
+        this.router.put("/:id/prefix", IsAuth, this.updateGuildPrefix);
     }
     private async getGuild(req: Request, res: Response) {
         const guild = await getGuild(req.params.id);
@@ -25,7 +25,6 @@ class GuildRouter {
     }
 
     private async updateGuildPrefix(req: Request, res: Response) {
-        console.log(req.params.id, req.body.prefix);
         await ServerData.setPrefix(req.params.id, req.body.prefix);
         return res.sendStatus(200);
     }

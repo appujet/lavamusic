@@ -13,6 +13,12 @@ class AuthRouter {
         this.router.get("/login", passport.authenticate("discord"), (req, res) => {
             res.sendStatus(200);
         });
+        this.router.get("/logout", (req, res, next) => {
+            req.logout(function (err) {
+                if (err) { return next(err); }
+                res.redirect(`${config.dashboard.website}/`);
+            });
+        });
         this.router.get("/redirect", passport.authenticate("discord"), (req, res) => {
             res.redirect(`${config.dashboard.website}/dashboard`);
         });
