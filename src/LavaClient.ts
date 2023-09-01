@@ -1,7 +1,8 @@
 import Lavamusic from './structures/Lavamusic';
 import { ClientOptions, GatewayIntentBits } from 'discord.js';
 import config from './config';
-import { DiscordDashboard } from './api/index';
+import { DiscordDashboard } from "./api";
+import child from "node:child_process";
 const { GuildMembers, MessageContent, GuildVoiceStates, GuildMessages, Guilds, GuildMessageTyping } = GatewayIntentBits;
 const clientOptions: ClientOptions = {
     intents: [Guilds, GuildMessages, MessageContent, GuildVoiceStates, GuildMembers, GuildMessageTyping],
@@ -18,7 +19,16 @@ client.start(config.token);
 if (config.dashboard.enable) {
     const dashboard = new DiscordDashboard();
     dashboard.start();
+    client.logger.start('Starting dashboard...');
+    child.exec('cd src/dashboard && npm i && npm run dev && cd ../..', (err, stdout) => {
+        if (err) {
+            client.logger.error(err);
+            return;
+        }
+        client.logger.start(stdout);
+    });
 }
+
 
 /**
  * Project: lavamusic

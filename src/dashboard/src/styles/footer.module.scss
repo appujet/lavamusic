@@ -1,0 +1,50 @@
+
+
+.footer {
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    margin: 0 auto;
+    a {
+        color: #fff;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer {
+        font-size: 12px;
+    }
+    .footer a {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer {
+        font-size: 10px;
+    }
+    .footer a {
+        font-size: 10px;
+    }
+}

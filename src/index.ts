@@ -3,6 +3,7 @@ import { ShardingManager } from "discord.js";
 import Logger from "./structures/Logger";
 import * as fs from 'fs';
 
+
 const logger = new Logger();
 
 if (!fs.existsSync("./src/utils/LavaLogo.txt")) {
@@ -34,6 +35,7 @@ manager.on("shardCreate", (shard) => {
     logger.start(`[CLIENT] Shard ${shard.id} connected to Discord's Gateway.`);
   });
 });
+
 
 /**
  * Project: lavamusic

@@ -60,7 +60,7 @@ export class DiscordDashboard {
     public async start() {
         try {
             this.app.listen(this.config.dashboard.port, () => {
-                this.logger.info(`Dashboard listening on port ${this.config.dashboard.port}`);
+                this.logger.info(`[API] listening on port ${this.config.dashboard.port}`);
             });
         } catch (err) {
             this.logger.error(err);

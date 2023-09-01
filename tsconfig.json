@@ -3,7 +3,9 @@
         "target": "es2021",
         "module": "CommonJS",
         "lib": [
-            "es2021"
+            "dom",
+            "dom.iterable",
+            "esnext"
         ],
         "declaration": true,
         "sourceMap": true,
@@ -18,4 +20,9 @@
         "importHelpers": true,
         "forceConsistentCasingInFileNames": true,
     },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "src/dashboard"
+    ]
 }

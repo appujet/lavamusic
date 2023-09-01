@@ -42,7 +42,7 @@
 - 24/7 Music Playback
 - Playlist commands
 - Setup music channel
-
+- Dashboard (Work in progress)
 ## 🎶 Support Sources
 
 🔍 **Default Sources**:
