@@ -23,6 +23,6 @@
     "exclude": [
         "node_modules",
         "dist",
-        "src/dashboard"
+        "dashboard"
     ]
 }

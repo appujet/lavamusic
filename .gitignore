@@ -21,3 +21,9 @@ yarn.lock
 .next
 
 /node_modules
+
+pnpm-lock.yaml
+
+yarn-error.log
+
+yarn.lock

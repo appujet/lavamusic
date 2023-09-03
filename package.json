@@ -55,6 +55,7 @@
     "shoukaku": "^3.4.0",
     "signale": "^1.4.0",
     "socket.io": "^4.7.2",
+    "tslib": "^2.6.2",
     "undici": "^5.23.0"
   },
   "signale": {

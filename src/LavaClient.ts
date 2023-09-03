@@ -20,7 +20,7 @@ if (config.dashboard.enable) {
     const dashboard = new DiscordDashboard();
     dashboard.start();
     client.logger.start('Starting dashboard...');
-    child.exec('cd src/dashboard && npm i && npm run dev && cd ../..', (err, stdout) => {
+    child.exec('cd dashboard && npm i && npm run dev && cd ..', (err, stdout) => {
         if (err) {
             client.logger.error(err);
             return;
