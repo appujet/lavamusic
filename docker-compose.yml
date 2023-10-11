@@ -40,7 +40,7 @@ services:
       - ./plugins/:/opt/Lavalink/plugins/ # persist plugins between restarts, make sure to set the correct permissions (user: 322, group: 322)
     restart: on-failure
   lavamusic:
-    container_name: lavamusic-lavalink
+    container_name: lavamusic
     image: ghcr.io/brblacky/lavamusic:main
     environment:
       TOKEN: "your bot token" # Your bot token
