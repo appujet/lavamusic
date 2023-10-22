@@ -1,7 +1,12 @@
-import { Command, Lavamusic, Context } from '../../structures/index';
-import { ApplicationCommandOptionType, OverwriteType, ChannelType, PermissionFlagsBits } from 'discord.js';
-import { getButtons } from '../../utils/Buttons';
+import {
+    ApplicationCommandOptionType,
+    ChannelType,
+    OverwriteType,
+    PermissionFlagsBits,
+} from 'discord.js';
 
+import { Command, Context, Lavamusic } from '../../structures/index';
+import { getButtons } from '../../utils/Buttons';
 
 export default class Setup extends Command {
     constructor(client: Lavamusic) {
@@ -47,119 +52,152 @@ export default class Setup extends Command {
             ],
         });
     }
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
-
+    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         let subCommand: string;
         if (ctx.isInteraction) {
             subCommand = ctx.interaction.options.data[0].name;
         } else {
             subCommand = args[0];
         }
-        const embed = client.embed()
-            .setColor(client.color.main)
+        const embed = client.embed().setColor(client.color.main);
         switch (subCommand) {
-            case 'create':
+            case 'create': {
                 const data = await client.prisma.setup.findFirst({
                     where: {
                         guildId: ctx.guild.id,
                     },
                 });
-                if (data) return ctx.sendMessage({
-                    embeds: [{
-                        description: "The song request channel already exists",
-                        color: client.color.red
-                    }]
-                })
+                if (data)
+                    return await ctx.sendMessage({
+                        embeds: [
+                            {
+                                description: 'The song request channel already exists',
+                                color: client.color.red,
+                            },
+                        ],
+                    });
                 const textChannel = await ctx.guild.channels.create({
                     name: `${this.client.user.username}-song-requests`,
                     type: ChannelType.GuildText,
-                    topic: "Song requests for the music bot",
+                    topic: 'Song requests for the music bot',
                     permissionOverwrites: [
                         {
                             type: OverwriteType.Member,
                             id: this.client.user.id,
-                            allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.ReadMessageHistory]
+                            allow: [
+                                PermissionFlagsBits.ViewChannel,
+                                PermissionFlagsBits.SendMessages,
+                                PermissionFlagsBits.EmbedLinks,
+                                PermissionFlagsBits.ReadMessageHistory,
+                            ],
                         },
                         {
                             type: OverwriteType.Role,
                             id: ctx.guild.roles.everyone.id,
-                            allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory]
-                        }
-                    ]
+                            allow: [
+                                PermissionFlagsBits.ViewChannel,
+                                PermissionFlagsBits.SendMessages,
+                                PermissionFlagsBits.ReadMessageHistory,
+                            ],
+                        },
+                    ],
                 });
                 const player = this.client.queue.get(ctx.guild.id);
                 const image = this.client.config.links.img;
-                const desc = player && player.queue && player.current ? `[${player.current.info.title}](${player.current.info.uri})` : 'Nothing playing right now';
+                const desc =
+                    player && player.queue && player.current
+                        ? `[${player.current.info.title}](${player.current.info.uri})`
+                        : 'Nothing playing right now';
 
-                embed.setDescription(desc)
-                    .setImage(image)
-                await textChannel.send({
-                    embeds: [embed],
-                    components: getButtons()
-                }).then(async (msg) => {
-                    await client.prisma.setup.create({
-                        data: {
-                            guildId: ctx.guild.id,
-                            textId: textChannel.id,
-                            messageId: msg.id
-                        }
+                embed.setDescription(desc).setImage(image);
+                await textChannel
+                    .send({
+                        embeds: [embed],
+                        components: getButtons(),
+                    })
+                    .then(async msg => {
+                        await client.prisma.setup.create({
+                            data: {
+                                guildId: ctx.guild.id,
+                                textId: textChannel.id,
+                                messageId: msg.id,
+                            },
+                        });
                     });
-                });
-                const embed2 = client.embed()
-                    .setColor(client.color.main)
+                const embed2 = client.embed().setColor(client.color.main);
                 await ctx.sendMessage({
-                    embeds: [embed2.setDescription(`The song request channel has been created in ${textChannel}`)]
+                    embeds: [
+                        embed2.setDescription(
+                            `The song request channel has been created in <#${textChannel.id}>`
+                        ),
+                    ],
                 });
                 break;
-            case 'delete':
+            }
+            case 'delete': {
                 const data2 = await client.prisma.setup.findFirst({
                     where: {
                         guildId: ctx.guild.id,
                     },
                 });
-                if (!data2) return ctx.sendMessage({
-                    embeds: [{
-                        description: "The song request channel doesn't exist",
-                        color: client.color.red
-                    }]
-                })
+                if (!data2)
+                    return await ctx.sendMessage({
+                        embeds: [
+                            {
+                                description: 'The song request channel doesn\'t exist',
+                                color: client.color.red,
+                            },
+                        ],
+                    });
                 await client.prisma.setup.delete({
                     where: {
-                        guildId: ctx.guild.id
-                    }
+                        guildId: ctx.guild.id,
+                    },
                 });
-                await ctx.guild.channels.cache.get(data2.textId).delete().catch(() => { });
+                await ctx.guild.channels.cache
+                    .get(data2.textId)
+                    .delete()
+                    .catch(() => {});
                 await ctx.sendMessage({
-                    embeds: [{
-                        description: "The song request channel has been deleted",
-                        color: client.color.main
-                    }]
-                })
+                    embeds: [
+                        {
+                            description: 'The song request channel has been deleted',
+                            color: client.color.main,
+                        },
+                    ],
+                });
                 break;
-            case 'info':
+            }
+
+            case 'info': {
                 const data3 = await client.prisma.setup.findFirst({
                     where: {
                         guildId: ctx.guild.id,
                     },
                 });
-                if (!data3) return ctx.sendMessage({
-                    embeds: [{
-                        description: "The song request channel doesn't exist",
-                        color: client.color.red
-                    }]
-                })
+                if (!data3)
+                    return await ctx.sendMessage({
+                        embeds: [
+                            {
+                                description: 'The song request channel doesn\'t exist',
+                                color: client.color.red,
+                            },
+                        ],
+                    });
                 const channel = ctx.guild.channels.cache.get(data3.textId);
-                embed.setDescription(`The song request channel is ${channel}`)
-                    .setColor(client.color.main)
+                embed
+                    .setDescription(`The song request channel is <#${channel.id}>`)
+                    .setColor(client.color.main);
                 await ctx.sendMessage({
-                    embeds: [embed]
-                })
+                    embeds: [embed],
+                });
                 break;
+            }
             default:
                 break;
         }
     }
-};
+}
 
 /**
  * Project: lavamusic

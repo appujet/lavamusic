@@ -13,17 +13,21 @@
 
 # Ignore target folder
 
-target
+/target
 
 
-yarn.lock
+/yarn.lock
 
-.next
+/.next
 
 /node_modules
 
-pnpm-lock.yaml
+/pnpm-lock.yaml
 
-yarn-error.log
+/yarn-error.log
 
-yarn.lock
+/yarn.lock
+
+/.eslintcache
+
+/package-lock.json

@@ -1,11 +1,11 @@
-import { Command, Lavamusic, Context } from '../../structures/index';
+import { Command, Context, Lavamusic } from '../../structures/index';
 
 export default class GuildLeave extends Command {
     constructor(client: Lavamusic) {
         super(client, {
             name: 'guildleave',
             description: {
-                content: "Leave a guild",
+                content: 'Leave a guild',
                 examples: ['guildleave'],
                 usage: 'guildleave',
             },
@@ -29,16 +29,15 @@ export default class GuildLeave extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
+    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const guild = this.client.guilds.cache.get(args[0]);
-        if (!guild) return ctx.sendMessage('Guild not found');
+        if (!guild) return await ctx.sendMessage('Guild not found');
         try {
             await guild.leave();
             ctx.sendMessage(`Left guild ${guild.name}`);
         } catch (e) {
             ctx.sendMessage(`Failed to leave guild ${guild.name}`);
         }
-
     }
 }
 

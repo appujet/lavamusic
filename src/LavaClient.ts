@@ -1,11 +1,27 @@
-import Lavamusic from './structures/Lavamusic';
 import { ClientOptions, GatewayIntentBits } from 'discord.js';
+import child from 'node:child_process';
+
+import { DiscordDashboard } from './api';
 import config from './config';
-import { DiscordDashboard } from "./api";
-import child from "node:child_process";
-const { GuildMembers, MessageContent, GuildVoiceStates, GuildMessages, Guilds, GuildMessageTyping } = GatewayIntentBits;
+import Lavamusic from './structures/Lavamusic';
+
+const {
+    GuildMembers,
+    MessageContent,
+    GuildVoiceStates,
+    GuildMessages,
+    Guilds,
+    GuildMessageTyping,
+} = GatewayIntentBits;
 const clientOptions: ClientOptions = {
-    intents: [Guilds, GuildMessages, MessageContent, GuildVoiceStates, GuildMembers, GuildMessageTyping],
+    intents: [
+        Guilds,
+        GuildMessages,
+        MessageContent,
+        GuildVoiceStates,
+        GuildMembers,
+        GuildMessageTyping,
+    ],
     allowedMentions: {
         parse: ['users', 'roles'],
         repliedUser: false,
@@ -28,7 +44,6 @@ if (config.dashboard.enable) {
         client.logger.start(stdout);
     });
 }
-
 
 /**
  * Project: lavamusic

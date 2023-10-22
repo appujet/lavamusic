@@ -1,8 +1,8 @@
-import { Event, Lavamusic, Dispatcher } from '../../structures/index';
 import { Player } from 'shoukaku';
-import { Song } from '../../structures/Dispatcher';
-import { updateSetup } from '../../utils/SetupSystem';
 
+import { Song } from '../../structures/Dispatcher';
+import { Dispatcher, Event, Lavamusic } from '../../structures/index';
+import { updateSetup } from '../../utils/SetupSystem';
 
 export default class QueueEnd extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -11,7 +11,7 @@ export default class QueueEnd extends Event {
         });
     }
     public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
-        const guild = this.client.guilds.cache.get(dispatcher.guildId)
+        const guild = this.client.guilds.cache.get(dispatcher.guildId);
         if (!guild) return;
         if (dispatcher.loop === 'repeat') dispatcher.queue.unshift(track);
         if (dispatcher.loop === 'queue') dispatcher.queue.push(track);
@@ -27,7 +27,6 @@ export default class QueueEnd extends Event {
         await updateSetup(this.client, guild);
     }
 }
-
 
 /**
  * Project: lavamusic

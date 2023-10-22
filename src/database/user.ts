@@ -1,18 +1,18 @@
-import { User, PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 
 export default class UserData {
     static prisma = new PrismaClient();
     static async get(discordId: string): Promise<User> {
         let data = await this.prisma.user.findFirst({
             where: {
-                userId: discordId
-            }
+                userId: discordId,
+            },
         });
         if (!data) {
             data = await this.prisma.user.create({
                 data: {
-                    userId: discordId
-                }
+                    userId: discordId,
+                },
             });
         }
         return data;
@@ -22,9 +22,9 @@ export default class UserData {
         let user = await this.get(discordId);
         user = await this.prisma.user.update({
             where: {
-                userId: discordId
+                userId: discordId,
             },
-            data: data
+            data: data,
         });
         return user;
     }

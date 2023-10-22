@@ -1,4 +1,4 @@
-import { Command, Lavamusic, Context } from '../../structures/index';
+import { Command, Context, Lavamusic } from '../../structures/index';
 
 export default class LavaLink extends Command {
     constructor(client: Lavamusic) {
@@ -27,22 +27,39 @@ export default class LavaLink extends Command {
             slashCommand: true,
         });
     }
-    public async run(client: Lavamusic, ctx: Context): Promise<void> {
+    public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed();
-        embed.setTitle("Lavalink Stats")
-        embed.setColor(this.client.color.main)
-        embed.setThumbnail(this.client.user.avatarURL({}))
-        embed.setTimestamp()
-        client.shoukaku.nodes.forEach((node) => {
+        embed.setTitle('Lavalink Stats');
+        embed.setColor(this.client.color.main);
+        embed.setThumbnail(this.client.user.avatarURL({}));
+        embed.setTimestamp();
+        client.shoukaku.nodes.forEach(node => {
             try {
-                embed.addFields({ name: "Name", value: `${node.name} (${node.stats ? "🟢" : "🔴"})` })
-                embed.addFields({ name: "Player", value: `${node.stats.players}` })
-                embed.addFields({ name: "Playing Players", value: `${node.stats.playingPlayers}` })
-                embed.addFields({ name: "Uptime", value: `${client.utils.formatTime(node.stats.uptime)}` })
-                embed.addFields({ name: "Cores", value: `${node.stats.cpu.cores + " Core(s)"}` })
-                embed.addFields({ name: "Memory Usage", value: `${client.utils.formatBytes(node.stats.memory.used)}/${client.utils.formatBytes(node.stats.memory.reservable)}` })
-                embed.addFields({ name: "System Load", value: `${(Math.round(node.stats.cpu.systemLoad * 100) / 100).toFixed(2)}%` })
-                embed.addFields({ name: "Lavalink Load", value: `${(Math.round(node.stats.cpu.lavalinkLoad * 100) / 100).toFixed(2)}%` })
+                embed.addFields({
+                    name: 'Name',
+                    value: `${node.name} (${node.stats ? '🟢' : '🔴'})`,
+                });
+                embed.addFields({ name: 'Player', value: `${node.stats.players}` });
+                embed.addFields({ name: 'Playing Players', value: `${node.stats.playingPlayers}` });
+                embed.addFields({
+                    name: 'Uptime',
+                    value: `${client.utils.formatTime(node.stats.uptime)}`,
+                });
+                embed.addFields({ name: 'Cores', value: `${node.stats.cpu.cores + ' Core(s)'}` });
+                embed.addFields({
+                    name: 'Memory Usage',
+                    value: `${client.utils.formatBytes(
+                        node.stats.memory.used
+                    )}/${client.utils.formatBytes(node.stats.memory.reservable)}`,
+                });
+                embed.addFields({
+                    name: 'System Load',
+                    value: `${(Math.round(node.stats.cpu.systemLoad * 100) / 100).toFixed(2)}%`,
+                });
+                embed.addFields({
+                    name: 'Lavalink Load',
+                    value: `${(Math.round(node.stats.cpu.lavalinkLoad * 100) / 100).toFixed(2)}%`,
+                });
             } catch (e) {
                 console.log(e);
             }

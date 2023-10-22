@@ -1,18 +1,18 @@
-import {Guild, PrismaClient } from '@prisma/client';
+import { Guild, PrismaClient } from '@prisma/client';
 
 export default class ServerData {
     static prisma = new PrismaClient();
-    static async get(guildId: string) {
+    static async get(guildId: string): Promise<Guild> {
         let data = await this.prisma.guild.findFirst({
             where: {
-                guildId: guildId
-            }
+                guildId: guildId,
+            },
         });
         if (!data) {
             data = await this.prisma.guild.create({
                 data: {
-                    guildId: guildId
-                }
+                    guildId: guildId,
+                },
             });
         }
         return data;
@@ -29,17 +29,17 @@ export default class ServerData {
             await this.prisma.guild.create({
                 data: {
                     guildId: guildId,
-                    prefix: prefix
-                }
+                    prefix: prefix,
+                },
             });
         } else {
             await this.prisma.guild.update({
                 where: {
-                    guildId: guildId
+                    guildId: guildId,
                 },
                 data: {
-                    prefix: prefix
-                }
+                    prefix: prefix,
+                },
             });
         }
         return data;
@@ -48,26 +48,26 @@ export default class ServerData {
     static async set_247(guildId: string, textId: string, voiceId: string): Promise<void> {
         let data = await this.prisma.stay.findFirst({
             where: {
-                guildId: guildId
-            }
+                guildId: guildId,
+            },
         });
         if (!data) {
             await this.prisma.stay.create({
                 data: {
                     guildId: guildId,
                     textId: textId,
-                    voiceId: voiceId
-                }
+                    voiceId: voiceId,
+                },
             });
         } else {
             await this.prisma.stay.update({
                 where: {
-                    guildId: guildId
+                    guildId: guildId,
                 },
                 data: {
                     textId: textId,
-                    voiceId: voiceId
-                }
+                    voiceId: voiceId,
+                },
             });
         }
     }
@@ -75,8 +75,8 @@ export default class ServerData {
     static async setDj(guildId: string, roleId?: string): Promise<void> {
         let data = await this.prisma.dj.findFirst({
             where: {
-                guildId: guildId
-            }
+                guildId: guildId,
+            },
         });
         if (!data && roleId) {
             await this.prisma.dj.create({
@@ -85,36 +85,36 @@ export default class ServerData {
                     mode: true,
                     roles: {
                         create: {
-                            roleId: roleId
-                        }
-                    }
-                }
+                            roleId: roleId,
+                        },
+                    },
+                },
             });
         } else if (data && roleId) {
             await this.prisma.dj.update({
                 where: {
-                    guildId: guildId
+                    guildId: guildId,
                 },
                 data: {
                     mode: true,
                     roles: {
                         create: {
-                            roleId: roleId
-                        }
-                    }
-                }
+                            roleId: roleId,
+                        },
+                    },
+                },
             });
         } else if (data && !roleId) {
             await this.prisma.roles.deleteMany({
-                where: { guildId: guildId }
+                where: { guildId: guildId },
             });
             await this.prisma.dj.update({
                 where: {
-                    guildId: guildId
+                    guildId: guildId,
                 },
                 data: {
-                    mode: false
-                }
+                    mode: false,
+                },
             });
         }
     }

@@ -1,7 +1,7 @@
-import { Router, Request, Response } from "express";
-import { IsAuth } from "../../middlewares/Middlewares";
-import { getGuildController } from "../../controllers/guilds/GuildControllers";
+import { Request, Response, Router } from 'express';
 
+import { getGuildController } from '../../controllers/guilds/GuildControllers';
+import { IsAuth } from '../../middlewares/Middlewares';
 
 class GuildsRouter {
     public router: Router;
@@ -10,7 +10,7 @@ class GuildsRouter {
         this.initializeRoutes();
     }
     private initializeRoutes() {
-        this.router.get("/", IsAuth, getGuildController);
+        this.router.get('/', IsAuth, getGuildController);
     }
 }
 

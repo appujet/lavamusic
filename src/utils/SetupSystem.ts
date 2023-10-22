@@ -1,24 +1,31 @@
-import { EmbedBuilder, Message, TextChannel } from 'discord.js';
-import { Lavamusic, Dispatcher } from "../structures/index";
+/* eslint-disable no-case-declarations */
+import { ColorResolvable, EmbedBuilder, Message, TextChannel } from 'discord.js';
+
+import { getButtons } from './Buttons';
 import { Song } from '../structures/Dispatcher';
-import { getButtons } from "./Buttons";
+import { Dispatcher, Lavamusic } from '../structures/index';
 
-
-function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic) {
+function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic): EmbedBuilder {
     let iconUrl = client.config.icons[player.current.info.sourceName];
-    if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png', })
+    if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png' });
 
     let icon = player.current ? player.current.info.thumbnail : client.config.links.img;
     return embed
         .setAuthor({ name: 'Now Playing', iconURL: iconUrl })
-        .setDescription(`[${player.current.info.title}](${player.current.info.uri}) by ${player.current.info.author} • \`[${client.utils.formatTime(player.current.info.length)}]\` - Requested by ${player.current.info.requester}`)
+        .setDescription(
+            `[${player.current.info.title}](${player.current.info.uri}) by ${
+                player.current.info.author
+            } • \`[${client.utils.formatTime(player.current.info.length)}]\` - Requested by ${
+                player.current.info.requester
+            }`
+        )
         .setImage(icon)
-        .setColor(client.color.main)
+        .setColor(client.color.main);
 }
 
-async function setupStart(client: Lavamusic, query: string, player: Dispatcher, message: Message) {
+async function setupStart(client: Lavamusic, query: string, player: Dispatcher, message: Message): Promise<void> {
     let m: Message;
-    const embed = client.embed()
+    const embed = client.embed();
     let n = client.embed().setColor(client.color.main);
 
     const data = await client.prisma.setup.findFirst({
@@ -27,7 +34,8 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
         },
     });
     try {
-        if (data) m = await message.channel.messages.fetch({ message: data.messageId, cache: true });
+        if (data)
+            m = await message.channel.messages.fetch({ message: data.messageId, cache: true });
     } catch (error) {
         client.logger.error(error);
     }
@@ -36,52 +44,175 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
             let res = await client.queue.search(query);
             switch (res.loadType) {
                 case 'LOAD_FAILED':
-                    await message.channel.send({ embeds: [embed.setColor(client.color.red).setDescription('There was an error while searching.')] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000) });
+                    await message.channel
+                        .send({
+                            embeds: [
+                                embed
+                                    .setColor(client.color.red)
+                                    .setDescription('There was an error while searching.'),
+                            ],
+                        })
+                        .then(msg => {
+                            setTimeout(() => {
+                                msg.delete();
+                            }, 5000);
+                        });
                     break;
                 case 'NO_MATCHES':
-                    await message.channel.send({ embeds: [embed.setColor(client.color.red).setDescription('There were no results found.')] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000) });
+                    await message.channel
+                        .send({
+                            embeds: [
+                                embed
+                                    .setColor(client.color.red)
+                                    .setDescription('There were no results found.'),
+                            ],
+                        })
+                        .then(msg => {
+                            setTimeout(() => {
+                                msg.delete();
+                            }, 5000);
+                        });
                     break;
                 case 'TRACK_LOADED':
                     const track = player.buildTrack(res.tracks[0], message.author);
+
                     if (player.queue.length > client.config.maxQueueSize) {
-                        await message.channel.send({ embeds: [embed.setColor(client.color.red).setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`)] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000) });
+                        await message.channel
+                            .send({
+                                embeds: [
+                                    embed
+                                        .setColor(client.color.red)
+                                        .setDescription(
+                                            `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                        ),
+                                ],
+                            })
+                            .then(msg => {
+                                setTimeout(() => {
+                                    msg.delete();
+                                }, 5000);
+                            });
                         return;
                     }
                     player.queue.push(track);
-                    await player.isPlaying()
-                    await message.channel.send({ embeds: [embed.setColor(client.color.main).setDescription(`Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`)] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000) });
+                    await player.isPlaying();
+                    await message.channel
+                        .send({
+                            embeds: [
+                                embed
+                                    .setColor(client.color.main)
+                                    .setDescription(
+                                        `Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`
+                                    ),
+                            ],
+                        })
+                        .then(msg => {
+                            setTimeout(() => {
+                                msg.delete();
+                            }, 5000);
+                        });
                     neb(n, player, client);
-                    if (m) await m.edit({ embeds: [n] }).catch(() => { });
+                    if (m) await m.edit({ embeds: [n] }).catch(() => {});
                     break;
                 case 'PLAYLIST_LOADED':
                     if (res.length > client.config.maxPlaylistSize) {
-                        await message.channel.send({ embeds: [embed.setColor(client.color.red).setDescription(`The playlist is too long. The maximum length is ${client.config.maxPlaylistSize} songs.`)] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000) });
+                        await message.channel
+                            .send({
+                                embeds: [
+                                    embed
+                                        .setColor(client.color.red)
+                                        .setDescription(
+                                            `The playlist is too long. The maximum length is ${client.config.maxPlaylistSize} songs.`
+                                        ),
+                                ],
+                            })
+                            .then(msg => {
+                                setTimeout(() => {
+                                    msg.delete();
+                                }, 5000);
+                            });
                         return;
                     }
                     for (const track of res.tracks) {
                         const pl = player.buildTrack(track, message.author);
                         if (player.queue.length > client.config.maxQueueSize) {
-                            await message.channel.send({ embeds: [embed.setColor(client.color.red).setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`)] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000) });
-                            return
+                            await message.channel
+                                .send({
+                                    embeds: [
+                                        embed
+                                            .setColor(client.color.red)
+                                            .setDescription(
+                                                `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                            ),
+                                    ],
+                                })
+                                .then(msg => {
+                                    setTimeout(() => {
+                                        msg.delete();
+                                    }, 5000);
+                                });
+                            return;
                         }
                         player.queue.push(pl);
                     }
-                    await player.isPlaying()
-                    await message.channel.send({ embeds: [embed.setColor(client.color.main).setDescription(`Added [${res.tracks.length}](${res.tracks[0].info.uri}) to the queue.`)] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000) });
+                    await player.isPlaying();
+                    await message.channel
+                        .send({
+                            embeds: [
+                                embed
+                                    .setColor(client.color.main)
+                                    .setDescription(
+                                        `Added [${res.tracks.length}](${res.tracks[0].info.uri}) to the queue.`
+                                    ),
+                            ],
+                        })
+                        .then(msg => {
+                            setTimeout(() => {
+                                msg.delete();
+                            }, 5000);
+                        });
                     neb(n, player, client);
-                    if (m) await m.edit({ embeds: [n] }).catch(() => { });
+                    if (m) await m.edit({ embeds: [n] }).catch(() => {});
                     break;
                 case 'SEARCH_RESULT':
                     const track2 = player.buildTrack(res.tracks[0], message.author);
                     if (player.queue.length > client.config.maxQueueSize) {
-                        await message.channel.send({ embeds: [embed.setColor(client.color.red).setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`)] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000) });
+                        await message.channel
+                            .send({
+                                embeds: [
+                                    embed
+                                        .setColor(client.color.red)
+                                        .setDescription(
+                                            `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                        ),
+                                ],
+                            })
+                            .then(msg => {
+                                setTimeout(() => {
+                                    msg.delete();
+                                }, 5000);
+                            });
                         return;
                     }
                     player.queue.push(track2);
-                    await player.isPlaying()
-                    await message.channel.send({ embeds: [embed.setColor(client.color.main).setDescription(`Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`)] }).then((msg) => { setTimeout(() => { msg.delete() }, 5000) });
+                    await player.isPlaying();
+                    await message.channel
+                        .send({
+                            embeds: [
+                                embed
+                                    .setColor(client.color.main)
+                                    .setDescription(
+                                        `Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`
+                                    ),
+                            ],
+                        })
+                        .then(msg => {
+                            setTimeout(() => {
+                                msg.delete();
+                            }, 5000);
+                        });
                     neb(n, player, client);
-                    if (m) await m.edit({ embeds: [n] }).catch(() => { });
+                    if (m) await m.edit({ embeds: [n] }).catch(() => {});
                     break;
             }
         } catch (error) {
@@ -89,7 +220,13 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
         }
     }
 }
-async function trackStart(msgId: any, channel: TextChannel, player: Dispatcher, track: Song, client: Lavamusic) {
+async function trackStart(
+    msgId: any,
+    channel: TextChannel,
+    player: Dispatcher,
+    track: Song,
+    client: Lavamusic
+): Promise<void> {
     let icon = player.current ? player.current.info.thumbnail : client.config.links.img;
     let m: Message;
     try {
@@ -99,51 +236,66 @@ async function trackStart(msgId: any, channel: TextChannel, player: Dispatcher, 
     }
     if (m) {
         let iconUrl = client.config.icons[player.current.info.sourceName];
-        if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png', })
-        const embed = client.embed()
+        if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png' });
+        const embed = client
+            .embed()
             .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
             .setColor(client.color.main)
-            .setDescription(`[${track.info.title}](${track.info.uri}) - \`[${client.utils.formatTime(track.info.length)}]\` - Requested by ${track.info.requester}`)
-            .setImage(icon)
-        await m.edit({
-            embeds: [embed],
-            components: getButtons().map((b) => {
-                b.components.forEach((c) => {
-                    c.setDisabled(player && player.current ? false : true);
-                });
-                return b;
+            .setDescription(
+                `[${track.info.title}](${track.info.uri}) - \`[${client.utils.formatTime(
+                    track.info.length
+                )}]\` - Requested by ${track.info.requester}`
+            )
+            .setImage(icon);
+        await m
+            .edit({
+                embeds: [embed],
+                components: getButtons().map(b => {
+                    b.components.forEach(c => {
+                        c.setDisabled(player && player.current ? false : true);
+                    });
+                    return b;
+                }),
             })
-        }).catch(() => { });
+            .catch(() => {});
     } else {
         let iconUrl = client.config.icons[player.current.info.sourceName];
-        if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png', })
-        const embed = client.embed()
+        if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png' });
+        const embed = client
+            .embed()
             .setColor(client.color.main)
             .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
-            .setDescription(`[${track.info.title}](${track.info.uri}) - \`[${client.utils.formatTime(track.info.length)}]\` - Requested by ${track.info.requester}`)
-            .setImage(icon)
-        await channel.send({
-            embeds: [embed],
-            components: getButtons().map((b) => {
-                b.components.forEach((c) => {
-                    c.setDisabled(player && player.current ? false : true);
-                });
-                return b;
+            .setDescription(
+                `[${track.info.title}](${track.info.uri}) - \`[${client.utils.formatTime(
+                    track.info.length
+                )}]\` - Requested by ${track.info.requester}`
+            )
+            .setImage(icon);
+        await channel
+            .send({
+                embeds: [embed],
+                components: getButtons().map(b => {
+                    b.components.forEach(c => {
+                        c.setDisabled(player && player.current ? false : true);
+                    });
+                    return b;
+                }),
             })
-        }).then(async (msg) => {
-            await client.prisma.setup.update({
-                where: {
-                    guildId: channel.guild.id,
-                },
-                data: {
-                    messageId: msg.id,
-                },
-            });
-        }).catch(() => { });
+            .then(async msg => {
+                await client.prisma.setup.update({
+                    where: {
+                        guildId: channel.guild.id,
+                    },
+                    data: {
+                        messageId: msg.id,
+                    },
+                });
+            })
+            .catch(() => {});
     }
 }
 
-async function updateSetup(client: Lavamusic, guild: any) {
+async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
     let setup = await client.prisma.setup.findUnique({
         where: {
             guildId: guild.id,
@@ -163,76 +315,88 @@ async function updateSetup(client: Lavamusic, guild: any) {
         const player = client.queue.get(guild.id);
         if (player && player.current) {
             let iconUrl = client.config.icons[player.current.info.sourceName];
-            if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png', })
-            const embed = client.embed()
+            if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png' });
+            const embed = client
+                .embed()
                 .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
                 .setColor(client.color.main)
-                .setDescription(`[${player.current.info.title}](${player.current.info.uri}) - \`[${client.utils.formatTime(player.current.info.length)}]\` - Requested by ${player.current.info.requester}`)
-                .setImage(player.current.info.thumbnail)
-            await m.edit({
-                embeds: [embed],
-                components: getButtons().map((b) => {
-                    b.components.forEach((c) => {
-                        c.setDisabled(player && player.current ? false : true);
-                    });
-                    return b;
+                .setDescription(
+                    `[${player.current.info.title}](${
+                        player.current.info.uri
+                    }) - \`[${client.utils.formatTime(
+                        player.current.info.length
+                    )}]\` - Requested by ${player.current.info.requester}`
+                )
+                .setImage(player.current.info.thumbnail);
+            await m
+                .edit({
+                    embeds: [embed],
+                    components: getButtons().map(b => {
+                        b.components.forEach(c => {
+                            c.setDisabled(player && player.current ? false : true);
+                        });
+                        return b;
+                    }),
                 })
-            }).catch(() => { });
+                .catch(() => {});
         } else {
-            const embed = client.embed()
+            const embed = client
+                .embed()
                 .setColor(client.color.main)
-                .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL({ extension: 'png', }) })
-                .setDescription(`Nothing playing right now`)
-                .setImage(client.config.links.img)
-            await m.edit({
-                embeds: [embed],
-                components: getButtons().map((b) => {
-                    b.components.forEach((c) => {
-                        c.setDisabled(true);
-                    });
-                    return b;
+                .setAuthor({
+                    name: client.user.username,
+                    iconURL: client.user.displayAvatarURL({ extension: 'png' }),
                 })
-            }).catch(() => { });
+                .setDescription(`Nothing playing right now`)
+                .setImage(client.config.links.img);
+            await m
+                .edit({
+                    embeds: [embed],
+                    components: getButtons().map(b => {
+                        b.components.forEach(c => {
+                            c.setDisabled(true);
+                        });
+                        return b;
+                    }),
+                })
+                .catch(() => {});
         }
     }
 }
 
-async function buttonReply(int, args, color) {
-    const embed = new EmbedBuilder()
+async function buttonReply(int: any, args: string, color: ColorResolvable): Promise<void> {
+    const embed = new EmbedBuilder();
     let m: Message;
     if (int.replied) {
-        m = await int.editReply({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => { });
+        m = await int
+            .editReply({ embeds: [embed.setColor(color).setDescription(args)] })
+            .catch(() => {});
     } else {
-        m = await int.followUp({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => { });
+        m = await int
+            .followUp({ embeds: [embed.setColor(color).setDescription(args)] })
+            .catch(() => {});
     }
     setTimeout(async () => {
         if (int && !int.ephemeral) {
-            await m.delete().catch(() => { });
+            await m.delete().catch(() => {});
         }
     }, 2000);
 }
 
-async function oops(channel, args) {
+async function oops(channel: TextChannel, args: string): Promise<void> {
     try {
-        let embed1 = new EmbedBuilder().setColor("Red").setDescription(`${args}`);
+        let embed1 = new EmbedBuilder().setColor('Red').setDescription(`${args}`);
 
         const m = await channel.send({
             embeds: [embed1],
         });
 
-        setTimeout(async () => await m.delete().catch(() => { }), 12000);
+        setTimeout(async () => await m.delete().catch(() => {}), 12000);
     } catch (e) {
         return console.error(e);
     }
 }
-export {
-    setupStart,
-    trackStart,
-    buttonReply,
-    updateSetup,
-    oops
-}
-
+export { setupStart, trackStart, buttonReply, updateSetup, oops };
 
 /**
  * Project: lavamusic

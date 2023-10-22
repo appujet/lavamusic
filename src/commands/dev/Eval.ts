@@ -1,11 +1,11 @@
-import { Command, Lavamusic, Context } from '../../structures/index';
+import { Command, Context, Lavamusic } from '../../structures/index';
 
 export default class Eval extends Command {
     constructor(client: Lavamusic) {
         super(client, {
             name: 'eval',
             description: {
-                content: "Evaluate code",
+                content: 'Evaluate code',
                 examples: ['eval'],
                 usage: 'eval',
             },
@@ -29,11 +29,11 @@ export default class Eval extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
+    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const code = args.join(' ');
         try {
             let evaled = eval(code);
-            if (typeof evaled !== 'string') evaled = ((await import('util')).inspect(evaled));
+            if (typeof evaled !== 'string') evaled = (await import('node:util')).inspect(evaled);
             ctx.sendMessage(`\`\`\`js\n${evaled}\n\`\`\``);
         } catch (e) {
             ctx.sendMessage(`\`\`\`js\n${e}\n\`\`\``);

@@ -2,11 +2,7 @@
     "compilerOptions": {
         "target": "es2021",
         "module": "CommonJS",
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "esnext"
-        ],
+        "lib": ["es2021"],
         "declaration": true,
         "sourceMap": true,
         "outDir": "./dist",
@@ -17,12 +13,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "skipLibCheck": true,
-        "importHelpers": true,
-        "forceConsistentCasingInFileNames": true,
+        "forceConsistentCasingInFileNames": true
     },
-    "exclude": [
-        "node_modules",
-        "dist",
-        "dashboard"
-    ]
+    "exclude": ["dist", "node_modules", "tests", "dashboard"]
 }

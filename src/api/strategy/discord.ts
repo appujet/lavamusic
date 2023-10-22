@@ -1,9 +1,10 @@
-import { Strategy as DiscordStrategy, Profile } from "passport-discord";
-import passport from "passport";
-import config from "../../config";
-import { VerifyCallback } from "passport-oauth2";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
+import passport from 'passport';
+import { Strategy as DiscordStrategy, Profile } from 'passport-discord';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { VerifyCallback } from 'passport-oauth2';
 
+import config from '../../config';
 
 export default class DiscordPassportStrategy {
     private prisma = new PrismaClient();
@@ -11,7 +12,7 @@ export default class DiscordPassportStrategy {
         this.initializeStrategy();
     }
 
-    initializeStrategy() {
+    initializeStrategy(): void {
         passport.serializeUser((user: any, done) => {
             done(null, user.id);
         });
@@ -19,8 +20,8 @@ export default class DiscordPassportStrategy {
             try {
                 const user = await this.prisma.user.findFirst({
                     where: {
-                        id: id
-                    }
+                        id: id,
+                    },
                 });
                 return user ? done(null, user) : done(null, null);
             } catch (error) {
@@ -28,15 +29,25 @@ export default class DiscordPassportStrategy {
                 done(error, null);
             }
         });
-        passport.use(new DiscordStrategy({
-            clientID: config.clientId,
-            clientSecret: config.clientSecret,
-            callbackURL: config.dashboard.redirectUri,
-            scope: ["identify", "guilds"],
-        }, this.verifyCallback.bind(this)));
+        passport.use(
+            new DiscordStrategy(
+                {
+                    clientID: config.clientId,
+                    clientSecret: config.clientSecret,
+                    callbackURL: config.dashboard.redirectUri,
+                    scope: ['identify', 'guilds'],
+                },
+                this.verifyCallback.bind(this)
+            )
+        );
     }
 
-    async verifyCallback(accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) {
+    async verifyCallback(
+        accessToken: string,
+        refreshToken: string,
+        profile: Profile,
+        done: VerifyCallback
+    ): Promise<void> {
         const { id: userId, username, discriminator, avatar } = profile;
         let existingUser = await this.prisma.user.findFirst({
             where: {
@@ -65,8 +76,8 @@ export default class DiscordPassportStrategy {
                         discriminator: discriminator,
                         avatar: avatar,
                         accessToken: accessToken,
-                        refreshToken: refreshToken
-                    }
+                        refreshToken: refreshToken,
+                    },
                 });
                 return done(null, newUser);
             }
@@ -76,4 +87,3 @@ export default class DiscordPassportStrategy {
         }
     }
 }
-
