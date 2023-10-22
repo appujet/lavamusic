@@ -2,7 +2,7 @@
 import { Message, User } from 'discord.js';
 import { Node, Player, Track } from 'shoukaku';
 
-import { Lavamusic } from './index';
+import { Lavamusic } from './index.js';
 
 export class Song implements Track {
     track: string;

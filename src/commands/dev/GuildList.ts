@@ -1,4 +1,4 @@
-import { Command, Context, Lavamusic } from '../../structures/index';
+import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class GuildList extends Command {
     constructor(client: Lavamusic) {
@@ -29,8 +29,8 @@ export default class GuildList extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context,): Promise<any> {
-        const guilds = this.client.guilds.cache.map((g) => `${g.name} (${g.id})`);
+    public async run(client: Lavamusic, ctx: Context): Promise<any> {
+        const guilds = this.client.guilds.cache.map(g => `${g.name} (${g.id})`);
 
         let chunks = client.utils.chunk(guilds, 10) as any;
         if (chunks.length === 0) chunks = 1;

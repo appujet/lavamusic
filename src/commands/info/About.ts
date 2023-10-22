@@ -1,6 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
-import { Command, Context, Lavamusic } from '../../structures/index';
+import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class About extends Command {
     constructor(client: Lavamusic) {

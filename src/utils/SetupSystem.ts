@@ -1,9 +1,9 @@
 /* eslint-disable no-case-declarations */
 import { ColorResolvable, EmbedBuilder, Message, TextChannel } from 'discord.js';
 
-import { getButtons } from './Buttons';
-import { Song } from '../structures/Dispatcher';
-import { Dispatcher, Lavamusic } from '../structures/index';
+import { getButtons } from './Buttons.js';
+import { Song } from '../structures/Dispatcher.js';
+import { Dispatcher, Lavamusic } from '../structures/index.js';
 
 function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic): EmbedBuilder {
     let iconUrl = client.config.icons[player.current.info.sourceName];
@@ -23,7 +23,12 @@ function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic): EmbedB
         .setColor(client.color.main);
 }
 
-async function setupStart(client: Lavamusic, query: string, player: Dispatcher, message: Message): Promise<void> {
+async function setupStart(
+    client: Lavamusic,
+    query: string,
+    player: Dispatcher,
+    message: Message
+): Promise<void> {
     let m: Message;
     const embed = client.embed();
     let n = client.embed().setColor(client.color.main);

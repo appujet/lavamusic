@@ -1,7 +1,7 @@
 import { Guild } from 'discord.js';
 import { Node } from 'shoukaku';
 
-import { Dispatcher, Lavamusic } from './index';
+import { Dispatcher, Lavamusic } from './index.js';
 export class Queue extends Map {
     public client: Lavamusic;
     constructor(client: Lavamusic) {
@@ -21,7 +21,12 @@ export class Queue extends Map {
         return super.clear();
     }
 
-    public async create(guild: Guild, voice: any, channel: any, givenNode?: Node): Promise<Dispatcher> {
+    public async create(
+        guild: Guild,
+        voice: any,
+        channel: any,
+        givenNode?: Node
+    ): Promise<Dispatcher> {
         let dispatcher = this.get(guild.id);
         if (!voice) throw new Error('No voice channel was provided');
         if (!channel) throw new Error('No text channel was provided');

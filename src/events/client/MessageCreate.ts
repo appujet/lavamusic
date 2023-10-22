@@ -1,6 +1,6 @@
 import { ChannelType, Collection, Message, PermissionFlagsBits } from 'discord.js';
 
-import { Context, Event, Lavamusic } from '../../structures/index';
+import { Context, Event, Lavamusic } from '../../structures/index.js';
 
 export default class MessageCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -10,6 +10,7 @@ export default class MessageCreate extends Event {
     }
     public async run(message: Message): Promise<any> {
         if (message.author.bot) return;
+        console.log(message.member.voice.channel);
 
         const setup = await this.client.prisma.setup.findUnique({
             where: {

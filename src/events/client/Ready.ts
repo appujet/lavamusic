@@ -1,5 +1,5 @@
-import config from '../../config';
-import { Event, Lavamusic } from '../../structures/index';
+import config from '../../config.js';
+import { Event, Lavamusic } from '../../structures/index.js';
 export default class Ready extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {

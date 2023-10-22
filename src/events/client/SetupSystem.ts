@@ -1,7 +1,7 @@
 import { Message, PermissionsBitField, TextChannel } from 'discord.js';
 
-import { Event, Lavamusic } from '../../structures/index';
-import { oops, setupStart } from '../../utils/SetupSystem';
+import { Event, Lavamusic } from '../../structures/index.js';
+import { oops, setupStart } from '../../utils/SetupSystem.js';
 
 export default class SetupSystem extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -24,7 +24,8 @@ export default class SetupSystem extends Event {
                 .permissionsFor(this.client.user)
                 .has(PermissionsBitField.resolve(['Connect', 'Speak']))
         ) {
-            await oops(channel,
+            await oops(
+                channel,
                 `I don't have enough permission to connect/speak in <#${message.member.voice.channel.id}>`
             );
             if (message) await message.delete().catch(() => {});
@@ -36,7 +37,8 @@ export default class SetupSystem extends Event {
             message.guild.members.cache.get(this.client.user.id).voice.channelId !==
                 message.member.voice.channelId
         ) {
-            await oops(channel,
+            await oops(
+                channel,
                 `You are not connected to <#${
                     message.guild.members.cache.get(this.client.user.id).voice.channelId
                 }> to queue songs`

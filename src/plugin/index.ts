@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { Lavamusic } from '../structures/index';
+import { Lavamusic } from '../structures/index.js';
 
 export default function loadPlugins(client: Lavamusic): void {
     const pluginsFolder = path.join(__dirname, './plugins');

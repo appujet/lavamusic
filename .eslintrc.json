@@ -51,7 +51,7 @@
                 "propertyDeclaration": true
             }
         ],
-
+        "import/extensions": ["error", "ignorePackages"],
         "import/no-extraneous-dependencies": "error",
         "import/no-unresolved": "off",
         "import/no-useless-path-segments": "error",

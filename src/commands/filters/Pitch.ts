@@ -1,6 +1,6 @@
 import { ApplicationCommandOptionType } from 'discord.js';
 
-import { Command, Context, Lavamusic } from '../../structures/index';
+import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class Pitch extends Command {
     constructor(client: Lavamusic) {

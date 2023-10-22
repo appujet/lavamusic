@@ -1,6 +1,6 @@
 import { ApplicationCommandOption, PermissionResolvable } from 'discord.js';
 
-import Lavamusic from './Lavamusic';
+import Lavamusic from './Lavamusic.js';
 
 export default class Command {
     public client: Lavamusic;

@@ -1,6 +1,6 @@
 import { ChannelType } from 'discord.js';
 
-import { Event, Lavamusic } from '../../structures/index';
+import { Event, Lavamusic } from '../../structures/index.js';
 
 export default class VoiceStateUpdate extends Event {
     constructor(client: Lavamusic, file: string) {

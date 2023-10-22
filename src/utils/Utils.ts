@@ -7,7 +7,7 @@ import {
     TextChannel,
 } from 'discord.js';
 
-import { Context } from '../structures/index';
+import { Context } from '../structures/index.js';
 
 export class Utils {
     public static formatTime(ms: number): string {
@@ -121,16 +121,16 @@ export class Utils {
         if (ctx.isInteraction) {
             msg = ctx.deferred
                 ? await ctx.interaction.followUp({
-                      ...(msgOptions ),
+                      ...msgOptions,
                       fetchReply: true as boolean,
                   })
                 : await ctx.interaction.reply({
-                      ...(msgOptions ),
+                      ...msgOptions,
                       fetchReply: true,
                   });
         } else {
             msg = await (ctx.channel as TextChannel).send({
-                ...(msgOptions ),
+                ...msgOptions,
                 fetchReply: true,
             });
         }

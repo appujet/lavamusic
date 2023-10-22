@@ -1,5 +1,5 @@
-import { Lavamusic } from '../../structures/index';
-import { BotPlugin } from '../index';
+import { Lavamusic } from '../../structures/index.js';
+import { BotPlugin } from '../index.js';
 
 const antiCrash: BotPlugin = {
     name: 'AntiCrash Plugin',

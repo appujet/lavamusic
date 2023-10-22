@@ -1,4 +1,4 @@
-import { Command, Context, Lavamusic } from '../../structures/index';
+import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class Stop extends Command {
     constructor(client: Lavamusic) {
@@ -28,7 +28,7 @@ export default class Stop extends Command {
             options: [],
         });
     }
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
 

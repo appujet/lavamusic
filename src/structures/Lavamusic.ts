@@ -15,11 +15,11 @@ import {
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { Queue, ShoukakuClient } from './index';
-import Logger from './Logger';
-import config from '../config';
-import loadPlugins from '../plugin/index';
-import { Utils } from '../utils/Utils';
+import { Queue, ShoukakuClient } from './index.js';
+import Logger from './Logger.js';
+import config from '../config.js';
+import loadPlugins from '../plugin/index.js';
+import { Utils } from '../utils/Utils.js';
 
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
@@ -56,22 +56,25 @@ export default class Lavamusic extends Client {
             });
         loadPlugins(this);
         await this.login(token);
-        this.on(Events.InteractionCreate, async (interaction: Interaction<'cached'>): Promise<void> => {
-            if (!interaction.isButton()) {
-                const setup = await this.prisma.setup.findUnique({
-                    where: {
-                        guildId: interaction.guildId,
-                    },
-                });
-                if (
-                    setup &&
-                    interaction.channelId === setup.textId &&
-                    (interaction as any).message.id === setup.messageId
-                ) {
-                    this.emit('setupButtons', interaction);
+        this.on(
+            Events.InteractionCreate,
+            async (interaction: Interaction<'cached'>): Promise<void> => {
+                if (!interaction.isButton()) {
+                    const setup = await this.prisma.setup.findUnique({
+                        where: {
+                            guildId: interaction.guildId,
+                        },
+                    });
+                    if (
+                        setup &&
+                        interaction.channelId === setup.textId &&
+                        (interaction as any).message.id === setup.messageId
+                    ) {
+                        this.emit('setupButtons', interaction);
+                    }
                 }
             }
-        });
+        );
     }
 
     private loadCommands(): void {

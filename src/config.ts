@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-import { SearchEngine } from './types';
+import { SearchEngine } from './types.js';
 dotenv.config();
 
 export default {
@@ -14,15 +14,6 @@ export default {
         main: 0x2f3136,
     },
     searchEngine: process.env.SEARCH_ENGINE || (SearchEngine.YouTube as SearchEngine),
-    dashboard: {
-        port: parseInt(process.env.DASHBOARD_PORT) || 3001,
-        website: process.env.DASHBOARD_WEBSITE || 'http://localhost:3000',
-        host: process.env.DASHBOARD_HOST || 'http://localhost',
-        enable: parseBoolean(process.env.DASHBOARD_ENABLE) || true,
-        redirectUri:
-            process.env.DASHBOARD_REDIRECT_URI || 'http://localhost:3001/api/auth/redirect',
-        sessionSecret: 'AMVCXSZXGCHGCTEAEWATRCHVKHGXHDTEWGCJGDZDS',
-    },
     maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE) || 100,
     botStatus: process.env.BOT_STATUS || 'online', // online, idle, dnd, invisible
     botActivity: process.env.BOT_ACTIVITY || 'Lavamusic', // set the bot activity

@@ -1,8 +1,8 @@
 import { Player } from 'shoukaku';
 
-import { Song } from '../../structures/Dispatcher';
-import { Dispatcher, Event, Lavamusic } from '../../structures/index';
-import { updateSetup } from '../../utils/SetupSystem';
+import { Song } from '../../structures/Dispatcher.js';
+import { Dispatcher, Event, Lavamusic } from '../../structures/index.js';
+import { updateSetup } from '../../utils/SetupSystem.js';
 
 export default class QueueEnd extends Event {
     constructor(client: Lavamusic, file: string) {

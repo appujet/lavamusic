@@ -1,6 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
-import { Command, Context, Lavamusic } from '../../structures/index';
+import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class Invite extends Command {
     constructor(client: Lavamusic) {
@@ -30,7 +30,7 @@ export default class Invite extends Command {
             options: [],
         });
     }
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const clientId = process.env.CLIENT_ID;
         if (!clientId) {
             console.error(

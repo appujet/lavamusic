@@ -13,7 +13,7 @@ import {
     User,
 } from 'discord.js';
 
-import { Lavamusic } from './index';
+import { Lavamusic } from './index.js';
 
 export default class Context {
     public ctx: CommandInteraction | Message;

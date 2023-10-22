@@ -1,7 +1,7 @@
 import { version } from 'discord.js';
 import os from 'node:os';
 
-import { Command, Context, Lavamusic } from '../../structures/index';
+import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class Info extends Command {
     constructor(client: Lavamusic) {

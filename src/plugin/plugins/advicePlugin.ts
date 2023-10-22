@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
-import { Lavamusic } from '../../structures/index';
-import { BotPlugin } from '../index';
+import { Lavamusic } from '../../structures/index.js';
+import { BotPlugin } from '../index.js';
 
 const advicePlugin: BotPlugin = {
     name: 'Advice Plugin',

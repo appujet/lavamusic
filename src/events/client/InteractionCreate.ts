@@ -8,7 +8,7 @@ import {
     PermissionFlagsBits,
 } from 'discord.js';
 
-import { Context, Event, Lavamusic } from '../../structures/index';
+import { Context, Event, Lavamusic } from '../../structures/index.js';
 
 export default class InteractionCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -95,7 +95,8 @@ export default class InteractionCreate extends Event {
                         });
 
                     if (
-                        (interaction.member as GuildMember).voice.channel.type === ChannelType.GuildStageVoice &&
+                        (interaction.member as GuildMember).voice.channel.type ===
+                            ChannelType.GuildStageVoice &&
                         !interaction.guild.members.me.permissions.has(
                             PermissionFlagsBits.RequestToSpeak
                         )
@@ -135,12 +136,14 @@ export default class InteractionCreate extends Event {
                         include: { roles: true },
                     });
                     if (djRole && djRole.mode) {
-                        const findDJRole = (interaction.member as GuildMember).roles.cache.find((x: any) =>
-                            djRole.roles.map((y: any) => y.roleId).includes(x.id)
+                        const findDJRole = (interaction.member as GuildMember).roles.cache.find(
+                            (x: any) => djRole.roles.map((y: any) => y.roleId).includes(x.id)
                         );
                         if (!findDJRole) {
                             if (
-                                !(interaction.member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)
+                                !(interaction.member as GuildMember).permissions.has(
+                                    PermissionFlagsBits.ManageGuild
+                                )
                             ) {
                                 return await interaction.reply({
                                     content: 'You need to have the DJ role to use this command.',
@@ -175,7 +178,9 @@ export default class InteractionCreate extends Event {
                 setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
             }
             if (
-                interaction.options.data.some(option => option.value.toString().includes('@everyone')) ||
+                interaction.options.data.some(option =>
+                    option.value.toString().includes('@everyone')
+                ) ||
                 interaction.options.data.some(option => option.value.toString().includes('@here'))
             )
                 return await interaction.reply({

@@ -3,7 +3,7 @@
     "version": "3.3.0",
     "description": "LavaMusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, Shoukaku (Lavalink) library.",
     "main": "dist/index.js",
-    "type": "commonjs",
+    "type": "module",
     "scripts": {
         "start": "npm run start:bot",
         "prisma:generate": "npx prisma generate",
@@ -13,7 +13,8 @@
         "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx",
         "lint:fix": "eslint . --fix --cache --ext .js,.jsx,.ts,.tsx",
         "format": "prettier --check .",
-        "format:fix": "prettier --write ."
+        "format:fix": "prettier --write .",
+        "dev": "nodemon --watch src --exec \"ts-node src/LavaClient.ts\""
     },
     "repository": {
         "type": "git",
@@ -36,12 +37,7 @@
     },
     "homepage": "https://github.com/brblacky/lavamusic#readme",
     "devDependencies": {
-        "@types/cors": "^2.8.15",
-        "@types/express": "^4.17.20",
-        "@types/express-session": "^1.17.9",
         "@types/node": "^20.8.7",
-        "@types/passport": "^1.0.14",
-        "@types/passport-discord": "^0.1.10",
         "@types/signale": "^1.4.6",
         "@typescript-eslint/eslint-plugin": "^6.8.0",
         "@typescript-eslint/parser": "^6.8.0",
@@ -55,13 +51,8 @@
     },
     "dependencies": {
         "@prisma/client": "^5.4.2",
-        "connect-mongo": "^5.1.0",
         "discord.js": "^14.12.1",
         "dotenv": "^16.3.1",
-        "express": "^4.18.2",
-        "express-session": "^1.17.3",
-        "passport": "^0.6.0",
-        "passport-discord": "^0.1.4",
         "shoukaku": "^3.4.0",
         "signale": "^1.4.0",
         "socket.io": "^4.7.2",
@@ -76,22 +67,5 @@
         "displayLabel": true,
         "displayTimestamp": true,
         "underlineLabel": true
-    },
-    "jest": {
-        "moduleFileExtensions": [
-            "js",
-            "json",
-            "ts"
-        ],
-        "rootDir": "src",
-        "testRegex": ".*\\.spec\\.ts$",
-        "transform": {
-            "^.+\\.(t|j)s$": "ts-jest"
-        },
-        "collectCoverageFrom": [
-            "**/*.(t|j)s"
-        ],
-        "coverageDirectory": "../coverage",
-        "testEnvironment": "node"
     }
 }

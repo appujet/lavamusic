@@ -1,5 +1,5 @@
-import { Event, Lavamusic } from '../../structures/index';
-import { buttonReply } from '../../utils/SetupSystem';
+import { Event, Lavamusic } from '../../structures/index.js';
+import { buttonReply } from '../../utils/SetupSystem.js';
 
 export default class SetupButtons extends Event {
     constructor(client: Lavamusic, file: string) {

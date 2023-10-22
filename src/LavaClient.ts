@@ -1,9 +1,7 @@
 import { ClientOptions, GatewayIntentBits } from 'discord.js';
-import child from 'node:child_process';
 
-import { DiscordDashboard } from './api';
-import config from './config';
-import Lavamusic from './structures/Lavamusic';
+import config from './config.js';
+import Lavamusic from './structures/Lavamusic.js';
 
 const {
     GuildMembers,
@@ -31,19 +29,6 @@ const clientOptions: ClientOptions = {
 const client = new Lavamusic(clientOptions);
 
 client.start(config.token);
-
-if (config.dashboard.enable) {
-    const dashboard = new DiscordDashboard();
-    dashboard.start();
-    client.logger.start('Starting dashboard...');
-    child.exec('cd dashboard && npm i && npm run dev && cd ..', (err, stdout) => {
-        if (err) {
-            client.logger.error(err);
-            return;
-        }
-        client.logger.start(stdout);
-    });
-}
 
 /**
  * Project: lavamusic

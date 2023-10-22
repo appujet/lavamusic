@@ -13,9 +13,9 @@ import {
 } from 'discord.js';
 import { Player } from 'shoukaku';
 
-import { Song } from '../../structures/Dispatcher';
-import { Dispatcher, Event, Lavamusic } from '../../structures/index';
-import { trackStart } from '../../utils/SetupSystem';
+import { Song } from '../../structures/Dispatcher.js';
+import { Dispatcher, Event, Lavamusic } from '../../structures/index.js';
+import { trackStart } from '../../utils/SetupSystem.js';
 
 export default class TrackStart extends Event {
     constructor(client: Lavamusic, file: string) {

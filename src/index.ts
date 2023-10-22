@@ -1,8 +1,8 @@
 import { ShardingManager } from 'discord.js';
 import * as fs from 'node:fs';
 
-import config from './config';
-import Logger from './structures/Logger';
+import config from './config.js';
+import Logger from './structures/Logger.js';
 
 const logger = new Logger();
 

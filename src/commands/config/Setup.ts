@@ -5,8 +5,8 @@ import {
     PermissionFlagsBits,
 } from 'discord.js';
 
-import { Command, Context, Lavamusic } from '../../structures/index';
-import { getButtons } from '../../utils/Buttons';
+import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { getButtons } from '../../utils/Buttons.js';
 
 export default class Setup extends Command {
     constructor(client: Lavamusic) {

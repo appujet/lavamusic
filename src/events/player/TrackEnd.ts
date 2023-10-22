@@ -1,7 +1,7 @@
 import { Player } from 'shoukaku';
 
-import { Song } from '../../structures/Dispatcher';
-import { Dispatcher, Event, Lavamusic } from '../../structures/index';
+import { Song } from '../../structures/Dispatcher.js';
+import { Dispatcher, Event, Lavamusic } from '../../structures/index.js';
 
 export default class TrackEnd extends Event {
     constructor(client: Lavamusic, file: string) {
