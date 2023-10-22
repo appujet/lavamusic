@@ -13,8 +13,7 @@
         "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx",
         "lint:fix": "eslint . --fix --cache --ext .js,.jsx,.ts,.tsx",
         "format": "prettier --check .",
-        "format:fix": "prettier --write .",
-        "dev": "nodemon --watch src --exec \"ts-node src/LavaClient.ts\""
+        "format:fix": "prettier --write ."
     },
     "repository": {
         "type": "git",

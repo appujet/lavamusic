@@ -14,6 +14,7 @@ import {
 } from 'discord.js';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { Queue, ShoukakuClient } from './index.js';
 import Logger from './Logger.js';
@@ -21,6 +22,7 @@ import config from '../config.js';
 import loadPlugins from '../plugin/index.js';
 import { Utils } from '../utils/Utils.js';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
     public aliases: Collection<string, any> = new Collection();

@@ -10,8 +10,6 @@ export default class MessageCreate extends Event {
     }
     public async run(message: Message): Promise<any> {
         if (message.author.bot) return;
-        console.log(message.member.voice.channel);
-
         const setup = await this.client.prisma.setup.findUnique({
             where: {
                 guildId: message.guildId,
