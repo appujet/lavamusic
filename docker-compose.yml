@@ -43,10 +43,10 @@ services:
         container_name: lavamusic
         image: ghcr.io/brblacky/lavamusic:main
         environment:
-            TOKEN: 'your bot token' # Your bot token
-            PREFIX: 'your bot prefix' # Your bot prefix
-            OWNER_IDS: 'your id' # Your id
-            CLIENT_ID: 'your bot id' # Your bot id
+            TOKEN: '' # Your bot token
+            PREFIX: '!' # Your bot prefix
+            OWNER_IDS: '959276033683628122' # Your id
+            CLIENT_ID: '875635121770889257' # Your bot id
             GUILD_ID: '' # Your server Id if you want to use the for single server
             PRODUCTION: 'true' # true for production
             SEARCH_ENGINE: 'ytsearch' # ytsearch, scsearch or ytmsearch
@@ -57,6 +57,7 @@ services:
             LAVALINK_AUTH: 'youshallnotpass' # Your lavalink password
             LAVALINK_NAME: 'Blacky' # Your lavalink name
             LAVALINK_SECURE: 'false' # true if you are using https
+        command: bash -c "apt-get update -y && apt-get install -y openssl && node dist/index.js"
         restart: on-failure
         depends_on:
             - lavalink
