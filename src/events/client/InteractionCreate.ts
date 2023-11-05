@@ -179,9 +179,9 @@ export default class InteractionCreate extends Event {
             }
             if (
                 interaction.options.data.some(option =>
-                    option.value.toString().includes('@everyone')
+                    option.value && option.value.toString().includes('@everyone')
                 ) ||
-                interaction.options.data.some(option => option.value.toString().includes('@here'))
+                interaction.options.data.some(option => option.value && option.value.toString().includes('@here'))
             )
                 return await interaction.reply({
                     content: 'You can\'t mention everyone or here.',

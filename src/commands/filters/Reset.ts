@@ -14,7 +14,7 @@ export default class Reset extends Command {
             cooldown: 3,
             args: false,
             player: {
-                voice: false,
+                voice: true,
                 dj: true,
                 active: false,
                 djPerm: null,
