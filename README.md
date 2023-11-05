@@ -153,6 +153,7 @@ LAVALINK_URL="localhost:2333" # Your lavalink url
 LAVALINK_AUTH="youshallnotpass" # Your lavalink password
 LAVALINK_NAME="Blacky" # Your lavalink name
 LAVALINK_SECURE= "true" # true for secure lavalink
+KEEP_ALIVE= "false" # true for keep alive in https://replit.com
 BOT_ACTIVITY_TYPE=0 # Activity type is a number from 0 to 5 see more here https://discord.com/developers/docs/topics/gateway-events#activity-object-activity-types
 
 ```

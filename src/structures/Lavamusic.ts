@@ -70,7 +70,7 @@ export default class Lavamusic extends Client {
                     if (
                         setup &&
                         interaction.channelId === setup.textId &&
-                        (interaction as any).message.id === setup.messageId
+                        (interaction as any).id === setup.messageId
                     ) {
                         this.emit('setupButtons', interaction);
                     }
