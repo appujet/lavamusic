@@ -87,9 +87,8 @@ export default class Lavamusic extends Client {
                 .filter(file => file.endsWith('.js'));
             commandFiles.forEach(async file => {
                 const cmd = (await import(`../commands/${dir}/${file}`)).default;
-                const command = new cmd(this, file);
+                const command = new cmd(this);
                 command.category = dir;
-                command.file = file;
                 this.commands.set(command.name, command);
                 if (command.aliases.length !== 0) {
                     command.aliases.forEach((alias: any) => {
@@ -106,7 +105,7 @@ export default class Lavamusic extends Client {
                             ? command.nameLocalizations
                             : null,
                         description_localizations: command.descriptionLocalizations
-                            ? cmd.descriptionLocalizations
+                            ? command.descriptionLocalizations
                             : null,
                         default_member_permissions:
                             command.permissions.user.length > 0 ? command.permissions.user : null,
@@ -116,7 +115,7 @@ export default class Lavamusic extends Client {
                             command.permissions.user
                         );
                         if (typeof permissionValue === 'bigint') {
-                            data.default_member_permissions = permissionValue.toString();
+                            data.default_member_permissions = permissionValue?.toString();
                         } else {
                             data.default_member_permissions = permissionValue;
                         }
