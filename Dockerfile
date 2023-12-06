@@ -25,6 +25,11 @@ ENV NODE_ENV production
 
 WORKDIR /opt/lavamusic/
 
+# Copy compiled code
+COPY --from=builder /opt/lavamusic/dist ./dist
+COPY --from=builder /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.txt
+COPY --from=builder /opt/lavamusic/prisma ./prisma
+
 # Copy package files and install dependencies
 COPY package*.json ./
 RUN apt-get update && \
@@ -32,10 +37,5 @@ RUN apt-get update && \
     npm install --only=production
 
 RUN npx prisma generate
-
-# Copy compiled code
-COPY --from=builder /opt/lavamusic/dist ./dist
-COPY --from=builder /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.txt
-COPY --from=builder /opt/lavamusic/prisma ./prisma
 
 CMD [ "node", "dist/index.js" ]
