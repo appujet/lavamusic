@@ -20,7 +20,7 @@ export default {
     botActivity: process.env.BOT_ACTIVITY || 'Lavamusic', // set the bot activity
     botActivityType: parseInt(process.env.BOT_ACTIVITY_TYPE || '2'), // 0 to 5 get more info - https://discord.com/developers/docs/topics/gateway-events#activity-object-activity-types
     maxQueueSize: parseInt(process.env.MAX_QUEUE_SIZE) || 100,
-    owners: process.env.OWNERS?.split(','),
+    owners: JSON.parse(process.env.OWNER_IDS || '[]'),
     database: process.env.DATABASE_URL,
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET || '',

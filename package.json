@@ -8,6 +8,7 @@
         "start": "npm run start:bot",
         "prisma:generate": "npx prisma generate",
         "start:bot": "npm run build && node dist/index.js",
+        "dev": "nodemon --watch src --exec npm run start:bot",
         "build": "tsc --project tsconfig.json",
         "clean": "rm -rf dist",
         "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx",

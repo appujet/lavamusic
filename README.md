@@ -135,11 +135,12 @@ npm i
 4. Set up your environment variables:
 
 Create a `.env` file in the root directory of your project with the following variables:
+or you can use the [.env.example](https://raw.githubusercontent.com/brblacky/lavamusic/main/.env.example) file
 
 ```bash
 TOKEN="." # Your bot token
 PREFIX= "!" # Your prefix
-OWNER_IDS= "" # Your id
+OWNER_IDS=["859640640640640640","859640640640640640"] # Your discord id, you can add multiple ids
 CLIENT_ID= "960072976412340254" # Your bot client id
 GUILD_ID= "859640640640640640" # Your server Id if you want to use the for single server
 PRODUCTION="true" # true for production 
@@ -195,10 +196,13 @@ Download the [docker-compose.yml file](https://raw.githubusercontent.com/brblack
 
 Edit docker-compose.yml and make sure to set the following variables:
 
+your .env file should look like this or you can use the [.env.example](https://raw.githubusercontent.com/brblacky/lavamusic/main/.env.example) file
+
+
 ```yaml
 TOKEN="." # Your bot token and remember, don't show everyone your bot token
 PREFIX="!" # Your prefix
-OWNER_IDS="859640640640640640, 859640640640640640" # Your ID
+OWNER_IDS=["859640640640640640","859640640640640640"] # Your discord id, you can add multiple ids
 CLIENT_ID="960072976412340254" # Your bot client ID
 GUILD_ID="859640640640640640" # Your server ID (if you want to use it for a single server)
 PRODUCTION="true" # "true" for production
