@@ -153,8 +153,11 @@ export default class Dispatcher {
     public async skip(skipto = 1): Promise<void> {
         if (!this.player) return;
         if (skipto > 1) {
-            this.queue.unshift(this.queue[skipto - 1]);
-            this.queue.splice(skipto, 1);
+            if (skipto > this.queue.length) {
+                this.queue.length = 0;
+            } else {
+                this.queue.splice(0, skipto - 1);
+            }
         }
         this.repeat = this.repeat == 1 ? 0 : this.repeat;
         this.player.stopTrack();
