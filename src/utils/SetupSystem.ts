@@ -4,6 +4,7 @@ import { ColorResolvable, EmbedBuilder, Message, TextChannel } from 'discord.js'
 import { getButtons } from './Buttons.js';
 import { Song } from '../structures/Dispatcher.js';
 import { Dispatcher, Lavamusic } from '../structures/index.js';
+import { LoadType } from 'shoukaku';
 
 function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic): EmbedBuilder {
     let iconUrl = client.config.icons[player.current.info.sourceName];
@@ -46,7 +47,7 @@ async function setupStart(
         try {
             let res = await client.queue.search(query);
             switch (res.loadType) {
-                case 'LOAD_FAILED':
+                case LoadType.ERROR:
                     await message.channel
                         .send({
                             embeds: [
@@ -61,7 +62,7 @@ async function setupStart(
                             }, 5000);
                         });
                     break;
-                case 'NO_MATCHES':
+                case LoadType.EMPTY:
                     await message.channel
                         .send({
                             embeds: [
@@ -76,8 +77,8 @@ async function setupStart(
                             }, 5000);
                         });
                     break;
-                case 'TRACK_LOADED':
-                    const track = player.buildTrack(res.tracks[0], message.author);
+                case LoadType.TRACK:
+                    const track = player.buildTrack(res.data[0], message.author);
 
                     if (player.queue.length > client.config.maxQueueSize) {
                         await message.channel
@@ -105,7 +106,7 @@ async function setupStart(
                                 embed
                                     .setColor(client.color.main)
                                     .setDescription(
-                                        `Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`
+                                        `Added [${res.data[0].info.title}](${res.data[0].info.uri}) to the queue.`
                                     ),
                             ],
                         })
@@ -117,7 +118,7 @@ async function setupStart(
                     neb(n, player, client);
                     if (m) await m.edit({ embeds: [n] }).catch(() => { });
                     break;
-                case 'PLAYLIST_LOADED':
+                case LoadType.PLAYLIST:
                     if (res.length > client.config.maxPlaylistSize) {
                         await message.channel
                             .send({
@@ -136,7 +137,7 @@ async function setupStart(
                             });
                         return;
                     }
-                    for (const track of res.tracks) {
+                    for (const track of res.data.tracks) {
                         const pl = player.buildTrack(track, message.author);
                         if (player.queue.length > client.config.maxQueueSize) {
                             await message.channel
@@ -165,7 +166,7 @@ async function setupStart(
                                 embed
                                     .setColor(client.color.main)
                                     .setDescription(
-                                        `Added [${res.tracks.length}](${res.tracks[0].info.uri}) to the queue.`
+                                        `Added [${res.data.tracks.length}](${res.data.tracks[0].info.uri}) to the queue.`
                                     ),
                             ],
                         })
@@ -177,8 +178,8 @@ async function setupStart(
                     neb(n, player, client);
                     if (m) await m.edit({ embeds: [n] }).catch(() => { });
                     break;
-                case 'SEARCH_RESULT':
-                    const track2 = player.buildTrack(res.tracks[0], message.author);
+                case LoadType.SEARCH:
+                    const track2 = player.buildTrack(res.data[0], message.author);
                     if (player.queue.length > client.config.maxQueueSize) {
                         await message.channel
                             .send({
@@ -205,7 +206,7 @@ async function setupStart(
                                 embed
                                     .setColor(client.color.main)
                                     .setDescription(
-                                        `Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`
+                                        `Added [${res.data[0].info.title}](${res.data[0].info.uri}) to the queue.`
                                     ),
                             ],
                         })

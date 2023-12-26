@@ -74,17 +74,17 @@ export default class SetupButtons extends Event {
         if (message) {
             switch (interaction.customId) {
                 case 'LOW_VOL_BUT': {
-                    const vol = player.volume - 10;
+                    const vol = player.player.volume - 10;
                     player.player.setGlobalVolume(vol);
                     await buttonReply(
                         interaction,
-                        `Volume set to ${vol.toFixed()}%`,
+                        `Volume set to ${vol}%`,
                         this.client.color.main
                     );
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Volume: ${vol.toFixed()}%`,
+                                text: `Volume: ${vol}%`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
@@ -92,17 +92,17 @@ export default class SetupButtons extends Event {
                     break;
                 }
                 case 'HIGH_VOL_BUT': {
-                    const vol2 = player.volume + 10;
+                    const vol2 = player.player.volume + 10;
                     player.player.setGlobalVolume(vol2);
                     await buttonReply(
                         interaction,
-                        `Volume set to ${vol2.toFixed()}%`,
+                        `Volume set to ${vol2}%`,
                         this.client.color.main
                     );
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Volume: ${vol2.toFixed()}%`,
+                                text: `Volume: ${vol2}%`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],

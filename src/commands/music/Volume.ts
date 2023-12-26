@@ -68,7 +68,7 @@ export default class Volume extends Command {
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(`Set the volume to ${(player.volume).toFixed()}`),
+                    .setDescription(`Set the volume to ${player.player.volume}`),
             ],
         });
     }
