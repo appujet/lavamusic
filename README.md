@@ -5,6 +5,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
+[![Support Server][support-shield]][support-server]
 [![MIT License][license-shield]][license-url]
 [![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://repl.it/github/brblacky/lavamusic)
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/brblacky/lavamusic)
@@ -72,7 +73,9 @@
 [LavaSrc]: https://github.com/TopiSenpai/LavaSrc
 [skybot-lavalink-plugin]: https://github.com/DuncteBot/skybot-lavalink-plugin
 
-### **Need Help with plugins?** Join our [Discord Server](https://discord.gg/PMpJnJaHmy) and ask in the `#support` channel
+### **Need Help with plugins?** Join our [Discord Server]([support-server]) and ask for help in the `#support` channel.
+
+<iframe src="https://discord.com/widget?id=942117923001098260&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 
 ## 📚 Commands
 
@@ -303,3 +306,5 @@ Thanks goes to these wonderful people :
 [issues-url]: https://github.com/brblacky/lavamusic/issues
 [license-shield]: https://img.shields.io/github/license/brblacky/lavamusic.svg?style=for-the-badge
 [license-url]: https://github.com/brblacky/lavamusic/blob/master/LICENSE
+[support-server]: https://discord.gg/PMpJnJaHmy
+[support-shield]: https://img.shields.io/discord/942117923001098260.svg?style=for-the-badge&logo=discord&colorB=7289DA
