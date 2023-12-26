@@ -37,13 +37,13 @@ export default class Join extends Command {
                 ctx.guild,
                 vc.voice.channel,
                 ctx.channel,
-                client.shoukaku.getNode()
+                client.shoukaku.options.nodeResolver(client.shoukaku.nodes)
             );
             return await ctx.sendMessage({
                 embeds: [
                     embed
                         .setColor(this.client.color.main)
-                        .setDescription(`Joined <#${player.player.connection.channelId}>`),
+                        .setDescription(`Joined <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`),
                 ],
             });
         } else {
@@ -52,7 +52,7 @@ export default class Join extends Command {
                     embed
                         .setColor(this.client.color.main)
                         .setDescription(
-                            `I'm already connected to <#${player.player.connection.channelId}>`
+                            `I'm already connected to <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
                         ),
                 ],
             });

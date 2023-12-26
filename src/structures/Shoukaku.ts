@@ -11,24 +11,27 @@ export default class ShoukakuClient extends Shoukaku {
             reconnectInterval: 30,
             reconnectTries: 2,
             restTimeout: 10000,
+            userAgent: `Lavamusic (@devblacky)`, // don't change this
+            nodeResolver: (nodes) => [...nodes.values()]
+                .filter(node => node.state === 2)
+                .sort((a, b) => a.penalties - b.penalties)
+                .shift()
         });
         this.client = client;
-        this.on('ready', (name, resumed) =>
+        this.on('ready', (name, reconnected) => {
             this.client.shoukaku.emit(
-                resumed ? 'nodeReconnect' : 'nodeConnect',
-                this.client.shoukaku.getNode(name)
+                reconnected ? 'nodeReconnect' : 'nodeConnect',
+                name,
             )
-        );
+        });
 
         this.on('error', (name, error) => this.client.shoukaku.emit('nodeError', name, error));
 
         this.on('close', (name, code, reason) =>
             this.client.shoukaku.emit('nodeDestroy', name, code, reason)
         );
-
-        this.on('disconnect', (name, players, moved) => {
-            if (moved) this.emit('playerMove', players);
-            this.client.shoukaku.emit('nodeDisconnect', name, players);
+        this.on('disconnect', (name, count) => {
+            this.client.shoukaku.emit('nodeDisconnect', name, count);
         });
 
         this.on('debug', (name, reason) => this.client.shoukaku.emit('nodeRaw', name, reason));

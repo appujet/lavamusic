@@ -1,4 +1,4 @@
-import { EmbedBuilder, Guild, TextChannel } from 'discord.js';
+import { EmbedBuilder, Guild, GuildMember, TextChannel } from 'discord.js';
 
 import { Event, Lavamusic } from '../../structures/index.js';
 
@@ -9,7 +9,12 @@ export default class GuildCreate extends Event {
         });
     }
     public async run(guild: Guild): Promise<any> {
-        const owner = await guild.fetchOwner();
+        let owner: GuildMember | undefined;
+        try {
+            owner = await guild.fetchOwner();
+        } catch (e) {
+            owner = await guild.members.fetch(guild.ownerId);
+        }
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.green)
             .setAuthor({ name: guild.name, iconURL: guild.iconURL({ extension: 'jpeg' }) })

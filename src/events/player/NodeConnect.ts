@@ -1,5 +1,3 @@
-import { Node } from 'shoukaku';
-
 import { Event, Lavamusic } from '../../structures/index.js';
 
 export default class NodeConnect extends Event {
@@ -8,8 +6,8 @@ export default class NodeConnect extends Event {
             name: 'nodeConnect',
         });
     }
-    public async run(node: Node): Promise<void> {
-        this.client.logger.success(`Node ${node.name} is ready!`);
+    public async run(node: string): Promise<void> {
+        this.client.logger.success(`Node ${node} is ready!`);
         const data = await this.client.prisma.stay.findMany();
         if (!data) return;
         for (const main of data) {

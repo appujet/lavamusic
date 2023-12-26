@@ -8,7 +8,7 @@ export default class SetupButtons extends Event {
         });
     }
     public async run(interaction: any): Promise<void> {
-        if (!interaction.replied) await interaction.deferReply().catch(() => {});
+        if (!interaction.replied) await interaction.deferReply().catch(() => { });
         if (!interaction.member.voice.channel)
             return await buttonReply(
                 interaction,
@@ -18,7 +18,7 @@ export default class SetupButtons extends Event {
         if (
             interaction.guild.members.cache.get(this.client.user.id).voice.channel &&
             interaction.guild.members.cache.get(this.client.user.id).voice.channelId !==
-                interaction.member.voice.channelId
+            interaction.member.voice.channelId
         )
             return await buttonReply(
                 interaction,
@@ -57,7 +57,7 @@ export default class SetupButtons extends Event {
             /* empty */
         }
         const icon = player
-            ? player.current.info.thumbnail
+            ? player.current.info.artworkUrl
             : this.client.user.displayAvatarURL({ extension: 'png' });
         let iconUrl = this.client.config.icons[player.current.info.sourceName];
         if (!iconUrl) iconUrl = this.client.user.displayAvatarURL({ extension: 'png' });
@@ -66,8 +66,7 @@ export default class SetupButtons extends Event {
             .embed()
             .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
             .setDescription(
-                `[${title}](${uri}) - ${
-                    player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
+                `[${title}](${uri}) - ${player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
                 } - Requested by ${player.current.info.requester}`
             )
             .setImage(icon);
@@ -75,8 +74,8 @@ export default class SetupButtons extends Event {
         if (message) {
             switch (interaction.customId) {
                 case 'LOW_VOL_BUT': {
-                    const vol = player.volume * 100 - 10;
-                    player.player.setVolume(vol / 100);
+                    const vol = player.volume - 10;
+                    player.player.setGlobalVolume(vol);
                     await buttonReply(
                         interaction,
                         `Volume set to ${vol.toFixed()}%`,
@@ -93,8 +92,8 @@ export default class SetupButtons extends Event {
                     break;
                 }
                 case 'HIGH_VOL_BUT': {
-                    const vol2 = player.volume * 100 + 10;
-                    player.player.setVolume(vol2 / 100);
+                    const vol2 = player.volume + 10;
+                    player.player.setGlobalVolume(vol2);
                     await buttonReply(
                         interaction,
                         `Volume set to ${vol2.toFixed()}%`,
@@ -189,9 +188,8 @@ export default class SetupButtons extends Event {
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Shuffle set to ${player.shuffle ? `on` : `off`} by ${
-                                    interaction.member.displayName
-                                }`,
+                                text: `Shuffle set to ${player.shuffle ? `on` : `off`} by ${interaction.member.displayName
+                                    }`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],

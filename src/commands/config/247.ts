@@ -46,7 +46,7 @@ export default class _247 extends Command {
                     ctx.guild,
                     vc.voice.channel,
                     ctx.channel,
-                    client.shoukaku.getNode()
+                    client.shoukaku.options.nodeResolver(client.shoukaku.nodes)
                 );
             return await ctx.sendMessage({
                 embeds: [

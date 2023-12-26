@@ -63,12 +63,12 @@ export default class Volume extends Command {
                         .setDescription('The volume can\'t be lower than 0.'),
                 ],
             });
-        player.player.setVolume(number / 100);
+        player.player.setGlobalVolume(number);
         return await ctx.sendMessage({
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(`Set the volume to ${(player.volume * 100).toFixed()}`),
+                    .setDescription(`Set the volume to ${(player.volume).toFixed()}`),
             ],
         });
     }

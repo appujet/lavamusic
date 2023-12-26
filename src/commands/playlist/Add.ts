@@ -1,4 +1,5 @@
 import { ApplicationCommandOptionType } from 'discord.js';
+import { LoadType } from 'shoukaku';
 
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
@@ -94,7 +95,12 @@ export default class Add extends Command {
                     },
                 ],
             });
-        const trackStrings = res.tracks.map(track => JSON.stringify(track));
+        let trackStrings;
+        if (res.loadType === LoadType.PLAYLIST) {
+            trackStrings = res.data.tracks.map((track) => JSON.stringify(track));
+        } else {
+            trackStrings = [JSON.stringify(res.data[0])];
+        }
         await client.prisma.playlist.update({
             where: {
                 id: playlistData.id,

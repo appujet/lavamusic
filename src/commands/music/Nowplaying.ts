@@ -39,7 +39,7 @@ export default class Nowplaying extends Command {
             .embed()
             .setColor(this.client.color.main)
             .setAuthor({ name: 'Now Playing', iconURL: ctx.guild.iconURL({}) })
-            .setThumbnail(track.info.thumbnail)
+            .setThumbnail(track.info.artworkUrl)
             .setDescription(
                 `[${track.info.title}](${track.info.uri}) - Request By: ${track.info.requester}\n\n\`${bar}\``
             )

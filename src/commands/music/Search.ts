@@ -1,4 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
+import { LoadType } from 'shoukaku';
 
 import { Song } from '../../structures/Dispatcher.js';
 import { Command, Context, Lavamusic } from '../../structures/index.js';
@@ -48,7 +49,7 @@ export default class Search extends Command {
                 ctx.guild,
                 vc.voice.channel,
                 ctx.channel,
-                client.shoukaku.getNode()
+                client.shoukaku.options.nodeResolver(client.shoukaku.nodes)
             );
         }
         const res = await this.client.queue.search(query);
@@ -64,7 +65,7 @@ export default class Search extends Command {
             new ButtonBuilder().setCustomId('5').setLabel('5').setStyle(ButtonStyle.Primary)
         );
         switch (res.loadType) {
-            case 'LOAD_FAILED':
+            case LoadType.ERROR:
                 ctx.sendMessage({
                     embeds: [
                         embed
@@ -73,7 +74,7 @@ export default class Search extends Command {
                     ],
                 });
                 break;
-            case 'NO_MATCHES':
+            case LoadType.EMPTY:
                 ctx.sendMessage({
                     embeds: [
                         embed
@@ -82,12 +83,11 @@ export default class Search extends Command {
                     ],
                 });
                 break;
-            case 'SEARCH_RESULT': {
-                const tracks = res.tracks.slice(0, 5);
+            case LoadType.SEARCH: {
+                const tracks = res.data.slice(0, 5);
                 const embeds = tracks.map(
                     (track: Song, index: number) =>
-                        `${index + 1}. [${track.info.title}](${track.info.uri}) - \`${
-                            track.info.author
+                        `${index + 1}. [${track.info.title}](${track.info.uri}) - \`${track.info.author
                         }\``
                 );
                 await ctx.sendMessage({
@@ -104,9 +104,9 @@ export default class Search extends Command {
             idle: 60000 / 2,
         });
         collector.on('collect', async (int: any) => {
-            for (let i = 0; i < res.tracks.length; i++) {
+            for (let i = 0; i < res.data.length; i++) {
                 if (int.customId === `${i + 1}`) {
-                    let track = res.tracks[i];
+                    let track = res.data[i];
                     track = player.buildTrack(track, ctx.author);
                     player.queue.push(track);
                     player.isPlaying();

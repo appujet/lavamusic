@@ -24,7 +24,7 @@ export default class TrackStart extends Event {
         });
     }
     public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
-        const guild = this.client.guilds.cache.get(player.connection.guildId);
+        const guild = this.client.guilds.cache.get(player.guildId);
         if (!guild) return;
         const channel = guild.channels.cache.get(dispatcher.channelId) as TextChannel;
         if (!channel) return;
@@ -75,7 +75,7 @@ export default class TrackStart extends Event {
                 text: `Requested by ${track.info.requester.tag}`,
                 iconURL: track.info.requester.avatarURL({}),
             })
-            .setThumbnail(track.info.thumbnail)
+            .setThumbnail(track.info.artworkUrl)
             .addFields(
                 {
                     name: 'Duration',
@@ -116,9 +116,8 @@ export default class TrackStart extends Event {
                         return true;
                     else {
                         b.reply({
-                            content: `You are not connected to <#${
-                                b.guild.members.me.voice?.channelId ?? 'None'
-                            }> to use this buttons.`,
+                            content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? 'None'
+                                }> to use this buttons.`,
                             ephemeral: true,
                         });
                         return false;
@@ -161,9 +160,8 @@ export default class TrackStart extends Event {
                             await message.edit({
                                 embeds: [
                                     embed.setFooter({
-                                        text: `${player.paused ? 'Paused' : 'Resumed'} by ${
-                                            interaction.user.tag
-                                        }`,
+                                        text: `${player.paused ? 'Paused' : 'Resumed'} by ${interaction.user.tag
+                                            }`,
                                         iconURL: interaction.user.avatarURL({}),
                                     }),
                                 ],

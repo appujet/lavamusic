@@ -1,3 +1,5 @@
+import { LoadType } from 'shoukaku';
+
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class Play extends Command {
@@ -47,14 +49,13 @@ export default class Play extends Command {
             player = await client.queue.create(
                 ctx.guild,
                 vc.voice.channel,
-                ctx.channel,
-                client.shoukaku.getNode()
+                ctx.channel
             );
 
         const res = await this.client.queue.search(query);
         const embed = this.client.embed();
         switch (res.loadType) {
-            case 'LOAD_FAILED':
+            case LoadType.ERROR:
                 ctx.sendMessage({
                     embeds: [
                         embed
@@ -63,7 +64,7 @@ export default class Play extends Command {
                     ],
                 });
                 break;
-            case 'NO_MATCHES':
+            case LoadType.EMPTY:
                 ctx.sendMessage({
                     embeds: [
                         embed
@@ -72,8 +73,8 @@ export default class Play extends Command {
                     ],
                 });
                 break;
-            case 'TRACK_LOADED': {
-                const track = player.buildTrack(res.tracks[0], ctx.author);
+            case LoadType.TRACK: {
+                const track = player.buildTrack(res.data[0], ctx.author);
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.sendMessage({
                         embeds: [
@@ -91,14 +92,14 @@ export default class Play extends Command {
                         embed
                             .setColor(this.client.color.main)
                             .setDescription(
-                                `Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`
+                                `Added [${res.data[0].info.title}](${res.data[0].info.uri}) to the queue.`
                             ),
                     ],
                 });
                 break;
             }
-            case 'PLAYLIST_LOADED':
-                if (res.length > client.config.maxPlaylistSize)
+            case LoadType.PLAYLIST: {
+                if (res.data.tracks.length > client.config.maxPlaylistSize)
                     return await ctx.sendMessage({
                         embeds: [
                             embed
@@ -108,7 +109,7 @@ export default class Play extends Command {
                                 ),
                         ],
                     });
-                for (const track of res.tracks) {
+                for (const track of res.data.tracks) {
                     const pl = player.buildTrack(track, ctx.author);
                     if (player.queue.length > client.config.maxQueueSize)
                         return await ctx.sendMessage({
@@ -127,12 +128,14 @@ export default class Play extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(`Added ${res.tracks.length} songs to the queue.`),
+                            .setDescription(`Added ${res.data.tracks.length} songs to the queue.`),
                     ],
                 });
                 break;
-            case 'SEARCH_RESULT': {
-                const track1 = player.buildTrack(res.tracks[0], ctx.author);
+            }
+            case LoadType.SEARCH: {
+                
+                const track1 = player.buildTrack(res.data[0], ctx.author);
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.sendMessage({
                         embeds: [
@@ -150,7 +153,7 @@ export default class Play extends Command {
                         embed
                             .setColor(this.client.color.main)
                             .setDescription(
-                                `Added [${res.tracks[0].info.title}](${res.tracks[0].info.uri}) to the queue.`
+                                `Added [${res.data[0].info.title}](${res.data[0].info.uri}) to the queue.`
                             ),
                     ],
                 });

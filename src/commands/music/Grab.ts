@@ -38,12 +38,10 @@ export default class Grab extends Command {
                 .embed()
                 .setTitle(`**${song.info.title}**`)
                 .setURL(song.info.uri)
-                .setThumbnail(song.info.thumbnail)
+                .setThumbnail(song.info.artworkUrl)
                 .setDescription(
-                    `**Duration:** ${
-                        song.info.isStream ? 'LIVE' : client.utils.formatTime(song.info.length)
-                    }\n**Requested by:** ${song.info.requester}\n**Link:** [Click here](${
-                        song.info.uri
+                    `**Duration:** ${song.info.isStream ? 'LIVE' : client.utils.formatTime(song.info.length)
+                    }\n**Requested by:** ${song.info.requester}\n**Link:** [Click here](${song.info.uri
                     })`
                 )
                 .setColor(client.color.main);

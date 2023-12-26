@@ -5,7 +5,7 @@ import { Node, Player, Track } from 'shoukaku';
 import { Lavamusic } from './index.js';
 
 export class Song implements Track {
-    track: string;
+    encoded: string;
     info: {
         identifier: string;
         isSeekable: boolean;
@@ -14,19 +14,19 @@ export class Song implements Track {
         isStream: boolean;
         position: number;
         title: string;
-        uri: string;
+        uri?: string;
+        artworkUrl?: string;
+        isrc?: string;
         sourceName: string;
-        thumbnail?: string;
-        requester?: User;
-    };
+        requester: User
+    }
+    pluginInfo: unknown;
+
     constructor(track: Song, user: User) {
         if (!track) throw new Error('Track is not provided');
-        this.track = track.track;
+        this.encoded = track.encoded;
         this.info = track.info;
         if (this.info && this.info.requester === undefined) this.info.requester = user;
-        if (track.info.sourceName === 'youtube') {
-            track.info.thumbnail = `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`;
-        }
     }
 }
 export default class Dispatcher {
@@ -39,7 +39,6 @@ export default class Dispatcher {
     public previous: Song | null;
     public current: Song | null;
     public loop: 'off' | 'repeat' | 'queue';
-    public matchedTracks: Song[];
     public requester: User;
     public repeat: number;
     public node: Node;
@@ -60,7 +59,6 @@ export default class Dispatcher {
         this.previous = null;
         this.current = null;
         this.loop = 'off';
-        this.matchedTracks = [];
         this.repeat = 0;
         this.node = options.node;
         this.shuffle = false;
@@ -95,12 +93,8 @@ export default class Dispatcher {
             return;
         }
         this.current = this.queue.length !== 0 ? this.queue.shift() : this.queue[0];
-        if (this.matchedTracks.length !== 0) this.matchedTracks = [];
-        const search = (await this.node.rest.resolve(
-            `${this.client.config.searchEngine}:${this.current?.info.title} ${this.current?.info.author}`
-        )) as any;
-        this.matchedTracks.push(...search.tracks);
-        this.player.playTrack({ track: this.current?.track });
+        if (!this.current) return;
+        this.player.playTrack({ track: this.current?.encoded });
         if (this.current) {
             this.history.push(this.current);
             if (this.history.length > 100) {
@@ -132,7 +126,7 @@ export default class Dispatcher {
     public destroy(): void {
         this.queue.length = 0;
         this.history = [];
-        this.player.connection.disconnect();
+        this.client.shoukaku.leaveVoiceChannel(this.guildId);
         this.client.queue.delete(this.guildId);
         if (this.stopped) return;
         this.client.shoukaku.emit('playerDestroy', this.player);
@@ -175,7 +169,6 @@ export default class Dispatcher {
         this.repeat = 0;
         this.stopped = true;
         this.player.stopTrack();
-        this.player.connection.disconnect();
     }
     public setLoop(loop: any): void {
         this.loop = loop;
@@ -193,22 +186,23 @@ export default class Dispatcher {
         const resolve = await this.node.rest.resolve(
             `${this.client.config.searchEngine}:${song.info.author}`
         );
-        if (!resolve || !resolve.tracks.length) return this.destroy();
+        if (!resolve || !resolve?.data || !Array.isArray(resolve.data)) return this.destroy();
 
+        const metadata = (resolve.data as Array<any>).shift();
         let choosed: Song | null = null;
         const maxAttempts = 10; // Maximum number of attempts to find a unique song
         let attempts = 0;
 
         while (attempts < maxAttempts) {
             const potentialChoice = new Song(
-                resolve.tracks[Math.floor(Math.random() * resolve.tracks.length)],
+                metadata.encoded[Math.floor(Math.random() * metadata.encoded.length)],
                 this.client.user
             );
 
             // Check if the chosen song is not already in the queue or history
             if (
-                !this.queue.some(s => s.track === potentialChoice.track) &&
-                !this.history.some(s => s.track === potentialChoice.track)
+                !this.queue.some(s => s.encoded === potentialChoice.encoded) &&
+                !this.history.some(s => s.encoded === potentialChoice.encoded)
             ) {
                 choosed = potentialChoice;
                 break;

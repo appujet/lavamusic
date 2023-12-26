@@ -12,6 +12,18 @@ const antiCrash: BotPlugin = {
         process.on('uncaughtException', err => {
             client.logger.error('Uncaught Exception thrown:', err);
         });
+
+        const handleExit = async (): Promise<void> => {
+            if (client) {
+                client.logger.star('Disconnecting from Discord...');
+                await client.destroy();
+                client.logger.success('Successfully disconnected from Discord!');
+                process.exit();
+            }
+        };
+        process.on('SIGINT', handleExit);
+        process.on('SIGTERM', handleExit);
+        process.on('SIGQUIT', handleExit);
     },
 };
 
