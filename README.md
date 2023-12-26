@@ -75,7 +75,6 @@
 
 ### **Need Help with plugins?** Join our [Discord Server]([support-server]) and ask for help in the `#support` channel.
 
-<iframe src="https://discord.com/widget?id=942117923001098260&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 
 ## 📚 Commands
 
