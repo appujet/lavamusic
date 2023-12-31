@@ -188,18 +188,12 @@ export default class Dispatcher {
         );
         if (!resolve || !resolve?.data || !Array.isArray(resolve.data)) return this.destroy();
 
-        const metadata = (resolve.data as Array<any>).shift();
+        const metadata = (resolve.data as Array<any>) as any;
         let choosed: Song | null = null;
         const maxAttempts = 10; // Maximum number of attempts to find a unique song
         let attempts = 0;
-
         while (attempts < maxAttempts) {
-            const potentialChoice = new Song(
-                metadata.encoded[Math.floor(Math.random() * metadata.encoded.length)],
-                this.client.user
-            );
-
-            // Check if the chosen song is not already in the queue or history
+            const potentialChoice = this.buildTrack(metadata[Math.floor(Math.random() * metadata.length)], this.client.user);
             if (
                 !this.queue.some(s => s.encoded === potentialChoice.encoded) &&
                 !this.history.some(s => s.encoded === potentialChoice.encoded)
@@ -207,10 +201,8 @@ export default class Dispatcher {
                 choosed = potentialChoice;
                 break;
             }
-
             attempts++;
         }
-
         if (choosed) {
             this.queue.push(choosed);
             return await this.isPlaying();
