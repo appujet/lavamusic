@@ -11,9 +11,16 @@ export default class GuildCreate extends Event {
     public async run(guild: Guild): Promise<any> {
         let owner: GuildMember | undefined;
         try {
-            owner = await guild.fetchOwner();
+            owner = guild.members.cache.get(guild?.ownerId);
         } catch (e) {
-            owner = await guild.members.fetch(guild.ownerId);
+            owner = await guild.fetchOwner();
+        }
+        if (!owner) {
+            owner = {
+                user: {
+                    tag: 'Unknown#0000',
+                },
+            } as GuildMember;
         }
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.green)
