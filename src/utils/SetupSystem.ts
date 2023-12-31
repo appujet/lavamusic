@@ -78,7 +78,7 @@ async function setupStart(
                         });
                     break;
                 case LoadType.TRACK:
-                    const track = player.buildTrack(res.data[0], message.author);
+                    const track = player.buildTrack(res.data, message.author);
 
                     if (player.queue.length > client.config.maxQueueSize) {
                         await message.channel
@@ -106,7 +106,7 @@ async function setupStart(
                                 embed
                                     .setColor(client.color.main)
                                     .setDescription(
-                                        `Added [${res.data[0].info.title}](${res.data[0].info.uri}) to the queue.`
+                                        `Added [${res.data.info.title}](${res.data.info.uri}) to the queue.`
                                     ),
                             ],
                         })

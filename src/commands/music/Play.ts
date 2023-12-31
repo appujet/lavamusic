@@ -51,7 +51,7 @@ export default class Play extends Command {
                 vc.voice.channel,
                 ctx.channel
             );
-
+        
         const res = await this.client.queue.search(query);
         const embed = this.client.embed();
         switch (res.loadType) {
@@ -74,7 +74,7 @@ export default class Play extends Command {
                 });
                 break;
             case LoadType.TRACK: {
-                const track = player.buildTrack(res.data[0], ctx.author);
+                const track = player.buildTrack(res.data, ctx.author);
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.sendMessage({
                         embeds: [
@@ -92,7 +92,7 @@ export default class Play extends Command {
                         embed
                             .setColor(this.client.color.main)
                             .setDescription(
-                                `Added [${res.data[0].info.title}](${res.data[0].info.uri}) to the queue.`
+                                `Added [${res.data.info.title}](${res.data.info.uri}) to the queue.`
                             ),
                     ],
                 });
@@ -134,7 +134,6 @@ export default class Play extends Command {
                 break;
             }
             case LoadType.SEARCH: {
-                
                 const track1 = player.buildTrack(res.data[0], ctx.author);
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.sendMessage({

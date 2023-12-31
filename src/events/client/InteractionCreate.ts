@@ -9,6 +9,7 @@ import {
 } from 'discord.js';
 
 import { Context, Event, Lavamusic } from '../../structures/index.js';
+import { LoadType } from 'shoukaku';
 
 export default class InteractionCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -199,24 +200,20 @@ export default class InteractionCreate extends Event {
                 const res = await this.client.queue.search(song);
                 let songs = [];
                 switch (res.loadType) {
-                    case 'LOAD_FAILED':
-                        break;
-                    case 'NO_MATCHES':
-                        break;
-                    case 'TRACK_LOADED':
-                        break;
-                    case 'PLAYLIST_LOADED':
-                        break;
-                    case 'SEARCH_RESULT':
-                        songs.push({
-                            name: res.tracks[0].info.title,
-                            value: res.tracks[0].info.uri,
+                    case LoadType.SEARCH:
+                        if (!res.data.length) return;
+                        res.data.slice(0, 10).forEach(x => {
+                            songs.push({
+                                name: x.info.title,
+                                value: x.info.uri,
+                            });
                         });
                         break;
                     default:
                         break;
                 }
-                interaction.respond(songs).catch(() => {});
+                
+                return await interaction.respond(songs).catch(() => {});
             }
         }
     }
