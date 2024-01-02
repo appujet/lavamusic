@@ -7,13 +7,11 @@ WORKDIR /opt/lavamusic/
 COPY package*.json ./
 RUN apt-get update && \
     apt-get install -y openssl && \
-    npm install
+    npm install && \
+    npx prisma generate
 
 # Copy source code
 COPY . .
-
-# Generate Prisma files (Ensure you have schema.prisma in your project)
-RUN npx prisma generate
 
 # Build TypeScript
 RUN npm run build
@@ -34,8 +32,7 @@ COPY --from=builder /opt/lavamusic/prisma ./prisma
 COPY package*.json ./
 RUN apt-get update && \
     apt-get install -y openssl && \
-    npm install --only=production
-
-RUN npx prisma generate
+    npm install --only=production && \
+    npx prisma generate
 
 CMD [ "node", "dist/index.js" ]

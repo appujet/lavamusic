@@ -15,49 +15,41 @@ services:
     lavalink:
         container_name: lavamusic-lavalink
         image: ghcr.io/lavalink-devs/lavalink
+        restart: on-failure
         environment:
             SERVER_PORT: 2333
-            SERVER_ADDRESS: 0.0.0.0
-            LAVALINK_SERVER_PASSWORD: 'youshallnotpass'
-            LAVALINK_SERVER_SOURCES_YOUTUBE: 'true'
-            LAVALINK_SERVER_SOURCES_BANDCAMP: 'true'
-            LAVALINK_SERVER_SOURCES_SOUNDCLOUD: 'true'
-            LAVALINK_SERVER_SOURCES_TWITCH: 'true'
-            LAVALINK_SERVER_SOURCES_VIMEO: 'true'
-            LAVALINK_SERVER_SOURCES_HTTP: 'true'
-            LAVALINK_SERVER_SOURCES_LOCAL: 'false'
-            LAVALINK_SERVER_BUFFER_DURATION_MS: 400
-            LAVALINK_SERVER_FRAME_BUFFER_DURATIONS_MS: 5000
-            LAVALINK_SERVER_TRACK_STRUCK_THRESHOLD_MS: 10000
-            LAVALINK_SERVER_YOUTUBE_PLAYLIST_LOAD_LIMIT: 6
-            LAVALINK_SERVER_PLAYER_UPDATE_INTERVAL: 5
-            LAVALINK_SERVER_YOUTUBE_SEARCH_ENABLED: 'true'
-            LAVALINK_SERVER_SOUNDCLOUD_SEARCH_ENABLED: 'true'
-            #LAVALINK_SERVER_YOUTUBE_CONFIG_EMAIL:
-            #LAVALINK_SERVER_YOUTUBE_CONFIG_PASSWORD:
-            LAVALINK_SERVER_SENTRY_DSN: ''
+            
         volumes:
-            - ./plugins/:/opt/Lavalink/plugins/ # persist plugins between restarts, make sure to set the correct permissions (user: 322, group: 322)
-        restart: on-failure
+            # mount application.yml from the same directory or use environment variables
+            - ./Lavalink/application.yml:/opt/Lavalink/application.yml
+            # persist plugins between restarts, make sure to set the correct permissions (user: 322, group: 322)
+            - ./Lavalink/plugins/:/opt/Lavalink/plugins/
+        #expose:
+        # lavalink exposes port 2333 to connect to for other containers (this is for documentation purposes only)
+        #- 2333
+        #ports:
+            # you only need this if you want to make your lavalink accessible from outside of containers
+            #- "2333:2333"
+
     lavamusic:
         container_name: lavamusic
         image: ghcr.io/brblacky/lavamusic:main
         environment:
-            TOKEN: '' # Your bot token
-            PREFIX: '!' # Your bot prefix
-            OWNER_IDS: '959276033683628122' # Your id
-            CLIENT_ID: '875635121770889257' # Your bot id
-            GUILD_ID: '' # Your server Id if you want to use the for single server
-            PRODUCTION: 'true' # true for production
-            SEARCH_ENGINE: 'ytsearch' # ytsearch, scsearch or ytmsearch
-            MAX_PLAYLIST_SIZE: '100' # Max playlist size
-            MAX_QUEUE_SIZE: '100' # Max queue size
-            DATABASE_URL: 'mongodb://mongoadmin:mongopassword@mongodb/lavamusic?authSource=admin&directConnection=true' # Your mongodb url
-            LAVALINK_URL: 'lavalink:2333' # Your lavalink url
-            LAVALINK_AUTH: 'youshallnotpass' # Your lavalink password
-            LAVALINK_NAME: 'Blacky' # Your lavalink name
-            LAVALINK_SECURE: 'false' # true if you are using https
-        command: bash -c "apt-get update -y && apt-get install -y openssl && node dist/index.js"
+            - DATABASE_URL=mongodb://mongoadmin:mongopassword@mongodb/lavamusic?authSource=admin&directConnection=true
+            # Your mongodb url
+            - LAVALINK_URL=lavalink:2333
+            # Your lavalink url
+            - LAVALINK_AUTH=youshallnotpass
+            # Your lavalink password
+            - LAVALINK_NAME=Blacky'
+            # Your lavalink name
+            - LAVALINK_SECURE=false
+            # true if you are using https
+        volumes:
+            # mount .env from the same directory or use environment variables
+            - .env:/opt/lavamusic/.env
+
+        command: bash -c "apt-get update -y && apt-get install -y openssl && npx prisma generate && node dist/index.js"
         restart: on-failure
         depends_on:
             - lavalink

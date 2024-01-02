@@ -31,3 +31,7 @@
 /.eslintcache
 
 /package-lock.json
+
+/Lavalink/dev.application.yml
+
+/Lavalink/plugins
