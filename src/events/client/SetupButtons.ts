@@ -9,6 +9,7 @@ export default class SetupButtons extends Event {
     }
     public async run(interaction: any): Promise<void> {
         if (!interaction.replied) await interaction.deferReply().catch(() => { });
+        
         if (!interaction.member.voice.channel)
             return await buttonReply(
                 interaction,
@@ -70,7 +71,7 @@ export default class SetupButtons extends Event {
                 } - Requested by ${player.current.info.requester}`
             )
             .setImage(icon);
-
+        if (!interaction.isButton()) return;
         if (message) {
             switch (interaction.customId) {
                 case 'LOW_VOL_BUT': {

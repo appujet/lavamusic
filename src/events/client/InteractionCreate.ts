@@ -7,9 +7,9 @@ import {
     InteractionType,
     PermissionFlagsBits,
 } from 'discord.js';
+import { LoadType } from 'shoukaku';
 
 import { Context, Event, Lavamusic } from '../../structures/index.js';
-import { LoadType } from 'shoukaku';
 
 export default class InteractionCreate extends Event {
     constructor(client: Lavamusic, file: string) {
