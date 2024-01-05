@@ -96,10 +96,13 @@ export default class Add extends Command {
                 ],
             });
         let trackStrings;
+        let count;
         if (res.loadType === LoadType.PLAYLIST) {
             trackStrings = res.data.tracks.map((track) => JSON.stringify(track));
+            count = res.data.tracks.length;
         } else {
             trackStrings = [JSON.stringify(res.data[0])];
+            count = 1;
         }
         await client.prisma.playlist.update({
             where: {
@@ -113,7 +116,7 @@ export default class Add extends Command {
         ctx.sendMessage({
             embeds: [
                 {
-                    description: `Added ${res.tracks.length} to ${playlistData.name}`,
+                    description: `Added ${count} to ${playlistData.name}`,
                     color: client.color.green,
                 },
             ],

@@ -1,5 +1,5 @@
 import { Guild } from 'discord.js';
-import { Node } from 'shoukaku';
+import { LavalinkResponse, Node } from 'shoukaku';
 
 import { Dispatcher, Lavamusic } from './index.js';
 export class Queue extends Map {
@@ -56,10 +56,10 @@ export class Queue extends Map {
         }
     }
 
-    public async search(query: string): Promise<any> {
+    public async search(query: string): Promise<LavalinkResponse | undefined> {
         const node = this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
         const regex = /^https?:\/\//;
-        let result: any;
+        let result: LavalinkResponse | undefined;
         try {
             result = await node.rest.resolve(
                 regex.test(query) ? query : `${this.client.config.searchEngine}:${query}`

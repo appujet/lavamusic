@@ -104,7 +104,7 @@ export default class Search extends Command {
             idle: 60000 / 2,
         });
         collector.on('collect', async (int: any) => {
-            for (let i = 0; i < res.data.length; i++) {
+            for (let i = 0; i < res.data[0]; i++) {
                 if (int.customId === `${i + 1}`) {
                     let track = res.data[i];
                     track = player.buildTrack(track, ctx.author);

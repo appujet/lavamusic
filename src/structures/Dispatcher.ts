@@ -22,11 +22,13 @@ export class Song implements Track {
     }
     pluginInfo: unknown;
 
-    constructor(track: Song, user: User) {
+    constructor(track: Song | Track, user: User) {
         if (!track) throw new Error('Track is not provided');
         this.encoded = track.encoded;
-        this.info = track.info;
-        if (this.info && this.info.requester === undefined) this.info.requester = user;
+        this.info = {
+            ...track.info,
+            requester: user,
+        };
     }
 }
 export default class Dispatcher {
@@ -174,7 +176,7 @@ export default class Dispatcher {
         this.loop = loop;
     }
 
-    public buildTrack(track: Song, user: User): Song {
+    public buildTrack(track: Song | Track, user: User): Song {
         return new Song(track, user);
     }
     public async isPlaying(): Promise<void> {

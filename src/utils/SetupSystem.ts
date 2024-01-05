@@ -1,10 +1,10 @@
 /* eslint-disable no-case-declarations */
 import { ColorResolvable, EmbedBuilder, Message, TextChannel } from 'discord.js';
+import { LoadType } from 'shoukaku';
 
 import { getButtons } from './Buttons.js';
 import { Song } from '../structures/Dispatcher.js';
 import { Dispatcher, Lavamusic } from '../structures/index.js';
-import { LoadType } from 'shoukaku';
 
 function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic): EmbedBuilder {
     let iconUrl = client.config.icons[player.current.info.sourceName];
@@ -119,7 +119,7 @@ async function setupStart(
                     if (m) await m.edit({ embeds: [n] }).catch(() => { });
                     break;
                 case LoadType.PLAYLIST:
-                    if (res.length > client.config.maxPlaylistSize) {
+                    if (res.data.tracks.length > client.config.maxPlaylistSize) {
                         await message.channel
                             .send({
                                 embeds: [
