@@ -36,7 +36,7 @@
     },
     "homepage": "https://github.com/brblacky/lavamusic#readme",
     "devDependencies": {
-        "@types/node": "^20.10.7",
+        "@types/node": "^20.10.6",
         "@types/signale": "^1.4.7",
         "@typescript-eslint/eslint-plugin": "^6.17.0",
         "@typescript-eslint/parser": "^6.17.0",
