@@ -25,7 +25,7 @@ services:
 
     lavamusic:
         container_name: lavamusic
-        image: lavamusic:latest
+        image: ghcr.io/brblacky/lavamusic:main
         environment:
             # Your mongodb url
             - LAVALINK_URL=lavalink:2333
