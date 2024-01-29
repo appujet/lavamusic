@@ -36,17 +36,8 @@ export default class Help extends Command {
         });
     }
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const embed = this.client.embed();
-        let prefix = (await this.client.prisma.guild.findUnique({
-            where: {
-                guildId: ctx.guild.id,
-            },
-        })) as any;
-        if (!prefix) {
-            prefix = this.client.config.prefix;
-        } else {
-            prefix = prefix.prefix;
-        }
+        const embed = client.embed();
+        const prefix = client.db.getPrefix(ctx.guild.id);
         const commands = this.client.commands.filter(cmd => cmd.category !== 'dev');
         const categories = commands
             .map(cmd => cmd.category)
@@ -71,7 +62,7 @@ export default class Help extends Command {
                     `Hey there! I'm ${this.client.user.username}, a music bot made with [Lavamusic](https://github.com/brblacky/lavamusic) and Discord. You can use \`${prefix}help <command>\` to get more info on a command.`
                 )
                 .setFooter({
-                    text: `Use ${prefix}help <command> for more info on a command`,
+                    text: `Use ${prefix.prefix}help <command> for more info on a command`,
                 });
             fildes.forEach(field => helpEmbed.addFields(field));
             ctx.sendMessage({ embeds: [helpEmbed] });
@@ -92,8 +83,8 @@ export default class Help extends Command {
                 .setTitle(`Help Menu - ${command.name}`).setDescription(`**Description:** ${
                 command.description.content
             }
-**Usage:** ${prefix}${command.description.usage}
-**Examples:** ${command.description.examples.map(example => `${prefix}${example}`).join(', ')}
+**Usage:** ${prefix.prefix}${command.description.usage}
+**Examples:** ${command.description.examples.map(example => `${prefix.prefix}${example}`).join(', ')}
 **Aliases:** ${command.aliases.map(alias => `\`${alias}\``).join(', ')}
 **Category:** ${command.category}
 **Cooldown:** ${command.cooldown} seconds

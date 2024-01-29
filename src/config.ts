@@ -21,7 +21,6 @@ export default {
     botActivityType: parseInt(process.env.BOT_ACTIVITY_TYPE || '2'), // 0 to 5 get more info - https://discord.com/developers/docs/topics/gateway-events#activity-object-activity-types
     maxQueueSize: parseInt(process.env.MAX_QUEUE_SIZE) || 100,
     owners: JSON.parse(process.env.OWNER_IDS || '[]'),
-    database: process.env.DATABASE_URL,
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET || '',
     guildId: process.env.GUILD_ID,

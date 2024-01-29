@@ -1,4 +1,3 @@
-import ServerData from '../../database/server.js';
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class Prefix extends Command {
@@ -50,7 +49,7 @@ export default class Prefix extends Command {
     }
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = client.embed().setColor(client.color.main);
-        let prefix = await ServerData.get(ctx.guild.id);
+        let prefix = client.db.getPrefix(ctx.guild.id);
 
         let subCommand: string;
         let pre: string;
@@ -66,7 +65,7 @@ export default class Prefix extends Command {
                 if (!pre) {
                     embed.setDescription(
                         `The prefix for this server is \`${
-                            prefix ? prefix.prefix : client.config.prefix
+                        prefix ? prefix.prefix : client.config.prefix
                         }\``
                     );
                     return await ctx.sendMessage({ embeds: [embed] });
@@ -79,22 +78,20 @@ export default class Prefix extends Command {
                     });
 
                 if (!prefix) {
-                    await ServerData.setPrefix(ctx.guild.id, pre);
-                    prefix = await ServerData.get(ctx.guild.id);
+                    client.db.setPrefix(ctx.guild.id, pre);
                     return await ctx.sendMessage({
                         embeds: [
                             embed.setDescription(
-                                `The prefix for this server is now \`${prefix.prefix}\``
+                                `The prefix for this server is now \`${pre}\``
                             ),
                         ],
                     });
                 } else {
-                    await ServerData.setPrefix(ctx.guild.id, pre);
-                    prefix = await ServerData.get(ctx.guild.id);
+                    client.db.setPrefix(ctx.guild.id, pre);
                     return await ctx.sendMessage({
                         embeds: [
                             embed.setDescription(
-                                `The prefix for this server is now \`${prefix.prefix}\``
+                                `The prefix for this server is now \`${pre}\``
                             ),
                         ],
                     });
@@ -108,8 +105,7 @@ export default class Prefix extends Command {
                             ),
                         ],
                     });
-                await ServerData.setPrefix(ctx.guild.id, client.config.prefix);
-                prefix = await ServerData.get(ctx.guild.id);
+                client.db.setPrefix(ctx.guild.id, client.config.prefix);
                 return await ctx.sendMessage({
                     embeds: [
                         embed.setDescription(

@@ -62,12 +62,9 @@ export default class Setup extends Command {
         const embed = client.embed().setColor(client.color.main);
         switch (subCommand) {
             case 'create': {
-                const data = await client.prisma.setup.findFirst({
-                    where: {
-                        guildId: ctx.guild.id,
-                    },
-                });
-                if (data)
+                const data = client.db.getSetup(ctx.guild.id);
+                
+                if (data && data.textId && data.msgId)
                     return await ctx.sendMessage({
                         embeds: [
                             {
@@ -116,13 +113,7 @@ export default class Setup extends Command {
                         components: getButtons(),
                     })
                     .then(async msg => {
-                        await client.prisma.setup.create({
-                            data: {
-                                guildId: ctx.guild.id,
-                                textId: textChannel.id,
-                                messageId: msg.id,
-                            },
-                        });
+                        client.db.setSetup(ctx.guild.id, textChannel.id, msg.id);
                     });
                 const embed2 = client.embed().setColor(client.color.main);
                 await ctx.sendMessage({
@@ -135,11 +126,7 @@ export default class Setup extends Command {
                 break;
             }
             case 'delete': {
-                const data2 = await client.prisma.setup.findFirst({
-                    where: {
-                        guildId: ctx.guild.id,
-                    },
-                });
+                const data2 = client.db.getSetup(ctx.guild.id);
                 if (!data2)
                     return await ctx.sendMessage({
                         embeds: [
@@ -149,15 +136,11 @@ export default class Setup extends Command {
                             },
                         ],
                     });
-                await client.prisma.setup.delete({
-                    where: {
-                        guildId: ctx.guild.id,
-                    },
-                });
+                client.db.deleteSetup(ctx.guild.id);
                 await ctx.guild.channels.cache
                     .get(data2.textId)
                     .delete()
-                    .catch(() => {});
+                    .catch(() => {null});
                 await ctx.sendMessage({
                     embeds: [
                         {
@@ -170,11 +153,7 @@ export default class Setup extends Command {
             }
 
             case 'info': {
-                const data3 = await client.prisma.setup.findFirst({
-                    where: {
-                        guildId: ctx.guild.id,
-                    },
-                });
+                const data3 = client.db.getSetup(ctx.guild.id);
                 if (!data3)
                     return await ctx.sendMessage({
                         embeds: [

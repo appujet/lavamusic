@@ -1,6 +1,5 @@
 import { ApplicationCommandOptionType } from 'discord.js';
 
-import ServerData from '../../database/server.js';
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class Dj extends Command {
@@ -81,46 +80,33 @@ export default class Dj extends Command {
             role = ctx.message.mentions.roles.first() || ctx.guild.roles.cache.get(args[1]);
         }
         const embed = client.embed().setColor(client.color.main);
-        let dj = await this.client.prisma.dj.findUnique({
-            where: { guildId: ctx.guild.id },
-        });
+        let dj = client.db.getDj(ctx.guild.id);
         if (subCommand === 'add') {
             if (!role)
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription('Please provide a role to add')],
                 });
-            const isExRole = await this.client.prisma.roles.findFirst({
-                where: { roleId: role.id },
-            });
+            const isExRole = client.db.getRoles(ctx.guild.id).find((r: any) => r.roleId === role.id);
             if (isExRole)
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription(`The dj role <@&${role.id}> is already added`)],
                 });
-
-            if (!dj) {
-                await ServerData.setDj(ctx.guild.id, role.id);
-                return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj role <@&${role.id}> has been added`)],
-                });
-            } else {
-                await ServerData.setDj(ctx.guild.id, role.id);
-                return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj role <@&${role.id}> has been added`)],
-                });
-            }
+            client.db.addRole(ctx.guild.id, role.id);
+            client.db.setDj(ctx.guild.id, true);
+            return await ctx.sendMessage({
+                embeds: [embed.setDescription(`The dj role <@&${role.id}> has been added`)],
+            });
         } else if (subCommand === 'remove') {
             if (!role)
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription('Please provide a role to remove')],
                 });
-            const isExRole = await this.client.prisma.roles.findFirst({
-                where: { roleId: role.id },
-            });
+            const isExRole = client.db.getRoles(ctx.guild.id).find((r: any) => r.roleId === role.id);
             if (!isExRole)
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription(`The dj role <@&${role.id}> is not added`)],
                 });
-            await this.client.prisma.roles.delete({ where: { roleId: role.id } });
+            client.db.removeRole(ctx.guild.id, role.id);
             return await ctx.sendMessage({
                 embeds: [embed.setDescription(`The dj role <@&${role.id}> has been removed`)],
             });
@@ -129,7 +115,7 @@ export default class Dj extends Command {
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription('There are no dj roles to clear')],
                 });
-            await ServerData.setDj(ctx.guild.id);
+            client.db.clearRoles(ctx.guild.id);
             return await ctx.sendMessage({
                 embeds: [embed.setDescription(`All dj roles have been removed`)],
             });
@@ -138,18 +124,9 @@ export default class Dj extends Command {
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription('There are no dj roles to toggle')],
                 });
-            const data = await this.client.prisma.dj.findUnique({
-                where: { guildId: ctx.guild.id },
-            });
+            const data = client.db.getDj(ctx.guild.id);
             if (data) {
-                await this.client.prisma.dj.update({
-                    where: {
-                        guildId: ctx.guild.id,
-                    },
-                    data: {
-                        mode: !data.mode,
-                    },
-                });
+                client.db.setDj(ctx.guild.id, !data.mode);
                 return await ctx.sendMessage({
                     embeds: [
                         embed.setDescription(

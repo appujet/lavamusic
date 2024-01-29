@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
 import { Connectors, Shoukaku } from 'shoukaku';
 
 import { Lavamusic } from './index.js';

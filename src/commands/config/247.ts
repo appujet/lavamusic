@@ -1,4 +1,3 @@
-import ServerData from '../../database/server.js';
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class _247 extends Command {
@@ -33,14 +32,10 @@ export default class _247 extends Command {
         const embed = client.embed();
         let player = client.shoukaku.players.get(ctx.guild.id) as any;
 
-        const data = await client.prisma.stay.findFirst({
-            where: {
-                guildId: ctx.guild.id,
-            },
-        });
+        const data = client.db.get_247(ctx.guild.id);
         const vc = ctx.member as any;
         if (!data) {
-            await ServerData.set_247(ctx.guild.id, ctx.channel.id, vc.voice.channelId);
+            client.db.set_247(ctx.guild.id, ctx.channel.id, vc.voice.channel.id);
             if (!player)
                 player = await client.queue.create(
                     ctx.guild,
@@ -56,11 +51,7 @@ export default class _247 extends Command {
                 ],
             });
         } else {
-            await client.prisma.stay.delete({
-                where: {
-                    guildId: ctx.guild.id,
-                },
-            });
+            client.db.delete_247(ctx.guild.id);
             return await ctx.sendMessage({
                 embeds: [
                     embed

@@ -1,5 +1,6 @@
 import { Event, Lavamusic } from '../../structures/index.js';
 import { buttonReply } from '../../utils/SetupSystem.js';
+import { checkDj } from '../player/TrackStart.js';
 
 export default class SetupButtons extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -45,11 +46,7 @@ export default class SetupButtons extends Event {
                 `There is no music playing in this server.`,
                 this.client.color.red
             );
-        const data = await this.client.prisma.setup.findUnique({
-            where: {
-                guildId: interaction.guildId,
-            },
-        });
+        const data = this.client.db.getSetup(interaction.guildId);
         const { title, uri, length } = player.current.info;
         let message;
         try {
@@ -72,6 +69,10 @@ export default class SetupButtons extends Event {
             )
             .setImage(icon);
         if (!interaction.isButton()) return;
+        if (!(await checkDj(this.client, interaction))) {
+            await buttonReply(interaction, `You need to have the DJ role to use this command.`, this.client.color.red);
+            return;
+        }
         if (message) {
             switch (interaction.customId) {
                 case 'LOW_VOL_BUT': {

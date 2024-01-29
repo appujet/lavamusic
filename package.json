@@ -1,6 +1,6 @@
 {
     "name": "lavamusic",
-    "version": "4.0.4",
+    "version": "4.0.5",
     "description": "LavaMusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, Shoukaku (Lavalink) library.",
     "main": "dist/index.js",
     "type": "module",
@@ -36,27 +36,26 @@
     },
     "homepage": "https://github.com/brblacky/lavamusic#readme",
     "devDependencies": {
-        "@types/node": "^20.10.6",
+        "@types/better-sqlite3": "^7.6.9",
+        "@types/node": "^20.11.10",
         "@types/signale": "^1.4.7",
-        "@typescript-eslint/eslint-plugin": "^6.17.0",
-        "@typescript-eslint/parser": "^6.17.0",
+        "@typescript-eslint/eslint-plugin": "^6.19.1",
+        "@typescript-eslint/parser": "^6.19.1",
         "eslint": "^8.56.0",
         "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-unicorn": "^50.0.1",
-        "prettier": "^3.1.1",
-        "prisma": "^5.7.1",
+        "prettier": "^3.2.4",
         "ts-node": "^10.9.2",
         "typescript": "^5.3.3"
     },
     "dependencies": {
-        "@prisma/client": "^5.7.1",
+        "better-sqlite3": "^9.3.0",
         "discord.js": "^14.14.1",
-        "dotenv": "^16.3.1",
+        "dotenv": "^16.4.1",
         "shoukaku": "^4.0.1",
         "signale": "^1.4.0",
-        "socket.io": "^4.7.3",
         "tslib": "^2.6.2",
-        "undici": "^6.2.1"
+        "undici": "^6.5.0"
     },
     "signale": {
         "displayScope": true,

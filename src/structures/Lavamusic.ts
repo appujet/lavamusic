@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import {
     ApplicationCommandType,
     Client,
@@ -19,6 +18,7 @@ import { fileURLToPath } from 'node:url';
 import { Queue, ShoukakuClient } from './index.js';
 import Logger from './Logger.js';
 import config from '../config.js';
+import ServerData from '../database/server.js';
 import loadPlugins from '../plugin/index.js';
 import { Utils } from '../utils/Utils.js';
 
@@ -26,7 +26,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
     public aliases: Collection<string, any> = new Collection();
-    public prisma = new PrismaClient();
+    public db = new ServerData();
     public cooldown: Collection<string, any> = new Collection();
     public config = config;
     public logger: Logger = new Logger();
@@ -47,26 +47,13 @@ export default class Lavamusic extends Client {
         this.logger.info(`Successfully loaded commands!`);
         this.loadEvents();
         this.logger.info(`Successfully loaded events!`);
-        this.prisma
-            .$connect()
-            .then(() => {
-                this.logger.success(`Connected to the database!`);
-            })
-            .catch((err: any) => {
-                this.logger.error(`Unable to connect to the database!`);
-                this.logger.error(err);
-            });
         loadPlugins(this);
         await this.login(token);
         this.on(
             Events.InteractionCreate,
             async (interaction: Interaction<'cached'>): Promise<void> => {
                 if (interaction.isButton()) {
-                    const setup = await this.prisma.setup.findUnique({
-                        where: {
-                            guildId: interaction.guildId,
-                        },
-                    });
+                    const setup = await this.db.getSetup(interaction.guildId);
                     if (
                         setup &&
                         interaction.channelId === setup.textId &&
@@ -130,9 +117,9 @@ export default class Lavamusic extends Client {
                 this.config.production === true
                     ? Routes.applicationCommands(this.config.clientId ?? '')
                     : Routes.applicationGuildCommands(
-                          this.config.clientId ?? '',
-                          this.config.guildId ?? ''
-                      );
+                        this.config.clientId ?? '',
+                        this.config.guildId ?? ''
+                    );
             try {
                 const rest = new REST({ version: '9' }).setToken(this.config.token ?? '');
                 await rest.put(applicationCommands, { body: this.body });

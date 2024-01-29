@@ -130,15 +130,14 @@ export default class InteractionCreate extends Event {
                         });
                 }
                 if (command.player.dj) {
-                    const djRole = await this.client.prisma.dj.findUnique({
-                        where: {
-                            guildId: interaction.guildId,
-                        },
-                        include: { roles: true },
-                    });
-                    if (djRole && djRole.mode) {
+                    const dj = this.client.db.getDj(interaction.guildId);
+                    if (dj && dj.mode) {
+                        const djRole = this.client.db.getRoles(interaction.guildId);
+                        if (!djRole) return await interaction.reply({
+                            content: 'DJ role is not set.',
+                        });
                         const findDJRole = (interaction.member as GuildMember).roles.cache.find(
-                            (x: any) => djRole.roles.map((y: any) => y.roleId).includes(x.id)
+                            (x: any) => djRole.map((y: any) => y.roleId).includes(x.id)
                         );
                         if (!findDJRole) {
                             if (

@@ -104,23 +104,21 @@ export default class Search extends Command {
             idle: 60000 / 2,
         });
         collector.on('collect', async (int: any) => {
-            for (let i = 0; i < res.data[0]; i++) {
-                if (int.customId === `${i + 1}`) {
-                    let track = res.data[i];
-                    track = player.buildTrack(track, ctx.author);
-                    player.queue.push(track);
-                    player.isPlaying();
-                    await ctx.editMessage({
-                        embeds: [
-                            embed.setDescription(
-                                `Added [${track.info.title}](${track.info.uri}) to the queue`
-                            ),
-                        ],
-                        components: [],
-                    });
-                }
-            }
-            return int.deferUpdate();
+            const track = res.data[parseInt(int.customId) - 1];
+            await int.deferUpdate();
+            if (!track) return;
+            const song = player.buildTrack(track, ctx.author);
+            player.queue.push(song);
+            player.isPlaying();
+            await ctx.editMessage({
+                embeds: [
+                    embed.setDescription(
+                        `Added [${song.info.title}](${song.info.uri}) to the queue`
+                    ),
+                ],
+                components: [],
+            });
+            return collector.stop();
         });
 
         collector.on('end', async () => {

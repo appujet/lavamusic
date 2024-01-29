@@ -40,12 +40,7 @@ export default class Load extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         let player = client.queue.get(ctx.guild.id);
         const playlist = args.join(' ').replace(/\s/g, '');
-        const playlistData = await client.prisma.playlist.findFirst({
-            where: {
-                userId: ctx.author.id,
-                name: playlist,
-            },
-        });
+        const playlistData = client.db.getPLaylist(ctx.author.id, playlist);
         if (!playlistData)
             return await ctx.sendMessage({
                 embeds: [
@@ -55,7 +50,7 @@ export default class Load extends Command {
                     },
                 ],
             });
-        for await (const song of playlistData.songs.map(s => JSON.parse(s))) {
+        for await (const song of JSON.parse(playlistData.songs).map(s => s)) {
             const vc = ctx.member as any;
             if (!player)
                 player = await client.queue.create(
@@ -72,7 +67,7 @@ export default class Load extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Loaded \`${playlistData.name}\` with \`${playlistData.songs.length}\` songs`,
+                    description: `Loaded \`${playlistData.name}\` with \`${JSON.parse(playlistData.songs).length}\` songs`,
                     color: client.color.main,
                 },
             ],

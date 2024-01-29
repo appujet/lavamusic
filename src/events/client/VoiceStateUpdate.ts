@@ -54,9 +54,7 @@ export default class VoiceStateUpdate extends Event {
 
         if (!voiceChannel) return;
         if (voiceChannel.members.filter((x: any) => !x.user.bot).size <= 0) {
-            const server = await this.client.prisma.stay.findFirst({
-                where: { guildId: newState.guild.id },
-            });
+            const server = this.client.db.get_247(newState.guild.id);
             if (!server) {
                 setTimeout(async () => {
                     const playerVoiceChannel = newState.guild.channels.cache.get(

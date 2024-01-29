@@ -68,12 +68,7 @@ export default class Add extends Command {
                 ],
             });
 
-        const playlistData = await client.prisma.playlist.findFirst({
-            where: {
-                name: playlist,
-                userId: ctx.author.id,
-            },
-        });
+        const playlistData = client.db.getPLaylist(ctx.author.id, playlist);
 
         if (!playlistData)
             return await ctx.sendMessage({
@@ -98,20 +93,13 @@ export default class Add extends Command {
         let trackStrings;
         let count;
         if (res.loadType === LoadType.PLAYLIST) {
-            trackStrings = res.data.tracks.map((track) => JSON.stringify(track));
+            trackStrings = res.data.tracks.map((track) => track);
             count = res.data.tracks.length;
         } else {
-            trackStrings = [JSON.stringify(res.data[0])];
+            trackStrings = [res.data[0]];
             count = 1;
         }
-        await client.prisma.playlist.update({
-            where: {
-                id: playlistData.id,
-            },
-            data: {
-                songs: [...playlistData.songs, ...trackStrings],
-            },
-        });
+        client.db.addSong(ctx.author.id, playlist, trackStrings);
 
         ctx.sendMessage({
             embeds: [

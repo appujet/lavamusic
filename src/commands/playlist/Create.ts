@@ -48,12 +48,7 @@ export default class Create extends Command {
                     },
                 ],
             });
-        const playlist = await client.prisma.playlist.findFirst({
-            where: {
-                userId: ctx.author.id,
-                name: name,
-            },
-        });
+        const playlist = client.db.getPLaylist(ctx.author.id, name);
         if (playlist)
             return await ctx.sendMessage({
                 embeds: [
@@ -63,13 +58,7 @@ export default class Create extends Command {
                     },
                 ],
             });
-        await client.prisma.playlist.create({
-            data: {
-                name: name,
-                userId: ctx.author.id,
-                songs: [],
-            },
-        });
+        client.db.createPlaylist(ctx.author.id, name);
         return await ctx.sendMessage({
             embeds: [
                 {

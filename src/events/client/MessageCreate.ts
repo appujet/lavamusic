@@ -10,35 +10,23 @@ export default class MessageCreate extends Event {
     }
     public async run(message: Message): Promise<any> {
         if (message.author.bot) return;
-        const setup = await this.client.prisma.setup.findUnique({
-            where: {
-                guildId: message.guildId,
-            },
-        });
+        const setup = this.client.db.getSetup(message.guildId);
         if (setup && setup.textId) {
             if (setup.textId === message.channelId) {
                 return this.client.emit('setupSystem', message);
             }
         }
-        let prefix = (await this.client.prisma.guild.findUnique({
-            where: {
-                guildId: message.guildId,
-            },
-        })) as any;
-        if (!prefix) {
-            prefix = this.client.config.prefix;
-        } else {
-            prefix = prefix.prefix;
-        }
+        let prefix = this.client.db.getPrefix(message.guildId);
+        
         const mention = new RegExp(`^<@!?${this.client.user.id}>( |)$`);
         if (message.content.match(mention)) {
             await message.reply({
-                content: `Hey, my prefix for this server is \`${prefix}\` Want more info? then do \`${prefix}help\`\nStay Safe, Stay Awesome!`,
+                content: `Hey, my prefix for this server is \`${prefix.prefix}\` Want more info? then do \`${prefix.prefix}help\`\nStay Safe, Stay Awesome!`,
             });
             return;
         }
         const escapeRegex = (str: string): string => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const prefixRegex = new RegExp(`^(<@!?${this.client.user.id}>|${escapeRegex(prefix)})\\s*`);
+        const prefixRegex = new RegExp(`^(<@!?${this.client.user.id}>|${escapeRegex(prefix.prefix)})\\s*`);
         if (!prefixRegex.test(message.content)) return;
         const [matchedPrefix] = message.content.match(prefixRegex);
 
@@ -143,15 +131,14 @@ export default class MessageCreate extends Event {
                     });
             }
             if (command.player.dj) {
-                const djRole = await this.client.prisma.dj.findUnique({
-                    where: {
-                        guildId: message.guildId,
-                    },
-                    include: { roles: true },
-                });
-                if (djRole && djRole.mode) {
+                const dj = this.client.db.getDj(message.guildId);
+                if (dj && dj.mode) {
+                    const djRole = this.client.db.getRoles(message.guildId);
+                    if (!djRole) return await message.reply({
+                        content: 'DJ role is not set.',
+                    });
                     const findDJRole = message.member.roles.cache.find((x: any) =>
-                        djRole.roles.map((y: any) => y.roleId).includes(x.id)
+                        djRole.map((y: any) => y.roleId).includes(x.id)
                     );
                     if (!findDJRole) {
                         if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {

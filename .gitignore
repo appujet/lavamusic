@@ -35,3 +35,5 @@
 /Lavalink/dev.application.yml
 
 /Lavalink/plugins
+
+/src/database/*

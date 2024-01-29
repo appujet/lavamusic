@@ -32,11 +32,7 @@ async function setupStart(
     const embed = client.embed();
     let n = client.embed().setColor(client.color.main);
 
-    const data = await client.prisma.setup.findFirst({
-        where: {
-            guildId: message.guild.id,
-        },
-    });
+    const data = client.db.getSetup(message.guild.id);
     try {
         if (data)
             m = await message.channel.messages.fetch({ message: data.messageId, cache: true });
@@ -285,26 +281,15 @@ async function trackStart(
                     return b;
                 }),
             })
-            .then(async msg => {
-                await client.prisma.setup.update({
-                    where: {
-                        guildId: channel.guild.id,
-                    },
-                    data: {
-                        messageId: msg.id,
-                    },
-                });
+            .then(msg => {
+                client.db.setSetup(msg.guild.id, msg.id, msg.channel.id);
             })
             .catch(() => { });
     }
 }
 
 async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
-    let setup = await client.prisma.setup.findUnique({
-        where: {
-            guildId: guild.id,
-        },
-    });
+    let setup = client.db.getSetup(guild.id);
     let m: Message;
     if (setup && setup.textId) {
         const textChannel = guild.channels.cache.get(setup.textId) as TextChannel;

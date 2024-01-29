@@ -40,12 +40,7 @@ export default class Delete extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const playlist = args.join(' ').replace(/\s/g, '');
 
-        const playlistExists = await client.prisma.playlist.findFirst({
-            where: {
-                userId: ctx.author.id,
-                name: playlist,
-            },
-        });
+        const playlistExists = client.db.getPLaylist(ctx.author.id, playlist);
         if (!playlistExists)
             return await ctx.sendMessage({
                 embeds: [
@@ -55,11 +50,7 @@ export default class Delete extends Command {
                     },
                 ],
             });
-        await client.prisma.playlist.delete({
-            where: {
-                id: playlistExists.id,
-            },
-        });
+        client.db.deletePlaylist(ctx.author.id, playlist);
         return await ctx.sendMessage({
             embeds: [
                 {

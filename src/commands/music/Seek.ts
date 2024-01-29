@@ -10,7 +10,7 @@ export default class Seek extends Command {
                 usage: 'seek <time>',
             },
             category: 'music',
-            aliases: ['s'],
+            aliases: ['se'],
             cooldown: 3,
             args: true,
             player: {

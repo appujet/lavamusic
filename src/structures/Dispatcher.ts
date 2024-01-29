@@ -88,7 +88,7 @@ export default class Dispatcher {
         return this.client.queue.has(this.guildId);
     }
     get volume(): number {
-        return this.player.filters.volume;
+        return this.player.volume;
     }
     public async play(): Promise<void> {
         if (!this.exists || (!this.queue.length && !this.current)) {

@@ -60,7 +60,6 @@ export default class TrackStart extends Event {
                 loopButton
             );
         }
-
         const embed = this.client
             .embed()
             .setAuthor({
@@ -87,11 +86,7 @@ export default class TrackStart extends Event {
                 { name: 'Author', value: track.info.author, inline: true }
             )
             .setTimestamp();
-        let setup = await this.client.prisma.setup.findUnique({
-            where: {
-                guildId: guild.id,
-            },
-        });
+        let setup = this.client.db.getSetup(guild.id);
         if (setup && setup.textId) {
             const textChannel = guild.channels.cache.get(setup.textId) as TextChannel;
             const id = setup.messageId;
@@ -251,7 +246,7 @@ export default class TrackStart extends Event {
     }
 }
 
-async function checkDj(
+export async function checkDj(
     client: Lavamusic,
     interaction:
         | ButtonInteraction<'cached'>
@@ -261,15 +256,12 @@ async function checkDj(
         | MentionableSelectMenuInteraction<'cached'>
         | ChannelSelectMenuInteraction<'cached'>
 ): Promise<boolean> {
-    const djRole = await client.prisma.dj.findUnique({
-        where: {
-            guildId: interaction.guildId,
-        },
-        include: { roles: true },
-    });
-    if (djRole && djRole.mode) {
+    const dj = client.db.getDj(interaction.guildId);
+    if (dj && dj.mode) {
+        const djRole = client.db.getRoles(interaction.guildId);
+        if (!djRole) return false;
         const findDJRole = interaction.member.roles.cache.find((x: any) =>
-            djRole.roles.map((y: any) => y.roleId).includes(x.id)
+            djRole.map((y: any) => y.roleId).includes(x.id)
         );
         if (!findDJRole) {
             if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
