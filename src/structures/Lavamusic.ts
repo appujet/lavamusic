@@ -115,9 +115,9 @@ export default class Lavamusic extends Client {
         this.once('ready', async () => {
             const applicationCommands =
                 this.config.production === true
-                    ? Routes.applicationCommands(this.config.clientId ?? '')
+                    ? Routes.applicationCommands(this.user.id ?? '')
                     : Routes.applicationGuildCommands(
-                        this.config.clientId ?? '',
+                        this.user.id ?? '',
                         this.config.guildId ?? ''
                     );
             try {

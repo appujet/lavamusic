@@ -24,7 +24,7 @@ WORKDIR /opt/lavamusic/
 # Copy compiled code
 COPY --from=builder /opt/lavamusic/dist ./dist
 COPY --from=builder /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.txt
-COPY --from=builder /opt/lavamusic/src/database/lavamusic.db ./src/database/lavamusic.db
+COPY --from=builder /opt/lavamusic/database/lavamusic.db ./database/lavamusic.db
 
 # Copy package files and install dependencies
 COPY package*.json ./

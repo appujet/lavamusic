@@ -16,10 +16,16 @@ services:
         #ports:
             # you only need this if you want to make your lavalink accessible from outside of containers
             #- "2333:2333"
+        healthcheck:
+            test: "curl -H \"Authorization: youshallnotpass\" -s http://localhost:2333/version"
+            interval: 10s
+            timeout: 10s
+            retries: 5
+            start_period: 10s
 
     lavamusic:
         container_name: lavamusic
-        image: ghcr.io/brblacky/lavamusic:main
+        image: lavamusic:latest
         environment:
             # Your mongodb url
             - LAVALINK_URL=lavalink:2333
@@ -33,11 +39,8 @@ services:
         volumes:
             # mount .env from the same directory or use environment variables
             - .env:/opt/lavamusic/.env
-            - ./src/database/lavamusic.db:/opt/lavamusic/src/database/lavamusic.db
-
-        command: bash -c "apt-get update -y && apt-get install -y openssl && npx prisma generate && node dist/index.js"
+            - ./database:/opt/lavamusic/database
         restart: on-failure
         depends_on:
-            - lavalink
-volumes:
-    mongodb_data:
+            lavalink:
+                condition: service_healthy

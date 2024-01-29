@@ -2,7 +2,7 @@ import Database from 'better-sqlite3';
 
 import config from '../config.js';
 
-const db = new Database('./src/database/lavamusic.db', {
+const db = new Database('./database/lavamusic.db', {
     fileMustExist: false,
     readonly: false
 });
@@ -70,9 +70,9 @@ export default class ServerData {
     public getPrefix(guildId: string): any {
         const data: any = db.prepare('SELECT * FROM guild WHERE guildId = ?').get(guildId);
         if (!data) {
-            db.prepare('INSERT INTO guild (guildId) VALUES (?)').run(guildId);
+            db.prepare('INSERT INTO guild (guildId, prefix) VALUES (?, ?)').run(guildId, config.prefix);
             return {
-                prefix: config.prefix
+                prefix: config.prefix,
             };
         } else {
             return data;

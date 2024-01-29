@@ -32,8 +32,6 @@
 
 /package-lock.json
 
-/Lavalink/dev.application.yml
+/Lavalink/application.yml
 
 /Lavalink/plugins
-
-/src/database/*

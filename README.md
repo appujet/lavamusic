@@ -19,7 +19,7 @@
 
   <h1 align="center">lavamusic</h1>
 
-  <p align="center">Lavamusic is a Discord music bot that uses Discord.js, Shoukaku, Prisma Client (ORM) database (MongoDB), and TypeScript.
+  <p align="center">Lavamusic is a Discord music bot that uses Discord.js, Shoukaku, and TypeScript.
     <br />
     <br />
     <a href="https://discord.com/api/oauth2/authorize?client_id=875635121770889257&permissions=8&scope=bot%20applications.commands">Invite Lavamusic</a>
@@ -111,7 +111,6 @@
 Before starting with the installation, you need to have the following:
 
 -   ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) [v18.17.1 or higher](https://nodejs.org/en/download/)
--   ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white) [v4.4.0 or higher](https://www.mongodb.com/try/download/community)
 -   ![Lavalink](https://img.shields.io/badge/Lavalink-7289DA?style=for-the-badge&logo=discord&logoColor=white) [v4.0.x or higher](https://github.com/freyacodes/Lavalink)
 
 ## 🚀 Installation from source
@@ -143,7 +142,6 @@ or you can use the [.env.example](https://raw.githubusercontent.com/brblacky/lav
 TOKEN="." # Your bot token
 PREFIX= "!" # Your prefix
 OWNER_IDS=["859640640640640640","859640640640640640"] # Your discord id, you can add multiple ids
-CLIENT_ID= "960072976412340254" # Your bot client id
 GUILD_ID= "859640640640640640" # Your server Id if you want to use the for single server
 PRODUCTION="true" # true for production 
 SEARCH_ENGINE= "ytsearch" # ytsearch, scsearch or ytmsearch
@@ -151,7 +149,6 @@ MAX_PLAYLIST_SIZE= "100" # Max playlist size
 MAX_QUEUE_SIZE= "100" # Max queue size
 BOT_STATUS= "online" # Your bot status
 BOT_ACTIVITY= "Wavemusic" # Your bot activity
-DATABASE_URL="mongodb+srv://xxyydd:ejejeje@cluster0.f93tcdq.mongodb.net/Bot" ## Your MongoDB URL (add database name at the end) example: mongodb+srv://xxyydd:ejejeje@cluster0.f93tcdq.mongodb.net/Bot
 LAVALINK_URL="localhost:2333" # Your lavalink url
 LAVALINK_AUTH="youshallnotpass" # Your lavalink password
 LAVALINK_NAME="Blacky" # Your lavalink name
@@ -161,32 +158,13 @@ BOT_ACTIVITY_TYPE=0 # Activity type is a number from 0 to 5 see more here https:
 
 ```
 
-5. Generate the Prisma client:
-
-**If you using replit than read this:**
-
-go to **[prisma/schema.prisma](https://github.com/brblacky/lavamusic/blob/main/prisma/schema.prisma)** and add engine type like this or remove `//` behind the `engineType`
+5. Run the bot:
 
 ```bash
-generator client {
-  provider = "prisma-client-js"
-  engineType = "binary"
-}
+npm start
 ```
 
-and then run this command
-
-```bash
-npx prisma generate
-```
-
-6. Run the bot:
-
-```bash
-npm run start or npm start
-```
-
-7. Invite the bot to your server:
+6. Invite the bot to your server:
 
 Generate an invite link for your bot and invite it to your server using the Discord Developer Portal or using permissions calculator: <https://discordapi.com/permissions.html>
 
@@ -205,7 +183,6 @@ your .env file should look like this or you can use the [.env.example](https://r
 TOKEN="." # Your bot token and remember, don't show everyone your bot token
 PREFIX="!" # Your prefix
 OWNER_IDS=["859640640640640640","859640640640640640"] # Your discord id, you can add multiple ids
-CLIENT_ID="960072976412340254" # Your bot client ID
 GUILD_ID="859640640640640640" # Your server ID (if you want to use it for a single server)
 PRODUCTION="true" # "true" for production
 
@@ -245,9 +222,7 @@ Do note that the bot will restart itself to update to the latest!
 
 -   ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) [Node.js](https://nodejs.org/en/download/)
 -   ![Discord.js](https://img.shields.io/badge/Discord.js-7289DA?style=for-the-badge&logo=discord&logoColor=white) [Discord.js](https://discord.js.org/#/)
--   ![Prisma](https://img.shields.io/badge/Prisma-1B222D?style=for-the-badge&logo=prisma&logoColor=white) [Prisma](https://www.prisma.io/)
 - ![Lavalink](https://img.shields.io/badge/Lavalink-7289DA?style=for-the-badge&logo=discord&logoColor=white) [Lavalink](https://github.com/lavalink-devs/Lavalink)
--   ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white) [MongoDB](https://www.mongodb.com/)
 -   ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) [Docker](https://www.docker.com/)
 -   ![Docker-Compose](https://img.shields.io/badge/Docker--Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white) [Docker-Compose](https://docs.docker.com/compose/)
 
