@@ -87,7 +87,8 @@ export default class Search extends Command {
                 const tracks = res.data.slice(0, 5);
                 const embeds = tracks.map(
                     (track: Song, index: number) =>
-                        `${index + 1}. [${track.info.title}](${track.info.uri}) - \`${track.info.author
+                        `${index + 1}. [${track.info.title}](${track.info.uri}) - \`${
+                            track.info.author
                         }\``
                 );
                 await ctx.sendMessage({

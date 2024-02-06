@@ -14,10 +14,10 @@ services:
         # lavalink exposes port 2333 to connect to for other containers (this is for documentation purposes only)
         #- 2333
         #ports:
-            # you only need this if you want to make your lavalink accessible from outside of containers
-            #- "2333:2333"
+        # you only need this if you want to make your lavalink accessible from outside of containers
+        #- "2333:2333"
         healthcheck:
-            test: "curl -H \"Authorization: youshallnotpass\" -s http://localhost:2333/version"
+            test: 'curl -H "Authorization: youshallnotpass" -s http://localhost:2333/version'
             interval: 10s
             timeout: 10s
             retries: 5

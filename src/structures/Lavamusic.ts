@@ -117,9 +117,9 @@ export default class Lavamusic extends Client {
                 this.config.production === true
                     ? Routes.applicationCommands(this.user.id ?? '')
                     : Routes.applicationGuildCommands(
-                        this.user.id ?? '',
-                        this.config.guildId ?? ''
-                    );
+                          this.user.id ?? '',
+                          this.config.guildId ?? ''
+                      );
             try {
                 const rest = new REST({ version: '9' }).setToken(this.config.token ?? '');
                 await rest.put(applicationCommands, { body: this.body });

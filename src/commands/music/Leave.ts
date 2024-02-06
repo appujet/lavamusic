@@ -36,7 +36,9 @@ export default class Leave extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.main)
-                        .setDescription(`Left <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`),
+                        .setDescription(
+                            `Left <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
+                        ),
                 ],
             });
             player.destroy();

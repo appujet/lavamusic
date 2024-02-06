@@ -65,7 +65,7 @@ export default class Prefix extends Command {
                 if (!pre) {
                     embed.setDescription(
                         `The prefix for this server is \`${
-                        prefix ? prefix.prefix : client.config.prefix
+                            prefix ? prefix.prefix : client.config.prefix
                         }\``
                     );
                     return await ctx.sendMessage({ embeds: [embed] });
@@ -81,18 +81,14 @@ export default class Prefix extends Command {
                     client.db.setPrefix(ctx.guild.id, pre);
                     return await ctx.sendMessage({
                         embeds: [
-                            embed.setDescription(
-                                `The prefix for this server is now \`${pre}\``
-                            ),
+                            embed.setDescription(`The prefix for this server is now \`${pre}\``),
                         ],
                     });
                 } else {
                     client.db.setPrefix(ctx.guild.id, pre);
                     return await ctx.sendMessage({
                         embeds: [
-                            embed.setDescription(
-                                `The prefix for this server is now \`${pre}\``
-                            ),
+                            embed.setDescription(`The prefix for this server is now \`${pre}\``),
                         ],
                     });
                 }

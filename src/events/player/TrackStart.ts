@@ -17,6 +17,7 @@ import { Song } from '../../structures/Dispatcher.js';
 import { Dispatcher, Event, Lavamusic } from '../../structures/index.js';
 import { trackStart } from '../../utils/SetupSystem.js';
 
+
 export default class TrackStart extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
@@ -28,7 +29,7 @@ export default class TrackStart extends Event {
         if (!guild) return;
         const channel = guild.channels.cache.get(dispatcher.channelId) as TextChannel;
         if (!channel) return;
-
+        this.client.utils.updateStatus(this.client, guild.id);
         function buttonBuilder(): ActionRowBuilder<ButtonBuilder> {
             const previousButton = new ButtonBuilder()
                 .setCustomId('previous')
@@ -111,8 +112,9 @@ export default class TrackStart extends Event {
                         return true;
                     else {
                         b.reply({
-                            content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? 'None'
-                                }> to use this buttons.`,
+                            content: `You are not connected to <#${
+                                b.guild.members.me.voice?.channelId ?? 'None'
+                            }> to use this buttons.`,
                             ephemeral: true,
                         });
                         return false;
@@ -155,8 +157,9 @@ export default class TrackStart extends Event {
                             await message.edit({
                                 embeds: [
                                     embed.setFooter({
-                                        text: `${player.paused ? 'Paused' : 'Resumed'} by ${interaction.user.tag
-                                            }`,
+                                        text: `${player.paused ? 'Paused' : 'Resumed'} by ${
+                                            interaction.user.tag
+                                        }`,
                                         iconURL: interaction.user.avatarURL({}),
                                     }),
                                 ],

@@ -9,8 +9,8 @@ export default class SetupButtons extends Event {
         });
     }
     public async run(interaction: any): Promise<void> {
-        if (!interaction.replied) await interaction.deferReply().catch(() => { });
-        
+        if (!interaction.replied) await interaction.deferReply().catch(() => {});
+
         if (!interaction.member.voice.channel)
             return await buttonReply(
                 interaction,
@@ -20,7 +20,7 @@ export default class SetupButtons extends Event {
         if (
             interaction.guild.members.cache.get(this.client.user.id).voice.channel &&
             interaction.guild.members.cache.get(this.client.user.id).voice.channelId !==
-            interaction.member.voice.channelId
+                interaction.member.voice.channelId
         )
             return await buttonReply(
                 interaction,
@@ -64,13 +64,18 @@ export default class SetupButtons extends Event {
             .embed()
             .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
             .setDescription(
-                `[${title}](${uri}) - ${player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
+                `[${title}](${uri}) - ${
+                    player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
                 } - Requested by ${player.current.info.requester}`
             )
             .setImage(icon);
         if (!interaction.isButton()) return;
         if (!(await checkDj(this.client, interaction))) {
-            await buttonReply(interaction, `You need to have the DJ role to use this command.`, this.client.color.red);
+            await buttonReply(
+                interaction,
+                `You need to have the DJ role to use this command.`,
+                this.client.color.red
+            );
             return;
         }
         if (message) {
@@ -78,11 +83,7 @@ export default class SetupButtons extends Event {
                 case 'LOW_VOL_BUT': {
                     const vol = player.player.volume - 10;
                     player.player.setGlobalVolume(vol);
-                    await buttonReply(
-                        interaction,
-                        `Volume set to ${vol}%`,
-                        this.client.color.main
-                    );
+                    await buttonReply(interaction, `Volume set to ${vol}%`, this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
@@ -190,8 +191,9 @@ export default class SetupButtons extends Event {
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Shuffle set to ${player.shuffle ? `on` : `off`} by ${interaction.member.displayName
-                                    }`,
+                                text: `Shuffle set to ${player.shuffle ? `on` : `off`} by ${
+                                    interaction.member.displayName
+                                }`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],

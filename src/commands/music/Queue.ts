@@ -49,8 +49,9 @@ export default class Queue extends Command {
             });
         const queue = player.queue.map(
             (track, index) =>
-                `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info
-                    .requester} - Duration: ${
+                `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${
+                    track?.info.requester
+                } - Duration: ${
                     track.info.isStream ? 'LIVE' : this.client.utils.formatTime(track.info.length)
                 }`
         );

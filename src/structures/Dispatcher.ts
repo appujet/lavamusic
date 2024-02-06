@@ -18,8 +18,8 @@ export class Song implements Track {
         artworkUrl?: string;
         isrc?: string;
         sourceName: string;
-        requester: User
-    }
+        requester: User;
+    };
     pluginInfo: unknown;
 
     constructor(track: Song | Track, user: User) {
@@ -190,12 +190,15 @@ export default class Dispatcher {
         );
         if (!resolve || !resolve?.data || !Array.isArray(resolve.data)) return this.destroy();
 
-        const metadata = (resolve.data as Array<any>) as any;
+        const metadata = resolve.data as Array<any> as any;
         let choosed: Song | null = null;
         const maxAttempts = 10; // Maximum number of attempts to find a unique song
         let attempts = 0;
         while (attempts < maxAttempts) {
-            const potentialChoice = this.buildTrack(metadata[Math.floor(Math.random() * metadata.length)], this.client.user);
+            const potentialChoice = this.buildTrack(
+                metadata[Math.floor(Math.random() * metadata.length)],
+                this.client.user
+            );
             if (
                 !this.queue.some(s => s.encoded === potentialChoice.encoded) &&
                 !this.history.some(s => s.encoded === potentialChoice.encoded)

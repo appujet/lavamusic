@@ -17,7 +17,7 @@ export default class MessageCreate extends Event {
             }
         }
         let prefix = this.client.db.getPrefix(message.guildId);
-        
+
         const mention = new RegExp(`^<@!?${this.client.user.id}>( |)$`);
         if (message.content.match(mention)) {
             await message.reply({
@@ -26,7 +26,9 @@ export default class MessageCreate extends Event {
             return;
         }
         const escapeRegex = (str: string): string => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const prefixRegex = new RegExp(`^(<@!?${this.client.user.id}>|${escapeRegex(prefix.prefix)})\\s*`);
+        const prefixRegex = new RegExp(
+            `^(<@!?${this.client.user.id}>|${escapeRegex(prefix.prefix)})\\s*`
+        );
         if (!prefixRegex.test(message.content)) return;
         const [matchedPrefix] = message.content.match(prefixRegex);
 
@@ -134,9 +136,10 @@ export default class MessageCreate extends Event {
                 const dj = this.client.db.getDj(message.guildId);
                 if (dj && dj.mode) {
                     const djRole = this.client.db.getRoles(message.guildId);
-                    if (!djRole) return await message.reply({
-                        content: 'DJ role is not set.',
-                    });
+                    if (!djRole)
+                        return await message.reply({
+                            content: 'DJ role is not set.',
+                        });
                     const findDJRole = message.member.roles.cache.find((x: any) =>
                         djRole.map((y: any) => y.roleId).includes(x.id)
                     );

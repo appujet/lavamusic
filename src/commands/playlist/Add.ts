@@ -93,7 +93,7 @@ export default class Add extends Command {
         let trackStrings;
         let count;
         if (res.loadType === LoadType.PLAYLIST) {
-            trackStrings = res.data.tracks.map((track) => track);
+            trackStrings = res.data.tracks.map(track => track);
             count = res.data.tracks.length;
         } else {
             trackStrings = [res.data[0]];

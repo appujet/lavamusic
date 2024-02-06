@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/typedef */
 import {
     ActionRowBuilder,
+    ActivityType,
     ButtonBuilder,
     ButtonStyle,
     CommandInteraction,
     TextChannel,
 } from 'discord.js';
 
-import { Context } from '../structures/index.js';
+import { Context, Lavamusic } from '../structures/index.js';
+import config from '../config.js';
 
 export class Utils {
     public static formatTime(ms: number): string {
@@ -22,6 +24,30 @@ export class Utils {
             return `${Math.floor(ms / hourMs)}h ${Math.floor((ms % hourMs) / minuteMs)}m`;
         } else {
             return `${Math.floor(ms / dayMs)}d ${Math.floor((ms % dayMs) / hourMs)}h`;
+        }
+    }
+
+    public static updateStatus(client: Lavamusic, guildId?: string): void {
+        if (client.user) {
+            if (guildId === config.guildId) {
+                const player = client.queue.get(config.guildId);
+                if (player && player.current) {
+                    client.user.setActivity({
+                        name: `🎶 | ${player.current.info.title}`,
+                        type: ActivityType.Listening,
+                    });
+                } else {
+                    client.user?.setPresence({
+                        activities: [
+                            {
+                                name: config.botActivity,
+                                type: config.botActivityType,
+                            },
+                        ],
+                        status: config.botStatus as any,
+                    });
+                }
+            }
         }
     }
 
@@ -121,13 +147,13 @@ export class Utils {
         if (ctx.isInteraction) {
             msg = ctx.deferred
                 ? await ctx.interaction.followUp({
-                      ...msgOptions,
-                      fetchReply: true as boolean,
-                  })
+                    ...msgOptions,
+                    fetchReply: true as boolean,
+                })
                 : await ctx.interaction.reply({
-                      ...msgOptions,
-                      fetchReply: true,
-                  });
+                    ...msgOptions,
+                    fetchReply: true,
+                });
         } else {
             msg = await (ctx.channel as TextChannel).send({
                 ...msgOptions,

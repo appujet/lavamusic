@@ -75,7 +75,6 @@
 
 ### **Need Help with plugins?** Join our [Discord Server]([support-server]) and ask for help in the `#support` channel.
 
-
 ## 📚 Commands
 
 <details><summary>Click to View Commands</summary>
@@ -143,7 +142,7 @@ TOKEN="." # Your bot token
 PREFIX= "!" # Your prefix
 OWNER_IDS=["859640640640640640","859640640640640640"] # Your discord id, you can add multiple ids
 GUILD_ID= "859640640640640640" # Your server Id if you want to use the for single server
-PRODUCTION="true" # true for production 
+PRODUCTION="true" # true for production
 SEARCH_ENGINE= "ytsearch" # ytsearch, scsearch or ytmsearch
 MAX_PLAYLIST_SIZE= "100" # Max playlist size
 MAX_QUEUE_SIZE= "100" # Max queue size
@@ -177,7 +176,6 @@ Download the [docker-compose.yml file](https://raw.githubusercontent.com/brblack
 Edit docker-compose.yml and make sure to set the following variables:
 
 your .env file should look like this or you can use the [.env.example](https://raw.githubusercontent.com/brblacky/lavamusic/main/.env.example) file
-
 
 ```yaml
 TOKEN="." # Your bot token and remember, don't show everyone your bot token
@@ -222,17 +220,15 @@ Do note that the bot will restart itself to update to the latest!
 
 -   ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) [Node.js](https://nodejs.org/en/download/)
 -   ![Discord.js](https://img.shields.io/badge/Discord.js-7289DA?style=for-the-badge&logo=discord&logoColor=white) [Discord.js](https://discord.js.org/#/)
-- ![Lavalink](https://img.shields.io/badge/Lavalink-7289DA?style=for-the-badge&logo=discord&logoColor=white) [Lavalink](https://github.com/lavalink-devs/Lavalink)
+-   ![Lavalink](https://img.shields.io/badge/Lavalink-7289DA?style=for-the-badge&logo=discord&logoColor=white) [Lavalink](https://github.com/lavalink-devs/Lavalink)
 -   ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) [Docker](https://www.docker.com/)
 -   ![Docker-Compose](https://img.shields.io/badge/Docker--Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white) [Docker-Compose](https://docs.docker.com/compose/)
-
 
 ### Errors
 
 ![image](https://cdn.discordapp.com/attachments/1147388529085780078/1165972143146815518/image_1.png)
 
-- Fix this error to add database name in end of the `DATABASE_URL` like this `mongodb+srv://xxyydd:ejejeje@cluster0.f93tcdq.mongodb.net/Bot`
-
+-   Fix this error to add database name in end of the `DATABASE_URL` like this `mongodb+srv://xxyydd:ejejeje@cluster0.f93tcdq.mongodb.net/Bot`
 
 ## 📝 Tutorial
 

@@ -35,7 +35,9 @@ export default class VoiceStateUpdate extends Event {
             }
         }
         if (newState.id == this.client.user.id) return;
-        const vc = newState.guild.channels.cache.get(player.node.manager.connections.get(newState.guild.id).channelId);
+        const vc = newState.guild.channels.cache.get(
+            player.node.manager.connections.get(newState.guild.id).channelId
+        );
         if (
             newState.id === this.client.user.id &&
             !newState.serverDeaf &&
@@ -48,7 +50,9 @@ export default class VoiceStateUpdate extends Event {
         if (newState.id === this.client.user.id && !newState.serverMute && player.paused)
             player.pause();
 
-        let voiceChannel = newState.guild.channels.cache.get(player.node.manager.connections.get(newState.guild.id).channelId);
+        let voiceChannel = newState.guild.channels.cache.get(
+            player.node.manager.connections.get(newState.guild.id).channelId
+        );
 
         if (newState.id === this.client.user.id && newState.channelId === null) return;
 

@@ -133,9 +133,10 @@ export default class InteractionCreate extends Event {
                     const dj = this.client.db.getDj(interaction.guildId);
                     if (dj && dj.mode) {
                         const djRole = this.client.db.getRoles(interaction.guildId);
-                        if (!djRole) return await interaction.reply({
-                            content: 'DJ role is not set.',
-                        });
+                        if (!djRole)
+                            return await interaction.reply({
+                                content: 'DJ role is not set.',
+                            });
                         const findDJRole = (interaction.member as GuildMember).roles.cache.find(
                             (x: any) => djRole.map((y: any) => y.roleId).includes(x.id)
                         );
@@ -178,10 +179,12 @@ export default class InteractionCreate extends Event {
                 setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
             }
             if (
-                interaction.options.data.some(option =>
-                    option.value && option.value.toString().includes('@everyone')
+                interaction.options.data.some(
+                    option => option.value && option.value.toString().includes('@everyone')
                 ) ||
-                interaction.options.data.some(option => option.value && option.value.toString().includes('@here'))
+                interaction.options.data.some(
+                    option => option.value && option.value.toString().includes('@here')
+                )
             )
                 return await interaction.reply({
                     content: 'You can\'t mention everyone or here.',
@@ -211,7 +214,7 @@ export default class InteractionCreate extends Event {
                     default:
                         break;
                 }
-                
+
                 return await interaction.respond(songs).catch(() => {});
             }
         }
