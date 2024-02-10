@@ -224,12 +224,6 @@ Do note that the bot will restart itself to update to the latest!
 -   ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) [Docker](https://www.docker.com/)
 -   ![Docker-Compose](https://img.shields.io/badge/Docker--Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white) [Docker-Compose](https://docs.docker.com/compose/)
 
-### Errors
-
-![image](https://cdn.discordapp.com/attachments/1147388529085780078/1165972143146815518/image_1.png)
-
--   Fix this error to add database name in end of the `DATABASE_URL` like this `mongodb+srv://xxyydd:ejejeje@cluster0.f93tcdq.mongodb.net/Bot`
-
 ## 📝 Tutorial
 
 A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://youtu.be/x5lQD2rguz0)
