@@ -22,7 +22,6 @@ export default {
     maxQueueSize: parseInt(process.env.MAX_QUEUE_SIZE) || 100,
     owners: JSON.parse(process.env.OWNER_IDS || '[]'),
     clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET || '',
     guildId: process.env.GUILD_ID,
     logChannelId: process.env.LOG_CHANNEL_ID || '',
     links: {
