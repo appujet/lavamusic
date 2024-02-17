@@ -5,6 +5,7 @@ services:
         restart: on-failure
         environment:
             SERVER_PORT: 2333
+            SERVER_ADDRESS: 0.0.0.0
         volumes:
             # mount application.yml from the same directory or use environment variables
             - ./Lavalink/application.yml:/opt/Lavalink/application.yml
@@ -27,18 +28,19 @@ services:
         container_name: lavamusic
         image: ghcr.io/brblacky/lavamusic:main
         environment:
-            # Your mongodb url
-            - LAVALINK_URL=lavalink:2333
             # Your lavalink url
-            - LAVALINK_AUTH=youshallnotpass
+            - LAVALINK_URL=lavalink:2333
             # Your lavalink password
-            - LAVALINK_NAME=Blacky'
+            - LAVALINK_AUTH=youshallnotpass
             # Your lavalink name
+            - LAVALINK_NAME=Blacky'
+            # Your lavalink secure (true or false)
             - LAVALINK_SECURE=false
-            # true if you are using https
+
         volumes:
             # mount .env from the same directory or use environment variables
             - .env:/opt/lavamusic/.env
+            #- ./database:/opt/lavamusic/database
         restart: on-failure
         depends_on:
             lavalink:
