@@ -8,8 +8,12 @@ COPY package*.json ./
 RUN apt-get update && \
     apt-get install -y && \
     npm install
+
 # Copy source code
 COPY . .
+
+# Copy tsconfig.json
+COPY tsconfig.json ./
 
 # Build TypeScript
 RUN npm run build
