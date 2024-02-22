@@ -46,7 +46,17 @@ export default class Play extends Command {
         let player = client.queue.get(ctx.guild.id);
         const vc = ctx.member as any;
         if (!player) player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel);
-
+        if (player.filters.includes('getfucked') && ctx.author.id == '139868888300126208') {
+            ctx.sendMessage({
+                embeds: [
+                    {
+                        description: 'Get FUCKED, Kiwi.',
+                        color: client.color.red,
+                    },
+                ],
+            });
+            return;
+        }
         const res = await this.client.queue.search(query);
         const embed = this.client.embed();
         switch (res.loadType) {

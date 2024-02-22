@@ -39,7 +39,17 @@ export default class Pitch extends Command {
     }
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
+        if (player.filters.includes('getfucked') && ctx.author.id == '139868888300126208') {
+            ctx.sendMessage({
+                embeds: [
+                    {
+                        description: 'Get FUCKED, Kiwi.',
+                        color: client.color.red,
+                    },
+                ],
+            });
+            return;
+        }
         const number = Number(args[0]);
         if (isNaN(number))
             return await ctx.sendMessage({

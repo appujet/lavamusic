@@ -30,7 +30,17 @@ export default class Nowplaying extends Command {
     }
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
+        if (player.filters.includes('getfucked') && ctx.author.id == '139868888300126208') {
+            ctx.sendMessage({
+                embeds: [
+                    {
+                        description: 'Get FUCKED, Kiwi.',
+                        color: client.color.red,
+                    },
+                ],
+            });
+            return;
+        }
         const track = player.current;
         const position = player.player.position;
         const duration = track.info.length;

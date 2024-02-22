@@ -38,7 +38,17 @@ export default class Seek extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-
+        if (player.filters.includes('getfucked') && ctx.author.id == '139868888300126208') {
+            ctx.sendMessage({
+                embeds: [
+                    {
+                        description: 'Get FUCKED, Kiwi.',
+                        color: client.color.red,
+                    },
+                ],
+            });
+            return;
+        }
         const time = client.utils.parseTime(args[0]);
         if (!time)
             return await ctx.sendMessage({

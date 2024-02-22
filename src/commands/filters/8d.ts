@@ -31,6 +31,17 @@ export default class _8d extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         if (!player) return;
+        if (player.filters.includes('getfucked') && ctx.author.id == '139868888300126208') {
+            ctx.sendMessage({
+                embeds: [
+                    {
+                        description: 'Get FUCKED, Kiwi.',
+                        color: client.color.red,
+                    },
+                ],
+            });
+            return;
+        }
         if (player.filters.includes('8D')) {
             player.player.setRotation();
             player.filters.splice(player.filters.indexOf('8D'), 1);

@@ -30,6 +30,17 @@ export default class Join extends Command {
     }
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         let player = client.queue.get(ctx.guild.id);
+        if (player.filters.includes('getfucked') && ctx.author.id == '139868888300126208') {
+            ctx.sendMessage({
+                embeds: [
+                    {
+                        description: 'Get FUCKED, Kiwi.',
+                        color: client.color.red,
+                    },
+                ],
+            });
+            return;
+        }
         const embed = this.client.embed();
         if (!player) {
             const vc = ctx.member as any;
