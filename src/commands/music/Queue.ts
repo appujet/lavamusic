@@ -58,8 +58,9 @@ export default class Queue extends Command {
         );
         let totalLength = 0;
         player.queue.forEach(song => {
-            if (!isNaN(song.info.length))
-            totalLength += song.info.length
+            if (!isNaN(song.info.length)) {
+                totalLength += song.info.length
+            }
         });
         let chunks = client.utils.chunk(queue, 10) as any;
         if (chunks.length === 0) chunks = 1;
