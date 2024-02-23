@@ -56,6 +56,10 @@ export default class Queue extends Command {
                     track.info.isStream ? 'LIVE' : this.client.utils.formatTime(track.info.length)
                 }`
         );
+        let totalLength;
+        player.queue.forEach(song => {
+            totalLength += song.info.length
+        });
         let chunks = client.utils.chunk(queue, 10) as any;
         if (chunks.length === 0) chunks = 1;
         const pages = [];
@@ -65,7 +69,7 @@ export default class Queue extends Command {
                 .setColor(this.client.color.main)
                 .setAuthor({ name: 'Queue', iconURL: ctx.guild.iconURL({}) })
                 .setDescription(chunks[i].join('\n'))
-                .setFooter({ text: `Page ${i + 1} of ${chunks.length}` });
+                .setFooter({ text: `Page ${i + 1} of ${chunks.length} - Total Queue Length: ${this.client.utils.formatTime(totalLength)}` });
             pages.push(embed);
         }
 
