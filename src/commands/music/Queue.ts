@@ -56,8 +56,9 @@ export default class Queue extends Command {
                     track.info.isStream ? 'LIVE' : this.client.utils.formatTime(track.info.length)
                 }`
         );
-        let totalLength;
+        let totalLength = 0;
         player.queue.forEach(song => {
+            if (!isNaN(song.info.length))
             totalLength += song.info.length
         });
         let chunks = client.utils.chunk(queue, 10) as any;
