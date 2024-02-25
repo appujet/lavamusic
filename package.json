@@ -44,6 +44,7 @@
         "typescript": "^5.3.3"
     },
     "dependencies": {
+        "anilist-node": "^1.14.1",
         "better-sqlite3": "^9.4.0",
         "discord.js": "^14.14.1",
         "dotenv": "^16.4.1",
