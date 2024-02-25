@@ -1,6 +1,5 @@
 import Database from 'better-sqlite3';
-import { XMLParser } from 'fast-xml-parser';
-
+import ANNClient from '../structures/ANNClient.js';
 import config from '../config.js';
 
 const db = new Database('./database/anime.db', {
@@ -9,8 +8,10 @@ const db = new Database('./database/anime.db', {
 });
 db.pragma('journal_mode=WAL');
 export default class AnimeData {
+    private ANNClient: ANNClient
     constructor() {
         this.intialize();
+        this.ANNClient = new ANNClient();
     }
     public intialize(): void {
         db.prepare(
@@ -33,35 +34,26 @@ export default class AnimeData {
         let maxAnnId: any = db.prepare(
             'SELECT MAX(annId) from ann'
         ).get();
-        let response = await fetch(config.annApiURL + "reports.xml?id=155&nlist=1");
-        let xmlBody = await response.text();
-        let jsonBody = new XMLParser().parse(xmlBody)
-        let diff = jsonBody.report.item.id - maxAnnId;
+        let latestANN = await this.ANNClient.getLatestANN()
+        let diff = latestANN - maxAnnId;
         if (diff != 0) {
             setTimeout( async (diff) => {
-                let response = await fetch(config.annApiURL + "reports.xml?id=155&nlist=" + diff);
-                let xmlBody = await response.text();
-                let jsonBody = new XMLParser().parse(xmlBody);
-                if (diff == 1) {
-                    this.addNewANN(jsonBody.report.item);
-                } else {
-                    jsonBody.report.item.forEach(element => {
+                let newANNs = await this.ANNClient.getNewANNs(diff);
+                if (diff == 1 && !Array.isArray(newANNs)) {
+                    this.addNewANN(newANNs);
+                } else if (Array.isArray(newANNs)) {
+                    newANNs.forEach(element => {
                         this.addNewANN(element);
                     });
                 }
                 
             } , 1500)
         }
-        console.log(jsonBody)
     }
     private async pullAllFromANN(): Promise<void> {
-        //let response = await fetch(config.annApiURL + "reports.xml?id=155&nlist=all");
-        let response = await fetch(config.annApiURL + "reports.xml?id=155&type=anime&nlist=50");
+        let allANNs = await this.ANNClient.getAllANNs()
 
-        let xmlBody = await response.text();
-        let jsonBody = new XMLParser().parse(xmlBody)
-
-        jsonBody.report.item.forEach(element => {
+        allANNs.forEach(element => {
             this.addNewANN(element);
         });
     }
