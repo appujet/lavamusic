@@ -14,7 +14,7 @@ export default class AnimeData {
     }
     public intialize(): void {
         db.prepare(
-            'CREATE TABLE IF NOT EXISTS ann (annId INTEGER PRIMARY KEY, gid INTEGER, type TEXT, name TEXT, precision TEXT, vintage TEXT, hasAnilist BOOLEAN)'
+            'CREATE TABLE IF NOT EXISTS ann (annId INTEGER PRIMARY KEY, gid INTEGER, type TEXT, name TEXT, precision TEXT, vintage TEXT, hasAnilist BOOLEAN, hasAnisong BOOLEAN)'
         ).run();
         db.prepare(
             'CREATE TABLE IF NOT EXISTS anilistmedia (anilistMediaId INTEGER PRIMARY KEY, annId INTEGER)'
@@ -60,14 +60,25 @@ export default class AnimeData {
 
         let xmlBody = await response.text();
         let jsonBody = new XMLParser().parse(xmlBody)
-        
+
         jsonBody.report.item.forEach(element => {
             this.addNewANN(element);
         });
     }
     private addNewANN(ann: any): void {
-        
+        //TODO: Check Anilist and Anisong
+        this.addAnnToDB(ann.id, ann.gid, ann.type, ann.name, ann.precision, false, false);
     }
+    private addAnnToDB(annId: number, annGid: number, annType:string, annName:string, annPrecision:string, hasAnilist: boolean, hasAnisong: boolean): void {
+        db.prepare('INSERT INTO ann (annId, gid, type, name, precision, hasAnilist, hasAnisong) VALUES(?, ?, ?, ?, ?, ?, ?)').run(annId, annGid, annType, annName, annPrecision, hasAnilist, hasAnisong);
+    }
+    private addAnisongToDB(anisongId: number, annId: number, anilistMediaId: number, url: string, songType: string, anisongType: string, animeEng: string, animeJap: string, songName: string): void {
+        db.prepare('INSERT INTO ann (anisongId, annId, anilistMediaId, url, songType, anisongType, animeEng, animeJap, songName) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)').run(anisongId, annId, anilistMediaId, url, songType, anisongType, animeEng, animeJap, songName);
+    }
+    private addAnilistMediaToDB(anilistId: number, annId: number): void {
+        db.prepare('INSERT INTO anilistmedia (anilistId, annId) VALUES(?, ?)').run(anilistId, annId);
+    }
+
   
 
 }
