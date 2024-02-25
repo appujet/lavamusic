@@ -7,7 +7,7 @@ const db = new Database('./database/anime.db', {
     readonly: false,
 });
 db.pragma('journal_mode=WAL');
-export default class ServerData {
+export default class AnimeData {
     constructor() {
         this.intialize();
     }
@@ -22,4 +22,6 @@ export default class ServerData {
             'CREATE TABLE IF NOT EXISTS anisong (anisongId INTEGER PRIMARY KEY, annId INTEGER, anilistMediaId INTEGER, url TEXT, songType TEXT, anisongType TEXT, animeEng TEXT, animeJap TEXT, songName TEXT)'
         ).run();
     }
+
+
 }

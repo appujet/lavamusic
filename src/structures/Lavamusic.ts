@@ -21,12 +21,14 @@ import config from '../config.js';
 import ServerData from '../database/server.js';
 import loadPlugins from '../plugin/index.js';
 import { Utils } from '../utils/Utils.js';
+import AnimeData from '../database/anime.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
     public aliases: Collection<string, any> = new Collection();
     public db = new ServerData();
+    public animedb = new AnimeData();
     public cooldown: Collection<string, any> = new Collection();
     public config = config;
     public logger: Logger = new Logger();
