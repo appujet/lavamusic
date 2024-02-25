@@ -25,10 +25,10 @@ export default class AnilistClient {
     }
     public async GetAnimeById(id: number): Promise<any> {
         let result = await this.AnilistClient.media.anime(id);
-        return result
+        return result;
     }
     public async GetMangaById(id: number): Promise<any> {
         let result = await this.AnilistClient.media.manga(id);
-        return result
+        return result;
     }
 }

@@ -1,4 +1,3 @@
-import { isNullOrUndefined } from 'util';
 import config from '../config.js';
 export default class AnisongClient {
     constructor() {}
@@ -16,13 +15,13 @@ export default class AnisongClient {
                 "ending_filter":endingFilter,
                 "insert_filter":insertFilter
             })
-        })
-        let jsonText = await response.text()
-        let json = JSON.parse(jsonText)
-        let anisongs: AnisongData[]
+        });
+        let jsonText = await response.text();
+        let json = JSON.parse(jsonText);
+        let anisongs: AnisongData[] = [];
         json.forEach(element => {
             if (element.audio != "" && element.audio != undefined && element.audio != null) {
-                let anisongdata = new AnisongData(element.annSongId, element.annId, element.audio, element.songType, element.animeEnName, element.animeJPName, element.songName, element.animeType)
+                let anisongdata = new AnisongData(element.annSongId, element.annId, element.audio, element.songType, element.animeEnName, element.animeJPName, element.songName, element.animeType);
                 anisongs.push(anisongdata);
             }
         });
@@ -39,7 +38,7 @@ export class AnisongData {
         this.animeEng = animeEng;
         this.animeJap = animeJap;
         this.songName = songName;
-        this.animeType = animeType
+        this.animeType = animeType;
         if (this.anisongType.includes("Opening")) {
             this.songType = "OP";
         } else if (this.anisongType.includes("Ending")) {
@@ -47,7 +46,7 @@ export class AnisongData {
         } else if (this.anisongType.includes("Insert")) {
             this.songType = "IN";
         } else {
-            this.songType = "UNKNOWN"
+            this.songType = "UNKNOWN";
         }
     }
     public anisongId: number;

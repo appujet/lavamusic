@@ -21,19 +21,19 @@ export default class ANNClient {
     public async getLatestANN(): Promise<number> {
         let response = await this.getANNReport(1);
         let xmlBody = await response.text();
-        let jsonBody = new XMLParser().parse(xmlBody)
+        let jsonBody = new XMLParser().parse(xmlBody);
         return jsonBody.report.item.id;
     }
     public async getNewANNs(annCount: number): Promise<any> {
         let response = await this.getANNReport(annCount);
         let xmlBody = await response.text();
-        let jsonBody = new XMLParser().parse(xmlBody)
+        let jsonBody = new XMLParser().parse(xmlBody);
         return jsonBody.report.item;
     }
     public async getAllANNs(): Promise<any> {
         let response = await this.getANNReport(0);
         let xmlBody = await response.text();
-        let jsonBody = new XMLParser().parse(xmlBody)
+        let jsonBody = new XMLParser().parse(xmlBody);
         return jsonBody.report.item;
     }
     
