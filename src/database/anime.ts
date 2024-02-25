@@ -41,20 +41,32 @@ export default class AnimeData {
             setTimeout( async (diff) => {
                 let response = await fetch(config.annApiURL + "reports.xml?id=155&nlist=" + diff);
                 let xmlBody = await response.text();
-                let jsonBody = new XMLParser().parse(xmlBody)
-                this.addNewANN(jsonBody.report.item, diff)
+                let jsonBody = new XMLParser().parse(xmlBody);
+                if (diff == 1) {
+                    this.addNewANN(jsonBody.report.item);
+                } else {
+                    jsonBody.report.item.forEach(element => {
+                        this.addNewANN(element);
+                    });
+                }
+                
             } , 1500)
         }
         console.log(jsonBody)
     }
     private async pullAllFromANN(): Promise<void> {
-        let response = await fetch(config.annApiURL + "reports.xml?id=155&nlist=all");
+        //let response = await fetch(config.annApiURL + "reports.xml?id=155&nlist=all");
+        let response = await fetch(config.annApiURL + "reports.xml?id=155&type=anime&nlist=50");
+
         let xmlBody = await response.text();
         let jsonBody = new XMLParser().parse(xmlBody)
-        this.addNewANN(jsonBody.report.item)
+        
+        jsonBody.report.item.forEach(element => {
+            this.addNewANN(element);
+        });
     }
-    private addNewANN(ann: any, count: number = 0): void {
-        //TODO
+    private addNewANN(ann: any): void {
+        
     }
   
 
