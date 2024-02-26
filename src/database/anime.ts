@@ -4,6 +4,8 @@ import AnisongClient, { AnisongData } from '../structures/AnisongClient.js';
 import AnilistClient from '../structures/AnilistClient.js';
 
 import config from '../config.js';
+import { CronJob } from 'cron';
+import { start } from 'repl';
 
 const db = new Database('./database/anime.db', {
     fileMustExist: false,
@@ -25,7 +27,7 @@ export default class AnimeData {
             'CREATE TABLE IF NOT EXISTS ann (annId INTEGER PRIMARY KEY, gid INTEGER, type TEXT, name TEXT, precision TEXT, vintage TEXT, hasAnilist BOOLEAN, hasAnisong BOOLEAN)'
         ).run();
         db.prepare(
-            'CREATE TABLE IF NOT EXISTS anilistmedia (anilistMediaId INTEGER PRIMARY KEY, annId INTEGER)'
+            'CREATE TABLE IF NOT EXISTS anilistmedia (anilistMediaId INTEGER PRIMARY KEY, annId INTEGER, name TEXT)'
         ).run();
         db.prepare(
             'CREATE TABLE IF NOT EXISTS anisong (anisongId INTEGER PRIMARY KEY, annId INTEGER, anilistMediaId INTEGER, url TEXT, songType TEXT, anisongType TEXT, animeEng TEXT, animeJap TEXT, songName TEXT, animeType TEXT)'
@@ -34,7 +36,8 @@ export default class AnimeData {
         if (!data) {
             this.pullAllFromANN();
         }
-        setInterval(this.pullRecentFromANN, 86400000)
+        const job1 = new CronJob('0 0 0 * * *', this.pullRecentFromANN, null, true, 'America/New_York');
+        const job2 = new CronJob('0 0 0 * * 1', this.CheckAnilistAndAnisongMissing, null, true, 'America/New_York');
         
     }
     private async pullRecentFromANN(): Promise<void> {
@@ -62,6 +65,43 @@ export default class AnimeData {
             this.addNewANN(element);
         });
     }
+    private async CheckAnilistAndAnisongMissing(): Promise<void> {
+        let noAnilistManga: any = db.prepare('SELECT * FROM ann WHERE hasAnilist = ? AND type = ? AND type = ?').get(false, 'manga', 'anthology');
+        let noAnilistAnime: any = db.prepare('SELECT * FROM ann WHERE hasAnilist = ? AND type != ? AND type != ?').get(false, 'manga', 'anthology');
+        let noAnisong: any = db.prepare('SELECT * FROM ann WHERE hasAnisong = ? AND type != ? AND type != ?').get(false, 'manga', 'anthology');
+        if (noAnilistManga) { 
+            noAnilistManga.forEach(async element => {
+                let anilistId = await this.AnilistClient.SearchByMangaName(element.name);
+                if (anilistId != 0) {
+                    this.addAnilistMediaToDB(anilistId, element.annId, element.name);
+                    this.setAnilistTrueOnANN(element.annId);
+                }
+                
+            });
+        }
+        if (noAnilistAnime) { 
+            noAnilistAnime.forEach(async element => {
+                let anilistId = await this.AnilistClient.SearchByMangaName(element.name);
+                if (anilistId != 0) {
+                    this.addAnilistMediaToDB(anilistId, element.annId, element.name);
+                    this.setAnilistTrueOnANN(element.annId);
+                }
+            });
+        }
+        if (noAnisong) { 
+            noAnisong.forEach(async element => {
+                let anisongData = await this.AnisongClient.getAnisongDataFromANNId(element.annId);
+                if (anisongData.length > 0) {
+                    let anilistId = this.getAnilistIdFromANN(element.annId);
+                    anisongData.forEach(anisong => {
+                        
+                        this.addAnisongToDB(anisong.anisongId, anisong.annId, anilistId, anisong.url, anisong.songType, anisong.anisongType, anisong.animeEng, anisong.animeJap, anisong.songName, anisong.animeType);
+                    });
+                    this.setAnisongTrueOnANN(element.annId);
+                }
+            });
+        }
+    }
     private async addNewANN(ann: any): Promise<void> {
         let hasAnalist = false;
         let hasAnisong = false;
@@ -77,8 +117,8 @@ export default class AnimeData {
             console.log("Type of '" + ann.type + "' not found for annId '" + ann.id + "'. " + ann.name);
         }
         if (anilistId != 0) {
-            hasAnalist = true;
-            this.addAnilistMediaToDB(anilistId, ann.id);
+            hasAnalist = true;  
+            this.addAnilistMediaToDB(anilistId, ann.id, ann.name);
         }
         if (anisongData.length > 0) {
             hasAnisong = true;
@@ -94,8 +134,21 @@ export default class AnimeData {
     private addAnisongToDB(anisongId: number, annId: number, anilistMediaId: number, url: string, songType: string, anisongType: string, animeEng: string, animeJap: string, songName: string, animeType: string): void {
         db.prepare('INSERT INTO ann (anisongId, annId, anilistMediaId, url, songType, anisongType, animeEng, animeJap, songName, animeType) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').run(anisongId, annId, anilistMediaId, url, songType, anisongType, animeEng, animeJap, songName, animeType);
     }
-    private addAnilistMediaToDB(anilistId: number, annId: number): void {
-        db.prepare('INSERT INTO anilistmedia (anilistId, annId) VALUES(?, ?)').run(anilistId, annId);
+    private addAnilistMediaToDB(anilistId: number, annId: number, name: string): void {
+        db.prepare('INSERT INTO anilistmedia (anilistId, annId, name) VALUES(?, ?, ?)').run(anilistId, annId, name);
+    }
+    private setAnilistTrueOnANN(annId: number): void {
+        db.prepare('UPDATE ann SET hasAnilist = true WHERE annId = ?').run(annId)
+    }
+    private setAnisongTrueOnANN(annId: number): void {
+        db.prepare('UPDATE ann SET hasAnisong = true WHERE annId = ?').run(annId)
+    }
+    private getAnilistIdFromANN(annId: number): number {
+        let anilistId: any = db.prepare('SELECT anilistId FROM anilistmedia WHERE annId = ? LIMIT 1').get(annId);
+        if (!anilistId) {
+            anilistId = 0;
+        }
+        return anilistId;
     }
 
   

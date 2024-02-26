@@ -46,6 +46,7 @@
     "dependencies": {
         "anilist-node": "^1.14.1",
         "better-sqlite3": "^9.4.0",
+        "cron": "^3.1.6",
         "discord.js": "^14.14.1",
         "dotenv": "^16.4.1",
         "fast-xml-parser": "^4.3.5",
