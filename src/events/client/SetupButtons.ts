@@ -149,9 +149,18 @@ export default class SetupButtons extends Event {
                     await buttonReply(interaction, `Stopped the music.`, this.client.color.main);
                     await message.edit({
                         embeds: [
-                            embed.setFooter({
+                            embed
+                                .setFooter({
                                 text: `Stopped by ${interaction.member.displayName}`,
                                 iconURL: interaction.member.displayAvatarURL({}),
+                        
+                            })
+                                .setDescription(`Nothing playing right now`)
+                                .setImage(this.client.config.links.img)
+                                .setAuthor({
+                                name: this.client.user.username,
+                                iconURL: this.client.user.displayAvatarURL({ extension: 'png' }),
+                                
                             }),
                         ],
                     });
