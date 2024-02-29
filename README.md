@@ -140,21 +140,22 @@ or you can use the [.env.example](https://raw.githubusercontent.com/brblacky/lav
 ```bash
 TOKEN="." # Your bot token
 PREFIX= "!" # Your prefix
-OWNER_IDS=["859640640640640640","859640640640640640"] # Your discord id, you can add multiple ids
+OWNER_IDS=["959276033683628122","859640640640640640"] # Your discord id, you can add multiple ids
 GUILD_ID= "859640640640640640" # Your server Id if you want to use the for single server
-PRODUCTION="true" # true for production
+CLIENT_SECRET= ""
+PRODUCTION="true" # true for production 
 SEARCH_ENGINE= "ytsearch" # ytsearch, scsearch or ytmsearch
 MAX_PLAYLIST_SIZE= "100" # Max playlist size
 MAX_QUEUE_SIZE= "100" # Max queue size
 BOT_STATUS= "online" # Your bot status
-BOT_ACTIVITY= "Wavemusic" # Your bot activity
-LAVALINK_URL="localhost:2333" # Your lavalink url
+BOT_ACTIVITY= "Lavamusic" # Your bot activity
+LAVALINK_URL="lavalink:2333" # Your lavalink url
 LAVALINK_AUTH="youshallnotpass" # Your lavalink password
 LAVALINK_NAME="Blacky" # Your lavalink name
-LAVALINK_SECURE= "true" # true for secure lavalink
+LAVALINK_SECURE= "false" # true for secure lavalink
 KEEP_ALIVE= "false" # true for keep alive in https://replit.com
+LOG_CHANNEL_ID=""
 BOT_ACTIVITY_TYPE=0 # Activity type is a number from 0 to 5 see more here https://discord.com/developers/docs/topics/gateway-events#activity-object-activity-types
-
 ```
 
 5. Run the bot:
