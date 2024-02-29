@@ -73,7 +73,7 @@
 [LavaSrc]: https://github.com/TopiSenpai/LavaSrc
 [skybot-lavalink-plugin]: https://github.com/DuncteBot/skybot-lavalink-plugin
 
-### **Need Help with plugins?** Join our [Discord Server]([support-server]) and ask for help in the `#support` channel.
+### **Need Help with plugins?** Join our [Discord Server](https://discord.gg/YsJCtDuTXp) and ask for help in the `#support` channel.
 
 ## 📚 Commands
 
