@@ -35,3 +35,7 @@
 /Lavalink/application.yml
 
 /Lavalink/plugins
+
+lavamusic.db
+lavamusic.db-shm
+lavamusic.db-wal

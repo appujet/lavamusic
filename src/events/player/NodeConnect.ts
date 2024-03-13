@@ -1,4 +1,5 @@
 import { Event, Lavamusic } from '../../structures/index.js';
+import BotLog from '../../utils/BotLog.js';
 
 export default class NodeConnect extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -22,5 +23,6 @@ export default class NodeConnect extends Event {
                 await this.client.queue.create(guild, vc, channel);
             }, index * 1000);
         }
+        BotLog.send(this.client, `Node ${node} is ready!`, 'success');
     }
 }
