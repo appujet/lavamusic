@@ -2,7 +2,7 @@ import Database from 'better-sqlite3';
 
 import config from '../config.js';
 
-const db = new Database('./database/lavamusic.db', {
+const db = new Database('./lavamusic.db', {
     fileMustExist: false,
     readonly: false,
 });
