@@ -1,4 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
+import dotenv from 'dotenv'; // Import dotenv
+
+dotenv.config(); // Load environment variables
 
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
@@ -31,12 +34,14 @@ export default class About extends Command {
         });
     }
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
+        const clientId = process.env.CLIENT_ID; // Retrieve client ID from environment variables
+
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setLabel('Invite Lavamusic')
                 .setStyle(ButtonStyle.Link)
                 .setURL(
-                    `https://discord.com/api/oauth2/authorize?client_id=875635121770889257&permissions=8&scope=bot%20applications.commands`
+                    `https://discord.com/api/oauth2/authorize?client_id=${clientId}&permissions=8&scope=bot%20applications.commands`
                 ),
             new ButtonBuilder()
                 .setLabel('Support Server')
@@ -84,6 +89,7 @@ export default class About extends Command {
         });
     }
 }
+                    
 
 /**
  * Project: lavamusic
