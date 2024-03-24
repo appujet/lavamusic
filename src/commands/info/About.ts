@@ -1,5 +1,4 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
-
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class About extends Command {
@@ -30,13 +29,14 @@ export default class About extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setLabel('Invite Lavamusic')
                 .setStyle(ButtonStyle.Link)
                 .setURL(
-                    `https://discord.com/api/oauth2/authorize?client_id=875635121770889257&permissions=8&scope=bot%20applications.commands`
+                    `https://discord.com/api/oauth2/authorize?client_id=${client.config.clientId}&permissions=8&scope=bot%20applications.commands`
                 ),
             new ButtonBuilder()
                 .setLabel('Support Server')
@@ -83,14 +83,5 @@ export default class About extends Command {
             components: [row],
         });
     }
-}
-
-/**
- * Project: lavamusic
- * Author: Blacky
- * Company: Coders
- * Copyright (c) 2023. All rights reserved.
- * This code is the property of Coder and may not be reproduced or
- * modified without permission. For more information, contact us at
- * https://discord.gg/ns8CTk9J3e
- */
+    }
+                       
