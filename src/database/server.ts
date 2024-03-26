@@ -104,7 +104,6 @@ export default class ServerData {
         if (guildId) {
             const data: any = db.prepare('SELECT * FROM stay WHERE guildId = ?').get(guildId);
             if (!data) {
-                db.prepare('INSERT INTO stay (guildId) VALUES (?)').run(guildId);
                 return false;
             } else {
                 return data;
