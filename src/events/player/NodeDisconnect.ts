@@ -9,6 +9,6 @@ export default class NodeDisconnect extends Event {
     }
     public async run(node: string, count: number): Promise<void> {
         this.client.logger.warn(`Node ${node} disconnected ${count} times`);
-        BotLog.send(this.client, `Node ${node} disconnected ${count} times`, 'warn')
+        BotLog.send(this.client, `Node ${node} disconnected ${count} times`, 'warn');
     }
 }

@@ -151,17 +151,17 @@ export default class SetupButtons extends Event {
                         embeds: [
                             embed
                                 .setFooter({
-                                text: `Stopped by ${interaction.member.displayName}`,
-                                iconURL: interaction.member.displayAvatarURL({}),
-                        
-                            })
+                                    text: `Stopped by ${interaction.member.displayName}`,
+                                    iconURL: interaction.member.displayAvatarURL({}),
+                                })
                                 .setDescription(`Nothing playing right now`)
                                 .setImage(this.client.config.links.img)
                                 .setAuthor({
-                                name: this.client.user.username,
-                                iconURL: this.client.user.displayAvatarURL({ extension: 'png' }),
-                                
-                            }),
+                                    name: this.client.user.username,
+                                    iconURL: this.client.user.displayAvatarURL({
+                                        extension: 'png',
+                                    }),
+                                }),
                         ],
                     });
                     break;

@@ -17,7 +17,6 @@ import { Song } from '../../structures/Dispatcher.js';
 import { Dispatcher, Event, Lavamusic } from '../../structures/index.js';
 import { trackStart } from '../../utils/SetupSystem.js';
 
-
 export default class TrackStart extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {

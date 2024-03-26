@@ -123,7 +123,9 @@ export default class PlayNext extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(`Added ${res.data.tracks.length} songs to play next in the queue.`),
+                            .setDescription(
+                                `Added ${res.data.tracks.length} songs to play next in the queue.`
+                            ),
                     ],
                 });
                 break;

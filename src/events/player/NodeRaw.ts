@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Event, Lavamusic } from '../../structures/index.js';
-
 
 export default class NodeRaw extends Event {
     constructor(client: Lavamusic, file: string) {

@@ -24,13 +24,20 @@ export default class GuildDelete extends Event {
         }
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.red)
-            .setAuthor({ name: guild.name || 'Unknown Guild', iconURL: guild.iconURL({ extension: 'jpeg' }) })
+            .setAuthor({
+                name: guild.name || 'Unknown Guild',
+                iconURL: guild.iconURL({ extension: 'jpeg' }),
+            })
 
             .setDescription(`**${guild.name}** has been removed from my guilds!`)
             .setThumbnail(guild.iconURL({ extension: 'jpeg' }))
             .addFields(
                 { name: 'Owner', value: owner.user.tag, inline: true },
-                { name: 'Members', value: guild.memberCount ? guild.memberCount.toString() : 'Unknown', inline: true },
+                {
+                    name: 'Members',
+                    value: guild.memberCount ? guild.memberCount.toString() : 'Unknown',
+                    inline: true,
+                },
                 {
                     name: 'Created At',
                     value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`,

@@ -9,6 +9,6 @@ export default class NodeReconnect extends Event {
     }
     public async run(node: string): Promise<void> {
         this.client.logger.warn(`Node ${node} reconnected`);
-        BotLog.send(this.client, `Node ${node} reconnected`, 'warn')
+        BotLog.send(this.client, `Node ${node} reconnected`, 'warn');
     }
 }

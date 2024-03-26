@@ -143,7 +143,7 @@ PREFIX= "!" # Your prefix
 OWNER_IDS=["959276033683628122","859640640640640640"] # Your discord id, you can add multiple ids
 GUILD_ID= "859640640640640640" # Your server Id if you want to use the for single server
 CLIENT_SECRET= ""
-PRODUCTION="true" # true for production 
+PRODUCTION="true" # true for production
 SEARCH_ENGINE= "ytsearch" # ytsearch, scsearch or ytmsearch
 MAX_PLAYLIST_SIZE= "100" # Max playlist size
 MAX_QUEUE_SIZE= "100" # Max queue size
@@ -243,7 +243,7 @@ Your contribution will be reviewed by the project maintainers, and any necessary
 
 ## 🔐 License
 
-Distributed under the Apache-2.0 license License. See ![LICENSE](https://img.shields.io/github/license/brblacky/lavamusic?style=social) for more information.
+Distributed under the GPL-3.0 license. See ![LICENSE](https://img.shields.io/github/license/brblacky/lavamusic?style=social) for more information.
 
 ## ☕ Donate
 

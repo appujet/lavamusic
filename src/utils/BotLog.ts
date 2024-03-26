@@ -1,6 +1,6 @@
 import { TextChannel } from 'discord.js';
-import { Lavamusic } from '../structures/index.js';
 
+import { Lavamusic } from '../structures/index.js';
 
 export default class BotLog {
     public static send(client: Lavamusic, message: string, type: string): void {
@@ -27,11 +27,10 @@ export default class BotLog {
                 color = 0x000000;
                 break;
         }
-        const embed = client.embed()
-            .setColor(color)
-            .setDescription(message)
-            .setTimestamp();
-        
-        channel.send({ embeds: [embed] }).catch(() => {null});
+        const embed = client.embed().setColor(color).setDescription(message).setTimestamp();
+
+        channel.send({ embeds: [embed] }).catch(() => {
+            null;
+        });
     }
 }

@@ -14,7 +14,6 @@ const updateStatusPlugin: BotPlugin = {
 
 export default updateStatusPlugin;
 
-
 /**
  * Project: lavamusic
  * Author: Blacky

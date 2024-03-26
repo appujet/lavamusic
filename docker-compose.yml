@@ -40,7 +40,6 @@ services:
         volumes:
             # mount .env from the same directory or use environment variables
             - .env:/opt/lavamusic/.env
-            - ./database:/opt/lavamusic/database
         restart: on-failure
         depends_on:
             lavalink:
