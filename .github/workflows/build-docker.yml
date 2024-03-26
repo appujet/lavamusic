@@ -19,7 +19,7 @@ jobs:
               id: meta
               uses: docker/metadata-action@v4
               with:
-                  images: ghcr.io/brblacky/lavamusic
+                  images: ghcr.io/appujet/lavamusic
             - name: Login to Github Container Registry
               uses: docker/login-action@v2
               with:
