@@ -9,4 +9,59 @@
         "build": "tsc --project tsconfig.json",
         "clean": "rm -rf dist",
         "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx",
-        "lint:fix": "eslint . --fix --ca
+        "lint:fix": "eslint . --fix --cache --ext .js,.jsx,.ts,.tsx",
+        "format": "prettier --check .",
+        "format:fix": "prettier --write ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/brblacky/lavamusic.git"
+    },
+    "keywords": [
+        "discord",
+        "music",
+        "bot",
+        "lavalink",
+        "shoukaku",
+        "lavamusic",
+        "typescript",
+        "prisma"
+    ],
+    "author": "blacky",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/brblacky/lavamusic/issues"
+    },
+    "homepage": "https://github.com/brblacky/lavamusic#readme",
+    "devDependencies": {
+        "@types/better-sqlite3": "^7.6.9",
+        "@types/node": "^20.11.30",
+        "@types/signale": "^1.4.7",
+        "@typescript-eslint/eslint-plugin": "^7.4.0",
+        "@typescript-eslint/parser": "^7.4.0",
+        "eslint": "^8.57.0",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-unicorn": "^51.0.1",
+        "prettier": "^3.2.5",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.3"
+    },
+    "dependencies": {
+        "better-sqlite3": "^9.4.3",
+        "discord.js": "^14.14.1",
+        "dotenv": "^16.4.5",
+        "shoukaku": "^4.0.1",
+        "signale": "^1.4.0",
+        "tslib": "^2.6.2",
+        "undici": "^6.10.2"
+    },
+    "signale": {
+        "displayScope": true,
+        "displayBadge": true,
+        "displayDate": true,
+        "displayFilename": true,
+        "displayLabel": true,
+        "displayTimestamp": true,
+        "underlineLabel": true
+    }
+}
