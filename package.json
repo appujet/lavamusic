@@ -15,7 +15,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/brblacky/lavamusic.git"
+        "url": "git+https://github.com/appujet/lavamusic.git"
     },
     "keywords": [
         "discord",
@@ -30,9 +30,9 @@
     "author": "blacky",
     "license": "GPL-3.0",
     "bugs": {
-        "url": "https://github.com/brblacky/lavamusic/issues"
+        "url": "https://github.com/appujet/lavamusic/issues"
     },
-    "homepage": "https://github.com/brblacky/lavamusic#readme",
+    "homepage": "https://github.com/appujet/lavamusic#readme",
     "devDependencies": {
         "@types/better-sqlite3": "^7.6.9",
         "@types/node": "^20.11.30",

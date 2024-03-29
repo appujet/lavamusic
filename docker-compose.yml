@@ -26,7 +26,7 @@ services:
 
     lavamusic:
         container_name: lavamusic
-        image: ghcr.io/brblacky/lavamusic:main
+        image: ghcr.io/appujet/lavamusic:main
         environment:
             # Your lavalink url
             - LAVALINK_URL=lavalink:2333

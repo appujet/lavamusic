@@ -7,13 +7,13 @@
 [![Issues][issues-shield]][issues-url]
 [![Support Server][support-shield]][support-server]
 [![MIT License][license-shield]][license-url]
-[![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://repl.it/github/brblacky/lavamusic)
-[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/brblacky/lavamusic)
+[![Run on Repl.it](https://repl.it/badge/github/appujet/lavamusic)](https://repl.it/github/appujet/lavamusic)
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/appujet/lavamusic)
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/brblacky/lavamusic">
+  <a href="https://github.com/appujet/lavamusic">
     <img src="https://media.discordapp.net/attachments/876035356460462090/887728792926290091/20210820_124325.png" alt="lavamusic" width="200" height="200">
   </a>
 
@@ -24,7 +24,7 @@
     <br />
     <a href="https://discord.com/oauth2/authorize?client_id=977742811132743762&scope=bot+applications.commands&permissions=1374891928950">Invite Lavamusic</a>
     ·
-    <a href="https://github.com/brblacky/lavamusic/issues">Report Bug & Request Feature</a>
+    <a href="https://github.com/appujet/lavamusic/issues">Report Bug & Request Feature</a>
   </p>
 </p>
 
@@ -117,7 +117,7 @@ Before starting with the installation, you need to have the following:
 1. Clone the Lavamusic repository:
 
 ```bash
-git clone https://github.com/brblacky/lavamusic.git
+git clone https://github.com/appujet/lavamusic.git
 ```
 
 2. change the directory to Lavamusic
@@ -135,7 +135,7 @@ npm i
 4. Set up your environment variables:
 
 Create a `.env` file in the root directory of your project with the following variables:
-or you can use the [.env.example](https://raw.githubusercontent.com/brblacky/lavamusic/main/.env.example) file
+or you can use the [.env.example](https://raw.githubusercontent.com/appujet/lavamusic/main/.env.example) file
 
 ```bash
 TOKEN="." # Your bot token
@@ -172,11 +172,11 @@ Generate an invite link for your bot and invite it to your server using the Disc
 
 This section assumes you have Docker and Docker Compose installed and running correctly.
 
-Download the [docker-compose.yml file](https://raw.githubusercontent.com/brblacky/lavamusic/main/docker-compose.yml) in a seperate folder like lavamusic.
+Download the [docker-compose.yml file](https://raw.githubusercontent.com/appujet/lavamusic/main/docker-compose.yml) in a seperate folder like lavamusic.
 
 Edit docker-compose.yml and make sure to set the following variables:
 
-your .env file should look like this or you can use the [.env.example](https://raw.githubusercontent.com/brblacky/lavamusic/main/.env.example) file
+your .env file should look like this or you can use the [.env.example](https://raw.githubusercontent.com/appujet/lavamusic/main/.env.example) file
 
 ```yaml
 TOKEN="." # Your bot token and remember, don't show everyone your bot token
@@ -243,7 +243,7 @@ Your contribution will be reviewed by the project maintainers, and any necessary
 
 ## 🔐 License
 
-Distributed under the GPL-3.0 license. See ![LICENSE](https://img.shields.io/github/license/brblacky/lavamusic?style=social) for more information.
+Distributed under the GPL-3.0 license. See ![LICENSE](https://img.shields.io/github/license/appujet/lavamusic?style=social) for more information.
 
 ## ☕ Donate
 
@@ -256,20 +256,20 @@ Do you like this project? Support it by donating
 
 Thanks goes to these wonderful people :
 
-<a href="https://github.com/brblacky/lavamusic/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=brblacky/lavamusic" />
+<a href="https://github.com/appujet/lavamusic/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=appujet/lavamusic" />
 </a>
 
-[version-shield]: https://img.shields.io/github/package-json/v/brblacky/lavamusic?style=for-the-badge
-[contributors-shield]: https://img.shields.io/github/contributors/brblacky/lavamusic.svg?style=for-the-badge
-[contributors-url]: https://github.com/brblacky/lavamusic/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/brblacky/lavamusic.svg?style=for-the-badge
-[forks-url]: https://github.com/brblacky/lavamusic/network/members
-[stars-shield]: https://img.shields.io/github/stars/brblacky/lavamusic.svg?style=for-the-badge
-[stars-url]: https://github.com/brblacky/lavamusic/stargazers
-[issues-shield]: https://img.shields.io/github/issues/brblacky/lavamusic.svg?style=for-the-badge
-[issues-url]: https://github.com/brblacky/lavamusic/issues
-[license-shield]: https://img.shields.io/github/license/brblacky/lavamusic.svg?style=for-the-badge
-[license-url]: https://github.com/brblacky/lavamusic/blob/master/LICENSE
+[version-shield]: https://img.shields.io/github/package-json/v/appujet/lavamusic?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/appujet/lavamusic.svg?style=for-the-badge
+[contributors-url]: https://github.com/appujet/lavamusic/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/appujet/lavamusic.svg?style=for-the-badge
+[forks-url]: https://github.com/appujet/lavamusic/network/members
+[stars-shield]: https://img.shields.io/github/stars/appujet/lavamusic.svg?style=for-the-badge
+[stars-url]: https://github.com/appujet/lavamusic/stargazers
+[issues-shield]: https://img.shields.io/github/issues/appujet/lavamusic.svg?style=for-the-badge
+[issues-url]: https://github.com/appujet/lavamusic/issues
+[license-shield]: https://img.shields.io/github/license/appujet/lavamusic.svg?style=for-the-badge
+[license-url]: https://github.com/appujet/lavamusic/blob/master/LICENSE
 [support-server]: https://discord.gg/PMpJnJaHmy
 [support-shield]: https://img.shields.io/discord/942117923001098260.svg?style=for-the-badge&logo=discord&colorB=7289DA
