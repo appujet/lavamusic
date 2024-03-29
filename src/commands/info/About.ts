@@ -59,12 +59,12 @@ export default class About extends Command {
             .addFields([
                 {
                     name: 'Creator',
-                    value: '[Blacky#9125](https://github.com/brblacky)',
+                    value: '[Blacky#9125](https://github.com/appujet)',
                     inline: true,
                 },
                 {
                     name: 'Repository',
-                    value: '[Here](https://github.com/brblacky/lavamusic)',
+                    value: '[Here](https://github.com/appujet/lavamusic)',
                     inline: true,
                 },
                 {
