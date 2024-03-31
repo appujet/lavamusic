@@ -14,7 +14,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/appujet/lavamusic">
-    <img src="https://media.discordapp.net/attachments/876035356460462090/887728792926290091/20210820_124325.png" alt="lavamusic" width="200" height="200">
+    <img src="https://cdn.discordapp.com/avatars/875635121770889257/d427591ca92c868114fbdd9dca436086.png?size=512" alt="lavamusic" width="200" height="200">
   </a>
 
   <h1 align="center">lavamusic</h1>
@@ -73,37 +73,9 @@
 [LavaSrc]: https://github.com/TopiSenpai/LavaSrc
 [skybot-lavalink-plugin]: https://github.com/DuncteBot/skybot-lavalink-plugin
 
+### To set up a Lavalink server on Windows, Linux, or Replit, [Click Here.](https://github.com/LucasB25/lavalink-server)
+
 ### **Need Help with plugins?** Join our [Discord Server](https://discord.gg/YsJCtDuTXp) and ask for help in the `#support` channel.
-
-## 📚 Commands
-
-<details><summary>Click to View Commands</summary>
-
-| Name         | Description                           | Options                                     |
-| ------------ | ------------------------------------- | ------------------------------------------- |
-| `prefix`     | Shows the bot's prefix                |                                             |
-| `help`       | Shows the help menu                   | `command`: The command you want to get info |
-|              |                                       | on                                          |
-| `info`       | Shows information about the bot       |                                             |
-| `invite`     | Sends the bot's invite link           |                                             |
-| `ping`       | Shows the bot's ping                  |                                             |
-| `clearqueue` | Clears the queue                      |                                             |
-| `join`       | Joins the voice channel               |                                             |
-| `leave`      | Leaves the voice channel              |                                             |
-| `nowplaying` | Shows the currently playing song      |                                             |
-| `play`       | Plays a song from YouTube or Spotify  | `song`: The song you want to play           |
-| `pause`      | Pauses the current song               |                                             |
-| `queue`      | Shows the current queue               |                                             |
-| `remove`     | Removes a song from the queue         | `song`: The song number                     |
-| `resume`     | Resumes the current song              |                                             |
-| `seek`       | Seeks to a certain time in the song   |                                             |
-| `shuffle`    | Shuffles the queue                    |                                             |
-| `skip`       | Skips the current song                |                                             |
-| `skipto`     | Skips to a specific song in the queue |                                             |
-| `stop`       | Stops the music and clears the queue  |                                             |
-| `volume`     | Sets the volume of the player         | `number`: The volume you want to set        |
-
-</details>
 
 ## 🔧 Requirements
 
@@ -142,8 +114,7 @@ TOKEN="." # Your bot token
 PREFIX= "!" # Your prefix
 OWNER_IDS=["959276033683628122","859640640640640640"] # Your discord id, you can add multiple ids
 GUILD_ID= "859640640640640640" # Your server Id if you want to use the for single server
-CLIENT_SECRET= ""
-PRODUCTION="true" # true for production
+PRODUCTION="true" # true for production 
 SEARCH_ENGINE= "ytsearch" # ytsearch, scsearch or ytmsearch
 MAX_PLAYLIST_SIZE= "100" # Max playlist size
 MAX_QUEUE_SIZE= "100" # Max queue size
@@ -156,6 +127,7 @@ LAVALINK_SECURE= "false" # true for secure lavalink
 KEEP_ALIVE= "false" # true for keep alive in https://replit.com
 LOG_CHANNEL_ID=""
 BOT_ACTIVITY_TYPE=0 # Activity type is a number from 0 to 5 see more here https://discord.com/developers/docs/topics/gateway-events#activity-object-activity-types
+CLIENT_ID="." # This is your bot's client ID. If this value is left blank, bots cannot be invited using /invite or /about commands.
 ```
 
 5. Run the bot:
