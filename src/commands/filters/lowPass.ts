@@ -24,7 +24,7 @@ export default class lowPass extends Command {
                 client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
                 user: ['ManageGuild'],
             },
-            slashCommand: false,
+            slashCommand: true,
         });
     }
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
