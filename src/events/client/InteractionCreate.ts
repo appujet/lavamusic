@@ -197,7 +197,7 @@ export default class InteractionCreate extends Event {
                 await interaction.reply({ content: `An error occurred: \`${error}\`` });
             }
         } else if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
-            if (interaction.commandName == 'play') {
+            if ((interaction.commandName == 'play') || (interaction.commandName == 'playnext')) {
                 const song = interaction.options.getString('song');
                 const res = await this.client.queue.search(song);
                 let songs = [];
