@@ -206,7 +206,7 @@ export default class InteractionCreate extends Event {
                         if (!res.data.length) return;
                         res.data.slice(0, 10).forEach(x => {
                             songs.push({
-                                name: x.info.title,
+                                name: `${x.info.title} by ${x.info.author}`,
                                 value: x.info.uri,
                             });
                         });
