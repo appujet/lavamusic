@@ -197,7 +197,7 @@ export default class InteractionCreate extends Event {
                 await interaction.reply({ content: `An error occurred: \`${error}\`` });
             }
         } else if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
-            if (interaction.commandName == 'play') {
+            if ((interaction.commandName == 'play') || (interaction.commandName == 'playnext')) {
                 const song = interaction.options.getString('song');
                 const res = await this.client.queue.search(song);
                 let songs = [];
@@ -206,7 +206,7 @@ export default class InteractionCreate extends Event {
                         if (!res.data.length) return;
                         res.data.slice(0, 10).forEach(x => {
                             songs.push({
-                                name: x.info.title,
+                                name: `${x.info.title} by ${x.info.author}`,
                                 value: x.info.uri,
                             });
                         });
