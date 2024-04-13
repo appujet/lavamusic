@@ -35,11 +35,11 @@
     "homepage": "https://github.com/appujet/lavamusic#readme",
     "devDependencies": {
         "@types/better-sqlite3": "^7.6.9",
-        "@types/node": "^20.12.4",
+        "@types/node": "^20.12.7",
         "@types/signale": "^1.4.7",
-        "@typescript-eslint/eslint-plugin": "^7.5.0",
-        "@typescript-eslint/parser": "^7.5.0",
-        "eslint": "^8.57.0",
+        "@typescript-eslint/eslint-plugin": "^7.6.0",
+        "@typescript-eslint/parser": "^7.6.0",
+        "eslint": "^9.0.0",
         "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-unicorn": "^52.0.0",
         "prettier": "^3.2.5",
@@ -47,13 +47,13 @@
         "typescript": "^5.4.3"
     },
     "dependencies": {
-        "better-sqlite3": "^9.4.5",
+        "better-sqlite3": "^9.5.0",
         "discord.js": "^14.14.1",
         "dotenv": "^16.4.5",
         "shoukaku": "^4.0.1",
         "signale": "^1.4.0",
         "tslib": "^2.6.2",
-        "undici": "^6.11.1"
+        "undici": "^6.13.0"
     },
     "signale": {
         "displayScope": true,
