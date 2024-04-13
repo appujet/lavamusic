@@ -31,7 +31,7 @@ export default class VoiceStateUpdate extends Event {
                 newState.guild.members.me.permissions.has(['Connect', 'Speak']) ||
                 newState.channel.permissionsFor(newState.guild.members.me).has('MuteMembers')
             ) {
-                await newState.guild.members.me.voice.setSuppressed(false).catch(() => {});
+                await newState.guild.members.me.voice.setSuppressed(false).catch(() => { });
             }
         }
         if (newState.id == this.client.user.id) return;
@@ -58,7 +58,7 @@ export default class VoiceStateUpdate extends Event {
 
         if (!voiceChannel) return;
         if (voiceChannel.members.filter((x: any) => !x.user.bot).size <= 0) {
-            const server = this.client.db.get_247(newState.guild.id);
+            const server = await this.client.db.get_247(newState.guild.id);
             if (!server) {
                 setTimeout(async () => {
                     const playerVoiceChannel = newState.guild.channels.cache.get(

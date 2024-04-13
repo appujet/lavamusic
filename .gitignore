@@ -36,6 +36,5 @@
 
 /Lavalink/plugins
 
-lavamusic.db
-lavamusic.db-shm
-lavamusic.db-wal
+/prisma/lavamusic.db
+/prisma/migrations

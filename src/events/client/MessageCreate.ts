@@ -10,13 +10,13 @@ export default class MessageCreate extends Event {
     }
     public async run(message: Message): Promise<any> {
         if (message.author.bot) return;
-        const setup = this.client.db.getSetup(message.guildId);
+        const setup = await this.client.db.getSetup(message.guildId);
         if (setup && setup.textId) {
             if (setup.textId === message.channelId) {
                 return this.client.emit('setupSystem', message);
             }
         }
-        let prefix = this.client.db.getPrefix(message.guildId);
+        let prefix = await this.client.db.getPrefix(message.guildId);
 
         const mention = new RegExp(`^<@!?${this.client.user.id}>( |)$`);
         if (message.content.match(mention)) {
@@ -58,7 +58,7 @@ export default class MessageCreate extends Event {
                 .send({
                     content: `I don't have **\`SendMessage\`** permission in \`${message.guild.name}\`\nchannel: <#${message.channelId}>`,
                 })
-                .catch(() => {});
+                .catch(() => { });
 
         if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks))
             return await message.reply({
@@ -133,9 +133,9 @@ export default class MessageCreate extends Event {
                     });
             }
             if (command.player.dj) {
-                const dj = this.client.db.getDj(message.guildId);
+                const dj = await this.client.db.getDj(message.guildId);
                 if (dj && dj.mode) {
-                    const djRole = this.client.db.getRoles(message.guildId);
+                    const djRole = await this.client.db.getRoles(message.guildId);
                     if (!djRole)
                         return await message.reply({
                             content: 'DJ role is not set.',
@@ -162,12 +162,10 @@ export default class MessageCreate extends Event {
                     .setColor(this.client.color.red)
                     .setTitle('Missing Arguments')
                     .setDescription(
-                        `Please provide the required arguments for the \`${
-                            command.name
-                        }\` command.\n\nExamples:\n${
-                            command.description.examples
-                                ? command.description.examples.join('\n')
-                                : 'None'
+                        `Please provide the required arguments for the \`${command.name
+                        }\` command.\n\nExamples:\n${command.description.examples
+                            ? command.description.examples.join('\n')
+                            : 'None'
                         }`
                     )
                     .setFooter({ text: 'Syntax: [] = optional, <> = required' });

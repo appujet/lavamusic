@@ -62,9 +62,9 @@ export default class Setup extends Command {
         const embed = client.embed().setColor(client.color.main);
         switch (subCommand) {
             case 'create': {
-                const data = client.db.getSetup(ctx.guild.id);
+                const data = await client.db.getSetup(ctx.guild.id);
 
-                if (data && data.textId && data.msgId)
+                if (data && data.textId && data.messageId)
                     return await ctx.sendMessage({
                         embeds: [
                             {
@@ -126,7 +126,7 @@ export default class Setup extends Command {
                 break;
             }
             case 'delete': {
-                const data2 = client.db.getSetup(ctx.guild.id);
+                const data2 = await client.db.getSetup(ctx.guild.id);
                 if (!data2)
                     return await ctx.sendMessage({
                         embeds: [
@@ -155,7 +155,7 @@ export default class Setup extends Command {
             }
 
             case 'info': {
-                const data3 = client.db.getSetup(ctx.guild.id);
+                const data3 = await client.db.getSetup(ctx.guild.id);
                 if (!data3)
                     return await ctx.sendMessage({
                         embeds: [

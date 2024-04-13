@@ -40,7 +40,7 @@ export default class Load extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         let player = client.queue.get(ctx.guild.id);
         const playlist = args.join(' ').replace(/\s/g, '');
-        const playlistData = client.db.getPLaylist(ctx.author.id, playlist);
+        const playlistData = await client.db.getPLaylist(ctx.author.id, playlist);
         if (!playlistData)
             return await ctx.sendMessage({
                 embeds: [
@@ -50,27 +50,40 @@ export default class Load extends Command {
                     },
                 ],
             });
-        for await (const song of JSON.parse(playlistData.songs).map(s => s)) {
-            const vc = ctx.member as any;
-            if (!player)
-                player = await client.queue.create(
-                    ctx.guild,
-                    vc.voice.channel,
-                    ctx.channel,
-                    client.shoukaku.options.nodeResolver(client.shoukaku.nodes)
-                );
+        const songs = await client.db.getSong(ctx.author.id, playlist);
+        if (!songs.length)
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: 'That playlist is empty',
+                        color: client.color.red,
+                    },
+                ],
+            });
+        songs.map(async (s) => {
+            for await (const song of JSON.parse(s.track)) {
+                const vc = ctx.member as any;
+                if (!player)
+                    player = await client.queue.create(
+                        ctx.guild,
+                        vc.voice.channel,
+                        ctx.channel,
+                        client.shoukaku.options.nodeResolver(client.shoukaku.nodes)
+                    );
 
-            const track = player.buildTrack(song, ctx.author);
-            player.queue.push(track);
-            player.isPlaying();
-        }
-        return await ctx.sendMessage({
-            embeds: [
-                {
-                    description: `Loaded \`${playlistData.name}\` with \`${JSON.parse(playlistData.songs).length}\` songs`,
-                    color: client.color.main,
-                },
-            ],
+                const track = player.buildTrack(song, ctx.author as any);
+                player.queue.push(track);
+                player.isPlaying();
+            }
+
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: `Loaded \`${playlistData.name}\` with \`${JSON.parse(s.track).length}\` songs`,
+                        color: client.color.main,
+                    },
+                ],
+            });
         });
     }
 }

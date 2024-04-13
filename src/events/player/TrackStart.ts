@@ -86,7 +86,7 @@ export default class TrackStart extends Event {
                 { name: 'Author', value: track.info.author, inline: true }
             )
             .setTimestamp();
-        let setup = this.client.db.getSetup(guild.id);
+        let setup = await this.client.db.getSetup(guild.id);
         if (setup && setup.textId) {
             const textChannel = guild.channels.cache.get(setup.textId) as TextChannel;
             const id = setup.messageId;
@@ -111,9 +111,8 @@ export default class TrackStart extends Event {
                         return true;
                     else {
                         b.reply({
-                            content: `You are not connected to <#${
-                                b.guild.members.me.voice?.channelId ?? 'None'
-                            }> to use this buttons.`,
+                            content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? 'None'
+                                }> to use this buttons.`,
                             ephemeral: true,
                         });
                         return false;
@@ -156,9 +155,8 @@ export default class TrackStart extends Event {
                             await message.edit({
                                 embeds: [
                                     embed.setFooter({
-                                        text: `${player.paused ? 'Paused' : 'Resumed'} by ${
-                                            interaction.user.tag
-                                        }`,
+                                        text: `${player.paused ? 'Paused' : 'Resumed'} by ${interaction.user.tag
+                                            }`,
                                         iconURL: interaction.user.avatarURL({}),
                                     }),
                                 ],
@@ -258,9 +256,9 @@ export async function checkDj(
         | MentionableSelectMenuInteraction<'cached'>
         | ChannelSelectMenuInteraction<'cached'>
 ): Promise<boolean> {
-    const dj = client.db.getDj(interaction.guildId);
+    const dj = await client.db.getDj(interaction.guildId);
     if (dj && dj.mode) {
-        const djRole = client.db.getRoles(interaction.guildId);
+        const djRole = await client.db.getRoles(interaction.guildId);
         if (!djRole) return false;
         const findDJRole = interaction.member.roles.cache.find((x: any) =>
             djRole.map((y: any) => y.roleId).includes(x.id)

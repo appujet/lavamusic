@@ -32,7 +32,7 @@ export default class _247 extends Command {
         const embed = client.embed();
         let player = client.shoukaku.players.get(ctx.guild.id) as any;
 
-        const data = client.db.get_247(ctx.guild.id);
+        const data = await client.db.get_247(ctx.guild.id);
         const vc = ctx.member as any;
         if (!data) {
             client.db.set_247(ctx.guild.id, ctx.channel.id, vc.voice.channel.id);

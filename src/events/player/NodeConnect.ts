@@ -9,8 +9,11 @@ export default class NodeConnect extends Event {
     }
     public async run(node: string): Promise<void> {
         this.client.logger.success(`Node ${node} is ready!`);
-        const data = this.client.db.get_247();
+        let data = await this.client.db.get_247();
         if (!data) return;
+        if (!Array.isArray(data)) {
+            data = [data];
+        }
         for (const main of data) {
             const index = data.indexOf(main);
             setTimeout(async () => {

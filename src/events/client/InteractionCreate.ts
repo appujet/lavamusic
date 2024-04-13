@@ -40,7 +40,7 @@ export default class InteractionCreate extends Event {
                     .send({
                         content: `I don't have **\`SendMessage\`** permission in \`${interaction.guild.name}\`\nchannel: <#${interaction.channelId}>`,
                     })
-                    .catch(() => {});
+                    .catch(() => { });
             }
 
             if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks))
@@ -97,7 +97,7 @@ export default class InteractionCreate extends Event {
 
                     if (
                         (interaction.member as GuildMember).voice.channel.type ===
-                            ChannelType.GuildStageVoice &&
+                        ChannelType.GuildStageVoice &&
                         !interaction.guild.members.me.permissions.has(
                             PermissionFlagsBits.RequestToSpeak
                         )
@@ -130,9 +130,9 @@ export default class InteractionCreate extends Event {
                         });
                 }
                 if (command.player.dj) {
-                    const dj = this.client.db.getDj(interaction.guildId);
+                    const dj = await this.client.db.getDj(interaction.guildId);
                     if (dj && dj.mode) {
-                        const djRole = this.client.db.getRoles(interaction.guildId);
+                        const djRole = await this.client.db.getRoles(interaction.guildId);
                         if (!djRole)
                             return await interaction.reply({
                                 content: 'DJ role is not set.',
@@ -215,7 +215,7 @@ export default class InteractionCreate extends Event {
                         break;
                 }
 
-                return await interaction.respond(songs).catch(() => {});
+                return await interaction.respond(songs).catch(() => { });
             }
         }
     }

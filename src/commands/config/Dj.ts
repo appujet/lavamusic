@@ -80,15 +80,15 @@ export default class Dj extends Command {
             role = ctx.message.mentions.roles.first() || ctx.guild.roles.cache.get(args[1]);
         }
         const embed = client.embed().setColor(client.color.main);
-        let dj = client.db.getDj(ctx.guild.id);
+        let dj = await client.db.getDj(ctx.guild.id);
         if (subCommand === 'add') {
             if (!role)
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription('Please provide a role to add')],
                 });
-            const isExRole = client.db
+            const isExRole = await client.db
                 .getRoles(ctx.guild.id)
-                .find((r: any) => r.roleId === role.id);
+                .then((r) => r.find((re) => re.roleId === role.id));
             if (isExRole)
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription(`The dj role <@&${role.id}> is already added`)],
@@ -103,9 +103,9 @@ export default class Dj extends Command {
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription('Please provide a role to remove')],
                 });
-            const isExRole = client.db
+            const isExRole = await client.db
                 .getRoles(ctx.guild.id)
-                .find((r: any) => r.roleId === role.id);
+                .then((r) => r.find((re) => re.roleId === role.id));
             if (!isExRole)
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription(`The dj role <@&${role.id}> is not added`)],
@@ -128,7 +128,7 @@ export default class Dj extends Command {
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription('There are no dj roles to toggle')],
                 });
-            const data = client.db.getDj(ctx.guild.id);
+            const data = await client.db.getDj(ctx.guild.id);
             if (data) {
                 client.db.setDj(ctx.guild.id, !data.mode);
                 return await ctx.sendMessage({

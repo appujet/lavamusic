@@ -14,10 +14,8 @@ function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic): EmbedB
     return embed
         .setAuthor({ name: 'Now Playing', iconURL: iconUrl })
         .setDescription(
-            `[${player.current.info.title}](${player.current.info.uri}) by ${
-                player.current.info.author
-            } • \`[${client.utils.formatTime(player.current.info.length)}]\` - Requested by ${
-                player.current.info.requester
+            `[${player.current.info.title}](${player.current.info.uri}) by ${player.current.info.author
+            } • \`[${client.utils.formatTime(player.current.info.length)}]\` - Requested by ${player.current.info.requester
             }`
         )
         .setImage(icon)
@@ -34,7 +32,7 @@ async function setupStart(
     const embed = client.embed();
     let n = client.embed().setColor(client.color.main);
 
-    const data = client.db.getSetup(message.guild.id);
+    const data = await client.db.getSetup(message.guild.id);
     try {
         if (data)
             m = await message.channel.messages.fetch({ message: data.messageId, cache: true });
@@ -114,7 +112,7 @@ async function setupStart(
                             }, 5000);
                         });
                     neb(n, player, client);
-                    if (m) await m.edit({ embeds: [n] }).catch(() => {});
+                    if (m) await m.edit({ embeds: [n] }).catch(() => { });
                     break;
                 case LoadType.PLAYLIST:
                     if (res.data.tracks.length > client.config.maxPlaylistSize) {
@@ -174,7 +172,7 @@ async function setupStart(
                             }, 5000);
                         });
                     neb(n, player, client);
-                    if (m) await m.edit({ embeds: [n] }).catch(() => {});
+                    if (m) await m.edit({ embeds: [n] }).catch(() => { });
                     break;
                 case LoadType.SEARCH:
                     const track2 = player.buildTrack(res.data[0], message.author);
@@ -214,7 +212,7 @@ async function setupStart(
                             }, 5000);
                         });
                     neb(n, player, client);
-                    if (m) await m.edit({ embeds: [n] }).catch(() => {});
+                    if (m) await m.edit({ embeds: [n] }).catch(() => { });
                     break;
             }
         } catch (error) {
@@ -259,7 +257,7 @@ async function trackStart(
                     return b;
                 }),
             })
-            .catch(() => {});
+            .catch(() => { });
     } else {
         let iconUrl = client.config.icons[player.current.info.sourceName];
         if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png' });
@@ -286,12 +284,12 @@ async function trackStart(
             .then(msg => {
                 client.db.setSetup(msg.guild.id, msg.id, msg.channel.id);
             })
-            .catch(() => {});
+            .catch(() => { });
     }
 }
 
 async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
-    let setup = client.db.getSetup(guild.id);
+    let setup = await client.db.getSetup(guild.id);
     let m: Message;
     if (setup && setup.textId) {
         const textChannel = guild.channels.cache.get(setup.textId) as TextChannel;
@@ -312,8 +310,7 @@ async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
                 .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
                 .setColor(client.color.main)
                 .setDescription(
-                    `[${player.current.info.title}](${
-                        player.current.info.uri
+                    `[${player.current.info.title}](${player.current.info.uri
                     }) - \`[${client.utils.formatTime(
                         player.current.info.length
                     )}]\` - Requested by ${player.current.info.requester}`
@@ -329,7 +326,7 @@ async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
                         return b;
                     }),
                 })
-                .catch(() => {});
+                .catch(() => { });
         } else {
             const embed = client
                 .embed()
@@ -350,7 +347,7 @@ async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
                         return b;
                     }),
                 })
-                .catch(() => {});
+                .catch(() => { });
         }
     }
 }
@@ -361,15 +358,15 @@ async function buttonReply(int: any, args: string, color: ColorResolvable): Prom
     if (int.replied) {
         m = await int
             .editReply({ embeds: [embed.setColor(color).setDescription(args)] })
-            .catch(() => {});
+            .catch(() => { });
     } else {
         m = await int
             .followUp({ embeds: [embed.setColor(color).setDescription(args)] })
-            .catch(() => {});
+            .catch(() => { });
     }
     setTimeout(async () => {
         if (int && !int.ephemeral) {
-            await m.delete().catch(() => {});
+            await m.delete().catch(() => { });
         }
     }, 2000);
 }
@@ -382,7 +379,7 @@ async function oops(channel: TextChannel, args: string): Promise<void> {
             embeds: [embed1],
         });
 
-        setTimeout(async () => await m.delete().catch(() => {}), 12000);
+        setTimeout(async () => await m.delete().catch(() => { }), 12000);
     } catch (e) {
         return console.error(e);
     }

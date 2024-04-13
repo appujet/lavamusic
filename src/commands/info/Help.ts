@@ -37,7 +37,7 @@ export default class Help extends Command {
     }
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = client.embed();
-        const prefix = client.db.getPrefix(ctx.guild.id);
+        const prefix = await client.db.getPrefix(ctx.guild.id);
         const commands = this.client.commands.filter(cmd => cmd.category !== 'dev');
         const categories = commands
             .map(cmd => cmd.category)
@@ -80,19 +80,17 @@ export default class Help extends Command {
             const embed = this.client.embed();
             const helpEmbed = embed
                 .setColor(this.client.color.main)
-                .setTitle(`Help Menu - ${command.name}`).setDescription(`**Description:** ${
-                command.description.content
-            }
+                .setTitle(`Help Menu - ${command.name}`).setDescription(`**Description:** ${command.description.content
+                    }
 **Usage:** ${prefix.prefix}${command.description.usage}
 **Examples:** ${command.description.examples.map(example => `${prefix.prefix}${example}`).join(', ')}
 **Aliases:** ${command.aliases.map(alias => `\`${alias}\``).join(', ')}
 **Category:** ${command.category}
 **Cooldown:** ${command.cooldown} seconds
-**Permissions:** ${
-                command.permissions.user.length > 0
-                    ? command.permissions.user.map(perm => `\`${perm}\``).join(', ')
-                    : 'None'
-            }
+**Permissions:** ${command.permissions.user.length > 0
+                        ? command.permissions.user.map(perm => `\`${perm}\``).join(', ')
+                        : 'None'
+                    }
 **Bot Permissions:** ${command.permissions.client.map(perm => `\`${perm}\``).join(', ')}
 **Developer Only:** ${command.permissions.dev ? 'Yes' : 'No'}
 **Slash Command:** ${command.slashCommand ? 'Yes' : 'No'}

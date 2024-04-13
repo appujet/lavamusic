@@ -68,7 +68,7 @@ export default class Add extends Command {
                 ],
             });
 
-        const playlistData = client.db.getPLaylist(ctx.author.id, playlist);
+        const playlistData = await client.db.getPLaylist(ctx.author.id, playlist);
 
         if (!playlistData)
             return await ctx.sendMessage({

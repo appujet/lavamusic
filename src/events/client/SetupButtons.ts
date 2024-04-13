@@ -9,7 +9,7 @@ export default class SetupButtons extends Event {
         });
     }
     public async run(interaction: any): Promise<void> {
-        if (!interaction.replied) await interaction.deferReply().catch(() => {});
+        if (!interaction.replied) await interaction.deferReply().catch(() => { });
 
         if (!interaction.member.voice.channel)
             return await buttonReply(
@@ -20,7 +20,7 @@ export default class SetupButtons extends Event {
         if (
             interaction.guild.members.cache.get(this.client.user.id).voice.channel &&
             interaction.guild.members.cache.get(this.client.user.id).voice.channelId !==
-                interaction.member.voice.channelId
+            interaction.member.voice.channelId
         )
             return await buttonReply(
                 interaction,
@@ -46,7 +46,7 @@ export default class SetupButtons extends Event {
                 `There is no music playing in this server.`,
                 this.client.color.red
             );
-        const data = this.client.db.getSetup(interaction.guildId);
+        const data = await this.client.db.getSetup(interaction.guildId);
         const { title, uri, length } = player.current.info;
         let message;
         try {
@@ -64,8 +64,7 @@ export default class SetupButtons extends Event {
             .embed()
             .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
             .setDescription(
-                `[${title}](${uri}) - ${
-                    player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
+                `[${title}](${uri}) - ${player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
                 } - Requested by ${player.current.info.requester}`
             )
             .setImage(icon);
