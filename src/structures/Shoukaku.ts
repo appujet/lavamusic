@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
-import { Connectors, Shoukaku } from 'shoukaku';
+import { Connectors, NodeOption, Shoukaku } from 'shoukaku';
 
 import { Lavamusic } from './index.js';
 
 export default class ShoukakuClient extends Shoukaku {
     public client: Lavamusic;
-    constructor(client: Lavamusic) {
-        super(new Connectors.DiscordJS(client), client.config.lavalink, {
+    constructor(client: Lavamusic, nodes: NodeOption[]) {
+        super(new Connectors.DiscordJS(client), nodes, {
             moveOnDisconnect: false,
             resume: false,
             reconnectInterval: 30,

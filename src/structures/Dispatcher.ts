@@ -44,7 +44,6 @@ export default class Dispatcher {
     public requester: User;
     public repeat: number;
     public node: Node;
-    public shuffle: boolean;
     public paused: boolean;
     public filters: Array<string>;
     public autoplay: boolean;
@@ -63,7 +62,6 @@ export default class Dispatcher {
         this.loop = 'off';
         this.repeat = 0;
         this.node = options.node;
-        this.shuffle = false;
         this.paused = false;
         this.filters = [];
         this.autoplay = false;
@@ -133,18 +131,14 @@ export default class Dispatcher {
         if (this.stopped) return;
         this.client.shoukaku.emit('playerDestroy', this.player);
     }
-    public setShuffle(shuffle: boolean): void {
+    public setShuffle(): void {
         if (!this.player) return;
-        this.shuffle = shuffle;
-        if (shuffle) {
-            const current = this.queue.shift();
-            this.queue = this.queue.sort(() => Math.random() - 0.5);
-            this.queue.unshift(current);
-        } else {
-            const current = this.queue.shift();
-            this.queue = this.queue.sort((a: any, b: any) => a - b);
-            this.queue.unshift(current);
+        const queue = this.queue;
+        for (let i = queue.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [queue[i], queue[j]] = [queue[j], queue[i]];
         }
+        this.queue = queue;
     }
     public async skip(skipto = 1): Promise<void> {
         if (!this.player) return;

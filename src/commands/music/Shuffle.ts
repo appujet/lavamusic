@@ -39,7 +39,7 @@ export default class Shuffle extends Command {
                         .setDescription('There are no songs in the queue.'),
                 ],
             });
-        player.setShuffle(true);
+        player.setShuffle();
 
         return await ctx.sendMessage({
             embeds: [embed.setColor(this.client.color.main).setDescription(`Shuffled the queue`)],

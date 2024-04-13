@@ -191,22 +191,12 @@ export default class SetupButtons extends Event {
                     break;
                 }
                 case 'SHUFFLE_BUT':
-                    player.setShuffle(player.shuffle ? false : true);
+                    player.setShuffle();
                     await buttonReply(
                         interaction,
-                        `Shuffle set to ${player.shuffle ? `on` : `off`}.`,
+                        `Shuffled the queue.`,
                         this.client.color.main
                     );
-                    await message.edit({
-                        embeds: [
-                            embed.setFooter({
-                                text: `Shuffle set to ${player.shuffle ? `on` : `off`} by ${
-                                    interaction.member.displayName
-                                }`,
-                                iconURL: interaction.member.displayAvatarURL({}),
-                            }),
-                        ],
-                    });
                     break;
                 case 'PREV_BUT':
                     if (!player.previous)

@@ -23,6 +23,8 @@ import loadPlugins from '../plugin/index.js';
 import { Utils } from '../utils/Utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
     public aliases: Collection<string, any> = new Collection();
@@ -37,12 +39,17 @@ export default class Lavamusic extends Client {
     public queue = new Queue(this);
     public constructor(options: ClientOptions) {
         super(options);
-        this.shoukaku = new ShoukakuClient(this);
     }
     public embed(): EmbedBuilder {
         return new EmbedBuilder();
     }
     public async start(token: string): Promise<void> {
+        if (this.config.autoNode) {
+            const nodes = await this.getNodes();
+            this.shoukaku = new ShoukakuClient(this, nodes);
+        } else {
+            this.shoukaku = new ShoukakuClient(this, this.config.lavalink);
+        }
         this.loadCommands();
         this.logger.info(`Successfully loaded commands!`);
         this.loadEvents();
@@ -117,9 +124,9 @@ export default class Lavamusic extends Client {
                 this.config.production === true
                     ? Routes.applicationCommands(this.user.id ?? '')
                     : Routes.applicationGuildCommands(
-                          this.user.id ?? '',
-                          this.config.guildId ?? ''
-                      );
+                        this.user.id ?? '',
+                        this.config.guildId ?? ''
+                    );
             try {
                 const rest = new REST({ version: '9' }).setToken(this.config.token ?? '');
                 await rest.put(applicationCommands, { body: this.body });
@@ -129,7 +136,22 @@ export default class Lavamusic extends Client {
             }
         });
     }
+    private async getNodes(): Promise<any> {
+        const params = new URLSearchParams({
+            ssl: 'false',
+            version: 'v4',
+            format: 'shoukaku',
+        });
 
+        const res = await fetch(`https://lavainfo-api.freedback-dip.workers.dev/nodes?${params.toString()}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const nodes = await res.json();
+        return nodes;
+    }
     private loadEvents(): void {
         const eventsPath = fs.readdirSync(path.join(__dirname, '../events'));
         eventsPath.forEach(dir => {
