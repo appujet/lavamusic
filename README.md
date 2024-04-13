@@ -142,10 +142,25 @@ CLIENT_ID="." # This is your bot's client ID. If this value is left blank, bots 
 ```bash
 npm start
 ```
+if your prisma client is not generated then follow the below steps [Prisma Setup](#prisma-setup)
 
 6. Invite the bot to your server:
 
 Generate an invite link for your bot and invite it to your server using the Discord Developer Portal or using permissions calculator: <https://discordapi.com/permissions.html>
+
+## Prisma Setup
+
+1. generate the prisma client
+
+```bash
+npx prisma generate
+```
+
+2. Run the migrations
+
+```bash
+npx prisma migrate dev --name init
+```
 
 ## 🚀 Installation using Docker Compose
 

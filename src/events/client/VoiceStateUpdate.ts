@@ -61,9 +61,9 @@ export default class VoiceStateUpdate extends Event {
             const server = await this.client.db.get_247(newState.guild.id);
             if (!server) {
                 setTimeout(async () => {
-                    const playerVoiceChannel = newState.guild.channels.cache.get(
-                        player.node.manager.connections.get(newState.guild.id).channelId
-                    );
+                    const vc = player.node.manager.connections.get(newState.guild.id);
+                    if (vc && !vc.channelId) return;
+                    const playerVoiceChannel = newState.guild.channels.cache.get(vc.channelId);
                     if (
                         player &&
                         playerVoiceChannel &&
@@ -77,9 +77,9 @@ export default class VoiceStateUpdate extends Event {
             } else {
                 if (server) return;
                 setTimeout(async () => {
-                    const playerVoiceChannel = newState.guild.channels.cache.get(
-                        player.node.manager.connections.get(newState.guild.id).channelId
-                    );
+                    const vc = player.node.manager.connections.get(newState.guild.id);
+                    if (vc && !vc.channelId) return;
+                    const playerVoiceChannel = newState.guild.channels.cache.get(vc.channelId);
                     if (
                         player &&
                         playerVoiceChannel &&
