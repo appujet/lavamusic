@@ -34,31 +34,17 @@ export default class LavaLink extends Command {
         embed.setThumbnail(this.client.user.avatarURL({}));
         embed.setTimestamp();
         client.shoukaku.nodes.forEach(node => {
+            if (!node.stats) {
+                embed.addFields({
+                    name: 'Name:',
+                    value: `${node.name} (🔴)\n\`\`\`yaml\nPlayer: 0\nPlaying Players: 0\nUptime: 0\nCores: 0 Core(s)\nMemory Usage: 0/0\nSystem Load: 0%\nLavalink Load: 0%\`\`\``,
+                });
+                return;
+            }
             try {
                 embed.addFields({
-                    name: 'Name',
-                    value: `${node.name} (${node.stats ? '🟢' : '🔴'})`,
-                });
-                embed.addFields({ name: 'Player', value: `${node.stats.players}` });
-                embed.addFields({ name: 'Playing Players', value: `${node.stats.playingPlayers}` });
-                embed.addFields({
-                    name: 'Uptime',
-                    value: `${client.utils.formatTime(node.stats.uptime)}`,
-                });
-                embed.addFields({ name: 'Cores', value: `${node.stats.cpu.cores + ' Core(s)'}` });
-                embed.addFields({
-                    name: 'Memory Usage',
-                    value: `${client.utils.formatBytes(
-                        node.stats.memory.used
-                    )}/${client.utils.formatBytes(node.stats.memory.reservable)}`,
-                });
-                embed.addFields({
-                    name: 'System Load',
-                    value: `${(Math.round(node.stats.cpu.systemLoad * 100) / 100).toFixed(2)}%`,
-                });
-                embed.addFields({
-                    name: 'Lavalink Load',
-                    value: `${(Math.round(node.stats.cpu.lavalinkLoad * 100) / 100).toFixed(2)}%`,
+                    name: 'Name:',
+                    value: `${node.name} (${node.stats ? '🟢' : '🔴'})\n\`\`\`yaml\nPlayer: ${node.stats.players}\nPlaying Players: ${node.stats.playingPlayers}\nUptime: ${client.utils.formatTime(node.stats.uptime)}\nCores: ${node.stats.cpu.cores} Core(s)\nMemory Usage: ${client.utils.formatBytes(node.stats.memory.used)}/${client.utils.formatBytes(node.stats.memory.reservable)}\nSystem Load: ${(Math.round(node.stats.cpu.systemLoad * 100) / 100).toFixed(2)}%\nLavalink Load: ${(Math.round(node.stats.cpu.lavalinkLoad * 100) / 100).toFixed(2)}%\`\`\``,
                 });
             } catch (e) {
                 console.log(e);
