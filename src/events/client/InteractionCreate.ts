@@ -23,6 +23,7 @@ export default class InteractionCreate extends Event {
             interaction.type === InteractionType.ApplicationCommand
         ) {
             const { commandName } = interaction;
+            await this.client.db.get(interaction.guildId); // get or create guild data
             const command = this.client.commands.get(interaction.commandName);
             if (!command) return;
             const ctx = new Context(interaction as any, interaction.options.data as any);
