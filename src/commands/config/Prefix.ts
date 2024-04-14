@@ -49,7 +49,7 @@ export default class Prefix extends Command {
     }
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = client.embed().setColor(client.color.main);
-        let prefix = await client.db.getPrefix(ctx.guild.id);
+        let guild = await client.db.get(ctx.guild.id);
 
         let subCommand: string;
         let pre: string;
@@ -64,7 +64,7 @@ export default class Prefix extends Command {
             case 'set':
                 if (!pre) {
                     embed.setDescription(
-                        `The prefix for this server is \`${prefix ? prefix.prefix : client.config.prefix
+                        `The prefix for this server is \`${guild ? guild.prefix : client.config.prefix
                         }\``
                     );
                     return await ctx.sendMessage({ embeds: [embed] });
@@ -76,7 +76,7 @@ export default class Prefix extends Command {
                         ],
                     });
 
-                if (!prefix) {
+                if (!guild) {
                     client.db.setPrefix(ctx.guild.id, pre);
                     return await ctx.sendMessage({
                         embeds: [
@@ -92,7 +92,7 @@ export default class Prefix extends Command {
                     });
                 }
             case 'reset':
-                if (!prefix)
+                if (!guild)
                     return await ctx.sendMessage({
                         embeds: [
                             embed.setDescription(

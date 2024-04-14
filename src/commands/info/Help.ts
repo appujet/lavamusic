@@ -37,7 +37,7 @@ export default class Help extends Command {
     }
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = client.embed();
-        const prefix = await client.db.getPrefix(ctx.guild.id);
+        const guild = await client.db.get(ctx.guild.id);
         const commands = this.client.commands.filter(cmd => cmd.category !== 'dev');
         const categories = commands
             .map(cmd => cmd.category)
@@ -59,10 +59,10 @@ export default class Help extends Command {
                 .setColor(this.client.color.main)
                 .setTitle('Help Menu')
                 .setDescription(
-                    `Hey there! I'm ${this.client.user.username}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord. You can use \`${prefix.prefix}help <command>\` to get more info on a command.`
+                    `Hey there! I'm ${this.client.user.username}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord. You can use \`${guild.prefix}help <command>\` to get more info on a command.`
                 )
                 .setFooter({
-                    text: `Use ${prefix.prefix}help <command> for more info on a command`,
+                    text: `Use ${guild.prefix}help <command> for more info on a command`,
                 });
             fildes.forEach(field => helpEmbed.addFields(field));
             ctx.sendMessage({ embeds: [helpEmbed] });
@@ -82,8 +82,8 @@ export default class Help extends Command {
                 .setColor(this.client.color.main)
                 .setTitle(`Help Menu - ${command.name}`).setDescription(`**Description:** ${command.description.content
                     }
-**Usage:** ${prefix.prefix}${command.description.usage}
-**Examples:** ${command.description.examples.map(example => `${prefix.prefix}${example}`).join(', ')}
+**Usage:** ${guild.prefix}${command.description.usage}
+**Examples:** ${command.description.examples.map(example => `${guild.prefix}${example}`).join(', ')}
 **Aliases:** ${command.aliases.map(alias => `\`${alias}\``).join(', ')}
 **Category:** ${command.category}
 **Cooldown:** ${command.cooldown} seconds
