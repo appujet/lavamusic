@@ -137,17 +137,6 @@ BOT_ACTIVITY_TYPE=0 # Activity type is a number from 0 to 5 see more here https:
 CLIENT_ID="." # This is your bot's client ID. If this value is left blank, bots cannot be invited using /invite or /about commands.
 ```
 
-5. Run the bot:
-
-```bash
-npm start
-```
-if your prisma client is not generated then follow the below steps [Prisma Setup](#prisma-setup)
-
-6. Invite the bot to your server:
-
-Generate an invite link for your bot and invite it to your server using the Discord Developer Portal or using permissions calculator: <https://discordapi.com/permissions.html>
-
 ## Prisma Setup
 
 1. generate the prisma client
@@ -161,6 +150,18 @@ npx prisma generate
 ```bash
 npx prisma migrate dev --name init
 ```
+
+5. Run the bot:
+
+```bash
+npm start
+```
+if your prisma client is not generated then follow the below steps [Prisma Setup](#prisma-setup)
+
+6. Invite the bot to your server:
+
+Generate an invite link for your bot and invite it to your server using the Discord Developer Portal or using permissions calculator: <https://discordapi.com/permissions.html>
+
 
 ## 🚀 Installation using Docker Compose
 
