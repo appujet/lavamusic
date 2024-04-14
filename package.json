@@ -12,8 +12,7 @@
         "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx",
         "lint:fix": "eslint . --fix --cache --ext .js,.jsx,.ts,.tsx",
         "format": "prettier --check .",
-        "format:fix": "prettier --write .",
-        "postinstall": "npm run prisma:generate && npx prisma migrate dev --name init"
+        "format:fix": "prettier --write ."
     },
     "repository": {
         "type": "git",
