@@ -7,6 +7,9 @@ import { Song } from '../structures/Dispatcher.js';
 import { Dispatcher, Lavamusic } from '../structures/index.js';
 
 function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic): EmbedBuilder {
+    
+    if (player && !player.current && !player.current.info) return embed;
+
     let iconUrl = client.config.icons[player.current.info.sourceName];
     if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png' });
 
