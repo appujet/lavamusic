@@ -1,5 +1,6 @@
 
-import { PrismaClient, Guild, Playlist, Dj, Role, Botchannel, Setup, Stay, Song, } from '@prisma/client';
+import { Botchannel, Dj, Guild, Playlist, PrismaClient, Role, Setup, Song, Stay, } from '@prisma/client';
+
 import config from '../config.js';
 
 export default class ServerData {
@@ -10,19 +11,19 @@ export default class ServerData {
     }
 
     public async get(guildId: string): Promise<Guild | null> {
-        const data = await this.prisma.guild.findUnique({
+        let data = await this.prisma.guild.findUnique({
             where: {
                 guildId,
             },
         });
         if (!data) {
-            await this.prisma.guild.create({
+            data = await this.prisma.guild.create({
                 data: {
                     guildId,
                     prefix: config.prefix,
                 },
             });
-            return null;
+            return data;
         }
         return data;
     }
