@@ -143,7 +143,7 @@ export default class Lavamusic extends Client {
             format: 'shoukaku',
         });
 
-        const res = await fetch(`https://lavainfo-api.freedback-dip.workers.dev/nodes?${params.toString()}`, {
+        const res = await fetch(`https://lavainfo-api.deno.dev/nodes?${params.toString()}`, {
             headers: {
                 'Content-Type': 'application/json',
             },
