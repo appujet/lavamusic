@@ -22,6 +22,13 @@ export default class InteractionCreate extends Event {
             interaction instanceof CommandInteraction &&
             interaction.type === InteractionType.ApplicationCommand
         ) {
+             const setup = await this.client.db.getSetup(interaction.guildId);
+                    if (
+                        setup &&
+                        interaction.channelId === setup.textId 
+                    ) { 
+return interaction.reply({ content: `You can't use commands in setup channel.` , ephemeral: true})
+                    }
             const { commandName } = interaction;
             await this.client.db.get(interaction.guildId); // get or create guild data
             const command = this.client.commands.get(interaction.commandName);
