@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  //engineType = "binary" // if you using replit than use this engine type to fix errors
 }
 
 datasource db {
