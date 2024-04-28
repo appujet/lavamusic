@@ -54,7 +54,7 @@
         "shoukaku": "^4.0.1",
         "signale": "^1.4.0",
         "tslib": "^2.6.2",
-        "undici": "^6.14.0"
+        "undici": "^6.14.1"
     },
     "signale": {
         "displayScope": true,
