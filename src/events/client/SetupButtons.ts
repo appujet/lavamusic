@@ -63,6 +63,7 @@ export default class SetupButtons extends Event {
         const embed = this.client
             .embed()
             .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
+            .setColor(this.client.color.main)
             .setDescription(
                 `[${title}](${uri}) - ${player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
                 } - Requested by ${player.current.info.requester}`
