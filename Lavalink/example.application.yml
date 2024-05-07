@@ -2,15 +2,21 @@ server: # REST and WS server
     port: 2333 # The port that the server listens on
     address: 0.0.0.0
 plugins:
+    youtube:
+            clients: ["MUSIC", "ANDROID", "WEB"]
+            countryCode: "US" # the country code you want to use for searching lyrics via ISRC. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+            enabled: true
     lavasrc:
         sources:
             spotify: true # Enable Spotify source
             applemusic: true # Enable Apple Music source
             deezer: true # Enable Deezer source
             yandexmusic: true # Enable Yandex Music source
+            flowerytts: true # Enable Flowery TTs source
         spotify:
             clientId: ''
             clientSecret: ''
+            spDc: "" # the sp dc cookie used for accessing the spotify lyrics api
             countryCode: 'US' # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
             playlistLoadLimit: 6 # The number of pages at 100 tracks each
             albumLoadLimit: 6 # The number of pages at 50 tracks each
@@ -23,20 +29,49 @@ plugins:
             masterDecryptionKey: '' # the master key used for decrypting the deezer tracks. (yes this is not here you need to get it from somewhere else)
         yandexmusic:
             accessToken: '' # the token used for accessing the yandex music api. See https://github.com/TopiSenpai/LavaSrc#yandex-music
+        flowerytts:
+            voice: "default voice" # (case-sensitive) get default voice here https://flowery.pw/docs/flowery/tts-voices-v-1-tts-voices-get
+            translate: false # whether to translate the text to the native language of voice
+            silence: 0 # the silence parameter is in milliseconds. Range is 0 to 10000. The default is 0.
+            speed: 1.0 # the speed parameter is a float between 0.5 and 10. The default is 1.0. (0.5 is half speed, 2.0 is double speed, etc.)
+            audioFormat: "mp3" # supported formats are: mp3, ogg_opus, ogg_vorbis, aac, wav, and flac. Default format is mp3
+    dunctebot:
+        ttsLanguage: "en-AU" # language of the TTS engine
+        sources:
+            # true = source enabled, false = source disabled
+            getyarn: true # www.getyarn.io
+            clypit: true # www.clyp.it
+            tts: true # speak:Words to speak
+            pornhub: true # should be self-explanatory
+            reddit: true # should be self-explanatory
+            ocremix: true # www.ocremix.org
+            tiktok: true # tiktok.com
+            mixcloud: true # mixcloud.com
+            soundgasm: true # soundgasm.net
 lavalink:
     plugins:
-        - dependency: 'com.github.topi314.lavasrc:lavasrc-plugin:4.0.1'
+        - dependency: 'com.github.topi314.lavasrc:lavasrc-plugin:4.1.0'
           repository: 'https://maven.lavalink.dev/releases'
           snapshot: false
+        - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
+          repository: "https://maven.lavalink.dev/releases" # this is optional for lavalink v4.0.0-beta.5 or greater
+          snapshot: false # set to true if you want to use snapshot builds (see below)
         - dependency: 'com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.0'
           repository: 'https://maven.lavalink.dev/releases' # this is optional for lavalink v4.0.0-beta.5 or greater
+          snapshot: false
+        - dependency: com.dunctebot:skybot-lavalink-plugin:1.7.0
+          repository: https://maven.lavalink.dev/releases
+          snapshot: false
+        - dependency: dev.lavalink.youtube:youtube-plugin:1.1.0
+          repository: https://maven.lavalink.dev/releases
           snapshot: false
 
     pluginsDir: './plugins'
     server:
         password: 'youshallnotpass'
         sources:
-            youtube: true
+            # The default Youtube source is now deprecated and won't receive further updates. Please use https://github.com/lavalink-devs/youtube-source#plugin instead.
+            youtube: false
             bandcamp: true
             soundcloud: true
             twitch: true
