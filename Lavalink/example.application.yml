@@ -7,6 +7,18 @@ plugins:
             countryCode: "US" # the country code you want to use for searching lyrics via ISRC. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
             enabled: true
     lavasrc:
+        providers: # Custom providers for track loading. This is the default
+          - 'ytsearch:"%ISRC%"'
+          - "ytsearch:%QUERY%"
+          - 'ytmsearch:"%ISRC%"'
+          - "ytmsearch:%QUERY%"
+          - "scsearch:%QUERY%"
+          - "spsearch:%QUERY%"
+          - "sprec:%QUERY%"
+          - "amsearch:%QUERY%"
+          - "dzisrc:%ISRC%"
+          - "dzsearch:%QUERY%"
+          - "ymsearch:%QUERY%"
         sources:
             spotify: true # Enable Spotify source
             applemusic: true # Enable Apple Music source
@@ -106,9 +118,9 @@ lavalink:
         #strategy: "RotateOnBan" # RotateOnBan | LoadBalance | NanoSwitch | RotatingNanoSwitch
         #searchTriggersFail: true # Whether a search 429 should trigger marking the ip as failing
         #retryLimit: -1 # -1 = use default lavaplayer value | 0 = infinity | >0 = retry will happen this numbers times
-        #youtubeConfig: # Required for avoiding all age restrictions by YouTube, some restricted videos still can be played without.
-        #email: "" # Email of Google account
-        #password: "" # Password of Google account
+        youtubeConfig: # Required for avoiding all age restrictions by YouTube, some restricted videos still can be played without.
+        email: "" # Email of Google account
+        password: "" # Password of Google account
         #httpConfig: # Useful for blocking bad-actors from ip-grabbing your music node and attacking it, this way only the http proxy will be attacked
         #proxyHost: "localhost" # Hostname of the proxy, (ip or domain)
         #proxyPort: 3128 # Proxy port, 3128 is the default for squidProxy
