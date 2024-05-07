@@ -2,6 +2,9 @@ server: # REST and WS server
     port: 2333 # The port that the server listens on
     address: 0.0.0.0
 plugins:
+    youtube:
+        enabled: true
+        clients: ["MUSIC", "ANDROID", "WEB"]
     lavasrc:
         sources:
             spotify: true # Enable Spotify source
@@ -25,6 +28,8 @@ plugins:
             accessToken: '' # the token used for accessing the yandex music api. See https://github.com/TopiSenpai/LavaSrc#yandex-music
 lavalink:
     plugins:
+        - dependency: "com.github.lavalink-devs.lavaplayer-youtube-source:plugin:1.0.6"
+          repository: "https://jitpack.io"
         - dependency: 'com.github.topi314.lavasrc:lavasrc-plugin:4.0.1'
           repository: 'https://maven.lavalink.dev/releases'
           snapshot: false
