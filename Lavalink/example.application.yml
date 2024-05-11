@@ -3,9 +3,14 @@ server: # REST and WS server
     address: 0.0.0.0
 plugins:
     youtube:
-            clients: ["MUSIC", "ANDROID", "WEB"]
+            enabled: true # Whether this source can be used.
+            allowSearch: true # Whether "ytsearch:" and "ytmsearch:" can be used.
+            allowDirectVideoIds: true # Whether just video IDs can match. If false, only complete URLs will be loaded.
+            allowDirectPlaylistIds: true # Whether just playlist IDs can match. If false, only complete URLs will be loaded.
             countryCode: "US" # the country code you want to use for searching lyrics via ISRC. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-            enabled: true
+            # The clients to use for track loading. See below for a list of valid clients.
+            # Clients are queried in the order they are given (left-to-right)
+            clients: ["MUSIC", "ANDROID", "WEB", "TVHTML5EMBEDDED"]
     lavasrc:
         providers: # Custom providers for track loading. This is the default
           - 'ytsearch:"%ISRC%"'
@@ -65,17 +70,17 @@ lavalink:
         - dependency: 'com.github.topi314.lavasrc:lavasrc-plugin:4.1.0'
           repository: 'https://maven.lavalink.dev/releases'
           snapshot: false
-        - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
-          repository: "https://maven.lavalink.dev/releases" # this is optional for lavalink v4.0.0-beta.5 or greater
+        - dependency: 'com.github.topi314.lavasearch:lavasearch-plugin:1.0.0'
+          repository: 'https://maven.lavalink.dev/releases' # this is optional for lavalink v4.0.0-beta.5 or greater
           snapshot: false # set to true if you want to use snapshot builds (see below)
         - dependency: 'com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.0'
           repository: 'https://maven.lavalink.dev/releases' # this is optional for lavalink v4.0.0-beta.5 or greater
           snapshot: false
-        - dependency: com.dunctebot:skybot-lavalink-plugin:1.7.0
-          repository: https://maven.lavalink.dev/releases
+        - dependency: 'com.dunctebot:skybot-lavalink-plugin:1.7.0'
+          repository: 'https://maven.lavalink.dev/releases'
           snapshot: false
-        - dependency: dev.lavalink.youtube:youtube-plugin:1.1.0
-          repository: https://maven.lavalink.dev/releases
+        - dependency: 'dev.lavalink.youtube:youtube-plugin:1.2.0'
+          repository: 'https://maven.lavalink.dev/releases'
           snapshot: false
 
     pluginsDir: './plugins'
@@ -118,9 +123,9 @@ lavalink:
         #strategy: "RotateOnBan" # RotateOnBan | LoadBalance | NanoSwitch | RotatingNanoSwitch
         #searchTriggersFail: true # Whether a search 429 should trigger marking the ip as failing
         #retryLimit: -1 # -1 = use default lavaplayer value | 0 = infinity | >0 = retry will happen this numbers times
-        youtubeConfig: # Required for avoiding all age restrictions by YouTube, some restricted videos still can be played without.
-        email: "" # Email of Google account
-        password: "" # Password of Google account
+        #youtubeConfig: # Required for avoiding all age restrictions by YouTube, some restricted videos still can be played without.
+        #email: "" # Email of Google account
+        #password: "" # Password of Google account
         #httpConfig: # Useful for blocking bad-actors from ip-grabbing your music node and attacking it, this way only the http proxy will be attacked
         #proxyHost: "localhost" # Hostname of the proxy, (ip or domain)
         #proxyPort: 3128 # Proxy port, 3128 is the default for squidProxy
