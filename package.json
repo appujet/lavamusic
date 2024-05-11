@@ -35,13 +35,13 @@
     },
     "homepage": "https://github.com/appujet/lavamusic#readme",
     "devDependencies": {
-        "@types/node": "^20.12.10",
+        "@types/node": "^20.12.11",
         "@types/signale": "^1.4.7",
         "@typescript-eslint/eslint-plugin": "^7.8.0",
         "@typescript-eslint/parser": "^7.8.0",
         "eslint": "^8.56.0",
         "eslint-plugin-import": "^2.29.1",
-        "eslint-plugin-unicorn": "^52.0.0",
+        "eslint-plugin-unicorn": "^53.0.0",
         "prettier": "^3.2.5",
         "prisma": "^5.13.0",
         "ts-node": "^10.9.2",
@@ -54,7 +54,7 @@
         "shoukaku": "^4.0.1",
         "signale": "^1.4.0",
         "tslib": "^2.6.2",
-        "undici": "^6.15.0"
+        "undici": "^6.16.1"
     },
     "signale": {
         "displayScope": true,
