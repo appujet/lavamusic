@@ -10,7 +10,7 @@ export default class Leave extends Command {
                 usage: 'leave',
             },
             category: 'music',
-            aliases: ['dc'],
+            aliases: ['l'],
             cooldown: 3,
             args: false,
             player: {
