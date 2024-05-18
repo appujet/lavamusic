@@ -1,40 +1,17 @@
-
-# Keep environment variables out of version control
 .env
-
-# Ignore all files in the .vscode folder
 /.vscode
-
-# Ignore the build folder
 /dist
-
-# Ignore all files in the node_modules folder
 /node_modules
-
-# Ignore target folder
-
 /target
-
-
 /yarn.lock
-
 /.next
-
 /node_modules
-
 /pnpm-lock.yaml
-
 /yarn-error.log
-
 /yarn.lock
-
 /.eslintcache
-
 /package-lock.json
-
 /Lavalink/application.yml
-
 /Lavalink/plugins
-
 /prisma/lavamusic.db
 /prisma/migrations
