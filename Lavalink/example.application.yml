@@ -23,26 +23,27 @@ plugins:
         deezer: false # Enable Deezer source
         yandexmusic: false # Enable Yandex Music source
         flowerytts: false # Enable Flowery TTs source
+        youtube: true # Enable YouTube search source (https://github.com/topi314/LavaSearch)
     lyrics-sources:
         spotify: false # Enable Spotify lyrics source
         deezer: false # Enable Deezer lyrics source
         youtube: false # Enable YouTube lyrics source
     spotify:
-        clientId: ''
-        clientSecret: ''
-        spDc: "" # the sp dc cookie used for accessing the spotify lyrics api
+        clientId: 'your client id'
+        clientSecret: 'your client secret'
+        spDc: "your sp dc cookie" # the sp dc cookie used for accessing the spotify lyrics api
         countryCode: 'US' # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
         playlistLoadLimit: 6 # The number of pages at 100 tracks each
         albumLoadLimit: 6 # The number of pages at 50 tracks each
     applemusic:
         countryCode: 'US' # the country code you want to use for filtering the artists top tracks and language. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-        mediaAPIToken: '' # apple music api token
+        mediaAPIToken: 'your access token' # apple music api token
         playlistLoadLimit: 6 # The number of pages at 300 tracks each
         albumLoadLimit: 6 # The number of pages at 300 tracks each
     deezer:
-        masterDecryptionKey: '' # the master key used for decrypting the deezer tracks. (yes this is not here you need to get it from somewhere else)
+        masterDecryptionKey: 'your master decryption key' # the master key used for decrypting the deezer tracks. (yes this is not here you need to get it from somewhere else)
     yandexmusic:
-        accessToken: '' # the token used for accessing the yandex music api. See https://github.com/TopiSenpai/LavaSrc#yandex-music
+        accessToken: 'your access token' # the token used for accessing the yandex music api. See https://github.com/TopiSenpai/LavaSrc#yandex-music
         playlistLoadLimit: 1 # The number of pages at 100 tracks each
         albumLoadLimit: 1 # The number of pages at 50 tracks each
         artistLoadLimit: 1 # The number of pages at 10 tracks each
@@ -54,20 +55,19 @@ plugins:
         audioFormat: "mp3" # supported formats are: mp3, ogg_opus, ogg_vorbis, aac, wav, and flac. Default format is mp3
     youtube:
         countryCode: "US" # the country code you want to use for searching lyrics via ISRC. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-
   dunctebot:
       ttsLanguage: "en-AU" # language of the TTS engine
       sources:
           # true = source enabled, false = source disabled
-          getyarn: false # www.getyarn.io
-          clypit: false # www.clyp.it
-          tts: false # speak:Words to speak
-          pornhub: false # should be self-explanatory
-          reddit: false # should be self-explanatory
-          ocremix: false # www.ocremix.org
-          tiktok: false # tiktok.com
-          mixcloud: false # mixcloud.com
-          soundgasm: false # soundgasm.net
+          getyarn: true # www.getyarn.io
+          clypit: true # www.clyp.it
+          tts: true # speak:Words to speak
+          pornhub: true # should be self-explanatory
+          reddit: true # should be self-explanatory
+          ocremix: true # www.ocremix.org
+          tiktok: true # tiktok.com
+          mixcloud: true # mixcloud.com
+          soundgasm: true # soundgasm.net
 lavalink:
   plugins:
     - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.1.1"
@@ -118,19 +118,19 @@ lavalink:
     soundcloudSearchEnabled: true
     gc-warnings: true
     #ratelimit:
-    #ipBlocks: ["2001:470:28:d66::/64"] # list of ip blocks
-    #excludedIps: ["...", "..."] # ips which should be explicit excluded from usage by lavalink
-    #strategy: "RotateOnBan" # RotateOnBan | LoadBalance | NanoSwitch | RotatingNanoSwitch
-    #searchTriggersFail: true # Whether a search 429 should trigger marking the ip as failing
-    #retryLimit: -1 # -1 = use default lavaplayer value | 0 = infinity | >0 = retry will happen this numbers times
+      #ipBlocks: ["2001:470:28:d66::/64"] # list of ip blocks
+      #excludedIps: ["...", "..."] # ips which should be explicit excluded from usage by lavalink
+      #strategy: "RotateOnBan" # RotateOnBan | LoadBalance | NanoSwitch | RotatingNanoSwitch
+      #searchTriggersFail: true # Whether a search 429 should trigger marking the ip as failing
+      #retryLimit: -1 # -1 = use default lavaplayer value | 0 = infinity | >0 = retry will happen this numbers times
     #youtubeConfig: # Required for avoiding all age restrictions by YouTube, some restricted videos still can be played without.
-    #email: "" # Email of Google account
-    #password: "" # Password of Google account
+      #email: "" # Email of Google account
+      #password: "" # Password of Google account
     #httpConfig: # Useful for blocking bad-actors from ip-grabbing your music node and attacking it, this way only the http proxy will be attacked
-    #proxyHost: "localhost" # Hostname of the proxy, (ip or domain)
-    #proxyPort: 3128 # Proxy port, 3128 is the default for squidProxy
-    #proxyUser: "" # Optional user for basic authentication fields, leave blank if you don't use basic auth
-    #proxyPassword: "" # Password for basic authentication
+      #proxyHost: "localhost" # Hostname of the proxy, (ip or domain)
+      #proxyPort: 3128 # Proxy port, 3128 is the default for squidProxy
+      #proxyUser: "" # Optional user for basic authentication fields, leave blank if you don't use basic auth
+      #proxyPassword: "" # Password for basic authentication
 metrics:
   prometheus:
     enabled: false
