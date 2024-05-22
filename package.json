@@ -37,8 +37,8 @@
     "devDependencies": {
         "@types/node": "^20.12.12",
         "@types/signale": "^1.4.7",
-        "@typescript-eslint/eslint-plugin": "^7.9.0",
-        "@typescript-eslint/parser": "^7.9.0",
+        "@typescript-eslint/eslint-plugin": "^7.10.0",
+        "@typescript-eslint/parser": "^7.10.0",
         "eslint": "^8.57.0",
         "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-unicorn": "^53.0.0",
@@ -54,7 +54,7 @@
         "shoukaku": "^4.0.1",
         "signale": "^1.4.0",
         "tslib": "^2.6.2",
-        "undici": "^6.17.0"
+        "undici": "^6.18.1"
     },
     "signale": {
         "displayScope": true,
