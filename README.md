@@ -158,7 +158,8 @@ npx prisma migrate dev --name init
 ```bash
 npm start
 ```
-if your prisma client is not generated then follow the below steps [Prisma Setup](#prisma-setup)
+If you using Windows, than start run.bat.
+If your prisma client is not generated then follow the below steps [Prisma Setup](#prisma-setup)
 
 6. Invite the bot to your server:
 
