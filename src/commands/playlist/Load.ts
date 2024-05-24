@@ -60,7 +60,7 @@ export default class Load extends Command {
                     },
                 ],
             });
-        songs.map(async (s) => {
+        songs.map(async s => {
             for await (const song of JSON.parse(s.track)) {
                 const vc = ctx.member as any;
                 if (!player)

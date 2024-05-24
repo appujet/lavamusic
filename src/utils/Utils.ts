@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/typedef */
 import {
     ActionRowBuilder,
     ActivityType,
@@ -28,45 +27,41 @@ export class Utils {
     }
 
     public static updateStatus(client: Lavamusic, guildId?: string): void {
-        if (client.user) {
-            if (guildId === config.guildId) {
-                const player = client.queue.get(config.guildId);
-                if (player && player.current) {
-                    client.user.setActivity({
-                        name: `🎶 | ${player.current.info.title}`,
-                        type: ActivityType.Listening,
-                    });
-                } else {
-                    client.user?.setPresence({
-                        activities: [
-                            {
-                                name: config.botActivity,
-                                type: config.botActivityType,
-                            },
-                        ],
-                        status: config.botStatus as any,
-                    });
-                }
-            }
+        const { user } = client;
+        if (user && guildId === config.guildId) {
+            const player = client.queue.get(config.guildId);
+            user.setPresence({
+                activities: [
+                    {
+                        name:
+                            player && player.current
+                                ? `🎶 | ${player.current.info.title}`
+                                : config.botActivity,
+                        type:
+                            player && player.current
+                                ? ActivityType.Listening
+                                : config.botActivityType,
+                    },
+                ],
+                status: config.botStatus as any,
+            });
         }
     }
 
     public static chunk(array: any[], size: number): any[] {
         const chunked_arr = [];
-        let index = 0;
-        while (index < array.length) {
+        for (let index = 0; index < array.length; index += size) {
             chunked_arr.push(array.slice(index, size + index));
-            index += size;
         }
         return chunked_arr;
     }
 
-    public static formatBytes(bytes: number, decimals = 2): string {
+    public static formatBytes(bytes: number, decimals: number = 2): string {
         if (bytes === 0) return '0 Bytes';
         const k = 1024;
-        const dm: number = decimals < 0 ? 0 : decimals;
-        const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        const i: number = Math.floor(Math.log(bytes) / Math.log(k));
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
 
@@ -88,14 +83,13 @@ export class Utils {
         }
         return ms;
     }
-    public static progressBar(current: number, total: number, size = 20): string {
+
+    public static progressBar(current: number, total: number, size: number = 20): string {
         const percent = Math.round((current / total) * 100);
         const filledSize = Math.round((size * current) / total);
-        const emptySize = size - filledSize;
         const filledBar = '▓'.repeat(filledSize);
-        const emptyBar = '░'.repeat(emptySize);
-        const progressBar = `${filledBar}${emptyBar} ${percent}%`;
-        return progressBar;
+        const emptyBar = '░'.repeat(size - filledSize);
+        return `${filledBar}${emptyBar} ${percent}%`;
     }
 
     public static async paginate(ctx: Context, embed: any[]): Promise<void> {

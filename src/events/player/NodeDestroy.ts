@@ -20,7 +20,9 @@ export default class NodeDestroy extends Event {
         if (destroyCount >= 5) {
             this.client.shoukaku.removeNode(node);
             destroyCount = 0;
-            this.client.logger.warn(`Node ${node} removed from nodes list due to excessive disconnects`);
+            this.client.logger.warn(
+                `Node ${node} removed from nodes list due to excessive disconnects`
+            );
             BotLog.send(
                 this.client,
                 `Node ${node} removed from nodes list due to excessive disconnects`,

@@ -33,7 +33,7 @@ services:
     #             POSTGRES_USER: lavamusic
     #             POSTGRES_PASSWORD: lavamusic
     #             POSTGRES_DB: lavamusic
-    #             
+    #
     #         volumes:
     #             - ./Postgres/data:/var/lib/postgresql/data
     #         healthcheck:
@@ -45,17 +45,17 @@ services:
 
     # services for mongodb database
     #mongodb:
-        #container_name: lavamusic-mongodb
-        #image: 'bitnami/mongodb:4.4'
-        #restart: on-failure
-        #environment:
-            #MONGODB_ADVERTISED_HOSTNAME: 127.0.0.1
-            #MONGODB_REPLICA_SET_MODE: primary
-            #MONGODB_ROOT_USER: mongoadmin
-            #MONGODB_ROOT_PASSWORD: mongopassword
-            #MONGODB_REPLICA_SET_KEY: replicasetkey123
-        #volumes: - ./MongoDB/data:/data/db
-        
+    #container_name: lavamusic-mongodb
+    #image: 'bitnami/mongodb:4.4'
+    #restart: on-failure
+    #environment:
+    #MONGODB_ADVERTISED_HOSTNAME: 127.0.0.1
+    #MONGODB_REPLICA_SET_MODE: primary
+    #MONGODB_ROOT_USER: mongoadmin
+    #MONGODB_ROOT_PASSWORD: mongopassword
+    #MONGODB_REPLICA_SET_KEY: replicasetkey123
+    #volumes: - ./MongoDB/data:/data/db
+
     # services for lavamusic
     lavamusic:
         container_name: lavamusic
@@ -73,7 +73,7 @@ services:
         #    - DATABASE_URL= put your database url here (mongodb or postgres)
         #   - DATABASE_URL=postgresql://lavamusic:lavamusic@postgres:5432/lavamusic (for postgres)
         #   - DATABASE_URL=mongodb://mongoadmin:mongopassword@mongodb:27017/lavamusic?authSource=admin (for mongodb)
-            
+
         volumes:
             # mount .env from the same directory or use environment variables
             - .env:/opt/lavamusic/.env

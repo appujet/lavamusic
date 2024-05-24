@@ -88,7 +88,7 @@ export default class Dj extends Command {
                 });
             const isExRole = await client.db
                 .getRoles(ctx.guild.id)
-                .then((r) => r.find((re) => re.roleId === role.id));
+                .then(r => r.find(re => re.roleId === role.id));
             if (isExRole)
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription(`The dj role <@&${role.id}> is already added`)],
@@ -105,7 +105,7 @@ export default class Dj extends Command {
                 });
             const isExRole = await client.db
                 .getRoles(ctx.guild.id)
-                .then((r) => r.find((re) => re.roleId === role.id));
+                .then(r => r.find(re => re.roleId === role.id));
             if (!isExRole)
                 return await ctx.sendMessage({
                     embeds: [embed.setDescription(`The dj role <@&${role.id}> is not added`)],

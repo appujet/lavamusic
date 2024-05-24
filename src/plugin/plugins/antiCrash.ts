@@ -4,15 +4,8 @@ import { BotPlugin } from '../index.js';
 const antiCrash: BotPlugin = {
     name: 'AntiCrash Plugin',
     version: '1.0.0',
-    author: 'Blacky',
+    author: 'Appu',
     initialize: (client: Lavamusic) => {
-        process.on('unhandledRejection', (reason, promise) => {
-            client.logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
-        });
-        process.on('uncaughtException', err => {
-            client.logger.error('Uncaught Exception thrown:', err);
-        });
-
         const handleExit = async (): Promise<void> => {
             if (client) {
                 client.logger.star('Disconnecting from Discord...');
@@ -21,6 +14,15 @@ const antiCrash: BotPlugin = {
                 process.exit();
             }
         };
+
+        process.on('unhandledRejection', (reason, promise) => {
+            client.logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+        });
+
+        process.on('uncaughtException', err => {
+            client.logger.error('Uncaught Exception thrown:', err);
+        });
+
         process.on('SIGINT', handleExit);
         process.on('SIGTERM', handleExit);
         process.on('SIGQUIT', handleExit);
@@ -28,3 +30,13 @@ const antiCrash: BotPlugin = {
 };
 
 export default antiCrash;
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

@@ -22,13 +22,13 @@ export default class InteractionCreate extends Event {
             interaction instanceof CommandInteraction &&
             interaction.type === InteractionType.ApplicationCommand
         ) {
-             const setup = await this.client.db.getSetup(interaction.guildId);
-                    if (
-                        setup &&
-                        interaction.channelId === setup.textId 
-                    ) { 
-return interaction.reply({ content: `You can't use commands in setup channel.` , ephemeral: true})
-                    }
+            const setup = await this.client.db.getSetup(interaction.guildId);
+            if (setup && interaction.channelId === setup.textId) {
+                return await interaction.reply({
+                    content: `You can't use commands in setup channel.`,
+                    ephemeral: true,
+                });
+            }
             const { commandName } = interaction;
             await this.client.db.get(interaction.guildId); // get or create guild data
             const command = this.client.commands.get(interaction.commandName);
@@ -48,7 +48,7 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                     .send({
                         content: `I don't have **\`SendMessage\`** permission in \`${interaction.guild.name}\`\nchannel: <#${interaction.channelId}>`,
                     })
-                    .catch(() => { });
+                    .catch(() => {});
             }
 
             if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks))
@@ -105,7 +105,7 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
 
                     if (
                         (interaction.member as GuildMember).voice.channel.type ===
-                        ChannelType.GuildStageVoice &&
+                            ChannelType.GuildStageVoice &&
                         !interaction.guild.members.me.permissions.has(
                             PermissionFlagsBits.RequestToSpeak
                         )
@@ -205,7 +205,7 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                 await interaction.reply({ content: `An error occurred: \`${error}\`` });
             }
         } else if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
-            if ((interaction.commandName == 'play') || (interaction.commandName == 'playnext')) {
+            if (interaction.commandName == 'play' || interaction.commandName == 'playnext') {
                 const song = interaction.options.getString('song');
                 const res = await this.client.queue.search(song);
                 let songs = [];
@@ -223,7 +223,7 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                         break;
                 }
 
-                return await interaction.respond(songs).catch(() => { });
+                return await interaction.respond(songs).catch(() => {});
             }
         }
     }

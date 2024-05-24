@@ -4,11 +4,9 @@ import { BotPlugin } from '../index.js';
 const updateStatusPlugin: BotPlugin = {
     name: 'Update Status Plugin',
     version: '1.0.0',
-    author: 'Blacky',
+    author: 'Appu',
     initialize: (client: Lavamusic) => {
-        client.on('ready', () => {
-            client.utils.updateStatus(client);
-        });
+        client.on('ready', () => client.utils.updateStatus(client));
     },
 };
 

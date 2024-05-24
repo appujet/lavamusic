@@ -64,7 +64,8 @@ export default class Prefix extends Command {
             case 'set':
                 if (!pre) {
                     embed.setDescription(
-                        `The prefix for this server is \`${guild ? guild.prefix : client.config.prefix
+                        `The prefix for this server is \`${
+                            guild ? guild.prefix : client.config.prefix
                         }\``
                     );
                     return await ctx.sendMessage({ embeds: [embed] });

@@ -1,5 +1,14 @@
-
-import { Botchannel, Dj, Guild, Playlist, PrismaClient, Role, Setup, Song, Stay, } from '@prisma/client';
+import {
+    Botchannel,
+    Dj,
+    Guild,
+    Playlist,
+    PrismaClient,
+    Role,
+    Setup,
+    Song,
+    Stay,
+} from '@prisma/client';
 
 import config from '../config.js';
 
@@ -302,9 +311,3 @@ export default class ServerData {
         await this.prisma.song.deleteMany();
     }
 }
-
-
-
-
-
-
