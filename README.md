@@ -51,8 +51,8 @@
 -   ![Twitch](https://img.shields.io/badge/Twitch-9146FF?style=plastic&logo=twitch&logoColor=white)
 -   ![Bandcamp](https://img.shields.io/badge/Bandcamp-629AA9?style=plastic&logo=bandcamp&logoColor=white)
 -   ![Vimeo](https://img.shields.io/badge/Vimeo-1AB7EA?style=plastic&logo=vimeo&logoColor=white)
--   ![Nico](https://img.shields.io/badge/Nico-FFA500?style=plastic&logo=vimeo&logoColor=white)
--   ![Mixer](https://img.shields.io/badge/Mixer-FFA500?style=plastic&logo=vimeo&logoColor=white)
+-   ![Nico](https://img.shields.io/badge/Nico-FF0066?style=plastic&logo=nico&logoColor=white)
+-   ![Mixer](https://img.shields.io/badge/Mixer-FFA500?style=plastic&logo=mixer&logoColor=white)
 -   ![http](https://img.shields.io/badge/http-FFA500?style=plastic&logo=http&logoColor=white)
 
 🔌 **Plugin Sources**: `(Require: LavaLink v4.0.x)`
