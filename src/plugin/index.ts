@@ -5,15 +5,21 @@ import { fileURLToPath } from 'node:url';
 import { Lavamusic } from '../structures/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export default function loadPlugins(client: Lavamusic): void {
-    const pluginsFolder = path.join(__dirname, './plugins');
-    const pluginFiles = fs.readdirSync(pluginsFolder).filter(file => file.endsWith('.js'));
+const pluginsFolder = path.join(__dirname, 'plugins');
 
-    pluginFiles.forEach(async (file: string) => {
-        const plugin = (await import(`./plugins/${file}`)).default as BotPlugin;
-        if (plugin.initialize) plugin.initialize(client);
-        client.logger.info(`Loaded plugin: ${plugin.name} v${plugin.version}`);
-    });
+export default async function loadPlugins(client: Lavamusic): Promise<void> {
+    try {
+        const pluginFiles = fs.readdirSync(pluginsFolder).filter(file => file.endsWith('.js'));
+
+        for (const file of pluginFiles) {
+            const pluginPath = path.join(pluginsFolder, file);
+            const plugin = (await import(`file://${pluginPath}`)).default as BotPlugin;
+            if (plugin.initialize) plugin.initialize(client);
+            client.logger.info(`Loaded plugin: ${plugin.name} v${plugin.version}`);
+        }
+    } catch (error) {
+        client.logger.error('Error loading plugins:', error);
+    }
 }
 
 export interface BotPlugin {
@@ -24,6 +30,7 @@ export interface BotPlugin {
     initialize: (client: Lavamusic) => void;
     shutdown?: (client: Lavamusic) => void;
 }
+
 /**
  * Project: lavamusic
  * Author: Appu

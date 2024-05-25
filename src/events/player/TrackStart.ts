@@ -111,8 +111,9 @@ export default class TrackStart extends Event {
                         return true;
                     else {
                         b.reply({
-                            content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? 'None'
-                                }> to use this buttons.`,
+                            content: `You are not connected to <#${
+                                b.guild.members.me.voice?.channelId ?? 'None'
+                            }> to use this buttons.`,
                             ephemeral: true,
                         });
                         return false;
@@ -155,8 +156,9 @@ export default class TrackStart extends Event {
                             await message.edit({
                                 embeds: [
                                     embed.setFooter({
-                                        text: `${player.paused ? 'Paused' : 'Resumed'} by ${interaction.user.tag
-                                            }`,
+                                        text: `${player.paused ? 'Paused' : 'Resumed'} by ${
+                                            interaction.user.tag
+                                        }`,
                                         iconURL: interaction.user.avatarURL({}),
                                     }),
                                 ],

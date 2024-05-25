@@ -24,7 +24,6 @@ import { Utils } from '../utils/Utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
     public aliases: Collection<string, any> = new Collection();
@@ -37,49 +36,45 @@ export default class Lavamusic extends Client {
     public shoukaku: ShoukakuClient;
     public utils = Utils;
     public queue = new Queue(this);
-    public constructor(options: ClientOptions) {
+
+    constructor(options: ClientOptions) {
         super(options);
     }
+
     public embed(): EmbedBuilder {
         return new EmbedBuilder();
     }
+
     public async start(token: string): Promise<void> {
-        if (this.config.autoNode) {
-            const nodes = await this.getNodes();
-            this.shoukaku = new ShoukakuClient(this, nodes);
-        } else {
-            this.shoukaku = new ShoukakuClient(this, this.config.lavalink);
-        }
+        const nodes = this.config.autoNode ? await this.getNodes() : this.config.lavalink;
+        this.shoukaku = new ShoukakuClient(this, nodes);
         this.loadCommands();
         this.logger.info(`Successfully loaded commands!`);
         this.loadEvents();
         this.logger.info(`Successfully loaded events!`);
         loadPlugins(this);
         await this.login(token);
-        this.on(
-            Events.InteractionCreate,
-            async (interaction: Interaction<'cached'>): Promise<void> => {
-                if (interaction.isButton()) {
-                    const setup = await this.db.getSetup(interaction.guildId);
-                    if (
-                        setup &&
-                        interaction.channelId === setup.textId &&
-                        (interaction as any).message.id === setup.messageId
-                    ) {
-                        this.emit('setupButtons', interaction);
-                    }
+        this.on(Events.InteractionCreate, async (interaction: Interaction<'cached'>) => {
+            if (interaction.isButton()) {
+                const setup = await this.db.getSetup(interaction.guildId);
+                if (
+                    setup &&
+                    interaction.channelId === setup.textId &&
+                    interaction.message.id === setup.messageId
+                ) {
+                    this.emit('setupButtons', interaction);
                 }
             }
-        );
+        });
     }
 
-    private loadCommands(): void {
+    private async loadCommands(): Promise<void> {
         const commandsPath = fs.readdirSync(path.join(__dirname, '../commands'));
-        commandsPath.forEach(dir => {
+        for (const dir of commandsPath) {
             const commandFiles = fs
                 .readdirSync(path.join(__dirname, `../commands/${dir}`))
                 .filter(file => file.endsWith('.js'));
-            commandFiles.forEach(async file => {
+            for (const file of commandFiles) {
                 const cmd = (await import(`../commands/${dir}/${file}`)).default;
                 const command = new cmd(this);
                 command.category = dir;
@@ -94,39 +89,26 @@ export default class Lavamusic extends Client {
                         name: command.name,
                         description: command.description.content,
                         type: ApplicationCommandType.ChatInput,
-                        options: command.options ? command.options : null,
-                        name_localizations: command.nameLocalizations
-                            ? command.nameLocalizations
-                            : null,
-                        description_localizations: command.descriptionLocalizations
-                            ? command.descriptionLocalizations
-                            : null,
+                        options: command.options ?? null,
+                        name_localizations: command.nameLocalizations ?? null,
+                        description_localizations: command.descriptionLocalizations ?? null,
                         default_member_permissions:
-                            command.permissions.user.length > 0 ? command.permissions.user : null,
+                            command.permissions.user.length > 0
+                                ? PermissionsBitField.resolve(command.permissions.user).toString()
+                                : null,
                     };
-                    if (command.permissions.user.length > 0) {
-                        const permissionValue = PermissionsBitField.resolve(
-                            command.permissions.user
-                        );
-                        if (typeof permissionValue === 'bigint') {
-                            data.default_member_permissions = permissionValue.toString();
-                        } else {
-                            data.default_member_permissions = permissionValue;
-                        }
-                    }
-                    const json = JSON.stringify(data);
-                    this.body.push(JSON.parse(json));
+                    this.body.push(JSON.parse(JSON.stringify(data)));
                 }
-            });
-        });
+            }
+        }
         this.once('ready', async () => {
             const applicationCommands =
                 this.config.production === true
                     ? Routes.applicationCommands(this.user.id ?? '')
                     : Routes.applicationGuildCommands(
-                        this.user.id ?? '',
-                        this.config.guildId ?? ''
-                    );
+                          this.user.id ?? '',
+                          this.config.guildId ?? ''
+                      );
             try {
                 const rest = new REST({ version: '9' }).setToken(this.config.token ?? '');
                 await rest.put(applicationCommands, { body: this.body });
@@ -136,6 +118,7 @@ export default class Lavamusic extends Client {
             }
         });
     }
+
     private async getNodes(): Promise<any> {
         const params = new URLSearchParams({
             ssl: 'false',
@@ -149,16 +132,16 @@ export default class Lavamusic extends Client {
             },
         });
 
-        const nodes = await res.json();
-        return nodes;
+        return await res.json();
     }
-    private loadEvents(): void {
+
+    private async loadEvents(): Promise<void> {
         const eventsPath = fs.readdirSync(path.join(__dirname, '../events'));
-        eventsPath.forEach(dir => {
+        for (const dir of eventsPath) {
             const events = fs
                 .readdirSync(path.join(__dirname, `../events/${dir}`))
                 .filter(file => file.endsWith('.js'));
-            events.forEach(async file => {
+            for (const file of events) {
                 const event = (await import(`../events/${dir}/${file}`)).default;
                 const evt = new event(this, file);
                 switch (dir) {
@@ -169,8 +152,8 @@ export default class Lavamusic extends Client {
                         this.on(evt.name, (...args) => evt.run(...args));
                         break;
                 }
-            });
-        });
+            }
+        }
     }
 }
 

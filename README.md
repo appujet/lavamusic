@@ -17,7 +17,7 @@
     <img src="https://cdn.discordapp.com/avatars/875635121770889257/d427591ca92c868114fbdd9dca436086.png?size=512" alt="lavamusic" width="200" height="200">
   </a>
 
-  <h1 align="center">lavamusic</h1>
+  <h1 align="center">Lavamusic</h1>
 
   <p align="center">Lavamusic is a Discord music bot that uses Discord.js, Shoukaku, and TypeScript.
     <br />
@@ -30,7 +30,7 @@
 
 ## 🔥 Unique Features
 
--   Developed using Typescript and Discord.js v14
+-   Developed using TypeScript and Discord.js v14
 -   Advanced Music System
 -   Customizable Prefix
 -   Powerful Search Engine
@@ -51,6 +51,8 @@
 -   ![Twitch](https://img.shields.io/badge/Twitch-9146FF?style=plastic&logo=twitch&logoColor=white)
 -   ![Bandcamp](https://img.shields.io/badge/Bandcamp-629AA9?style=plastic&logo=bandcamp&logoColor=white)
 -   ![Vimeo](https://img.shields.io/badge/Vimeo-1AB7EA?style=plastic&logo=vimeo&logoColor=white)
+-   ![Nico](https://img.shields.io/badge/Nico-FF0066?style=plastic&logo=nico&logoColor=white)
+-   ![Mixer](https://img.shields.io/badge/Mixer-FFA500?style=plastic&logo=mixer&logoColor=white)
 -   ![http](https://img.shields.io/badge/http-FFA500?style=plastic&logo=http&logoColor=white)
 
 🔌 **Plugin Sources**: `(Require: LavaLink v4.0.x)`
@@ -85,6 +87,7 @@ Before starting with the installation, you need to have the following:
 -   ![Lavalink](https://img.shields.io/badge/Lavalink-7289DA?style=for-the-badge&logo=discord&logoColor=white) [v4.0.x or higher](https://github.com/freyacodes/Lavalink)
 
 ### Optional
+
 -   ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) [Optional](https://www.mongodb.com/try/download/community) (For MongoDB database)
 -   ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white) [Optional](https://www.postgresql.org/download/) (For PostgreSQL database)
 
@@ -99,7 +102,7 @@ Before starting with the installation, you need to have the following:
 git clone https://github.com/appujet/lavamusic.git
 ```
 
-2. change the directory to Lavamusic
+2. Change to the Lavamusic directory:
 
 ```bash
 cd lavamusic
@@ -113,7 +116,7 @@ npm i
 
 4. Set up your environment variables:
 
-Create a `.env` file in the root directory of your project with the following variables:
+Create a .env file in the root directory of your project with the following variables:
 or you can use the [.env.example](https://raw.githubusercontent.com/appujet/lavamusic/main/.env.example) file
 
 ```bash
@@ -137,20 +140,21 @@ MAX_PLAYLIST_SIZE = "100" # Max playlist size.
 MAX_QUEUE_SIZE = "100" # Max queue size.
 KEEP_ALIVE = "false" # true for keep alive in https://replit.com
 LOG_CHANNEL_ID = "" # If you enter this, you will be able to receive the status of Lavalink nodes and guild join/leave logs through the corresponding channel.
+
 ```
 
 ## Prisma Setup
 
-1. generate the prisma client
+1. Generate the Prisma client:
 
 ```bash
 npx prisma generate
 ```
 
-2. Run the migrations
+2. Run the migrations:
 
 ```bash
-npx prisma migrate dev --name init
+prisma:migrate
 ```
 
 5. Run the bot:
@@ -158,18 +162,19 @@ npx prisma migrate dev --name init
 ```bash
 npm start
 ```
-if your prisma client is not generated then follow the below steps [Prisma Setup](#prisma-setup)
+
+If you are using Windows, start run.bat.
+if your Prisma client is not generated then follow the below steps [Prisma Setup](#prisma-setup)
 
 6. Invite the bot to your server:
 
 Generate an invite link for your bot and invite it to your server using the Discord Developer Portal or using permissions calculator: <https://discordapi.com/permissions.html>
 
-
 ## 🚀 Installation using Docker Compose
 
 This section assumes you have Docker and Docker Compose installed and running correctly.
 
-Download the [docker-compose.yml file](https://raw.githubusercontent.com/appujet/lavamusic/main/docker-compose.yml) in a seperate folder like lavamusic.
+Download the [docker-compose.yml file](https://raw.githubusercontent.com/appujet/lavamusic/main/docker-compose.yml) in a separate folder like lavamusic.
 
 Edit docker-compose.yml and make sure to set the following variables:
 
@@ -181,7 +186,6 @@ PREFIX="!" # Your prefix
 OWNER_IDS=["859640640640640640","859640640640640640"] # Your discord id, you can add multiple ids
 GUILD_ID="859640640640640640" # Your server ID (if you want to use it for a single server)
 PRODUCTION="true" # "true" for production
-
 ```
 
 For more information how to fill all the variables go to this page.
@@ -226,7 +230,7 @@ Do note that the bot will restart itself to update to the latest!
 
 ## 📝 Tutorial
 
-A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://youtu.be/x5lQD2rguz0)
+A tutorial has been uploaded on YouTube. Watch it by clicking [here](https://youtu.be/x5lQD2rguz0).
 
 ## 📜 Contributing
 
@@ -246,14 +250,14 @@ Distributed under the GPL-3.0 license. See ![LICENSE](https://img.shields.io/git
 
 ## ☕ Donate
 
-Do you like this project? Support it by donating
+Do you like this project? Support it by donating:
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H7LKT9L)
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/sdip521)
 
 ## 👥 Contributors
 
-Thanks goes to these wonderful people :
+Thanks go to these wonderful people:
 
 <a href="https://github.com/appujet/lavamusic/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=appujet/lavamusic" />

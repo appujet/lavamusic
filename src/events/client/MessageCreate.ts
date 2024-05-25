@@ -58,7 +58,7 @@ export default class MessageCreate extends Event {
                 .send({
                     content: `I don't have **\`SendMessage\`** permission in \`${message.guild.name}\`\nchannel: <#${message.channelId}>`,
                 })
-                .catch(() => { });
+                .catch(() => {});
 
         if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks))
             return await message.reply({
@@ -162,10 +162,12 @@ export default class MessageCreate extends Event {
                     .setColor(this.client.color.red)
                     .setTitle('Missing Arguments')
                     .setDescription(
-                        `Please provide the required arguments for the \`${command.name
-                        }\` command.\n\nExamples:\n${command.description.examples
-                            ? command.description.examples.join('\n')
-                            : 'None'
+                        `Please provide the required arguments for the \`${
+                            command.name
+                        }\` command.\n\nExamples:\n${
+                            command.description.examples
+                                ? command.description.examples.join('\n')
+                                : 'None'
                         }`
                     )
                     .setFooter({ text: 'Syntax: [] = optional, <> = required' });

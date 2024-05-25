@@ -6,38 +6,38 @@ import Logger from './structures/Logger.js';
 
 const logger = new Logger();
 
-if (!fs.existsSync('./src/utils/LavaLogo.txt')) {
-    logger.error('LavaLogo.txt file is missing');
-    process.exit(1);
+async function main(): Promise<void> {
+    try {
+        if (!fs.existsSync('./src/utils/LavaLogo.txt')) {
+            logger.error('LavaLogo.txt file is missing');
+            process.exit(1);
+        }
+
+        const logFile = fs.readFileSync('./src/utils/LavaLogo.txt', 'utf-8');
+        console.log('\x1b[35m%s\x1b[0m', logFile);
+
+        const manager = new ShardingManager('./dist/LavaClient.js', {
+            respawn: true,
+            token: config.token,
+            totalShards: 'auto',
+            shardList: 'auto',
+        });
+
+        manager.on('shardCreate', shard => {
+            shard.on('ready', () => {
+                logger.start(`[CLIENT] Shard ${shard.id} connected to Discord's Gateway.`);
+            });
+        });
+
+        await manager.spawn();
+
+        logger.start(`[CLIENT] ${manager.totalShards} shard(s) spawned.`);
+    } catch (err) {
+        logger.error('[CLIENT] An error has occurred:', err);
+    }
 }
 
-try {
-    const logFile = fs.readFileSync('./src/utils/LavaLogo.txt', 'utf-8');
-    console.log('\x1b[35m%s\x1b[0m', logFile);
-} catch (err) {
-    logger.error('[CLIENT] An error has occurred :', err);
-}
-const manager = new ShardingManager('./dist/LavaClient.js', {
-    respawn: true,
-    token: config.token,
-    totalShards: 'auto',
-    shardList: 'auto',
-});
-
-manager
-    .spawn({ amount: manager.totalShards, delay: null, timeout: -1 })
-    .then(shards => {
-        logger.start(`[CLIENT] ${shards.size} shard(s) spawned.`);
-    })
-    .catch(err => {
-        logger.error('[CLIENT] An error has occurred :', err);
-    });
-
-manager.on('shardCreate', shard => {
-    shard.on('ready', () => {
-        logger.start(`[CLIENT] Shard ${shard.id} connected to Discord's Gateway.`);
-    });
-});
+main();
 
 /**
  * Project: lavamusic

@@ -11,6 +11,7 @@ const {
     Guilds,
     GuildMessageTyping,
 } = GatewayIntentBits;
+
 const clientOptions: ClientOptions = {
     intents: [
         Guilds,
@@ -20,14 +21,10 @@ const clientOptions: ClientOptions = {
         GuildMembers,
         GuildMessageTyping,
     ],
-    allowedMentions: {
-        parse: ['users', 'roles'],
-        repliedUser: false,
-    },
+    allowedMentions: { parse: ['users', 'roles'], repliedUser: false },
 };
 
 const client = new Lavamusic(clientOptions);
-
 client.start(config.token);
 
 /**
