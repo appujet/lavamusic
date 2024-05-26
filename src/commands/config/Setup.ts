@@ -52,19 +52,15 @@ export default class Setup extends Command {
             ],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        let subCommand: string;
-        if (ctx.isInteraction) {
-            subCommand = ctx.interaction.options.data[0].name;
-        } else {
-            subCommand = args[0];
-        }
+        const subCommand = ctx.isInteraction ? ctx.interaction.options.data[0].name : args[0];
         const embed = client.embed().setColor(client.color.main);
+
         switch (subCommand) {
             case 'create': {
                 const data = await client.db.getSetup(ctx.guild.id);
-
-                if (data && data.textId && data.messageId)
+                if (data && data.textId && data.messageId) {
                     return await ctx.sendMessage({
                         embeds: [
                             {
@@ -73,6 +69,8 @@ export default class Setup extends Command {
                             },
                         ],
                     });
+                }
+
                 const textChannel = await ctx.guild.channels.create({
                     name: `${this.client.user.username}-song-requests`,
                     type: ChannelType.GuildText,
@@ -99,6 +97,7 @@ export default class Setup extends Command {
                         },
                     ],
                 });
+
                 const player = this.client.queue.get(ctx.guild.id);
                 const image = this.client.config.links.img;
                 const desc =
@@ -108,13 +107,11 @@ export default class Setup extends Command {
 
                 embed.setDescription(desc).setImage(image);
                 await textChannel
-                    .send({
-                        embeds: [embed],
-                        components: getButtons(),
-                    })
+                    .send({ embeds: [embed], components: getButtons() })
                     .then(async msg => {
                         client.db.setSetup(ctx.guild.id, textChannel.id, msg.id);
                     });
+
                 const embed2 = client.embed().setColor(client.color.main);
                 await ctx.sendMessage({
                     embeds: [
@@ -123,11 +120,13 @@ export default class Setup extends Command {
                         ),
                     ],
                 });
+
                 break;
             }
+
             case 'delete': {
                 const data2 = await client.db.getSetup(ctx.guild.id);
-                if (!data2)
+                if (!data2) {
                     return await ctx.sendMessage({
                         embeds: [
                             {
@@ -136,13 +135,12 @@ export default class Setup extends Command {
                             },
                         ],
                     });
+                }
+
                 client.db.deleteSetup(ctx.guild.id);
-                await ctx.guild.channels.cache
-                    .get(data2.textId)
-                    .delete()
-                    .catch(() => {
-                        null;
-                    });
+                const textChannel = ctx.guild.channels.cache.get(data2.textId);
+                if (textChannel) await textChannel.delete().catch(() => {});
+
                 await ctx.sendMessage({
                     embeds: [
                         {
@@ -151,12 +149,13 @@ export default class Setup extends Command {
                         },
                     ],
                 });
+
                 break;
             }
 
             case 'info': {
                 const data3 = await client.db.getSetup(ctx.guild.id);
-                if (!data3)
+                if (!data3) {
                     return await ctx.sendMessage({
                         embeds: [
                             {
@@ -165,15 +164,18 @@ export default class Setup extends Command {
                             },
                         ],
                     });
+                }
+
                 const channel = ctx.guild.channels.cache.get(data3.textId);
                 embed
                     .setDescription(`The song request channel is <#${channel.id}>`)
                     .setColor(client.color.main);
-                await ctx.sendMessage({
-                    embeds: [embed],
-                });
+
+                await ctx.sendMessage({ embeds: [embed] });
+
                 break;
             }
+
             default:
                 break;
         }

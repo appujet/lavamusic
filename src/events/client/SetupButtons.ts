@@ -9,7 +9,7 @@ export default class SetupButtons extends Event {
         });
     }
     public async run(interaction: any): Promise<void> {
-        if (!interaction.replied) await interaction.deferReply().catch(() => {});
+        if (!interaction.replied) await interaction.deferReply().catch(() => { });
 
         if (!interaction.member.voice.channel)
             return await buttonReply(
@@ -20,7 +20,7 @@ export default class SetupButtons extends Event {
         if (
             interaction.guild.members.cache.get(this.client.user.id).voice.channel &&
             interaction.guild.members.cache.get(this.client.user.id).voice.channelId !==
-                interaction.member.voice.channelId
+            interaction.member.voice.channelId
         )
             return await buttonReply(
                 interaction,
@@ -65,8 +65,7 @@ export default class SetupButtons extends Event {
             .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
             .setColor(this.client.color.main)
             .setDescription(
-                `[${title}](${uri}) - ${
-                    player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
+                `[${title}](${uri}) - ${player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
                 } - Requested by ${player.current.info.requester}`
             )
             .setImage(icon);
@@ -167,28 +166,35 @@ export default class SetupButtons extends Event {
                     });
                     break;
                 case 'LOOP_BUT': {
-                    const random = ['off', 'queue', 'repeat'];
-                    const loop = random[Math.floor(Math.random() * random.length)];
-                    if (player.loop === loop)
-                        return await buttonReply(
+                    const loopOptions: Array<'off' | 'queue' | 'repeat'> = [
+                        'off',
+                        'queue',
+                        'repeat',
+                    ];
+                    const newLoop = loopOptions[Math.floor(Math.random() * loopOptions.length)];
+
+                    if (player.loop === newLoop) {
+                        await buttonReply(
                             interaction,
                             `Loop is already ${player.loop}.`,
                             this.client.color.main
                         );
-                    player.setLoop(loop);
-                    await buttonReply(
-                        interaction,
-                        `Loop set to ${player.loop}.`,
-                        this.client.color.main
-                    );
-                    await message.edit({
-                        embeds: [
-                            embed.setFooter({
-                                text: `Loop set to ${player.loop} by ${interaction.member.displayName}`,
-                                iconURL: interaction.member.displayAvatarURL({}),
-                            }),
-                        ],
-                    });
+                    } else {
+                        player.setLoop(newLoop);
+                        await buttonReply(
+                            interaction,
+                            `Loop set to ${player.loop}.`,
+                            this.client.color.main
+                        );
+                        await message.edit({
+                            embeds: [
+                                embed.setFooter({
+                                    text: `Loop set to ${player.loop} by ${interaction.member.displayName}`,
+                                    iconURL: interaction.member.displayAvatarURL({}),
+                                }),
+                            ],
+                        });
+                    }
                     break;
                 }
                 case 'SHUFFLE_BUT':
@@ -268,3 +274,14 @@ export default class SetupButtons extends Event {
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */
+

@@ -2,23 +2,29 @@ import { Guild } from 'discord.js';
 import { LavalinkResponse, Node } from 'shoukaku';
 
 import { Dispatcher, Lavamusic } from './index.js';
-export class Queue extends Map {
+
+export class Queue extends Map<string, Dispatcher> {
     public client: Lavamusic;
+
     constructor(client: Lavamusic) {
         super();
         this.client = client;
     }
-    public get(guildId: string): Dispatcher {
+
+    public override get(guildId: string): Dispatcher | undefined {
         return super.get(guildId);
     }
-    public set(guildId: string, dispatcher: Dispatcher): this {
+
+    public override set(guildId: string, dispatcher: Dispatcher): this {
         return super.set(guildId, dispatcher);
     }
-    public delete(guildId: string): boolean {
+
+    public override delete(guildId: string): boolean {
         return super.delete(guildId);
     }
-    public clear(): void {
-        return super.clear();
+
+    public override clear(): void {
+        super.clear();
     }
 
     public async create(
@@ -27,17 +33,18 @@ export class Queue extends Map {
         channel: any,
         givenNode?: Node
     ): Promise<Dispatcher> {
-        let dispatcher = this.get(guild.id);
         if (!voice) throw new Error('No voice channel was provided');
         if (!channel) throw new Error('No text channel was provided');
         if (!guild) throw new Error('No guild was provided');
+
+        let dispatcher = this.get(guild.id);
         if (!dispatcher) {
             const node =
-                givenNode || this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
+                givenNode ?? this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
             const player = await this.client.shoukaku.joinVoiceChannel({
                 guildId: guild.id,
                 channelId: voice.id,
-                shardId: guild.shard.id,
+                shardId: guild.shardId,
                 deaf: true,
             });
 
@@ -51,24 +58,22 @@ export class Queue extends Map {
 
             this.set(guild.id, dispatcher);
             this.client.shoukaku.emit('playerCreate', dispatcher.player);
-            return dispatcher;
-        } else {
-            return dispatcher;
         }
+
+        return dispatcher;
     }
 
-    public async search(query: string): Promise<LavalinkResponse | undefined> {
+    public async search(query: string): Promise<LavalinkResponse | null> {
         const node = this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
-        const regex = /^https?:\/\//;
-        let result: LavalinkResponse | undefined;
+        const searchQuery = /^https?:\/\//.test(query)
+            ? query
+            : `${this.client.config.searchEngine}:${query}`;
         try {
-            result = await node.rest.resolve(
-                regex.test(query) ? query : `${this.client.config.searchEngine}:${query}`
-            );
+            return await node.rest.resolve(searchQuery);
         } catch (err) {
+            console.error('Error during search:', err);
             return null;
         }
-        return result;
     }
 }
 

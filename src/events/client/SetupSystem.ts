@@ -10,7 +10,7 @@ export default class SetupSystem extends Event {
         });
     }
     public async run(message: Message): Promise<void> {
-        let channel = message.channel as any;
+        let channel = message.channel as TextChannel;
 
         if (!(channel instanceof TextChannel)) return;
         if (!message.member.voice.channel) {

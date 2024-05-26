@@ -40,7 +40,7 @@ export default class Delete extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const playlist = args.join(' ').replace(/\s/g, '');
 
-        const playlistExists = await client.db.getPLaylist(ctx.author.id, playlist);
+        const playlistExists = await client.db.getPlaylist(ctx.author.id, playlist);
         if (!playlistExists)
             return await ctx.sendMessage({
                 embeds: [

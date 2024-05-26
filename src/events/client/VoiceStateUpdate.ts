@@ -8,11 +8,14 @@ export default class VoiceStateUpdate extends Event {
             name: 'voiceStateUpdate',
         });
     }
+
     public async run(oldState: any, newState: any): Promise<void> {
         const guildId = newState.guild.id;
         if (!guildId) return;
+
         const player = this.client.queue.get(guildId);
         if (!player) return;
+
         if (
             newState.guild.members.cache.get(this.client.user.id) &&
             !newState.guild.members.cache.get(this.client.user.id).voice.channelId
@@ -21,6 +24,7 @@ export default class VoiceStateUpdate extends Event {
                 return player.destroy();
             }
         }
+
         if (
             newState.id === this.client.user.id &&
             newState.channelId &&
@@ -31,38 +35,49 @@ export default class VoiceStateUpdate extends Event {
                 newState.guild.members.me.permissions.has(['Connect', 'Speak']) ||
                 newState.channel.permissionsFor(newState.guild.members.me).has('MuteMembers')
             ) {
-                await newState.guild.members.me.voice.setSuppressed(false).catch(() => {});
+                await newState.guild.members.me.voice.setSuppressed(false).catch(() => { });
             }
         }
-        if (newState.id == this.client.user.id) return;
+
+        if (newState.id === this.client.user.id) return;
+
         const vc = newState.guild.channels.cache.get(
-            player.node.manager.connections.get(newState.guild.id).channelId
+            player.node.manager.connections.get(newState.guild.id)?.channelId
         );
+
         if (
             newState.id === this.client.user.id &&
             !newState.serverDeaf &&
             vc &&
-            vc.permissionsFor(newState.guild.member.me).has('DeafenMembers')
-        )
+            vc.permissionsFor(newState.guild.me).has('DeafenMembers')
+        ) {
             await newState.setDeaf(true);
-        if (newState.id === this.client.user.id && newState.serverMute && !player.paused)
+        }
+
+        if (newState.id === this.client.user.id && newState.serverMute && !player.paused) {
             player.pause();
-        if (newState.id === this.client.user.id && !newState.serverMute && player.paused)
+        }
+
+        if (newState.id === this.client.user.id && !newState.serverMute && player.paused) {
             player.pause();
+        }
 
         let voiceChannel = newState.guild.channels.cache.get(
-            player.node.manager.connections.get(newState.guild.id).channelId
+            player.node.manager.connections.get(newState.guild.id)?.channelId
         );
 
         if (newState.id === this.client.user.id && newState.channelId === null) return;
 
         if (!voiceChannel) return;
+
         if (voiceChannel.members.filter((x: any) => !x.user.bot).size <= 0) {
             const server = await this.client.db.get_247(newState.guild.id);
+
             if (!server) {
                 setTimeout(async () => {
                     const vc = player.node.manager.connections.get(newState.guild.id);
                     if (vc && !vc.channelId) return;
+
                     const playerVoiceChannel = newState.guild.channels.cache.get(vc.channelId);
                     if (
                         player &&
@@ -75,10 +90,10 @@ export default class VoiceStateUpdate extends Event {
                     }
                 }, 5000);
             } else {
-                if (server) return;
                 setTimeout(async () => {
                     const vc = player.node.manager.connections.get(newState.guild.id);
                     if (vc && !vc.channelId) return;
+
                     const playerVoiceChannel = newState.guild.channels.cache.get(vc.channelId);
                     if (
                         player &&
@@ -94,3 +109,13 @@ export default class VoiceStateUpdate extends Event {
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

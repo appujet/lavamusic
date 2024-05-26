@@ -40,7 +40,7 @@
 -   User-friendly and Easy to Use
 -   24/7 Music Playback
 -   Playlist commands
--   Setup music channel
+-   Music channel system
 
 ## 🎶 Support Sources
 

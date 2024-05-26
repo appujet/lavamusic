@@ -8,27 +8,22 @@ export default class GuildCreate extends Event {
             name: 'guildCreate',
         });
     }
+
     public async run(guild: Guild): Promise<any> {
         let owner: GuildMember | undefined;
         try {
-            owner = guild.members.cache.get(guild?.ownerId);
+            owner = await guild.members.fetch(guild.ownerId);
         } catch (e) {
-            owner = await guild.fetchOwner();
+            console.error(`Error fetching owner for guild ${guild.id}: ${e}`);
         }
-        if (!owner) {
-            owner = {
-                user: {
-                    tag: 'Unknown#0000',
-                },
-            } as GuildMember;
-        }
+
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.green)
             .setAuthor({ name: guild.name, iconURL: guild.iconURL({ extension: 'jpeg' }) })
             .setDescription(`**${guild.name}** has been added to my guilds!`)
             .setThumbnail(guild.iconURL({ extension: 'jpeg' }))
             .addFields(
-                { name: 'Owner', value: owner.user.tag, inline: true },
+                { name: 'Owner', value: owner ? owner.user.tag : 'Unknown#0000', inline: true },
                 { name: 'Members', value: guild.memberCount.toString(), inline: true },
                 {
                     name: 'Created At',
@@ -43,10 +38,33 @@ export default class GuildCreate extends Event {
                 { name: 'ID', value: guild.id, inline: true }
             )
             .setTimestamp();
-        const channel = (await this.client.channels.fetch(
-            this.client.config.logChannelId
-        )) as TextChannel;
-        if (!channel) return;
-        return await channel.send({ embeds: [embed] });
+
+        const logChannelId = this.client.config.logChannelId;
+        if (!logChannelId) {
+            console.error('Log channel ID not found in configuration.');
+            return;
+        }
+
+        const channel = (await this.client.channels.fetch(logChannelId)) as TextChannel;
+        if (!channel) {
+            console.error(`Log channel not found with ID ${logChannelId}.`);
+            return;
+        }
+
+        try {
+            await channel.send({ embeds: [embed] });
+        } catch (error) {
+            console.error(`Error sending message to log channel ${logChannelId}: ${error}`);
+        }
     }
 }
+
+/**
+ * Project: lavamusic
+ * user: Blacky
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

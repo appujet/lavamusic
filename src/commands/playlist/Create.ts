@@ -48,7 +48,7 @@ export default class Create extends Command {
                     },
                 ],
             });
-        const playlist = await client.db.getPLaylist(ctx.author.id, name);
+        const playlist = await client.db.getPlaylist(ctx.author.id, name);
         if (playlist)
             return await ctx.sendMessage({
                 embeds: [

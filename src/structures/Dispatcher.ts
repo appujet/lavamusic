@@ -31,6 +31,15 @@ export class Song implements Track {
         };
     }
 }
+
+interface DispatcherOptions {
+    client: Lavamusic;
+    guildId: string;
+    channelId: string;
+    player: Player;
+    node: Node;
+}
+
 export default class Dispatcher {
     private client: Lavamusic;
     public guildId: string;
@@ -45,10 +54,10 @@ export default class Dispatcher {
     public repeat: number;
     public node: Node;
     public paused: boolean;
-    public filters: Array<string>;
+    public filters: string[];
     public autoplay: boolean;
     public nowPlayingMessage: Message | null;
-    public history: Song[] = [];
+    public history: Song[];
 
     constructor(options: DispatcherOptions) {
         this.client = options.client;
@@ -66,128 +75,142 @@ export default class Dispatcher {
         this.filters = [];
         this.autoplay = false;
         this.nowPlayingMessage = null;
+        this.history = [];
 
         this.player
             .on('start', () =>
                 this.client.shoukaku.emit('trackStart', this.player, this.current, this)
             )
             .on('end', () => {
-                if (!this.queue.length)
+                if (!this.queue.length) {
                     this.client.shoukaku.emit('queueEnd', this.player, this.current, this);
+                }
                 this.client.shoukaku.emit('trackEnd', this.player, this.current, this);
             })
             .on('stuck', () => this.client.shoukaku.emit('trackStuck', this.player, this.current))
-            .on('closed', (...arr) => {
-                this.client.shoukaku.emit('socketClosed', this.player, ...arr);
-            });
+            .on('closed', (...args) =>
+                this.client.shoukaku.emit('socketClosed', this.player, ...args)
+            );
     }
 
     get exists(): boolean {
         return this.client.queue.has(this.guildId);
     }
+
     get volume(): number {
         return this.player.volume;
     }
+
     public async play(): Promise<void> {
         if (!this.exists || (!this.queue.length && !this.current)) {
             return;
         }
-        this.current = this.queue.length !== 0 ? this.queue.shift() : this.queue[0];
-        if (!this.current) return;
-        this.player.playTrack({ track: this.current?.encoded });
+        this.current = this.queue.length ? this.queue.shift() : this.queue[0];
         if (this.current) {
+            this.player.playTrack({ track: this.current.encoded });
             this.history.push(this.current);
             if (this.history.length > 100) {
                 this.history.shift();
             }
         }
     }
+
     public pause(): void {
-        if (!this.player) return;
-        if (!this.paused) {
-            this.player.setPaused(true);
-            this.paused = true;
-        } else {
-            this.player.setPaused(false);
-            this.paused = false;
+        if (this.player) {
+            this.paused = !this.paused;
+            this.player.setPaused(this.paused);
         }
     }
+
     public remove(index: number): void {
-        if (!this.player) return;
-        if (index > this.queue.length) return;
-        this.queue.splice(index, 1);
+        if (this.player && index <= this.queue.length) {
+            this.queue.splice(index, 1);
+        }
     }
+
     public previousTrack(): void {
-        if (!this.player) return;
-        if (!this.previous) return;
-        this.queue.unshift(this.previous);
-        this.player.stopTrack();
+        if (this.player && this.previous) {
+            this.queue.unshift(this.previous);
+            this.player.stopTrack();
+        }
     }
+
     public destroy(): void {
         this.queue.length = 0;
         this.history = [];
         this.client.shoukaku.leaveVoiceChannel(this.guildId);
         this.client.queue.delete(this.guildId);
-        if (this.stopped) return;
-        this.client.shoukaku.emit('playerDestroy', this.player);
-    }
-    public setShuffle(): void {
-        if (!this.player) return;
-        const queue = this.queue;
-        for (let i = queue.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [queue[i], queue[j]] = [queue[j], queue[i]];
+        if (!this.stopped) {
+            this.client.shoukaku.emit('playerDestroy', this.player);
         }
-        this.queue = queue;
     }
+
+    public setShuffle(): void {
+        if (this.player) {
+            for (let i = this.queue.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [this.queue[i], this.queue[j]] = [this.queue[j], this.queue[i]];
+            }
+        }
+    }
+
     public async skip(skipto = 1): Promise<void> {
-        if (!this.player) return;
-        if (skipto > 1) {
+        if (this.player) {
             if (skipto > this.queue.length) {
                 this.queue.length = 0;
             } else {
                 this.queue.splice(0, skipto - 1);
             }
+            this.repeat = this.repeat === 1 ? 0 : this.repeat;
+            this.player.stopTrack();
         }
-        this.repeat = this.repeat == 1 ? 0 : this.repeat;
-        this.player.stopTrack();
     }
+
     public seek(time: number): void {
-        if (!this.player) return;
-        this.player.seekTo(time);
+        if (this.player) {
+            this.player.seekTo(time);
+        }
     }
+
     public stop(): void {
-        if (!this.player) return;
-        this.queue.length = 0;
-        this.history = [];
-        this.loop = 'off';
-        this.autoplay = false;
-        this.repeat = 0;
-        this.stopped = true;
-        this.player.stopTrack();
+        if (this.player) {
+            this.queue.length = 0;
+            this.history = [];
+            this.loop = 'off';
+            this.autoplay = false;
+            this.repeat = 0;
+            this.stopped = true;
+            this.player.stopTrack();
+        }
     }
-    public setLoop(loop: any): void {
+
+    public setLoop(loop: 'off' | 'repeat' | 'queue'): void {
         this.loop = loop;
     }
 
     public buildTrack(track: Song | Track, user: User): Song {
         return new Song(track, user);
     }
+
     public async isPlaying(): Promise<void> {
         if (this.queue.length && !this.current && !this.player.paused) {
-            this.play();
+            await this.play();
         }
     }
+
     public async Autoplay(song: Song): Promise<void> {
         const resolve = await this.node.rest.resolve(
             `${this.client.config.searchEngine}:${song.info.author}`
         );
-        if (!resolve || !resolve?.data || !Array.isArray(resolve.data)) return this.destroy();
+        if (!resolve || !resolve.data || !Array.isArray(resolve.data)) {
+            return this.destroy();
+        }
 
-        const metadata = resolve.data as Array<any> as any;
-        let choosed: Song | null = null;
-        const maxAttempts = 10; // Maximum number of attempts to find a unique song
+        const metadata = resolve.data as Track[];
+        let chosen: Song | null = null;
+        const maxAttempts = 10;
         let attempts = 0;
+
         while (attempts < maxAttempts) {
             const potentialChoice = this.buildTrack(
                 metadata[Math.floor(Math.random() * metadata.length)],
@@ -197,31 +220,26 @@ export default class Dispatcher {
                 !this.queue.some(s => s.encoded === potentialChoice.encoded) &&
                 !this.history.some(s => s.encoded === potentialChoice.encoded)
             ) {
-                choosed = potentialChoice;
+                chosen = potentialChoice;
                 break;
             }
             attempts++;
         }
-        if (choosed) {
-            this.queue.push(choosed);
-            return await this.isPlaying();
+
+        if (chosen) {
+            this.queue.push(chosen);
+            await this.isPlaying();
+        } else {
+            this.destroy();
         }
-        return this.destroy();
     }
+
     public async setAutoplay(autoplay: boolean): Promise<void> {
         this.autoplay = autoplay;
         if (autoplay) {
-            this.Autoplay(this.current ? this.current : this.queue[0]);
+            await this.Autoplay(this.current || this.queue[0]);
         }
     }
-}
-
-export interface DispatcherOptions {
-    client: Lavamusic;
-    guildId: string;
-    channelId: string;
-    player: Player;
-    node: Node;
 }
 
 /**

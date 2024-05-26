@@ -8,34 +8,28 @@ export default class GuildDelete extends Event {
             name: 'guildDelete',
         });
     }
+
     public async run(guild: Guild): Promise<any> {
         let owner: GuildMember | undefined;
         try {
-            owner = guild.members.cache.get(guild?.ownerId);
-        } catch (e) {
-            owner = await guild.fetchOwner();
+            owner = await guild.members.fetch(guild.ownerId);
+        } catch (error) {
+            console.error(`Error fetching owner for guild ${guild.id}: ${error}`);
         }
-        if (!owner) {
-            owner = {
-                user: {
-                    tag: 'Unknown#0000',
-                },
-            } as GuildMember;
-        }
+
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.red)
             .setAuthor({
                 name: guild.name || 'Unknown Guild',
                 iconURL: guild.iconURL({ extension: 'jpeg' }),
             })
-
             .setDescription(`**${guild.name}** has been removed from my guilds!`)
             .setThumbnail(guild.iconURL({ extension: 'jpeg' }))
             .addFields(
-                { name: 'Owner', value: owner.user.tag, inline: true },
+                { name: 'Owner', value: owner ? owner.user.tag : 'Unknown#0000', inline: true },
                 {
                     name: 'Members',
-                    value: guild.memberCount ? guild.memberCount.toString() : 'Unknown',
+                    value: guild.memberCount?.toString() || 'Unknown',
                     inline: true,
                 },
                 {
@@ -51,10 +45,35 @@ export default class GuildDelete extends Event {
                 { name: 'ID', value: guild.id, inline: true }
             )
             .setTimestamp();
-        const channel = (await this.client.channels.fetch(
-            this.client.config.logChannelId
-        )) as TextChannel;
-        if (!channel) return;
-        return await channel.send({ embeds: [embed] });
+
+        const logChannelId = this.client.config.logChannelId;
+        if (!logChannelId) {
+            console.error('Log channel ID not found in configuration.');
+            return;
+        }
+
+        let channel: TextChannel;
+        try {
+            channel = (await this.client.channels.fetch(logChannelId)) as TextChannel;
+        } catch (error) {
+            console.error(`Error fetching log channel ${logChannelId}: ${error}`);
+            return;
+        }
+
+        try {
+            await channel.send({ embeds: [embed] });
+        } catch (error) {
+            console.error(`Error sending message to log channel ${logChannelId}: ${error}`);
+        }
     }
 }
+
+/**
+ * Project: lavamusic
+ * user: Blacky
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */
