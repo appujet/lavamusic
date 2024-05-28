@@ -35,26 +35,23 @@ export default class Help extends Command {
             ],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = client.embed();
         const guild = await client.db.get(ctx.guild.id);
         const commands = this.client.commands.filter(cmd => cmd.category !== 'dev');
-        const categories = commands
-            .map(cmd => cmd.category)
-            .filter((value, index, self) => self.indexOf(value) === index);
+        const categories = [...new Set(commands.map(cmd => cmd.category))];
 
         if (!args[0]) {
-            const fildes = [];
-            categories.forEach(category => {
-                fildes.push({
-                    name: category,
-                    value: commands
-                        .filter(cmd => cmd.category === category)
-                        .map(cmd => `\`${cmd.name}\``)
-                        .join(', '),
-                    inline: false,
-                });
-            });
+            const fields = categories.map(category => ({
+                name: category,
+                value: commands
+                    .filter(cmd => cmd.category === category)
+                    .map(cmd => `\`${cmd.name}\``)
+                    .join(', '),
+                inline: false,
+            }));
+
             const helpEmbed = embed
                 .setColor(this.client.color.main)
                 .setTitle('Help Menu')
@@ -64,11 +61,13 @@ export default class Help extends Command {
                 .setFooter({
                     text: `Use ${guild.prefix}help <command> for more info on a command`,
                 });
-            fildes.forEach(field => helpEmbed.addFields(field));
+
+            helpEmbed.addFields(...fields);
+
             ctx.sendMessage({ embeds: [helpEmbed] });
         } else {
             const command = this.client.commands.get(args[0].toLowerCase());
-            if (!command)
+            if (!command) {
                 return await ctx.sendMessage({
                     embeds: [
                         client
@@ -77,12 +76,12 @@ export default class Help extends Command {
                             .setDescription(`Command \`${args[0]}\` not found`),
                     ],
                 });
-            const embed = this.client.embed();
+            }
+
             const helpEmbed = embed
                 .setColor(this.client.color.main)
-                .setTitle(`Help Menu - ${command.name}`).setDescription(`**Description:** ${
-                command.description.content
-            }
+                .setTitle(`Help Menu - ${command.name}`)
+                .setDescription(`**Description:** ${command.description.content}
 **Usage:** ${guild.prefix}${command.description.usage}
 **Examples:** ${command.description.examples.map(example => `${guild.prefix}${example}`).join(', ')}
 **Aliases:** ${command.aliases.map(alias => `\`${alias}\``).join(', ')}
@@ -101,6 +100,7 @@ export default class Help extends Command {
 **DJ:** ${command.player.dj ? 'Yes' : 'No'}
 **DJ Permissions:** ${command.player.djPerm ? command.player.djPerm : 'None'}
 **Voice:** ${command.player.voice ? 'Yes' : 'No'}`);
+
             ctx.sendMessage({ embeds: [helpEmbed] });
         }
     }

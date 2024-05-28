@@ -30,24 +30,15 @@ export default class Invite extends Command {
             options: [],
         });
     }
-    public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const clientId = process.env.CLIENT_ID;
-        if (!clientId) {
-            console.error(
-                'Client ID not found in environment variables, cannot generate invite link.'
-            );
-            return await ctx.sendMessage(
-                'Sorry, my invite link is not available at this time. Please tell the bot developer to check their console.'
-            );
-        }
 
+    public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed();
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setLabel('Invite')
                 .setStyle(ButtonStyle.Link)
                 .setURL(
-                    `https://discord.com/api/oauth2/authorize?client_id=${clientId}&permissions=8&scope=bot%20applications.commands`
+                    `https://discord.com/api/oauth2/authorize?client_id=${client.config.clientId}&permissions=8&scope=bot%20applications.commands`
                 ),
             new ButtonBuilder()
                 .setLabel('My Server')
@@ -67,3 +58,13 @@ export default class Invite extends Command {
         });
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

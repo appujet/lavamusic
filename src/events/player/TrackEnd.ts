@@ -9,17 +9,31 @@ export default class TrackEnd extends Event {
             name: 'trackEnd',
         });
     }
+
     public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
         dispatcher.previous = dispatcher.current;
         dispatcher.current = null;
-        const m = await dispatcher.nowPlayingMessage?.fetch().catch(() => {});
-        if (dispatcher.loop === 'repeat') dispatcher.queue.unshift(track);
-        if (dispatcher.loop === 'queue') dispatcher.queue.push(track);
+
+        const nowPlayingMessage = await dispatcher.nowPlayingMessage?.fetch().catch(() => null);
+
+        switch (dispatcher.loop) {
+            case 'repeat':
+                dispatcher.queue.unshift(track);
+                break;
+            case 'queue':
+                dispatcher.queue.push(track);
+                break;
+        }
+
         await dispatcher.play();
+
         if (dispatcher.autoplay) {
             await dispatcher.Autoplay(track);
         }
-        if (m && m.deletable) await m.delete().catch(() => {});
+
+        if (nowPlayingMessage && nowPlayingMessage.deletable) {
+            await nowPlayingMessage.delete().catch(() => {});
+        }
     }
 }
 

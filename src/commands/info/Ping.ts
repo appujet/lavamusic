@@ -28,19 +28,18 @@ export default class Ping extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const msg = await ctx.sendDeferMessage('Pinging...');
 
-        const embed = client
+        const embed = this.client
             .embed()
             .setAuthor({ name: 'Pong', iconURL: this.client.user.displayAvatarURL() })
             .setColor(this.client.color.main)
             .addFields([
                 {
                     name: 'Bot Latency',
-                    value: `\`\`\`ini\n[ ${
-                        msg.createdTimestamp - ctx.createdTimestamp
-                    }ms ]\n\`\`\``,
+                    value: `\`\`\`ini\n[ ${msg.createdTimestamp - ctx.createdTimestamp}ms ]\n\`\`\``,
                     inline: true,
                 },
                 {
@@ -54,6 +53,7 @@ export default class Ping extends Command {
                 iconURL: ctx.author.avatarURL({}),
             })
             .setTimestamp();
+
         return await ctx.editMessage({ content: '', embeds: [embed] });
     }
 }

@@ -107,7 +107,7 @@ export default class Setup extends Command {
 
                 embed.setDescription(desc).setImage(image);
                 await textChannel
-                    .send({ embeds: [embed], components: getButtons() })
+                    .send({ embeds: [embed], components: getButtons(player) })
                     .then(async msg => {
                         client.db.setSetup(ctx.guild.id, textChannel.id, msg.id);
                     });

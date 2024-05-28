@@ -1,19 +1,20 @@
 import { version } from 'discord.js';
+import { showTotalMemory, usagePercent } from 'node-system-stats';
 import os from 'node:os';
 
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
-export default class Info extends Command {
+export default class Botinfo extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'info',
+            name: 'botinfo',
             description: {
                 content: 'Information about the bot',
-                examples: ['info'],
-                usage: 'info',
+                examples: ['botinfo'],
+                usage: 'botinfo',
             },
-            category: 'info',
-            aliases: ['botinfo', 'bi'],
+            category: 'botinfo',
+            aliases: ['info', 'bi'],
             cooldown: 3,
             args: false,
             player: {
@@ -31,36 +32,33 @@ export default class Info extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const osType = os.type();
-        const osRelease = os.release();
-        const osUptime = os.uptime();
+        const osInfo = os.type() + ' ' + os.release();
+        const osUptime = client.utils.formatTime(os.uptime());
         const osHostname = os.hostname();
-        const cpuArch = os.arch();
-        const cpuCores = os.cpus().length;
-        const totalMem = os.totalmem();
-        const freeMem = os.freemem();
-        const usedMem = totalMem - freeMem;
+        const cpuInfo = os.arch() + ' (' + os.cpus().length + ' cores)';
+        const cpuUsed = (await usagePercent({ coreIndex: 0, sampleMs: 2000 })).percent;
+        const memTotal = showTotalMemory(true);
+        const memUsed = (process.memoryUsage().rss / 1024 ** 2).toFixed(2);
         const nodeVersion = process.version;
         const discordJsVersion = version;
-        const botGuilds = client.guilds.cache.size;
-        const botChannels = client.channels.cache.size;
-        const botUsers = client.users.cache.size;
-        const botCommands = client.commands.size;
+        const guilds = client.guilds.cache.size;
+        const channels = client.channels.cache.size;
+        const users = client.users.cache.size;
+        const commands = client.commands.size;
 
         const botInfo = `Bot Information:
-- **Operating System**: ${osType} ${osRelease}
-- **Uptime**: ${client.utils.formatTime(osUptime)}
+- **Operating System**: ${osInfo}
+- **Uptime**: ${osUptime}
 - **Hostname**: ${osHostname}
-- **CPU Architecture**: ${cpuArch} (${cpuCores} cores)
-- **Memory Usage**: ${client.utils.formatBytes(usedMem)} / ${client.utils.formatBytes(
-            totalMem
-        )} (${Math.round((usedMem / totalMem) * 100)}%)
+- **CPU Architecture**: ${cpuInfo}
+- **CPU Usage**: ${cpuUsed}%
+- **Memory Usage**: ${memUsed}MB / ${memTotal}GB
 - **Node Version**: ${nodeVersion}
 - **Discord Version**: ${discordJsVersion}
-- **Connected to** ${botGuilds} guilds, ${botChannels} channels, and ${botUsers} users
-- **Total Commands**: ${botCommands}
-  `;
+- **Connected to** ${guilds} guilds, ${channels} channels, and ${users} users
+- **Total Commands**: ${commands}`;
 
         const embed = this.client.embed();
         return await ctx.sendMessage({

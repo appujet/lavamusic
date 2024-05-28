@@ -235,21 +235,18 @@ export default class ServerData {
     }
 
     public async addSong(userId: string, name: string, song: string): Promise<void> {
-        let playlist = await this.getPlaylist(userId, name);
-        if (!playlist) {
-            playlist = await this.prisma.playlist.create({
+        const playlist = await this.getPlaylist(userId, name);
+        if (playlist) {
+            await this.prisma.song.create({
                 data: {
-                    userId,
-                    name,
+                    track: JSON.stringify(song),
+                    playlistId: playlist.id,
                 },
             });
+        } else {
+            await this.createPlaylist(userId, name);
+            await this.addSong(userId, name, song);
         }
-        await this.prisma.song.create({
-            data: {
-                track: JSON.stringify(song),
-                playlistId: playlist.id,
-            },
-        });
     }
 
     public async removeSong(userId: string, name: string, song: string): Promise<void> {

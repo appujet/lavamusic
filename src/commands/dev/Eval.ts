@@ -1,4 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
+import util from 'node:util';
 import { fetch } from 'undici';
 
 import { Command, Context, Lavamusic } from '../../structures/index.js';
@@ -15,7 +16,7 @@ export default class Eval extends Command {
             category: 'dev',
             aliases: ['ev'],
             cooldown: 3,
-            args: false,
+            args: true,
             player: {
                 voice: false,
                 dj: false,
@@ -37,7 +38,7 @@ export default class Eval extends Command {
         try {
             let evaled = eval(code);
 
-            if (evaled == client.config) evaled = 'Nice try';
+            if (evaled === client.config) evaled = 'Nice try';
 
             const button = new ButtonBuilder()
                 .setStyle(ButtonStyle.Danger)
@@ -45,7 +46,7 @@ export default class Eval extends Command {
                 .setCustomId('eval-delete');
             const row = new ActionRowBuilder().addComponents(button);
 
-            if (typeof evaled !== 'string') evaled = (await import('node:util')).inspect(evaled);
+            if (typeof evaled !== 'string') evaled = util.inspect(evaled);
 
             if (evaled.length > 2000) {
                 const response = await fetch('https://hasteb.in/post', {
@@ -56,7 +57,7 @@ export default class Eval extends Command {
                     body: evaled,
                 });
 
-                const json = (await response.json()) as { key: string };
+                const json: any = await response.json();
                 evaled = `https://hasteb.in/${json.key}`;
                 return await ctx.sendMessage({
                     content: evaled,
@@ -66,12 +67,14 @@ export default class Eval extends Command {
                     content: `\`\`\`js\n${evaled}\n\`\`\``,
                     components: [row],
                 });
-                const filter = (i): boolean =>
+
+                const filter = (i: any): boolean =>
                     i.customId === 'eval-delete' && i.user.id === ctx.author.id;
                 const collector = msg.createMessageComponentCollector({
                     time: 60000,
                     filter: filter,
                 });
+
                 collector.on('collect', async i => {
                     await i.deferUpdate();
                     await msg.delete();

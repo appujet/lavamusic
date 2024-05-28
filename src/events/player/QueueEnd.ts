@@ -10,20 +10,30 @@ export default class QueueEnd extends Event {
             name: 'queueEnd',
         });
     }
+
     public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
         const guild = this.client.guilds.cache.get(dispatcher.guildId);
         if (!guild) return;
-        if (dispatcher.loop === 'repeat') dispatcher.queue.unshift(track);
-        if (dispatcher.loop === 'queue') dispatcher.queue.push(track);
+
+        switch (dispatcher.loop) {
+            case 'repeat':
+                dispatcher.queue.unshift(track);
+                break;
+            case 'queue':
+                dispatcher.queue.push(track);
+                break;
+            case 'off':
+                dispatcher.previous = dispatcher.current;
+                dispatcher.current = null;
+                break;
+        }
+
         if (dispatcher.autoplay) {
             await dispatcher.Autoplay(track);
         } else {
             dispatcher.autoplay = false;
         }
-        if (dispatcher.loop === 'off') {
-            dispatcher.previous = dispatcher.current;
-            dispatcher.current = null;
-        }
+
         await updateSetup(this.client, guild);
         this.client.utils.updateStatus(this.client, guild.id);
     }

@@ -27,29 +27,51 @@ export default class LavaLink extends Command {
             slashCommand: true,
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const embed = this.client.embed();
-        embed.setTitle('Lavalink Stats');
-        embed.setColor(this.client.color.main);
-        embed.setThumbnail(this.client.user.avatarURL({}));
-        embed.setTimestamp();
+        const embed = this.client
+            .embed()
+            .setTitle('Lavalink Stats')
+            .setColor(this.client.color.main)
+            .setThumbnail(this.client.user.avatarURL({}))
+            .setTimestamp();
+
         client.shoukaku.nodes.forEach(node => {
-            if (!node.stats) {
-                embed.addFields({
-                    name: 'Name:',
-                    value: `${node.name} (🔴)\n\`\`\`yaml\nPlayer: 0\nPlaying Players: 0\nUptime: 0\nCores: 0 Core(s)\nMemory Usage: 0/0\nSystem Load: 0%\nLavalink Load: 0%\`\`\``,
-                });
-                return;
-            }
-            try {
-                embed.addFields({
-                    name: 'Name:',
-                    value: `${node.name} (${node.stats ? '🟢' : '🔴'})\n\`\`\`yaml\nPlayer: ${node.stats.players}\nPlaying Players: ${node.stats.playingPlayers}\nUptime: ${client.utils.formatTime(node.stats.uptime)}\nCores: ${node.stats.cpu.cores} Core(s)\nMemory Usage: ${client.utils.formatBytes(node.stats.memory.used)}/${client.utils.formatBytes(node.stats.memory.reservable)}\nSystem Load: ${(Math.round(node.stats.cpu.systemLoad * 100) / 100).toFixed(2)}%\nLavalink Load: ${(Math.round(node.stats.cpu.lavalinkLoad * 100) / 100).toFixed(2)}%\`\`\``,
-                });
-            } catch (e) {
-                console.log(e);
-            }
+            const statusEmoji = node.stats ? '🟢' : '🔴';
+            const stats = node.stats || {
+                players: 0,
+                playingPlayers: 0,
+                uptime: 0,
+                cpu: { cores: 0, systemLoad: 0, lavalinkLoad: 0 },
+                memory: { used: 0, reservable: 0 },
+            };
+
+            const formattedStats = `\`\`\`yaml
+Player: ${stats.players}
+Playing Players: ${stats.playingPlayers}
+Uptime: ${client.utils.formatTime(stats.uptime)}
+Cores: ${stats.cpu.cores} Core(s)
+Memory Usage: ${client.utils.formatBytes(stats.memory.used)} / ${client.utils.formatBytes(stats.memory.reservable)}
+System Load: ${(stats.cpu.systemLoad * 100).toFixed(2)}%
+Lavalink Load: ${(stats.cpu.lavalinkLoad * 100).toFixed(2)}%
+\`\`\``;
+
+            embed.addFields({
+                name: `Name: ${node.name} (${statusEmoji})`,
+                value: formattedStats,
+            });
         });
+
         return await ctx.sendMessage({ embeds: [embed] });
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

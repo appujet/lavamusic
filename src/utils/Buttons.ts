@@ -1,35 +1,41 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
-function getButtons(): ActionRowBuilder<ButtonBuilder>[] {
+import { Dispatcher } from '../structures/index.js';
+
+function getButtons(player: Dispatcher): ActionRowBuilder<ButtonBuilder>[] {
     const buttonData = [
-        { customId: 'PAUSE_BUT', emoji: '⏸️' },
-        { customId: 'PREV_BUT', emoji: '⏮️' },
-        { customId: 'SKIP_BUT', emoji: '⏭️' },
-        { customId: 'HIGH_VOL_BUT', emoji: '🔊' },
-        { customId: 'LOW_VOL_BUT', emoji: '🔉' },
-        { customId: 'FORWARD_BUT', emoji: '⏩' },
-        { customId: 'STOP_BUT', emoji: '⏹️' },
-        { customId: 'LOOP_BUT', emoji: '🔁' },
-        { customId: 'SHUFFLE_BUT', emoji: '🔀' },
-        { customId: 'REWIND_BUT', emoji: '⏪' },
+        { customId: 'LOOP_BUT', emoji: '🔁', style: ButtonStyle.Secondary },
+        { customId: 'PREV_BUT', emoji: '⏮️', style: ButtonStyle.Secondary },
+        {
+            customId: 'PAUSE_BUT',
+            emoji: player.paused ? '▶️' : '⏸️',
+            style: player.paused ? ButtonStyle.Success : ButtonStyle.Secondary,
+        },
+        { customId: 'SKIP_BUT', emoji: '⏭️', style: ButtonStyle.Secondary },
+        { customId: 'SHUFFLE_BUT', emoji: '🔀', style: ButtonStyle.Secondary },
+        { customId: 'FORWARD_BUT', emoji: '⏩', style: ButtonStyle.Secondary },
+        { customId: 'LOW_VOL_BUT', emoji: '🔉', style: ButtonStyle.Secondary },
+        { customId: 'STOP_BUT', emoji: '⏹️', style: ButtonStyle.Danger },
+        { customId: 'HIGH_VOL_BUT', emoji: '🔊', style: ButtonStyle.Secondary },
+        { customId: 'REWIND_BUT', emoji: '⏪', style: ButtonStyle.Secondary },
     ];
 
-    const rows: ActionRowBuilder<ButtonBuilder>[] = [];
+    const rows = [];
 
     for (let i = 0; i < 2; i++) {
-        const rowButtons: ButtonBuilder[] = [];
+        const rowButtons = [];
         for (let j = 0; j < 5; j++) {
             const index = i * 5 + j;
             if (index >= buttonData.length) break;
-            const { customId, emoji } = buttonData[index];
+            const { customId, emoji, style } = buttonData[index];
             const button = new ButtonBuilder()
                 .setCustomId(customId)
                 .setEmoji({ name: emoji })
-                .setStyle(ButtonStyle.Secondary)
+                .setStyle(style)
                 .setDisabled(false);
             rowButtons.push(button);
         }
-        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(...rowButtons);
+        const row = new ActionRowBuilder().addComponents(...rowButtons);
         rows.push(row);
     }
 

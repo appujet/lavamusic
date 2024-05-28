@@ -7,8 +7,22 @@ export default class NodeError extends Event {
             name: 'nodeError',
         });
     }
+
     public async run(node: string, error: any): Promise<void> {
-        this.client.logger.error(`Node ${node} Error: ${JSON.stringify(error)}`);
-        BotLog.send(this.client, `Node ${node} Error: ${JSON.stringify(error)}`, 'error');
+        const errorMessage = JSON.stringify(error, null, 2);
+        const message = `Node ${node} Error: ${errorMessage}`;
+
+        this.client.logger.error(message);
+        BotLog.send(this.client, message, 'error');
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

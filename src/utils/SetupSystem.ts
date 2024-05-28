@@ -254,7 +254,7 @@ async function trackStart(
         await m
             .edit({
                 embeds: [embed],
-                components: getButtons().map(b => {
+                components: getButtons(player).map(b => {
                     b.components.forEach(c => {
                         c.setDisabled(player && player.current ? false : true);
                     });
@@ -278,7 +278,7 @@ async function trackStart(
         await channel
             .send({
                 embeds: [embed],
-                components: getButtons().map(b => {
+                components: getButtons(player).map(b => {
                     b.components.forEach(c => {
                         c.setDisabled(player && player.current ? false : true);
                     });
@@ -324,7 +324,7 @@ async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
             await m
                 .edit({
                     embeds: [embed],
-                    components: getButtons().map(b => {
+                    components: getButtons(player).map(b => {
                         b.components.forEach(c => {
                             c.setDisabled(player && player.current ? false : true);
                         });
@@ -345,7 +345,7 @@ async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
             await m
                 .edit({
                     embeds: [embed],
-                    components: getButtons().map(b => {
+                    components: getButtons(player).map(b => {
                         b.components.forEach(c => {
                             c.setDisabled(true);
                         });

@@ -12,7 +12,7 @@ export default class GuildLeave extends Command {
             category: 'dev',
             aliases: ['gl'],
             cooldown: 3,
-            args: false,
+            args: true,
             player: {
                 voice: false,
                 dj: false,
@@ -30,12 +30,15 @@ export default class GuildLeave extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const guild = this.client.guilds.cache.get(args[0]);
+        const guildId = args[0];
+        const guild = this.client.guilds.cache.get(guildId);
+
         if (!guild) return await ctx.sendMessage('Guild not found');
+
         try {
             await guild.leave();
             ctx.sendMessage(`Left guild ${guild.name}`);
-        } catch (e) {
+        } catch (error) {
             ctx.sendMessage(`Failed to leave guild ${guild.name}`);
         }
     }

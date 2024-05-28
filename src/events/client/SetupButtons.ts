@@ -1,4 +1,5 @@
 import { Event, Lavamusic } from '../../structures/index.js';
+import { getButtons } from '../../utils/Buttons.js';
 import { buttonReply } from '../../utils/SetupSystem.js';
 import { checkDj } from '../player/TrackStart.js';
 
@@ -9,7 +10,7 @@ export default class SetupButtons extends Event {
         });
     }
     public async run(interaction: any): Promise<void> {
-        if (!interaction.replied) await interaction.deferReply().catch(() => { });
+        if (!interaction.replied) await interaction.deferReply().catch(() => {});
 
         if (!interaction.member.voice.channel)
             return await buttonReply(
@@ -20,7 +21,7 @@ export default class SetupButtons extends Event {
         if (
             interaction.guild.members.cache.get(this.client.user.id).voice.channel &&
             interaction.guild.members.cache.get(this.client.user.id).voice.channelId !==
-            interaction.member.voice.channelId
+                interaction.member.voice.channelId
         )
             return await buttonReply(
                 interaction,
@@ -65,7 +66,8 @@ export default class SetupButtons extends Event {
             .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
             .setColor(this.client.color.main)
             .setDescription(
-                `[${title}](${uri}) - ${player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
+                `[${title}](${uri}) - ${
+                    player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
                 } - Requested by ${player.current.info.requester}`
             )
             .setImage(icon);
@@ -123,6 +125,7 @@ export default class SetupButtons extends Event {
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
+                        components: getButtons(player),
                     });
                     break;
                 }
@@ -284,4 +287,3 @@ export default class SetupButtons extends Event {
  * modified without permission. For more information, contact us at
  * https://discord.gg/ns8CTk9J3e
  */
-
