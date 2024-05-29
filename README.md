@@ -154,7 +154,7 @@ npx prisma generate
 2. Run the migrations:
 
 ```bash
-prisma:migrate
+npx prisma migrate dev --name init
 ```
 
 5. Run the bot:
