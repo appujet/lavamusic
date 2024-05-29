@@ -13,7 +13,7 @@ export default class Botinfo extends Command {
                 examples: ['botinfo'],
                 usage: 'botinfo',
             },
-            category: 'botinfo',
+            category: 'info',
             aliases: ['info', 'bi'],
             cooldown: 3,
             args: false,
