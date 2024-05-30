@@ -1,8 +1,8 @@
-import { ApplicationCommandOptionType } from 'discord.js';
+//TODO
 
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
-export default class Load extends Command {
+export default class LoadPlaylist extends Command {
     constructor(client: Lavamusic) {
         super(client, {
             name: 'load',
@@ -31,7 +31,7 @@ export default class Load extends Command {
                 {
                     name: 'playlist',
                     description: 'The playlist you want to load',
-                    type: ApplicationCommandOptionType.String,
+                    type: 3,
                     required: true,
                 },
             ],
@@ -46,7 +46,7 @@ export default class Load extends Command {
                 embeds: [
                     {
                         description: 'That playlist doesn\'t exist',
-                        color: client.color.red,
+                        color: this.client.color.red,
                     },
                 ],
             });
@@ -80,7 +80,7 @@ export default class Load extends Command {
                 embeds: [
                     {
                         description: `Loaded \`${playlistData.name}\` with \`${JSON.parse(s.track).length}\` songs`,
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });

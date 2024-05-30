@@ -30,11 +30,12 @@ export default class Queue extends Command {
     }
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-        if (player.queue.length === 0)
+        const embed = this.client.embed();
+
+        if (player.queue.length === 0) {
             return await ctx.sendMessage({
                 embeds: [
-                    this.client
-                        .embed()
+                    embed
                         .setColor(this.client.color.main)
                         .setDescription(
                             `Now playing: [${player.current.info.title}](${
@@ -42,31 +43,30 @@ export default class Queue extends Command {
                             }) - Request By: ${player.current?.info.requester} - Duration: ${
                                 player.current.info.isStream
                                     ? 'LIVE'
-                                    : this.client.utils.formatTime(player.current.info.length)
+                                    : client.utils.formatTime(player.current.info.length)
                             }`
                         ),
                 ],
             });
+        }
+
         const queue = player.queue.map(
             (track, index) =>
                 `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${
                     track?.info.requester
                 } - Duration: ${
-                    track.info.isStream ? 'LIVE' : this.client.utils.formatTime(track.info.length)
+                    track.info.isStream ? 'LIVE' : client.utils.formatTime(track.info.length)
                 }`
         );
-        let chunks = client.utils.chunk(queue, 10) as any;
-        if (chunks.length === 0) chunks = 1;
-        const pages = [];
-        for (let i = 0; i < chunks.length; i++) {
-            const embed = this.client
-                .embed()
+        const chunks = client.utils.chunk(queue, 10) || [[]];
+
+        const pages = chunks.map((chunk, index) =>
+            embed
                 .setColor(this.client.color.main)
                 .setAuthor({ name: 'Queue', iconURL: ctx.guild.iconURL({}) })
-                .setDescription(chunks[i].join('\n'))
-                .setFooter({ text: `Page ${i + 1} of ${chunks.length}` });
-            pages.push(embed);
-        }
+                .setDescription(chunk.join('\n'))
+                .setFooter({ text: `Page ${index + 1} of ${chunks.length}` })
+        );
 
         return await client.utils.paginate(ctx, pages);
     }

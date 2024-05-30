@@ -35,17 +35,20 @@ export default class Seek extends Command {
             ],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
 
         const time = client.utils.parseTime(args[0]);
-        if (!time)
+        if (!time) {
             return await ctx.sendMessage({
                 embeds: [
                     embed.setColor(this.client.color.red).setDescription('Invalid time format.'),
                 ],
             });
+        }
+
         player.seek(time);
 
         return await ctx.sendMessage({

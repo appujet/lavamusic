@@ -38,6 +38,7 @@ export default class Remove extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
+
         if (!player.queue.length)
             return await ctx.sendMessage({
                 embeds: [
@@ -46,36 +47,23 @@ export default class Remove extends Command {
                         .setDescription('There are no songs in the queue.'),
                 ],
             });
-        if (isNaN(Number(args[0])))
+
+        const songNumber = Number(args[0]);
+        if (isNaN(songNumber) || songNumber <= 0 || songNumber > player.queue.length)
             return await ctx.sendMessage({
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('That is not a valid number.'),
+                        .setDescription('Please provide a valid song number.'),
                 ],
             });
-        if (Number(args[0]) > player.queue.length)
-            return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription('That is not a valid number.'),
-                ],
-            });
-        if (Number(args[0]) < 1)
-            return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription('That is not a valid number.'),
-                ],
-            });
-        player.remove(Number(args[0]) - 1);
+
+        player.remove(songNumber - 1);
         return await ctx.sendMessage({
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(`Removed song number ${Number(args[0])} from the queue`),
+                    .setDescription(`Removed song number ${songNumber} from the queue`),
             ],
         });
     }

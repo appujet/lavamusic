@@ -28,10 +28,12 @@ export default class Resume extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-        if (!player.paused)
+
+        if (!player.paused) {
             return await ctx.sendMessage({
                 embeds: [
                     embed
@@ -39,6 +41,8 @@ export default class Resume extends Command {
                         .setDescription('The player is not paused.'),
                 ],
             });
+        }
+
         player.pause();
 
         return await ctx.sendMessage({

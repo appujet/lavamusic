@@ -1,8 +1,6 @@
-import { ApplicationCommandOptionType } from 'discord.js';
-
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
-export default class Delete extends Command {
+export default class DeletePlaylist extends Command {
     constructor(client: Lavamusic) {
         super(client, {
             name: 'delete',
@@ -12,7 +10,7 @@ export default class Delete extends Command {
                 usage: 'delete <playlist name>',
             },
             category: 'playlist',
-            aliases: ['delete'],
+            aliases: ['del'],
             cooldown: 3,
             args: true,
             player: {
@@ -31,31 +29,34 @@ export default class Delete extends Command {
                 {
                     name: 'playlist',
                     description: 'The playlist you want to delete',
-                    type: ApplicationCommandOptionType.String,
+                    type: 3,
                     required: true,
                 },
             ],
         });
     }
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const playlist = args.join(' ').replace(/\s/g, '');
 
-        const playlistExists = await client.db.getPlaylist(ctx.author.id, playlist);
-        if (!playlistExists)
+    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+        const playlistName = args.join(' ').trim();
+
+        const playlistExists = await client.db.getPlaylist(ctx.author.id, playlistName);
+        if (!playlistExists) {
             return await ctx.sendMessage({
                 embeds: [
                     {
                         description: 'That playlist doesn\'t exist',
-                        color: client.color.red,
+                        color: this.client.color.red,
                     },
                 ],
             });
-        client.db.deletePlaylist(ctx.author.id, playlist);
+        }
+
+        client.db.deletePlaylist(ctx.author.id, playlistName);
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Deleted playlist **${playlist}**`,
-                    color: client.color.main,
+                    description: `Deleted playlist **${playlistName}**`,
+                    color: this.client.color.main,
                 },
             ],
         });

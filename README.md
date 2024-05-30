@@ -75,7 +75,7 @@
 [LavaSrc]: https://github.com/TopiSenpai/LavaSrc
 [skybot-lavalink-plugin]: https://github.com/DuncteBot/skybot-lavalink-plugin
 
-### To set up a Lavalink server on Windows, Linux, or Replit, [Click Here.](https://github.com/LucasB25/lavalink-server)
+### To Setup a Lavalink server on Windows, Linux, or Replit, [Click Here.](https://github.com/LucasB25/lavalink-server)
 
 ### **Need Help with plugins?** Join our [Discord Server](https://discord.gg/YsJCtDuTXp) and ask for help in the `#support` channel.
 

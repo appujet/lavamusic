@@ -31,6 +31,7 @@ export default class Pause extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
+
         if (!player.paused) {
             player.pause();
             return await ctx.sendMessage({

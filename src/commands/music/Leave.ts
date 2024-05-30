@@ -32,7 +32,7 @@ export default class Leave extends Command {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
         if (player) {
-            ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     embed
                         .setColor(this.client.color.main)
@@ -43,7 +43,7 @@ export default class Leave extends Command {
             });
             player.destroy();
         } else {
-            ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     embed
                         .setColor(this.client.color.red)

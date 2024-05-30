@@ -1,3 +1,5 @@
+//TODO
+
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 import { LoadType } from 'shoukaku';
 
@@ -40,7 +42,7 @@ export default class Search extends Command {
         });
     }
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const embed = client.embed().setColor(client.color.main);
+        const embed = this.client.embed().setColor(this.client.color.main);
         let player = client.queue.get(ctx.guild.id);
         const query = args.join(' ');
         if (!player) {
@@ -55,7 +57,9 @@ export default class Search extends Command {
         const res = await this.client.queue.search(query);
         if (!res)
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(`**No results found**`).setColor(client.color.red)],
+                embeds: [
+                    embed.setDescription(`**No results found**`).setColor(this.client.color.red),
+                ],
             });
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder().setCustomId('1').setLabel('1').setStyle(ButtonStyle.Primary),

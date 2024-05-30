@@ -5,7 +5,7 @@ export default class Loop extends Command {
         super(client, {
             name: 'loop',
             description: {
-                content: 'loop the current song or the queue',
+                content: 'Loop the current song or the queue',
                 examples: ['loop', 'loop queue', 'loop song'],
                 usage: 'loop',
             },
@@ -29,32 +29,28 @@ export default class Loop extends Command {
         });
     }
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const embed = client.embed().setColor(client.color.main);
+        const embed = this.client.embed().setColor(this.client.color.main);
         const player = client.queue.get(ctx.guild.id);
 
+        let loopMessage = '';
         switch (player.loop) {
             case 'off':
                 player.loop = 'repeat';
-                return await ctx.sendMessage({
-                    embeds: [
-                        embed.setDescription(`**Looping the song**`).setColor(client.color.main),
-                    ],
-                });
+                loopMessage = '**Looping the song**';
+                break;
             case 'repeat':
                 player.loop = 'queue';
-                return await ctx.sendMessage({
-                    embeds: [
-                        embed.setDescription(`**Looping the queue**`).setColor(client.color.main),
-                    ],
-                });
+                loopMessage = '**Looping the queue**';
+                break;
             case 'queue':
                 player.loop = 'off';
-                return await ctx.sendMessage({
-                    embeds: [
-                        embed.setDescription(`**Looping is now off**`).setColor(client.color.main),
-                    ],
-                });
+                loopMessage = '**Looping is now off**';
+                break;
         }
+
+        return await ctx.sendMessage({
+            embeds: [embed.setDescription(loopMessage)],
+        });
     }
 }
 

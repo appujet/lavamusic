@@ -28,10 +28,12 @@ export default class Shuffle extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-        if (!player.queue.length)
+
+        if (!player.queue.length) {
             return await ctx.sendMessage({
                 embeds: [
                     embed
@@ -39,6 +41,8 @@ export default class Shuffle extends Command {
                         .setDescription('There are no songs in the queue.'),
                 ],
             });
+        }
+
         player.setShuffle();
 
         return await ctx.sendMessage({

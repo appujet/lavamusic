@@ -1,8 +1,6 @@
-import { ApplicationCommandOptionType } from 'discord.js';
-
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
-export default class Create extends Command {
+export default class CreatePlaylist extends Command {
     constructor(client: Lavamusic) {
         super(client, {
             name: 'create',
@@ -31,39 +29,42 @@ export default class Create extends Command {
                 {
                     name: 'name',
                     description: 'The name of the playlist',
-                    type: ApplicationCommandOptionType.String,
+                    type: 3,
                     required: true,
                 },
             ],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const name = args.join(' ').replace(/\s/g, '');
-        if (name.length > 50)
+        const name = args.join(' ').trim();
+        if (name.length > 50) {
             return await ctx.sendMessage({
                 embeds: [
                     {
                         description: 'Playlist names can only be 50 characters long',
-                        color: client.color.red,
+                        color: this.client.color.red,
                     },
                 ],
             });
-        const playlist = await client.db.getPlaylist(ctx.author.id, name);
-        if (playlist)
+        }
+        const playlistExists = await client.db.getPlaylist(ctx.author.id, name);
+        if (playlistExists) {
             return await ctx.sendMessage({
                 embeds: [
                     {
                         description: 'A playlist with that name already exists',
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });
+        }
         client.db.createPlaylist(ctx.author.id, name);
         return await ctx.sendMessage({
             embeds: [
                 {
                     description: `Playlist **${name}** has been created`,
-                    color: client.color.main,
+                    color: this.client.color.main,
                 },
             ],
         });

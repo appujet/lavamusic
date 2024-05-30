@@ -35,7 +35,7 @@ export default class Nowplaying extends Command {
         const position = player.player.position;
         const duration = track.info.length;
         const bar = client.utils.progressBar(position, duration, 20);
-        const embed1 = this.client
+        const embed = this.client
             .embed()
             .setColor(this.client.color.main)
             .setAuthor({ name: 'Now Playing', iconURL: ctx.guild.iconURL({}) })
@@ -45,11 +45,9 @@ export default class Nowplaying extends Command {
             )
             .addFields({
                 name: '\u200b',
-                value: `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(
-                    duration
-                )}\``,
+                value: `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(duration)}\``,
             });
-        return await ctx.sendMessage({ embeds: [embed1] });
+        return await ctx.sendMessage({ embeds: [embed] });
     }
 }
 
