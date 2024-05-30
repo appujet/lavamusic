@@ -5,7 +5,7 @@ export default class Karaoke extends Command {
         super(client, {
             name: 'karaoke',
             description: {
-                content: 'on/off the karaoke filter',
+                content: 'Toggle the karaoke filter on/off',
                 examples: ['karaoke'],
                 usage: 'karaoke',
             },
@@ -28,12 +28,15 @@ export default class Karaoke extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        if (player.filters.includes('karaoke')) {
+        const filterEnabled = player.filters.includes('karaoke');
+
+        if (filterEnabled) {
             player.player.setKaraoke();
-            player.filters.splice(player.filters.indexOf('karaoke'), 1);
+            player.filters = player.filters.filter(filter => filter !== 'karaoke');
             ctx.sendMessage({
                 embeds: [
                     {
@@ -61,3 +64,14 @@ export default class Karaoke extends Command {
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

@@ -71,7 +71,7 @@ export default class TrackStart extends Event {
         } else {
             const message = await channel.send({
                 embeds: [embed],
-                components: [createButtonRow(dispatcher, player)],
+                components: [createButtonRow(dispatcher)],
             });
             dispatcher.nowPlayingMessage = message;
             createCollector(message, dispatcher, track, embed, this.client);
@@ -79,7 +79,7 @@ export default class TrackStart extends Event {
     }
 }
 
-function createButtonRow(dispatcher: Dispatcher, player: Player): ActionRowBuilder<ButtonBuilder> {
+function createButtonRow(dispatcher: Dispatcher): ActionRowBuilder<ButtonBuilder> {
     const previousButton = new ButtonBuilder()
         .setCustomId('previous')
         .setEmoji('⏪')
@@ -88,8 +88,8 @@ function createButtonRow(dispatcher: Dispatcher, player: Player): ActionRowBuild
 
     const resumeButton = new ButtonBuilder()
         .setCustomId('resume')
-        .setEmoji(player.paused ? '▶️' : '⏸️')
-        .setStyle(player.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
+        .setEmoji(dispatcher.paused ? '▶️' : '⏸️')
+        .setStyle(dispatcher.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
 
     const stopButton = new ButtonBuilder()
         .setCustomId('stop')
@@ -150,7 +150,7 @@ function createCollector(
             if (message) {
                 await message.edit({
                     embeds: [embed.setFooter({ text, iconURL: interaction.user.avatarURL({}) })],
-                    components: [createButtonRow(dispatcher, interaction.client as Player)],
+                    components: [createButtonRow(dispatcher)],
                 });
             }
         };
@@ -169,11 +169,15 @@ function createCollector(
                 }
                 break;
             case 'resume':
-                await interaction.deferUpdate();
-                dispatcher.pause();
-                await editMessage(
-                    `${interaction.client.voice.adapters.has(interaction.guildId) ? 'Paused' : 'Resumed'} by ${interaction.user.tag}`
-                );
+                if (dispatcher.pause) {
+                    dispatcher.pause();
+                    await interaction.deferUpdate();
+                    await editMessage(`Resumed by ${interaction.user.tag}`);
+                } else {
+                    dispatcher.pause();
+                    await interaction.deferUpdate();
+                    await editMessage(`Paused by ${interaction.user.tag}`);
+                }
                 break;
             case 'stop':
                 dispatcher.stop();
@@ -252,6 +256,7 @@ export async function checkDj(
 /**
  * Project: lavamusic
  * Author: Appu
+ * Main Contributor: LucasB25
  * Company: Coders
  * Copyright (c) 2024. All rights reserved.
  * This code is the property of Coder and may not be reproduced or

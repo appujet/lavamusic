@@ -1,9 +1,4 @@
-import {
-    ApplicationCommandOptionType,
-    ChannelType,
-    OverwriteType,
-    PermissionFlagsBits,
-} from 'discord.js';
+import { ChannelType, OverwriteType, PermissionFlagsBits } from 'discord.js';
 
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 import { getButtons } from '../../utils/Buttons.js';
@@ -37,17 +32,17 @@ export default class Setup extends Command {
                 {
                     name: 'create',
                     description: 'Creates the song request channel',
-                    type: ApplicationCommandOptionType.Subcommand,
+                    type: 1,
                 },
                 {
                     name: 'delete',
                     description: 'Deletes the song request channel',
-                    type: ApplicationCommandOptionType.Subcommand,
+                    type: 1,
                 },
                 {
                     name: 'info',
                     description: 'Shows the song request channel',
-                    type: ApplicationCommandOptionType.Subcommand,
+                    type: 1,
                 },
             ],
         });
@@ -112,12 +107,12 @@ export default class Setup extends Command {
                         client.db.setSetup(ctx.guild.id, textChannel.id, msg.id);
                     });
 
-                const embed2 = client.embed().setColor(client.color.main);
                 await ctx.sendMessage({
                     embeds: [
-                        embed2.setDescription(
-                            `The song request channel has been created in <#${textChannel.id}>`
-                        ),
+                        {
+                            description: `The song request channel has been created in <#${textChannel.id}>`,
+                            color: client.color.main,
+                        },
                     ],
                 });
 
@@ -167,11 +162,19 @@ export default class Setup extends Command {
                 }
 
                 const channel = ctx.guild.channels.cache.get(data3.textId);
-                embed
-                    .setDescription(`The song request channel is <#${channel.id}>`)
-                    .setColor(client.color.main);
-
-                await ctx.sendMessage({ embeds: [embed] });
+                if (channel) {
+                    embed.setDescription(`The song request channel is <#${channel.id}>`);
+                    await ctx.sendMessage({ embeds: [embed] });
+                } else {
+                    await ctx.sendMessage({
+                        embeds: [
+                            {
+                                description: 'The song request channel doesn\'t exist',
+                                color: client.color.red,
+                            },
+                        ],
+                    });
+                }
 
                 break;
             }
@@ -185,6 +188,7 @@ export default class Setup extends Command {
 /**
  * Project: lavamusic
  * Author: Appu
+ * Main Contributor: LucasB25
  * Company: Coders
  * Copyright (c) 2024. All rights reserved.
  * This code is the property of Coder and may not be reproduced or

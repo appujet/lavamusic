@@ -1,11 +1,11 @@
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
-export default class lowPass extends Command {
+export default class LowPass extends Command {
     constructor(client: Lavamusic) {
         super(client, {
             name: 'lowpass',
             description: {
-                content: 'on/off lowpass filter',
+                content: 'Toggle the lowpass filter on/off',
                 examples: ['lowpass'],
                 usage: 'lowpass <number>',
             },
@@ -25,14 +25,18 @@ export default class lowPass extends Command {
                 user: ['ManageGuild'],
             },
             slashCommand: true,
+            options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        if (player.filters.includes('lowpass')) {
-            player.player.setLowPass({});
-            player.filters.splice(player.filters.indexOf('lowpass'), 1);
+        const filterEnabled = player.filters.includes('lowpass');
+
+        if (filterEnabled) {
+            player.player.setLowPass({}); //TODO
+            player.filters = player.filters.filter(filter => filter !== 'lowpass');
             ctx.sendMessage({
                 embeds: [
                     {
@@ -55,3 +59,14 @@ export default class lowPass extends Command {
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

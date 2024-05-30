@@ -148,13 +148,13 @@ LOG_CHANNEL_ID = "" # If you enter this, you will be able to receive the status 
 1. Generate the Prisma client:
 
 ```bash
-npx prisma generate
+npm run prisma:push
 ```
 
 2. Run the migrations:
 
 ```bash
-prisma:migrate
+npm run prisma:migrate
 ```
 
 5. Run the bot:

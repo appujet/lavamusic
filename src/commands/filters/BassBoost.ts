@@ -25,14 +25,18 @@ export default class BassBoost extends Command {
                 user: ['ManageGuild'],
             },
             slashCommand: true,
+            options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        if (player.filters.includes('bassboost')) {
+        const filterEnabled = player.filters.includes('bassboost');
+
+        if (filterEnabled) {
             player.player.setEqualizer([]);
-            player.filters.splice(player.filters.indexOf('bassboost'), 1);
+            player.filters = player.filters.filter(filter => filter !== 'bassboost');
             ctx.sendMessage({
                 embeds: [
                     {
@@ -60,3 +64,14 @@ export default class BassBoost extends Command {
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

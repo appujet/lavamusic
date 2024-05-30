@@ -220,6 +220,7 @@ export class Utils {
 /**
  * Project: lavamusic
  * Author: Appu
+ * Main Contributor: LucasB25
  * Company: Coders
  * Copyright (c) 2024. All rights reserved.
  * This code is the property of Coder and may not be reproduced or

@@ -1,6 +1,6 @@
 {
     "name": "lavamusic",
-    "version": "4.2.8",
+    "version": "4.3.1",
     "description": "LavaMusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, Shoukaku (Lavalink) library.",
     "main": "dist/index.js",
     "type": "module",
@@ -36,7 +36,7 @@
     },
     "homepage": "https://github.com/appujet/lavamusic#readme",
     "devDependencies": {
-        "@types/node": "^20.12.12",
+        "@types/node": "^20.12.13",
         "@types/signale": "^1.4.7",
         "@typescript-eslint/eslint-plugin": "^7.11.0",
         "@typescript-eslint/parser": "^7.11.0",
@@ -56,7 +56,7 @@
         "shoukaku": "^4.0.1",
         "signale": "^1.4.0",
         "tslib": "^2.6.2",
-        "undici": "^6.18.1"
+        "undici": "^6.18.2"
     },
     "signale": {
         "displayScope": true,

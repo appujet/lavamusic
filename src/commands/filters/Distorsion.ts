@@ -5,12 +5,12 @@ export default class Distorsion extends Command {
         super(client, {
             name: 'distorsion',
             description: {
-                content: 'on/off distorsion filter',
+                content: 'Toggle the distorsion filter on/off',
                 examples: ['distorsion'],
                 usage: 'distorsion',
             },
             category: 'filters',
-            aliases: ['distorsion'],
+            aliases: ['distortion'],
             cooldown: 3,
             args: false,
             player: {
@@ -28,11 +28,15 @@ export default class Distorsion extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-        if (player.filters.includes('distorsion')) {
+
+        const filterEnabled = player.filters.includes('distorsion');
+
+        if (filterEnabled) {
             player.player.setDistortion({});
-            player.filters.splice(player.filters.indexOf('distorsion'), 1);
+            player.filters = player.filters.filter(filter => filter !== 'distorsion');
             ctx.sendMessage({
                 embeds: [
                     {
@@ -64,3 +68,14 @@ export default class Distorsion extends Command {
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

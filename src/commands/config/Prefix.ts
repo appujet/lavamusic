@@ -5,9 +5,9 @@ export default class Prefix extends Command {
         super(client, {
             name: 'prefix',
             description: {
-                content: 'Shows the bot\'s prefix',
-                examples: ['prefix set', 'prefix reset', 'prefix set !'],
-                usage: 'prefix set, prefix reset, prefix set !',
+                content: 'Shows or sets the bot\'s prefix',
+                examples: ['prefix set !', 'prefix reset'],
+                usage: 'prefix [set <prefix> | reset]',
             },
             category: 'general',
             aliases: ['prefix'],
@@ -47,68 +47,53 @@ export default class Prefix extends Command {
             ],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = client.embed().setColor(client.color.main);
-        let guild = await client.db.get(ctx.guild.id);
+        const guildId = ctx.guild.id;
+        const guildData = await client.db.get(guildId);
+        const isInteraction = ctx.isInteraction;
+        let subCommand = '';
+        let prefix = '';
 
-        let subCommand: string;
-        let pre: string;
-        if (ctx.isInteraction) {
+        if (isInteraction) {
             subCommand = ctx.interaction.options.data[0].name;
-            pre = ctx.interaction.options.data[0].options[0]?.value.toString();
+            prefix = ctx.interaction.options.data[0].options[0]?.value.toString();
         } else {
-            subCommand = args[0];
-            pre = args[1];
+            subCommand = args[0] || '';
+            prefix = args[1] || '';
         }
+
         switch (subCommand) {
-            case 'set':
-                if (!pre) {
-                    embed.setDescription(
-                        `The prefix for this server is \`${
-                            guild ? guild.prefix : client.config.prefix
-                        }\``
-                    );
+            case 'set': {
+                if (!prefix) {
+                    const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
+                    embed.setDescription(`The prefix for this server is \`${currentPrefix}\``);
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
-                if (pre.length > 3)
-                    return await ctx.sendMessage({
-                        embeds: [
-                            embed.setDescription(`The prefix can't be longer than 3 characters`),
-                        ],
-                    });
 
-                if (!guild) {
-                    client.db.setPrefix(ctx.guild.id, pre);
-                    return await ctx.sendMessage({
-                        embeds: [
-                            embed.setDescription(`The prefix for this server is now \`${pre}\``),
-                        ],
-                    });
-                } else {
-                    client.db.setPrefix(ctx.guild.id, pre);
-                    return await ctx.sendMessage({
-                        embeds: [
-                            embed.setDescription(`The prefix for this server is now \`${pre}\``),
-                        ],
-                    });
+                if (prefix.length > 3) {
+                    embed.setDescription('The prefix cannot be longer than 3 characters.');
+                    return await ctx.sendMessage({ embeds: [embed] });
                 }
-            case 'reset':
-                if (!guild)
-                    return await ctx.sendMessage({
-                        embeds: [
-                            embed.setDescription(
-                                `The prefix for this server is \`${client.config.prefix}\``
-                            ),
-                        ],
-                    });
-                client.db.setPrefix(ctx.guild.id, client.config.prefix);
-                return await ctx.sendMessage({
-                    embeds: [
-                        embed.setDescription(
-                            `The prefix for this server is now \`${client.config.prefix}\``
-                        ),
-                    ],
-                });
+
+                client.db.setPrefix(guildId, prefix);
+                embed.setDescription(`The prefix for this server is now \`${prefix}\``);
+                return await ctx.sendMessage({ embeds: [embed] });
+            }
+
+            case 'reset': {
+                const defaultPrefix = client.config.prefix;
+                client.db.setPrefix(guildId, defaultPrefix);
+                embed.setDescription(`The prefix for this server is now \`${defaultPrefix}\``);
+                return await ctx.sendMessage({ embeds: [embed] });
+            }
+
+            default: {
+                const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
+                embed.setDescription(`The prefix for this server is \`${currentPrefix}\``);
+                return await ctx.sendMessage({ embeds: [embed] });
+            }
         }
     }
 }
@@ -116,6 +101,7 @@ export default class Prefix extends Command {
 /**
  * Project: lavamusic
  * Author: Appu
+ * Main Contributor: LucasB25
  * Company: Coders
  * Copyright (c) 2024. All rights reserved.
  * This code is the property of Coder and may not be reproduced or

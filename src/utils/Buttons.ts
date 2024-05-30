@@ -8,8 +8,8 @@ function getButtons(player: Dispatcher): ActionRowBuilder<ButtonBuilder>[] {
         { customId: 'PREV_BUT', emoji: '⏮️', style: ButtonStyle.Secondary },
         {
             customId: 'PAUSE_BUT',
-            emoji: player.paused ? '▶️' : '⏸️',
-            style: player.paused ? ButtonStyle.Success : ButtonStyle.Secondary,
+            emoji: player && player.paused ? '▶️' : '⏸️',
+            style: player && player.paused ? ButtonStyle.Success : ButtonStyle.Secondary,
         },
         { customId: 'SKIP_BUT', emoji: '⏭️', style: ButtonStyle.Secondary },
         { customId: 'SHUFFLE_BUT', emoji: '🔀', style: ButtonStyle.Secondary },
@@ -47,6 +47,7 @@ export { getButtons };
 /**
  * Project: lavamusic
  * Author: Appu
+ * Main Contributor: LucasB25
  * Company: Coders
  * Copyright (c) 2024. All rights reserved.
  * This code is the property of Coder and may not be reproduced or

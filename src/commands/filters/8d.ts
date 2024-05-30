@@ -28,12 +28,17 @@ export default class _8d extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-        if (!player) return;
-        if (player.filters.includes('8D')) {
-            player.player.setRotation();
-            player.filters.splice(player.filters.indexOf('8D'), 1);
+
+        const filterEnabled = player.filters.includes('8D');
+        const rotationConfig = filterEnabled ? {} : { rotationHz: 0.2 };
+
+        player.player.setRotation(rotationConfig);
+
+        if (filterEnabled) {
+            player.filters = player.filters.filter(filter => filter !== '8D');
             ctx.sendMessage({
                 embeds: [
                     {
@@ -43,7 +48,6 @@ export default class _8d extends Command {
                 ],
             });
         } else {
-            player.player.setRotation({ rotationHz: 0.2 });
             player.filters.push('8D');
             ctx.sendMessage({
                 embeds: [
@@ -56,3 +60,14 @@ export default class _8d extends Command {
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

@@ -25,6 +25,7 @@ export default class LavaLink extends Command {
                 user: [],
             },
             slashCommand: true,
+            options: [],
         });
     }
 
@@ -69,6 +70,7 @@ Lavalink Load: ${(stats.cpu.lavalinkLoad * 100).toFixed(2)}%
 /**
  * Project: lavamusic
  * Author: Appu
+ * Main Contributor: LucasB25
  * Company: Coders
  * Copyright (c) 2024. All rights reserved.
  * This code is the property of Coder and may not be reproduced or
