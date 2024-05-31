@@ -6,7 +6,7 @@ export default class Pitch extends Command {
             name: 'pitch',
             description: {
                 content: 'Toggle the pitch filter on/off',
-                examples: ['pitch 1'],
+                examples: ['pitch 1', 'pitch 1.5', 'pitch 1,5'],
                 usage: 'pitch <number>',
             },
             category: 'filters',
@@ -29,7 +29,7 @@ export default class Pitch extends Command {
                 {
                     name: 'number',
                     description: 'The number you want to set the pitch to (between 1 and 5)',
-                    type: 4,
+                    type: 3,
                     required: true,
                 },
             ],
@@ -39,14 +39,17 @@ export default class Pitch extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        const number = parseInt(args[0]);
+        const numberString = args[0].replace(',', '.');
 
-        if (isNaN(number) || number < 1 || number > 5) {
+        const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(numberString);
+        const number = parseFloat(numberString);
+
+        if (!isValidNumber || isNaN(number) || number < 1 || number > 5) {
             return await ctx.sendMessage({
                 embeds: [
                     {
                         description: 'Please provide a valid number between 1 and 5',
-                        color: client.color.red,
+                        color: this.client.color.red,
                     },
                 ],
             });
@@ -58,7 +61,7 @@ export default class Pitch extends Command {
             embeds: [
                 {
                     description: `Pitch has been set to ${number}`,
-                    color: client.color.main,
+                    color: this.client.color.main,
                 },
             ],
         });

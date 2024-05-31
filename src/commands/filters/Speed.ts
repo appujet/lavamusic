@@ -6,7 +6,7 @@ export default class Speed extends Command {
             name: 'speed',
             description: {
                 content: 'Sets the speed of the song',
-                examples: ['speed 1.5'],
+                examples: ['speed 1.5', 'speed 1,5'],
                 usage: 'speed <number>',
             },
             category: 'filters',
@@ -29,7 +29,7 @@ export default class Speed extends Command {
                 {
                     name: 'speed',
                     description: 'The speed you want to set',
-                    type: 4,
+                    type: 3,
                     required: true,
                 },
             ],
@@ -39,25 +39,17 @@ export default class Speed extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        const speed = Number(args[0]);
+        const speedString = args[0].replace(',', '.');
 
-        if (isNaN(speed)) {
+        const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(speedString);
+        const speed = parseFloat(speedString);
+
+        if (!isValidNumber || isNaN(speed) || speed < 0.5 || speed > 5) {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Please provide a valid number',
-                        color: client.color.red,
-                    },
-                ],
-            });
-        }
-
-        if (speed < 0.5 || speed > 5) {
-            return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: 'Please provide a number between 0.5 and 5',
-                        color: client.color.red,
+                        description: 'Please provide a valid number between 0.5 and 5',
+                        color: this.client.color.red,
                     },
                 ],
             });
@@ -69,7 +61,7 @@ export default class Speed extends Command {
             embeds: [
                 {
                     description: `Speed has been set to ${speed}`,
-                    color: client.color.main,
+                    color: this.client.color.main,
                 },
             ],
         });

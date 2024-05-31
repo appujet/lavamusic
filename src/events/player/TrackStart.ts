@@ -26,6 +26,8 @@ export default class TrackStart extends Event {
     }
 
     public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
+        if (!track || !track.info) return;
+
         const guild = this.client.guilds.cache.get(player.guildId);
         if (!guild) return;
 
@@ -181,18 +183,6 @@ function createCollector(
                 break;
             case 'stop':
                 dispatcher.stop();
-                if (message) {
-                    await interaction.deferUpdate();
-                    await message.edit({
-                        embeds: [
-                            embed.setFooter({
-                                text: `Stopped by ${interaction.user.tag}`,
-                                iconURL: interaction.user.avatarURL({}),
-                            }),
-                        ],
-                        components: [],
-                    });
-                }
                 break;
             case 'skip':
                 if (!dispatcher.queue.length) {
