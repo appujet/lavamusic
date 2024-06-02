@@ -254,7 +254,7 @@ Distributed under the GPL-3.0 license. See ![LICENSE](https://img.shields.io/git
 Do you like this project? Support it by donating:
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H7LKT9L)
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/sdip521)
+
 
 ## 👥 Contributors
 

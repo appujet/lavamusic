@@ -44,7 +44,7 @@ export default class About extends Command {
             .setStyle(ButtonStyle.Link)
             .setURL("https://discord.gg/ns8CTk9J3e");
 
-        const row = new ActionRowBuilder().addComponents(inviteButton, supportButton);
+        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(inviteButton, supportButton);
 
         const embed = this.client
             .embed()

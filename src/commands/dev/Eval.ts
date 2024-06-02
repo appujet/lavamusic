@@ -41,7 +41,7 @@ export default class Eval extends Command {
             if (evaled === client.config) evaled = "Nice try";
 
             const button = new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Delete").setCustomId("eval-delete");
-            const row = new ActionRowBuilder().addComponents(button);
+            const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
 
             if (typeof evaled !== "string") evaled = util.inspect(evaled);
 

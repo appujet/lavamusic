@@ -33,7 +33,7 @@ export default class Invite extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed();
-        const row = new ActionRowBuilder().addComponents(
+        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
             new ButtonBuilder()
                 .setLabel("Invite")
                 .setStyle(ButtonStyle.Link)

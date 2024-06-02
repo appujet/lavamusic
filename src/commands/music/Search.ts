@@ -59,7 +59,7 @@ export default class Search extends Command {
             return await ctx.sendMessage({
                 embeds: [embed.setDescription("**No results found**").setColor(this.client.color.red)],
             });
-        const row = new ActionRowBuilder().addComponents(
+        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
             new ButtonBuilder().setCustomId("1").setLabel("1").setStyle(ButtonStyle.Primary),
             new ButtonBuilder().setCustomId("2").setLabel("2").setStyle(ButtonStyle.Primary),
             new ButtonBuilder().setCustomId("3").setLabel("3").setStyle(ButtonStyle.Primary),
