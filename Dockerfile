@@ -5,10 +5,11 @@ WORKDIR /opt/lavamusic/
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN apt-get update && \
-    apt-get install openssl -y && \
-    npm install
 
+RUN apt update
+RUN apt install openssl -y
+
+RUN npm install
 # Copy source code
 COPY . .
 
@@ -35,8 +36,8 @@ COPY --from=builder /opt/lavamusic/prisma ./prisma
 # Copy package files and install production dependencies
 COPY package*.json ./
 
-RUN apt-get update && \
-    apt-get install openssl -y
+RUN apt update
+RUN apt install openssl -y
 
 RUN npm install --only=production
 
