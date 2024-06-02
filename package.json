@@ -11,8 +11,7 @@
         "build": "tsc --project tsconfig.json",
         "clean": "node ./scripts/clean.js && npm run build",
         "lint": "biome lint --apply ./src",
-        "format": "biome check --apply ./src",
-        "prepare": "npm run clean && husky"
+        "format": "biome check --apply ./src"
     },
     "lint-staged": {
         "*.ts": [
@@ -46,7 +45,6 @@
         "@types/signale": "^1.4.7",
         "lint-staged": "^15.2.5",
         "prisma": "^5.14.0",
-        "husky": "^9.0.11",
         "ts-node": "^10.9.2",
         "typescript": "^5.4.5"
     },
