@@ -7,9 +7,6 @@ WORKDIR /opt/lavamusic/
 # Copy package files and install dependencies
 COPY package*.json ./
 
-# Copy source code
-COPY . .
-
 RUN apt update
 RUN apt install openssl -y
 
@@ -17,6 +14,8 @@ RUN npm install
 
 RUN npm config set global --legacy-peer-deps
 
+# Copy source code
+COPY . .
 
 # Copy tsconfig.json
 COPY tsconfig.json ./
