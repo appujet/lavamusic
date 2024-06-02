@@ -3,8 +3,12 @@ FROM node:21 as builder
 
 WORKDIR /opt/lavamusic/
 
+
+
 # Copy package files and install dependencies
 COPY package*.json ./
+# Copy source code
+COPY source ./source
 
 RUN apt update
 RUN apt install openssl -y
@@ -36,6 +40,8 @@ WORKDIR /opt/lavamusic/
 COPY --from=builder /opt/lavamusic/dist ./dist
 COPY --from=builder /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.txt
 COPY --from=builder /opt/lavamusic/prisma ./prisma
+COPY --from=builder /opt/lavamusic/source ./source
+
 # Copy package files and install production dependencies
 COPY package*.json ./
 
