@@ -6,8 +6,9 @@ WORKDIR /opt/lavamusic/
 
 # Copy package files and install dependencies
 COPY package*.json ./
+
 # Copy source code
-COPY /opt/lavamusic/source ./source
+COPY . .
 
 RUN apt update
 RUN apt install openssl -y
