@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class GuildLeave extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'guildleave',
+            name: "guildleave",
             description: {
-                content: 'Leave a guild',
-                examples: ['guildleave'],
-                usage: 'guildleave',
+                content: "Leave a guild",
+                examples: ["guildleave"],
+                usage: "guildleave",
             },
-            category: 'dev',
-            aliases: ['gl'],
+            category: "dev",
+            aliases: ["gl"],
             cooldown: 3,
             args: true,
             player: {
@@ -21,7 +21,7 @@ export default class GuildLeave extends Command {
             },
             permissions: {
                 dev: true,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: false,
@@ -29,16 +29,16 @@ export default class GuildLeave extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(_client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const guildId = args[0];
         const guild = this.client.guilds.cache.get(guildId);
 
-        if (!guild) return await ctx.sendMessage('Guild not found');
+        if (!guild) return await ctx.sendMessage("Guild not found");
 
         try {
             await guild.leave();
             ctx.sendMessage(`Left guild ${guild.name}`);
-        } catch (error) {
+        } catch (_error) {
             ctx.sendMessage(`Failed to leave guild ${guild.name}`);
         }
     }

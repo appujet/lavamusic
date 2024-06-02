@@ -1,12 +1,13 @@
-import config from '../../config.js';
-import { Event, Lavamusic } from '../../structures/index.js';
+import config from "../../config.js";
+import { Event, type Lavamusic } from "../../structures/index.js";
 
 export default class Ready extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-            name: 'ready',
+            name: "ready",
         });
     }
+    // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(): Promise<void> {
         this.client.logger.success(`${this.client.user?.tag} is ready!`);
 

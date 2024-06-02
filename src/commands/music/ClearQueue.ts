@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class ClearQueue extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'clearqueue',
+            name: "clearqueue",
             description: {
-                content: 'Clears the queue',
-                examples: ['clearqueue'],
-                usage: 'clearqueue',
+                content: "Clears the queue",
+                examples: ["clearqueue"],
+                usage: "clearqueue",
             },
-            category: 'music',
-            aliases: ['cq'],
+            category: "music",
+            aliases: ["cq"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class ClearQueue extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -34,18 +34,14 @@ export default class ClearQueue extends Command {
 
         if (player.queue.length === 0) {
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription('There are no songs in the queue.'),
-                ],
+                embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
             });
         }
 
         player.queue = [];
 
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Cleared the queue`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription("Cleared the queue")],
         });
     }
 }

@@ -1,17 +1,17 @@
 //TODO
 
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class LoadPlaylist extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'load',
+            name: "load",
             description: {
-                content: 'Loads a playlist',
-                examples: ['load <playlist>'],
-                usage: 'load <playlist>',
+                content: "Loads a playlist",
+                examples: ["load <playlist>"],
+                usage: "load <playlist>",
             },
-            category: 'playlist',
+            category: "playlist",
             aliases: [],
             cooldown: 3,
             args: true,
@@ -23,14 +23,14 @@ export default class LoadPlaylist extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'playlist',
-                    description: 'The playlist you want to load',
+                    name: "playlist",
+                    description: "The playlist you want to load",
                     type: 3,
                     required: true,
                 },
@@ -39,13 +39,13 @@ export default class LoadPlaylist extends Command {
     }
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         let player = client.queue.get(ctx.guild.id);
-        const playlist = args.join(' ').replace(/\s/g, '');
+        const playlist = args.join(" ").replace(/\s/g, "");
         const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
         if (!playlistData)
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'That playlist doesn\'t exist',
+                        description: "That playlist doesn't exist",
                         color: this.client.color.red,
                     },
                 ],
@@ -55,12 +55,12 @@ export default class LoadPlaylist extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'That playlist is empty',
+                        description: "That playlist is empty",
                         color: client.color.red,
                     },
                 ],
             });
-        songs.map(async s => {
+        songs.map(async (s) => {
             for await (const song of JSON.parse(s.track)) {
                 const vc = ctx.member as any;
                 if (!player)
@@ -68,7 +68,7 @@ export default class LoadPlaylist extends Command {
                         ctx.guild,
                         vc.voice.channel,
                         ctx.channel,
-                        client.shoukaku.options.nodeResolver(client.shoukaku.nodes)
+                        client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
                     );
 
                 const track = player.buildTrack(song, ctx.author as any);

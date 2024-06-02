@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Replay extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'replay',
+            name: "replay",
             description: {
-                content: 'Replays the current track',
-                examples: ['replay'],
-                usage: 'replay',
+                content: "Replays the current track",
+                examples: ["replay"],
+                usage: "replay",
             },
-            category: 'music',
-            aliases: ['rp'],
+            category: "music",
+            aliases: ["rp"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Replay extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel'],
+                client: ["SendMessages", "ViewChannel"],
                 user: [],
             },
             slashCommand: true,
@@ -35,22 +35,14 @@ export default class Replay extends Command {
 
         if (!player.current) {
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription('There is no track currently playing'),
-                ],
+                embeds: [embed.setColor(this.client.color.red).setDescription("There is no track currently playing")],
             });
         }
 
         player.seek(0);
 
         return await ctx.sendMessage({
-            embeds: [
-                embed
-                    .setColor(this.client.color.main)
-                    .setDescription('Replaying the current track'),
-            ],
+            embeds: [embed.setColor(this.client.color.main).setDescription("Replaying the current track")],
         });
     }
 }

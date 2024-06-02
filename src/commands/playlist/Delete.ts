@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class DeletePlaylist extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'delete',
+            name: "delete",
             description: {
-                content: 'Deletes a playlist',
-                examples: ['delete <playlist name>'],
-                usage: 'delete <playlist name>',
+                content: "Deletes a playlist",
+                examples: ["delete <playlist name>"],
+                usage: "delete <playlist name>",
             },
-            category: 'playlist',
-            aliases: ['del'],
+            category: "playlist",
+            aliases: ["del"],
             cooldown: 3,
             args: true,
             player: {
@@ -21,14 +21,14 @@ export default class DeletePlaylist extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'playlist',
-                    description: 'The playlist you want to delete',
+                    name: "playlist",
+                    description: "The playlist you want to delete",
                     type: 3,
                     required: true,
                 },
@@ -37,14 +37,14 @@ export default class DeletePlaylist extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const playlistName = args.join(' ').trim();
+        const playlistName = args.join(" ").trim();
 
         const playlistExists = await client.db.getPlaylist(ctx.author.id, playlistName);
         if (!playlistExists) {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'That playlist doesn\'t exist',
+                        description: "That playlist doesn't exist",
                         color: this.client.color.red,
                     },
                 ],

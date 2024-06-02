@@ -1,9 +1,9 @@
-import { Event, Lavamusic } from '../../structures/index.js';
+import { Event, type Lavamusic } from "../../structures/index.js";
 
 export default class NodeRaw extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-            name: 'nodeRaw',
+            name: "nodeRaw",
         });
     }
 

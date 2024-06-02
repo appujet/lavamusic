@@ -6,7 +6,7 @@ WORKDIR /opt/lavamusic/
 # Copy package files and install dependencies
 COPY package*.json ./
 RUN apt-get update && \
-    apt-get install -y openssl && \
+    apt-get install openssl -y && \
     npm install
 
 # Copy source code
@@ -34,7 +34,15 @@ COPY --from=builder /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.t
 COPY --from=builder /opt/lavamusic/prisma ./prisma
 # Copy package files and install production dependencies
 COPY package*.json ./
+
+RUN apt-get update && \
+    apt-get install openssl -y
+
 RUN npm install --only=production
+
+RUN npx prisma generate
+
+RUN npx prisma db push
 
 # Run as non-root user
 RUN addgroup --gid 322 --system lavamusic && \

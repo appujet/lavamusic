@@ -1,10 +1,10 @@
-import { Event, Lavamusic } from '../../structures/index.js';
-import BotLog from '../../utils/BotLog.js';
+import { Event, type Lavamusic } from "../../structures/index.js";
+import BotLog from "../../utils/BotLog.js";
 
 export default class NodeConnect extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-            name: 'nodeConnect',
+            name: "nodeConnect",
         });
     }
 
@@ -33,7 +33,7 @@ export default class NodeConnect extends Event {
             }, index * 1000);
         });
 
-        BotLog.send(this.client, `Node ${node} is ready!`, 'success');
+        BotLog.send(this.client, `Node ${node} is ready!`, "success");
     }
 }
 

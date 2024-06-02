@@ -1,23 +1,24 @@
-import { ChannelType, Collection, Message, PermissionFlagsBits } from 'discord.js';
+import { ChannelType, Collection, type Message, PermissionFlagsBits } from "discord.js";
 
-import { Context, Event, Lavamusic } from '../../structures/index.js';
+import { Context, Event, type Lavamusic } from "../../structures/index.js";
 
 export default class MessageCreate extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-            name: 'messageCreate',
+            name: "messageCreate",
         });
     }
 
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
     public async run(message: Message): Promise<any> {
         if (message.author.bot) return;
 
         const setup = await this.client.db.getSetup(message.guildId);
         if (setup && setup.textId === message.channelId) {
-            return this.client.emit('setupSystem', message);
+            return this.client.emit("setupSystem", message);
         }
 
-        let guild = await this.client.db.get(message.guildId);
+        const guild = await this.client.db.get(message.guildId);
 
         const mention = new RegExp(`^<@!?${this.client.user.id}>( |)$`);
         if (message.content.match(mention)) {
@@ -27,10 +28,8 @@ export default class MessageCreate extends Event {
             return;
         }
 
-        const escapeRegex = (str: string): string => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const prefixRegex = new RegExp(
-            `^(<@!?${this.client.user.id}>|${escapeRegex(guild.prefix)})\\s*`
-        );
+        const escapeRegex = (str: string): string => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const prefixRegex = new RegExp(`^(<@!?${this.client.user.id}>|${escapeRegex(guild.prefix)})\\s*`);
         if (!prefixRegex.test(message.content)) return;
 
         const [matchedPrefix] = message.content.match(prefixRegex);
@@ -38,30 +37,24 @@ export default class MessageCreate extends Event {
         const args = message.content.slice(matchedPrefix.length).trim().split(/ +/g);
 
         const cmd = args.shift()?.toLowerCase();
-        const command =
-            this.client.commands.get(cmd) ||
-            this.client.commands.get(this.client.aliases.get(cmd) as string);
+        const command = this.client.commands.get(cmd) || this.client.commands.get(this.client.aliases.get(cmd) as string);
         if (!command) return;
 
         const ctx = new Context(message, args);
         ctx.setArgs(args);
 
         let dm = message.author.dmChannel;
-        if (typeof dm === 'undefined') dm = await message.author.createDM();
+        if (typeof dm === "undefined") dm = await message.author.createDM();
 
         if (
-            !message.inGuild() ||
-            !message.channel
-                .permissionsFor(message.guild.members.resolve(this.client.user))
-                ?.has(PermissionFlagsBits.ViewChannel)
+            !(
+                message.inGuild() &&
+                message.channel.permissionsFor(message.guild.members.resolve(this.client.user))?.has(PermissionFlagsBits.ViewChannel)
+            )
         )
             return;
 
-        if (
-            !message.guild.members
-                .resolve(this.client.user)
-                .permissions.has(PermissionFlagsBits.SendMessages)
-        ) {
+        if (!message.guild.members.resolve(this.client.user).permissions.has(PermissionFlagsBits.SendMessages)) {
             await message.author
                 .send({
                     content: `I don't have **\`SendMessage\`** permission in \`${message.guild.name}\`\nchannel: <#${message.channelId}>`,
@@ -70,13 +63,9 @@ export default class MessageCreate extends Event {
             return;
         }
 
-        if (
-            !message.guild.members
-                .resolve(this.client.user)
-                .permissions.has(PermissionFlagsBits.EmbedLinks)
-        ) {
+        if (!message.guild.members.resolve(this.client.user).permissions.has(PermissionFlagsBits.EmbedLinks)) {
             await message.reply({
-                content: 'I don\'t have **`EmbedLinks`** permission.',
+                content: "I don't have **`EmbedLinks`** permission.",
             });
             return;
         }
@@ -84,28 +73,23 @@ export default class MessageCreate extends Event {
         if (command.permissions) {
             if (
                 command.permissions.client &&
-                !message.guild.members
-                    .resolve(this.client.user)
-                    .permissions.has(command.permissions.client)
+                !message.guild.members.resolve(this.client.user).permissions.has(command.permissions.client)
             ) {
                 await message.reply({
-                    content: 'I don\'t have enough permissions to execute this command.',
+                    content: "I don't have enough permissions to execute this command.",
                 });
                 return;
             }
 
-            if (
-                command.permissions.user &&
-                !message.member.permissions.has(command.permissions.user)
-            ) {
+            if (command.permissions.user && !message.member.permissions.has(command.permissions.user)) {
                 await message.reply({
-                    content: 'You don\'t have enough permissions to use this command.',
+                    content: "You don't have enough permissions to use this command.",
                 });
                 return;
             }
 
             if (command.permissions.dev && this.client.config.owners) {
-                const findDev = this.client.config.owners.find(x => x === message.author.id);
+                const findDev = this.client.config.owners.find((x) => x === message.author.id);
                 if (!findDev) return;
             }
         }
@@ -119,22 +103,14 @@ export default class MessageCreate extends Event {
                     return;
                 }
 
-                if (
-                    !message.guild.members
-                        .resolve(this.client.user)
-                        .permissions.has(PermissionFlagsBits.Speak)
-                ) {
+                if (!message.guild.members.resolve(this.client.user).permissions.has(PermissionFlagsBits.Speak)) {
                     await message.reply({
                         content: `I don't have \`CONNECT\` permissions to execute this \`${command.name}\` command.`,
                     });
                     return;
                 }
 
-                if (
-                    !message.guild.members
-                        .resolve(this.client.user)
-                        .permissions.has(PermissionFlagsBits.Speak)
-                ) {
+                if (!message.guild.members.resolve(this.client.user).permissions.has(PermissionFlagsBits.Speak)) {
                     await message.reply({
                         content: `I don't have \`SPEAK\` permissions to execute this \`${command.name}\` command.`,
                     });
@@ -143,9 +119,7 @@ export default class MessageCreate extends Event {
 
                 if (
                     message.member.voice.channel.type === ChannelType.GuildStageVoice &&
-                    !message.guild.members
-                        .resolve(this.client.user)
-                        .permissions.has(PermissionFlagsBits.RequestToSpeak)
+                    !message.guild.members.resolve(this.client.user).permissions.has(PermissionFlagsBits.RequestToSpeak)
                 ) {
                     await message.reply({
                         content: `I don't have \`REQUEST TO SPEAK\` permission to execute this \`${command.name}\` command.`,
@@ -155,11 +129,12 @@ export default class MessageCreate extends Event {
 
                 if (
                     message.guild.members.resolve(this.client.user).voice.channel &&
-                    message.guild.members.resolve(this.client.user).voice.channelId !==
-                        message.member.voice.channelId
+                    message.guild.members.resolve(this.client.user).voice.channelId !== message.member.voice.channelId
                 ) {
                     await message.reply({
-                        content: `You are not connected to <#${message.guild.members.resolve(this.client.user).voice.channel.id}> to use this \`${command.name}\` command.`,
+                        content: `You are not connected to <#${
+                            message.guild.members.resolve(this.client.user).voice.channel.id
+                        }> to use this \`${command.name}\` command.`,
                     });
                     return;
                 }
@@ -167,9 +142,9 @@ export default class MessageCreate extends Event {
 
             if (command.player.active) {
                 const queue = this.client.queue.get(message.guildId);
-                if (!queue || !queue.queue || !queue.current) {
+                if (!queue?.queue && queue.current) {
                     await message.reply({
-                        content: 'Nothing is playing right now.',
+                        content: "Nothing is playing right now.",
                     });
                     return;
                 }
@@ -177,24 +152,22 @@ export default class MessageCreate extends Event {
 
             if (command.player.dj) {
                 const dj = await this.client.db.getDj(message.guildId);
-                if (dj && dj.mode) {
+                if (dj?.mode) {
                     const djRole = await this.client.db.getRoles(message.guildId);
                     if (!djRole) {
                         await message.reply({
-                            content: 'DJ role is not set.',
+                            content: "DJ role is not set.",
                         });
                         return;
                     }
-                    const findDJRole = message.member.roles.cache.find((x: any) =>
-                        djRole.map((y: any) => y.roleId).includes(x.id)
-                    );
+                    const findDJRole = message.member.roles.cache.find((x: any) => djRole.map((y: any) => y.roleId).includes(x.id));
                     if (!findDJRole) {
                         if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
                             await message
                                 .reply({
-                                    content: 'You need to have the DJ role to use this command.',
+                                    content: "You need to have the DJ role to use this command.",
                                 })
-                                .then(msg => setTimeout(() => msg.delete(), 5000));
+                                .then((msg) => setTimeout(() => msg.delete(), 5000));
                             return;
                         }
                     }
@@ -206,15 +179,13 @@ export default class MessageCreate extends Event {
             const embed = this.client
                 .embed()
                 .setColor(this.client.color.red)
-                .setTitle('Missing Arguments')
+                .setTitle("Missing Arguments")
                 .setDescription(
                     `Please provide the required arguments for the \`${command.name}\` command.\n\nExamples:\n${
-                        command.description.examples
-                            ? command.description.examples.join('\n')
-                            : 'None'
-                    }`
+                        command.description.examples ? command.description.examples.join("\n") : "None"
+                    }`,
                 )
-                .setFooter({ text: 'Syntax: [] = optional, <> = required' });
+                .setFooter({ text: "Syntax: [] = optional, <> = required" });
 
             await message.reply({ embeds: [embed] });
             return;
@@ -228,27 +199,25 @@ export default class MessageCreate extends Event {
         const timestamps = this.client.cooldown.get(cmd)!;
         const cooldownAmount = Math.floor(command.cooldown || 5) * 1000;
 
-        if (!timestamps.has(message.author.id)) {
-            timestamps.set(message.author.id, now);
-            setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-        } else {
+        if (timestamps.has(message.author.id)) {
             const expirationTime = timestamps.get(message.author.id)! + cooldownAmount;
             const timeLeft = (expirationTime - now) / 1000;
             if (now < expirationTime && timeLeft > 0.9) {
                 await message.reply({
-                    content: `Please wait ${timeLeft.toFixed(
-                        1
-                    )} more second(s) before reusing the \`${cmd}\` command.`,
+                    content: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${cmd}\` command.`,
                 });
                 return;
             }
             timestamps.set(message.author.id, now);
             setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+        } else {
+            timestamps.set(message.author.id, now);
+            setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
         }
 
-        if (args.includes('@everyone') || args.includes('@here')) {
+        if (args.includes("@everyone") || args.includes("@here")) {
             await message.reply({
-                content: 'You can\'t use this command with everyone or here.',
+                content: "You can't use this command with everyone or here.",
             });
             return;
         }

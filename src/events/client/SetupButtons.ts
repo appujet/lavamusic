@@ -1,88 +1,64 @@
-import { Event, Lavamusic } from '../../structures/index.js';
-import { getButtons } from '../../utils/Buttons.js';
-import { buttonReply } from '../../utils/SetupSystem.js';
-import { checkDj } from '../player/TrackStart.js';
+import type { Message } from "discord.js";
+import { Event, type Lavamusic } from "../../structures/index.js";
+import { getButtons } from "../../utils/Buttons.js";
+import { buttonReply } from "../../utils/SetupSystem.js";
+import { checkDj } from "../player/TrackStart.js";
 
 export default class SetupButtons extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-            name: 'setupButtons',
+            name: "setupButtons",
         });
     }
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
     public async run(interaction: any): Promise<void> {
         if (!interaction.replied) await interaction.deferReply().catch(() => {});
 
         if (!interaction.member.voice.channel)
-            return await buttonReply(
-                interaction,
-                `You are not connected to a voice channel to use this button.`,
-                this.client.color.red
-            );
+            return await buttonReply(interaction, "You are not connected to a voice channel to use this button.", this.client.color.red);
         if (
             interaction.guild.members.cache.get(this.client.user.id).voice.channel &&
-            interaction.guild.members.cache.get(this.client.user.id).voice.channelId !==
-                interaction.member.voice.channelId
+            interaction.guild.members.cache.get(this.client.user.id).voice.channelId !== interaction.member.voice.channelId
         )
             return await buttonReply(
                 interaction,
                 `You are not connected to ${interaction.guild.me.voice.channel} to use this buttons.`,
-                this.client.color.red
+                this.client.color.red,
             );
         const player = this.client.queue.get(interaction.guildId);
-        if (!player)
-            return await buttonReply(
-                interaction,
-                `There is no music playing in this server.`,
-                this.client.color.red
-            );
-        if (!player.queue)
-            return await buttonReply(
-                interaction,
-                `There is no music playing in this server.`,
-                this.client.color.red
-            );
-        if (!player.current)
-            return await buttonReply(
-                interaction,
-                `There is no music playing in this server.`,
-                this.client.color.red
-            );
+        if (!player) return await buttonReply(interaction, "There is no music playing in this server.", this.client.color.red);
+        if (!player.queue) return await buttonReply(interaction, "There is no music playing in this server.", this.client.color.red);
+        if (!player.current) return await buttonReply(interaction, "There is no music playing in this server.", this.client.color.red);
         const data = await this.client.db.getSetup(interaction.guildId);
         const { title, uri, length } = player.current.info;
-        let message;
+        let message: Message;
         try {
             message = await interaction.channel.messages.fetch(data.messageId, { cache: true });
-        } catch (e) {
+        } catch (_e) {
             /* empty */
         }
-        const icon = player
-            ? player.current.info.artworkUrl
-            : this.client.user.displayAvatarURL({ extension: 'png' });
+        const icon = player ? player.current.info.artworkUrl : this.client.user.displayAvatarURL({ extension: "png" });
         let iconUrl = this.client.config.icons[player.current.info.sourceName];
-        if (!iconUrl) iconUrl = this.client.user.displayAvatarURL({ extension: 'png' });
+        if (!iconUrl) iconUrl = this.client.user.displayAvatarURL({ extension: "png" });
 
         const embed = this.client
             .embed()
-            .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
+            .setAuthor({ name: "Now Playing", iconURL: iconUrl })
             .setColor(this.client.color.main)
             .setDescription(
-                `[${title}](${uri}) - ${
-                    player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
-                } - Requested by ${player.current.info.requester}`
+                `[${title}](${uri}) - ${player.current.info.isStream ? "LIVE" : this.client.utils.formatTime(length)} - Requested by ${
+                    player.current.info.requester
+                }`,
             )
             .setImage(icon);
         if (!interaction.isButton()) return;
         if (!(await checkDj(this.client, interaction))) {
-            await buttonReply(
-                interaction,
-                `You need to have the DJ role to use this command.`,
-                this.client.color.red
-            );
+            await buttonReply(interaction, "You need to have the DJ role to use this command.", this.client.color.red);
             return;
         }
         if (message) {
             switch (interaction.customId) {
-                case 'LOW_VOL_BUT': {
+                case "LOW_VOL_BUT": {
                     const vol = player.player.volume - 10;
                     player.player.setGlobalVolume(vol);
                     await buttonReply(interaction, `Volume set to ${vol}%`, this.client.color.main);
@@ -96,14 +72,10 @@ export default class SetupButtons extends Event {
                     });
                     break;
                 }
-                case 'HIGH_VOL_BUT': {
+                case "HIGH_VOL_BUT": {
                     const vol2 = player.player.volume + 10;
                     player.player.setGlobalVolume(vol2);
-                    await buttonReply(
-                        interaction,
-                        `Volume set to ${vol2}%`,
-                        this.client.color.main
-                    );
+                    await buttonReply(interaction, `Volume set to ${vol2}%`, this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
@@ -114,8 +86,8 @@ export default class SetupButtons extends Event {
                     });
                     break;
                 }
-                case 'PAUSE_BUT': {
-                    const name = player.player.paused ? `Resumed` : `Paused`;
+                case "PAUSE_BUT": {
+                    const name = player.player.paused ? "Resumed" : "Paused";
                     player.pause();
                     await buttonReply(interaction, `${name} the music.`, this.client.color.main);
                     await message.edit({
@@ -129,15 +101,11 @@ export default class SetupButtons extends Event {
                     });
                     break;
                 }
-                case 'SKIP_BUT':
+                case "SKIP_BUT":
                     if (player.queue.length === 0)
-                        return await buttonReply(
-                            interaction,
-                            `There is no music to skip.`,
-                            this.client.color.main
-                        );
+                        return await buttonReply(interaction, "There is no music to skip.", this.client.color.main);
                     player.skip();
-                    await buttonReply(interaction, `Skipped the music.`, this.client.color.main);
+                    await buttonReply(interaction, "Skipped the music.", this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
@@ -147,9 +115,9 @@ export default class SetupButtons extends Event {
                         ],
                     });
                     break;
-                case 'STOP_BUT':
+                case "STOP_BUT":
                     player.stop();
-                    await buttonReply(interaction, `Stopped the music.`, this.client.color.main);
+                    await buttonReply(interaction, "Stopped the music.", this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed
@@ -157,38 +125,26 @@ export default class SetupButtons extends Event {
                                     text: `Stopped by ${interaction.member.displayName}`,
                                     iconURL: interaction.member.displayAvatarURL({}),
                                 })
-                                .setDescription(`Nothing playing right now`)
+                                .setDescription("Nothing playing right now")
                                 .setImage(this.client.config.links.img)
                                 .setAuthor({
                                     name: this.client.user.username,
                                     iconURL: this.client.user.displayAvatarURL({
-                                        extension: 'png',
+                                        extension: "png",
                                     }),
                                 }),
                         ],
                     });
                     break;
-                case 'LOOP_BUT': {
-                    const loopOptions: Array<'off' | 'queue' | 'repeat'> = [
-                        'off',
-                        'queue',
-                        'repeat',
-                    ];
+                case "LOOP_BUT": {
+                    const loopOptions: Array<"off" | "queue" | "repeat"> = ["off", "queue", "repeat"];
                     const newLoop = loopOptions[Math.floor(Math.random() * loopOptions.length)];
 
                     if (player.loop === newLoop) {
-                        await buttonReply(
-                            interaction,
-                            `Loop is already ${player.loop}.`,
-                            this.client.color.main
-                        );
+                        await buttonReply(interaction, `Loop is already ${player.loop}.`, this.client.color.main);
                     } else {
                         player.setLoop(newLoop);
-                        await buttonReply(
-                            interaction,
-                            `Loop set to ${player.loop}.`,
-                            this.client.color.main
-                        );
+                        await buttonReply(interaction, `Loop set to ${player.loop}.`, this.client.color.main);
                         await message.edit({
                             embeds: [
                                 embed.setFooter({
@@ -200,23 +156,14 @@ export default class SetupButtons extends Event {
                     }
                     break;
                 }
-                case 'SHUFFLE_BUT':
+                case "SHUFFLE_BUT":
                     player.setShuffle();
-                    await buttonReply(interaction, `Shuffled the queue.`, this.client.color.main);
+                    await buttonReply(interaction, "Shuffled the queue.", this.client.color.main);
                     break;
-                case 'PREV_BUT':
-                    if (!player.previous)
-                        return await buttonReply(
-                            interaction,
-                            `There is no previous track.`,
-                            this.client.color.main
-                        );
+                case "PREV_BUT":
+                    if (!player.previous) return await buttonReply(interaction, "There is no previous track.", this.client.color.main);
                     player.previousTrack();
-                    await buttonReply(
-                        interaction,
-                        `Playing the previous track.`,
-                        this.client.color.main
-                    );
+                    await buttonReply(interaction, "Playing the previous track.", this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
@@ -226,16 +173,16 @@ export default class SetupButtons extends Event {
                         ],
                     });
                     break;
-                case 'REWIND_BUT': {
+                case "REWIND_BUT": {
                     const time = player.player.position - 10000;
                     if (time < 0)
                         return await buttonReply(
                             interaction,
-                            `You cannot rewind the music more than the length of the song.`,
-                            this.client.color.main
+                            "You cannot rewind the music more than the length of the song.",
+                            this.client.color.main,
                         );
                     player.seek(time);
-                    await buttonReply(interaction, `Rewinded the music.`, this.client.color.main);
+                    await buttonReply(interaction, "Rewinded the music.", this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
@@ -246,16 +193,16 @@ export default class SetupButtons extends Event {
                     });
                     break;
                 }
-                case 'FORWARD_BUT': {
+                case "FORWARD_BUT": {
                     const time2 = player.player.position + 10000;
                     if (time2 > player.current.info.length)
                         return await buttonReply(
                             interaction,
-                            `You cannot forward the music more than the length of the song.`,
-                            this.client.color.main
+                            "You cannot forward the music more than the length of the song.",
+                            this.client.color.main,
                         );
                     player.seek(time2);
-                    await buttonReply(interaction, `Forwarded the music.`, this.client.color.main);
+                    await buttonReply(interaction, "Forwarded the music.", this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
@@ -267,11 +214,7 @@ export default class SetupButtons extends Event {
                     break;
                 }
                 default:
-                    await buttonReply(
-                        interaction,
-                        `This button is not available.`,
-                        this.client.color.main
-                    );
+                    await buttonReply(interaction, "This button is not available.", this.client.color.main);
                     break;
             }
         }

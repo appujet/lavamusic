@@ -1,8 +1,8 @@
 export enum SearchEngine {
-    YouTube = 'ytsearch',
-    Spotify = 'spsearch',
-    SoundCloud = 'scsearch',
-    YouTubeMusic = 'ytmsearch',
+    YouTube = "ytsearch",
+    Spotify = "spsearch",
+    SoundCloud = "scsearch",
+    YouTubeMusic = "ytmsearch",
 }
 
 /**

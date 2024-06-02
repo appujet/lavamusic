@@ -1,11 +1,11 @@
-import { EmbedBuilder, Guild, GuildMember, TextChannel } from 'discord.js';
+import { EmbedBuilder, type Guild, type GuildMember, type TextChannel } from "discord.js";
 
-import { Event, Lavamusic } from '../../structures/index.js';
+import { Event, type Lavamusic } from "../../structures/index.js";
 
 export default class GuildDelete extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-            name: 'guildDelete',
+            name: "guildDelete",
         });
     }
 
@@ -20,35 +20,35 @@ export default class GuildDelete extends Event {
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.red)
             .setAuthor({
-                name: guild.name || 'Unknown Guild',
-                iconURL: guild.iconURL({ extension: 'jpeg' }),
+                name: guild.name || "Unknown Guild",
+                iconURL: guild.iconURL({ extension: "jpeg" }),
             })
             .setDescription(`**${guild.name}** has been removed from my guilds!`)
-            .setThumbnail(guild.iconURL({ extension: 'jpeg' }))
+            .setThumbnail(guild.iconURL({ extension: "jpeg" }))
             .addFields(
-                { name: 'Owner', value: owner ? owner.user.tag : 'Unknown#0000', inline: true },
+                { name: "Owner", value: owner ? owner.user.tag : "Unknown#0000", inline: true },
                 {
-                    name: 'Members',
-                    value: guild.memberCount?.toString() || 'Unknown',
+                    name: "Members",
+                    value: guild.memberCount?.toString() || "Unknown",
                     inline: true,
                 },
                 {
-                    name: 'Created At',
+                    name: "Created At",
                     value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`,
                     inline: true,
                 },
                 {
-                    name: 'Removed At',
+                    name: "Removed At",
                     value: `<t:${Math.floor(Date.now() / 1000)}:F>`,
                     inline: true,
                 },
-                { name: 'ID', value: guild.id, inline: true }
+                { name: "ID", value: guild.id, inline: true },
             )
             .setTimestamp();
 
         const logChannelId = this.client.config.logChannelId;
         if (!logChannelId) {
-            console.error('Log channel ID not found in configuration.');
+            console.error("Log channel ID not found in configuration.");
             return;
         }
 

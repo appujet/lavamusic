@@ -1,12 +1,12 @@
-import { Lavamusic } from '../../structures/index.js';
-import { BotPlugin } from '../index.js';
+import type { Lavamusic } from "../../structures/index.js";
+import type { BotPlugin } from "../index.js";
 
 const updateStatusPlugin: BotPlugin = {
-    name: 'Update Status Plugin',
-    version: '1.0.0',
-    author: 'Appu',
+    name: "Update Status Plugin",
+    version: "1.0.0",
+    author: "Appu",
     initialize: (client: Lavamusic) => {
-        client.on('ready', () => client.utils.updateStatus(client));
+        client.on("ready", () => client.utils.updateStatus(client));
     },
 };
 

@@ -1,15 +1,15 @@
-import { ChannelType, GuildMember, VoiceState } from 'discord.js';
+import { ChannelType, type GuildMember, type VoiceState } from "discord.js";
 
-import { Event, Lavamusic } from '../../structures/index.js';
+import { Event, type Lavamusic } from "../../structures/index.js";
 
 export default class VoiceStateUpdate extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-            name: 'voiceStateUpdate',
+            name: "voiceStateUpdate",
         });
     }
 
-    public async run(oldState: VoiceState, newState: VoiceState): Promise<void> {
+    public async run(_oldState: VoiceState, newState: VoiceState): Promise<void> {
         const guildId = newState.guild.id;
         if (!guildId) return;
 
@@ -17,10 +17,10 @@ export default class VoiceStateUpdate extends Event {
         if (!player) return;
 
         const vcConnection = player.node.manager.connections.get(guildId);
-        if (!vcConnection || !vcConnection.channelId) return;
+        if (!vcConnection?.channelId) return;
 
         const vc = newState.guild.channels.cache.get(vcConnection.channelId);
-        if (!vc || !(vc.members instanceof Map)) return;
+        if (!(vc && vc.members instanceof Map)) return;
 
         if (!newState.guild.members.cache.get(this.client.user.id)?.voice.channelId) {
             const is247 = await this.client.db.get_247(guildId);
@@ -36,10 +36,10 @@ export default class VoiceStateUpdate extends Event {
             newState.guild.members.me.voice.suppress
         ) {
             if (
-                newState.guild.members.me.permissions.has(['Connect', 'Speak']) ||
-                newState.channel.permissionsFor(newState.guild.members.me).has('MuteMembers')
+                newState.guild.members.me.permissions.has(["Connect", "Speak"]) ||
+                newState.channel.permissionsFor(newState.guild.members.me).has("MuteMembers")
             ) {
-                await newState.guild.members.me.voice.setSuppressed(false).catch(() => { });
+                await newState.guild.members.me.voice.setSuppressed(false).catch(() => {});
             }
         }
 
@@ -48,7 +48,7 @@ export default class VoiceStateUpdate extends Event {
         if (
             newState.id === this.client.user.id &&
             !newState.serverDeaf &&
-            vc.permissionsFor(newState.guild.members.me).has('DeafenMembers')
+            vc.permissionsFor(newState.guild.members.me).has("DeafenMembers")
         ) {
             await newState.setDeaf(true);
         }
@@ -61,25 +61,19 @@ export default class VoiceStateUpdate extends Event {
             player.pause();
         }
 
-        if (
-            vc.members instanceof Map &&
-            [...vc.members.values()].filter((x: GuildMember) => !x.user.bot).length <= 0
-        ) {
+        if (vc.members instanceof Map && [...vc.members.values()].filter((x: GuildMember) => !x.user.bot).length <= 0) {
             const is247 = await this.client.db.get_247(guildId);
 
             setTimeout(async () => {
                 const vcConnection = player.node.manager.connections.get(guildId);
-                if (!vcConnection || !vcConnection.channelId) return;
+                if (!vcConnection?.channelId) return;
 
-                const playerVoiceChannel = newState.guild.channels.cache.get(
-                    vcConnection.channelId
-                );
+                const playerVoiceChannel = newState.guild.channels.cache.get(vcConnection.channelId);
                 if (
                     player &&
                     playerVoiceChannel &&
                     playerVoiceChannel.members instanceof Map &&
-                    [...playerVoiceChannel.members.values()].filter((x: GuildMember) => !x.user.bot)
-                        .length <= 0
+                    [...playerVoiceChannel.members.values()].filter((x: GuildMember) => !x.user.bot).length <= 0
                 ) {
                     if (!is247) {
                         player.destroy();

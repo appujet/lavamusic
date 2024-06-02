@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class LavaLink extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'lavalink',
+            name: "lavalink",
             description: {
-                content: 'Shows the current Lavalink stats',
-                examples: ['lavalink'],
-                usage: 'lavalink',
+                content: "Shows the current Lavalink stats",
+                examples: ["lavalink"],
+                usage: "lavalink",
             },
-            category: 'info',
-            aliases: ['ll'],
+            category: "info",
+            aliases: ["ll"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class LavaLink extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -32,13 +32,13 @@ export default class LavaLink extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client
             .embed()
-            .setTitle('Lavalink Stats')
+            .setTitle("Lavalink Stats")
             .setColor(this.client.color.main)
             .setThumbnail(this.client.user.avatarURL({}))
             .setTimestamp();
 
-        client.shoukaku.nodes.forEach(node => {
-            const statusEmoji = node.stats ? '🟢' : '🔴';
+        client.shoukaku.nodes.forEach((node) => {
+            const statusEmoji = node.stats ? "🟢" : "🔴";
             const stats = node.stats || {
                 players: 0,
                 playingPlayers: 0,

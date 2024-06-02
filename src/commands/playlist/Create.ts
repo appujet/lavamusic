@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class CreatePlaylist extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'create',
+            name: "create",
             description: {
-                content: 'Creates a playlist',
-                examples: ['create <name>'],
-                usage: 'create <name>',
+                content: "Creates a playlist",
+                examples: ["create <name>"],
+                usage: "create <name>",
             },
-            category: 'playlist',
-            aliases: ['create'],
+            category: "playlist",
+            aliases: ["create"],
             cooldown: 3,
             args: true,
             player: {
@@ -21,14 +21,14 @@ export default class CreatePlaylist extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'name',
-                    description: 'The name of the playlist',
+                    name: "name",
+                    description: "The name of the playlist",
                     type: 3,
                     required: true,
                 },
@@ -37,12 +37,12 @@ export default class CreatePlaylist extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const name = args.join(' ').trim();
+        const name = args.join(" ").trim();
         if (name.length > 50) {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Playlist names can only be 50 characters long',
+                        description: "Playlist names can only be 50 characters long",
                         color: this.client.color.red,
                     },
                 ],
@@ -53,7 +53,7 @@ export default class CreatePlaylist extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'A playlist with that name already exists',
+                        description: "A playlist with that name already exists",
                         color: this.client.color.main,
                     },
                 ],

@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Ping extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'ping',
+            name: "ping",
             description: {
-                content: 'Shows the bot\'s ping',
-                examples: ['ping'],
-                usage: 'ping',
+                content: "Shows the bot's ping",
+                examples: ["ping"],
+                usage: "ping",
             },
-            category: 'general',
-            aliases: ['pong'],
+            category: "general",
+            aliases: ["pong"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Ping extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -29,21 +29,21 @@ export default class Ping extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const msg = await ctx.sendDeferMessage('Pinging...');
+    public async run(_client: Lavamusic, ctx: Context): Promise<any> {
+        const msg = await ctx.sendDeferMessage("Pinging...");
 
         const embed = this.client
             .embed()
-            .setAuthor({ name: 'Pong', iconURL: this.client.user.displayAvatarURL() })
+            .setAuthor({ name: "Pong", iconURL: this.client.user.displayAvatarURL() })
             .setColor(this.client.color.main)
             .addFields([
                 {
-                    name: 'Bot Latency',
+                    name: "Bot Latency",
                     value: `\`\`\`ini\n[ ${msg.createdTimestamp - ctx.createdTimestamp}ms ]\n\`\`\``,
                     inline: true,
                 },
                 {
-                    name: 'API Latency',
+                    name: "API Latency",
                     value: `\`\`\`ini\n[ ${Math.round(ctx.client.ws.ping)}ms ]\n\`\`\``,
                     inline: true,
                 },
@@ -54,7 +54,7 @@ export default class Ping extends Command {
             })
             .setTimestamp();
 
-        return await ctx.editMessage({ content: '', embeds: [embed] });
+        return await ctx.editMessage({ content: "", embeds: [embed] });
     }
 }
 

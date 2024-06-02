@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Skip extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'skip',
+            name: "skip",
             description: {
-                content: 'Skips the current song',
-                examples: ['skip'],
-                usage: 'skip',
+                content: "Skips the current song",
+                examples: ["skip"],
+                usage: "skip",
             },
-            category: 'music',
-            aliases: ['sk'],
+            category: "music",
+            aliases: ["sk"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Skip extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -35,29 +35,22 @@ export default class Skip extends Command {
 
         if (player.queue.length === 0) {
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription('There are no songs in the queue.'),
-                ],
+                embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
             });
         }
 
         player.skip();
 
-        if (!ctx.isInteraction) {
-            ctx.message?.react('👍');
-        } else {
+        if (ctx.isInteraction) {
             return await ctx.sendMessage({
                 embeds: [
                     embed
                         .setColor(this.client.color.main)
-                        .setDescription(
-                            `Skipped [${player.current.info.title}](${player.current.info.uri})`
-                        ),
+                        .setDescription(`Skipped [${player.current.info.title}](${player.current.info.uri})`),
                 ],
             });
         }
+        ctx.message?.react("👍");
     }
 }
 

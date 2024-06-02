@@ -1,18 +1,19 @@
-import { Event, Lavamusic } from '../../structures/index.js';
-import BotLog from '../../utils/BotLog.js';
+import { Event, type Lavamusic } from "../../structures/index.js";
+import BotLog from "../../utils/BotLog.js";
 
 export default class NodeReconnect extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-            name: 'nodeReconnect',
+            name: "nodeReconnect",
         });
     }
 
+    // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(node: string): Promise<void> {
         const message = `Node ${node} reconnected`;
 
         this.client.logger.warn(message);
-        BotLog.send(this.client, message, 'warn');
+        BotLog.send(this.client, message, "warn");
     }
 }
 

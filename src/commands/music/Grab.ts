@@ -1,15 +1,15 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Grab extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'grab',
+            name: "grab",
             description: {
-                content: 'Grabs the current playing song',
-                examples: ['grab'],
-                usage: 'grab',
+                content: "Grabs the current playing song",
+                examples: ["grab"],
+                usage: "grab",
             },
-            category: 'music',
+            category: "music",
             aliases: [],
             cooldown: 3,
             args: false,
@@ -21,7 +21,7 @@ export default class Grab extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -41,25 +41,19 @@ export default class Grab extends Command {
                 .setURL(song.info.uri)
                 .setThumbnail(song.info.artworkUrl)
                 .setDescription(
-                    `**Duration:** ${song.info.isStream ? 'LIVE' : client.utils.formatTime(song.info.length)}\n` +
+                    `**Duration:** ${song.info.isStream ? "LIVE" : client.utils.formatTime(song.info.length)}\n` +
                         `**Requested by:** ${song.info.requester}\n` +
-                        `**Link:** [Click here](${song.info.uri})`
+                        `**Link:** [Click here](${song.info.uri})`,
                 )
                 .setColor(this.client.color.main);
 
             await ctx.author.send({ embeds: [dm] });
             return await ctx.sendMessage({
-                embeds: [
-                    embed.setDescription(`I sent you a DM.`).setColor(this.client.color.green),
-                ],
+                embeds: [embed.setDescription("I sent you a DM.").setColor(this.client.color.green)],
             });
-        } catch (e) {
+        } catch (_e) {
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setDescription(`I couldn't send you a DM.`)
-                        .setColor(this.client.color.red),
-                ],
+                embeds: [embed.setDescription(`I couldn't send you a DM.`).setColor(this.client.color.red)],
             });
         }
     }

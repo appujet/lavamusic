@@ -1,26 +1,25 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import {
     ApplicationCommandType,
     Client,
-    ClientOptions,
     Collection,
     EmbedBuilder,
     Events,
-    Interaction,
+    type Interaction,
     PermissionsBitField,
     REST,
-    RESTPostAPIChatInputApplicationCommandsJSONBody,
+    type RESTPostAPIChatInputApplicationCommandsJSONBody,
     Routes,
-} from 'discord.js';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+} from "discord.js";
 
-import { Queue, ShoukakuClient } from './index.js';
-import Logger from './Logger.js';
-import config from '../config.js';
-import ServerData from '../database/server.js';
-import loadPlugins from '../plugin/index.js';
-import { Utils } from '../utils/Utils.js';
+import config from "../config.js";
+import ServerData from "../database/server.js";
+import loadPlugins from "../plugin/index.js";
+import { Utils } from "../utils/Utils.js";
+import Logger from "./Logger.js";
+import { Queue, ShoukakuClient } from "./index.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -37,10 +36,6 @@ export default class Lavamusic extends Client {
     public utils = Utils;
     public queue = new Queue(this);
 
-    constructor(options: ClientOptions) {
-        super(options);
-    }
-
     public embed(): EmbedBuilder {
         return new EmbedBuilder();
     }
@@ -49,31 +44,25 @@ export default class Lavamusic extends Client {
         const nodes = this.config.autoNode ? await this.getNodes() : this.config.lavalink;
         this.shoukaku = new ShoukakuClient(this, nodes);
         this.loadCommands();
-        this.logger.info(`Successfully loaded commands!`);
+        this.logger.info("Successfully loaded commands!");
         this.loadEvents();
-        this.logger.info(`Successfully loaded events!`);
+        this.logger.info("Successfully loaded events!");
         loadPlugins(this);
         await this.login(token);
-        this.on(Events.InteractionCreate, async (interaction: Interaction<'cached'>) => {
+        this.on(Events.InteractionCreate, async (interaction: Interaction<"cached">) => {
             if (interaction.isButton()) {
                 const setup = await this.db.getSetup(interaction.guildId);
-                if (
-                    setup &&
-                    interaction.channelId === setup.textId &&
-                    interaction.message.id === setup.messageId
-                ) {
-                    this.emit('setupButtons', interaction);
+                if (setup && interaction.channelId === setup.textId && interaction.message.id === setup.messageId) {
+                    this.emit("setupButtons", interaction);
                 }
             }
         });
     }
 
     private async loadCommands(): Promise<void> {
-        const commandsPath = fs.readdirSync(path.join(__dirname, '../commands'));
+        const commandsPath = fs.readdirSync(path.join(__dirname, "../commands"));
         for (const dir of commandsPath) {
-            const commandFiles = fs
-                .readdirSync(path.join(__dirname, `../commands/${dir}`))
-                .filter(file => file.endsWith('.js'));
+            const commandFiles = fs.readdirSync(path.join(__dirname, `../commands/${dir}`)).filter((file) => file.endsWith(".js"));
             for (const file of commandFiles) {
                 const cmd = (await import(`../commands/${dir}/${file}`)).default;
                 const command = new cmd(this);
@@ -93,26 +82,21 @@ export default class Lavamusic extends Client {
                         name_localizations: command.nameLocalizations ?? null,
                         description_localizations: command.descriptionLocalizations ?? null,
                         default_member_permissions:
-                            command.permissions.user.length > 0
-                                ? PermissionsBitField.resolve(command.permissions.user).toString()
-                                : null,
+                            command.permissions.user.length > 0 ? PermissionsBitField.resolve(command.permissions.user).toString() : null,
                     };
                     this.body.push(JSON.parse(JSON.stringify(data)));
                 }
             }
         }
-        this.once('ready', async () => {
+        this.once("ready", async () => {
             const applicationCommands =
                 this.config.production === true
-                    ? Routes.applicationCommands(this.user.id ?? '')
-                    : Routes.applicationGuildCommands(
-                          this.user.id ?? '',
-                          this.config.guildId ?? ''
-                      );
+                    ? Routes.applicationCommands(this.user.id ?? "")
+                    : Routes.applicationGuildCommands(this.user.id ?? "", this.config.guildId ?? "");
             try {
-                const rest = new REST({ version: '9' }).setToken(this.config.token ?? '');
+                const rest = new REST({ version: "9" }).setToken(this.config.token ?? "");
                 await rest.put(applicationCommands, { body: this.body });
-                this.logger.info(`Successfully loaded slash commands!`);
+                this.logger.info("Successfully loaded slash commands!");
             } catch (error) {
                 this.logger.error(error);
             }
@@ -121,14 +105,14 @@ export default class Lavamusic extends Client {
 
     private async getNodes(): Promise<any> {
         const params = new URLSearchParams({
-            ssl: 'false',
-            version: 'v4',
-            format: 'shoukaku',
+            ssl: "false",
+            version: "v4",
+            format: "shoukaku",
         });
 
         const res = await fetch(`https://lavainfo-api.deno.dev/nodes?${params.toString()}`, {
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
         });
 
@@ -136,16 +120,14 @@ export default class Lavamusic extends Client {
     }
 
     private async loadEvents(): Promise<void> {
-        const eventsPath = fs.readdirSync(path.join(__dirname, '../events'));
+        const eventsPath = fs.readdirSync(path.join(__dirname, "../events"));
         for (const dir of eventsPath) {
-            const events = fs
-                .readdirSync(path.join(__dirname, `../events/${dir}`))
-                .filter(file => file.endsWith('.js'));
+            const events = fs.readdirSync(path.join(__dirname, `../events/${dir}`)).filter((file) => file.endsWith(".js"));
             for (const file of events) {
                 const event = (await import(`../events/${dir}/${file}`)).default;
                 const evt = new event(this, file);
                 switch (dir) {
-                    case 'player':
+                    case "player":
                         this.shoukaku.on(evt.name, (...args) => evt.run(...args));
                         break;
                     default:

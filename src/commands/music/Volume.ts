@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Volume extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'volume',
+            name: "volume",
             description: {
-                content: 'Sets the volume of the player',
-                examples: ['volume 100'],
-                usage: 'volume <number>',
+                content: "Sets the volume of the player",
+                examples: ["volume 100"],
+                usage: "volume <number>",
             },
-            category: 'music',
-            aliases: ['vol'],
+            category: "music",
+            aliases: ["vol"],
             cooldown: 3,
             args: true,
             player: {
@@ -21,14 +21,14 @@ export default class Volume extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'number',
-                    description: 'The volume you want to set',
+                    name: "number",
+                    description: "The volume you want to set",
                     type: 4,
                     required: true,
                 },
@@ -42,10 +42,10 @@ export default class Volume extends Command {
         const number = Number(args[0]);
 
         if (isNaN(number) || number < 0 || number > 200) {
-            let description = '';
-            if (isNaN(number)) description = 'Please provide a valid number.';
-            else if (number < 0) description = 'The volume can\'t be lower than 0.';
-            else if (number > 200) description = 'The volume can\'t be higher than 200.';
+            let description = "";
+            if (isNaN(number)) description = "Please provide a valid number.";
+            else if (number < 0) description = "The volume can't be lower than 0.";
+            else if (number > 200) description = "The volume can't be higher than 200.";
 
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(description)],
@@ -54,11 +54,7 @@ export default class Volume extends Command {
 
         player.player.setGlobalVolume(number);
         return await ctx.sendMessage({
-            embeds: [
-                embed
-                    .setColor(this.client.color.main)
-                    .setDescription(`Set the volume to ${player.player.volume}`),
-            ],
+            embeds: [embed.setColor(this.client.color.main).setDescription(`Set the volume to ${player.player.volume}`)],
         });
     }
 }

@@ -1,18 +1,19 @@
 import {
-    Botchannel,
-    Dj,
-    Guild,
-    Playlist,
+    type Botchannel,
+    type Dj,
+    type Guild,
+    type Playlist,
     PrismaClient,
-    Role,
-    Setup,
-    Song,
-    Stay,
-} from '@prisma/client';
+    type Role,
+    type Setup,
+    type Song,
+    type Stay,
+} from "@prisma/client";
 
-import config from '../config.js';
+import config from "../config.js";
 
 export default class ServerData {
+    F;
     private prisma: PrismaClient;
 
     constructor() {
@@ -100,9 +101,8 @@ export default class ServerData {
                     guildId,
                 },
             });
-        } else {
-            return await this.prisma.stay.findMany();
         }
+        return await this.prisma.stay.findMany();
     }
 
     public async getDj(guildId: string): Promise<Dj | null> {

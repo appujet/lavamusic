@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Distorsion extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'distorsion',
+            name: "distorsion",
             description: {
-                content: 'Toggle the distorsion filter on/off',
-                examples: ['distorsion'],
-                usage: 'distorsion',
+                content: "Toggle the distorsion filter on/off",
+                examples: ["distorsion"],
+                usage: "distorsion",
             },
-            category: 'filters',
-            aliases: ['distortion'],
+            category: "filters",
+            aliases: ["distortion"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,8 +21,8 @@ export default class Distorsion extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
-                user: ['ManageGuild'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                user: ["ManageGuild"],
             },
             slashCommand: true,
             options: [],
@@ -32,15 +32,15 @@ export default class Distorsion extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        const filterEnabled = player.filters.includes('distorsion');
+        const filterEnabled = player.filters.includes("distorsion");
 
         if (filterEnabled) {
             player.player.setDistortion({});
-            player.filters = player.filters.filter(filter => filter !== 'distorsion');
+            player.filters = player.filters.filter((filter) => filter !== "distorsion");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Distorsion filter has been disabled',
+                        description: "Distorsion filter has been disabled",
                         color: client.color.main,
                     },
                 ],
@@ -56,11 +56,11 @@ export default class Distorsion extends Command {
                 offset: 0,
                 scale: 1,
             });
-            player.filters.push('distorsion');
+            player.filters.push("distorsion");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Distorsion filter has been enabled',
+                        description: "Distorsion filter has been enabled",
                         color: client.color.main,
                     },
                 ],

@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Reset extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'reset',
+            name: "reset",
             description: {
-                content: 'Resets the active filters',
-                examples: ['reset'],
-                usage: 'reset',
+                content: "Resets the active filters",
+                examples: ["reset"],
+                usage: "reset",
             },
-            category: 'filters',
-            aliases: ['reset'],
+            category: "filters",
+            aliases: ["reset"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,8 +21,8 @@ export default class Reset extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
-                user: ['ManageGuild'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                user: ["ManageGuild"],
             },
             slashCommand: true,
             options: [],
@@ -38,7 +38,7 @@ export default class Reset extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: 'Filters have been reset',
+                    description: "Filters have been reset",
                     color: client.color.main,
                 },
             ],

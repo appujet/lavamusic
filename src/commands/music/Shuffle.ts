@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Shuffle extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'shuffle',
+            name: "shuffle",
             description: {
-                content: 'Shuffles the queue',
-                examples: ['shuffle'],
-                usage: 'shuffle',
+                content: "Shuffles the queue",
+                examples: ["shuffle"],
+                usage: "shuffle",
             },
-            category: 'music',
-            aliases: ['sh'],
+            category: "music",
+            aliases: ["sh"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Shuffle extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -35,18 +35,14 @@ export default class Shuffle extends Command {
 
         if (!player.queue.length) {
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription('There are no songs in the queue.'),
-                ],
+                embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
             });
         }
 
         player.setShuffle();
 
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Shuffled the queue`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription("Shuffled the queue")],
         });
     }
 }

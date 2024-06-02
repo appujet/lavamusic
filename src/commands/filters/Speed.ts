@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Speed extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'speed',
+            name: "speed",
             description: {
-                content: 'Sets the speed of the song',
-                examples: ['speed 1.5', 'speed 1,5'],
-                usage: 'speed <number>',
+                content: "Sets the speed of the song",
+                examples: ["speed 1.5", "speed 1,5"],
+                usage: "speed <number>",
             },
-            category: 'filters',
-            aliases: ['spd'],
+            category: "filters",
+            aliases: ["spd"],
             cooldown: 3,
             args: true,
             player: {
@@ -21,14 +21,14 @@ export default class Speed extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
-                user: ['ManageGuild'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                user: ["ManageGuild"],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'speed',
-                    description: 'The speed you want to set',
+                    name: "speed",
+                    description: "The speed you want to set",
                     type: 3,
                     required: true,
                 },
@@ -39,7 +39,7 @@ export default class Speed extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        const speedString = args[0].replace(',', '.');
+        const speedString = args[0].replace(",", ".");
 
         const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(speedString);
         const speed = parseFloat(speedString);
@@ -48,7 +48,7 @@ export default class Speed extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Please provide a valid number between 0.5 and 5',
+                        description: "Please provide a valid number between 0.5 and 5",
                         color: this.client.color.red,
                     },
                 ],

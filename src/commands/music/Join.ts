@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Join extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'join',
+            name: "join",
             description: {
-                content: 'Joins the voice channel',
-                examples: ['join'],
-                usage: 'join',
+                content: "Joins the voice channel",
+                examples: ["join"],
+                usage: "join",
             },
-            category: 'music',
-            aliases: ['j'],
+            category: "music",
+            aliases: ["j"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Join extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -32,34 +32,29 @@ export default class Join extends Command {
         let player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
 
-        if (!player) {
-            const vc = ctx.member as any;
-            player = await client.queue.create(
-                ctx.guild,
-                vc.voice.channel,
-                ctx.channel,
-                client.shoukaku.options.nodeResolver(client.shoukaku.nodes)
-            );
+        if (player) {
             return await ctx.sendMessage({
                 embeds: [
                     embed
                         .setColor(this.client.color.main)
-                        .setDescription(
-                            `Joined <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
-                        ),
-                ],
-            });
-        } else {
-            return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.main)
-                        .setDescription(
-                            `I'm already connected to <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
-                        ),
+                        .setDescription(`I'm already connected to <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`),
                 ],
             });
         }
+        const vc = ctx.member as any;
+        player = await client.queue.create(
+            ctx.guild,
+            vc.voice.channel,
+            ctx.channel,
+            client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
+        );
+        return await ctx.sendMessage({
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(`Joined <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`),
+            ],
+        });
     }
 }
 

@@ -1,20 +1,20 @@
-import { version } from 'discord.js';
-import { showTotalMemory, usagePercent } from 'node-system-stats';
-import os from 'node:os';
+import os from "node:os";
+import { version } from "discord.js";
+import { showTotalMemory, usagePercent } from "node-system-stats";
 
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Botinfo extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'botinfo',
+            name: "botinfo",
             description: {
-                content: 'Information about the bot',
-                examples: ['botinfo'],
-                usage: 'botinfo',
+                content: "Information about the bot",
+                examples: ["botinfo"],
+                usage: "botinfo",
             },
-            category: 'info',
-            aliases: ['info', 'bi'],
+            category: "info",
+            aliases: ["info", "bi"],
             cooldown: 3,
             args: false,
             player: {
@@ -25,7 +25,7 @@ export default class Botinfo extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -34,10 +34,10 @@ export default class Botinfo extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const osInfo = os.type() + ' ' + os.release();
+        const osInfo = `${os.type()} ${os.release()}`;
         const osUptime = client.utils.formatTime(os.uptime());
         const osHostname = os.hostname();
-        const cpuInfo = os.arch() + ' (' + os.cpus().length + ' cores)';
+        const cpuInfo = `${os.arch()} (${os.cpus().length} cores)`;
         const cpuUsed = (await usagePercent({ coreIndex: 0, sampleMs: 2000 })).percent;
         const memTotal = showTotalMemory(true);
         const memUsed = (process.memoryUsage().rss / 1024 ** 2).toFixed(2);

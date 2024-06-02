@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class NightCore extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'nightcore',
+            name: "nightcore",
             description: {
-                content: 'Toggle the nightcore filter on/off',
-                examples: ['nightcore'],
-                usage: 'nightcore',
+                content: "Toggle the nightcore filter on/off",
+                examples: ["nightcore"],
+                usage: "nightcore",
             },
-            category: 'filters',
-            aliases: ['nc'],
+            category: "filters",
+            aliases: ["nc"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class NightCore extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -32,26 +32,26 @@ export default class NightCore extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        const filterEnabled = player.filters.includes('nightcore');
+        const filterEnabled = player.filters.includes("nightcore");
 
         if (filterEnabled) {
             player.player.setTimescale();
-            player.filters = player.filters.filter(filter => filter !== 'nightcore');
+            player.filters = player.filters.filter((filter) => filter !== "nightcore");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Nightcore filter has been disabled',
+                        description: "Nightcore filter has been disabled",
                         color: client.color.main,
                     },
                 ],
             });
         } else {
             player.player.setTimescale({ speed: 1.165, pitch: 1.125, rate: 1.05 });
-            player.filters.push('nightcore');
+            player.filters.push("nightcore");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Nightcore filter has been enabled',
+                        description: "Nightcore filter has been enabled",
                         color: client.color.main,
                     },
                 ],

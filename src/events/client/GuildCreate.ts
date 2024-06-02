@@ -1,11 +1,11 @@
-import { EmbedBuilder, Guild, GuildMember, TextChannel } from 'discord.js';
+import { EmbedBuilder, type Guild, type GuildMember, type TextChannel } from "discord.js";
 
-import { Event, Lavamusic } from '../../structures/index.js';
+import { Event, type Lavamusic } from "../../structures/index.js";
 
 export default class GuildCreate extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-            name: 'guildCreate',
+            name: "guildCreate",
         });
     }
 
@@ -19,29 +19,29 @@ export default class GuildCreate extends Event {
 
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.green)
-            .setAuthor({ name: guild.name, iconURL: guild.iconURL({ extension: 'jpeg' }) })
+            .setAuthor({ name: guild.name, iconURL: guild.iconURL({ extension: "jpeg" }) })
             .setDescription(`**${guild.name}** has been added to my guilds!`)
-            .setThumbnail(guild.iconURL({ extension: 'jpeg' }))
+            .setThumbnail(guild.iconURL({ extension: "jpeg" }))
             .addFields(
-                { name: 'Owner', value: owner ? owner.user.tag : 'Unknown#0000', inline: true },
-                { name: 'Members', value: guild.memberCount.toString(), inline: true },
+                { name: "Owner", value: owner ? owner.user.tag : "Unknown#0000", inline: true },
+                { name: "Members", value: guild.memberCount.toString(), inline: true },
                 {
-                    name: 'Created At',
+                    name: "Created At",
                     value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`,
                     inline: true,
                 },
                 {
-                    name: 'Joined At',
+                    name: "Joined At",
                     value: `<t:${Math.floor(guild.joinedTimestamp / 1000)}:F>`,
                     inline: true,
                 },
-                { name: 'ID', value: guild.id, inline: true }
+                { name: "ID", value: guild.id, inline: true },
             )
             .setTimestamp();
 
         const logChannelId = this.client.config.logChannelId;
         if (!logChannelId) {
-            console.error('Log channel ID not found in configuration.');
+            console.error("Log channel ID not found in configuration.");
             return;
         }
 

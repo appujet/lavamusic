@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Queue extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'queue',
+            name: "queue",
             description: {
-                content: 'Shows the current queue',
-                examples: ['queue'],
-                usage: 'queue',
+                content: "Shows the current queue",
+                examples: ["queue"],
+                usage: "queue",
             },
-            category: 'music',
-            aliases: ['q'],
+            category: "music",
+            aliases: ["q"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Queue extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -38,13 +38,9 @@ export default class Queue extends Command {
                     embed
                         .setColor(this.client.color.main)
                         .setDescription(
-                            `Now playing: [${player.current.info.title}](${
-                                player.current.info.uri
-                            }) - Request By: ${player.current?.info.requester} - Duration: ${
-                                player.current.info.isStream
-                                    ? 'LIVE'
-                                    : client.utils.formatTime(player.current.info.length)
-                            }`
+                            `Now playing: [${player.current.info.title}](${player.current.info.uri}) - Request By: ${
+                                player.current?.info.requester
+                            } - Duration: ${player.current.info.isStream ? "LIVE" : client.utils.formatTime(player.current.info.length)}`,
                         ),
                 ],
             });
@@ -52,20 +48,18 @@ export default class Queue extends Command {
 
         const queue = player.queue.map(
             (track, index) =>
-                `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${
-                    track?.info.requester
-                } - Duration: ${
-                    track.info.isStream ? 'LIVE' : client.utils.formatTime(track.info.length)
-                }`
+                `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info.requester} - Duration: ${
+                    track.info.isStream ? "LIVE" : client.utils.formatTime(track.info.length)
+                }`,
         );
         const chunks = client.utils.chunk(queue, 10) || [[]];
 
         const pages = chunks.map((chunk, index) =>
             embed
                 .setColor(this.client.color.main)
-                .setAuthor({ name: 'Queue', iconURL: ctx.guild.iconURL({}) })
-                .setDescription(chunk.join('\n'))
-                .setFooter({ text: `Page ${index + 1} of ${chunks.length}` })
+                .setAuthor({ name: "Queue", iconURL: ctx.guild.iconURL({}) })
+                .setDescription(chunk.join("\n"))
+                .setFooter({ text: `Page ${index + 1} of ${chunks.length}` }),
         );
 
         return await client.utils.paginate(ctx, pages);

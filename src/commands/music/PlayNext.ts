@@ -1,23 +1,23 @@
 //TODO
 
-import { LoadType } from 'shoukaku';
+import { LoadType } from "shoukaku";
 
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class PlayNext extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'playnext',
+            name: "playnext",
             description: {
-                content: 'Add the song to play next in queue',
+                content: "Add the song to play next in queue",
                 examples: [
-                    'playnext https://www.youtube.com/watch?v=QH2-TGUlwu4',
-                    'playnext https://open.spotify.com/track/6WrI0LAC5M1Rw2MnX2ZvEg',
+                    "playnext https://www.youtube.com/watch?v=QH2-TGUlwu4",
+                    "playnext https://open.spotify.com/track/6WrI0LAC5M1Rw2MnX2ZvEg",
                 ],
-                usage: 'playnext <song>',
+                usage: "playnext <song>",
             },
-            category: 'music',
-            aliases: ['pn'],
+            category: "music",
+            aliases: ["pn"],
             cooldown: 3,
             args: true,
             player: {
@@ -28,14 +28,14 @@ export default class PlayNext extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks', 'Connect', 'Speak'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks", "Connect", "Speak"],
                 user: [],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'song',
-                    description: 'The song you want to play',
+                    name: "song",
+                    description: "The song you want to play",
                     type: 3,
                     required: true,
                     autocomplete: true,
@@ -44,7 +44,7 @@ export default class PlayNext extends Command {
         });
     }
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const query = args.join(' ');
+        const query = args.join(" ");
         let player = client.queue.get(ctx.guild.id);
         const vc = ctx.member as any;
         if (!player) player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel);
@@ -54,20 +54,12 @@ export default class PlayNext extends Command {
         switch (res.loadType) {
             case LoadType.ERROR:
                 ctx.sendMessage({
-                    embeds: [
-                        embed
-                            .setColor(this.client.color.red)
-                            .setDescription('There was an error while searching.'),
-                    ],
+                    embeds: [embed.setColor(this.client.color.red).setDescription("There was an error while searching.")],
                 });
                 break;
             case LoadType.EMPTY:
                 ctx.sendMessage({
-                    embeds: [
-                        embed
-                            .setColor(this.client.color.red)
-                            .setDescription('There were no results found.'),
-                    ],
+                    embeds: [embed.setColor(this.client.color.red).setDescription("There were no results found.")],
                 });
                 break;
             case LoadType.TRACK: {
@@ -77,9 +69,7 @@ export default class PlayNext extends Command {
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
-                                .setDescription(
-                                    `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
-                                ),
+                                .setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`),
                         ],
                     });
                 player.queue.splice(0, 0, track);
@@ -88,9 +78,7 @@ export default class PlayNext extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(
-                                `Added [${res.data.info.title}](${res.data.info.uri}) to play next in the queue.`
-                            ),
+                            .setDescription(`Added [${res.data.info.title}](${res.data.info.uri}) to play next in the queue.`),
                     ],
                 });
                 break;
@@ -101,9 +89,7 @@ export default class PlayNext extends Command {
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
-                                .setDescription(
-                                    `The playlist is too long. The maximum length is ${client.config.maxPlaylistSize} songs.`
-                                ),
+                                .setDescription(`The playlist is too long. The maximum length is ${client.config.maxPlaylistSize} songs.`),
                         ],
                     });
                 for (const track of res.data.tracks) {
@@ -113,9 +99,7 @@ export default class PlayNext extends Command {
                             embeds: [
                                 embed
                                     .setColor(this.client.color.red)
-                                    .setDescription(
-                                        `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
-                                    ),
+                                    .setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`),
                             ],
                         });
                     player.queue.splice(0, 0, pl);
@@ -125,9 +109,7 @@ export default class PlayNext extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(
-                                `Added ${res.data.tracks.length} songs to play next in the queue.`
-                            ),
+                            .setDescription(`Added ${res.data.tracks.length} songs to play next in the queue.`),
                     ],
                 });
                 break;
@@ -139,9 +121,7 @@ export default class PlayNext extends Command {
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
-                                .setDescription(
-                                    `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
-                                ),
+                                .setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`),
                         ],
                     });
                 player.queue.splice(0, 0, track1);
@@ -150,9 +130,7 @@ export default class PlayNext extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(
-                                `Added [${res.data[0].info.title}](${res.data[0].info.uri}) to play next in the queue.`
-                            ),
+                            .setDescription(`Added [${res.data[0].info.title}](${res.data[0].info.uri}) to play next in the queue.`),
                     ],
                 });
                 break;

@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class LowPass extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'lowpass',
+            name: "lowpass",
             description: {
-                content: 'Toggle the lowpass filter on/off',
-                examples: ['lowpass'],
-                usage: 'lowpass <number>',
+                content: "Toggle the lowpass filter on/off",
+                examples: ["lowpass"],
+                usage: "lowpass <number>",
             },
-            category: 'filters',
-            aliases: ['lp'],
+            category: "filters",
+            aliases: ["lp"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,8 +21,8 @@ export default class LowPass extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
-                user: ['ManageGuild'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                user: ["ManageGuild"],
             },
             slashCommand: true,
             options: [],
@@ -32,26 +32,26 @@ export default class LowPass extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        const filterEnabled = player.filters.includes('lowpass');
+        const filterEnabled = player.filters.includes("lowpass");
 
         if (filterEnabled) {
             player.player.setLowPass({}); //TODO
-            player.filters = player.filters.filter(filter => filter !== 'lowpass');
+            player.filters = player.filters.filter((filter) => filter !== "lowpass");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Lowpass filter has been disabled',
+                        description: "Lowpass filter has been disabled",
                         color: client.color.main,
                     },
                 ],
             });
         } else {
             player.player.setLowPass({ smoothing: 20 });
-            player.filters.push('lowpass');
+            player.filters.push("lowpass");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Lowpass filter has been enabled',
+                        description: "Lowpass filter has been enabled",
                         color: client.color.main,
                     },
                 ],

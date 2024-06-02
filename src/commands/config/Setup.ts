@@ -1,19 +1,19 @@
-import { ChannelType, OverwriteType, PermissionFlagsBits } from 'discord.js';
+import { ChannelType, OverwriteType, PermissionFlagsBits } from "discord.js";
 
-import { Command, Context, Lavamusic } from '../../structures/index.js';
-import { getButtons } from '../../utils/Buttons.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { getButtons } from "../../utils/Buttons.js";
 
 export default class Setup extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'setup',
+            name: "setup",
             description: {
-                content: 'Sets up the bot',
-                examples: ['setup create', 'setup delete', 'setup info'],
-                usage: 'setup',
+                content: "Sets up the bot",
+                examples: ["setup create", "setup delete", "setup info"],
+                usage: "setup",
             },
-            category: 'config',
-            aliases: ['setup'],
+            category: "config",
+            aliases: ["setup"],
             cooldown: 3,
             args: true,
             player: {
@@ -24,24 +24,24 @@ export default class Setup extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks', 'ManageChannels'],
-                user: ['ManageGuild'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks", "ManageChannels"],
+                user: ["ManageGuild"],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'create',
-                    description: 'Creates the song request channel',
+                    name: "create",
+                    description: "Creates the song request channel",
                     type: 1,
                 },
                 {
-                    name: 'delete',
-                    description: 'Deletes the song request channel',
+                    name: "delete",
+                    description: "Deletes the song request channel",
                     type: 1,
                 },
                 {
-                    name: 'info',
-                    description: 'Shows the song request channel',
+                    name: "info",
+                    description: "Shows the song request channel",
                     type: 1,
                 },
             ],
@@ -53,13 +53,13 @@ export default class Setup extends Command {
         const embed = client.embed().setColor(client.color.main);
 
         switch (subCommand) {
-            case 'create': {
+            case "create": {
                 const data = await client.db.getSetup(ctx.guild.id);
-                if (data && data.textId && data.messageId) {
+                if (data?.textId && data.messageId) {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: 'The song request channel already exists',
+                                description: "The song request channel already exists",
                                 color: client.color.red,
                             },
                         ],
@@ -69,7 +69,7 @@ export default class Setup extends Command {
                 const textChannel = await ctx.guild.channels.create({
                     name: `${this.client.user.username}-song-requests`,
                     type: ChannelType.GuildText,
-                    topic: 'Song requests for the music bot',
+                    topic: "Song requests for the music bot",
                     permissionOverwrites: [
                         {
                             type: OverwriteType.Member,
@@ -96,16 +96,14 @@ export default class Setup extends Command {
                 const player = this.client.queue.get(ctx.guild.id);
                 const image = this.client.config.links.img;
                 const desc =
-                    player && player.queue && player.current
+                    player?.queue && player.current
                         ? `[${player.current.info.title}](${player.current.info.uri})`
-                        : 'Nothing playing right now';
+                        : "Nothing playing right now";
 
                 embed.setDescription(desc).setImage(image);
-                await textChannel
-                    .send({ embeds: [embed], components: getButtons(player) })
-                    .then(async msg => {
-                        client.db.setSetup(ctx.guild.id, textChannel.id, msg.id);
-                    });
+                await textChannel.send({ embeds: [embed], components: getButtons(player) }).then((msg) => {
+                    client.db.setSetup(ctx.guild.id, textChannel.id, msg.id);
+                });
 
                 await ctx.sendMessage({
                     embeds: [
@@ -119,13 +117,13 @@ export default class Setup extends Command {
                 break;
             }
 
-            case 'delete': {
+            case "delete": {
                 const data2 = await client.db.getSetup(ctx.guild.id);
                 if (!data2) {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: 'The song request channel doesn\'t exist',
+                                description: "The song request channel doesn't exist",
                                 color: client.color.red,
                             },
                         ],
@@ -139,7 +137,7 @@ export default class Setup extends Command {
                 await ctx.sendMessage({
                     embeds: [
                         {
-                            description: 'The song request channel has been deleted',
+                            description: "The song request channel has been deleted",
                             color: client.color.main,
                         },
                     ],
@@ -148,13 +146,13 @@ export default class Setup extends Command {
                 break;
             }
 
-            case 'info': {
+            case "info": {
                 const data3 = await client.db.getSetup(ctx.guild.id);
                 if (!data3) {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: 'The song request channel doesn\'t exist',
+                                description: "The song request channel doesn't exist",
                                 color: client.color.red,
                             },
                         ],
@@ -169,7 +167,7 @@ export default class Setup extends Command {
                     await ctx.sendMessage({
                         embeds: [
                             {
-                                description: 'The song request channel doesn\'t exist',
+                                description: "The song request channel doesn't exist",
                                 color: client.color.red,
                             },
                         ],

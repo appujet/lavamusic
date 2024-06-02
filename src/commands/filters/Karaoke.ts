@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Karaoke extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'karaoke',
+            name: "karaoke",
             description: {
-                content: 'Toggle the karaoke filter on/off',
-                examples: ['karaoke'],
-                usage: 'karaoke',
+                content: "Toggle the karaoke filter on/off",
+                examples: ["karaoke"],
+                usage: "karaoke",
             },
-            category: 'filters',
-            aliases: ['kk'],
+            category: "filters",
+            aliases: ["kk"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,8 +21,8 @@ export default class Karaoke extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
-                user: ['ManageGuild'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                user: ["ManageGuild"],
             },
             slashCommand: true,
             options: [],
@@ -32,15 +32,15 @@ export default class Karaoke extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        const filterEnabled = player.filters.includes('karaoke');
+        const filterEnabled = player.filters.includes("karaoke");
 
         if (filterEnabled) {
             player.player.setKaraoke();
-            player.filters = player.filters.filter(filter => filter !== 'karaoke');
+            player.filters = player.filters.filter((filter) => filter !== "karaoke");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Karaoke filter has been disabled',
+                        description: "Karaoke filter has been disabled",
                         color: client.color.main,
                     },
                 ],
@@ -52,11 +52,11 @@ export default class Karaoke extends Command {
                 filterBand: 220,
                 filterWidth: 100,
             });
-            player.filters.push('karaoke');
+            player.filters.push("karaoke");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Karaoke filter has been enabled',
+                        description: "Karaoke filter has been enabled",
                         color: client.color.main,
                     },
                 ],

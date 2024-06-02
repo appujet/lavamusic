@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Nowplaying extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'nowplaying',
+            name: "nowplaying",
             description: {
-                content: 'Shows the currently playing song',
-                examples: ['nowplaying'],
-                usage: 'nowplaying',
+                content: "Shows the currently playing song",
+                examples: ["nowplaying"],
+                usage: "nowplaying",
             },
-            category: 'music',
-            aliases: ['np'],
+            category: "music",
+            aliases: ["np"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Nowplaying extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -38,13 +38,11 @@ export default class Nowplaying extends Command {
         const embed = this.client
             .embed()
             .setColor(this.client.color.main)
-            .setAuthor({ name: 'Now Playing', iconURL: ctx.guild.iconURL({}) })
+            .setAuthor({ name: "Now Playing", iconURL: ctx.guild.iconURL({}) })
             .setThumbnail(track.info.artworkUrl)
-            .setDescription(
-                `[${track.info.title}](${track.info.uri}) - Request By: ${track.info.requester}\n\n\`${bar}\``
-            )
+            .setDescription(`[${track.info.title}](${track.info.uri}) - Request By: ${track.info.requester}\n\n\`${bar}\``)
             .addFields({
-                name: '\u200b',
+                name: "\u200b",
                 value: `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(duration)}\``,
             });
         return await ctx.sendMessage({ embeds: [embed] });

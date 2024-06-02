@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Stop extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'stop',
+            name: "stop",
             description: {
-                content: 'Stops the music and clears the queue',
-                examples: ['stop'],
-                usage: 'stop',
+                content: "Stops the music and clears the queue",
+                examples: ["stop"],
+                usage: "stop",
             },
-            category: 'music',
-            aliases: ['sp'],
+            category: "music",
+            aliases: ["sp"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Stop extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -37,11 +37,7 @@ export default class Stop extends Command {
         player.stop();
 
         return await ctx.sendMessage({
-            embeds: [
-                embed
-                    .setColor(this.client.color.main)
-                    .setDescription(`Stopped the music and cleared the queue`),
-            ],
+            embeds: [embed.setColor(this.client.color.main).setDescription("Stopped the music and cleared the queue")],
         });
     }
 }

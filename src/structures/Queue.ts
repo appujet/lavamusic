@@ -1,7 +1,7 @@
-import { Guild } from 'discord.js';
-import { LavalinkResponse, Node } from 'shoukaku';
+import type { Guild } from "discord.js";
+import type { LavalinkResponse, Node } from "shoukaku";
 
-import { Dispatcher, Lavamusic } from './index.js';
+import { Dispatcher, type Lavamusic } from "./index.js";
 
 export class Queue extends Map<string, Dispatcher> {
     public client: Lavamusic;
@@ -27,20 +27,14 @@ export class Queue extends Map<string, Dispatcher> {
         super.clear();
     }
 
-    public async create(
-        guild: Guild,
-        voice: any,
-        channel: any,
-        givenNode?: Node
-    ): Promise<Dispatcher> {
-        if (!voice) throw new Error('No voice channel was provided');
-        if (!channel) throw new Error('No text channel was provided');
-        if (!guild) throw new Error('No guild was provided');
+    public async create(guild: Guild, voice: any, channel: any, givenNode?: Node): Promise<Dispatcher> {
+        if (!voice) throw new Error("No voice channel was provided");
+        if (!channel) throw new Error("No text channel was provided");
+        if (!guild) throw new Error("No guild was provided");
 
         let dispatcher = this.get(guild.id);
         if (!dispatcher) {
-            const node =
-                givenNode ?? this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
+            const node = givenNode ?? this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
             const player = await this.client.shoukaku.joinVoiceChannel({
                 guildId: guild.id,
                 channelId: voice.id,
@@ -57,7 +51,7 @@ export class Queue extends Map<string, Dispatcher> {
             });
 
             this.set(guild.id, dispatcher);
-            this.client.shoukaku.emit('playerCreate', dispatcher.player);
+            this.client.shoukaku.emit("playerCreate", dispatcher.player);
         }
 
         return dispatcher;
@@ -65,13 +59,11 @@ export class Queue extends Map<string, Dispatcher> {
 
     public async search(query: string): Promise<LavalinkResponse | null> {
         const node = this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
-        const searchQuery = /^https?:\/\//.test(query)
-            ? query
-            : `${this.client.config.searchEngine}:${query}`;
+        const searchQuery = /^https?:\/\//.test(query) ? query : `${this.client.config.searchEngine}:${query}`;
         try {
             return await node.rest.resolve(searchQuery);
         } catch (err) {
-            console.error('Error during search:', err);
+            console.error("Error during search:", err);
             return null;
         }
     }

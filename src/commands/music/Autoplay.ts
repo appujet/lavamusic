@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Autoplay extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'autoplay',
+            name: "autoplay",
             description: {
-                content: 'Toggles autoplay',
-                examples: ['autoplay'],
-                usage: 'autoplay',
+                content: "Toggles autoplay",
+                examples: ["autoplay"],
+                usage: "autoplay",
             },
-            category: 'music',
-            aliases: ['ap'],
+            category: "music",
+            aliases: ["ap"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Autoplay extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -35,10 +35,10 @@ export default class Autoplay extends Command {
         const autoplay = player.autoplay;
         player.setAutoplay(!autoplay);
 
-        if (!autoplay) {
-            embed.setDescription(`Autoplay has been enabled`).setColor(this.client.color.main);
+        if (autoplay) {
+            embed.setDescription("Autoplay has been disabled").setColor(this.client.color.main);
         } else {
-            embed.setDescription(`Autoplay has been disabled`).setColor(this.client.color.main);
+            embed.setDescription("Autoplay has been enabled").setColor(this.client.color.main);
         }
 
         await ctx.sendMessage({ embeds: [embed] });

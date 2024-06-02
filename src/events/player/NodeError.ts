@@ -1,19 +1,20 @@
-import { Event, Lavamusic } from '../../structures/index.js';
-import BotLog from '../../utils/BotLog.js';
+import { Event, type Lavamusic } from "../../structures/index.js";
+import BotLog from "../../utils/BotLog.js";
 
 export default class NodeError extends Event {
     constructor(client: Lavamusic, file: string) {
         super(client, file, {
-            name: 'nodeError',
+            name: "nodeError",
         });
     }
 
+    // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(node: string, error: any): Promise<void> {
         const errorMessage = JSON.stringify(error, null, 2);
         const message = `Node ${node} Error: ${errorMessage}`;
 
         this.client.logger.error(message);
-        BotLog.send(this.client, message, 'error');
+        BotLog.send(this.client, message, "error");
     }
 }
 

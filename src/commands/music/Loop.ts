@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Loop extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'loop',
+            name: "loop",
             description: {
-                content: 'Loop the current song or the queue',
-                examples: ['loop', 'loop queue', 'loop song'],
-                usage: 'loop',
+                content: "Loop the current song or the queue",
+                examples: ["loop", "loop queue", "loop song"],
+                usage: "loop",
             },
-            category: 'general',
-            aliases: ['loop'],
+            category: "general",
+            aliases: ["loop"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Loop extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -32,19 +32,19 @@ export default class Loop extends Command {
         const embed = this.client.embed().setColor(this.client.color.main);
         const player = client.queue.get(ctx.guild.id);
 
-        let loopMessage = '';
+        let loopMessage = "";
         switch (player.loop) {
-            case 'off':
-                player.loop = 'repeat';
-                loopMessage = '**Looping the song**';
+            case "off":
+                player.loop = "repeat";
+                loopMessage = "**Looping the song**";
                 break;
-            case 'repeat':
-                player.loop = 'queue';
-                loopMessage = '**Looping the queue**';
+            case "repeat":
+                player.loop = "queue";
+                loopMessage = "**Looping the queue**";
                 break;
-            case 'queue':
-                player.loop = 'off';
-                loopMessage = '**Looping is now off**';
+            case "queue":
+                player.loop = "off";
+                loopMessage = "**Looping is now off**";
                 break;
         }
 

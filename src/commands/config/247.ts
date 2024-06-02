@@ -1,18 +1,18 @@
-import { GuildMember } from 'discord.js';
+import type { GuildMember } from "discord.js";
 
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class _247 extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: '247',
+            name: "247",
             description: {
-                content: 'Set the bot to stay in the voice channel',
-                examples: ['247'],
-                usage: '247',
+                content: "Set the bot to stay in the voice channel",
+                examples: ["247"],
+                usage: "247",
             },
-            category: 'config',
-            aliases: ['stay'],
+            category: "config",
+            aliases: ["stay"],
             cooldown: 3,
             args: false,
             player: {
@@ -23,8 +23,8 @@ export default class _247 extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
-                user: ['ManageGuild'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                user: ["ManageGuild"],
             },
             slashCommand: true,
             options: [],
@@ -41,51 +41,32 @@ export default class _247 extends Command {
 
             if (!member.voice.channel) {
                 return await ctx.sendMessage({
-                    embeds: [
-                        embed
-                            .setDescription(
-                                `You need to be in a voice channel to use this command.`
-                            )
-                            .setColor(client.color.red),
-                    ],
+                    embeds: [embed.setDescription("You need to be in a voice channel to use this command.").setColor(client.color.red)],
                 });
             }
 
-            if (!data) {
-                await client.db.set_247(ctx.guild.id, ctx.channel.id, member.voice.channel.id);
-                if (!player) {
-                    player = await client.queue.create(
-                        ctx.guild,
-                        member.voice.channel,
-                        ctx.channel,
-                        client.shoukaku.options.nodeResolver(client.shoukaku.nodes)
-                    );
-                }
-                return await ctx.sendMessage({
-                    embeds: [
-                        embed
-                            .setDescription(`**24/7 mode has been enabled**`)
-                            .setColor(client.color.main),
-                    ],
-                });
-            } else {
+            if (data) {
                 await client.db.delete_247(ctx.guild.id);
                 return await ctx.sendMessage({
-                    embeds: [
-                        embed
-                            .setDescription(`**24/7 mode has been disabled**`)
-                            .setColor(client.color.red),
-                    ],
+                    embeds: [embed.setDescription("**24/7 mode has been disabled**").setColor(client.color.red)],
                 });
             }
-        } catch (error) {
-            console.error('Error in 24/7 command:', error);
+            await client.db.set_247(ctx.guild.id, ctx.channel.id, member.voice.channel.id);
+            if (!player) {
+                player = await client.queue.create(
+                    ctx.guild,
+                    member.voice.channel,
+                    ctx.channel,
+                    client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
+                );
+            }
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setDescription(`An error occurred while trying to execute this command.`)
-                        .setColor(client.color.red),
-                ],
+                embeds: [embed.setDescription("**24/7 mode has been enabled**").setColor(client.color.main)],
+            });
+        } catch (error) {
+            console.error("Error in 24/7 command:", error);
+            return await ctx.sendMessage({
+                embeds: [embed.setDescription("An error occurred while trying to execute this command.").setColor(client.color.red)],
             });
         }
     }

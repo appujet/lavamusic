@@ -1,6 +1,6 @@
-import { ApplicationCommandOption, PermissionResolvable } from 'discord.js';
+import type { ApplicationCommandOption, PermissionResolvable } from "discord.js";
 
-import Lavamusic from './Lavamusic.js';
+import type Lavamusic from "./Lavamusic.js";
 
 interface CommandDescription {
     content: string;
@@ -56,9 +56,9 @@ export default class Command {
         this.name = options.name;
         this.nameLocalizations = options.nameLocalizations || {};
         this.description = {
-            content: options.description?.content || 'No description provided',
-            usage: options.description?.usage || 'No usage provided',
-            examples: options.description?.examples || ['No examples provided'],
+            content: options.description?.content || "No description provided",
+            usage: options.description?.usage || "No usage provided",
+            examples: options.description?.examples || ["No examples provided"],
         };
         this.descriptionLocalizations = options.descriptionLocalizations || {};
         this.aliases = options.aliases || [];
@@ -72,12 +72,12 @@ export default class Command {
         };
         this.permissions = {
             dev: options.permissions?.dev ?? false,
-            client: options.permissions?.client ?? ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+            client: options.permissions?.client ?? ["SendMessages", "ViewChannel", "EmbedLinks"],
             user: options.permissions?.user ?? [],
         };
         this.slashCommand = options.slashCommand ?? false;
         this.options = options.options ?? [];
-        this.category = options.category ?? 'general';
+        this.category = options.category ?? "general";
     }
 
     public async run(_client: Lavamusic, _message: any, _args: string[]): Promise<any> {

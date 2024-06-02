@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Prefix extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'prefix',
+            name: "prefix",
             description: {
-                content: 'Shows or sets the bot\'s prefix',
-                examples: ['prefix set !', 'prefix reset'],
-                usage: 'prefix [set <prefix> | reset]',
+                content: "Shows or sets the bot's prefix",
+                examples: ["prefix set !", "prefix reset"],
+                usage: "prefix [set <prefix> | reset]",
             },
-            category: 'general',
-            aliases: ['prefix'],
+            category: "general",
+            aliases: ["prefix"],
             cooldown: 3,
             args: true,
             player: {
@@ -21,27 +21,27 @@ export default class Prefix extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
-                user: ['ManageGuild'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                user: ["ManageGuild"],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'set',
-                    description: 'Sets the prefix',
+                    name: "set",
+                    description: "Sets the prefix",
                     type: 1,
                     options: [
                         {
-                            name: 'prefix',
-                            description: 'The prefix you want to set',
+                            name: "prefix",
+                            description: "The prefix you want to set",
                             type: 3,
                             required: true,
                         },
                     ],
                 },
                 {
-                    name: 'reset',
-                    description: 'Resets the prefix to the default one',
+                    name: "reset",
+                    description: "Resets the prefix to the default one",
                     type: 1,
                 },
             ],
@@ -53,19 +53,19 @@ export default class Prefix extends Command {
         const guildId = ctx.guild.id;
         const guildData = await client.db.get(guildId);
         const isInteraction = ctx.isInteraction;
-        let subCommand = '';
-        let prefix = '';
+        let subCommand = "";
+        let prefix = "";
 
         if (isInteraction) {
             subCommand = ctx.interaction.options.data[0].name;
             prefix = ctx.interaction.options.data[0].options[0]?.value.toString();
         } else {
-            subCommand = args[0] || '';
-            prefix = args[1] || '';
+            subCommand = args[0] || "";
+            prefix = args[1] || "";
         }
 
         switch (subCommand) {
-            case 'set': {
+            case "set": {
                 if (!prefix) {
                     const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
                     embed.setDescription(`The prefix for this server is \`${currentPrefix}\``);
@@ -73,7 +73,7 @@ export default class Prefix extends Command {
                 }
 
                 if (prefix.length > 3) {
-                    embed.setDescription('The prefix cannot be longer than 3 characters.');
+                    embed.setDescription("The prefix cannot be longer than 3 characters.");
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
 
@@ -82,7 +82,7 @@ export default class Prefix extends Command {
                 return await ctx.sendMessage({ embeds: [embed] });
             }
 
-            case 'reset': {
+            case "reset": {
                 const defaultPrefix = client.config.prefix;
                 client.db.setPrefix(guildId, defaultPrefix);
                 embed.setDescription(`The prefix for this server is now \`${defaultPrefix}\``);

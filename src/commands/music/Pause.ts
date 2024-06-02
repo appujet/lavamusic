@@ -1,15 +1,15 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Pause extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'pause',
+            name: "pause",
             description: {
-                content: 'Pauses the current song',
-                examples: ['pause'],
-                usage: 'pause',
+                content: "Pauses the current song",
+                examples: ["pause"],
+                usage: "pause",
             },
-            category: 'music',
+            category: "music",
             aliases: [],
             cooldown: 3,
             args: false,
@@ -21,7 +21,7 @@ export default class Pause extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -32,20 +32,15 @@ export default class Pause extends Command {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
 
-        if (!player.paused) {
-            player.pause();
+        if (player.paused) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.main).setDescription(`Paused the song`)],
-            });
-        } else {
-            return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription(`The song is already paused`),
-                ],
+                embeds: [embed.setColor(this.client.color.red).setDescription("The song is already paused")],
             });
         }
+        player.pause();
+        return await ctx.sendMessage({
+            embeds: [embed.setColor(this.client.color.main).setDescription("Successfully paused the song")],
+        });
     }
 }
 

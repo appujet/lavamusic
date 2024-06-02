@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/typedef */
-import { Message, User } from 'discord.js';
-import { Node, Player, Track } from 'shoukaku';
+import type { Message, User } from "discord.js";
+import type { Node, Player, Track } from "shoukaku";
 
-import { Lavamusic } from './index.js';
+import type { Lavamusic } from "./index.js";
 
 export class Song implements Track {
     encoded: string;
@@ -23,7 +23,7 @@ export class Song implements Track {
     pluginInfo: unknown;
 
     constructor(track: Song | Track, user: User) {
-        if (!track) throw new Error('Track is not provided');
+        if (!track) throw new Error("Track is not provided");
         this.encoded = track.encoded;
         this.info = {
             ...track.info,
@@ -49,7 +49,7 @@ export default class Dispatcher {
     public stopped: boolean;
     public previous: Song | null;
     public current: Song | null;
-    public loop: 'off' | 'repeat' | 'queue';
+    public loop: "off" | "repeat" | "queue";
     public requester: User;
     public repeat: number;
     public node: Node;
@@ -68,7 +68,7 @@ export default class Dispatcher {
         this.stopped = false;
         this.previous = null;
         this.current = null;
-        this.loop = 'off';
+        this.loop = "off";
         this.repeat = 0;
         this.node = options.node;
         this.paused = false;
@@ -78,19 +78,15 @@ export default class Dispatcher {
         this.history = [];
 
         this.player
-            .on('start', () =>
-                this.client.shoukaku.emit('trackStart', this.player, this.current, this)
-            )
-            .on('end', () => {
+            .on("start", () => this.client.shoukaku.emit("trackStart", this.player, this.current, this))
+            .on("end", () => {
                 if (!this.queue.length) {
-                    this.client.shoukaku.emit('queueEnd', this.player, this.current, this);
+                    this.client.shoukaku.emit("queueEnd", this.player, this.current, this);
                 }
-                this.client.shoukaku.emit('trackEnd', this.player, this.current, this);
+                this.client.shoukaku.emit("trackEnd", this.player, this.current, this);
             })
-            .on('stuck', () => this.client.shoukaku.emit('trackStuck', this.player, this.current))
-            .on('closed', (...args) =>
-                this.client.shoukaku.emit('socketClosed', this.player, ...args)
-            );
+            .on("stuck", () => this.client.shoukaku.emit("trackStuck", this.player, this.current))
+            .on("closed", (...args) => this.client.shoukaku.emit("socketClosed", this.player, ...args));
     }
 
     get exists(): boolean {
@@ -101,8 +97,8 @@ export default class Dispatcher {
         return this.player.volume;
     }
 
-    public async play(): Promise<void> {
-        if (!this.exists || (!this.queue.length && !this.current)) {
+    public play(): Promise<void> {
+        if (!(this.exists && (this.queue.length || this.current))) {
             return;
         }
         this.current = this.queue.length ? this.queue.shift() : this.queue[0];
@@ -141,7 +137,7 @@ export default class Dispatcher {
         this.client.shoukaku.leaveVoiceChannel(this.guildId);
         this.client.queue.delete(this.guildId);
         if (!this.stopped) {
-            this.client.shoukaku.emit('playerDestroy', this.player);
+            this.client.shoukaku.emit("playerDestroy", this.player);
         }
     }
 
@@ -154,7 +150,7 @@ export default class Dispatcher {
         }
     }
 
-    public async skip(skipto = 1): Promise<void> {
+    public skip(skipto = 1): void {
         if (this.player) {
             if (skipto > this.queue.length) {
                 this.queue.length = 0;
@@ -176,7 +172,7 @@ export default class Dispatcher {
         if (this.player) {
             this.queue.length = 0;
             this.history = [];
-            this.loop = 'off';
+            this.loop = "off";
             this.autoplay = false;
             this.repeat = 0;
             this.stopped = true;
@@ -184,7 +180,7 @@ export default class Dispatcher {
         }
     }
 
-    public setLoop(loop: 'off' | 'repeat' | 'queue'): void {
+    public setLoop(loop: "off" | "repeat" | "queue"): void {
         this.loop = loop;
     }
 
@@ -199,10 +195,8 @@ export default class Dispatcher {
     }
 
     public async Autoplay(song: Song): Promise<void> {
-        const resolve = await this.node.rest.resolve(
-            `${this.client.config.searchEngine}:${song.info.author}`
-        );
-        if (!resolve || !resolve.data || !Array.isArray(resolve.data)) {
+        const resolve = await this.node.rest.resolve(`${this.client.config.searchEngine}:${song.info.author}`);
+        if (!resolve?.data && Array.isArray(resolve.data)) {
             return this.destroy();
         }
 
@@ -212,13 +206,12 @@ export default class Dispatcher {
         let attempts = 0;
 
         while (attempts < maxAttempts) {
-            const potentialChoice = this.buildTrack(
-                metadata[Math.floor(Math.random() * metadata.length)],
-                this.client.user
-            );
+            const potentialChoice = this.buildTrack(metadata[Math.floor(Math.random() * metadata.length)], this.client.user);
             if (
-                !this.queue.some(s => s.encoded === potentialChoice.encoded) &&
-                !this.history.some(s => s.encoded === potentialChoice.encoded)
+                !(
+                    this.queue.some((s) => s.encoded === potentialChoice.encoded) ||
+                    this.history.some((s) => s.encoded === potentialChoice.encoded)
+                )
             ) {
                 chosen = potentialChoice;
                 break;

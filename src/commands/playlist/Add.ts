@@ -1,20 +1,20 @@
 //TODO
 
-import { LoadType } from 'shoukaku';
+import { LoadType } from "shoukaku";
 
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class AddPlaylist extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'add',
+            name: "add",
             description: {
-                content: 'Adds a song to the playlist',
-                examples: ['add <playlist> <song>'],
-                usage: 'add <playlist> <song>',
+                content: "Adds a song to the playlist",
+                examples: ["add <playlist> <song>"],
+                usage: "add <playlist> <song>",
             },
-            category: 'playlist',
-            aliases: ['add'],
+            category: "playlist",
+            aliases: ["add"],
             cooldown: 3,
             args: true,
             player: {
@@ -25,20 +25,20 @@ export default class AddPlaylist extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'playlist',
-                    description: 'The playlist you want to add',
+                    name: "playlist",
+                    description: "The playlist you want to add",
                     type: 3,
                     required: true,
                 },
                 {
-                    name: 'song',
-                    description: 'The song you want to add',
+                    name: "song",
+                    description: "The song you want to add",
                     type: 3,
                     required: true,
                 },
@@ -48,46 +48,34 @@ export default class AddPlaylist extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const playlist = args.shift();
-        const song = args.join(' ');
+        const song = args.join(" ");
 
         if (!playlist) {
-            const errorMessage = this.client
-                .embed()
-                .setDescription('Please provide a playlist')
-                .setColor(this.client.color.red);
+            const errorMessage = this.client.embed().setDescription("Please provide a playlist").setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [errorMessage] });
         }
 
         if (!song) {
-            const errorMessage = this.client
-                .embed()
-                .setDescription('Please provide a song')
-                .setColor(this.client.color.red);
+            const errorMessage = this.client.embed().setDescription("Please provide a song").setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [errorMessage] });
         }
 
         const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
 
         if (!playlistData) {
-            const playlistNotFoundError = this.client
-                .embed()
-                .setDescription('That playlist doesn\'t exist')
-                .setColor(this.client.color.red);
+            const playlistNotFoundError = this.client.embed().setDescription("That playlist doesn't exist").setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
         }
 
         const res = await client.queue.search(song);
         if (!res) {
-            const noSongsFoundError = this.client
-                .embed()
-                .setDescription('No songs found')
-                .setColor(this.client.color.red);
+            const noSongsFoundError = this.client.embed().setDescription("No songs found").setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [noSongsFoundError] });
         }
-        let trackStrings;
-        let count;
+        let trackStrings: any;
+        let count: number;
         if (res.loadType === LoadType.PLAYLIST) {
-            trackStrings = res.data.tracks.map(track => track);
+            trackStrings = res.data.tracks.map((track) => track);
             count = res.data.tracks.length;
         } else {
             trackStrings = [res.data[0]];

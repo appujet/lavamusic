@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Seek extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'seek',
+            name: "seek",
             description: {
-                content: 'Seeks to a certain time in the song',
-                examples: ['seek 1m, seek 1h 30m'],
-                usage: 'seek <time>',
+                content: "Seeks to a certain time in the song",
+                examples: ["seek 1m, seek 1h 30m"],
+                usage: "seek <time>",
             },
-            category: 'music',
-            aliases: ['se'],
+            category: "music",
+            aliases: ["se"],
             cooldown: 3,
             args: true,
             player: {
@@ -21,14 +21,14 @@ export default class Seek extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'time',
-                    description: 'The time to seek to',
+                    name: "time",
+                    description: "The time to seek to",
                     type: 3,
                     required: true,
                 },
@@ -43,9 +43,7 @@ export default class Seek extends Command {
         const time = client.utils.parseTime(args[0]);
         if (!time) {
             return await ctx.sendMessage({
-                embeds: [
-                    embed.setColor(this.client.color.red).setDescription('Invalid time format.'),
-                ],
+                embeds: [embed.setColor(this.client.color.red).setDescription("Invalid time format.")],
             });
         }
 

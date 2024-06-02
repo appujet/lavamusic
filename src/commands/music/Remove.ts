@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Remove extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'remove',
+            name: "remove",
             description: {
-                content: 'Removes a song from the queue',
-                examples: ['remove 1'],
-                usage: 'remove <song number>',
+                content: "Removes a song from the queue",
+                examples: ["remove 1"],
+                usage: "remove <song number>",
             },
-            category: 'music',
-            aliases: ['rm'],
+            category: "music",
+            aliases: ["rm"],
             cooldown: 3,
             args: true,
             player: {
@@ -21,14 +21,14 @@ export default class Remove extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
             options: [
                 {
-                    name: 'song',
-                    description: 'The song number',
+                    name: "song",
+                    description: "The song number",
                     type: 4,
                     required: true,
                 },
@@ -41,30 +41,18 @@ export default class Remove extends Command {
 
         if (!player.queue.length)
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription('There are no songs in the queue.'),
-                ],
+                embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
             });
 
         const songNumber = Number(args[0]);
         if (isNaN(songNumber) || songNumber <= 0 || songNumber > player.queue.length)
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription('Please provide a valid song number.'),
-                ],
+                embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid song number.")],
             });
 
         player.remove(songNumber - 1);
         return await ctx.sendMessage({
-            embeds: [
-                embed
-                    .setColor(this.client.color.main)
-                    .setDescription(`Removed song number ${songNumber} from the queue`),
-            ],
+            embeds: [embed.setColor(this.client.color.main).setDescription(`Removed song number ${songNumber} from the queue`)],
         });
     }
 }

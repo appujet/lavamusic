@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
-import { SearchEngine } from './types.js';
+import { SearchEngine } from "./types.js";
 
 dotenv.config();
 
@@ -18,8 +18,8 @@ export default {
     autoNode: process.env.AUTO_NODE ? parseBoolean(process.env.AUTO_NODE) : false,
     searchEngine: process.env.SEARCH_ENGINE || SearchEngine.YouTube,
     maxPlaylistSize: process.env.MAX_PLAYLIST_SIZE ? parseInt(process.env.MAX_PLAYLIST_SIZE) : 100,
-    botStatus: process.env.BOT_STATUS || 'online',
-    botActivity: process.env.BOT_ACTIVITY || 'Lavamusic',
+    botStatus: process.env.BOT_STATUS || "online",
+    botActivity: process.env.BOT_ACTIVITY || "Lavamusic",
     botActivityType: process.env.BOT_ACTIVITY_TYPE ? parseInt(process.env.BOT_ACTIVITY_TYPE) : 2,
     maxQueueSize: process.env.MAX_QUEUE_SIZE ? parseInt(process.env.MAX_QUEUE_SIZE) : 100,
     owners: process.env.OWNER_IDS ? JSON.parse(process.env.OWNER_IDS) : [],
@@ -27,14 +27,14 @@ export default {
     guildId: process.env.GUILD_ID,
     logChannelId: process.env.LOG_CHANNEL_ID,
     links: {
-        img: process.env.IMG_LINK || 'https://i.imgur.com/ud3EWNh.jpg',
+        img: process.env.IMG_LINK || "https://i.imgur.com/ud3EWNh.jpg",
     },
     icons: {
-        youtube: 'https://i.imgur.com/xzVHhFY.png',
-        spotify: 'https://i.imgur.com/qvdqtsc.png',
-        soundcloud: 'https://i.imgur.com/MVnJ7mj.png',
-        applemusic: 'https://i.imgur.com/Wi0oyYm.png',
-        deezer: 'https://i.imgur.com/xyZ43FG.png',
+        youtube: "https://i.imgur.com/xzVHhFY.png",
+        spotify: "https://i.imgur.com/qvdqtsc.png",
+        soundcloud: "https://i.imgur.com/MVnJ7mj.png",
+        applemusic: "https://i.imgur.com/Wi0oyYm.png",
+        deezer: "https://i.imgur.com/xyZ43FG.png",
     },
     production: process.env.PRODUCTION ? parseBoolean(process.env.PRODUCTION) : true,
     lavalink: [
@@ -48,11 +48,11 @@ export default {
 };
 
 function parseBoolean(value: string | undefined): boolean {
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
         value = value.trim().toLowerCase();
     }
     switch (value) {
-        case 'true':
+        case "true":
             return true;
         default:
             return false;

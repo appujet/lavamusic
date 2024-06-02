@@ -9,11 +9,16 @@
         "prisma:push": "npx prisma db push",
         "prisma:migrate": "npx prisma migrate dev --name init",
         "build": "tsc --project tsconfig.json",
-        "clean": "rm -rf dist",
-        "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx",
-        "lint:fix": "eslint . --fix --cache --ext .js,.jsx,.ts,.tsx",
-        "format": "prettier --check .",
-        "format:fix": "prettier --write ."
+        "clean": "node ./scripts/clean.js && npm run build",
+        "lint": "biome lint --apply ./src",
+        "format": "biome check --apply ./src",
+        "prepare": "npm run clean && husky"
+    },
+    "lint-staged": {
+        "*.ts": [
+            "biome check --apply",
+            "biome format --write"
+        ]
     },
     "repository": {
         "type": "git",
@@ -36,14 +41,10 @@
     },
     "homepage": "https://github.com/appujet/lavamusic#readme",
     "devDependencies": {
+        "@biomejs/biome": "^1.7.3",
         "@types/node": "^20.13.0",
         "@types/signale": "^1.4.7",
-        "@typescript-eslint/eslint-plugin": "^7.11.0",
-        "@typescript-eslint/parser": "^7.11.0",
-        "eslint": "^8.57.0",
-        "eslint-plugin-import": "^2.29.1",
-        "eslint-plugin-unicorn": "^53.0.0",
-        "prettier": "^3.3.0",
+        "lint-staged": "^15.2.5",
         "prisma": "^5.14.0",
         "ts-node": "^10.9.2",
         "typescript": "^5.4.5"

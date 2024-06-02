@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Resume extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'resume',
+            name: "resume",
             description: {
-                content: 'Resumes the current song',
-                examples: ['resume'],
-                usage: 'resume',
+                content: "Resumes the current song",
+                examples: ["resume"],
+                usage: "resume",
             },
-            category: 'music',
-            aliases: ['r'],
+            category: "music",
+            aliases: ["r"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Resume extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -35,18 +35,14 @@ export default class Resume extends Command {
 
         if (!player.paused) {
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription('The player is not paused.'),
-                ],
+                embeds: [embed.setColor(this.client.color.red).setDescription("The player is not paused.")],
             });
         }
 
         player.pause();
 
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Resumed the player`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription("Resumed the player")],
         });
     }
 }

@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Leave extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'leave',
+            name: "leave",
             description: {
-                content: 'Leaves the voice channel',
-                examples: ['leave'],
-                usage: 'leave',
+                content: "Leaves the voice channel",
+                examples: ["leave"],
+                usage: "leave",
             },
-            category: 'music',
-            aliases: ['l'],
+            category: "music",
+            aliases: ["l"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class Leave extends Command {
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
@@ -36,19 +36,13 @@ export default class Leave extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.main)
-                        .setDescription(
-                            `Left <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
-                        ),
+                        .setDescription(`Left <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`),
                 ],
             });
             player.destroy();
         } else {
             await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription(`I'm not in a voice channel`),
-                ],
+                embeds: [embed.setColor(this.client.color.red).setDescription(`I'm not in a voice channel`)],
             });
         }
     }

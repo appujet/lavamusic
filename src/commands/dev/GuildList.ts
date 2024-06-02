@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from '../../structures/index.js';
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class GuildList extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'guildlist',
+            name: "guildlist",
             description: {
-                content: 'List all guilds the bot is in',
-                examples: ['guildlist'],
-                usage: 'guildlist',
+                content: "List all guilds the bot is in",
+                examples: ["guildlist"],
+                usage: "guildlist",
             },
-            category: 'dev',
-            aliases: ['glt'],
+            category: "dev",
+            aliases: ["glt"],
             cooldown: 3,
             args: false,
             player: {
@@ -21,7 +21,7 @@ export default class GuildList extends Command {
             },
             permissions: {
                 dev: true,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: false,
@@ -30,14 +30,14 @@ export default class GuildList extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const guilds = this.client.guilds.cache.map(guild => `- **${guild.name}** - (${guild.id})`);
+        const guilds = this.client.guilds.cache.map((guild) => `- **${guild.name}** - (${guild.id})`);
         const chunks = client.utils.chunk(guilds, 10) || [[]];
 
         const pages = chunks.map((chunk, index) => {
             return this.client
                 .embed()
                 .setColor(this.client.color.main)
-                .setDescription(chunk.join('\n'))
+                .setDescription(chunk.join("\n"))
                 .setFooter({ text: `Page ${index + 1} of ${chunks.length}` });
         });
 
