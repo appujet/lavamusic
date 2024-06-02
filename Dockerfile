@@ -17,8 +17,6 @@ RUN npm install
 
 RUN npm config set global --legacy-peer-deps
 
-# Copy source code
-COPY . .
 
 # Copy tsconfig.json
 COPY tsconfig.json ./
@@ -40,7 +38,7 @@ WORKDIR /opt/lavamusic/
 COPY --from=builder /opt/lavamusic/dist ./dist
 COPY --from=builder /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.txt
 COPY --from=builder /opt/lavamusic/prisma ./prisma
-COPY --from=builder /opt/lavamusic/source ./source
+COPY --from=builder /opt/lavamusic/scripts ./scripts
 
 # Copy package files and install production dependencies
 COPY package*.json ./
