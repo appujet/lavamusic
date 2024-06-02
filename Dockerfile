@@ -4,11 +4,10 @@ FROM node:21 as builder
 WORKDIR /opt/lavamusic/
 
 
-
 # Copy package files and install dependencies
 COPY package*.json ./
 # Copy source code
-COPY source ./source
+COPY /opt/lavamusic/source ./source
 
 RUN apt update
 RUN apt install openssl -y
