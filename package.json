@@ -43,7 +43,7 @@
         "@biomejs/biome": "^1.8.1",
         "@types/node": "^20.14.2",
         "@types/signale": "^1.4.7",
-        "lint-staged": "^15.2.6",
+        "lint-staged": "^15.2.7",
         "prisma": "^5.15.0",
         "ts-node": "^10.9.2",
         "typescript": "^5.4.5"
@@ -56,7 +56,7 @@
         "shoukaku": "^4.0.1",
         "signale": "^1.4.0",
         "tslib": "^2.6.3",
-        "undici": "^6.18.2"
+        "undici": "^6.19.0"
     },
     "signale": {
         "displayScope": true,
