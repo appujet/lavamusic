@@ -11,11 +11,11 @@
         "build": "tsc --project tsconfig.json",
         "clean": "node ./scripts/clean.js && npm run build",
         "lint": "biome lint --write ./src",
-        "format": "biome check --apply ./src"
+        "format": "biome check --write ./src"
     },
     "lint-staged": {
         "*.ts": [
-            "biome check --apply",
+            "biome check --write",
             "biome format --write"
         ]
     },
