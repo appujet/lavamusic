@@ -66,12 +66,12 @@ export default class Context {
 
     public async sendMessage(content: string | MessagePayload | MessageCreateOptions | InteractionReplyOptions): Promise<Message> {
         if (this.isInteraction) {
-            if (typeof content === 'string' || isInteractionReplyOptions(content)) {
+            if (typeof content === "string" || isInteractionReplyOptions(content)) {
                 this.msg = await this.interaction.reply(content);
                 return this.msg;
             }
         }
-        if (typeof content === 'string' || isMessagePayload(content)) {
+        if (typeof content === "string" || isMessagePayload(content)) {
             this.msg = await (this.message.channel as TextChannel).send(content);
             return this.msg;
         }
@@ -94,16 +94,14 @@ export default class Context {
         return this.msg;
     }
     public async sendFollowUp(content: string | MessagePayload | MessageCreateOptions | InteractionReplyOptions): Promise<void> {
-
         if (this.isInteraction) {
-            if (typeof content === 'string' || isInteractionReplyOptions(content)) {
+            if (typeof content === "string" || isInteractionReplyOptions(content)) {
                 await this.interaction.followUp(content);
             }
         }
-        if (typeof content === 'string' || isMessagePayload(content)) {
+        if (typeof content === "string" || isMessagePayload(content)) {
             this.msg = await (this.message.channel as TextChannel).send(content);
         }
-
     }
     public get deferred(): boolean | Promise<any> {
         if (this.isInteraction) {
