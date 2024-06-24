@@ -160,19 +160,6 @@ logging:
     # Set this to DEBUG to enable more detailed logging from Lavalink.
     lavalink: INFO
 
-    # Set this to TRACE to see all WebSocket messages.
-    lavalink.server.io.SocketContext: OFF
-    # Log all track exceptions (COMMON, SUSPICIOUS & FAULT). Set to DEBUG to enable detailed logging.
-    com.sedmelluq.discord.lavaplayer.tools.ExceptionTools: OFF
-    # Set to DEBUG to enable detailed logging of HTTP requests and responses.
-    com.sedmelluq.discord.lavaplayer.tools.io.PersistentHttpStream: OFF
-    # Set to DEBUG to enable detailed logging of YouTube HTTP requests and responses.
-    com.sedmelluq.discord.lavaplayer.source.youtube.YoutubePersistentHttpStream: OFF
-    # Set to DEBUG to enable detailed logging for the LavaSrc plugin.
-    com.github.topi314.lavasrc.LavaSrcTools: OFF
-    # Set to DEBUG to enable detailed logging for the YouTube audio source manager.
-    dev.lavalink.youtube.YoutubeAudioSourceManager: OFF
-
   request:
     enabled: true
     includeClientInfo: true
