@@ -9,7 +9,11 @@ plugins:
     allowDirectPlaylistIds: true # Whether just playlist IDs can match. If false, only complete URLs will be loaded.
     # The clients to use for track loading. See below for a list of valid clients.
     # Clients are queried in the order they are given (so the first client is queried first and so on...)
-    clients: ["MUSIC", "ANDROID", "WEB", "TVHTML5EMBEDDED"]
+    clients:
+      - MUSIC
+      - ANDROID
+      - WEB
+      - TVHTML5EMBEDDED
   lavasrc:
     providers: # Custom providers for track loading. This is the default
     # - "dzisrc:%ISRC%" # Deezer ISRC provider
