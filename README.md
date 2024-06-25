@@ -146,19 +146,19 @@ LOG_CHANNEL_ID = "" # If you enter this, you will be able to receive the status 
 
 ## Prisma Setup
 
-1. Generate the Prisma client:
+5. Generate the Prisma client:
 
 ```bash
 npm run prisma:push
 ```
 
-2. Run the migrations:
+Run the migrations (Only if you want to migrate your database)
 
 ```bash
 npm run prisma:migrate
 ```
 
-5. Run the bot:
+6. Run the bot:
 
 ```bash
 npm start

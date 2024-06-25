@@ -41,7 +41,7 @@
     "homepage": "https://github.com/appujet/lavamusic#readme",
     "devDependencies": {
         "@biomejs/biome": "^1.8.2",
-        "@types/node": "^20.14.7",
+        "@types/node": "^20.14.8",
         "@types/signale": "^1.4.7",
         "lint-staged": "^15.2.7",
         "prisma": "^5.15.1",
