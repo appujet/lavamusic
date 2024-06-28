@@ -20,7 +20,7 @@ plugins:
     # - "dzsearch:%QUERY%" # Deezer search provider
     - 'ytsearch:"%ISRC%"' # Will be ignored if track does not have an ISRC. See https://en.wikipedia.org/wiki/International_Standard_Recording_Code
     - 'ytsearch:%QUERY%' # Will be used if track has no ISRC or no track could be found for the ISRC
-    #  you can add multiple other fallback sources her
+    #  you can add multiple other fallback sources here
     sources:
       spotify: false # Enable Spotify source
       applemusic: false # Enable Apple Music source
@@ -113,7 +113,7 @@ lavalink:
       channelMix: true
       lowPass: true
     bufferDurationMs: 400 # The duration of the NAS buffer. Higher values fare better against longer GC pauses. Duration <= 0 to disable JDA-NAS. Minimum of 40ms, lower values may introduce pauses.
-    frameBufferDurationMs: 5000 # How many milliseconds of audio to keep buffered
+    frameBufferDurationMs: 1000 # How many milliseconds of audio to keep buffered
     opusEncodingQuality: 10 # Opus encoder quality. Valid values range from 0 to 10, where 10 is best quality but is the most expensive on the CPU.
     resamplingQuality: MEDIUM # Quality of resampling operations. Valid values are LOW, MEDIUM and HIGH, where HIGH uses the most CPU.
     trackStuckThresholdMs: 10000 # The threshold for how long a track can be stuck. A track is stuck if does not return any audio data.
