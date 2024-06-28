@@ -33,7 +33,7 @@
         "typescript",
         "prisma"
     ],
-    "author": "blacky",
+    "author": "appujet",
     "license": "GPL-3.0",
     "bugs": {
         "url": "https://github.com/appujet/lavamusic/issues"
