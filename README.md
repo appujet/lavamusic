@@ -135,12 +135,14 @@ npm run db:migrate
 ```
 
 7. Run the bot:
+
 If you are using Windows, click run.bat on Windows explorer.
 ```bash
 npm start
 ```
 
 8. Invite the bot to your server:
+
 Generate an invite link for your bot and invite it to your server using the <a href="https://discord.com/developers/applications">Discord Developer Portal</a> or using <a href="https://discordapi.com/permissions.html">Permissions Calculator.</a>
 
 ## 🚀 Installation using Docker Compose
