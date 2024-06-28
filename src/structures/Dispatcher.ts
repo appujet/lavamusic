@@ -103,7 +103,7 @@ export default class Dispatcher {
         }
         this.current = this.queue.length ? this.queue.shift() : this.queue[0];
         if (this.current) {
-            this.player.playTrack({ track: this.current.encoded });
+            this.player.playTrack({ track: { encoded: this.current.encoded } });
             this.history.push(this.current);
             if (this.history.length > 100) {
                 this.history.shift();
