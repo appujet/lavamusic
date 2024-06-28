@@ -1,71 +1,7 @@
 server: # REST and WS server
-  port: 2333
-  address: 0.0.0.0
-  http2:
-    enabled: false # Whether to enable HTTP/2 support
+    port: 2333 # The port that the server listens on
+    address: 0.0.0.0
 plugins:
-  dunctebot:
-    ttsLanguage: "en-US" # language of the TTS engine
-    sources:
-      # true = source enabled, false = source disabled
-      getyarn: true # www.getyarn.io
-      clypit: true # www.clyp.it
-      tts: true # speak:Words to speak
-      pornhub: true # should be self-explanatory
-      reddit: true # should be self-explanatory
-      ocremix: true # www.ocremix.org
-      tiktok: true # tiktok.com
-      mixcloud: true # mixcloud.com
-      soundgasm: true # soundgasm.net
-  lavasrc:
-    providers: # Custom providers for track loading. This is the default
-      - "dzisrc:%ISRC%" # Deezer ISRC provider
-      - "dzsearch:%QUERY%" # Deezer search provider
-      - "ytsearch:\"%ISRC%\"" # Will be ignored if track does not have an ISRC. See https://en.wikipedia.org/wiki/International_Standard_Recording_Code
-      - "ytsearch:%QUERY%" # Will be used if track has no ISRC or no track could be found for the ISRC
-      #  you can add multiple other fallback sources here
-    sources:
-      spotify: true # Enable Spotify source
-      applemusic: true # Enable Apple Music source
-      deezer: true # Enable Deezer source
-      yandexmusic: false # Enable Yandex Music source
-      flowerytts: true # Enable Flowery TTS source
-      youtube: true # Enable YouTube search source (https://github.com/topi314/LavaSearch)
-    lyrics-sources:
-      spotify: true # Enable Spotify lyrics source
-      deezer: true # Enable Deezer lyrics source
-      youtube: true # Enable YouTube lyrics source
-    spotify:
-      clientId: "your client id"
-      clientSecret: "your client secret"
-      # spDc: "your sp dc cookie" # the sp dc cookie used for accessing the spotify lyrics api
-      countryCode: "US" # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-      playlistLoadLimit: 6 # The number of pages at 100 tracks each
-      albumLoadLimit: 6 # The number of pages at 50 tracks each
-    applemusic:
-      countryCode: "US" # the country code you want to use for filtering the artists top tracks and language. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-      mediaAPIToken: "your apple music api token" # apple music api token
-      # or specify an apple music key
-      keyID: "your key id"
-      teamID: "your team id"
-      musicKitKey: |
-        -----BEGIN PRIVATE KEY-----
-        your key
-        -----END PRIVATE KEY-----      
-      playlistLoadLimit: 6 # The number of pages at 300 tracks each
-      albumLoadLimit: 6 # The number of pages at 300 tracks each
-    deezer:
-      masterDecryptionKey: "your master decryption key" # the master key used for decrypting the deezer tracks. (yes this is not here you need to get it from somewhere else)
-    yandexmusic:
-      accessToken: "your access token" # the token used for accessing the yandex music api. See https://github.com/TopiSenpai/LavaSrc#yandex-music
-    flowerytts:
-      voice: "default voice" # (case-sensitive) get default voice from here https://api.flowery.pw/v1/tts/voices
-      translate: false # whether to translate the text to the native language of voice
-      silence: 0 # the silence parameter is in milliseconds. Range is 0 to 10000. The default is 0.
-      speed: 1.0 # the speed parameter is a float between 0.5 and 10. The default is 1.0. (0.5 is half speed, 2.0 is double speed, etc.)
-      audioFormat: "mp3" # supported formats are: mp3, ogg_opus, ogg_vorbis, aac, wav, and flac. Default format is mp3
-    youtube:
-      countryCode: "US" # the country code you want to use for searching lyrics via ISRC. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
   youtube:
     enabled: true # Whether this source can be used.
     allowSearch: true # Whether "ytsearch:" and "ytmsearch:" can be used.
@@ -77,32 +13,81 @@ plugins:
       - MUSIC
       - ANDROID
       - WEB
-    # You can configure individual clients with the following.
-    # Any options or clients left unspecified will use their default values,
-    # which enables everything for all clients.
-    WEB: # names are specified as they are written below under "Available Clients".
-      # This will disable using the WEB client for video playback.
-      playback: false
-    TVHTML5EMBEDDED:
-      # The below config disables everything except playback for this client.
-      playlistLoading: false # Disables loading of playlists and mixes for this client.
-      videoLoading: false # Disables loading of videos for this client (playback is still allowed).
-      searching: false # Disables the ability to search for videos for this client.
+      - TVHTML5EMBEDDED
+  lavasrc:
+    providers: # Custom providers for track loading. This is the default
+    # - "dzisrc:%ISRC%" # Deezer ISRC provider
+    # - "dzsearch:%QUERY%" # Deezer search provider
+    - 'ytsearch:"%ISRC%"' # Will be ignored if track does not have an ISRC. See https://en.wikipedia.org/wiki/International_Standard_Recording_Code
+    - 'ytsearch:%QUERY%' # Will be used if track has no ISRC or no track could be found for the ISRC
+    #  you can add multiple other fallback sources here
+    sources:
+      spotify: false # Enable Spotify source
+      applemusic: false # Enable Apple Music source
+      deezer: false # Enable Deezer source
+      yandexmusic: false # Enable Yandex Music source
+      flowerytts: false # Enable Flowery TTs source
+      youtube: true # Enable YouTube search source (https://github.com/topi314/LavaSearch)
+    lyrics-sources:
+      spotify: false # Enable Spotify lyrics source
+      deezer: false # Enable Deezer lyrics source
+      youtube: false # Enable YouTube lyrics source
+      yandexmusic: false # Enable Yandex Music lyrics source
+    spotify:
+      clientId: "your client id"
+      clientSecret: "your client secret"
+      spDc: "" # the sp dc cookie used for accessing the spotify lyrics api
+      countryCode: "US" # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+      playlistLoadLimit: 6 # The number of pages at 100 tracks each
+      albumLoadLimit: 6 # The number of pages at 50 tracks each
+    applemusic:
+      countryCode: "US" # the country code you want to use for filtering the artists top tracks and language. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+      mediaAPIToken: "your access token" # apple music api token
+      playlistLoadLimit: 6 # The number of pages at 300 tracks each
+      albumLoadLimit: 6 # The number of pages at 300 tracks each
+    deezer:
+      masterDecryptionKey: "your master decryption key" # the master key used for decrypting the deezer tracks. (yes this is not here you need to get it from somewhere else)
+    yandexmusic:
+      accessToken: "your access token" # the token used for accessing the yandex music api. See https://github.com/TopiSenpai/LavaSrc#yandex-music
+      playlistLoadLimit: 1 # The number of pages at 100 tracks each
+      albumLoadLimit: 1 # The number of pages at 50 tracks each
+      artistLoadLimit: 1 # The number of pages at 10 tracks each
+    flowerytts:
+      voice: "default voice" # (case-sensitive) get default voice here https://flowery.pw/docs/flowery/tts-voices-v-1-tts-voices-get
+      translate: false # whether to translate the text to the native language of voice
+      silence: 0 # the silence parameter is in milliseconds. Range is 0 to 10000. The default is 0.
+      speed: 1.0 # the speed parameter is a float between 0.5 and 10. The default is 1.0. (0.5 is half speed, 2.0 is double speed, etc.)
+      audioFormat: "mp3" # supported formats are: mp3, ogg_opus, ogg_vorbis, aac, wav, and flac. Default format is mp3
+    youtube:
+      countryCode: "US" # the country code you want to use for searching lyrics via ISRC. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+  dunctebot:
+    ttsLanguage: 'en-AU' # language of the TTS engine
+    sources:
+      # true = source enabled, false = source disabled
+      getyarn: true # www.getyarn.io
+      clypit: true # www.clyp.it
+      tts: true # speak:Words to speak
+      pornhub: true # should be self-explanatory
+      reddit: true # should be self-explanatory
+      ocremix: true # www.ocremix.org
+      tiktok: true # tiktok.com
+      mixcloud: true # mixcloud.com
+      soundgasm: true # soundgasm.net
+
 lavalink:
   plugins:
-    - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
-      snapshot: false # (optional, tells lavalink to use the default snaptshot repository instead)
-    - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
-      snapshot: false # set to true if you want to use snapshot builds (see below)
     - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.1.1"
-      snapshot: false #  set to true if you want to use snapshot builds (see below)
-    - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.0" # replace x.x.x with the latest release tag!
-      snapshot: false # set to true if you want to use snapshot builds (see below)
+      snapshot: false # set to true if you want to use snapshot builds.
+    - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
+      snapshot: false # set to true if you want to use snapshot builds.
+    - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.0"
+      snapshot: false # set to true if you want to use snapshot builds.
+    - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
+      snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "dev.lavalink.youtube:youtube-plugin:1.3.0"
-      snapshot: false # Set to true if you want to use a snapshot version.
-  pluginsDir: "./plugins" # optional, defaults to "./plugins"
-  defaultPluginRepository: "https://maven.lavalink.dev/releases" # optional, defaults to the Lavalink release repository
-  defaultPluginSnapshotRepository: "https://maven.lavalink.dev/snapshots" # optional, defaults to the Lavalink snapshot repository
+      snapshot: false # set to true if you want to use snapshot builds.
+
+  pluginsDir: './plugins'
   server:
     password: "youshallnotpass"
     sources:
@@ -112,6 +97,7 @@ lavalink:
       soundcloud: true
       twitch: true
       vimeo: true
+      mixer: true
       nico: true
       http: true # warning: keeping HTTP enabled without a proxy configured could expose your server's IP address.
       local: false
@@ -129,7 +115,7 @@ lavalink:
     bufferDurationMs: 400 # The duration of the NAS buffer. Higher values fare better against longer GC pauses. Duration <= 0 to disable JDA-NAS. Minimum of 40ms, lower values may introduce pauses.
     frameBufferDurationMs: 1000 # How many milliseconds of audio to keep buffered
     opusEncodingQuality: 10 # Opus encoder quality. Valid values range from 0 to 10, where 10 is best quality but is the most expensive on the CPU.
-    resamplingQuality: HIGH # Quality of resampling operations. Valid values are LOW, MEDIUM and HIGH, where HIGH uses the most CPU.
+    resamplingQuality: MEDIUM # Quality of resampling operations. Valid values are LOW, MEDIUM and HIGH, where HIGH uses the most CPU.
     trackStuckThresholdMs: 10000 # The threshold for how long a track can be stuck. A track is stuck if does not return any audio data.
     useSeekGhosting: true # Seek ghosting is the effect where whilst a seek is in progress, the audio buffer is read from until empty, or until seek is ready.
     youtubePlaylistLoadLimit: 6 # Number of pages at 100 each
@@ -144,8 +130,8 @@ lavalink:
       #searchTriggersFail: true # Whether a search 429 should trigger marking the ip as failing
       #retryLimit: -1 # -1 = use default lavaplayer value | 0 = infinity | >0 = retry will happen this numbers times
     #youtubeConfig: # Required for avoiding all age restrictions by YouTube, some restricted videos still can be played without.
-      #email: "" # Email of Google account
-      #password: "" # Password of Google account
+      #email: "your account mail" # Email of Google account
+      #password: "your account password" # Password of Google account
     #httpConfig: # Useful for blocking bad-actors from ip-grabbing your music node and attacking it, this way only the http proxy will be attacked
       #proxyHost: "localhost" # Hostname of the proxy, (ip or domain)
       #proxyPort: 3128 # Proxy port, 3128 is the default for squidProxy
@@ -167,9 +153,13 @@ sentry:
 logging:
   file:
     path: ./logs/
+
   level:
+    # Set this to DEBUG to enable more detailed logging. Please note that this will likely spam your console.
     root: INFO
+    # Set this to DEBUG to enable more detailed logging from Lavalink.
     lavalink: INFO
+
   request:
     enabled: true
     includeClientInfo: true
@@ -177,6 +167,7 @@ logging:
     includeQueryString: true
     includePayload: true
     maxPayloadLength: 10000
+
   logback:
     rollingpolicy:
       max-file-size: 1GB
