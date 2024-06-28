@@ -65,9 +65,11 @@
 -   ![TikTok](https://img.shields.io/badge/TikTok-FF2D55?style=plastic&logo=tiktok&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
 -   ![Soundgasm](https://img.shields.io/badge/Soundgasm-F1672F?style=plastic&logo=soundgasm&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
 -   ![Text To Speech](https://img.shields.io/badge/Text%20To%20Speech-3080ff?style=plastic&logo=google-translate&logoColor=white) ([Required Plugin][skybot-lavalink-plugin])
-[LavaSrc]: https://github.com/TopiSenpai/LavaSrc
+
+[LavaSrc]: https://github.com/topi314/LavaSrc
 [skybot-lavalink-plugin]: https://github.com/DuncteBot/skybot-lavalink-plugin
 [youtube-source]: https://github.com/lavalink-devs/youtube-source
+
 To Setup a Lavalink server on Windows, Linux, or Replit, [Click Here.](https://github.com/LucasB25/lavalink-server)
 ### **Need Help with plugins?** Join our [Discord Server](https://discord.gg/YsJCtDuTXp) and ask for help in the `#support` channel.
 
