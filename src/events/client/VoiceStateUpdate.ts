@@ -22,8 +22,9 @@ export default class VoiceStateUpdate extends Event {
         const vc = newState.guild.channels.cache.get(vcConnection.channelId);
         if (!(vc && vc.members instanceof Map)) return;
 
+        const is247 = await this.client.db.get_247(guildId);
+
         if (!newState.guild.members.cache.get(this.client.user.id)?.voice.channelId) {
-            const is247 = await this.client.db.get_247(guildId);
             if (!is247 && player) {
                 return player.destroy();
             }
@@ -39,7 +40,7 @@ export default class VoiceStateUpdate extends Event {
                 newState.guild.members.me.permissions.has(["Connect", "Speak"]) ||
                 newState.channel.permissionsFor(newState.guild.members.me).has("MuteMembers")
             ) {
-                await newState.guild.members.me.voice.setSuppressed(false).catch(() => {});
+                await newState.guild.members.me.voice.setSuppressed(false).catch(() => { });
             }
         }
 
@@ -62,8 +63,6 @@ export default class VoiceStateUpdate extends Event {
         }
 
         if (vc.members instanceof Map && [...vc.members.values()].filter((x: GuildMember) => !x.user.bot).length <= 0) {
-            const is247 = await this.client.db.get_247(guildId);
-
             setTimeout(async () => {
                 const vcConnection = player.node.manager.connections.get(guildId);
                 if (!vcConnection?.channelId) return;
