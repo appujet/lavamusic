@@ -60,7 +60,7 @@ export default class Seek extends Command {
             });
         }
         
-        player.seek(time);
+        player.seek(duration);
 
         return await ctx.sendMessage({
             embeds: [embed.setColor(this.client.color.main).setDescription(`Seeked to ${client.utils.formatTime(duration)}`)],
