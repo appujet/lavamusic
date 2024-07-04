@@ -27,8 +27,8 @@ export default class Seek extends Command {
             slashCommand: true,
             options: [
                 {
-                    name: "time",
-                    description: "The time to seek to",
+                    name: "duration",
+                    description: "The duration to seek to",
                     type: 3,
                     required: true,
                 },
@@ -38,19 +38,32 @@ export default class Seek extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
+        const current = player.current.info;
         const embed = this.client.embed();
-
-        const time = client.utils.parseTime(args[0]);
-        if (!time) {
+        const duration = client.utils.parseTime(args.join(" "));
+        
+        if (!duration) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("Invalid time format.")],
+                embeds: [embed.setColor(this.client.color.red).setDescription("Invalid time format. Example: seek 1m, seek 1h 30m")],
             });
         }
 
+        if (!current.isSeekable) {
+            return await ctx.sendMessage({
+                embeds: [embed.setColor(this.client.color.red).setDescription("This track is not seekable")],
+            });
+        }
+        
+        if (duration > current.length) {
+            return await ctx.sendMessage({
+                embeds: [embed.setColor(this.client.color.red).setDescription(`Cannot seek beyond the song duration of ${client.utils.formatTime(current.length)}`)],
+            });
+        }
+        
         player.seek(time);
 
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Seeked to ${args[0]}`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription(`Seeked to ${client.utils.formatTime(duration)}`)],
         });
     }
 }
