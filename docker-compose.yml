@@ -66,7 +66,7 @@ services:
             # Your lavalink password
             - LAVALINK_AUTH=youshallnotpass
             # Your lavalink name
-            - LAVALINK_NAME=Blacky'
+            - LAVALINK_NAME=LavaMusic
             # Your lavalink secure (true or false)
             - LAVALINK_SECURE=false
             # database url

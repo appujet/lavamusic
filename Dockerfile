@@ -47,6 +47,10 @@ RUN npm install --omit=dev
 RUN npx prisma generate
 RUN npx prisma db push
 
+# Ensure application.yml is a file, not a directory
+RUN rm -rf /opt/lavamusic/application.yml && \
+    touch /opt/lavamusic/application.yml
+
 # Run as non-root user
 RUN addgroup --gid 322 --system lavamusic && \
     adduser --uid 322 --system lavamusic
