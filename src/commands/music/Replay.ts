@@ -33,12 +33,13 @@ export default class Replay extends Command {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
 
-        if (!player.current) {
+
+        if (!player.current?.info.isSeekable) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("There is no track currently playing")],
+                embeds: [embed.setColor(this.client.color.red).setDescription("Cannot replay this track as it is not seekable")],
             });
         }
-
+        
         player.seek(0);
 
         return await ctx.sendMessage({
