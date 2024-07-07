@@ -10,7 +10,7 @@ export default class Distorsion extends Command {
                 usage: "distorsion",
             },
             category: "filters",
-            aliases: ["distortion"],
+            aliases: ["dt"],
             cooldown: 3,
             args: false,
             player: {
@@ -22,7 +22,7 @@ export default class Distorsion extends Command {
             permissions: {
                 dev: false,
                 client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ["ManageGuild"],
+                user: [],
             },
             slashCommand: true,
             options: [],
@@ -31,16 +31,14 @@ export default class Distorsion extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
         const filterEnabled = player.filters.includes("distorsion");
-
         if (filterEnabled) {
             player.player.setDistortion({});
             player.filters = player.filters.filter((filter) => filter !== "distorsion");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Distorsion filter has been disabled",
+                        description: "Distorsion filter has been disabled.",
                         color: client.color.main,
                     },
                 ],
@@ -60,7 +58,7 @@ export default class Distorsion extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Distorsion filter has been enabled",
+                        description: "Distorsion filter has been enabled.",
                         color: client.color.main,
                     },
                 ],

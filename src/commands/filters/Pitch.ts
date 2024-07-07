@@ -22,13 +22,13 @@ export default class Pitch extends Command {
             permissions: {
                 dev: false,
                 client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ["ManageGuild"],
+                user: [],
             },
             slashCommand: true,
             options: [
                 {
                     name: "number",
-                    description: "The number you want to set the pitch to (between 1 and 5)",
+                    description: "The number you want to set the pitch to (between 0.5 and 5)",
                     type: 3,
                     required: true,
                 },
@@ -38,29 +38,24 @@ export default class Pitch extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
         const numberString = args[0].replace(",", ".");
-
         const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(numberString);
         const number = parseFloat(numberString);
-
-        if (!isValidNumber || isNaN(number) || number < 1 || number > 5) {
+        if (!isValidNumber || isNaN(number) || number < 0.5 || number > 5) {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Please provide a valid number between 1 and 5",
+                        description: "Please provide a valid number between 0.5 and 5.",
                         color: this.client.color.red,
                     },
                 ],
             });
         }
-
-        player.player.setTimescale({ pitch: number, rate: 1, speed: 1 });
-
+        player.player.setTimescale({pitch: number});
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Pitch has been set to ${number}`,
+                    description: `Pitch has been set to ${number}.`,
                     color: this.client.color.main,
                 },
             ],

@@ -36,7 +36,6 @@ export default class LavaLink extends Command {
             .setColor(this.client.color.main)
             .setThumbnail(this.client.user.avatarURL({}))
             .setTimestamp();
-
         client.shoukaku.nodes.forEach((node) => {
             const statusEmoji = node.stats ? "🟢" : "🔴";
             const stats = node.stats || {
@@ -46,7 +45,6 @@ export default class LavaLink extends Command {
                 cpu: { cores: 0, systemLoad: 0, lavalinkLoad: 0 },
                 memory: { used: 0, reservable: 0 },
             };
-
             const formattedStats = `\`\`\`yaml
 Player: ${stats.players}
 Playing Players: ${stats.playingPlayers}
@@ -56,13 +54,11 @@ Memory Usage: ${client.utils.formatBytes(stats.memory.used)} / ${client.utils.fo
 System Load: ${(stats.cpu.systemLoad * 100).toFixed(2)}%
 Lavalink Load: ${(stats.cpu.lavalinkLoad * 100).toFixed(2)}%
 \`\`\``;
-
             embed.addFields({
                 name: `Name: ${node.name} (${statusEmoji})`,
                 value: formattedStats,
             });
         });
-
         return await ctx.sendMessage({ embeds: [embed] });
     }
 }

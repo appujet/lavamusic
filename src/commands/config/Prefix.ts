@@ -55,7 +55,6 @@ export default class Prefix extends Command {
         const isInteraction = ctx.isInteraction;
         let subCommand = "";
         let prefix = "";
-
         if (isInteraction) {
             subCommand = ctx.interaction.options.data[0].name;
             prefix = ctx.interaction.options.data[0].options[0]?.value.toString();
@@ -63,7 +62,6 @@ export default class Prefix extends Command {
             subCommand = args[0] || "";
             prefix = args[1] || "";
         }
-
         switch (subCommand) {
             case "set": {
                 if (!prefix) {
@@ -71,24 +69,20 @@ export default class Prefix extends Command {
                     embed.setDescription(`The prefix for this server is \`${currentPrefix}\``);
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
-
                 if (prefix.length > 3) {
                     embed.setDescription("The prefix cannot be longer than 3 characters.");
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
-
                 client.db.setPrefix(guildId, prefix);
                 embed.setDescription(`The prefix for this server is now \`${prefix}\``);
                 return await ctx.sendMessage({ embeds: [embed] });
             }
-
             case "reset": {
                 const defaultPrefix = client.config.prefix;
                 client.db.setPrefix(guildId, defaultPrefix);
                 embed.setDescription(`The prefix for this server is now \`${defaultPrefix}\``);
                 return await ctx.sendMessage({ embeds: [embed] });
             }
-
             default: {
                 const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
                 embed.setDescription(`The prefix for this server is \`${currentPrefix}\``);

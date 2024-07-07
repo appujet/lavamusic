@@ -1,7 +1,5 @@
 import dotenv from "dotenv";
-
 import { SearchEngine } from "./types.js";
-
 dotenv.config();
 
 export default {

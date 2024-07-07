@@ -31,27 +31,25 @@ export default class NightCore extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
         const filterEnabled = player.filters.includes("nightcore");
-
         if (filterEnabled) {
             player.player.setTimescale();
             player.filters = player.filters.filter((filter) => filter !== "nightcore");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Nightcore filter has been disabled",
+                        description: "Nightcore filter has been disabled.",
                         color: client.color.main,
                     },
                 ],
             });
         } else {
-            player.player.setTimescale({ speed: 1.165, pitch: 1.125, rate: 1.05 });
+            player.player.setTimescale({speed: 1.2, pitch: 1.2, rate: 1.0});
             player.filters.push("nightcore");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Nightcore filter has been enabled",
+                        description: "Nightcore filter has been enabled.",
                         color: client.color.main,
                     },
                 ],

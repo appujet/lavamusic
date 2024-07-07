@@ -22,7 +22,7 @@ export default class Rotation extends Command {
             permissions: {
                 dev: false,
                 client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ["ManageGuild"],
+                user: [],
             },
             slashCommand: true,
             options: [],
@@ -32,14 +32,13 @@ export default class Rotation extends Command {
     // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
         if (player.filters.includes("rotation")) {
             player.player.setRotation();
             player.filters.splice(player.filters.indexOf("rotation"), 1);
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Rotation filter has been disabled",
+                        description: "Rotation filter has been disabled.",
                         color: client.color.main,
                     },
                 ],
@@ -50,7 +49,7 @@ export default class Rotation extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Rotation filter has been enabled",
+                        description: "Rotation filter has been enabled.",
                         color: client.color.main,
                     },
                 ],

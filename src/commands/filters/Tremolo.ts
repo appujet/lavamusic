@@ -22,7 +22,7 @@ export default class Tremolo extends Command {
             permissions: {
                 dev: false,
                 client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ["ManageGuild"],
+                user: [],
             },
             slashCommand: true,
             options: [],
@@ -31,16 +31,14 @@ export default class Tremolo extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
         const tremoloEnabled = player.filters.includes("tremolo");
-
         if (tremoloEnabled) {
             player.player.setTremolo();
             player.filters.splice(player.filters.indexOf("tremolo"), 1);
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Tremolo filter has been disabled",
+                        description: "Tremolo filter has been disabled.",
                         color: client.color.main,
                     },
                 ],
@@ -51,7 +49,7 @@ export default class Tremolo extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: "Tremolo filter has been enabled",
+                    description: "Tremolo filter has been enabled.",
                     color: client.color.main,
                 },
             ],

@@ -1,6 +1,5 @@
 import { Event, type Lavamusic } from "../../structures/index.js";
 import BotLog from "../../utils/BotLog.js";
-
 let destroyCount = 0;
 
 export default class NodeDestroy extends Event {
@@ -12,19 +11,14 @@ export default class NodeDestroy extends Event {
 
     // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(node: string, code: number, reason: string): Promise<void> {
-        const message = `Node ${node} destroyed with code ${code} and reason ${reason}`;
-
+        const message = `Node ${node} destroyed with code ${code} and reason ${reason}.`;
         this.client.logger.error(message);
         BotLog.send(this.client, message, "error");
-
         destroyCount++;
-
         if (destroyCount >= 5) {
             this.client.shoukaku.removeNode(node);
             destroyCount = 0;
-
-            const warnMessage = `Node ${node} removed from nodes list due to excessive disconnects`;
-
+            const warnMessage = `Node ${node} removed from nodes list due to excessive disconnects.`;
             this.client.logger.warn(warnMessage);
             BotLog.send(this.client, warnMessage, "warn");
         }

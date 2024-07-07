@@ -41,27 +41,22 @@ export default class Seek extends Command {
         const current = player.current.info;
         const embed = this.client.embed();
         const duration = client.utils.parseTime(args.join(" "));
-        
         if (!duration) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("Invalid time format. Example: seek 1m, seek 1h 30m")],
+                embeds: [embed.setColor(this.client.color.red).setDescription("Invalid time format. Examples: seek 1m, seek 1h 30m")],
             });
         }
-
         if (!current.isSeekable) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("This track is not seekable")],
+                embeds: [embed.setColor(this.client.color.red).setDescription("This track is not seekable.")],
             });
         }
-        
         if (duration > current.length) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(`Cannot seek beyond the song duration of ${client.utils.formatTime(current.length)}`)],
+                embeds: [embed.setColor(this.client.color.red).setDescription(`Cannot seek beyond the song duration of ${client.utils.formatTime(current.length)}.`)],
             });
         }
-        
         player.seek(duration);
-
         return await ctx.sendMessage({
             embeds: [embed.setColor(this.client.color.main).setDescription(`Seeked to ${client.utils.formatTime(duration)}`)],
         });

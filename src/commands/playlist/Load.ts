@@ -1,5 +1,3 @@
-//TODO
-
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class LoadPlaylist extends Command {
@@ -37,6 +35,7 @@ export default class LoadPlaylist extends Command {
             ],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         let player = client.queue.get(ctx.guild.id);
         const playlist = args.join(" ").replace(/\s/g, "");
@@ -45,7 +44,7 @@ export default class LoadPlaylist extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "That playlist doesn't exist",
+                        description: "That playlist doesn't exist.",
                         color: this.client.color.red,
                     },
                 ],
@@ -55,7 +54,7 @@ export default class LoadPlaylist extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "That playlist is empty",
+                        description: "That playlist is empty.",
                         color: client.color.red,
                     },
                 ],
@@ -70,16 +69,14 @@ export default class LoadPlaylist extends Command {
                         ctx.channel,
                         client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
                     );
-
                 const track = player.buildTrack(song, ctx.author as any);
                 player.queue.push(track);
                 player.isPlaying();
             }
-
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: `Loaded \`${playlistData.name}\` with \`${JSON.parse(s.track).length}\` songs`,
+                        description: `Loaded \`${playlistData.name}\` with \`${JSON.parse(s.track).length}\` songs.`,
                         color: this.client.color.main,
                     },
                 ],

@@ -28,20 +28,18 @@ export default class ClearQueue extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-
         if (player.queue.length === 0) {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
             });
         }
-
         player.queue = [];
-
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription("Cleared the queue")],
+            embeds: [embed.setColor(this.client.color.main).setDescription("Cleared the queue.")],
         });
     }
 }

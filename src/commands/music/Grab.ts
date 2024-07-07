@@ -5,7 +5,7 @@ export default class Grab extends Command {
         super(client, {
             name: "grab",
             description: {
-                content: "Grabs the current playing song",
+                content: "Grabs the current playing song on your DM",
                 examples: ["grab"],
                 usage: "grab",
             },
@@ -28,12 +28,11 @@ export default class Grab extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed().setColor(this.client.color.main);
         const player = client.queue.get(ctx.guild.id);
-
         const song = player.current;
-
         try {
             const dm = this.client
                 .embed()
@@ -46,10 +45,9 @@ export default class Grab extends Command {
                         `**Link:** [Click here](${song.info.uri})`,
                 )
                 .setColor(this.client.color.main);
-
             await ctx.author.send({ embeds: [dm] });
             return await ctx.sendMessage({
-                embeds: [embed.setDescription("I sent you a DM.").setColor(this.client.color.green)],
+                embeds: [embed.setDescription("Please check your DM.").setColor(this.client.color.green)],
             });
         } catch (_e) {
             return await ctx.sendMessage({

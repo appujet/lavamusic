@@ -28,10 +28,10 @@ export default class Join extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         let player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-
         if (player) {
             return await ctx.sendMessage({
                 embeds: [

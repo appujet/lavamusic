@@ -1,5 +1,4 @@
 import type { Player } from "shoukaku";
-
 import type { Song } from "../../structures/Dispatcher.js";
 import { type Dispatcher, Event, type Lavamusic } from "../../structures/index.js";
 
@@ -13,9 +12,7 @@ export default class TrackEnd extends Event {
     public async run(_player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
         dispatcher.previous = dispatcher.current;
         dispatcher.current = null;
-
         const nowPlayingMessage = await dispatcher.nowPlayingMessage?.fetch().catch(() => null);
-
         switch (dispatcher.loop) {
             case "repeat":
                 dispatcher.queue.unshift(track);
@@ -24,13 +21,10 @@ export default class TrackEnd extends Event {
                 dispatcher.queue.push(track);
                 break;
         }
-
         await dispatcher.play();
-
         if (dispatcher.autoplay) {
             await dispatcher.Autoplay(track);
         }
-
         if (nowPlayingMessage?.deletable) {
             await nowPlayingMessage.delete().catch(() => {});
         }

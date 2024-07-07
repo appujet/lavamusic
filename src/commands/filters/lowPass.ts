@@ -22,7 +22,7 @@ export default class LowPass extends Command {
             permissions: {
                 dev: false,
                 client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ["ManageGuild"],
+                user: [],
             },
             slashCommand: true,
             options: [],
@@ -31,16 +31,14 @@ export default class LowPass extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
         const filterEnabled = player.filters.includes("lowpass");
-
         if (filterEnabled) {
             player.player.setLowPass({}); //TODO
             player.filters = player.filters.filter((filter) => filter !== "lowpass");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Lowpass filter has been disabled",
+                        description: "Lowpass filter has been disabled.",
                         color: client.color.main,
                     },
                 ],
@@ -51,7 +49,7 @@ export default class LowPass extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Lowpass filter has been enabled",
+                        description: "Lowpass filter has been enabled.",
                         color: client.color.main,
                     },
                 ],

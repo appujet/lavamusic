@@ -11,7 +11,6 @@ export default class NodeDisconnect extends Event {
     // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(node: string, count: number): Promise<void> {
         const message = `Node ${node} disconnected ${count} times`;
-
         this.client.logger.warn(message);
         BotLog.send(this.client, message, "warn");
     }

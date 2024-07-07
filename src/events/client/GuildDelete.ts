@@ -1,5 +1,4 @@
 import { EmbedBuilder, type Guild, type GuildMember, type TextChannel } from "discord.js";
-
 import { Event, type Lavamusic } from "../../structures/index.js";
 
 export default class GuildDelete extends Event {
@@ -16,7 +15,6 @@ export default class GuildDelete extends Event {
         } catch (error) {
             console.error(`Error fetching owner for guild ${guild.id}: ${error}`);
         }
-
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.red)
             .setAuthor({
@@ -45,21 +43,18 @@ export default class GuildDelete extends Event {
                 { name: "ID", value: guild.id, inline: true },
             )
             .setTimestamp();
-
         const logChannelId = this.client.config.logChannelId;
         if (!logChannelId) {
             console.error("Log channel ID not found in configuration.");
             return;
         }
-
         let channel: TextChannel;
         try {
             channel = (await this.client.channels.fetch(logChannelId)) as TextChannel;
         } catch (error) {
-            console.error(`Error fetching log channel ${logChannelId}: ${error}`);
+            console.error(`Error fetching log channel ${logChannelId}: ${error}.`);
             return;
         }
-
         try {
             await channel.send({ embeds: [embed] });
         } catch (error) {

@@ -31,10 +31,9 @@ export default class Ping extends Command {
 
     public async run(_client: Lavamusic, ctx: Context): Promise<any> {
         const msg = await ctx.sendDeferMessage("Pinging...");
-
         const embed = this.client
             .embed()
-            .setAuthor({ name: "Pong", iconURL: this.client.user.displayAvatarURL() })
+            .setAuthor({name: "Pong", iconURL: this.client.user.displayAvatarURL()})
             .setColor(this.client.color.main)
             .addFields([
                 {
@@ -53,7 +52,6 @@ export default class Ping extends Command {
                 iconURL: ctx.author.avatarURL({}),
             })
             .setTimestamp();
-
         return await ctx.editMessage({ content: "", embeds: [embed] });
     }
 }

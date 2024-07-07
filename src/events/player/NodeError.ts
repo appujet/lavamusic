@@ -12,7 +12,6 @@ export default class NodeError extends Event {
     public async run(node: string, error: any): Promise<void> {
         const errorMessage = JSON.stringify(error, null, 2);
         const message = `Node ${node} Error: ${errorMessage}`;
-
         this.client.logger.error(message);
         BotLog.send(this.client, message, "error");
     }

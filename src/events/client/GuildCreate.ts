@@ -1,5 +1,4 @@
 import { EmbedBuilder, type Guild, type GuildMember, type TextChannel } from "discord.js";
-
 import { Event, type Lavamusic } from "../../structures/index.js";
 
 export default class GuildCreate extends Event {
@@ -16,7 +15,6 @@ export default class GuildCreate extends Event {
         } catch (e) {
             console.error(`Error fetching owner for guild ${guild.id}: ${e}`);
         }
-
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.green)
             .setAuthor({ name: guild.name, iconURL: guild.iconURL({ extension: "jpeg" }) })
@@ -38,23 +36,20 @@ export default class GuildCreate extends Event {
                 { name: "ID", value: guild.id, inline: true },
             )
             .setTimestamp();
-
         const logChannelId = this.client.config.logChannelId;
         if (!logChannelId) {
             console.error("Log channel ID not found in configuration.");
             return;
         }
-
         const channel = (await this.client.channels.fetch(logChannelId)) as TextChannel;
         if (!channel) {
-            console.error(`Log channel not found with ID ${logChannelId}.`);
+            console.error(`Log channel not found with ID ${logChannelId}. Please change the settings in .env or, if you have a channel, invite me to that guild.`);
             return;
         }
-
         try {
             await channel.send({ embeds: [embed] });
         } catch (error) {
-            console.error(`Error sending message to log channel ${logChannelId}: ${error}`);
+            console.error(`Error sending message to log channel ${logChannelId}: ${error}.`);
         }
     }
 }

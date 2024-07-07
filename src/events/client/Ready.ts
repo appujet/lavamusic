@@ -7,10 +7,10 @@ export default class Ready extends Event {
             name: "ready",
         });
     }
+
     // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(): Promise<void> {
         this.client.logger.success(`${this.client.user?.tag} is ready!`);
-
         this.client.user?.setPresence({
             activities: [
                 {

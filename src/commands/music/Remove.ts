@@ -35,6 +35,7 @@ export default class Remove extends Command {
             ],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
@@ -49,7 +50,6 @@ export default class Remove extends Command {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid song number.")],
             });
-
         player.remove(songNumber - 1);
         return await ctx.sendMessage({
             embeds: [embed.setColor(this.client.color.main).setDescription(`Removed song number ${songNumber} from the queue`)],
