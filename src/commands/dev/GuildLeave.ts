@@ -32,9 +32,7 @@ export default class GuildLeave extends Command {
     public async run(_client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const guildId = args[0];
         const guild = this.client.guilds.cache.get(guildId);
-
-        if (!guild) return await ctx.sendMessage("Guild not found");
-
+        if (!guild) return await ctx.sendMessage("Guild not found.");
         try {
             await guild.leave();
             ctx.sendMessage(`Left guild ${guild.name}`);

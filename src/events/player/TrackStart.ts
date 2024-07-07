@@ -13,7 +13,6 @@ import {
     type UserSelectMenuInteraction,
 } from "discord.js";
 import type { Player } from "shoukaku";
-
 import type { Song } from "../../structures/Dispatcher.js";
 import { type Dispatcher, Event, type Lavamusic } from "../../structures/index.js";
 import { trackStart } from "../../utils/SetupSystem.js";
@@ -27,15 +26,11 @@ export default class TrackStart extends Event {
 
     public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
         if (track && !track.info) return;
-
         const guild = this.client.guilds.cache.get(player.guildId);
         if (!guild) return;
-
         const channel = guild.channels.cache.get(dispatcher.channelId) as TextChannel;
         if (!channel) return;
-
         this.client.utils.updateStatus(this.client, guild.id);
-
         const embed = this.client
             .embed()
             .setAuthor({
@@ -58,7 +53,6 @@ export default class TrackStart extends Event {
                 { name: "Author", value: track.info.author, inline: true },
             )
             .setTimestamp();
-
         const setup = await this.client.db.getSetup(guild.id);
         if (setup?.textId) {
             const textChannel = guild.channels.cache.get(setup.textId) as TextChannel;
@@ -76,31 +70,24 @@ export default class TrackStart extends Event {
         }
     }
 }
-
 function createButtonRow(dispatcher: Dispatcher): ActionRowBuilder<ButtonBuilder> {
     const previousButton = new ButtonBuilder()
         .setCustomId("previous")
         .setEmoji("⏪")
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(!dispatcher.previous);
-
     const resumeButton = new ButtonBuilder()
         .setCustomId("resume")
         .setEmoji(dispatcher.paused ? "▶️" : "⏸️")
         .setStyle(dispatcher.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
-
     const stopButton = new ButtonBuilder().setCustomId("stop").setEmoji("⏹️").setStyle(ButtonStyle.Danger);
-
     const skipButton = new ButtonBuilder().setCustomId("skip").setEmoji("⏩").setStyle(ButtonStyle.Secondary);
-
     const loopButton = new ButtonBuilder()
         .setCustomId("loop")
         .setEmoji(dispatcher.loop === "repeat" ? "🔂" : "🔁")
         .setStyle(dispatcher.loop !== "off" ? ButtonStyle.Success : ButtonStyle.Secondary);
-
     return new ActionRowBuilder<ButtonBuilder>().addComponents(resumeButton, previousButton, stopButton, skipButton, loopButton);
 }
-
 function createCollector(message: any, dispatcher: Dispatcher, _track: Song, embed: any, client: Lavamusic): void {
     const collector = message.createMessageComponentCollector({
         filter: async (b: ButtonInteraction) => {
@@ -115,7 +102,6 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
             return false;
         },
     });
-
     collector.on("collect", async (interaction) => {
         if (!(await checkDj(client, interaction))) {
             await interaction.reply({
@@ -124,7 +110,6 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
             });
             return;
         }
-
         const editMessage = async (text: string): Promise<void> => {
             if (message) {
                 await message.edit({
@@ -133,7 +118,6 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 });
             }
         };
-
         switch (interaction.customId) {
             case "previous":
                 if (dispatcher.previous) {
@@ -195,7 +179,6 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
         }
     });
 }
-
 export async function checkDj(
     client: Lavamusic,
     interaction:

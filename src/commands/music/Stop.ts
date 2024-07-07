@@ -32,12 +32,10 @@ export default class Stop extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-
         player.queue = [];
         player.stop();
-
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription("Stopped the music and cleared the queue")],
+            embeds: [embed.setColor(this.client.color.main).setDescription("Stopped the music and cleared the queue.")],
         });
     }
 }

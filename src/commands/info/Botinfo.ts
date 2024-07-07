@@ -1,7 +1,6 @@
 import os from "node:os";
 import { version } from "discord.js";
 import { showTotalMemory, usagePercent } from "node-system-stats";
-
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Botinfo extends Command {
@@ -47,7 +46,6 @@ export default class Botinfo extends Command {
         const channels = client.channels.cache.size;
         const users = client.users.cache.size;
         const commands = client.commands.size;
-
         const botInfo = `Bot Information:
 - **Operating System**: ${osInfo}
 - **Uptime**: ${osUptime}
@@ -59,7 +57,6 @@ export default class Botinfo extends Command {
 - **Discord Version**: ${discordJsVersion}
 - **Connected to** ${guilds} guilds, ${channels} channels, and ${users} users
 - **Total Commands**: ${commands}`;
-
         const embed = this.client.embed();
         return await ctx.sendMessage({
             embeds: [embed.setColor(this.client.color.main).setDescription(botInfo)],

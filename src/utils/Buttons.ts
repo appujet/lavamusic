@@ -4,20 +4,20 @@ import type { Dispatcher } from "../structures/index.js";
 
 function getButtons(player: Dispatcher): ActionRowBuilder<ButtonBuilder>[] {
     const buttonData = [
-        { customId: "LOOP_BUT", emoji: "🔁", style: ButtonStyle.Secondary },
-        { customId: "PREV_BUT", emoji: "⏮️", style: ButtonStyle.Secondary },
+        {customId: "REWIND_BUT", emoji: "⏪", style: ButtonStyle.Secondary},
+        {customId: "LOW_VOL_BUT", emoji: "🔉", style: ButtonStyle.Secondary},
+        {customId: "STOP_BUT", emoji: "⏹️", style: ButtonStyle.Danger},
+        {customId: "HIGH_VOL_BUT", emoji: "🔊", style: ButtonStyle.Secondary},
+        {customId: "FORWARD_BUT", emoji: "⏩", style: ButtonStyle.Secondary},
+        {customId: "PREV_BUT", emoji: "⏮️", style: ButtonStyle.Secondary},
+        {customId: "LOOP_BUT", emoji: "🔁", style: ButtonStyle.Secondary},
         {
             customId: "PAUSE_BUT",
             emoji: player?.paused ? "▶️" : "⏸️",
             style: player?.paused ? ButtonStyle.Success : ButtonStyle.Secondary,
         },
-        { customId: "SKIP_BUT", emoji: "⏭️", style: ButtonStyle.Secondary },
-        { customId: "SHUFFLE_BUT", emoji: "🔀", style: ButtonStyle.Secondary },
-        { customId: "FORWARD_BUT", emoji: "⏩", style: ButtonStyle.Secondary },
-        { customId: "LOW_VOL_BUT", emoji: "🔉", style: ButtonStyle.Secondary },
-        { customId: "STOP_BUT", emoji: "⏹️", style: ButtonStyle.Danger },
-        { customId: "HIGH_VOL_BUT", emoji: "🔊", style: ButtonStyle.Secondary },
-        { customId: "REWIND_BUT", emoji: "⏪", style: ButtonStyle.Secondary },
+        {customId: "SHUFFLE_BUT", emoji: "🔀", style: ButtonStyle.Secondary},
+        {customId: "SKIP_BUT", emoji: "⏭️", style: ButtonStyle.Secondary},
     ];
 
     const rows = [];

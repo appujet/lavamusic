@@ -32,7 +32,6 @@ export default class GuildList extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const guilds = this.client.guilds.cache.map((guild) => `- **${guild.name}** - (${guild.id})`);
         const chunks = client.utils.chunk(guilds, 10) || [[]];
-
         const pages = chunks.map((chunk, index) => {
             return this.client
                 .embed()
@@ -40,7 +39,6 @@ export default class GuildList extends Command {
                 .setDescription(chunk.join("\n"))
                 .setFooter({ text: `Page ${index + 1} of ${chunks.length}` });
         });
-
         await client.utils.paginate(ctx, pages);
     }
 }

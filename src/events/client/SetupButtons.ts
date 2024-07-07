@@ -10,10 +10,10 @@ export default class SetupButtons extends Event {
             name: "setupButtons",
         });
     }
+
     // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
     public async run(interaction: any): Promise<void> {
         if (!interaction.replied) await interaction.deferReply().catch(() => {});
-
         if (!interaction.member.voice.channel)
             return await buttonReply(interaction, "You are not connected to a voice channel to use this button.", this.client.color.red);
         if (
@@ -40,7 +40,6 @@ export default class SetupButtons extends Event {
         const icon = player ? player.current.info.artworkUrl : this.client.user.displayAvatarURL({ extension: "png" });
         let iconUrl = this.client.config.icons[player.current.info.sourceName];
         if (!iconUrl) iconUrl = this.client.user.displayAvatarURL({ extension: "png" });
-
         const embed = this.client
             .embed()
             .setAuthor({ name: "Now Playing", iconURL: iconUrl })
@@ -139,7 +138,6 @@ export default class SetupButtons extends Event {
                 case "LOOP_BUT": {
                     const loopOptions: Array<"off" | "queue" | "repeat"> = ["off", "queue", "repeat"];
                     const newLoop = loopOptions[Math.floor(Math.random() * loopOptions.length)];
-
                     if (player.loop === newLoop) {
                         await buttonReply(interaction, `Loop is already ${player.loop}.`, this.client.color.main);
                     } else {

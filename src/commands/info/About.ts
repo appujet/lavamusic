@@ -1,5 +1,4 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class About extends Command {
@@ -38,14 +37,11 @@ export default class About extends Command {
             .setURL(
                 `https://discord.com/api/oauth2/authorize?client_id=${client.config.clientId}&permissions=8&scope=bot%20applications.commands`,
             );
-
         const supportButton = new ButtonBuilder()
             .setLabel("Support Server")
             .setStyle(ButtonStyle.Link)
             .setURL("https://discord.gg/ns8CTk9J3e");
-
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(inviteButton, supportButton);
-
         const embed = this.client
             .embed()
             .setAuthor({
@@ -76,7 +72,6 @@ export default class About extends Command {
                     inline: true,
                 },
             );
-
         await ctx.sendMessage({
             content: "",
             embeds: [embed],

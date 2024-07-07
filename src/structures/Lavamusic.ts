@@ -13,16 +13,13 @@ import {
     type RESTPostAPIChatInputApplicationCommandsJSONBody,
     Routes,
 } from "discord.js";
-
 import config from "../config.js";
 import ServerData from "../database/server.js";
 import loadPlugins from "../plugin/index.js";
 import { Utils } from "../utils/Utils.js";
 import Logger from "./Logger.js";
 import { Queue, ShoukakuClient } from "./index.js";
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
     public aliases: Collection<string, any> = new Collection();
@@ -35,11 +32,9 @@ export default class Lavamusic extends Client {
     public shoukaku: ShoukakuClient;
     public utils = Utils;
     public queue = new Queue(this);
-
     public embed(): EmbedBuilder {
         return new EmbedBuilder();
     }
-
     public async start(token: string): Promise<void> {
         const nodes = this.config.autoNode ? await this.getNodes() : this.config.lavalink;
         this.shoukaku = new ShoukakuClient(this, nodes);
@@ -58,7 +53,6 @@ export default class Lavamusic extends Client {
             }
         });
     }
-
     private async loadCommands(): Promise<void> {
         const commandsPath = fs.readdirSync(path.join(__dirname, "../commands"));
         for (const dir of commandsPath) {
@@ -102,23 +96,19 @@ export default class Lavamusic extends Client {
             }
         });
     }
-
     private async getNodes(): Promise<any> {
         const params = new URLSearchParams({
             ssl: "false",
             version: "v4",
             format: "shoukaku",
         });
-
         const res = await fetch(`https://lavainfo-api.deno.dev/nodes?${params.toString()}`, {
             headers: {
                 "Content-Type": "application/json",
             },
         });
-
         return await res.json();
     }
-
     private async loadEvents(): Promise<void> {
         const eventsPath = fs.readdirSync(path.join(__dirname, "../events"));
         for (const dir of eventsPath) {

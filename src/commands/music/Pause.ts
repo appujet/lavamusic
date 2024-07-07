@@ -28,18 +28,18 @@ export default class Pause extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-
         if (player.paused) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("The song is already paused")],
+                embeds: [embed.setColor(this.client.color.red).setDescription("The song is already paused.")],
             });
         }
         player.pause();
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription("Successfully paused the song")],
+            embeds: [embed.setColor(this.client.color.main).setDescription("Successfully paused the song.")],
         });
     }
 }

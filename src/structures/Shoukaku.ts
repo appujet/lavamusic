@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
 import { Connectors, type NodeOption, Shoukaku } from "shoukaku";
-
 import type { Lavamusic } from "./index.js";
 
 export default class ShoukakuClient extends Shoukaku {
     public client: Lavamusic;
-
     constructor(client: Lavamusic, nodes: NodeOption[]) {
         super(new Connectors.DiscordJS(client), nodes, {
             moveOnDisconnect: false,
@@ -21,23 +18,18 @@ export default class ShoukakuClient extends Shoukaku {
                     .shift(),
         });
         this.client = client;
-
         this.on("ready", (name, reconnected) => {
             this.client.shoukaku.emit(reconnected ? "nodeReconnect" : "nodeConnect", name);
         });
-
         this.on("error", (name, error) => {
             this.client.shoukaku.emit("nodeError", name, error);
         });
-
         this.on("close", (name, code, reason) => {
             this.client.shoukaku.emit("nodeDestroy", name, code, reason);
         });
-
         this.on("disconnect", (name, count) => {
             this.client.shoukaku.emit("nodeDisconnect", name, count);
         });
-
         this.on("debug", (name, reason) => {
             this.client.shoukaku.emit("nodeRaw", name, reason);
         });

@@ -1,5 +1,4 @@
 import { LoadType } from "shoukaku";
-
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Play extends Command {
@@ -41,13 +40,13 @@ export default class Play extends Command {
             ],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const query = args.join(" ");
         await ctx.sendDeferMessage("Loading...");
         let player = client.queue.get(ctx.guild.id);
         const vc = ctx.member as any;
         if (!player) player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel);
-
         const res = await this.client.queue.search(query);
         const embed = this.client.embed();
         switch (res.loadType) {

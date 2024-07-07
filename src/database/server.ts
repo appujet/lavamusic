@@ -9,13 +9,11 @@ import {
     type Song,
     type Stay,
 } from "@prisma/client";
-
 import config from "../config.js";
 
 export default class ServerData {
     F;
     private prisma: PrismaClient;
-
     constructor() {
         this.prisma = new PrismaClient();
     }

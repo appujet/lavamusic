@@ -1,8 +1,5 @@
-//TODO
-
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { LoadType } from "shoukaku";
-
 import type { Song } from "../../structures/Dispatcher.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
@@ -41,6 +38,7 @@ export default class Search extends Command {
             ],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = this.client.embed().setColor(this.client.color.main);
         let player = client.queue.get(ctx.guild.id);
@@ -108,7 +106,6 @@ export default class Search extends Command {
             });
             return collector.stop();
         });
-
         collector.on("end", async () => {
             await ctx.editMessage({ components: [] });
         });
