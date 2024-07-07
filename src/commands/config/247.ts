@@ -44,7 +44,7 @@ export default class _247 extends Command {
             if (data) {
                 await client.db.delete_247(ctx.guild.id);
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription("**24/7 mode has been disabled.**").setColor(client.color.red)],
+                    embeds: [embed.setDescription("**24/7 mode has been disabled**").setColor(client.color.red)],
                 });
             }
             await client.db.set_247(ctx.guild.id, ctx.channel.id, member.voice.channel.id);
