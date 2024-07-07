@@ -22,7 +22,7 @@ export default class Reset extends Command {
             permissions: {
                 dev: false,
                 client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ["ManageGuild"],
+                user: [],
             },
             slashCommand: true,
             options: [],
@@ -31,14 +31,12 @@ export default class Reset extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
         player.player.clearFilters();
         player.filters = [];
-
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: "Filters have been reset",
+                    description: "Filters have been reset.",
                     color: client.color.main,
                 },
             ],

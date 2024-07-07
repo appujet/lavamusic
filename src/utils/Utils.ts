@@ -1,5 +1,4 @@
 import { ActionRowBuilder, ActivityType, ButtonBuilder, ButtonStyle, CommandInteraction, type TextChannel } from "discord.js";
-
 import config from "../config.js";
 import type { Context, Lavamusic } from "../structures/index.js";
 
@@ -182,7 +181,6 @@ export class Utils {
                 });
             }
         });
-
         collector.on("end", async () => {
             await msg.edit({ embeds: [embed[page]], components: [] });
         });

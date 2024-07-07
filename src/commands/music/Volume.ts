@@ -40,21 +40,20 @@ export default class Volume extends Command {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
         const number = Number(args[0]);
-
         if (isNaN(number) || number < 0 || number > 200) {
             let description = "";
             if (isNaN(number)) description = "Please provide a valid number.";
             else if (number < 0) description = "The volume can't be lower than 0.";
-            else if (number > 200) description = "The volume can't be higher than 200.";
-
+            else if (number > 200)
+                description =
+                    "The volume can't be higher than 200. Do you want to damage your hearing or speakers? Hmmm, I don't think that's such a good idea.";
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(description)],
             });
         }
-
         player.player.setGlobalVolume(number);
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Set the volume to ${player.player.volume}`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription(`Set the volume to ${player.player.volume}.`)],
         });
     }
 }

@@ -31,18 +31,15 @@ export default class _8d extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
         const filterEnabled = player.filters.includes("8D");
         const rotationConfig = filterEnabled ? {} : { rotationHz: 0.2 };
-
         player.player.setRotation(rotationConfig);
-
         if (filterEnabled) {
             player.filters = player.filters.filter((filter) => filter !== "8D");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "8D filter has been disabled",
+                        description: "8D filter has been disabled.",
                         color: client.color.main,
                     },
                 ],
@@ -52,7 +49,7 @@ export default class _8d extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "8D filter has been enabled",
+                        description: "8D filter has been enabled.",
                         color: client.color.main,
                     },
                 ],

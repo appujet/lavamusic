@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/typedef */
 import type { Message, User } from "discord.js";
 import type { Node, Player, Track } from "shoukaku";
-
 import type { Lavamusic } from "./index.js";
 
 export class Song implements Track {
@@ -21,7 +19,6 @@ export class Song implements Track {
         requester: User;
     };
     pluginInfo: unknown;
-
     constructor(track: Song | Track, user: User) {
         if (!track) throw new Error("Track is not provided");
         this.encoded = track.encoded;
@@ -31,7 +28,6 @@ export class Song implements Track {
         };
     }
 }
-
 interface DispatcherOptions {
     client: Lavamusic;
     guildId: string;
@@ -39,7 +35,6 @@ interface DispatcherOptions {
     player: Player;
     node: Node;
 }
-
 export default class Dispatcher {
     private client: Lavamusic;
     public guildId: string;
@@ -58,7 +53,6 @@ export default class Dispatcher {
     public autoplay: boolean;
     public nowPlayingMessage: Message | null;
     public history: Song[];
-
     constructor(options: DispatcherOptions) {
         this.client = options.client;
         this.guildId = options.guildId;
@@ -76,7 +70,6 @@ export default class Dispatcher {
         this.autoplay = false;
         this.nowPlayingMessage = null;
         this.history = [];
-
         this.player
             .on("start", () => this.client.shoukaku.emit("trackStart", this.player, this.current, this))
             .on("end", () => {
@@ -88,15 +81,12 @@ export default class Dispatcher {
             .on("stuck", () => this.client.shoukaku.emit("trackStuck", this.player, this.current))
             .on("closed", (...args) => this.client.shoukaku.emit("socketClosed", this.player, ...args));
     }
-
     get exists(): boolean {
         return this.client.queue.has(this.guildId);
     }
-
     get volume(): number {
         return this.player.volume;
     }
-
     public play(): Promise<void> {
         if (!(this.exists && (this.queue.length || this.current))) {
             return;
@@ -110,27 +100,23 @@ export default class Dispatcher {
             }
         }
     }
-
     public pause(): void {
         if (this.player) {
             this.paused = !this.paused;
             this.player.setPaused(this.paused);
         }
     }
-
     public remove(index: number): void {
         if (this.player && index <= this.queue.length) {
             this.queue.splice(index, 1);
         }
     }
-
     public previousTrack(): void {
         if (this.player && this.previous) {
             this.queue.unshift(this.previous);
             this.player.stopTrack();
         }
     }
-
     public destroy(): void {
         this.queue.length = 0;
         this.history = [];
@@ -140,7 +126,6 @@ export default class Dispatcher {
             this.client.shoukaku.emit("playerDestroy", this.player);
         }
     }
-
     public setShuffle(): void {
         if (this.player) {
             for (let i = this.queue.length - 1; i > 0; i--) {
@@ -149,7 +134,6 @@ export default class Dispatcher {
             }
         }
     }
-
     public skip(skipto = 1): void {
         if (this.player) {
             if (skipto > this.queue.length) {
@@ -161,13 +145,11 @@ export default class Dispatcher {
             this.player.stopTrack();
         }
     }
-
     public seek(time: number): void {
         if (this.player) {
             this.player.seekTo(time);
         }
     }
-
     public stop(): void {
         if (this.player) {
             this.queue.length = 0;
@@ -179,27 +161,22 @@ export default class Dispatcher {
             this.player.stopTrack();
         }
     }
-
     public setLoop(loop: "off" | "repeat" | "queue"): void {
         this.loop = loop;
     }
-
     public buildTrack(track: Song | Track, user: User): Song {
         return new Song(track, user);
     }
-
     public async isPlaying(): Promise<void> {
         if (this.queue.length && !this.current && !this.player.paused) {
             await this.play();
         }
     }
-
     public async Autoplay(song: Song): Promise<void> {
         const resolve = await this.node.rest.resolve(`${this.client.config.searchEngine}:${song.info.author}`);
         if (!resolve?.data && Array.isArray(resolve.data)) {
             return this.destroy();
         }
-
         const metadata = resolve.data as Track[];
         let chosen: Song | null = null;
         const maxAttempts = 10;
@@ -218,7 +195,6 @@ export default class Dispatcher {
             }
             attempts++;
         }
-
         if (chosen) {
             this.queue.push(chosen);
             await this.isPlaying();
@@ -226,7 +202,6 @@ export default class Dispatcher {
             this.destroy();
         }
     }
-
     public async setAutoplay(autoplay: boolean): Promise<void> {
         this.autoplay = autoplay;
         if (autoplay) {

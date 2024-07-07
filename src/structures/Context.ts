@@ -17,7 +17,6 @@ import {
     type TextChannel,
     type User,
 } from "discord.js";
-
 import type { Lavamusic } from "./index.js";
 
 export default class Context {
@@ -113,7 +112,6 @@ export default class Context {
         return false;
     }
 }
-
 function isInteractionReplyOptions(content: any): content is InteractionReplyOptions {
     return content instanceof Object;
 }

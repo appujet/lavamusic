@@ -1,5 +1,4 @@
 import type Lavamusic from "./Lavamusic.js";
-
 interface EventOptions {
     name: string;
     one?: boolean;

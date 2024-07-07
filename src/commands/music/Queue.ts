@@ -31,7 +31,6 @@ export default class Queue extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-
         if (player.queue.length === 0) {
             return await ctx.sendMessage({
                 embeds: [
@@ -45,7 +44,6 @@ export default class Queue extends Command {
                 ],
             });
         }
-
         const queue = player.queue.map(
             (track, index) =>
                 `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info.requester} - Duration: ${
@@ -53,7 +51,6 @@ export default class Queue extends Command {
                 }`,
         );
         const chunks = client.utils.chunk(queue, 10) || [[]];
-
         const pages = chunks.map((chunk, index) =>
             embed
                 .setColor(this.client.color.main)
@@ -61,7 +58,6 @@ export default class Queue extends Command {
                 .setDescription(chunk.join("\n"))
                 .setFooter({ text: `Page ${index + 1} of ${chunks.length}` }),
         );
-
         return await client.utils.paginate(ctx, pages);
     }
 }

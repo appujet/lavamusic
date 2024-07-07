@@ -1,16 +1,13 @@
 import { type ColorResolvable, EmbedBuilder, type Message, type TextChannel } from "discord.js";
 import { LoadType } from "shoukaku";
-
 import type { Song } from "../structures/Dispatcher.js";
 import type { Dispatcher, Lavamusic } from "../structures/index.js";
 import { getButtons } from "./Buttons.js";
 
 function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic): EmbedBuilder {
     if (!player?.current?.info) return embed;
-
     const iconUrl = client.config.icons[player.current.info.sourceName] || client.user.displayAvatarURL({ extension: "png" });
     const icon = player.current.info.artworkUrl || client.config.links.img;
-
     return embed
         .setAuthor({ name: "Now Playing", iconURL: iconUrl })
         .setDescription(
@@ -27,7 +24,6 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
     let m: Message;
     const embed = client.embed();
     const n = client.embed().setColor(client.color.main);
-
     const data = await client.db.getSetup(message.guild.id);
     try {
         if (data) m = await message.channel.messages.fetch({ message: data.messageId, cache: true });
@@ -62,7 +58,6 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
                     break;
                 case LoadType.TRACK: {
                     const track = player.buildTrack(res.data, message.author);
-
                     if (player.queue.length > client.config.maxQueueSize) {
                         await message.channel
                             .send({
@@ -311,7 +306,7 @@ async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
                     name: client.user.username,
                     iconURL: client.user.displayAvatarURL({ extension: "png" }),
                 })
-                .setDescription("Nothing playing right now")
+                .setDescription("Nothing playing right now.")
                 .setImage(client.config.links.img);
             await m
                 .edit({
@@ -346,11 +341,9 @@ async function buttonReply(int: any, args: string, color: ColorResolvable): Prom
 async function oops(channel: TextChannel, args: string): Promise<void> {
     try {
         const embed1 = new EmbedBuilder().setColor("Red").setDescription(`${args}`);
-
         const m = await channel.send({
             embeds: [embed1],
         });
-
         setTimeout(async () => await m.delete().catch(() => {}), 12000);
     } catch (e) {
         return console.error(e);

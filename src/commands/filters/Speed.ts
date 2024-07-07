@@ -22,7 +22,7 @@ export default class Speed extends Command {
             permissions: {
                 dev: false,
                 client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ["ManageGuild"],
+                user: [],
             },
             slashCommand: true,
             options: [
@@ -38,29 +38,24 @@ export default class Speed extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
         const speedString = args[0].replace(",", ".");
-
         const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(speedString);
         const speed = parseFloat(speedString);
-
         if (!isValidNumber || isNaN(speed) || speed < 0.5 || speed > 5) {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Please provide a valid number between 0.5 and 5",
+                        description: "Please provide a valid number between 0.5 and 5.",
                         color: this.client.color.red,
                     },
                 ],
             });
         }
-
         player.player.setTimescale({ speed });
-
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Speed has been set to ${speed}`,
+                    description: `Speed has been set to ${speed}.`,
                     color: this.client.color.main,
                 },
             ],

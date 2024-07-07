@@ -42,7 +42,7 @@ export default class CreatePlaylist extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Playlist names can only be 50 characters long",
+                        description: "Playlist names can only be 50 characters long.",
                         color: this.client.color.red,
                     },
                 ],
@@ -53,7 +53,7 @@ export default class CreatePlaylist extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "A playlist with that name already exists",
+                        description: "A playlist with that name already exists. Please use a different name.",
                         color: this.client.color.main,
                     },
                 ],
@@ -63,7 +63,7 @@ export default class CreatePlaylist extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Playlist **${name}** has been created`,
+                    description: `Playlist **${name}** has been created.`,
                     color: this.client.color.main,
                 },
             ],

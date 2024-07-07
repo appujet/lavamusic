@@ -8,7 +8,6 @@ import {
     PermissionFlagsBits,
 } from "discord.js";
 import { LoadType } from "shoukaku";
-
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
 
 export default class InteractionCreate extends Event {
@@ -42,11 +41,10 @@ export default class InteractionCreate extends Event {
                 )
             )
                 return;
-
             if (!interaction.guild.members.resolve(this.client.user).permissions.has(PermissionFlagsBits.SendMessages)) {
                 return await (interaction.member as GuildMember)
                     .send({
-                        content: `I don't have **\`SendMessage\`** permission in \`${interaction.guild.name}\`\nchannel: <#${interaction.channelId}>`,
+                        content: `I don't have **\`SendMessage\`** permission in \`${interaction.guild.name}\`\nchannel: <#${interaction.channelId}>.`,
                     })
                     .catch(() => {});
             }
@@ -86,17 +84,14 @@ export default class InteractionCreate extends Event {
                         return await interaction.reply({
                             content: `You must be connected to a voice channel to use this \`${command.name}\` command.`,
                         });
-
                     if (!interaction.guild.members.resolve(this.client.user).permissions.has(PermissionFlagsBits.Speak))
                         return await interaction.reply({
                             content: `I don't have \`CONNECT\` permissions to execute this \`${command.name}\` command.`,
                         });
-
                     if (!interaction.guild.members.resolve(this.client.user).permissions.has(PermissionFlagsBits.Speak))
                         return await interaction.reply({
                             content: `I don't have \`SPEAK\` permissions to execute this \`${command.name}\` command.`,
                         });
-
                     if (
                         (interaction.member as GuildMember).voice.channel.type === ChannelType.GuildStageVoice &&
                         !interaction.guild.members.resolve(this.client.user).permissions.has(PermissionFlagsBits.RequestToSpeak)
@@ -150,7 +145,6 @@ export default class InteractionCreate extends Event {
             }
             const now = Date.now();
             const timestamps = this.client.cooldown.get(commandName);
-
             const cooldownAmount = Math.floor(command.cooldown || 5) * 1000;
             if (timestamps.has(interaction.user.id)) {
                 const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
@@ -166,7 +160,6 @@ export default class InteractionCreate extends Event {
                 timestamps.set(interaction.user.id, now);
                 setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
             }
-
             try {
                 await command.run(this.client, ctx, ctx.args);
             } catch (error) {
@@ -193,7 +186,6 @@ export default class InteractionCreate extends Event {
                     default:
                         break;
                 }
-
                 return await interaction.respond(songs).catch(() => {});
             }
         }

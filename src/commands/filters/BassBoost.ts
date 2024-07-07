@@ -22,7 +22,7 @@ export default class BassBoost extends Command {
             permissions: {
                 dev: false,
                 client: ["SendMessages", "ViewChannel", "EmbedLinks"],
-                user: ["ManageGuild"],
+                user: [],
             },
             slashCommand: true,
             options: [],
@@ -31,16 +31,14 @@ export default class BassBoost extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-
         const filterEnabled = player.filters.includes("bassboost");
-
         if (filterEnabled) {
             player.player.setEqualizer([]);
             player.filters = player.filters.filter((filter) => filter !== "bassboost");
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Bassboost filter has been disabled",
+                        description: "Bassboost filter has been disabled.",
                         color: client.color.main,
                     },
                 ],
@@ -56,7 +54,7 @@ export default class BassBoost extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Bassboost filter has been enabled",
+                        description: "Bassboost filter has been enabled. **Be careful, listening too loudly can damage your hearing!**",
                         color: client.color.main,
                     },
                 ],

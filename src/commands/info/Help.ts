@@ -41,7 +41,6 @@ export default class Help extends Command {
         const guild = await client.db.get(ctx.guild.id);
         const commands = this.client.commands.filter((cmd) => cmd.category !== "dev");
         const categories = [...new Set(commands.map((cmd) => cmd.category))];
-
         if (args[0]) {
             const command = this.client.commands.get(args[0].toLowerCase());
             if (!command) {
@@ -49,7 +48,6 @@ export default class Help extends Command {
                     embeds: [client.embed().setColor(client.color.red).setDescription(`Command \`${args[0]}\` not found`)],
                 });
             }
-
             const helpEmbed = embed
                 .setColor(this.client.color.main)
                 .setTitle(`Help Menu - ${command.name}`)
@@ -68,7 +66,6 @@ export default class Help extends Command {
 **DJ:** ${command.player.dj ? "Yes" : "No"}
 **DJ Permissions:** ${command.player.djPerm ? command.player.djPerm : "None"}
 **Voice:** ${command.player.voice ? "Yes" : "No"}`);
-
             ctx.sendMessage({ embeds: [helpEmbed] });
         } else {
             const fields = categories.map((category) => ({
@@ -79,7 +76,6 @@ export default class Help extends Command {
                     .join(", "),
                 inline: false,
             }));
-
             const helpEmbed = embed
                 .setColor(this.client.color.main)
                 .setTitle("Help Menu")
@@ -89,9 +85,7 @@ export default class Help extends Command {
                 .setFooter({
                     text: `Use ${guild.prefix}help <command> for more info on a command`,
                 });
-
             helpEmbed.addFields(...fields);
-
             ctx.sendMessage({ embeds: [helpEmbed] });
         }
     }

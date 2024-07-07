@@ -39,17 +39,14 @@ export default class Skipto extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-
         if (!player.queue.length || isNaN(Number(args[0])) || Number(args[0]) > player.queue.length || Number(args[0]) < 1) {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid number.")],
             });
         }
-
         player.skip(Number(args[0]));
-
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Skipped to song number ${args[0]}`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription(`Skipped to song number ${args[0]}.`)],
         });
     }
 }

@@ -1,5 +1,4 @@
 import http from "node:http";
-
 import type { Lavamusic } from "../../structures/index.js";
 import type { BotPlugin } from "../index.js";
 
@@ -13,7 +12,6 @@ const keepAlive: BotPlugin = {
                 res.writeHead(200, { "Content-Type": "text/plain" });
                 res.end(`I'm alive! Currently serving ${client.guilds.cache.size} guilds.`);
             });
-
             server.listen(3000, () => {
                 client.logger.info("Keep-Alive server is running on port 3000");
             });

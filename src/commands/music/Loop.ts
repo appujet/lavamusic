@@ -28,26 +28,25 @@ export default class Loop extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed().setColor(this.client.color.main);
         const player = client.queue.get(ctx.guild.id);
-
         let loopMessage = "";
         switch (player.loop) {
             case "off":
                 player.loop = "repeat";
-                loopMessage = "**Looping the song**";
+                loopMessage = "**Looping the song.**";
                 break;
             case "repeat":
                 player.loop = "queue";
-                loopMessage = "**Looping the queue**";
+                loopMessage = "**Looping the queue.**";
                 break;
             case "queue":
                 player.loop = "off";
-                loopMessage = "**Looping is now off**";
+                loopMessage = "**Looping is now off.**";
                 break;
         }
-
         return await ctx.sendMessage({
             embeds: [embed.setDescription(loopMessage)],
         });
