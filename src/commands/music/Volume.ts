@@ -51,9 +51,14 @@ export default class Volume extends Command {
                 embeds: [embed.setColor(this.client.color.red).setDescription(description)],
             });
         }
-        player.player.setGlobalVolume(number);
+
+        // Set volume and read new value from player
+        await player.player.setGlobalVolume(number);
+        const currentVolume = player.player.volume;
+
+        // Make sure the value is read and displayed correctly
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Set the volume to ${player.player.volume}.`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription(`Set the volume to ${currentVolume}`)],
         });
     }
 }
