@@ -34,9 +34,9 @@ export default class Autoplay extends Command {
         const autoplay = player.autoplay;
         player.setAutoplay(!autoplay);
         if (autoplay) {
-            embed.setDescription("Autoplay has been disabled.").setColor(this.client.color.main);
+            embed.setDescription("Autoplay has been disabled").setColor(this.client.color.main);
         } else {
-            embed.setDescription("Autoplay has been enabled.").setColor(this.client.color.main);
+            embed.setDescription("Autoplay has been enabled").setColor(this.client.color.main);
         }
         await ctx.sendMessage({ embeds: [embed] });
     }
