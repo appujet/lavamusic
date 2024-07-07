@@ -43,7 +43,9 @@ export default class GuildCreate extends Event {
         }
         const channel = (await this.client.channels.fetch(logChannelId)) as TextChannel;
         if (!channel) {
-            console.error(`Log channel not found with ID ${logChannelId}. Please change the settings in .env or, if you have a channel, invite me to that guild.`);
+            console.error(
+                `Log channel not found with ID ${logChannelId}. Please change the settings in .env or, if you have a channel, invite me to that guild.`,
+            );
             return;
         }
         try {

@@ -33,7 +33,7 @@ export default class Ping extends Command {
         const msg = await ctx.sendDeferMessage("Pinging...");
         const embed = this.client
             .embed()
-            .setAuthor({name: "Pong", iconURL: this.client.user.displayAvatarURL()})
+            .setAuthor({ name: "Pong", iconURL: this.client.user.displayAvatarURL() })
             .setColor(this.client.color.main)
             .addFields([
                 {

@@ -57,7 +57,13 @@ export default class _247 extends Command {
                 );
             }
             return await ctx.sendMessage({
-                embeds: [embed.setDescription("**24/7 mode has been enabled. The bot will not leave the voice channel even if there are no people in the voice channel.**").setColor(client.color.main)],
+                embeds: [
+                    embed
+                        .setDescription(
+                            "**24/7 mode has been enabled. The bot will not leave the voice channel even if there are no people in the voice channel.**",
+                        )
+                        .setColor(client.color.main),
+                ],
             });
         } catch (error) {
             console.error("Error in 247 command:", error);

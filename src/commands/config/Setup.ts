@@ -127,7 +127,8 @@ export default class Setup extends Command {
                 await ctx.sendMessage({
                     embeds: [
                         {
-                            description: "The song request channel has been deleted. If the channel is not deleted normally, please delete it yourself.",
+                            description:
+                                "The song request channel has been deleted. If the channel is not deleted normally, please delete it yourself.",
                             color: client.color.main,
                         },
                     ],
@@ -149,7 +150,7 @@ export default class Setup extends Command {
                 const channel = ctx.guild.channels.cache.get(data3.textId);
                 if (channel) {
                     embed.setDescription(`The song request channel is <#${channel.id}>.`);
-                    await ctx.sendMessage({embeds: [embed]});
+                    await ctx.sendMessage({ embeds: [embed] });
                 } else {
                     await ctx.sendMessage({
                         embeds: [

@@ -53,7 +53,11 @@ export default class Seek extends Command {
         }
         if (duration > current.length) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(`Cannot seek beyond the song duration of ${client.utils.formatTime(current.length)}.`)],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(`Cannot seek beyond the song duration of ${client.utils.formatTime(current.length)}.`),
+                ],
             });
         }
         player.seek(duration);

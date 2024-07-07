@@ -56,7 +56,10 @@ export default class AddPlaylist extends Command {
         }
         const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
         if (!playlistData) {
-            const playlistNotFoundError = this.client.embed().setDescription("That playlist doesn't exist.").setColor(this.client.color.red);
+            const playlistNotFoundError = this.client
+                .embed()
+                .setDescription("That playlist doesn't exist.")
+                .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
         }
         const res = await client.queue.search(song);

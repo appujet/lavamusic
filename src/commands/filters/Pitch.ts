@@ -51,7 +51,7 @@ export default class Pitch extends Command {
                 ],
             });
         }
-        player.player.setTimescale({pitch: number});
+        player.player.setTimescale({ pitch: number });
         return await ctx.sendMessage({
             embeds: [
                 {
