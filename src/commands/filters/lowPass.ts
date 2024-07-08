@@ -33,7 +33,7 @@ export default class LowPass extends Command {
         const player = client.queue.get(ctx.guild.id);
         const filterEnabled = player.filters.includes("lowpass");
         if (filterEnabled) {
-            player.player.setLowPass({}); //TODO
+            player.player.setLowPass({smoothing: 0});
             player.filters = player.filters.filter((filter) => filter !== "lowpass");
             ctx.sendMessage({
                 embeds: [
@@ -44,7 +44,7 @@ export default class LowPass extends Command {
                 ],
             });
         } else {
-            player.player.setLowPass({ smoothing: 20 });
+            player.player.setLowPass({smoothing: 20});
             player.filters.push("lowpass");
             ctx.sendMessage({
                 embeds: [

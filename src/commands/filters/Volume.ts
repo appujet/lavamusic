@@ -9,7 +9,7 @@ export default class Volume extends Command {
                 examples: ["volume 100"],
                 usage: "volume <number>",
             },
-            category: "music",
+            category: "filters",
             aliases: ["vol"],
             cooldown: 3,
             args: true,
