@@ -1,16 +1,16 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-export default class Speed extends Command {
+export default class Rate extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "speed",
+            name: "rate",
             description: {
-                content: "Change the speed of the song",
-                examples: ["speed 1.5", "speed 1,5"],
-                usage: "speed <number>",
+                content: "Change the rate of the song",
+                examples: ["rate 1", "pitch 1.5", "pitch 1,5"],
+                usage: "rate <number>",
             },
             category: "filters",
-            aliases: ["spd"],
+            aliases: ["rt"],
             cooldown: 3,
             args: true,
             player: {
@@ -27,8 +27,8 @@ export default class Speed extends Command {
             slashCommand: true,
             options: [
                 {
-                    name: "speed",
-                    description: "The speed you want to set",
+                    name: "rate",
+                    description: "The number you want to set the rate to (between 0.5 and 5)",
                     type: 3,
                     required: true,
                 },
@@ -38,10 +38,10 @@ export default class Speed extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
-        const speedString = args[0].replace(",", ".");
-        const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(speedString);
-        const speed = parseFloat(speedString);
-        if (!isValidNumber || isNaN(speed) || speed < 0.5 || speed > 5) {
+        const rateString = args[0].replace(",", ".");
+        const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(rateString);
+        const rate = parseFloat(rateString);
+        if (!isValidNumber || isNaN(rate) || rate < 0.5 || rate > 5) {
             return await ctx.sendMessage({
                 embeds: [
                     {
@@ -51,11 +51,11 @@ export default class Speed extends Command {
                 ],
             });
         }
-        player.player.setTimescale({speed});
+        player.player.setTimescale({rate: rate});
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Speed has been set to ${speed}.`,
+                    description: `Pitch and speed has been set to ${rate}.`,
                     color: this.client.color.main,
                 },
             ],
