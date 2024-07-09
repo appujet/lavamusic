@@ -51,7 +51,7 @@ export default class Rate extends Command {
                 ],
             });
         }
-        player.player.setTimescale({rate: rate});
+        player.player.setTimescale({ rate: rate });
         return await ctx.sendMessage({
             embeds: [
                 {

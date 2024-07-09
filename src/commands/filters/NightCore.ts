@@ -44,7 +44,7 @@ export default class NightCore extends Command {
                 ],
             });
         } else {
-            player.player.setTimescale({rate: 1.2});
+            player.player.setTimescale({ rate: 1.2 });
             player.filters.push("nightcore");
             ctx.sendMessage({
                 embeds: [

@@ -51,7 +51,7 @@ export default class Speed extends Command {
                 ],
             });
         }
-        player.player.setTimescale({speed});
+        player.player.setTimescale({ speed });
         return await ctx.sendMessage({
             embeds: [
                 {
