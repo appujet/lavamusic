@@ -84,7 +84,7 @@ lavalink:
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
       snapshot: false # set to true if you want to use snapshot builds.
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.3.0"
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.4.0"
       snapshot: false # set to true if you want to use snapshot builds.
 
   pluginsDir: './plugins'
