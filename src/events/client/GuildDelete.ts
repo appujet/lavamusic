@@ -8,13 +8,14 @@ export default class GuildDelete extends Event {
         });
     }
 
-    public async run(guild: Guild): Promise<any> {
+    public async run(guild: Guild): Promise<void> {
         let owner: GuildMember | undefined;
         try {
             owner = await guild.members.fetch(guild.ownerId);
         } catch (error) {
-            console.error(`Error fetching owner for guild ${guild.id}: ${error}`);
+            this.client.logger.error(`Error fetching owner for guild ${guild.id}: ${error}`);
         }
+
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.red)
             .setAuthor({
@@ -25,40 +26,30 @@ export default class GuildDelete extends Event {
             .setThumbnail(guild.iconURL({ extension: "jpeg" }))
             .addFields(
                 { name: "Owner", value: owner ? owner.user.tag : "Unknown#0000", inline: true },
-                {
-                    name: "Members",
-                    value: guild.memberCount?.toString() || "Unknown",
-                    inline: true,
-                },
-                {
-                    name: "Created At",
-                    value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`,
-                    inline: true,
-                },
-                {
-                    name: "Removed At",
-                    value: `<t:${Math.floor(Date.now() / 1000)}:F>`,
-                    inline: true,
-                },
+                { name: "Members", value: guild.memberCount?.toString() || "Unknown", inline: true },
+                { name: "Created At", value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`, inline: true },
+                { name: "Removed At", value: `<t:${Math.floor(Date.now() / 1000)}:F>`, inline: true },
                 { name: "ID", value: guild.id, inline: true },
             )
             .setTimestamp();
+
         const logChannelId = this.client.config.logChannelId;
         if (!logChannelId) {
-            console.error("Log channel ID not found in configuration.");
+            this.client.logger.error("Log channel ID not found in configuration.");
             return;
         }
-        let channel: TextChannel;
+
         try {
-            channel = (await this.client.channels.fetch(logChannelId)) as TextChannel;
-        } catch (error) {
-            console.error(`Error fetching log channel ${logChannelId}: ${error}.`);
-            return;
-        }
-        try {
+            const channel = (await this.client.channels.fetch(logChannelId)) as TextChannel;
+            if (!channel) {
+                this.client.logger.error(
+                    `Log channel not found with ID ${logChannelId}. Please change the settings in .env or, if you have a channel, invite me to that guild.`,
+                );
+                return;
+            }
             await channel.send({ embeds: [embed] });
         } catch (error) {
-            console.error(`Error sending message to log channel ${logChannelId}: ${error}`);
+            this.client.logger.error(`Error sending message to log channel ${logChannelId}: ${error}`);
         }
     }
 }

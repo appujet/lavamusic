@@ -1,5 +1,4 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-
 import type { Dispatcher } from "../structures/index.js";
 
 function getButtons(player: Dispatcher): ActionRowBuilder<ButtonBuilder>[] {
@@ -20,22 +19,12 @@ function getButtons(player: Dispatcher): ActionRowBuilder<ButtonBuilder>[] {
         { customId: "SKIP_BUT", emoji: "⏭️", style: ButtonStyle.Secondary },
     ];
 
-    const rows = [];
-
-    for (let i = 0; i < 2; i++) {
-        const rowButtons = [];
-        for (let j = 0; j < 5; j++) {
-            const index = i * 5 + j;
-            if (index >= buttonData.length) break;
-            const { customId, emoji, style } = buttonData[index];
-            const button = new ButtonBuilder().setCustomId(customId).setEmoji({ name: emoji }).setStyle(style).setDisabled(false);
-            rowButtons.push(button);
-        }
-        const row = new ActionRowBuilder().addComponents(...rowButtons);
-        rows.push(row);
-    }
-
-    return rows;
+    return buttonData.reduce((rows, { customId, emoji, style }, index) => {
+        if (index % 5 === 0) rows.push(new ActionRowBuilder<ButtonBuilder>());
+        const button = new ButtonBuilder().setCustomId(customId).setEmoji({ name: emoji }).setStyle(style);
+        rows[rows.length - 1].addComponents(button);
+        return rows;
+    }, [] as ActionRowBuilder<ButtonBuilder>[]);
 }
 
 export { getButtons };

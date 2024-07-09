@@ -6,17 +6,20 @@ interface CommandDescription {
     usage: string;
     examples: string[];
 }
+
 interface CommandPlayer {
     voice: boolean;
     dj: boolean;
     active: boolean;
     djPerm: string | null;
 }
+
 interface CommandPermissions {
     dev: boolean;
     client: string[] | PermissionResolvable;
     user: string[] | PermissionResolvable;
 }
+
 interface CommandOptions {
     name: string;
     nameLocalizations?: Record<string, string>;
@@ -46,17 +49,18 @@ export default class Command {
     public slashCommand: boolean;
     public options: ApplicationCommandOption[];
     public category: string;
+
     constructor(client: Lavamusic, options: CommandOptions) {
         this.client = client;
         this.name = options.name;
-        this.nameLocalizations = options.nameLocalizations || {};
+        this.nameLocalizations = options.nameLocalizations ?? {};
         this.description = {
-            content: options.description?.content || "No description provided",
-            usage: options.description?.usage || "No usage provided",
-            examples: options.description?.examples || ["No examples provided"],
+            content: options.description?.content ?? "No description provided",
+            usage: options.description?.usage ?? "No usage provided",
+            examples: options.description?.examples ?? ["No examples provided"],
         };
-        this.descriptionLocalizations = options.descriptionLocalizations || {};
-        this.aliases = options.aliases || [];
+        this.descriptionLocalizations = options.descriptionLocalizations ?? {};
+        this.aliases = options.aliases ?? [];
         this.cooldown = options.cooldown ?? 3;
         this.args = options.args ?? false;
         this.player = {

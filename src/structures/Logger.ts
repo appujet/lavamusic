@@ -1,5 +1,6 @@
 import pkg, { type SignaleOptions } from "signale";
 const { Signale } = pkg;
+
 const options: SignaleOptions = {
     disabled: false,
     interactive: false,

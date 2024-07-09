@@ -8,15 +8,9 @@ export class Utils {
         const minuteMs = 60 * 1000;
         const hourMs = 60 * minuteMs;
         const dayMs = 24 * hourMs;
-        if (ms < minuteMs) {
-            return `${ms / 1000}s`;
-        }
-        if (ms < hourMs) {
-            return `${Math.floor(ms / minuteMs)}m ${Math.floor((ms % minuteMs) / 1000)}s`;
-        }
-        if (ms < dayMs) {
-            return `${Math.floor(ms / hourMs)}h ${Math.floor((ms % hourMs) / minuteMs)}m`;
-        }
+        if (ms < minuteMs) return `${ms / 1000}s`;
+        if (ms < hourMs) return `${Math.floor(ms / minuteMs)}m ${Math.floor((ms % minuteMs) / 1000)}s`;
+        if (ms < dayMs) return `${Math.floor(ms / hourMs)}h ${Math.floor((ms % hourMs) / minuteMs)}m`;
         return `${Math.floor(ms / dayMs)}d ${Math.floor((ms % dayMs) / hourMs)}h`;
     }
 
@@ -44,7 +38,7 @@ export class Utils {
         return chunked_arr;
     }
 
-    public static formatBytes(bytes: number, decimals: number = 2): string {
+    public static formatBytes(bytes: number, decimals = 2): string {
         if (bytes === 0) return "0 Bytes";
         const k = 1024;
         const dm = decimals < 0 ? 0 : decimals;
@@ -72,7 +66,7 @@ export class Utils {
         return ms;
     }
 
-    public static progressBar(current: number, total: number, size: number = 20): string {
+    public static progressBar(current: number, total: number, size = 20): string {
         const percent = Math.round((current / total) * 100);
         const filledSize = Math.round((size * current) / total);
         const filledBar = "▓".repeat(filledSize);
@@ -89,98 +83,53 @@ export class Utils {
             (ctx.channel as TextChannel).send({ embeds: embed });
             return;
         }
+
         let page = 0;
         const getButton = (page: number): any => {
             const firstEmbed = page === 0;
             const lastEmbed = page === embed.length - 1;
             const pageEmbed = embed[page];
-            const first = new ButtonBuilder().setCustomId("fast").setEmoji("⏪").setStyle(ButtonStyle.Primary);
-            if (firstEmbed) first.setDisabled(true);
-            const back = new ButtonBuilder().setCustomId("back").setEmoji("◀️").setStyle(ButtonStyle.Primary);
-            if (firstEmbed) back.setDisabled(true);
-            const next = new ButtonBuilder().setCustomId("next").setEmoji("▶️").setStyle(ButtonStyle.Primary);
-            if (lastEmbed) next.setDisabled(true);
-            const last = new ButtonBuilder().setCustomId("last").setEmoji("⏩").setStyle(ButtonStyle.Primary);
-            if (lastEmbed) last.setDisabled(true);
+            const first = new ButtonBuilder().setCustomId("fast").setEmoji("⏪").setStyle(ButtonStyle.Primary).setDisabled(firstEmbed);
+            const back = new ButtonBuilder().setCustomId("back").setEmoji("◀️").setStyle(ButtonStyle.Primary).setDisabled(firstEmbed);
+            const next = new ButtonBuilder().setCustomId("next").setEmoji("▶️").setStyle(ButtonStyle.Primary).setDisabled(lastEmbed);
+            const last = new ButtonBuilder().setCustomId("last").setEmoji("⏩").setStyle(ButtonStyle.Primary).setDisabled(lastEmbed);
             const stop = new ButtonBuilder().setCustomId("stop").setEmoji("⏹️").setStyle(ButtonStyle.Danger);
             const row = new ActionRowBuilder().addComponents(first, back, stop, next, last);
             return { embeds: [pageEmbed], components: [row] };
         };
+
         const msgOptions = getButton(0);
-        let msg: any;
-        if (ctx.isInteraction) {
-            msg = ctx.deferred
-                ? await ctx.interaction.followUp({
-                      ...msgOptions,
-                      fetchReply: true as boolean,
-                  })
-                : await ctx.interaction.reply({
-                      ...msgOptions,
-                      fetchReply: true,
-                  });
-        } else {
-            msg = await (ctx.channel as TextChannel).send({
-                ...msgOptions,
-                fetchReply: true,
-            });
-        }
-        let author: any;
-        if (ctx instanceof CommandInteraction) {
-            author = ctx.user;
-        } else {
-            author = ctx.author;
-        }
+        const msg = ctx.isInteraction
+            ? await (ctx.deferred
+                  ? ctx.interaction.followUp({ ...msgOptions, fetchReply: true as boolean })
+                  : ctx.interaction.reply({ ...msgOptions, fetchReply: true }))
+            : await (ctx.channel as TextChannel).send({ ...msgOptions, fetchReply: true });
+
+        const author = ctx instanceof CommandInteraction ? ctx.user : ctx.author;
+
         const filter = (int: any): any => int.user.id === author.id;
-        const collector = msg.createMessageComponentCollector({
-            filter,
-            time: 60000,
-        });
-        // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
+        const collector = msg.createMessageComponentCollector({ filter, time: 60000 });
+
         collector.on("collect", async (interaction) => {
             if (interaction.user.id === author.id) {
                 await interaction.deferUpdate();
-                if (interaction.customId === "fast") {
-                    if (page !== 0) {
-                        page = 0;
-                        const newEmbed = getButton(page);
-                        await interaction.editReply(newEmbed);
-                    }
-                }
-                if (interaction.customId === "back") {
-                    if (page !== 0) {
-                        page--;
-                        const newEmbed = getButton(page);
-                        await interaction.editReply(newEmbed);
-                    }
-                }
-                if (interaction.customId === "stop") {
+                if (interaction.customId === "fast" && page !== 0) {
+                    page = 0;
+                } else if (interaction.customId === "back" && page !== 0) {
+                    page--;
+                } else if (interaction.customId === "stop") {
                     collector.stop();
-                    await interaction.editReply({
-                        embeds: [embed[page]],
-                        components: [],
-                    });
+                } else if (interaction.customId === "next" && page !== embed.length - 1) {
+                    page++;
+                } else if (interaction.customId === "last" && page !== embed.length - 1) {
+                    page = embed.length - 1;
                 }
-                if (interaction.customId === "next") {
-                    if (page !== embed.length - 1) {
-                        page++;
-                        const newEmbed = getButton(page);
-                        await interaction.editReply(newEmbed);
-                    }
-                }
-                if (interaction.customId === "last") {
-                    if (page !== embed.length - 1) {
-                        page = embed.length - 1;
-                        const newEmbed = getButton(page);
-                        await interaction.editReply(newEmbed);
-                    }
-                }
+                await interaction.editReply(getButton(page));
             } else {
-                await interaction.reply({
-                    content: "You can't use this button",
-                    ephemeral: true,
-                });
+                await interaction.reply({ content: "You can't use this button", ephemeral: true });
             }
         });
+
         collector.on("end", async () => {
             await msg.edit({ embeds: [embed[page]], components: [] });
         });

@@ -13,6 +13,7 @@ export default class QueueEnd extends Event {
     public async run(_player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
         const guild = this.client.guilds.cache.get(dispatcher.guildId);
         if (!guild) return;
+
         switch (dispatcher.loop) {
             case "repeat":
                 dispatcher.queue.unshift(track);
@@ -25,11 +26,13 @@ export default class QueueEnd extends Event {
                 dispatcher.current = null;
                 break;
         }
+
         if (dispatcher.autoplay) {
             await dispatcher.Autoplay(track);
         } else {
             dispatcher.autoplay = false;
         }
+
         await updateSetup(this.client, guild);
         this.client.utils.updateStatus(this.client, guild.id);
     }

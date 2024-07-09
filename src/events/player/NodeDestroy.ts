@@ -14,7 +14,9 @@ export default class NodeDestroy extends Event {
         const message = `Node ${node} destroyed with code ${code} and reason ${reason}.`;
         this.client.logger.error(message);
         BotLog.send(this.client, message, "error");
+
         destroyCount++;
+
         if (destroyCount >= 5) {
             this.client.shoukaku.removeNode(node);
             destroyCount = 0;

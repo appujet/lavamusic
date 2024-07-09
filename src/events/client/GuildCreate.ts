@@ -8,13 +8,14 @@ export default class GuildCreate extends Event {
         });
     }
 
-    public async run(guild: Guild): Promise<any> {
+    public async run(guild: Guild): Promise<void> {
         let owner: GuildMember | undefined;
         try {
             owner = await guild.members.fetch(guild.ownerId);
         } catch (e) {
-            console.error(`Error fetching owner for guild ${guild.id}: ${e}`);
+            this.client.logger.error(`Error fetching owner for guild ${guild.id}: ${e}`);
         }
+
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.green)
             .setAuthor({ name: guild.name, iconURL: guild.iconURL({ extension: "jpeg" }) })
@@ -23,35 +24,30 @@ export default class GuildCreate extends Event {
             .addFields(
                 { name: "Owner", value: owner ? owner.user.tag : "Unknown#0000", inline: true },
                 { name: "Members", value: guild.memberCount.toString(), inline: true },
-                {
-                    name: "Created At",
-                    value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`,
-                    inline: true,
-                },
-                {
-                    name: "Joined At",
-                    value: `<t:${Math.floor(guild.joinedTimestamp / 1000)}:F>`,
-                    inline: true,
-                },
+                { name: "Created At", value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`, inline: true },
+                { name: "Joined At", value: `<t:${Math.floor(guild.joinedTimestamp / 1000)}:F>`, inline: true },
                 { name: "ID", value: guild.id, inline: true },
             )
             .setTimestamp();
+
         const logChannelId = this.client.config.logChannelId;
         if (!logChannelId) {
-            console.error("Log channel ID not found in configuration.");
+            this.client.logger.error("Log channel ID not found in configuration.");
             return;
         }
-        const channel = (await this.client.channels.fetch(logChannelId)) as TextChannel;
-        if (!channel) {
-            console.error(
-                `Log channel not found with ID ${logChannelId}. Please change the settings in .env or, if you have a channel, invite me to that guild.`,
-            );
-            return;
-        }
+
         try {
+            const channel = (await this.client.channels.fetch(logChannelId)) as TextChannel;
+            if (!channel) {
+                this.client.logger.error(
+                    `Log channel not found with ID ${logChannelId}. Please change the settings in .env or, if you have a channel, invite me to that guild.`,
+                );
+                return;
+            }
+
             await channel.send({ embeds: [embed] });
         } catch (error) {
-            console.error(`Error sending message to log channel ${logChannelId}: ${error}.`);
+            this.client.logger.error(`Error sending message to log channel ${logChannelId}: ${error}`);
         }
     }
 }

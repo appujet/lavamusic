@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 import { SearchEngine } from "./types.js";
 dotenv.config();
 
+const parseBoolean = (value?: string): boolean => value?.trim().toLowerCase() === "true";
+
 export default {
     token: process.env.TOKEN,
     prefix: process.env.PREFIX,
@@ -12,14 +14,14 @@ export default {
         yellow: 0xffff00,
         main: 0x2f3136,
     },
-    keepAlive: process.env.KEEP_ALIVE ? parseBoolean(process.env.KEEP_ALIVE) : false,
-    autoNode: process.env.AUTO_NODE ? parseBoolean(process.env.AUTO_NODE) : false,
+    keepAlive: parseBoolean(process.env.KEEP_ALIVE),
+    autoNode: parseBoolean(process.env.AUTO_NODE),
     searchEngine: process.env.SEARCH_ENGINE || SearchEngine.YouTube,
-    maxPlaylistSize: process.env.MAX_PLAYLIST_SIZE ? parseInt(process.env.MAX_PLAYLIST_SIZE) : 100,
+    maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE || "100"),
     botStatus: process.env.BOT_STATUS || "online",
     botActivity: process.env.BOT_ACTIVITY || "Lavamusic",
-    botActivityType: process.env.BOT_ACTIVITY_TYPE ? parseInt(process.env.BOT_ACTIVITY_TYPE) : 2,
-    maxQueueSize: process.env.MAX_QUEUE_SIZE ? parseInt(process.env.MAX_QUEUE_SIZE) : 100,
+    botActivityType: parseInt(process.env.BOT_ACTIVITY_TYPE || "2"),
+    maxQueueSize: parseInt(process.env.MAX_QUEUE_SIZE || "100"),
     owners: process.env.OWNER_IDS ? JSON.parse(process.env.OWNER_IDS) : [],
     clientId: process.env.CLIENT_ID,
     guildId: process.env.GUILD_ID,
@@ -34,28 +36,16 @@ export default {
         applemusic: "https://i.imgur.com/Wi0oyYm.png",
         deezer: "https://i.imgur.com/xyZ43FG.png",
     },
-    production: process.env.PRODUCTION ? parseBoolean(process.env.PRODUCTION) : true,
+    production: parseBoolean(process.env.PRODUCTION) ?? true,
     lavalink: [
         {
             url: process.env.LAVALINK_URL,
             auth: process.env.LAVALINK_AUTH,
             name: process.env.LAVALINK_NAME,
-            secure: process.env.LAVALINK_SECURE ? parseBoolean(process.env.LAVALINK_SECURE) : false,
+            secure: parseBoolean(process.env.LAVALINK_SECURE),
         },
     ],
 };
-
-function parseBoolean(value: string | undefined): boolean {
-    if (typeof value === "string") {
-        value = value.trim().toLowerCase();
-    }
-    switch (value) {
-        case "true":
-            return true;
-        default:
-            return false;
-    }
-}
 
 /**
  * Project: lavamusic
