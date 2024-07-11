@@ -44,7 +44,23 @@ export default class StealPlaylist extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const playlistName = args.shift();
-        const targetUser = ctx.message.mentions.users.first();
+        let userId;
+        let targetUser = ctx.args[0];
+
+        if (targetUser && targetUser.startsWith('<@') && targetUser.endsWith('>')) {
+            targetUser = targetUser.slice(2, -1);
+
+            if (targetUser.startsWith('!')) {
+                targetUser = targetUser.slice(1);
+            }
+
+            targetUser = await client.users.fetch(targetUser);
+            userId = targetUser.id;
+        } else if (targetUser) {
+            targetUser = await client.users.fetch(ctx.args[0]);
+        } else {
+            userId = ctx.author.id;
+        }
 
         if (!playlistName) {
             const errorMessage = this.client.embed().setDescription("[Please provide a playlist name]").setColor(this.client.color.red);
