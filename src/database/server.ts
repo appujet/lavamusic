@@ -121,6 +121,14 @@ export default class ServerData {
         });
     }
 
+    public async getUserPlaylists(userId: string) {
+        return this.prisma.playlist.findMany({
+            where: {
+                userId: userId,
+            },
+        });
+    }
+
     public async createPlaylist(userId: string, name: string): Promise<void> {
         await this.prisma.playlist.create({ data: { userId, name } });
     }
