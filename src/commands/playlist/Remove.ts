@@ -72,7 +72,6 @@ export default class RemoveSong extends Command {
         }
 
         const trackToRemove = res.data;
-        console.log(`Track to remove: ${JSON.stringify(trackToRemove)}`);
 
         try {
             // Remove the track from the playlist
