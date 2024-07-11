@@ -40,12 +40,22 @@ export default class GetPlaylists extends Command {
         try {
             let userId;
             let targetUser = ctx.args[0];
-            if (targetUser) {
-                targetUser = await client.users.fetch(ctx.args[0]);
+
+            if (targetUser && targetUser.startsWith('<@') && targetUser.endsWith('>')) {
+                targetUser = targetUser.slice(2, -1);
+
+                if (targetUser.startsWith('!')) {
+                    targetUser = targetUser.slice(1);
+                }
+
+                targetUser = await client.users.fetch(targetUser);
                 userId = targetUser.id;
+            } else if (targetUser) {
+                targetUser = await client.users.fetch(ctx.args[0]);
             } else {
                 userId = ctx.author.id;
             }
+
             const playlists = await client.db.getUserPlaylists(userId);
 
             if (!playlists || playlists.length === 0) {
