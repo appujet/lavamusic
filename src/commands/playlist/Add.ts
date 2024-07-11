@@ -1,6 +1,6 @@
 import { LoadType } from "shoukaku";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class AddPlaylist extends Command {
     constructor(client: Lavamusic) {
@@ -47,44 +47,48 @@ export default class AddPlaylist extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const playlist = args.shift();
         const song = args.join(" ");
+
         if (!playlist) {
-            const errorMessage = this.client.embed().setDescription("Please provide a playlist.").setColor(this.client.color.red);
+            const errorMessage = this.client.embed().setDescription("Please provide a playlist").setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [errorMessage] });
         }
+
         if (!song) {
-            const errorMessage = this.client.embed().setDescription("Please provide a song.").setColor(this.client.color.red);
+            const errorMessage = this.client.embed().setDescription("Please provide a song").setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [errorMessage] });
         }
+
         const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
+
         if (!playlistData) {
-            const playlistNotFoundError = this.client
-                .embed()
-                .setDescription("That playlist doesn't exist.")
-                .setColor(this.client.color.red);
+            const playlistNotFoundError = this.client.embed().setDescription("That playlist doesn't exist").setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
         }
+
         const res = await client.queue.search(song);
         if (!res) {
-            const noSongsFoundError = this.client.embed().setDescription("No songs found.").setColor(this.client.color.red);
+            const noSongsFoundError = this.client.embed().setDescription("No songs found").setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [noSongsFoundError] });
         }
         let trackStrings: any;
         let count: number;
-        if (res.loadType === LoadType.PLAYLIST) {
-            trackStrings = res.data.tracks.map((track) => track);
+        if (res.loadType === 'playlist') {
+            trackStrings = res.data.tracks;
             count = res.data.tracks.length;
-        } else {
-            trackStrings = [res.data[0]];
+        } else if (res.loadType === 'track') {
+            trackStrings = [res.data];
             count = 1;
         }
         client.db.addSong(ctx.author.id, playlist, trackStrings);
+
         const successMessage = this.client
             .embed()
-            .setDescription(`Added ${count} song(s) to ${playlistData.name}.`)
+            .setDescription(`Added ${count} song(s) to ${playlistData.name}`)
             .setColor(this.client.color.green);
         ctx.sendMessage({ embeds: [successMessage] });
     }
 }
+
 
 /**
  * Project: lavamusic
