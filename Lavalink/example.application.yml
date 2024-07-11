@@ -11,7 +11,7 @@ plugins:
     # Clients are queried in the order they are given (so the first client is queried first and so on...)
     clients:
       - MUSIC
-      - ANDROID
+      - ANDROID_TESTSUITE
       - WEB
       - TVHTML5EMBEDDED
   lavasrc:
@@ -84,8 +84,8 @@ lavalink:
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
       snapshot: false # set to true if you want to use snapshot builds.
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.4.0"
-      snapshot: false # set to true if you want to use snapshot builds.
+    - dependency: "dev.lavalink.youtube:youtube-plugin:f22d382b7caed0068cbb79eb4cd87ff92e9b3486"
+      snapshot: true # set to true if you want to use snapshot builds.
 
   pluginsDir: './plugins'
   server:
