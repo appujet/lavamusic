@@ -39,11 +39,12 @@ export default class GetPlaylists extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         try {
             let userId;
-            let targetUser = await client.users.fetch(ctx.args[0]);
+            let targetUser = ctx.args[0];
             if (targetUser) {
+                targetUser = await client.users.fetch(ctx.args[0]);
                 userId = targetUser.id;
             } else {
-                userId = ctx.interaction.member.user.id; // Fetching the ID of the interaction member (author)
+                userId = ctx.author.id;
             }
             const playlists = await client.db.getUserPlaylists(userId);
 
