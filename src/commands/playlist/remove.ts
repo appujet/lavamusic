@@ -66,7 +66,7 @@ export default class RemoveSong extends Command {
 
         const res = await client.queue.search(song);
 
-        if (!res || res.loadType !== 'track') {
+        if (!res || res.loadType !== LoadType.TRACK) {
             const noSongsFoundError = this.client.embed().setDescription("[No matching song found]").setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [noSongsFoundError] });
         }
