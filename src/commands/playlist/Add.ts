@@ -72,10 +72,10 @@ export default class AddPlaylist extends Command {
         }
         let trackStrings: any;
         let count: number;
-        if (res.loadType === 'playlist') {
+        if (res.loadType === LoadType.PLAYLIST) {
             trackStrings = res.data.tracks;
             count = res.data.tracks.length;
-        } else if (res.loadType === 'track') {
+        } else if (res.loadType === LoadType.TRACK) {
             trackStrings = [res.data];
             count = 1;
         }
