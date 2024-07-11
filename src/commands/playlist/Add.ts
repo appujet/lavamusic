@@ -1,6 +1,7 @@
 import { LoadType } from "shoukaku";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
+
 export default class AddPlaylist extends Command {
     constructor(client: Lavamusic) {
         super(client, {
