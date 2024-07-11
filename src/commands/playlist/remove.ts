@@ -4,14 +4,14 @@ import { Command, type Context, type Lavamusic } from "../../structures/index.js
 export default class RemoveSong extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "remove",
+            name: "deletus",
             description: {
                 content: "Removes a song from the playlist",
-                examples: ["remove <playlist> <song>"],
-                usage: "remove <playlist> <song>",
+                examples: ["deletus <playlist> <song>"],
+                usage: "deletus <playlist> <song>",
             },
             category: "playlist",
-            aliases: ["remove"],
+            aliases: ["dl"],
             cooldown: 3,
             args: true,
             player: {
