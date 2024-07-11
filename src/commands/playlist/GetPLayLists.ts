@@ -1,4 +1,4 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, Context, Lavamusic } from "../../structures/index.js";
 
 export default class GetPlaylists extends Command {
     constructor(client: Lavamusic) {
@@ -36,17 +36,15 @@ export default class GetPlaylists extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(client: Lavamusic, ctx: Context): Promise<any> {
         try {
             let userId;
-            let targetUser = ctx.message.mentions.users.first();
-
+            let targetUser = await client.users.fetch(ctx.args[0]);
             if (targetUser) {
                 userId = targetUser.id;
             } else {
-                userId = ctx.author.id;
+                userId = ctx.interaction.member.user.id; // Fetching the ID of the interaction member (author)
             }
-
             const playlists = await client.db.getUserPlaylists(userId);
 
             if (!playlists || playlists.length === 0) {
@@ -54,11 +52,11 @@ export default class GetPlaylists extends Command {
                 return await ctx.sendMessage({ embeds: [noPlaylistsMessage] });
             }
 
-            const playlistNames = playlists.map((playlist: any) => playlist.name).join("\n");
+            const targetUsername = targetUser ? targetUser.username : "Your";
             const successMessage = this.client
                 .embed()
-                .setTitle(`${targetUser ? `${targetUser.username}'s` : "Your"} Playlists`)
-                .setDescription(playlistNames)
+                .setTitle(`${targetUsername}'s Playlists`)
+                .setDescription(playlists.map((playlist: any) => playlist.name).join("\n"))
                 .setColor(this.client.color.green);
             await ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {
