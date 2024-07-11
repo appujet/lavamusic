@@ -129,6 +129,18 @@ export default class ServerData {
         });
     }
 
+    public async createPlaylistWithSongs(userId: string, name: string, songs: any[]): Promise<void> {
+        await this.prisma.playlist.create({
+            data: {
+                userId,
+                name,
+                songs: {
+                    create: songs.map(song => ({ track: song.track })),
+                },
+            },
+        });
+    }
+
     public async createPlaylist(userId: string, name: string): Promise<void> {
         await this.prisma.playlist.create({ data: { userId, name } });
     }
