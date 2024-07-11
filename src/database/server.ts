@@ -121,6 +121,26 @@ export default class ServerData {
         });
     }
 
+    public async getUserPlaylists(userId: string) {
+        return this.prisma.playlist.findMany({
+            where: {
+                userId: userId,
+            },
+        });
+    }
+
+    public async createPlaylistWithSongs(userId: string, name: string, songs: any[]): Promise<void> {
+        await this.prisma.playlist.create({
+            data: {
+                userId,
+                name,
+                songs: {
+                    create: songs.map(song => ({ track: song.track })),
+                },
+            },
+        });
+    }
+
     public async createPlaylist(userId: string, name: string): Promise<void> {
         await this.prisma.playlist.create({ data: { userId, name } });
     }
@@ -143,11 +163,16 @@ export default class ServerData {
         }
     }
 
-    public async removeSong(userId: string, name: string, song: string): Promise<void> {
-        const playlist = await this.getPlaylist(userId, name);
+    public async removeSong(userId: string, playlistName: string, encodedSong: string): Promise<void> {
+        const playlist = await this.getPlaylist(userId, playlistName);
         if (playlist) {
-            await this.prisma.song.delete({
-                where: { track_playlistId: { track: song, playlistId: playlist.id } },
+            await this.prisma.song.deleteMany({
+                where: {
+                    playlistId: playlist.id,
+                    track: {
+                        contains: encodedSong,
+                    },
+                },
             });
         }
     }
