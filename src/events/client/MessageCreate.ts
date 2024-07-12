@@ -121,7 +121,7 @@ export default class MessageCreate extends Event {
 
             if (command.player.active) {
                 const queue = this.client.queue.get(message.guildId);
-                if (!(queue?.queue && !queue.current)) {
+                if (!queue?.queue && queue.current) {
                     await message.reply({
                         content: "Nothing is playing right now.",
                     });
@@ -139,19 +139,20 @@ export default class MessageCreate extends Event {
                         });
                         return;
                     }
-
-                    const hasDJRole = message.member.roles.cache.some((role) => djRole.map((r) => r.roleId).includes(role.id));
-                    if (!(hasDJRole && !message.member.permissions.has(PermissionFlagsBits.ManageGuild))) {
-                        await message
-                            .reply({
-                                content: "You need to have the DJ role to use this command.",
-                            })
-                            .then((msg) => setTimeout(() => msg.delete(), 5000));
-                        return;
+                    const findDJRole = message.member.roles.cache.find((x: any) => djRole.map((y: any) => y.roleId).includes(x.id));
+                    if (!findDJRole) {
+                        if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+                            await message
+                                .reply({
+                                    content: "You need to have the DJ role to use this command.",
+                                })
+                                .then((msg) => setTimeout(() => msg.delete(), 5000));
+                            return;
+                        }
                     }
                 }
             }
-        }
+       }
 
         if (command.args && !args.length) {
             const embed = this.client
