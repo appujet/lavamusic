@@ -1,4 +1,4 @@
-import { Command, Context, Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class GetPlaylists extends Command {
     constructor(client: Lavamusic) {
