@@ -17,6 +17,7 @@ export default class InteractionCreate extends Event {
         });
     }
 
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
     public async run(interaction: CommandInteraction | AutocompleteInteraction): Promise<any> {
         if (interaction instanceof CommandInteraction && interaction.isCommand()) {
             const setup = await this.client.db.getSetup(interaction.guildId);
