@@ -10,7 +10,7 @@ export default class Skipto extends Command {
                 usage: "skipto <number>",
             },
             category: "music",
-            aliases: ["st"],
+            aliases: ["skt"],
             cooldown: 3,
             args: true,
             player: {

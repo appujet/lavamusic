@@ -1,16 +1,16 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-export default class CreatePlaylist extends Command {
+export default class DeletePlaylist extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "create",
+            name: "deletepl",
             description: {
-                content: "Creates a playlist",
-                examples: ["create <name>"],
-                usage: "create <name>",
+                content: "Deletes a playlist",
+                examples: ["deletepl <playlist name>"],
+                usage: "deletepl <playlist name>",
             },
             category: "playlist",
-            aliases: ["cre"],
+            aliases: ["delpl"],
             cooldown: 3,
             args: true,
             player: {
@@ -27,8 +27,8 @@ export default class CreatePlaylist extends Command {
             slashCommand: true,
             options: [
                 {
-                    name: "name",
-                    description: "The name of the playlist",
+                    name: "playlist",
+                    description: "The playlist you want to delete",
                     type: 3,
                     required: true,
                 },
@@ -37,33 +37,23 @@ export default class CreatePlaylist extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const name = args.join(" ").trim();
-        if (name.length > 50) {
+        const playlistName = args.join(" ").trim();
+        const playlistExists = await client.db.getPlaylist(ctx.author.id, playlistName);
+        if (!playlistExists) {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Playlist names can only be 50 characters long.",
+                        description: "That playlist doesn't exist.",
                         color: this.client.color.red,
                     },
                 ],
             });
         }
-        const playlistExists = await client.db.getPlaylist(ctx.author.id, name);
-        if (playlistExists) {
-            return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: "A playlist with that name already exists. Please use a different name.",
-                        color: this.client.color.main,
-                    },
-                ],
-            });
-        }
-        client.db.createPlaylist(ctx.author.id, name);
+        client.db.deletePlaylist(ctx.author.id, playlistName);
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Playlist **${name}** has been created.`,
+                    description: `Deleted playlist **${playlistName}.**`,
                     color: this.client.color.main,
                 },
             ],

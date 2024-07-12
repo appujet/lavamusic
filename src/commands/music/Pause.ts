@@ -10,7 +10,7 @@ export default class Pause extends Command {
                 usage: "pause",
             },
             category: "music",
-            aliases: [],
+            aliases: ["pu"],
             cooldown: 3,
             args: false,
             player: {

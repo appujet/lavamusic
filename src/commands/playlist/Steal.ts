@@ -5,12 +5,12 @@ export default class StealPlaylist extends Command {
         super(client, {
             name: "steal",
             description: {
-                content: "Steals a playlist from another user and adds it to your account",
+                content: "Steals a playlist from another user",
                 examples: ["steal <playlist_name> <@user>"],
                 usage: "steal <playlist_name> <@user>",
             },
             category: "playlist",
-            aliases: ["steal"],
+            aliases: ["st"],
             cooldown: 3,
             args: true,
             player: {
@@ -34,9 +34,9 @@ export default class StealPlaylist extends Command {
                 },
                 {
                     name: "user",
-                    description: "The user from whom you want to steal the playlist",
+                    description: "The user from who you want to steal the playlist",
                     type: 6,
-                    required: true, // 6 represents a USER type in Discord API
+                    required: true,
                 },
             ],
         });

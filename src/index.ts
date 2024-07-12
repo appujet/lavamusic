@@ -9,7 +9,6 @@ async function main(): Promise<void> {
     try {
         const logFilePath = "./src/utils/LavaLogo.txt";
         const logFile = await fs.readFile(logFilePath, "utf-8");
-        // biome-ignore lint/suspicious/noConsoleLog: <explanation>
         console.log("\x1b[35m%s\x1b[0m", logFile);
 
         const manager = new ShardingManager("./dist/LavaClient.js", {

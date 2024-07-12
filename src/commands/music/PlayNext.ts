@@ -8,8 +8,10 @@ export default class PlayNext extends Command {
             description: {
                 content: "Add the song to play next in queue",
                 examples: [
-                    "playnext https://www.youtube.com/watch?v=QH2-TGUlwu4",
-                    "playnext https://open.spotify.com/track/6WrI0LAC5M1Rw2MnX2ZvEg",
+                    "playnext example"
+                    "playnext https://www.youtube.com/watch?v=example",
+                    "playnext https://open.spotify.com/track/example",
+                    "playnext http://www.example.com/example.mp3",
                 ],
                 usage: "playnext <song>",
             },

@@ -3,14 +3,14 @@ import { Command, Context, Lavamusic } from "../../structures/index.js";
 export default class GetPlaylists extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "playlists",
+            name: "list",
             description: {
                 content: "Retrieves all playlists for the user",
-                examples: ["playlists", "playlists @user"],
-                usage: "playlists [@user]",
+                examples: ["list", "list @user"],
+                usage: "list [@user]",
             },
             category: "playlist",
-            aliases: ["playlists"],
+            aliases: ["lst"],
             cooldown: 3,
             args: false,
             player: {

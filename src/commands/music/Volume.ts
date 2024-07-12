@@ -10,7 +10,7 @@ export default class Volume extends Command {
                 usage: "volume <number>",
             },
             category: "music",
-            aliases: ["vol"],
+            aliases: ["v", "vol"],
             cooldown: 3,
             args: true,
             player: {

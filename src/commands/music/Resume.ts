@@ -7,7 +7,7 @@ export default class Resume extends Command {
             description: {
                 content: "Resumes the current song",
                 examples: ["resume"],
-                usage: "resume",
+                usage: "re",
             },
             category: "music",
             aliases: ["r"],

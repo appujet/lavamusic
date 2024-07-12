@@ -11,7 +11,7 @@ export default class Invite extends Command {
                 usage: "invite",
             },
             category: "info",
-            aliases: ["inv"],
+            aliases: ["iv"],
             cooldown: 3,
             args: false,
             player: {

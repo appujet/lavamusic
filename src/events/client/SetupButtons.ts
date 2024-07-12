@@ -11,7 +11,6 @@ export default class SetupButtons extends Event {
         });
     }
 
-    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
     public async run(interaction: any): Promise<void> {
         if (!interaction.replied) await interaction.deferReply().catch(() => {});
         if (!interaction.member.voice.channel) {
