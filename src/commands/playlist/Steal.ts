@@ -5,12 +5,12 @@ export default class StealPlaylist extends Command {
         super(client, {
             name: "steal",
             description: {
-                content: "Steals a playlist from another user and adds it to your account",
+                content: "Steals a playlist from another user and adds it to your playlists",
                 examples: ["steal <playlist_name> <@user>"],
                 usage: "steal <playlist_name> <@user>",
             },
             category: "playlist",
-            aliases: ["steal"],
+            aliases: ["st"],
             cooldown: 3,
             args: true,
             player: {
