@@ -153,7 +153,7 @@ export default class MessageCreate extends Event {
                     }
                 }
             }
-       }
+        }
 
         if (command.args && !args.length) {
             const embed = this.client

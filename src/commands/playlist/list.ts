@@ -41,7 +41,7 @@ export default class GetPlaylists extends Command {
             let userId;
             let targetUser = ctx.args[0];
 
-            if (targetUser && targetUser.startsWith("<@") && targetUser.endsWith(">")) {
+            if (targetUser?.targetUser.startsWith("<@") && targetUser.endsWith(">")) {
                 targetUser = targetUser.slice(2, -1);
 
                 if (targetUser.startsWith("!")) {
