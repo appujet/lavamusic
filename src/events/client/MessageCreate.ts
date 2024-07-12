@@ -8,6 +8,7 @@ export default class MessageCreate extends Event {
         });
     }
 
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
     public async run(message: Message): Promise<any> {
         if (message.author.bot) return;
 
