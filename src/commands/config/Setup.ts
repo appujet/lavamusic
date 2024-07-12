@@ -12,7 +12,7 @@ export default class Setup extends Command {
                 usage: "setup",
             },
             category: "config",
-            aliases: ["setup"],
+            aliases: ["set"],
             cooldown: 3,
             args: true,
             player: {

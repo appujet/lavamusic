@@ -10,7 +10,7 @@ export default class Reset extends Command {
                 usage: "reset",
             },
             category: "filters",
-            aliases: ["reset"],
+            aliases: ["rs"],
             cooldown: 3,
             args: false,
             player: {

@@ -9,8 +9,8 @@ export default class Search extends Command {
             name: "search",
             description: {
                 content: "Searches for a song",
-                examples: ["search", "search <song>"],
-                usage: "search",
+                examples: ["search example"],
+                usage: "search <song>",
             },
             category: "music",
             aliases: ["sc"],

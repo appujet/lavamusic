@@ -10,7 +10,7 @@ export default class LoadPlaylist extends Command {
                 usage: "load <playlist>",
             },
             category: "playlist",
-            aliases: [],
+            aliases: ["lo"],
             cooldown: 3,
             args: true,
             player: {
@@ -73,7 +73,7 @@ export default class LoadPlaylist extends Command {
                 player.queue.push(track);
                 player.isPlaying();
             }
-            await player.isPlaying()
+            await player.isPlaying();
             return await ctx.sendMessage({
                 embeds: [
                     {

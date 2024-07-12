@@ -10,7 +10,7 @@ export default class GuildList extends Command {
                 usage: "guildlist",
             },
             category: "dev",
-            aliases: ["glt"],
+            aliases: ["glst"],
             cooldown: 3,
             args: false,
             player: {

@@ -11,14 +11,8 @@
         "build": "tsc --project tsconfig.json",
         "clean": "node ./scripts/clean.js && npm run build",
         "clean:no-log": "node ./scripts/clean-no-log.js && npm run build",
-        "lint": "biome lint --write ./src",
-        "format": "biome format --write ./src"
-    },
-    "lint-staged": {
-        "*.ts": [
-            "biome check --write",
-            "biome format --write"
-        ]
+        "lint": "biome lint --fix ./src",
+        "format": "biome format --fix ./src"
     },
     "repository": {
         "type": "git",

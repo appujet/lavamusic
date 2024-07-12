@@ -10,7 +10,7 @@ export default class CreatePlaylist extends Command {
                 usage: "create <name>",
             },
             category: "playlist",
-            aliases: ["create"],
+            aliases: ["cre"],
             cooldown: 3,
             args: true,
             player: {

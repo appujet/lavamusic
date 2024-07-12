@@ -1,16 +1,16 @@
-import { Command, Context, Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class GetPlaylists extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "playlists",
+            name: "list",
             description: {
                 content: "Retrieves all playlists for the user",
-                examples: ["playlists", "playlists @user"],
-                usage: "playlists [@user]",
+                examples: ["list", "list @user"],
+                usage: "list [@user]",
             },
             category: "playlist",
-            aliases: ["playlists"],
+            aliases: ["lst"],
             cooldown: 3,
             args: false,
             player: {
@@ -41,10 +41,10 @@ export default class GetPlaylists extends Command {
             let userId;
             let targetUser = ctx.args[0];
 
-            if (targetUser && targetUser.startsWith('<@') && targetUser.endsWith('>')) {
+            if (targetUser && targetUser.startsWith("<@") && targetUser.endsWith(">")) {
                 targetUser = targetUser.slice(2, -1);
 
-                if (targetUser.startsWith('!')) {
+                if (targetUser.startsWith("!")) {
                     targetUser = targetUser.slice(1);
                 }
 
@@ -59,7 +59,10 @@ export default class GetPlaylists extends Command {
             const playlists = await client.db.getUserPlaylists(userId);
 
             if (!playlists || playlists.length === 0) {
-                const noPlaylistsMessage = this.client.embed().setDescription("[This user has no playlists]").setColor(this.client.color.red);
+                const noPlaylistsMessage = this.client
+                    .embed()
+                    .setDescription("[This user has no playlists]")
+                    .setColor(this.client.color.red);
                 return await ctx.sendMessage({ embeds: [noPlaylistsMessage] });
             }
 
@@ -72,7 +75,10 @@ export default class GetPlaylists extends Command {
             await ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {
             console.error(error);
-            const errorMessage = this.client.embed().setDescription("[An error occurred while retrieving the playlists]").setColor(this.client.color.red);
+            const errorMessage = this.client
+                .embed()
+                .setDescription("[An error occurred while retrieving the playlists]")
+                .setColor(this.client.color.red);
             await ctx.sendMessage({ embeds: [errorMessage] });
         }
     }

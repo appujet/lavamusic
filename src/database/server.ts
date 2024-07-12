@@ -135,7 +135,7 @@ export default class ServerData {
                 userId,
                 name,
                 songs: {
-                    create: songs.map(song => ({ track: song.track })),
+                    create: songs.map((song) => ({ track: song.track })),
                 },
             },
         });

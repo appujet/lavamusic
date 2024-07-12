@@ -6,10 +6,12 @@ export default class Play extends Command {
         super(client, {
             name: "play",
             description: {
-                content: "Plays a song from YouTube or Spotify",
+                content: "Plays a song from YouTube, Spotify or http",
                 examples: [
-                    "play https://www.youtube.com/watch?v=QH2-TGUlwu4",
-                    "play https://open.spotify.com/track/6WrI0LAC5M1Rw2MnX2ZvEg",
+                    "play example",
+                    "play https://www.youtube.com/watch?v=example",
+                    "play https://open.spotify.com/track/example",
+                    "play http://www.example.com/example.mp3",
                 ],
                 usage: "play <song>",
             },

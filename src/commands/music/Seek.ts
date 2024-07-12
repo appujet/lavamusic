@@ -6,11 +6,11 @@ export default class Seek extends Command {
             name: "seek",
             description: {
                 content: "Seeks to a certain time in the song",
-                examples: ["seek 1m, seek 1h 30m"],
-                usage: "seek <time>",
+                examples: ["seek 1m, seek 1h 30m", "seek 1h 30m 30s"],
+                usage: "seek <duration>",
             },
             category: "music",
-            aliases: ["se"],
+            aliases: ["s"],
             cooldown: 3,
             args: true,
             player: {

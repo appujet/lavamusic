@@ -48,11 +48,7 @@
     },
     "files": {
         "ignoreUnknown": true,
-        "ignore": [
-            ".vscode",
-            "node_modules",
-            "dist"
-        ]
+        "ignore": [".vscode", "node_modules", "dist"]
     },
     "json": {
         "formatter": {

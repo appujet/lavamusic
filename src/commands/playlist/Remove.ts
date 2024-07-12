@@ -4,14 +4,14 @@ import { Command, type Context, type Lavamusic } from "../../structures/index.js
 export default class RemoveSong extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "deletus",
+            name: "remove",
             description: {
                 content: "Removes a song from the playlist",
-                examples: ["deletus <playlist> <song>"],
-                usage: "deletus <playlist> <song>",
+                examples: ["remove <playlist> <song>"],
+                usage: "remove <playlist> <song>",
             },
             category: "playlist",
-            aliases: ["dl"],
+            aliases: ["del"],
             cooldown: 3,
             args: true,
             player: {
@@ -60,7 +60,10 @@ export default class RemoveSong extends Command {
         const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
 
         if (!playlistData) {
-            const playlistNotFoundError = this.client.embed().setDescription("[That playlist doesn't exist]").setColor(this.client.color.red);
+            const playlistNotFoundError = this.client
+                .embed()
+                .setDescription("[That playlist doesn't exist]")
+                .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
         }
 
@@ -84,8 +87,22 @@ export default class RemoveSong extends Command {
             ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {
             console.error(error);
-            const genericError = this.client.embed().setDescription("[An error occurred while removing the song]").setColor(this.client.color.red);
+            const genericError = this.client
+                .embed()
+                .setDescription("[An error occurred while removing the song]")
+                .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [genericError] });
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

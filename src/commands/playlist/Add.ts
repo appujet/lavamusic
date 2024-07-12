@@ -12,7 +12,7 @@ export default class AddPlaylist extends Command {
                 usage: "add <playlist> <song>",
             },
             category: "playlist",
-            aliases: ["add"],
+            aliases: ["a"],
             cooldown: 3,
             args: true,
             player: {
@@ -88,7 +88,6 @@ export default class AddPlaylist extends Command {
         ctx.sendMessage({ embeds: [successMessage] });
     }
 }
-
 
 /**
  * Project: lavamusic

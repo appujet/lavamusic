@@ -10,7 +10,7 @@ export default class Grab extends Command {
                 usage: "grab",
             },
             category: "music",
-            aliases: [],
+            aliases: ["gr"],
             cooldown: 3,
             args: false,
             player: {

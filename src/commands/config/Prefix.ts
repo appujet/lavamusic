@@ -10,7 +10,7 @@ export default class Prefix extends Command {
                 usage: "prefix [set <prefix> | reset]",
             },
             category: "general",
-            aliases: ["prefix"],
+            aliases: ["pf"],
             cooldown: 3,
             args: true,
             player: {
