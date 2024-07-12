@@ -8,7 +8,7 @@ export default class Play extends Command {
             description: {
                 content: "Plays a song from YouTube, Spotify or http",
                 examples: [
-                    "play example"
+                    "play example",
                     "play https://www.youtube.com/watch?v=example",
                     "play https://open.spotify.com/track/example",
                     "play http://www.example.com/example.mp3",

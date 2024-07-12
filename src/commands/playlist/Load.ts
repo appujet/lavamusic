@@ -10,7 +10,7 @@ export default class LoadPlaylist extends Command {
                 usage: "load <playlist>",
             },
             category: "playlist",
-            aliases: [lo],
+            aliases: ["lo"],
             cooldown: 3,
             args: true,
             player: {
