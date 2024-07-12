@@ -15,10 +15,7 @@
         "format": "biome format --write ./src"
     },
     "lint-staged": {
-        "*.ts": [
-            "biome check --write",
-            "biome format --write"
-        ]
+        "*.ts": ["biome check --write", "biome format --write"]
     },
     "repository": {
         "type": "git",
