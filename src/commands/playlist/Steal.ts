@@ -47,10 +47,10 @@ export default class StealPlaylist extends Command {
         let userId;
         let targetUser = ctx.args[0];
 
-        if (targetUser && targetUser.startsWith('<@') && targetUser.endsWith('>')) {
+        if (targetUser && targetUser.startsWith("<@") && targetUser.endsWith(">")) {
             targetUser = targetUser.slice(2, -1);
 
-            if (targetUser.startsWith('!')) {
+            if (targetUser.startsWith("!")) {
                 targetUser = targetUser.slice(1);
             }
 
@@ -77,7 +77,10 @@ export default class StealPlaylist extends Command {
             const targetPlaylist = await client.db.getPlaylist(targetUserId, playlistName);
 
             if (!targetPlaylist) {
-                const playlistNotFoundError = this.client.embed().setDescription("[That playlist doesn't exist for the mentioned user]").setColor(this.client.color.red);
+                const playlistNotFoundError = this.client
+                    .embed()
+                    .setDescription("[That playlist doesn't exist for the mentioned user]")
+                    .setColor(this.client.color.red);
                 return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
             }
 
@@ -91,7 +94,10 @@ export default class StealPlaylist extends Command {
             await ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {
             console.error(error);
-            const errorMessage = this.client.embed().setDescription("[An error occurred while stealing the playlist]").setColor(this.client.color.red);
+            const errorMessage = this.client
+                .embed()
+                .setDescription("[An error occurred while stealing the playlist]")
+                .setColor(this.client.color.red);
             await ctx.sendMessage({ embeds: [errorMessage] });
         }
     }

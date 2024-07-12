@@ -60,7 +60,10 @@ export default class RemoveSong extends Command {
         const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
 
         if (!playlistData) {
-            const playlistNotFoundError = this.client.embed().setDescription("[That playlist doesn't exist]").setColor(this.client.color.red);
+            const playlistNotFoundError = this.client
+                .embed()
+                .setDescription("[That playlist doesn't exist]")
+                .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
         }
 
@@ -84,7 +87,10 @@ export default class RemoveSong extends Command {
             ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {
             console.error(error);
-            const genericError = this.client.embed().setDescription("[An error occurred while removing the song]").setColor(this.client.color.red);
+            const genericError = this.client
+                .embed()
+                .setDescription("[An error occurred while removing the song]")
+                .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [genericError] });
         }
     }

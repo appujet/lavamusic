@@ -89,7 +89,6 @@ export default class AddPlaylist extends Command {
     }
 }
 
-
 /**
  * Project: lavamusic
  * Author: Appu

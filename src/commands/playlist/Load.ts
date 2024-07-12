@@ -73,7 +73,7 @@ export default class LoadPlaylist extends Command {
                 player.queue.push(track);
                 player.isPlaying();
             }
-            await player.isPlaying()
+            await player.isPlaying();
             return await ctx.sendMessage({
                 embeds: [
                     {
