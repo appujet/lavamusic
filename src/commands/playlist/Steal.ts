@@ -47,7 +47,8 @@ export default class StealPlaylist extends Command {
         let _userId;
         let targetUser = ctx.args[0];
 
-        if (targetUser && targetUser.startsWith('<@') && targetUser.endsWith('>')) {
+        if (targetUser?.startsWith("<@") && targetUser.endsWith(">")) {
+        
             targetUser = targetUser.slice(2, -1);
 
             if (targetUser.startsWith('!')) {
