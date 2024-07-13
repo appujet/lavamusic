@@ -44,7 +44,7 @@ export default class StealPlaylist extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const playlistName = args.shift();
-        let _userId;
+        let _userId: any;
         let targetUser = ctx.args[0];
 
         if (targetUser?.startsWith("<@") && targetUser.endsWith(">")) {
