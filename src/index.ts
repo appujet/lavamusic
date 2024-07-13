@@ -72,15 +72,15 @@ class ThemeSelector {
      */
     water(text: string): string {
         let fade = "";
-        let green = 30;
+        let green = 255;
 
         for (const line of text.split("\n")) {
             fade += `\x1b[38;2;0;${green};255m${line}\x1b[0m\n`;
-            if (green < 255) {
-                green = Math.min(255, green + 40);
+            if (green > 30) {
+                green = Math.max(30, green - 40);
             }
         }
-
+    
         return fade;
     }
 }
