@@ -38,7 +38,7 @@ export default class GetPlaylists extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         try {
-            let userId;
+            let userId: any;
             let targetUser = ctx.args[0];
 
             if (targetUser?.targetUser.startsWith("<@") && targetUser.endsWith(">")) {
