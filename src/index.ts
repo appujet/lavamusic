@@ -9,7 +9,7 @@ const logger = new Logger();
 
 class ThemeSelector {
     /**
-     * Applies a green fire effect to the text.
+     * Applies a yellow fire effect to the text.
      *
      * @param text - The input text to apply the effect to.
      * @returns The processed text with the green fire effect.
