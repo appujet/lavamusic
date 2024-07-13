@@ -85,7 +85,6 @@ class ThemeSelector {
     }
 }
 
-// Example usage
 const theme = new ThemeSelector();
 
 async function main(): Promise<void> {
