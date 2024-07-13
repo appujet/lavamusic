@@ -5,7 +5,7 @@ export default class StealPlaylist extends Command {
         super(client, {
             name: "steal",
             description: {
-                content: "Steals a playlist from another user",
+                content: "Steals a playlist from another user and adds it to your playlists",
                 examples: ["steal <playlist_name> <@user>"],
                 usage: "steal <playlist_name> <@user>",
             },
@@ -34,9 +34,9 @@ export default class StealPlaylist extends Command {
                 },
                 {
                     name: "user",
-                    description: "The user from who you want to steal the playlist",
+                    description: "The user from whom you want to steal the playlist",
                     type: 6,
-                    required: true,
+                    required: true, // 6 represents a USER type in Discord API
                 },
             ],
         });
@@ -44,22 +44,23 @@ export default class StealPlaylist extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const playlistName = args.shift();
-        let userId;
+        let _userId;
         let targetUser = ctx.args[0];
 
-        if (targetUser?.targetUser.startsWith("<@") && targetUser.endsWith(">")) {
+        if (targetUser?.startsWith("<@") && targetUser.endsWith(">")) {
+        
             targetUser = targetUser.slice(2, -1);
 
-            if (targetUser.startsWith("!")) {
+            if (targetUser.startsWith('!')) {
                 targetUser = targetUser.slice(1);
             }
 
             targetUser = await client.users.fetch(targetUser);
-            userId = targetUser.id;
+            _userId = targetUser.id;
         } else if (targetUser) {
             targetUser = await client.users.fetch(ctx.args[0]);
         } else {
-            userId = ctx.author.id;
+            _userId = ctx.author.id;
         }
 
         if (!playlistName) {
@@ -77,10 +78,7 @@ export default class StealPlaylist extends Command {
             const targetPlaylist = await client.db.getPlaylist(targetUserId, playlistName);
 
             if (!targetPlaylist) {
-                const playlistNotFoundError = this.client
-                    .embed()
-                    .setDescription("[That playlist doesn't exist for the mentioned user]")
-                    .setColor(this.client.color.red);
+                const playlistNotFoundError = this.client.embed().setDescription("[That playlist doesn't exist for the mentioned user]").setColor(this.client.color.red);
                 return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
             }
 
@@ -94,10 +92,7 @@ export default class StealPlaylist extends Command {
             await ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {
             console.error(error);
-            const errorMessage = this.client
-                .embed()
-                .setDescription("[An error occurred while stealing the playlist]")
-                .setColor(this.client.color.red);
+            const errorMessage = this.client.embed().setDescription("[An error occurred while stealing the playlist]").setColor(this.client.color.red);
             await ctx.sendMessage({ embeds: [errorMessage] });
         }
     }
