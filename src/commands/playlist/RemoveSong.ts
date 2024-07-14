@@ -11,7 +11,7 @@ export default class RemoveSong extends Command {
                 usage: "removesong <playlist> <song>",
             },
             category: "playlist",
-            aliases: ["d"],
+            aliases: ["rs"],
             cooldown: 3,
             args: true,
             player: {
