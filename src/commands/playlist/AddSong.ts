@@ -5,14 +5,14 @@ import { Command, type Context, type Lavamusic } from "../../structures/index.js
 export default class AddPlaylist extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "add",
+            name: "addsong",
             description: {
                 content: "Adds a song to the playlist",
-                examples: ["add <playlist> <song>"],
-                usage: "add <playlist> <song>",
+                examples: ["addsong <playlist> <song>"],
+                usage: "addsong <playlist> <song>",
             },
             category: "playlist",
-            aliases: ["a"],
+            aliases: ["as"],
             cooldown: 3,
             args: true,
             player: {

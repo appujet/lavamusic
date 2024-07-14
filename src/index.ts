@@ -80,7 +80,7 @@ class ThemeSelector {
                 green = Math.max(30, green - 40);
             }
         }
-    
+
         return fade;
     }
 }

@@ -58,7 +58,8 @@ export default class Queue extends Command {
         if (chunks.length === 0) chunks = [songStrings];
 
         const pages = chunks.map((chunk, index) => {
-            return this.client.embed()
+            return this.client
+                .embed()
                 .setColor(this.client.color.main)
                 .setAuthor({ name: "Queue", iconURL: ctx.guild.iconURL({}) })
                 .setDescription(chunk.join("\n"))
