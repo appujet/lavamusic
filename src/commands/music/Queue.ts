@@ -44,20 +44,26 @@ export default class Queue extends Command {
                 ],
             });
         }
-        const queue = player.queue.map(
-            (track, index) =>
-                `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info.requester} - Duration: ${
+        const songStrings = [];
+        for (let i = 0; i < player.queue.length; i++) {
+            const track = player.queue[i];
+            songStrings.push(
+                `${i + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info.requester} - Duration: ${
                     track.info.isStream ? "LIVE" : client.utils.formatTime(track.info.length)
                 }`,
-        );
-        const chunks = client.utils.chunk(queue, 10) || [[]];
-        const pages = chunks.map((chunk, index) =>
-            embed
+            );
+        }
+        let chunks = client.utils.chunk(songStrings, 10);
+
+        if (chunks.length === 0) chunks = [songStrings];
+
+        const pages = chunks.map((chunk, index) => {
+            return this.client.embed()
                 .setColor(this.client.color.main)
                 .setAuthor({ name: "Queue", iconURL: ctx.guild.iconURL({}) })
                 .setDescription(chunk.join("\n"))
-                .setFooter({ text: `Page ${index + 1} of ${chunks.length}` }),
-        );
+                .setFooter({ text: `Page ${index + 1} of ${chunks.length}` });
+        });
         return await client.utils.paginate(ctx, pages);
     }
 }

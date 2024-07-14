@@ -33,13 +33,19 @@ export class Queue extends Map<string, Dispatcher> {
 
         let dispatcher = this.get(guild.id);
         if (!dispatcher) {
+            let player = this.client.shoukaku.players.get(guild.id);
+            if (player) {
+                this.client.shoukaku.leaveVoiceChannel(guild.id);
+                player.destroy();
+            }
             const node = givenNode ?? this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
-            const player = await this.client.shoukaku.joinVoiceChannel({
+            player = await this.client.shoukaku.joinVoiceChannel({
                 guildId: guild.id,
                 channelId: voice.id,
                 shardId: guild.shardId,
                 deaf: true,
             });
+
             dispatcher = new Dispatcher({
                 client: this.client,
                 guildId: guild.id,
@@ -47,8 +53,10 @@ export class Queue extends Map<string, Dispatcher> {
                 player,
                 node,
             });
+
             this.set(guild.id, dispatcher);
             this.client.shoukaku.emit("playerCreate", dispatcher.player);
+
         }
         return dispatcher;
     }
