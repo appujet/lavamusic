@@ -87,6 +87,15 @@ class ThemeSelector {
 
 const theme = new ThemeSelector();
 
+/**
+ * Sets the console window title.
+ * @param title - The new title for the console window.
+ */
+function setConsoleTitle(title: string): void {
+    // Write the escape sequence to change the console title
+    process.stdout.write(`\x1b]0;${title}\x07`);
+}
+
 async function main(): Promise<void> {
     try {
         if (!fs.existsSync("./src/utils/LavaLogo.txt")) {
@@ -94,6 +103,8 @@ async function main(): Promise<void> {
             process.exit(1);
         }
         console.clear();
+        // Set a custom title for the console window
+        setConsoleTitle("Lavamusic");
         const logFile = fs.readFileSync("./src/utils/LavaLogo.txt", "utf-8");
         // biome-ignore lint/suspicious/noConsoleLog: <explanation>
         console.log(theme.purpleNeon(logFile));
