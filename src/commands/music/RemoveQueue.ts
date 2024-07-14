@@ -3,14 +3,14 @@ import { Command, type Context, type Lavamusic } from "../../structures/index.js
 export default class Remove extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "remove",
+            name: "removequeue",
             description: {
                 content: "Removes a song from the queue",
-                examples: ["remove 1"],
-                usage: "remove <song number>",
+                examples: ["removequeue 1"],
+                usage: "removequeue <song number>",
             },
             category: "music",
-            aliases: ["rm"],
+            aliases: ["rq"],
             cooldown: 3,
             args: true,
             player: {
