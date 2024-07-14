@@ -95,6 +95,7 @@ async function main(): Promise<void> {
         }
         console.clear();
         const logFile = fs.readFileSync("./src/utils/LavaLogo.txt", "utf-8");
+        // biome-ignore lint/suspicious/noConsoleLog: <explanation>
         console.log(theme.purpleNeon(logFile));
         const manager = new ShardingManager("./dist/LavaClient.js", {
             respawn: true,
