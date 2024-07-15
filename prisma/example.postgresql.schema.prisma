@@ -17,6 +17,7 @@ datasource db {
 model Guild {
     guildId    String      @id
     prefix     String
+    language   String?
     stay       Stay?
     dj         Dj?
     roles      Role[]
@@ -79,4 +80,37 @@ model Setup {
 model Premium {
     userId  String @id
     guildId String
+}
+
+enum Languages {
+    EnglishUS
+    EnglishGB
+    German
+    Bulgarian
+    ChineseCN
+    ChineseTW
+    Croatian
+    Czech
+    Danish
+    Dutch
+    Finnish
+    French
+    Greek
+    Hindi
+    Hungarian
+    Italian
+    Japanese
+    Korean
+    Lithuanian
+    Norwegian
+    Polish
+    PortugueseBR
+    Romanian
+    Russian
+    SpanishES
+    Swedish
+    Thai
+    Turkish
+    Ukrainian
+    Vietnamese
 }

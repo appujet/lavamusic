@@ -19,6 +19,7 @@ import loadPlugins from "../plugin/index.js";
 import { Utils } from "../utils/Utils.js";
 import Logger from "./Logger.js";
 import { Queue, ShoukakuClient } from "./index.js";
+import { initI18n } from "./I18n.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -40,6 +41,7 @@ export default class Lavamusic extends Client {
     }
 
     public async start(token: string): Promise<void> {
+        initI18n();
         const nodes = this.config.autoNode ? await this.getNodes() : this.config.lavalink;
         this.shoukaku = new ShoukakuClient(this, nodes);
         await this.loadCommands();

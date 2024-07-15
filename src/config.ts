@@ -14,6 +14,7 @@ export default {
         yellow: 0xffff00,
         main: 0x2f3136,
     },
+    defaultLanguage: process.env.DEFAULT_LANGUAGE || "hi",
     keepAlive: parseBoolean(process.env.KEEP_ALIVE),
     autoNode: parseBoolean(process.env.AUTO_NODE),
     searchEngine: process.env.SEARCH_ENGINE || SearchEngine.YouTube,

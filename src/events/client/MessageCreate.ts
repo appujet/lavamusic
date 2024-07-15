@@ -16,6 +16,7 @@ export default class MessageCreate extends Event {
         if (setup && setup.textId === message.channelId) {
             return this.client.emit("setupSystem", message);
         }
+        const locale = await this.client.db.getLanguage(message.guildId);
 
         const guild = await this.client.db.get(message.guildId);
         const mention = new RegExp(`^<@!?${this.client.user.id}>( |)$`);
@@ -38,7 +39,7 @@ export default class MessageCreate extends Event {
 
         const ctx = new Context(message, args);
         ctx.setArgs(args);
-
+        ctx.guildLocale = locale;
         if (!message.guild.members.resolve(this.client.user)?.permissions.has(PermissionFlagsBits.ViewChannel)) return;
 
         const clientMember = message.guild.members.resolve(this.client.user);

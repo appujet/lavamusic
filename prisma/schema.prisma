@@ -17,6 +17,7 @@ datasource db {
 model Guild {
   guildId    String      @id
   prefix     String
+  language   String?
   stay       Stay?
   dj         Dj?
   roles      Role[]
