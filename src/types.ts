@@ -30,7 +30,7 @@ export const LocaleFlags = {
    // [Locale.Korean]: "🇰🇷",
    // [Locale.Lithuanian]: "🇱🇹",
    // [Locale.Norwegian]: "🇳🇴",
-   // [Locale.Polish]: "🇵🇱",
+    [Locale.Polish]: "🇵🇱",
    // [Locale.PortugueseBR]: "🇧🇷",
    // [Locale.Romanian]: "🇷🇴",
    // [Locale.Russian]: "🇷🇺",
