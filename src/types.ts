@@ -7,7 +7,12 @@ export enum SearchEngine {
     YouTubeMusic = "ytmsearch",
 }
 
-
+export enum Language {
+    EnglishUS = "EnglishUS",
+    Hindi = "Hindi",
+    Polish = "Polish",
+    Korean = "Korean",
+}
 export const LocaleFlags = {
    // [Locale.Indonesian]: "🇮🇩",
     [Locale.EnglishUS]: "🇺🇸",

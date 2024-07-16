@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+    type APIApplicationCommandOption,
     ApplicationCommandType,
     Client,
     Collection,
@@ -18,8 +19,9 @@ import ServerData from "../database/server.js";
 import loadPlugins from "../plugin/index.js";
 import { Utils } from "../utils/Utils.js";
 import Logger from "./Logger.js";
-import { Queue, ShoukakuClient } from "./index.js";
-import { initI18n } from "./I18n.js";
+import { type Command, Queue, ShoukakuClient } from "./index.js";
+import { initI18n, T, i18n, localization } from "./I18n.js";
+import { Locale } from 'discord.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -70,7 +72,7 @@ export default class Lavamusic extends Client {
 
             for (const file of commandFiles) {
                 const cmdModule = await import(`../commands/${dir}/${file}`);
-                const command = new cmdModule.default(this);
+                const command: Command = new cmdModule.default(this);
                 command.category = dir;
 
                 this.commands.set(command.name, command);
@@ -81,14 +83,41 @@ export default class Lavamusic extends Client {
                 if (command.slashCommand) {
                     const data: RESTPostAPIChatInputApplicationCommandsJSONBody = {
                         name: command.name,
-                        description: command.description.content,
+                        description: T(Locale.EnglishUS, command.description.content),
                         type: ApplicationCommandType.ChatInput,
-                        options: command.options ?? null,
-                        name_localizations: command.nameLocalizations ?? null,
-                        description_localizations: command.descriptionLocalizations ?? null,
+                        options: command.options as APIApplicationCommandOption[],
                         default_member_permissions:
-                            command.permissions.user.length > 0 ? PermissionsBitField.resolve(command.permissions.user).toString() : null,
+                            Array.isArray(command.permissions.user) && command.permissions.user.length > 0 ? PermissionsBitField.resolve(command.permissions.user as any).toString() : null,
+                        name_localizations: null,
+                        description_localizations: null
                     };
+                    // command description and name localizations
+                    const localizations = []
+                    i18n.getLocales().map((locale) => {
+                        localizations.push(localization(locale, command.name, command.description.content));
+                    });
+                    for (const localization of localizations) {
+                        const [language, name] = localization.name;
+                        const [language2, description] = localization.description;
+                        data.name_localizations = { ...data.name_localizations, [language]: name };
+                        data.description_localizations = { ...data.description_localizations, [language2]: description };
+                    }
+
+                    // command options localizations
+                    if (command.options.length > 0) {
+                        command.options.map((option) => {
+                            const optionsLocalizations = []
+                            i18n.getLocales().map((locale) => {
+                                optionsLocalizations.push(localization(locale, option.name, option.description));
+                            });
+                            for (const localization of optionsLocalizations) {
+                                const [language, name] = localization.name;
+                                const [language2, description] = localization.description;
+                                option.nameLocalizations = { ...option.nameLocalizations, [language]: name };
+                                option.descriptionLocalizations = { ...option.descriptionLocalizations, [language2]: description };
+                            }
+                        });
+                    }
                     this.body.push(data);
                 }
             }

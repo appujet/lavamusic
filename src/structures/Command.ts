@@ -22,9 +22,9 @@ interface CommandPermissions {
 
 interface CommandOptions {
     name: string;
-    nameLocalizations?: Record<string, string>;
+    name_localizations?: Record<string, string>;
     description?: Partial<CommandDescription>;
-    descriptionLocalizations?: Record<string, string>;
+    description_localizations?: Record<string, string>;
     aliases?: string[];
     cooldown?: number;
     args?: boolean;
@@ -38,9 +38,9 @@ interface CommandOptions {
 export default class Command {
     public client: Lavamusic;
     public name: string;
-    public nameLocalizations?: Record<string, string>;
+    public name_localizations?: Record<string, string>;
     public description: CommandDescription;
-    public descriptionLocalizations?: Record<string, string>;
+    public description_localizations?: Record<string, string>;
     public aliases: string[];
     public cooldown: number;
     public args: boolean;
@@ -53,13 +53,13 @@ export default class Command {
     constructor(client: Lavamusic, options: CommandOptions) {
         this.client = client;
         this.name = options.name;
-        this.nameLocalizations = options.nameLocalizations ?? {};
+        this.name_localizations = options.name_localizations ?? {};
         this.description = {
             content: options.description?.content ?? "No description provided",
             usage: options.description?.usage ?? "No usage provided",
             examples: options.description?.examples ?? ["No examples provided"],
         };
-        this.descriptionLocalizations = options.descriptionLocalizations ?? {};
+        this.description_localizations = options.description_localizations ?? {};
         this.aliases = options.aliases ?? [];
         this.cooldown = options.cooldown ?? 3;
         this.args = options.args ?? false;

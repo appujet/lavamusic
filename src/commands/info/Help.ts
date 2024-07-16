@@ -1,11 +1,21 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
+/* "help": {
+            "description": "Shows the help menu.",
+            "options": {
+                "command": "The command you want to get info on"
+            },
+            "content": "Hey there! I'm {bot}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord. You can use `{prefix}help <command>` to get more info on a command.",
+            "title": "Help Menu",
+            "help_cmd": "**Description:** {description.content}\n**Usage:** {usage}\n**Examples:** {examples}\n**Aliases:** {aliases}\n**Category:** {category}\n**Cooldown:** {cooldown} seconds\n**Permissions:** {premUser}\n**Bot Permissions:** {premBot}\n**Developer Only:** {dev}\n**Slash Command:** {slash}\n**Args:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**DJ Permissions:** {djPerm}\n**Voice:** {voice}",
+            "footer": "Use {prefix}help <command> for more info on a command"
+        } */
 export default class Help extends Command {
     constructor(client: Lavamusic) {
         super(client, {
             name: "help",
             description: {
-                content: "Shows the help menu",
+                content: "cmd.help.description",
                 examples: ["help"],
                 usage: "help",
             },
@@ -28,7 +38,7 @@ export default class Help extends Command {
             options: [
                 {
                     name: "command",
-                    description: "The command you want to get info on",
+                    description: "cmd.help.options.command",
                     type: 3,
                     required: false,
                 },
@@ -45,49 +55,56 @@ export default class Help extends Command {
             const command = this.client.commands.get(args[0].toLowerCase());
             if (!command) {
                 return await ctx.sendMessage({
-                    embeds: [client.embed().setColor(client.color.red).setDescription(`Command \`${args[0]}\` not found`)],
+                    embeds: [client.embed().setColor(client.color.red).setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] }))],
                 });
             }
             const helpEmbed = embed
-                .setColor(this.client.color.main)
-                .setTitle(`Help Menu - ${command.name}`)
-                .setDescription(`**Description:** ${command.description.content}
-**Usage:** ${guild.prefix}${command.description.usage}
-**Examples:** ${command.description.examples.map((example) => `${guild.prefix}${example}`).join(", ")}
-**Aliases:** ${command.aliases.map((alias) => `\`${alias}\``).join(", ")}
-**Category:** ${command.category}
-**Cooldown:** ${command.cooldown} seconds
-**Permissions:** ${command.permissions.user.length > 0 ? command.permissions.user.map((perm) => `\`${perm}\``).join(", ") : "None"}
-**Bot Permissions:** ${command.permissions.client.map((perm) => `\`${perm}\``).join(", ")}
-**Developer Only:** ${command.permissions.dev ? "Yes" : "No"}
-**Slash Command:** ${command.slashCommand ? "Yes" : "No"}
-**Args:** ${command.args ? "Yes" : "No"}
-**Player:** ${command.player.active ? "Yes" : "No"}
-**DJ:** ${command.player.dj ? "Yes" : "No"}
-**DJ Permissions:** ${command.player.djPerm ? command.player.djPerm : "None"}
-**Voice:** ${command.player.voice ? "Yes" : "No"}`);
-            ctx.sendMessage({ embeds: [helpEmbed] });
-        } else {
-            const fields = categories.map((category) => ({
-                name: category,
-                value: commands
-                    .filter((cmd) => cmd.category === category)
-                    .map((cmd) => `\`${cmd.name}\``)
-                    .join(", "),
-                inline: false,
-            }));
-            const helpEmbed = embed
-                .setColor(this.client.color.main)
-                .setTitle("Help Menu")
+                .setColor(client.color.main)
+                .setTitle(`${ctx.locale("cmd.help.title")} - ${command.name}`)
                 .setDescription(
-                    `Hey there! I'm ${this.client.user.username}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord. You can use \`${guild.prefix}help <command>\` to get more info on a command.`,
-                )
-                .setFooter({
-                    text: `Use ${guild.prefix}help <command> for more info on a command`,
-                });
-            helpEmbed.addFields(...fields);
-            ctx.sendMessage({ embeds: [helpEmbed] });
+                    ctx.locale("cmd.help.help_cmd", {
+                        description: command.description.content,
+                        usage: `${guild.prefix}${command.description.usage}`,
+                        examples: command.description.examples.map((example) => `${guild.prefix}${example}`).join(", "),
+                        aliases: command.aliases.map((alias) => `\`${alias}\``).join(", "),
+                        category: command.category,
+                        cooldown: command.cooldown,
+                        premUser:
+                            command.permissions.user.length > 0 ? command.permissions.user.map((perm) => `\`${perm}\``).join(", ") : "None",
+                        premBot: command.permissions.client.map((perm) => `\`${perm}\``).join(", "),
+                        dev: command.permissions.dev ? "Yes" : "No",
+                        slash: command.slashCommand ? "Yes" : "No",
+                        args: command.args ? "Yes" : "No",
+                        player: command.player.active ? "Yes" : "No",
+                        dj: command.player.dj ? "Yes" : "No",
+                        djPerm: command.player.djPerm ? command.player.djPerm : "None",
+                        voice: command.player.voice ? "Yes" : "No",
+                    }),
+                );
+            return await ctx.sendMessage({ embeds: [helpEmbed] });
         }
+        const fields = categories.map((category) => ({
+            name: category,
+            value: commands
+                .filter((cmd) => cmd.category === category)
+                .map((cmd) => `\`${cmd.name}\``)
+                .join(", "),
+            inline: false,
+        }));
+        const helpEmbed = embed
+            .setColor(client.color.main)
+            .setTitle(ctx.locale("cmd.help.title"))
+            .setDescription(
+                ctx.locale("cmd.help.content", {
+                    bot: client.user.username,
+                    prefix: guild.prefix,
+                }),
+            )
+            .setFooter({
+                text: ctx.locale("cmd.help.footer", { prefix: guild.prefix }),
+            });
+        helpEmbed.addFields(...fields);
+        return await ctx.sendMessage({ embeds: [helpEmbed] });
     }
 }
 

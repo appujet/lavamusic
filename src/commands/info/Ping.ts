@@ -5,7 +5,7 @@ export default class Ping extends Command {
         super(client, {
             name: "ping",
             description: {
-                content: "Shows the bot's ping",
+                content: "cmd.ping.description",
                 examples: ["ping"],
                 usage: "ping",
             },
@@ -31,7 +31,6 @@ export default class Ping extends Command {
 
     public async run(_client: Lavamusic, ctx: Context): Promise<any> {
         const msg = await ctx.sendDeferMessage(ctx.locale("cmd.ping.content"));
-        console.log(ctx.guildLocale)
         const embed = this.client
             .embed()
             .setAuthor({ name: "Pong", iconURL: this.client.user.displayAvatarURL() })
