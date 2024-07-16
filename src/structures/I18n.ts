@@ -34,7 +34,7 @@ export { i18n };
 
 export function T(locale: string, text: string | i18n.TranslateOptions, ...params: any) {
     i18n.setLocale(locale);
-    return i18n.__(text, ...params);
+    return i18n.__mf(text, ...params);
 }
 
 export function localization(lan: any, name: any, desc: any) {

@@ -2,7 +2,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-    type APIApplicationCommandOption,
     ApplicationCommandType,
     Client,
     Collection,
@@ -85,7 +84,7 @@ export default class Lavamusic extends Client {
                         name: command.name,
                         description: T(Locale.EnglishUS, command.description.content),
                         type: ApplicationCommandType.ChatInput,
-                        options: command.options as APIApplicationCommandOption[],
+                        options: command.options || [],
                         default_member_permissions:
                             Array.isArray(command.permissions.user) && command.permissions.user.length > 0 ? PermissionsBitField.resolve(command.permissions.user as any).toString() : null,
                         name_localizations: null,
@@ -106,6 +105,7 @@ export default class Lavamusic extends Client {
                     // command options localizations
                     if (command.options.length > 0) {
                         command.options.map((option) => {
+                            // command options name and description localizations
                             const optionsLocalizations = []
                             i18n.getLocales().map((locale) => {
                                 optionsLocalizations.push(localization(locale, option.name, option.description));
@@ -113,9 +113,11 @@ export default class Lavamusic extends Client {
                             for (const localization of optionsLocalizations) {
                                 const [language, name] = localization.name;
                                 const [language2, description] = localization.description;
-                                option.nameLocalizations = { ...option.nameLocalizations, [language]: name };
-                                option.descriptionLocalizations = { ...option.descriptionLocalizations, [language2]: description };
+                                option.name_localizations = { ...option.name_localizations, [language]: name };
+                                option.description_localizations = { ...option.description_localizations, [language2]: description };
                             }
+                            // command options description localization
+                            option.description = T(Locale.EnglishUS, option.description);
                         });
                     }
                     this.body.push(data);

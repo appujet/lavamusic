@@ -1,4 +1,4 @@
-import type { ApplicationCommandOption, PermissionResolvable } from "discord.js";
+import type { APIApplicationCommandOption, PermissionResolvable } from "discord.js";
 import type Lavamusic from "./Lavamusic.js";
 
 interface CommandDescription {
@@ -31,7 +31,7 @@ interface CommandOptions {
     player?: Partial<CommandPlayer>;
     permissions?: Partial<CommandPermissions>;
     slashCommand?: boolean;
-    options?: ApplicationCommandOption[];
+    options?: APIApplicationCommandOption[];
     category?: string;
 }
 
@@ -47,7 +47,7 @@ export default class Command {
     public player: CommandPlayer;
     public permissions: CommandPermissions;
     public slashCommand: boolean;
-    public options: ApplicationCommandOption[];
+    public options: APIApplicationCommandOption[];
     public category: string;
 
     constructor(client: Lavamusic, options: CommandOptions) {

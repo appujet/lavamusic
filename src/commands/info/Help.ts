@@ -1,15 +1,5 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-/* "help": {
-            "description": "Shows the help menu.",
-            "options": {
-                "command": "The command you want to get info on"
-            },
-            "content": "Hey there! I'm {bot}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord. You can use `{prefix}help <command>` to get more info on a command.",
-            "title": "Help Menu",
-            "help_cmd": "**Description:** {description.content}\n**Usage:** {usage}\n**Examples:** {examples}\n**Aliases:** {aliases}\n**Category:** {category}\n**Cooldown:** {cooldown} seconds\n**Permissions:** {premUser}\n**Bot Permissions:** {premBot}\n**Developer Only:** {dev}\n**Slash Command:** {slash}\n**Args:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**DJ Permissions:** {djPerm}\n**Voice:** {voice}",
-            "footer": "Use {prefix}help <command> for more info on a command"
-        } */
 export default class Help extends Command {
     constructor(client: Lavamusic) {
         super(client, {
@@ -63,7 +53,7 @@ export default class Help extends Command {
                 .setTitle(`${ctx.locale("cmd.help.title")} - ${command.name}`)
                 .setDescription(
                     ctx.locale("cmd.help.help_cmd", {
-                        description: command.description.content,
+                        description: ctx.locale(command.description.content),
                         usage: `${guild.prefix}${command.description.usage}`,
                         examples: command.description.examples.map((example) => `${guild.prefix}${example}`).join(", "),
                         aliases: command.aliases.map((alias) => `\`${alias}\``).join(", "),
