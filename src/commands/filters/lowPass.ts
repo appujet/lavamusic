@@ -32,25 +32,26 @@ export default class LowPass extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const filterEnabled = player.filters.includes("lowpass");
+
         if (filterEnabled) {
-            player.player.setLowPass({ smoothing: 0 });
+            await player.player.setLowPass({ smoothing: 0 });
             player.filters = player.filters.filter((filter) => filter !== "lowpass");
-            ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Lowpass filter has been disabled.",
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });
         } else {
-            player.player.setLowPass({ smoothing: 20 });
+            await player.player.setLowPass({ smoothing: 20 });
             player.filters.push("lowpass");
-            ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Lowpass filter has been enabled.",
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });

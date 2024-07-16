@@ -41,8 +41,9 @@ export default class Speed extends Command {
         const speedString = args[0].replace(",", ".");
         const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(speedString);
         const speed = parseFloat(speedString);
+
         if (!isValidNumber || isNaN(speed) || speed < 0.5 || speed > 5) {
-            return await ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Please provide a valid number between 0.5 and 5.",
@@ -51,8 +52,9 @@ export default class Speed extends Command {
                 ],
             });
         }
+
         player.player.setTimescale({ speed });
-        return await ctx.sendMessage({
+        await ctx.sendMessage({
             embeds: [
                 {
                     description: `Speed has been set to ${speed}.`,

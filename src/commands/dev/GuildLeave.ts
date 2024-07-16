@@ -6,8 +6,8 @@ export default class GuildLeave extends Command {
             name: "guildleave",
             description: {
                 content: "Leave a guild",
-                examples: ["guildleave"],
-                usage: "guildleave",
+                examples: ["guildleave <guildId>"],
+                usage: "guildleave <guildId>",
             },
             category: "dev",
             aliases: ["gl"],
@@ -29,15 +29,15 @@ export default class GuildLeave extends Command {
         });
     }
 
-    public async run(_client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const guildId = args[0];
-        const guild = this.client.guilds.cache.get(guildId);
+        const guild = client.guilds.cache.get(guildId);
         if (!guild) return await ctx.sendMessage("Guild not found.");
         try {
             await guild.leave();
-            ctx.sendMessage(`Left guild ${guild.name}`);
-        } catch (_error) {
-            ctx.sendMessage(`Failed to leave guild ${guild.name}`);
+            await ctx.sendMessage(`Left guild ${guild.name}`);
+        } catch {
+            await ctx.sendMessage(`Failed to leave guild ${guild.name}`);
         }
     }
 }

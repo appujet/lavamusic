@@ -1,4 +1,3 @@
-//TODO
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Dj extends Command {
@@ -29,12 +28,12 @@ export default class Dj extends Command {
             options: [
                 {
                     name: "add",
-                    description: "The dj role you want to add",
+                    description: "The DJ role you want to add",
                     type: 1,
                     options: [
                         {
                             name: "role",
-                            description: "The dj role you want to add",
+                            description: "The DJ role you want to add",
                             type: 8,
                             required: true,
                         },
@@ -42,12 +41,12 @@ export default class Dj extends Command {
                 },
                 {
                     name: "remove",
-                    description: "The dj role you want to remove",
+                    description: "The DJ role you want to remove",
                     type: 1,
                     options: [
                         {
                             name: "role",
-                            description: "The dj role you want to remove",
+                            description: "The DJ role you want to remove",
                             type: 8,
                             required: true,
                         },
@@ -55,12 +54,12 @@ export default class Dj extends Command {
                 },
                 {
                     name: "clear",
-                    description: "Clears all dj roles",
+                    description: "Clears all DJ roles",
                     type: 1,
                 },
                 {
                     name: "toggle",
-                    description: "Toggles the dj role",
+                    description: "Toggles the DJ role",
                     type: 1,
                 },
             ],
@@ -68,8 +67,11 @@ export default class Dj extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+        const embed = this.client.embed().setColor(this.client.color.main);
+        const dj = await client.db.getDj(ctx.guild.id);
         let subCommand: string;
         let role: any;
+
         if (ctx.isInteraction) {
             subCommand = ctx.interaction.options.data[0].name;
             if (subCommand === "add" || subCommand === "remove") {
@@ -79,70 +81,71 @@ export default class Dj extends Command {
             subCommand = args[0];
             role = ctx.message.mentions.roles.first() || ctx.guild.roles.cache.get(args[1]);
         }
-        const embed = client.embed().setColor(client.color.main);
-        const dj = await client.db.getDj(ctx.guild.id);
-        if (subCommand === "add") {
-            if (!role)
-                return await ctx.sendMessage({
-                    embeds: [embed.setDescription("Please provide a role to add.")],
+
+        switch (subCommand) {
+            case "add":
+                if (!role) {
+                    return ctx.sendMessage({
+                        embeds: [embed.setDescription("Please provide a role to add.")],
+                    });
+                }
+                if (await client.db.getRoles(ctx.guild.id).then((r) => r.some((re) => re.roleId === role.id))) {
+                    return ctx.sendMessage({
+                        embeds: [embed.setDescription(`The DJ role <@&${role.id}> is already added.`)],
+                    });
+                }
+                await client.db.addRole(ctx.guild.id, role.id);
+                await client.db.setDj(ctx.guild.id, true);
+                return ctx.sendMessage({
+                    embeds: [embed.setDescription(`The DJ role <@&${role.id}> has been added.`)],
                 });
-            const isExRole = await client.db.getRoles(ctx.guild.id).then((r) => r.find((re) => re.roleId === role.id));
-            if (isExRole)
-                return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj role <@&${role.id}> is already added.`)],
+
+            case "remove":
+                if (!role) {
+                    return ctx.sendMessage({
+                        embeds: [embed.setDescription("Please provide a role to remove.")],
+                    });
+                }
+                if (!(await client.db.getRoles(ctx.guild.id).then((r) => r.some((re) => re.roleId === role.id)))) {
+                    return ctx.sendMessage({
+                        embeds: [embed.setDescription(`The DJ role <@&${role.id}> is not added.`)],
+                    });
+                }
+                await client.db.removeRole(ctx.guild.id, role.id);
+                return ctx.sendMessage({
+                    embeds: [embed.setDescription(`The DJ role <@&${role.id}> has been removed.`)],
                 });
-            client.db.addRole(ctx.guild.id, role.id);
-            client.db.setDj(ctx.guild.id, true);
-            return await ctx.sendMessage({
-                embeds: [embed.setDescription(`The dj role <@&${role.id}> has been added.`)],
-            });
-        }
-        if (subCommand === "remove") {
-            if (!role)
-                return await ctx.sendMessage({
-                    embeds: [embed.setDescription("Please provide a role to remove.")],
+
+            case "clear":
+                if (!dj) {
+                    return ctx.sendMessage({
+                        embeds: [embed.setDescription("The DJ role is already empty.")],
+                    });
+                }
+                await client.db.clearRoles(ctx.guild.id);
+                return ctx.sendMessage({
+                    embeds: [embed.setDescription("All DJ roles have been removed.")],
                 });
-            const isExRole = await client.db.getRoles(ctx.guild.id).then((r) => r.find((re) => re.roleId === role.id));
-            if (!isExRole)
-                return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj role <@&${role.id}> is not added.`)],
+
+            case "toggle":
+                if (!dj) {
+                    return ctx.sendMessage({
+                        embeds: [embed.setDescription("The DJ role is empty.")],
+                    });
+                }
+                await client.db.setDj(ctx.guild.id, !dj.mode);
+                return ctx.sendMessage({
+                    embeds: [embed.setDescription(`The DJ mode has been toggled to ${dj.mode ? "disabled." : "enabled."}`)],
                 });
-            client.db.removeRole(ctx.guild.id, role.id);
-            return await ctx.sendMessage({
-                embeds: [embed.setDescription(`The dj role <@&${role.id}> has been removed.`)],
-            });
-        }
-        if (subCommand === "clear") {
-            if (!dj)
-                return await ctx.sendMessage({
-                    embeds: [embed.setDescription("The dj role is already empty.")],
+
+            default:
+                return ctx.sendMessage({
+                    embeds: [
+                        embed
+                            .setDescription("Please provide a valid subcommand.")
+                            .addFields({ name: "Subcommands", value: "`add`, `remove`, `clear`, `toggle`" }),
+                    ],
                 });
-            client.db.clearRoles(ctx.guild.id);
-            return await ctx.sendMessage({
-                embeds: [embed.setDescription("All dj roles have been removed.")],
-            });
-        }
-        if (subCommand === "toggle") {
-            if (!dj)
-                return await ctx.sendMessage({
-                    embeds: [embed.setDescription("The dj role is empty.")],
-                });
-            const data = await client.db.getDj(ctx.guild.id);
-            if (data) {
-                client.db.setDj(ctx.guild.id, !data.mode);
-                return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj mode has been toggled to ${data.mode ? "disabled." : "enabled."}`)],
-                });
-            }
-        } else {
-            return await ctx.sendMessage({
-                embeds: [
-                    embed.setDescription("Please provide a valid subcommand.").addFields({
-                        name: "Subcommands",
-                        value: "`add`, `remove`, `clear`, `toggle`",
-                    }),
-                ],
-            });
         }
     }
 }

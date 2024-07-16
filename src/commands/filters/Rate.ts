@@ -6,7 +6,7 @@ export default class Rate extends Command {
             name: "rate",
             description: {
                 content: "Change the rate of the song",
-                examples: ["rate 1", "pitch 1.5", "pitch 1,5"],
+                examples: ["rate 1", "rate 1.5", "rate 1,5"],
                 usage: "rate <number>",
             },
             category: "filters",
@@ -42,7 +42,7 @@ export default class Rate extends Command {
         const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(rateString);
         const rate = parseFloat(rateString);
         if (!isValidNumber || isNaN(rate) || rate < 0.5 || rate > 5) {
-            return await ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Please provide a valid number between 0.5 and 5.",
@@ -51,11 +51,11 @@ export default class Rate extends Command {
                 ],
             });
         }
-        player.player.setTimescale({ rate: rate });
-        return await ctx.sendMessage({
+        await player.player.setTimescale({ rate });
+        await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Pitch and speed has been set to ${rate}.`,
+                    description: `Rate has been set to ${rate}.`,
                     color: this.client.color.main,
                 },
             ],

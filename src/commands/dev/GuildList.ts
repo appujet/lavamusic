@@ -30,7 +30,7 @@ export default class GuildList extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const guilds = this.client.guilds.cache.map((guild) => `- **${guild.name}** - (${guild.id})`);
+        const guilds = client.guilds.cache.map((guild) => `- **${guild.name}** - (${guild.id})`);
         const chunks = client.utils.chunk(guilds, 10) || [[]];
         const pages = chunks.map((chunk, index) => {
             return this.client

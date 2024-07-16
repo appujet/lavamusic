@@ -32,19 +32,20 @@ export default class Distorsion extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const filterEnabled = player.filters.includes("distorsion");
+
         if (filterEnabled) {
-            player.player.setDistortion({});
+            await player.player.setDistortion({});
             player.filters = player.filters.filter((filter) => filter !== "distorsion");
-            ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Distorsion filter has been disabled.",
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });
         } else {
-            player.player.setDistortion({
+            await player.player.setDistortion({
                 sinOffset: 0,
                 sinScale: 1,
                 cosOffset: 0,
@@ -55,11 +56,11 @@ export default class Distorsion extends Command {
                 scale: 1,
             });
             player.filters.push("distorsion");
-            ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Distorsion filter has been enabled.",
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });

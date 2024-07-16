@@ -31,7 +31,7 @@ export default class _247 extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const embed = client.embed();
+        const embed = this.client.embed();
         let player = client.shoukaku.players.get(ctx.guild.id) as any;
         try {
             const data = await client.db.get_247(ctx.guild.id);
@@ -62,7 +62,7 @@ export default class _247 extends Command {
                         .setDescription(
                             "**24/7 mode has been enabled. The bot will not leave the voice channel even if there are no people in the voice channel.**",
                         )
-                        .setColor(client.color.main),
+                        .setColor(this.client.color.main),
                 ],
             });
         } catch (error) {

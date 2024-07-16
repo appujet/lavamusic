@@ -32,30 +32,31 @@ export default class Karaoke extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const filterEnabled = player.filters.includes("karaoke");
+
         if (filterEnabled) {
-            player.player.setKaraoke();
+            await player.player.setKaraoke();
             player.filters = player.filters.filter((filter) => filter !== "karaoke");
-            ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Karaoke filter has been disabled.",
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });
         } else {
-            player.player.setKaraoke({
+            await player.player.setKaraoke({
                 level: 1,
                 monoLevel: 1,
                 filterBand: 220,
                 filterWidth: 100,
             });
             player.filters.push("karaoke");
-            ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Karaoke filter has been enabled.",
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });
