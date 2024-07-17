@@ -49,12 +49,13 @@ export default class Prefix extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const embed = client.embed().setColor(client.color.main);
+        const embed = client.embed().setColor(this.client.color.main);
         const guildId = ctx.guild.id;
         const guildData = await client.db.get(guildId);
         const isInteraction = ctx.isInteraction;
-        let subCommand = "";
-        let prefix = "";
+        let subCommand: string;
+        let prefix: string;
+
         if (isInteraction) {
             subCommand = ctx.interaction.options.data[0].name;
             prefix = ctx.interaction.options.data[0].options[0]?.value.toString();
@@ -62,6 +63,7 @@ export default class Prefix extends Command {
             subCommand = args[0] || "";
             prefix = args[1] || "";
         }
+
         switch (subCommand) {
             case "set": {
                 if (!prefix) {
@@ -73,13 +75,13 @@ export default class Prefix extends Command {
                     embed.setDescription("The prefix cannot be longer than 3 characters.");
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
-                client.db.setPrefix(guildId, prefix);
+                await client.db.setPrefix(guildId, prefix);
                 embed.setDescription(`The prefix for this server is now \`${prefix}\``);
                 return await ctx.sendMessage({ embeds: [embed] });
             }
             case "reset": {
                 const defaultPrefix = client.config.prefix;
-                client.db.setPrefix(guildId, defaultPrefix);
+                await client.db.setPrefix(guildId, defaultPrefix);
                 embed.setDescription(`The prefix for this server is now \`${defaultPrefix}\``);
                 return await ctx.sendMessage({ embeds: [embed] });
             }

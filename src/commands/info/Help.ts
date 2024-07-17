@@ -37,7 +37,7 @@ export default class Help extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const embed = client.embed();
+        const embed = this.client.embed();
         const guild = await client.db.get(ctx.guild.id);
         const commands = this.client.commands.filter((cmd) => cmd.category !== "dev");
         const categories = [...new Set(commands.map((cmd) => cmd.category))];

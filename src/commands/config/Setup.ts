@@ -49,7 +49,7 @@ export default class Setup extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const subCommand = ctx.isInteraction ? ctx.interaction.options.data[0].name : args[0];
-        const embed = client.embed().setColor(client.color.main);
+        const embed = client.embed().setColor(this.client.color.main);
         switch (subCommand) {
             case "create": {
                 const data = await client.db.getSetup(ctx.guild.id);
@@ -103,7 +103,7 @@ export default class Setup extends Command {
                     embeds: [
                         {
                             description: `The song request channel has been created in <#${textChannel.id}>.`,
-                            color: client.color.main,
+                            color: this.client.color.main,
                         },
                     ],
                 });
@@ -129,7 +129,7 @@ export default class Setup extends Command {
                         {
                             description:
                                 "The song request channel has been deleted. If the channel is not deleted normally, please delete it yourself.",
-                            color: client.color.main,
+                            color: this.client.color.main,
                         },
                     ],
                 });

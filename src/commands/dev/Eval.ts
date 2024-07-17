@@ -37,8 +37,7 @@ export default class Eval extends Command {
         try {
             let evaled = eval(code);
             if (evaled === client.config) evaled = "Nice try";
-            const button = new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Delete").setCustomId("eval-delete");
-            const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
+
             if (typeof evaled !== "string") evaled = util.inspect(evaled);
             if (evaled.length > 2000) {
                 const response = await fetch("https://hasteb.in/post", {
@@ -54,15 +53,21 @@ export default class Eval extends Command {
                     content: evaled,
                 });
             }
+
+            const button = new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Delete").setCustomId("eval-delete");
+            const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
+
             const msg = await ctx.sendMessage({
                 content: `\`\`\`js\n${evaled}\n\`\`\``,
                 components: [row],
             });
-            const filter = (i: any): boolean => i.customId === "eval-delete" && i.user.id === ctx.author.id;
+
+            const filter = (i: any) => i.customId === "eval-delete" && i.user.id === ctx.author.id;
             const collector = msg.createMessageComponentCollector({
                 time: 60000,
                 filter: filter,
             });
+
             collector.on("collect", async (i) => {
                 await i.deferUpdate();
                 await msg.delete();

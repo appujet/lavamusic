@@ -32,25 +32,27 @@ export default class Vibrato extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const vibratoEnabled = player.filters.includes("vibrato");
+
         if (vibratoEnabled) {
             player.player.setVibrato();
             player.filters.splice(player.filters.indexOf("vibrato"), 1);
-            return await ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Vibrato filter has been disabled.",
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });
         }
+
         player.player.setVibrato({ depth: 0.75, frequency: 4 });
         player.filters.push("vibrato");
-        return await ctx.sendMessage({
+        await ctx.sendMessage({
             embeds: [
                 {
                     description: "Vibrato filter has been enabled.",
-                    color: client.color.main,
+                    color: this.client.color.main,
                 },
             ],
         });
