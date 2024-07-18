@@ -157,7 +157,7 @@ export default class ServerData {
             await this.prisma.song.create({
                 data: {
                     track: JSON.stringify(song),
-                    playlistId: playlist.id
+                    playlistId: playlist.id,
                 },
             });
         } else {

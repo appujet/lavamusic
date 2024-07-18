@@ -20,7 +20,7 @@ import { Utils } from "../utils/Utils.js";
 import Logger from "./Logger.js";
 import { type Command, Queue, ShoukakuClient } from "./index.js";
 import { initI18n, T, i18n, localization } from "./I18n.js";
-import { Locale } from 'discord.js';
+import { Locale } from "discord.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -86,12 +86,14 @@ export default class Lavamusic extends Client {
                         type: ApplicationCommandType.ChatInput,
                         options: command.options || [],
                         default_member_permissions:
-                            Array.isArray(command.permissions.user) && command.permissions.user.length > 0 ? PermissionsBitField.resolve(command.permissions.user as any).toString() : null,
+                            Array.isArray(command.permissions.user) && command.permissions.user.length > 0
+                                ? PermissionsBitField.resolve(command.permissions.user as any).toString()
+                                : null,
                         name_localizations: null,
-                        description_localizations: null
+                        description_localizations: null,
                     };
                     // command description and name localizations
-                    const localizations = []
+                    const localizations = [];
                     i18n.getLocales().map((locale) => {
                         localizations.push(localization(locale, command.name, command.description.content));
                     });
@@ -106,7 +108,7 @@ export default class Lavamusic extends Client {
                     if (command.options.length > 0) {
                         command.options.map((option) => {
                             // command options name and description localizations
-                            const optionsLocalizations = []
+                            const optionsLocalizations = [];
                             i18n.getLocales().map((locale) => {
                                 optionsLocalizations.push(localization(locale, option.name, option.description));
                             });

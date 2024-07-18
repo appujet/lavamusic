@@ -1,6 +1,5 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-
 export default class LavaLink extends Command {
     constructor(client: Lavamusic) {
         super(client, {
