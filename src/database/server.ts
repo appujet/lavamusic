@@ -155,7 +155,10 @@ export default class ServerData {
         const playlist = await this.getPlaylist(userId, name);
         if (playlist) {
             await this.prisma.song.create({
-                data: { track: JSON.stringify(song), playlistId: playlist.id },
+                data: {
+                    track: JSON.stringify(song),
+                    playlistId: playlist.id
+                },
             });
         } else {
             await this.createPlaylist(userId, name);
@@ -202,6 +205,24 @@ export default class ServerData {
 
     public async clearAllSongs(): Promise<void> {
         await this.prisma.song.deleteMany();
+    }
+
+    public async updateLanguage(guildId: string, language: string): Promise<void> {
+        const guild = await this.get(guildId);
+        if (guild) {
+            await this.prisma.guild.update({
+                where: { guildId },
+                data: { language },
+            });
+        } else {
+            await this.createGuild(guildId);
+            await this.updateLanguage(guildId, language);
+        }
+    }
+
+    public async getLanguage(guildId: string): Promise<string> {
+        const guild = await this.get(guildId);
+        return guild?.language ?? config.defaultLanguage;
     }
 }
 

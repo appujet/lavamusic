@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { SearchEngine } from "./types.js";
+import { SearchEngine, Language } from "./types.js";
 dotenv.config();
 
 const parseBoolean = (value?: string): boolean => value?.trim().toLowerCase() === "true";
@@ -14,6 +14,7 @@ export default {
         yellow: 0xffff00,
         main: 0x2f3136,
     },
+    defaultLanguage: process.env.DEFAULT_LANGUAGE || Language.EnglishUS,
     keepAlive: parseBoolean(process.env.KEEP_ALIVE),
     autoNode: parseBoolean(process.env.AUTO_NODE),
     searchEngine: process.env.SEARCH_ENGINE || SearchEngine.YouTube,

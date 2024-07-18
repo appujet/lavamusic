@@ -5,7 +5,7 @@ export default class Ping extends Command {
         super(client, {
             name: "ping",
             description: {
-                content: "Shows the bot's ping",
+                content: "cmd.ping.description",
                 examples: ["ping"],
                 usage: "ping",
             },
@@ -30,25 +30,25 @@ export default class Ping extends Command {
     }
 
     public async run(_client: Lavamusic, ctx: Context): Promise<any> {
-        const msg = await ctx.sendDeferMessage("Pinging...");
+        const msg = await ctx.sendDeferMessage(ctx.locale("cmd.ping.content"));
         const embed = this.client
             .embed()
             .setAuthor({ name: "Pong", iconURL: this.client.user.displayAvatarURL() })
             .setColor(this.client.color.main)
             .addFields([
                 {
-                    name: "Bot Latency",
+                    name: ctx.locale("cmd.ping.bot_latency"),
                     value: `\`\`\`ini\n[ ${msg.createdTimestamp - ctx.createdTimestamp}ms ]\n\`\`\``,
                     inline: true,
                 },
                 {
-                    name: "API Latency",
+                    name: ctx.locale("cmd.ping.api_latency"),
                     value: `\`\`\`ini\n[ ${Math.round(ctx.client.ws.ping)}ms ]\n\`\`\``,
                     inline: true,
                 },
             ])
             .setFooter({
-                text: `Requested by ${ctx.author.tag}`,
+                text: ctx.locale("cmd.ping.requested_by", { author: ctx.author.tag }),
                 iconURL: ctx.author.avatarURL({}),
             })
             .setTimestamp();

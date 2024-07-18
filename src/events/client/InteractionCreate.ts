@@ -33,12 +33,13 @@ export default class InteractionCreate extends Event {
 
             const { commandName } = interaction;
             await this.client.db.get(interaction.guildId);
+            const locale = await this.client.db.getLanguage(interaction.guildId);
             const command = this.client.commands.get(commandName);
             if (!command) return;
 
             const ctx = new Context(interaction as any, interaction.options.data as any);
             ctx.setArgs(interaction.options.data as any);
-
+            ctx.guildLocale = locale;
             const clientMember = interaction.guild.members.resolve(this.client.user);
             if (!(interaction.inGuild() && interaction.channel.permissionsFor(clientMember)?.has(PermissionFlagsBits.ViewChannel))) return;
 
