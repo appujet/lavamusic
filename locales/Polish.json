@@ -1,0 +1,102 @@
+{
+	"cmd": {
+		"ping": {
+			"description": "Pokazuje ping bota.",
+			"content": "Pingowanie...",
+			"bot_latency": "Opóźnienie Bota",
+			"api_latency": "Opóźnienie API",
+			"requested_by": "Na zlecenie {author}"
+		},
+		"help": {
+			"description": "Shows the help menu.",
+			"options": {
+				"command": "The command you want to get info on"
+			}
+		},
+		"invite": {
+			"description": "Get the bot invite link."
+		},
+		"lavalink": {
+			"description": "Shows the current Lavalink stats."
+		}
+	},
+	"Set the bot to stay in the voice channel": "Set the bot to stay in the voice channel",
+	"Manage the DJ mode and associated roles": "Manage the DJ mode and associated roles",
+	"Shows or sets the bot's prefix": "Shows or sets the bot's prefix",
+	"Sets up the bot": "Sets up the bot",
+	"on/off 8d filter": "on/off 8d filter",
+	"on/off bassboost filter": "on/off bassboost filter",
+	"Toggle the distorsion filter on/off": "Toggle the distorsion filter on/off",
+	"Toggle the karaoke filter on/off": "Toggle the karaoke filter on/off",
+	"Toggle the lowpass filter on/off": "Toggle the lowpass filter on/off",
+	"Toggle the nightcore filter on/off": "Toggle the nightcore filter on/off",
+	"Toggle the pitch filter on/off": "Toggle the pitch filter on/off",
+	"Change the rate of the song": "Change the rate of the song",
+	"Resets the active filters": "Resets the active filters",
+	"on/off rotation filter": "on/off rotation filter",
+	"Change the speed of the song": "Change the speed of the song",
+	"on/off the tremolo filter": "on/off the tremolo filter",
+	"on/off vibrato filter": "on/off vibrato filter",
+	"Shows information about the bot": "Shows information about the bot",
+	"Information about the bot": "Information about the bot",
+	"Toggles autoplay": "Toggles autoplay",
+	"Clears the queue": "Clears the queue",
+	"Grabs the current playing song on your DM": "Grabs the current playing song on your DM",
+	"Joins the voice channel": "Joins the voice channel",
+	"Leaves the voice channel": "Leaves the voice channel",
+	"Loop the current song or the queue": "Loop the current song or the queue",
+	"Shows the currently playing song": "Shows the currently playing song",
+	"Pauses the current song": "Pauses the current song",
+	"Plays a song from YouTube, Spotify or http": "Plays a song from YouTube, Spotify or http",
+	"Add the song to play next in queue": "Add the song to play next in queue",
+	"Shows the current queue": "Shows the current queue",
+	"Removes a song from the queue": "Removes a song from the queue",
+	"Replays the current track": "Replays the current track",
+	"Resumes the current song": "Resumes the current song",
+	"Searches for a song": "Searches for a song",
+	"Seeks to a certain time in the song": "Seeks to a certain time in the song",
+	"Shuffles the queue": "Shuffles the queue",
+	"Skips the current song": "Skips the current song",
+	"Skips to a specific song in the queue": "Skips to a specific song in the queue",
+	"Stops the music and clears the queue": "Stops the music and clears the queue",
+	"Sets the volume of the player": "Sets the volume of the player",
+	"Adds a song to the playlist": "Adds a song to the playlist",
+	"Creates a playlist": "Creates a playlist",
+	"Deletes a playlist": "Deletes a playlist",
+	"Retrieves all playlists for the user": "Retrieves all playlists for the user",
+	"Loads a playlist": "Loads a playlist",
+	"Removes a song from the playlist": "Removes a song from the playlist",
+	"Steals a playlist from another user and adds it to your playlists": "Steals a playlist from another user and adds it to your playlists",
+	"The dj role you want to add": "The dj role you want to add",
+	"The dj role you want to remove": "The dj role you want to remove",
+	"Clears all dj roles": "Clears all dj roles",
+	"Toggles the dj role": "Toggles the dj role",
+	"Sets the prefix": "Sets the prefix",
+	"Resets the prefix to the default one": "Resets the prefix to the default one",
+	"Creates the song request channel": "Creates the song request channel",
+	"Deletes the song request channel": "Deletes the song request channel",
+	"Shows the song request channel": "Shows the song request channel",
+	"The number you want to set the pitch to (between 0": {
+		"5 and 5)": "The number you want to set the pitch to (between 0.5 and 5)"
+	},
+	"The number you want to set the rate to (between 0": {
+		"5 and 5)": "The number you want to set the rate to (between 0.5 and 5)"
+	},
+	"The speed you want to set": "The speed you want to set",
+	"The song you want to play": "The song you want to play",
+	"The song number": "The song number",
+	"The song you want to search": "The song you want to search",
+	"The duration to seek to": "The duration to seek to",
+	"The number of the song you want to skip to": "The number of the song you want to skip to",
+	"The volume you want to set": "The volume you want to set",
+	"The playlist you want to add": "The playlist you want to add",
+	"The song you want to add": "The song you want to add",
+	"The name of the playlist": "The name of the playlist",
+	"The playlist you want to delete": "The playlist you want to delete",
+	"The user whose playlists you want to retrieve": "The user whose playlists you want to retrieve",
+	"The playlist you want to load": "The playlist you want to load",
+	"The playlist you want to remove from": "The playlist you want to remove from",
+	"The song you want to remove": "The song you want to remove",
+	"The playlist you want to steal": "The playlist you want to steal",
+	"The user from whom you want to steal the playlist": "The user from whom you want to steal the playlist"
+}
