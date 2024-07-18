@@ -24,7 +24,11 @@ export default class InteractionCreate extends Event {
             const allowedCategories = ["filters", "music", "playlist"];
             const commandInSetup = this.client.commands.get(interaction.commandName);
 
-            if (setup && interaction.channelId === setup.textId && (!commandInSetup || !allowedCategories.includes(commandInSetup.category))) {
+            if (
+                setup &&
+                interaction.channelId === setup.textId &&
+                (!commandInSetup || !allowedCategories.includes(commandInSetup.category))
+            ) {
                 return await interaction.reply({
                     content: `You can't use this command in setup channel.`,
                     ephemeral: true,

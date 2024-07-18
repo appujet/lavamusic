@@ -1,7 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-
 export default class Invite extends Command {
     constructor(client: Lavamusic) {
         super(client, {
@@ -43,11 +42,7 @@ export default class Invite extends Command {
             new ButtonBuilder().setLabel(ctx.locale("buttons.support")).setStyle(ButtonStyle.Link).setURL("https://discord.gg/STXurwnZD5"),
         );
         return await ctx.sendMessage({
-            embeds: [
-                embed
-                    .setColor(this.client.color.main)
-                    .setDescription(ctx.locale("cmd.invite.content"))
-            ],
+            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.invite.content"))],
             components: [row],
         });
     }
