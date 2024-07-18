@@ -32,27 +32,30 @@ export default class Join extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         let player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
+        const voiceChannel = (ctx.member as any).voice.channel;
+
         if (player) {
             return await ctx.sendMessage({
                 embeds: [
                     embed
                         .setColor(this.client.color.main)
-                        .setDescription(`I'm already connected to <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`),
+                        .setDescription(`I'm already connected to <#${player.node.manager.connections.get(ctx.guild.id)?.channelId}>`),
                 ],
             });
         }
-        const vc = ctx.member as any;
+
         player = await client.queue.create(
             ctx.guild,
-            vc.voice.channel,
+            voiceChannel,
             ctx.channel,
             client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
         );
+
         return await ctx.sendMessage({
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(`Joined <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`),
+                    .setDescription(`Joined <#${player.node.manager.connections.get(ctx.guild.id)?.channelId}>`),
             ],
         });
     }

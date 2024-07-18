@@ -40,17 +40,21 @@ export default class Remove extends Command {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
 
-        if (!player.queue.length)
+        if (!player.queue.length) {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
             });
+        }
 
-        const songNumber = Number(args[0]);
-        if (isNaN(songNumber) || songNumber <= 0 || songNumber > player.queue.length)
+        const songNumber = parseInt(args[0], 10);
+        if (isNaN(songNumber) || songNumber <= 0 || songNumber > player.queue.length) {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid song number.")],
             });
-        player.remove(songNumber - 1);
+        }
+
+        player.queue.splice(songNumber - 1, 1);
+
         return await ctx.sendMessage({
             embeds: [embed.setColor(this.client.color.main).setDescription(`Removed song number ${songNumber} from the queue`)],
         });

@@ -66,15 +66,13 @@ export default class Search extends Command {
         );
         switch (res.loadType) {
             case LoadType.ERROR:
-                ctx.sendMessage({
+                return await ctx.sendMessage({
                     embeds: [embed.setColor(this.client.color.red).setDescription("There was an error while searching.")],
                 });
-                break;
             case LoadType.EMPTY:
-                ctx.sendMessage({
+                return await ctx.sendMessage({
                     embeds: [embed.setColor(this.client.color.red).setDescription("There were no results found.")],
                 });
-                break;
             case LoadType.SEARCH: {
                 const tracks = res.data.slice(0, 5);
                 const embeds = tracks.map(
@@ -91,7 +89,7 @@ export default class Search extends Command {
             filter: (f: any) => f.user.id === ctx.author.id,
             max: 1,
             time: 60000,
-            idle: 60000 / 2,
+            idle: 30000,
         });
         collector.on("collect", async (int: any) => {
             const track = res.data[parseInt(int.customId) - 1];

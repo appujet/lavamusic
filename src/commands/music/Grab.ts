@@ -5,7 +5,7 @@ export default class Grab extends Command {
         super(client, {
             name: "grab",
             description: {
-                content: "Grabs the current playing song on your DM",
+                content: "Grabs the current playing song in your DM",
                 examples: ["grab"],
                 usage: "grab",
             },
@@ -33,19 +33,21 @@ export default class Grab extends Command {
         const embed = this.client.embed().setColor(this.client.color.main);
         const player = client.queue.get(ctx.guild.id);
         const song = player.current;
+
+        const dmEmbed = this.client
+            .embed()
+            .setTitle(`**${song.info.title}**`)
+            .setURL(song.info.uri)
+            .setThumbnail(song.info.artworkUrl)
+            .setDescription(
+                `**Duration:** ${song.info.isStream ? "LIVE" : client.utils.formatTime(song.info.length)}\n` +
+                    `**Requested by:** ${song.info.requester}\n` +
+                    `**Link:** [Click here](${song.info.uri})`,
+            )
+            .setColor(this.client.color.main);
+
         try {
-            const dm = this.client
-                .embed()
-                .setTitle(`**${song.info.title}**`)
-                .setURL(song.info.uri)
-                .setThumbnail(song.info.artworkUrl)
-                .setDescription(
-                    `**Duration:** ${song.info.isStream ? "LIVE" : client.utils.formatTime(song.info.length)}\n` +
-                        `**Requested by:** ${song.info.requester}\n` +
-                        `**Link:** [Click here](${song.info.uri})`,
-                )
-                .setColor(this.client.color.main);
-            await ctx.author.send({ embeds: [dm] });
+            await ctx.author.send({ embeds: [dmEmbed] });
             return await ctx.sendMessage({
                 embeds: [embed.setDescription("Please check your DM.").setColor(this.client.color.green)],
             });

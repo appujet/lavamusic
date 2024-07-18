@@ -41,24 +41,19 @@ export default class Volume extends Command {
         const embed = this.client.embed();
         const number = Number(args[0]);
         if (isNaN(number) || number < 0 || number > 200) {
-            let description = "";
-            if (isNaN(number)) description = "Please provide a valid number.";
-            else if (number < 0) description = "The volume can't be lower than 0.";
-            else if (number > 200)
-                description =
-                    "The volume can't be higher than 200. Do you want to damage your hearing or speakers? Hmmm, I don't think that's such a good idea.";
+            const description = isNaN(number)
+                ? "Please provide a valid number."
+                : number < 0
+                  ? "The volume can't be lower than 0."
+                  : "The volume can't be higher than 200. Do you want to damage your hearing or speakers? Hmmm, I don't think that's such a good idea.";
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(description)],
             });
         }
 
-        // Set volume and read new value from player
         await player.player.setGlobalVolume(number);
-        const currentVolume = player.player.volume;
-
-        // Make sure the value is read and displayed correctly
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Set the volume to ${currentVolume}`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription(`Set the volume to ${player.player.volume}`)],
         });
     }
 }

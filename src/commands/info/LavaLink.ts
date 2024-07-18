@@ -1,6 +1,5 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-
 export default class LavaLink extends Command {
     constructor(client: Lavamusic) {
         super(client, {
@@ -35,8 +34,9 @@ export default class LavaLink extends Command {
             .embed()
             .setTitle(ctx.locale("cmd.lavalink.title"))
             .setColor(this.client.color.main)
-            .setThumbnail(this.client.user.avatarURL({}))
+            .setThumbnail(this.client.user.avatarURL())
             .setTimestamp();
+
         client.shoukaku.nodes.forEach((node) => {
             const statusEmoji = node.stats ? "🟢" : "🔴";
             const stats = node.stats || {
@@ -64,6 +64,7 @@ export default class LavaLink extends Command {
                 value: formattedStats,
             });
         });
+
         return await ctx.sendMessage({ embeds: [embed] });
     }
 }

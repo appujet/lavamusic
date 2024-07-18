@@ -33,6 +33,7 @@ export default class Loop extends Command {
         const embed = this.client.embed().setColor(this.client.color.main);
         const player = client.queue.get(ctx.guild.id);
         let loopMessage = "";
+
         switch (player.loop) {
             case "off":
                 player.loop = "repeat";
@@ -47,6 +48,7 @@ export default class Loop extends Command {
                 loopMessage = "**Looping is now off.**";
                 break;
         }
+
         return await ctx.sendMessage({
             embeds: [embed.setDescription(loopMessage)],
         });

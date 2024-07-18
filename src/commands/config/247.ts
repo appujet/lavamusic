@@ -38,13 +38,15 @@ export default class _247 extends Command {
             const member = ctx.member as GuildMember;
             if (!member.voice.channel) {
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription("You need to be in a voice channel to use this command.").setColor(client.color.red)],
+                    embeds: [
+                        embed.setDescription("You need to be in a voice channel to use this command.").setColor(this.client.color.red),
+                    ],
                 });
             }
             if (data) {
                 await client.db.delete_247(ctx.guild.id);
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription("**24/7 mode has been disabled**").setColor(client.color.red)],
+                    embeds: [embed.setDescription("**24/7 mode has been disabled**").setColor(this.client.color.red)],
                 });
             }
             await client.db.set_247(ctx.guild.id, ctx.channel.id, member.voice.channel.id);
@@ -68,7 +70,7 @@ export default class _247 extends Command {
         } catch (error) {
             console.error("Error in 247 command:", error);
             return await ctx.sendMessage({
-                embeds: [embed.setDescription("An error occurred while trying to execute this command.").setColor(client.color.red)],
+                embeds: [embed.setDescription("An error occurred while trying to execute this command.").setColor(this.client.color.red)],
             });
         }
     }

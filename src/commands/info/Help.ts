@@ -41,11 +41,12 @@ export default class Help extends Command {
         const guild = await client.db.get(ctx.guild.id);
         const commands = this.client.commands.filter((cmd) => cmd.category !== "dev");
         const categories = [...new Set(commands.map((cmd) => cmd.category))];
+
         if (args[0]) {
             const command = this.client.commands.get(args[0].toLowerCase());
             if (!command) {
                 return await ctx.sendMessage({
-                    embeds: [client.embed().setColor(client.color.red).setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] }))],
+                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] }))],
                 });
             }
             const helpEmbed = embed
@@ -73,6 +74,7 @@ export default class Help extends Command {
                 );
             return await ctx.sendMessage({ embeds: [helpEmbed] });
         }
+
         const fields = categories.map((category) => ({
             name: category,
             value: commands
@@ -81,19 +83,14 @@ export default class Help extends Command {
                 .join(", "),
             inline: false,
         }));
+
         const helpEmbed = embed
             .setColor(client.color.main)
             .setTitle(ctx.locale("cmd.help.title"))
-            .setDescription(
-                ctx.locale("cmd.help.content", {
-                    bot: client.user.username,
-                    prefix: guild.prefix,
-                }),
-            )
-            .setFooter({
-                text: ctx.locale("cmd.help.footer", { prefix: guild.prefix }),
-            });
-        helpEmbed.addFields(...fields);
+            .setDescription(ctx.locale("cmd.help.content", { bot: client.user.username, prefix: guild.prefix }))
+            .setFooter({ text: ctx.locale("cmd.help.footer", { prefix: guild.prefix }) })
+            .addFields(...fields);
+
         return await ctx.sendMessage({ embeds: [helpEmbed] });
     }
 }
