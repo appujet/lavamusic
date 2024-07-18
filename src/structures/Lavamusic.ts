@@ -13,14 +13,14 @@ import {
     type RESTPostAPIChatInputApplicationCommandsJSONBody,
     Routes,
 } from "discord.js";
+import { Locale } from "discord.js";
 import config from "../config.js";
 import ServerData from "../database/server.js";
 import loadPlugins from "../plugin/index.js";
 import { Utils } from "../utils/Utils.js";
+import { T, i18n, initI18n, localization } from "./I18n.js";
 import Logger from "./Logger.js";
 import { type Command, Queue, ShoukakuClient } from "./index.js";
-import { initI18n, T, i18n, localization } from "./I18n.js";
-import { Locale } from "discord.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
