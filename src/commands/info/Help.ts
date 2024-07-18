@@ -45,7 +45,12 @@ export default class Help extends Command {
             const command = this.client.commands.get(args[0].toLowerCase());
             if (!command) {
                 return await ctx.sendMessage({
-                    embeds: [client.embed().setColor(client.color.red).setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] }))],
+                    embeds: [
+                        client
+                            .embed()
+                            .setColor(client.color.red)
+                            .setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] })),
+                    ],
                 });
             }
             const helpEmbed = embed

@@ -1,12 +1,10 @@
-
 import i18n from "i18n";
 
-import Logger from "./Logger.js";
 import { Locale } from "discord.js";
 import { Language } from "../types.js";
+import Logger from "./Logger.js";
 
 const logger = new Logger();
-
 
 export function initI18n() {
     i18n.configure({
@@ -23,8 +21,8 @@ export function initI18n() {
         },
         mustacheConfig: {
             tags: ["{", "}"],
-            disable: false
-        }
+            disable: false,
+        },
     });
 
     logger.info("I18n has been initialized");
@@ -40,7 +38,7 @@ export function T(locale: string, text: string | i18n.TranslateOptions, ...param
 export function localization(lan: any, name: any, desc: any) {
     return {
         name: [Locale[lan], name],
-        description: [Locale[lan], T(lan, desc)]
+        description: [Locale[lan], T(lan, desc)],
     };
 }
 
