@@ -40,7 +40,7 @@
         "@types/node": "^20.14.11",
 
         "@types/i18n": "^0.13.12",
-        "@types/node": "^20.14.10",
+        "@types/node": "^20.14.11",
         "@types/signale": "^1.4.7",
         "prisma": "^5.17.0",
         "typescript": "^5.5.3"
