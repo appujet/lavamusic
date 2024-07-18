@@ -13,6 +13,7 @@ export enum Language {
     Polish = "Polish",
     Korean = "Korean",
     French = "French",
+    German = "German",
 }
 export const LocaleFlags = {
    // [Locale.Indonesian]: "🇮🇩",
