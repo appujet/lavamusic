@@ -1,1 +1,114 @@
-{}
+{
+	"cmd": {
+		"ping": {
+			"description": "봇의 핑을 보여줘요.",
+			"content": "핑...",
+			"bot_latency": "봇 지연 시간",
+			"api_latency": "API 지연 시간",
+			"requested_by": "{author}님이 요청함"
+		},
+		"lavalink": {
+			"description": "현재 Lavalink 통계를 보여줘요.",
+			"title": "Lavalink 통계",
+			"content": "플레이어: {players}\n재생 중인 플레이어: {playingPlayers}\n업타임: {uptime}\n코어: {cores} 코어\n메모리 사용량: {used} / {reservable}\n시스템 부하: {systemLoad}%\nLavalink 부하: {lavalinkLoad}%"
+		},
+		"invite": {
+			"description": "봇 초대 링크를 가져와요.",
+			"content": "아래 버튼을 클릭하여 저를 초대할 수 있어요. 버그나 중단 문제가 있나요? 서포트 서버에 참여하세요!"
+		},
+		"help": {
+			"description": "도움말 메뉴를 보여줘요.",
+			"options": {
+				"command": "정보를 얻고 싶은 명령어"
+			},
+			"content": "안녕하세요! 저는 [Lavamusic](https://github.com/appujet/lavamusic)과 Discord로 만들어진 {bot} 음악 봇이에요. `{prefix}help <command>`를 사용하여 명령어에 대한 자세한 정보를 얻을 수 있어요.",
+			"title": "도움말 메뉴",
+			"not_found": "`{cmdName}` 명령어는 존재하지 않네요.",
+			"help_cmd": "**설명:** {description}\n**사용법:** {usage}\n**예시:** {examples}\n**별칭:** {aliases}\n**카테고리:** {category}\n**쿨다운:** {cooldown} 초\n**권한:** {premUser}\n**봇 권한:** {premBot}\n**개발자 전용:** {dev}\n**슬래시 명령어:** {slash}\n**인수:** {args}\n**플레이어:** {player}\n**DJ:** {dj}\n**DJ 권한:** {djPerm}\n**음성:** {voice}",
+			"footer": "명령어에 대한 자세한 정보를 얻으려면 {prefix}help <command>를 사용하세요."
+		}
+	},
+	"buttons": {
+		"invite": "초대",
+		"support": "서포트 서버"
+	},
+	"Set the bot to stay in the voice channel": "봇을 음성 채널에 유지하도록 설정",
+	"Manage the DJ mode and associated roles": "DJ 모드 및 관련 역할 관리",
+	"Shows or sets the bot's prefix": "봇의 접두사를 보여주거나 설정",
+	"Sets up the bot": "봇 설정",
+	"on/off 8d filter": "8d 필터 켜기/끄기",
+	"on/off bassboost filter": "베이스 부스트 필터 켜기/끄기",
+	"Toggle the distorsion filter on/off": "왜곡 필터 켜기/끄기",
+	"Toggle the karaoke filter on/off": "카라오케 필터 켜기/끄기",
+	"Toggle the lowpass filter on/off": "저역 통과 필터 켜기/끄기",
+	"Toggle the nightcore filter on/off": "나이트코어 필터 켜기/끄기",
+	"Toggle the pitch filter on/off": "피치 필터 켜기/끄기",
+	"Change the rate of the song": "노래 속도 변경",
+	"Resets the active filters": "활성 필터 초기화",
+	"on/off rotation filter": "회전 필터 켜기/끄기",
+	"Change the speed of the song": "노래 속도 변경",
+	"on/off the tremolo filter": "트레몰로 필터 켜기/끄기",
+	"on/off vibrato filter": "비브라토 필터 켜기/끄기",
+	"Shows information about the bot": "봇에 대한 정보 표시",
+	"Information about the bot": "봇에 대한 정보",
+	"Toggles autoplay": "자동 재생 켜기/끄기",
+	"Clears the queue": "대기열 지우기",
+	"Grabs the current playing song on your DM": "현재 재생 중인 노래를 DM으로 가져오기",
+	"Joins the voice channel": "음성 채널 참여",
+	"Leaves the voice channel": "음성 채널 떠나기",
+	"Loop the current song or the queue": "현재 노래 또는 대기열 반복",
+	"Shows the currently playing song": "현재 재생 중인 노래 표시",
+	"Pauses the current song": "현재 노래 일시 정지",
+	"Plays a song from YouTube, Spotify or http": "YouTube, Spotify 또는 http에서 노래 재생",
+	"Add the song to play next in queue": "다음에 재생할 노래를 대기열에 추가",
+	"Shows the current queue": "현재 대기열 표시",
+	"Removes a song from the queue": "대기열에서 노래 제거",
+	"Replays the current track": "현재 트랙 다시 재생",
+	"Resumes the current song": "현재 노래 재개",
+	"Searches for a song": "노래 검색",
+	"Seeks to a certain time in the song": "노래의 특정 시간으로 이동",
+	"Shuffles the queue": "대기열 섞기",
+	"Skips the current song": "현재 노래 건너뛰기",
+	"Skips to a specific song in the queue": "대기열의 특정 노래로 건너뛰기",
+	"Stops the music and clears the queue": "음악을 멈추고 대기열 지우기",
+	"Sets the volume of the player": "플레이어의 볼륨 설정",
+	"Adds a song to the playlist": "재생 목록에 노래 추가",
+	"Creates a playlist": "재생 목록 생성",
+	"Deletes a playlist": "재생 목록 삭제",
+	"Retrieves all playlists for the user": "사용자의 모든 재생 목록 가져오기",
+	"Loads a playlist": "재생 목록 로드",
+	"Removes a song from the playlist": "재생 목록에서 노래 제거",
+	"Steals a playlist from another user and adds it to your playlists": "다른 사용자의 재생 목록을 가져와 내 재생 목록에 추가",
+	"The dj role you want to add": "추가할 DJ 역할",
+	"The dj role you want to remove": "제거할 DJ 역할",
+	"Clears all dj roles": "모든 DJ 역할 지우기",
+	"Toggles the dj role": "DJ 역할 켜기/끄기",
+	"Sets the prefix": "접두사 설정",
+	"Resets the prefix to the default one": "접두사를 기본값으로 재설정",
+	"Creates the song request channel": "노래 요청 채널 생성",
+	"Deletes the song request channel": "노래 요청 채널 삭제",
+	"Shows the song request channel": "노래 요청 채널 표시",
+	"The number you want to set the pitch to (between 0": {
+		"5 and 5)": "설정할 피치 값 (0.5에서 5 사이)"
+	},
+	"The number you want to set the rate to (between 0": {
+		"5 and 5)": "설정할 속도 값 (0.5에서 5 사이)"
+	},
+	"The speed you want to set": "설정할 속도",
+	"The song you want to play": "재생할 노래",
+	"The song number": "노래 번호",
+	"The song you want to search": "검색할 노래",
+	"The duration to seek to": "이동할 시간",
+	"The number of the song you want to skip to": "건너뛸 노래 번호",
+	"The volume you want to set": "설정할 볼륨",
+	"The playlist you want to add": "추가할 재생 목록",
+	"The song you want to add": "추가할 노래",
+	"The name of the playlist": "재생 목록 이름",
+	"The playlist you want to delete": "삭제할 재생 목록",
+	"The user whose playlists you want to retrieve": "재생 목록을 가져올 사용자",
+	"The playlist you want to load": "로드할 재생 목록",
+	"The playlist you want to remove from": "노래를 제거할 재생 목록",
+	"The song you want to remove": "제거할 노래",
+	"The playlist you want to steal": "가져올 재생 목록",
+	"The user from whom you want to steal the playlist": "재생 목록을 가져올 사용자"
+}
