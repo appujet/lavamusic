@@ -27,7 +27,7 @@ export const LocaleFlags = {
    // [Locale.Dutch]: "🇳🇱",
    // [Locale.Finnish]: "🇫🇮",
     [Locale.French]: "🇫🇷",
-   // [Locale.German]: "🇩🇪",
+    [Locale.German]: "🇩🇪",
    // [Locale.Greek]: "🇬🇷",
     [Locale.Hindi]: "🇮🇳",
    // [Locale.Hungarian]: "🇭🇺",
