@@ -42,7 +42,7 @@ export default class Pitch extends Command {
         const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(pitchString);
         const pitch = parseFloat(pitchString);
         if (!isValidNumber || isNaN(pitch) || pitch < 0.5 || pitch > 5) {
-            return await ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Please provide a valid number between 0.5 and 5.",
@@ -51,8 +51,8 @@ export default class Pitch extends Command {
                 ],
             });
         }
-        player.player.setTimescale({ pitch: pitch });
-        return await ctx.sendMessage({
+        await player.player.setTimescale({ pitch });
+        await ctx.sendMessage({
             embeds: [
                 {
                     description: `Pitch has been set to ${pitch}.`,

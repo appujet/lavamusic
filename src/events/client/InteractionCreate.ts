@@ -21,9 +21,12 @@ export default class InteractionCreate extends Event {
     public async run(interaction: CommandInteraction | AutocompleteInteraction): Promise<any> {
         if (interaction instanceof CommandInteraction && interaction.isCommand()) {
             const setup = await this.client.db.getSetup(interaction.guildId);
-            if (setup && interaction.channelId === setup.textId) {
+            const allowedCategories = ["filters", "music", "playlist"];
+            const commandInSetup = this.client.commands.get(interaction.commandName);
+
+            if (setup && interaction.channelId === setup.textId && (!commandInSetup || !allowedCategories.includes(commandInSetup.category))) {
                 return await interaction.reply({
-                    content: `You can't use commands in setup channel.`,
+                    content: `You can't use this command in setup channel.`,
                     ephemeral: true,
                 });
             }
@@ -170,7 +173,12 @@ export default class InteractionCreate extends Event {
             }
 
             try {
-                await command.run(this.client, ctx, ctx.args);
+                const reply = await command.run(this.client, ctx, ctx.args);
+                if (setup && interaction.channelId === setup.textId && allowedCategories.includes(command.category)) {
+                    setTimeout(() => {
+                        interaction.deleteReply().catch(() => {});
+                    }, 5000);
+                }
             } catch (error) {
                 this.client.logger.error(error);
                 await interaction.reply({

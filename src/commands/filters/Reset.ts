@@ -33,11 +33,11 @@ export default class Reset extends Command {
         const player = client.queue.get(ctx.guild.id);
         player.player.clearFilters();
         player.filters = [];
-        return await ctx.sendMessage({
+        await ctx.sendMessage({
             embeds: [
                 {
                     description: "Filters have been reset.",
-                    color: client.color.main,
+                    color: this.client.color.main,
                 },
             ],
         });

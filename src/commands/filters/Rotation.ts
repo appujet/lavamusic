@@ -29,28 +29,27 @@ export default class Rotation extends Command {
         });
     }
 
-    // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         if (player.filters.includes("rotation")) {
             player.player.setRotation();
-            player.filters.splice(player.filters.indexOf("rotation"), 1);
-            ctx.sendMessage({
+            player.filters = player.filters.filter((filter) => filter !== "rotation");
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Rotation filter has been disabled.",
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });
         } else {
             player.player.setRotation({ rotationHz: 0 });
             player.filters.push("rotation");
-            ctx.sendMessage({
+            await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Rotation filter has been enabled.",
-                        color: client.color.main,
+                        color: this.client.color.main,
                     },
                 ],
             });
