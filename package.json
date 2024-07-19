@@ -5,14 +5,14 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "start": "npm run clean:no-log && node dist/index.js",
+    "start": "npm run clean:no-log && node .",
     "db:push": "npx prisma db push",
     "db:migrate": "npx prisma migrate dev --name init",
     "build": "tsc --project tsconfig.json",
     "clean": "node ./scripts/clean.js && npm run build",
     "clean:no-log": "node ./scripts/clean-no-log.js && npm run build",
-    "lint": "biome lint --fix ./src",
-    "format": "biome format --fix ./src"
+    "lint": "biome lint --write src/",
+    "format": "biome format --write src/"
   },
   "repository": {
     "type": "git",
