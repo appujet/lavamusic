@@ -53,7 +53,7 @@
     "json": {
         "formatter": {
             "enabled": true,
-            "indentWidth": 4,
+            "indentWidth": 2,
             "lineWidth": 80
         }
     },
