@@ -1,7 +1,75 @@
 server: # REST and WS server
-    port: 2333 # The port that the server listens on
-    address: 0.0.0.0
+  port: 2333 # The port that the server listens on
+  address: 0.0.0.0
+  http2:
+    enabled: false # Whether to enable HTTP/2 support
 plugins:
+  dunctebot:
+    ttsLanguage: 'en-US' # language of the TTS engine
+    sources:
+      # true = source enabled, false = source disabled
+      getyarn: true # www.getyarn.io
+      clypit: true # www.clyp.it
+      tts: true # speak:Words to speak
+      pornhub: true # should be self-explanatory
+      reddit: true # should be self-explanatory
+      ocremix: true # www.ocremix.org
+      tiktok: true # tiktok.com
+      mixcloud: true # mixcloud.com
+      soundgasm: true # soundgasm.net
+  lavasrc:
+    providers: # Custom providers for track loading. This is the default
+      # - "dzisrc:%ISRC%" # Deezer ISRC provider
+      # - "dzsearch:%QUERY%" # Deezer search provider
+      - "ytsearch:\"%ISRC%\"" # Will be ignored if track does not have an ISRC. See https://en.wikipedia.org/wiki/International_Standard_Recording_Code
+      - "ytsearch:%QUERY%" # Will be used if track has no ISRC or no track could be found for the ISRC
+      #  you can add multiple other fallback sources here
+    sources:
+      spotify: false # Enable Spotify source
+      applemusic: false # Enable Apple Music source
+      deezer: false # Enable Deezer source
+      yandexmusic: false # Enable Yandex Music source
+      flowerytts: false # Enable Flowery TTS source
+      youtube: true # Enable YouTube search source (https://github.com/topi314/LavaSearch)
+    lyrics-sources:
+      spotify: false # Enable Spotify lyrics source
+      deezer: false # Enable Deezer lyrics source
+      youtube: true # Enable YouTube lyrics source
+      yandexmusic: false # Enable Yandex Music lyrics source
+    spotify:
+      clientId: "your client id"
+      clientSecret: "your client secret"
+      spDc: "your sp dc cookie" # the sp dc cookie used for accessing the spotify lyrics api
+      countryCode: "US" # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+      playlistLoadLimit: 6 # The number of pages at 100 tracks each
+      albumLoadLimit: 6 # The number of pages at 50 tracks each
+    applemusic:
+      countryCode: "US" # the country code you want to use for filtering the artists top tracks and language. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+      mediaAPIToken: "your apple music api token" # apple music api token
+      # or specify an apple music key
+      keyID: "your key id"
+      teamID: "your team id"
+      musicKitKey: |
+        -----BEGIN PRIVATE KEY-----
+        your key
+        -----END PRIVATE KEY-----      
+      playlistLoadLimit: 6 # The number of pages at 300 tracks each
+      albumLoadLimit: 6 # The number of pages at 300 tracks each
+    deezer:
+      masterDecryptionKey: "your master decryption key" # the master key used for decrypting the deezer tracks. (yes this is not here you need to get it from somewhere else)
+    yandexmusic:
+      accessToken: "your access token" # the token used for accessing the yandex music api. See https://github.com/TopiSenpai/LavaSrc#yandex-music
+      playlistLoadLimit: 1 # The number of pages at 100 tracks each
+      albumLoadLimit: 1 # The number of pages at 50 tracks each
+      artistLoadLimit: 1 # The number of pages at 10 tracks each
+    flowerytts:
+      voice: "default voice" # (case-sensitive) get default voice from here https://api.flowery.pw/v1/tts/voices
+      translate: false # whether to translate the text to the native language of voice
+      silence: 0 # the silence parameter is in milliseconds. Range is 0 to 10000. The default is 0.
+      speed: 1.0 # the speed parameter is a float between 0.5 and 10. The default is 1.0. (0.5 is half speed, 2.0 is double speed, etc.)
+      audioFormat: "mp3" # supported formats are: mp3, ogg_opus, ogg_vorbis, aac, wav, and flac. Default format is mp3
+    youtube:
+      countryCode: "US" # the country code you want to use for searching lyrics via ISRC. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
   youtube:
     enabled: true # Whether this source can be used.
     allowSearch: true # Whether "ytsearch:" and "ytmsearch:" can be used.
@@ -14,79 +82,18 @@ plugins:
       - ANDROID_TESTSUITE
       - WEB
       - TVHTML5EMBEDDED
-  lavasrc:
-    providers: # Custom providers for track loading. This is the default
-    # - "dzisrc:%ISRC%" # Deezer ISRC provider
-    # - "dzsearch:%QUERY%" # Deezer search provider
-    - 'ytsearch:"%ISRC%"' # Will be ignored if track does not have an ISRC. See https://en.wikipedia.org/wiki/International_Standard_Recording_Code
-    - 'ytsearch:%QUERY%' # Will be used if track has no ISRC or no track could be found for the ISRC
-    #  you can add multiple other fallback sources here
-    sources:
-      spotify: false # Enable Spotify source
-      applemusic: false # Enable Apple Music source
-      deezer: false # Enable Deezer source
-      yandexmusic: false # Enable Yandex Music source
-      flowerytts: false # Enable Flowery TTs source
-      youtube: true # Enable YouTube search source (https://github.com/topi314/LavaSearch)
-    lyrics-sources:
-      spotify: false # Enable Spotify lyrics source
-      deezer: false # Enable Deezer lyrics source
-      youtube: false # Enable YouTube lyrics source
-      yandexmusic: false # Enable Yandex Music lyrics source
-    spotify:
-      clientId: "your client id"
-      clientSecret: "your client secret"
-      spDc: "" # the sp dc cookie used for accessing the spotify lyrics api
-      countryCode: "US" # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-      playlistLoadLimit: 6 # The number of pages at 100 tracks each
-      albumLoadLimit: 6 # The number of pages at 50 tracks each
-    applemusic:
-      countryCode: "US" # the country code you want to use for filtering the artists top tracks and language. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-      mediaAPIToken: "your access token" # apple music api token
-      playlistLoadLimit: 6 # The number of pages at 300 tracks each
-      albumLoadLimit: 6 # The number of pages at 300 tracks each
-    deezer:
-      masterDecryptionKey: "your master decryption key" # the master key used for decrypting the deezer tracks. (yes this is not here you need to get it from somewhere else)
-    yandexmusic:
-      accessToken: "your access token" # the token used for accessing the yandex music api. See https://github.com/TopiSenpai/LavaSrc#yandex-music
-      playlistLoadLimit: 1 # The number of pages at 100 tracks each
-      albumLoadLimit: 1 # The number of pages at 50 tracks each
-      artistLoadLimit: 1 # The number of pages at 10 tracks each
-    flowerytts:
-      voice: "default voice" # (case-sensitive) get default voice here https://flowery.pw/docs/flowery/tts-voices-v-1-tts-voices-get
-      translate: false # whether to translate the text to the native language of voice
-      silence: 0 # the silence parameter is in milliseconds. Range is 0 to 10000. The default is 0.
-      speed: 1.0 # the speed parameter is a float between 0.5 and 10. The default is 1.0. (0.5 is half speed, 2.0 is double speed, etc.)
-      audioFormat: "mp3" # supported formats are: mp3, ogg_opus, ogg_vorbis, aac, wav, and flac. Default format is mp3
-    youtube:
-      countryCode: "US" # the country code you want to use for searching lyrics via ISRC. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-  dunctebot:
-    ttsLanguage: 'en-AU' # language of the TTS engine
-    sources:
-      # true = source enabled, false = source disabled
-      getyarn: true # www.getyarn.io
-      clypit: true # www.clyp.it
-      tts: true # speak:Words to speak
-      pornhub: true # should be self-explanatory
-      reddit: true # should be self-explanatory
-      ocremix: true # www.ocremix.org
-      tiktok: true # tiktok.com
-      mixcloud: true # mixcloud.com
-      soundgasm: true # soundgasm.net
-
 lavalink:
   plugins:
-    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.1.1"
+    - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
       snapshot: false # set to true if you want to use snapshot builds.
-    - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.0"
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.1.1"
       snapshot: false # set to true if you want to use snapshot builds.
-    - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
+    - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.0"
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "dev.lavalink.youtube:youtube-plugin:f22d382b7caed0068cbb79eb4cd87ff92e9b3486"
       snapshot: true # set to true if you want to use snapshot builds.
-
   pluginsDir: './plugins'
   server:
     password: "youshallnotpass"

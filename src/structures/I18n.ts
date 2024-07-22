@@ -1,8 +1,8 @@
 import i18n from "i18n";
 
-import Logger from "./Logger.js";
 import { Locale } from "discord.js";
 import { Language } from "../types.js";
+import Logger from "./Logger.js";
 
 const logger = new Logger();
 
