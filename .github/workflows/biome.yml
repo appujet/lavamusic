@@ -1,0 +1,27 @@
+name: BiomeLint
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '36 1 * * 6'
+
+jobs:
+  biome:
+    name: Run biome linting
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Biome
+        run: npm install -g @biomejs/biome
+
+      - name: Run Biome Lint
+        run: biome lint --write src/
