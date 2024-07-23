@@ -39,7 +39,7 @@ plugins:
     spotify:
       clientId: "your client id"
       clientSecret: "your client secret"
-      spDc: "your sp dc cookie" # the sp dc cookie used for accessing the spotify lyrics api
+      # spDc: "your sp dc cookie" # the sp dc cookie used for accessing the spotify lyrics api
       countryCode: "US" # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
       playlistLoadLimit: 6 # The number of pages at 100 tracks each
       albumLoadLimit: 6 # The number of pages at 50 tracks each
@@ -82,12 +82,27 @@ plugins:
       - MUSIC
       - ANDROID_TESTSUITE
       - WEB
-      - TVHTML5EMBEDDED
+    # You can configure individual clients with the following.
+    # Any options or clients left unspecified will use their default values
+    # for those individual clients.
+    # Client configurations will ONLY take effect if the client is registered above,
+    # otherwise they are ignored.
+    # ---------------- WARNING ----------------
+    # This part of the config is for DEMONSTRATION PURPOSES ONLY!
+    # Do NOT use this config before understanding what the options do.
+    # You do NOT need to copy this config just because it is published here.
+    # ---------------- WARNING ----------------
+    WEB: # names are specified as they are written below under "Available Clients".
+      # This will disable using the WEB client for video playback.
+      playback: false
+    TVHTML5EMBEDDED:
+      # The below config disables everything except playback for this client.
+      playlistLoading: false # Disables loading of playlists and mixes for this client.
+      videoLoading: false # Disables loading of videos for this client (playback is still allowed).
+      searching: false # Disables the ability to search for videos for this client.
 lavalink:
   plugins:
     - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
-      snapshot: false # set to true if you want to use snapshot builds.
-    - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.2.0"
       snapshot: false # set to true if you want to use snapshot builds.
