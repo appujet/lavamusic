@@ -10,7 +10,7 @@ export function initI18n() {
     i18n.configure({
         locales: Object.keys(Language),
         defaultLocale: "EnglishUS",
-        directory: `${process.cwd()}/locales`,
+        directory: `${process.cwd()}/languages/locales`,
         retryInDefaultLocale: true,
         objectNotation: true,
         register: global,
