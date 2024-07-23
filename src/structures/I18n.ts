@@ -10,7 +10,7 @@ export function initI18n() {
     i18n.configure({
         locales: Object.keys(Language),
         defaultLocale: "EnglishUS",
-        directory: `${process.cwd()}/languages/locales`,
+        directory: `${process.cwd()}/locales`,
         retryInDefaultLocale: true,
         objectNotation: true,
         register: global,
@@ -45,3 +45,14 @@ export function localization(lan: any, name: any, desc: any) {
 export function descriptionLocalization(name: any, text: any) {
     return i18n.getLocales().map((locale) => localization(Locale[locale] || locale, name, text));
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */
