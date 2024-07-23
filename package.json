@@ -40,7 +40,7 @@
     "@types/node": "^20.14.11",
     "@types/signale": "^1.4.7",
     "prisma": "^5.17.0",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
@@ -51,7 +51,7 @@
     "shoukaku": "github:shipgirlproject/Shoukaku",
     "signale": "^1.4.0",
     "tslib": "^2.6.3",
-    "undici": "^6.19.2"
+    "undici": "^6.19.4"
   },
   "signale": {
     "displayScope": true,
