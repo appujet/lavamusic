@@ -34,7 +34,7 @@ plugins:
     lyrics-sources:
       spotify: false # Enable Spotify lyrics source
       deezer: false # Enable Deezer lyrics source
-      youtube: true # Enable YouTube lyrics source
+      youtube: false # Enable YouTube lyrics source
       yandexmusic: false # Enable Yandex Music lyrics source
     spotify:
       clientId: "your client id"
@@ -43,6 +43,7 @@ plugins:
       countryCode: "US" # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
       playlistLoadLimit: 6 # The number of pages at 100 tracks each
       albumLoadLimit: 6 # The number of pages at 50 tracks each
+      localFiles: false # Enable local files support with Spotify playlists. Please note `uri` & `iscr` will be `null` & `identifier` will be `"local"`
     applemusic:
       countryCode: "US" # the country code you want to use for filtering the artists top tracks and language. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
       mediaAPIToken: "your apple music api token" # apple music api token
@@ -88,9 +89,9 @@ lavalink:
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
       snapshot: false # set to true if you want to use snapshot builds.
-    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.1.1"
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.2.0"
       snapshot: false # set to true if you want to use snapshot builds.
-    - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.0"
+    - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.1"
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "dev.lavalink.youtube:youtube-plugin:f22d382b7caed0068cbb79eb4cd87ff92e9b3486"
       snapshot: true # set to true if you want to use snapshot builds.
