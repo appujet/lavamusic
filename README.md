@@ -51,7 +51,7 @@
 -   ![Mixer](https://img.shields.io/badge/Mixer-FFA500?style=plastic&logo=mixer&logoColor=white)
 -   ![http](https://img.shields.io/badge/http-FFA500?style=plastic&logo=http&logoColor=white)
 
-### 🔌 Plugin Sources: `(Require: LavaLink v4.1.x)`
+### 🔌 Plugin Sources: `(Require: LavaSRC and Skybot Plugin)`
 **Note: You need to install the plugins to use these sources**
 -   ![Spotify](https://img.shields.io/badge/Spotify-1ED760?style=plastic&logo=spotify&logoColor=white) ([Required Plugin][LavaSrc])
 -   ![Deezer](https://img.shields.io/badge/Deezer-FF0000?style=plastic&logo=deezer&logoColor=white) ([Required Plugin][LavaSrc])
