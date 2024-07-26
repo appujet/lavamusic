@@ -42,7 +42,7 @@ export const LocaleFlags = {
     // [Locale.PortugueseBR]: "🇧🇷",
     // [Locale.Romanian]: "🇷🇴",
     // [Locale.Russian]: "🇷🇺",
-     [Locale.SpanishES]: "🇪🇸",
+    [Locale.SpanishES]: "🇪🇸",
     // [Locale.Swedish]: "🇸🇪",
     // [Locale.Thai]: "🇹🇭",
     // [Locale.Turkish]: "🇹🇷",
