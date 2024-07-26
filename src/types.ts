@@ -14,6 +14,7 @@ export enum Language {
     Korean = "Korean",
     French = "French",
     German = "German",
+    SpanishES = "SpanishES",
 }
 export const LocaleFlags = {
     // [Locale.Indonesian]: "🇮🇩",
@@ -41,7 +42,7 @@ export const LocaleFlags = {
     // [Locale.PortugueseBR]: "🇧🇷",
     // [Locale.Romanian]: "🇷🇴",
     // [Locale.Russian]: "🇷🇺",
-    // [Locale.SpanishES]: "🇪🇸",
+     [Locale.SpanishES]: "🇪🇸",
     // [Locale.Swedish]: "🇸🇪",
     // [Locale.Thai]: "🇹🇭",
     // [Locale.Turkish]: "🇹🇷",
