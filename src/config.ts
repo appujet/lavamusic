@@ -20,6 +20,7 @@ export default {
         stop: "⏹️",
         skip: "⏩",
         previous: "⏪",
+        froward: "⏩",
         replay: "🔃",
         voldown: "🔉",
         volup: "🔊",
