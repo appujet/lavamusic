@@ -13,6 +13,7 @@ export default class Queue extends Command {
             aliases: ["q"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: false,
@@ -65,7 +66,7 @@ export default class Queue extends Command {
                 .setDescription(chunk.join("\n"))
                 .setFooter({ text: `Page ${index + 1} of ${chunks.length}` });
         });
-        return await client.utils.paginate(ctx, pages);
+        return await client.utils.paginate(client, ctx, pages);
     }
 }
 

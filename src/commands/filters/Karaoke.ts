@@ -13,6 +13,7 @@ export default class Karaoke extends Command {
             aliases: ["kk"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

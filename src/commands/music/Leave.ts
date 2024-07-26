@@ -13,6 +13,7 @@ export default class Leave extends Command {
             aliases: ["l"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

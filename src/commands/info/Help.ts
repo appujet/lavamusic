@@ -13,6 +13,7 @@ export default class Help extends Command {
             aliases: ["h"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

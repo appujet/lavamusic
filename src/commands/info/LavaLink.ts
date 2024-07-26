@@ -13,6 +13,7 @@ export default class LavaLink extends Command {
             aliases: ["ll"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

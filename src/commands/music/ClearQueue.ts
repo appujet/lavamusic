@@ -13,6 +13,7 @@ export default class ClearQueue extends Command {
             aliases: ["cq"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

@@ -13,6 +13,7 @@ export default class Pause extends Command {
             aliases: ["pu"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: false,

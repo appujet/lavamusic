@@ -13,6 +13,7 @@ export default class Vibrato extends Command {
             aliases: ["vb"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

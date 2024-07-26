@@ -13,6 +13,7 @@ export default class _8d extends Command {
             aliases: ["3d"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

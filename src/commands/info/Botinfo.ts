@@ -16,6 +16,7 @@ export default class Botinfo extends Command {
             aliases: ["bi", "info", "stats", "status"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

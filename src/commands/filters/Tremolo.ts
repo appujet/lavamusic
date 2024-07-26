@@ -13,6 +13,7 @@ export default class Tremolo extends Command {
             aliases: ["tr"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

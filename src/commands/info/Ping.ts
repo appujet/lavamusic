@@ -13,6 +13,7 @@ export default class Ping extends Command {
             aliases: ["pong"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

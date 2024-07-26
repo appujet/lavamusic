@@ -19,6 +19,7 @@ export default class Play extends Command {
             aliases: ["p"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: true,
                 dj: false,

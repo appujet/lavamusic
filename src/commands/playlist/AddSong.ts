@@ -15,6 +15,7 @@ export default class AddPlaylist extends Command {
             aliases: ["as"],
             cooldown: 3,
             args: true,
+            vote: true,
             player: {
                 voice: false,
                 dj: false,

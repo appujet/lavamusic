@@ -13,6 +13,7 @@ export default class Skipto extends Command {
             aliases: ["skt"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

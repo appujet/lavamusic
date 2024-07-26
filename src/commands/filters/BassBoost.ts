@@ -13,6 +13,7 @@ export default class BassBoost extends Command {
             aliases: ["bb"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

@@ -13,6 +13,7 @@ export default class Pitch extends Command {
             aliases: ["ph"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

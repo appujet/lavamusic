@@ -39,7 +39,7 @@ export default class GuildList extends Command {
                 .setDescription(chunk.join("\n"))
                 .setFooter({ text: `Page ${index + 1} of ${chunks.length}` });
         });
-        await client.utils.paginate(ctx, pages);
+        await client.utils.paginate(client, ctx, pages);
     }
 }
 

@@ -74,7 +74,7 @@ export class Utils {
         return `${filledBar}${emptyBar} ${percent}%`;
     }
 
-    public static async paginate(ctx: Context, embed: any[]): Promise<void> {
+    public static async paginate(client: Lavamusic, ctx: Context, embed: any[]): Promise<void> {
         if (embed.length < 2) {
             if (ctx.isInteraction) {
                 ctx.deferred ? ctx.interaction.followUp({ embeds: embed }) : ctx.interaction.reply({ embeds: embed });
@@ -89,11 +89,27 @@ export class Utils {
             const firstEmbed = page === 0;
             const lastEmbed = page === embed.length - 1;
             const pageEmbed = embed[page];
-            const first = new ButtonBuilder().setCustomId("fast").setEmoji("⏪").setStyle(ButtonStyle.Primary).setDisabled(firstEmbed);
-            const back = new ButtonBuilder().setCustomId("back").setEmoji("◀️").setStyle(ButtonStyle.Primary).setDisabled(firstEmbed);
-            const next = new ButtonBuilder().setCustomId("next").setEmoji("▶️").setStyle(ButtonStyle.Primary).setDisabled(lastEmbed);
-            const last = new ButtonBuilder().setCustomId("last").setEmoji("⏩").setStyle(ButtonStyle.Primary).setDisabled(lastEmbed);
-            const stop = new ButtonBuilder().setCustomId("stop").setEmoji("⏹️").setStyle(ButtonStyle.Danger);
+            const first = new ButtonBuilder()
+                .setCustomId("fast")
+                .setEmoji(client.emoji.page.fast)
+                .setStyle(ButtonStyle.Primary)
+                .setDisabled(firstEmbed);
+            const back = new ButtonBuilder()
+                .setCustomId("back")
+                .setEmoji(client.emoji.page.back)
+                .setStyle(ButtonStyle.Primary)
+                .setDisabled(firstEmbed);
+            const next = new ButtonBuilder()
+                .setCustomId("next")
+                .setEmoji(client.emoji.page.next)
+                .setStyle(ButtonStyle.Primary)
+                .setDisabled(lastEmbed);
+            const last = new ButtonBuilder()
+                .setCustomId("last")
+                .setEmoji(client.emoji.page.last)
+                .setStyle(ButtonStyle.Primary)
+                .setDisabled(lastEmbed);
+            const stop = new ButtonBuilder().setCustomId("stop").setEmoji(client.emoji.page.cancel).setStyle(ButtonStyle.Danger);
             const row = new ActionRowBuilder().addComponents(first, back, stop, next, last);
             return { embeds: [pageEmbed], components: [row] };
         };

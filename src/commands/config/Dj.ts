@@ -13,6 +13,7 @@ export default class Dj extends Command {
             aliases: ["dj"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

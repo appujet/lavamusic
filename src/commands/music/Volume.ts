@@ -13,6 +13,7 @@ export default class Volume extends Command {
             aliases: ["v", "vol"],
             cooldown: 3,
             args: true,
+            vote: true,
             player: {
                 voice: true,
                 dj: true,

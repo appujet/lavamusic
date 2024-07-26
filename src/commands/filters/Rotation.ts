@@ -13,6 +13,7 @@ export default class Rotation extends Command {
             aliases: ["rt"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

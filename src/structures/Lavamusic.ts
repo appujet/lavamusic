@@ -14,6 +14,7 @@ import {
     Routes,
 } from "discord.js";
 import { Locale } from "discord.js";
+import { Api } from "@top-gg/sdk";
 import config from "../config.js";
 import ServerData from "../database/server.js";
 import loadPlugins from "../plugin/index.js";
@@ -31,9 +32,11 @@ export default class Lavamusic extends Client {
     public cooldown: Collection<string, any> = new Collection();
     public config = config;
     public logger: Logger = new Logger();
+    public readonly emoji = config.emoji;
     public readonly color = config.color;
     private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
     public shoukaku: ShoukakuClient;
+    public topGG: Api;
     public utils = Utils;
     public queue = new Queue(this);
 
@@ -45,6 +48,7 @@ export default class Lavamusic extends Client {
         initI18n();
         const nodes = this.config.autoNode ? await this.getNodes() : this.config.lavalink;
         this.shoukaku = new ShoukakuClient(this, nodes);
+        this.topGG = new Api(this.config.topGG);
         await this.loadCommands();
         this.logger.info("Successfully loaded commands!");
         await this.loadEvents();

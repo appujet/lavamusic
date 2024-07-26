@@ -13,6 +13,7 @@ export default class Reset extends Command {
             aliases: ["rs"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

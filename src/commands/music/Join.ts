@@ -13,6 +13,7 @@ export default class Join extends Command {
             aliases: ["come", "j"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: false,

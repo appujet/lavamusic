@@ -15,6 +15,7 @@ export default class Setup extends Command {
             aliases: ["set"],
             cooldown: 3,
             args: true,
+            vote: true,
             player: {
                 voice: false,
                 dj: false,
@@ -96,7 +97,7 @@ export default class Setup extends Command {
                         ? `[${player.current.info.title}](${player.current.info.uri})`
                         : "Nothing playing right now.";
                 embed.setDescription(desc).setImage(image);
-                await textChannel.send({ embeds: [embed], components: getButtons(player) }).then((msg) => {
+                await textChannel.send({ embeds: [embed], components: getButtons(player, client) }).then((msg) => {
                     client.db.setSetup(ctx.guild.id, textChannel.id, msg.id);
                 });
                 await ctx.sendMessage({

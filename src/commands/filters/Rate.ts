@@ -13,6 +13,7 @@ export default class Rate extends Command {
             aliases: ["rt"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

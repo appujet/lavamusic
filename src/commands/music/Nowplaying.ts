@@ -13,6 +13,7 @@ export default class Nowplaying extends Command {
             aliases: ["np"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: false,

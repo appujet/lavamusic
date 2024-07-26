@@ -13,6 +13,7 @@ export default class Stop extends Command {
             aliases: ["sp"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

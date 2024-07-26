@@ -14,6 +14,7 @@ export default class _247 extends Command {
             aliases: ["stay"],
             cooldown: 3,
             args: false,
+            vote: true,
             player: {
                 voice: true,
                 dj: false,

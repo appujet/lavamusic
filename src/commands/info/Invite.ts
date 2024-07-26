@@ -14,6 +14,7 @@ export default class Invite extends Command {
             aliases: ["iv"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

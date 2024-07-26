@@ -6,6 +6,9 @@ import {
     type GuildMember,
     InteractionType,
     PermissionFlagsBits,
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
 } from "discord.js";
 import { LoadType } from "shoukaku";
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
@@ -79,6 +82,24 @@ export default class InteractionCreate extends Event {
                 if (command.permissions.dev && this.client.config.owners) {
                     const isDev = this.client.config.owners.includes(interaction.user.id);
                     if (!isDev) return;
+                }
+            }
+
+            if (command.vote) {
+                const voted = await this.client.topGG.hasVoted(interaction.user.id);
+                if (!voted) {
+                    const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
+                        new ButtonBuilder()
+                            .setLabel("Vote for Me!")
+                            .setURL(`https://top.gg/bot/${this.client.config.clientId}/vote`)
+                            .setStyle(ButtonStyle.Link),
+                    );
+
+                    return await interaction.reply({
+                        content: "Wait! Before using this command, you must vote. Thank you.",
+                        components: [voteBtn],
+                        ephemeral: true,
+                    });
                 }
             }
 

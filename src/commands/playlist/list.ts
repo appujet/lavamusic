@@ -13,6 +13,7 @@ export default class GetPlaylists extends Command {
             aliases: ["lst"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,
@@ -29,7 +30,7 @@ export default class GetPlaylists extends Command {
                 {
                     name: "user",
                     description: "The user whose playlists you want to retrieve",
-                    type: 6, // USER type
+                    type: 6,
                     required: false,
                 },
             ],

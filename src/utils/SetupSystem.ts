@@ -185,7 +185,7 @@ async function trackStart(msgId: any, channel: TextChannel, player: Dispatcher, 
         await m
             .edit({
                 embeds: [embed],
-                components: getButtons(player).map((b) => {
+                components: getButtons(player, client).map((b) => {
                     b.components.forEach((c) => c.setDisabled(!player?.current));
                     return b;
                 }),
@@ -206,7 +206,7 @@ async function trackStart(msgId: any, channel: TextChannel, player: Dispatcher, 
         await channel
             .send({
                 embeds: [embed],
-                components: getButtons(player).map((b) => {
+                components: getButtons(player, client).map((b) => {
                     b.components.forEach((c) => c.setDisabled(!player?.current));
                     return b;
                 }),
@@ -247,7 +247,7 @@ async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
             await m
                 .edit({
                     embeds: [embed],
-                    components: getButtons(player).map((b) => {
+                    components: getButtons(player, client).map((b) => {
                         b.components.forEach((c) => c.setDisabled(!player?.current));
                         return b;
                     }),
@@ -266,7 +266,7 @@ async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
             await m
                 .edit({
                     embeds: [embed],
-                    components: getButtons(player).map((b) => {
+                    components: getButtons(player, client).map((b) => {
                         b.components.forEach((c) => c.setDisabled(true));
                         return b;
                     }),

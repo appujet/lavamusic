@@ -14,6 +14,7 @@ export default class About extends Command {
             aliases: ["ab"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

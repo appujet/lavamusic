@@ -13,6 +13,7 @@ export default class LoadPlaylist extends Command {
             aliases: ["lo"],
             cooldown: 3,
             args: true,
+            vote: true,
             player: {
                 voice: true,
                 dj: false,

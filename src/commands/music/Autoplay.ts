@@ -13,6 +13,7 @@ export default class Autoplay extends Command {
             aliases: ["ap"],
             cooldown: 3,
             args: false,
+            vote: true,
             player: {
                 voice: true,
                 dj: true,

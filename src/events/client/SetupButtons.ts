@@ -77,7 +77,7 @@ export default class SetupButtons extends Event {
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
-                        components: getButtons(player),
+                        components: getButtons(player, this.client),
                     });
                     break;
                 }

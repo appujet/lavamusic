@@ -28,6 +28,7 @@ interface CommandOptions {
     aliases?: string[];
     cooldown?: number;
     args?: boolean;
+    vote?: boolean;
     player?: Partial<CommandPlayer>;
     permissions?: Partial<CommandPermissions>;
     slashCommand?: boolean;
@@ -44,6 +45,7 @@ export default class Command {
     public aliases: string[];
     public cooldown: number;
     public args: boolean;
+    public vote: boolean;
     public player: CommandPlayer;
     public permissions: CommandPermissions;
     public slashCommand: boolean;
@@ -63,6 +65,7 @@ export default class Command {
         this.aliases = options.aliases ?? [];
         this.cooldown = options.cooldown ?? 3;
         this.args = options.args ?? false;
+        this.vote = options.vote ?? false;
         this.player = {
             voice: options.player?.voice ?? false,
             dj: options.player?.dj ?? false,
