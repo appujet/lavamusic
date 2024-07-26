@@ -51,7 +51,7 @@
 -   ![Mixer](https://img.shields.io/badge/Mixer-FFA500?style=plastic&logo=mixer&logoColor=white)
 -   ![http](https://img.shields.io/badge/http-FFA500?style=plastic&logo=http&logoColor=white)
 
-### 🔌 Plugin Sources: `(Require: LavaLink v4.1.x)`
+### 🔌 Plugin Sources: `(Require: LavaSrc and Skybot Plugin)`
 **Note: You need to install the plugins to use these sources**
 -   ![Spotify](https://img.shields.io/badge/Spotify-1ED760?style=plastic&logo=spotify&logoColor=white) ([Required Plugin][LavaSrc])
 -   ![Deezer](https://img.shields.io/badge/Deezer-FF0000?style=plastic&logo=deezer&logoColor=white) ([Required Plugin][LavaSrc])
@@ -75,8 +75,8 @@ To Setup a Lavalink server on Windows, Linux, or Replit, [Click Here.](https://g
 
 ## 🔧 Requirements
 Before starting with the installation, you need to have the following:
--   ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) [v18.17.1 or higher](https://nodejs.org/en/download/)
--   ![Lavalink](https://img.shields.io/badge/Lavalink-7289DA?style=for-the-badge&logo=discord&logoColor=white) [v4.0.x or higher](https://github.com/freyacodes/Lavalink)
+-   ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) [v18.17.1 or higher](https://nodejs.org/) If possible, use the latest LTS.
+-   ![Lavalink](https://img.shields.io/badge/Lavalink-7289DA?style=for-the-badge&logo=discord&logoColor=white) [v4 or higher](https://github.com/lavalink-devs/lavalink)
 
 ### Optional
 -   ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) [Optional](https://www.mongodb.com/try/download/community) (For MongoDB database)

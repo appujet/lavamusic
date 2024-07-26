@@ -43,7 +43,7 @@ export default class Speed extends Command {
         const speed = parseFloat(speedString);
 
         if (!isValidNumber || isNaN(speed) || speed < 0.5 || speed > 5) {
-            await ctx.sendMessage({
+            return await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Please provide a valid number between 0.5 and 5.",

@@ -1,4 +1,4 @@
-name: BiomeLint
+name: BiomeCheck
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   biome:
-    name: Run biome linting
+    name: Run biome checking
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -23,5 +23,5 @@ jobs:
       - name: Install Biome
         run: npm install -g @biomejs/biome
 
-      - name: Run Biome Lint
-        run: biome lint --write src/
+      - name: Run Biome Check
+        run: biome check --write src/

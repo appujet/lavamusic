@@ -42,7 +42,7 @@ export default class Pitch extends Command {
         const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(pitchString);
         const pitch = parseFloat(pitchString);
         if (!isValidNumber || isNaN(pitch) || pitch < 0.5 || pitch > 5) {
-            await ctx.sendMessage({
+            return await ctx.sendMessage({
                 embeds: [
                     {
                         description: "Please provide a valid number between 0.5 and 5.",

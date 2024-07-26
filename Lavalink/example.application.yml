@@ -88,13 +88,13 @@ lavalink:
     - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
-      snapshot: false # set to true if you want to use snapshot builds.
+      snapshot: false # set to true if you want to use snapshot builds (see below)
     - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.2.0"
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.1"
       snapshot: false # set to true if you want to use snapshot builds.
-    - dependency: "dev.lavalink.youtube:youtube-plugin:f22d382b7caed0068cbb79eb4cd87ff92e9b3486"
-      snapshot: true # set to true if you want to use snapshot builds.
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.5.0"
+      snapshot: false # set to true if you want to use snapshot builds.
   pluginsDir: './plugins'
   server:
     password: "youshallnotpass"
