@@ -9,6 +9,8 @@ import {
     ActionRowBuilder,
     ButtonBuilder,
     ButtonStyle,
+    EmbedBuilder,
+    type TextChannel,
 } from "discord.js";
 import { LoadType } from "shoukaku";
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
@@ -49,6 +51,23 @@ export default class InteractionCreate extends Event {
             ctx.guildLocale = locale;
             const clientMember = interaction.guild.members.resolve(this.client.user);
             if (!(interaction.inGuild() && interaction.channel.permissionsFor(clientMember)?.has(PermissionFlagsBits.ViewChannel))) return;
+
+            const logs = this.client.channels.cache.get(this.client.config.commandLogs);
+
+            if (logs) {
+                const embed = new EmbedBuilder()
+                    .setAuthor({
+                        name: "Slash-Command Command Logs",
+                        iconURL: this.client.user?.avatarURL({ size: 2048 }),
+                    })
+                    .setColor(this.client.config.color.blue)
+                    .setDescription(
+                        `**\`${command.name}\`** | Used By **${interaction.user.tag} \`${interaction.user.id}\`** From **${interaction.guild.name} \`${interaction.guild.id}\`**`,
+                    )
+                    .setTimestamp();
+
+                await (logs as TextChannel).send({ embeds: [embed] });
+            }
 
             if (!clientMember.permissions.has(PermissionFlagsBits.SendMessages)) {
                 return await (interaction.member as GuildMember)

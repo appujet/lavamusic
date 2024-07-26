@@ -1,4 +1,14 @@
-import { ChannelType, Collection, type Message, PermissionFlagsBits } from "discord.js";
+import {
+    ChannelType,
+    Collection,
+    type Message,
+    PermissionFlagsBits,
+    ButtonBuilder,
+    ActionRowBuilder,
+    ButtonStyle,
+    EmbedBuilder,
+    type TextChannel,
+} from "discord.js";
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
 
 export default class MessageCreate extends Event {
@@ -42,6 +52,23 @@ export default class MessageCreate extends Event {
         ctx.guildLocale = locale;
         if (!message.guild.members.resolve(this.client.user)?.permissions.has(PermissionFlagsBits.ViewChannel)) return;
 
+        const logs = this.client.channels.cache.get(this.client.config.commandLogs);
+
+        if (logs) {
+            const embed = new EmbedBuilder()
+                .setAuthor({
+                    name: "Prefix Command Logs",
+                    iconURL: this.client.user?.avatarURL({ size: 2048 }),
+                })
+                .setColor(this.client.config.color.green)
+                .setDescription(
+                    `**\`${command.name}\`** | Used By **${message.author.tag} \`${message.author.id}\`** From **${message.guild.name} \`${message.guild.id}\`**`,
+                )
+                .setTimestamp();
+
+            await (logs as TextChannel).send({ embeds: [embed] });
+        }
+
         const clientMember = message.guild.members.resolve(this.client.user);
         if (!clientMember.permissions.has(PermissionFlagsBits.SendMessages)) {
             await message.author
@@ -77,6 +104,23 @@ export default class MessageCreate extends Event {
             if (command.permissions.dev && this.client.config.owners) {
                 const isDev = this.client.config.owners.includes(message.author.id);
                 if (!isDev) return;
+            }
+        }
+
+        if (command.vote) {
+            const voted = await this.client.topGG.hasVoted(message.author.id);
+            if (!voted) {
+                const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
+                    new ButtonBuilder()
+                        .setLabel("Vote for Me!")
+                        .setURL(`https://top.gg/bot/${this.client.config.clientId}/vote`)
+                        .setStyle(ButtonStyle.Link),
+                );
+
+                await message.reply({
+                    content: "Wait! Before using this command, you must vote. Thank you.",
+                    components: [voteBtn],
+                });
             }
         }
 
