@@ -33,7 +33,7 @@ export default {
             last: "⏩",
             fast: "⏪",
             back: "⬅️",
-            next: "▶️",
+            next: "➡️",
             cancel: "⏹️",
         },
     },
