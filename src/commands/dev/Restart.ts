@@ -62,7 +62,7 @@ export default class Restart extends Command {
                 components: [],
             });
             await client.destroy();
-            exec("node dist/restart.ts");
+            exec("node scripts/restart.ts");
             process.exit(0);
         });
 
