@@ -5,7 +5,7 @@ export default class LowPass extends Command {
         super(client, {
             name: "lowpass",
             description: {
-                content: "Toggle the lowpass filter on/off",
+                content: "cmd.lowpass.description",
                 examples: ["lowpass"],
                 usage: "lowpass <number>",
             },
@@ -39,7 +39,7 @@ export default class LowPass extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Lowpass filter has been disabled.",
+                        description: ctx.locale("cmd.lowpass.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -50,7 +50,7 @@ export default class LowPass extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Lowpass filter has been enabled.",
+                        description: ctx.locale("cmd.lowpass.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],

@@ -7,7 +7,7 @@ export default class Setup extends Command {
         super(client, {
             name: "setup",
             description: {
-                content: "Sets up the bot",
+                content: "cmd.setup.description",
                 examples: ["setup create", "setup delete", "setup info"],
                 usage: "setup",
             },
@@ -30,17 +30,17 @@ export default class Setup extends Command {
             options: [
                 {
                     name: "create",
-                    description: "Creates the song request channel",
+                    description: "cmd.setup.options.create",
                     type: 1,
                 },
                 {
                     name: "delete",
-                    description: "Deletes the song request channel",
+                    description: "cmd.setup.options.delete",
                     type: 1,
                 },
                 {
                     name: "info",
-                    description: "Shows the song request channel",
+                    description: "cmd.setup.options.info",
                     type: 1,
                 },
             ],
@@ -57,7 +57,7 @@ export default class Setup extends Command {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: "The song request channel already exists.",
+                                description: ctx.locale("cmd.setup.errors.channel_exists"),
                                 color: client.color.red,
                             },
                         ],
@@ -102,7 +102,7 @@ export default class Setup extends Command {
                 await ctx.sendMessage({
                     embeds: [
                         {
-                            description: `The song request channel has been created in <#${textChannel.id}>.`,
+                            description: ctx.locale("cmd.setup.messages.channel_created", { channelId: textChannel.id }),
                             color: this.client.color.main,
                         },
                     ],
@@ -115,7 +115,7 @@ export default class Setup extends Command {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: "The song request channel doesn't exist.",
+                                description: ctx.locale("cmd.setup.errors.channel_not_exists"),
                                 color: client.color.red,
                             },
                         ],
@@ -127,8 +127,7 @@ export default class Setup extends Command {
                 await ctx.sendMessage({
                     embeds: [
                         {
-                            description:
-                                "The song request channel has been deleted. If the channel is not deleted normally, please delete it yourself.",
+                            description: ctx.locale("cmd.setup.messages.channel_delete_fail"),
                             color: this.client.color.main,
                         },
                     ],
@@ -141,7 +140,7 @@ export default class Setup extends Command {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: "The song request channel doesn't exist.",
+                                description: ctx.locale("cmd.setup.errors.channel_not_exists"),
                                 color: client.color.red,
                             },
                         ],
@@ -149,13 +148,13 @@ export default class Setup extends Command {
                 }
                 const channel = ctx.guild.channels.cache.get(data3.textId);
                 if (channel) {
-                    embed.setDescription(`The song request channel is <#${channel.id}>.`);
+                    embed.setDescription(ctx.locale("cmd.setup.messages.channel_info", { channelId: channel.id }));
                     await ctx.sendMessage({ embeds: [embed] });
                 } else {
                     await ctx.sendMessage({
                         embeds: [
                             {
-                                description: "The song request channel doesn't exist.",
+                                description: ctx.locale("cmd.setup.errors.channel_not_exists"),
                                 color: client.color.red,
                             },
                         ],

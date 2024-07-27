@@ -5,7 +5,7 @@ export default class Karaoke extends Command {
         super(client, {
             name: "karaoke",
             description: {
-                content: "Toggle the karaoke filter on/off",
+                content: "cmd.karaoke.description",
                 examples: ["karaoke"],
                 usage: "karaoke",
             },
@@ -39,7 +39,7 @@ export default class Karaoke extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Karaoke filter has been disabled.",
+                        description: ctx.locale("cmd.karaoke.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -55,7 +55,7 @@ export default class Karaoke extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Karaoke filter has been enabled.",
+                        description: ctx.locale("cmd.karaoke.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],

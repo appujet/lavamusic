@@ -5,7 +5,7 @@ export default class _8d extends Command {
         super(client, {
             name: "8d",
             description: {
-                content: "on/off 8d filter",
+                content: "cmd.8d.description",
                 examples: ["8d"],
                 usage: "8d",
             },
@@ -41,7 +41,7 @@ export default class _8d extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "8D filter has been disabled.",
+                        description: ctx.locale("cmd.8d.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -51,7 +51,7 @@ export default class _8d extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "8D filter has been enabled.",
+                        description: ctx.locale("cmd.8d.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],

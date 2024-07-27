@@ -5,7 +5,7 @@ export default class BassBoost extends Command {
         super(client, {
             name: "bassboost",
             description: {
-                content: "on/off bassboost filter",
+                content: "cmd.bassboost.description",
                 examples: ["bassboost"],
                 usage: "bassboost",
             },
@@ -39,7 +39,7 @@ export default class BassBoost extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Bassboost filter has been disabled.",
+                        description: ctx.locale("cmd.bassboost.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -55,7 +55,7 @@ export default class BassBoost extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Bassboost filter has been enabled. **Be careful, listening too loudly can damage your hearing!**",
+                        description: ctx.locale("cmd.bassboost.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],

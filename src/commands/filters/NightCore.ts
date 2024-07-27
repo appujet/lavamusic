@@ -5,7 +5,7 @@ export default class NightCore extends Command {
         super(client, {
             name: "nightcore",
             description: {
-                content: "Toggle the nightcore filter on/off",
+                content: "cmd.nightcore.description",
                 examples: ["nightcore"],
                 usage: "nightcore",
             },
@@ -39,7 +39,7 @@ export default class NightCore extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Nightcore filter has been disabled.",
+                        description: ctx.locale("cmd.nightcore.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -50,7 +50,7 @@ export default class NightCore extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Nightcore filter has been enabled.",
+                        description: ctx.locale("cmd.nightcore.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],

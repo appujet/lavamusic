@@ -5,7 +5,7 @@ export default class Distorsion extends Command {
         super(client, {
             name: "distorsion",
             description: {
-                content: "Toggle the distorsion filter on/off",
+                content: "cmd.distorsion.description",
                 examples: ["distorsion"],
                 usage: "distorsion",
             },
@@ -39,7 +39,7 @@ export default class Distorsion extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Distorsion filter has been disabled.",
+                        description: ctx.locale("cmd.distorsion.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -59,7 +59,7 @@ export default class Distorsion extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Distorsion filter has been enabled.",
+                        description: ctx.locale("cmd.distorsion.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],
