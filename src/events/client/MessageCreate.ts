@@ -118,7 +118,7 @@ export default class MessageCreate extends Event {
                 );
 
                 await message.reply({
-                    content: "Wait! Before using this command, you must vote. Thank you.",
+                    content: "Wait! Before using this command, you must vote on top.gg. Thank you.",
                     components: [voteBtn],
                 });
             }

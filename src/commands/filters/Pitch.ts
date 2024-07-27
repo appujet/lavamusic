@@ -56,7 +56,7 @@ export default class Pitch extends Command {
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Pitch has been set to ${pitch}.`,
+                    description: `\`✅\` | Pitch has been set to \`${pitch}\`.`,
                     color: this.client.color.main,
                 },
             ],

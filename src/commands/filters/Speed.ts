@@ -58,7 +58,7 @@ export default class Speed extends Command {
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Speed has been set to ${speed}.`,
+                    description: `\`✅\` | Speed has been set to \`${speed}\`.`,
                     color: this.client.color.main,
                 },
             ],

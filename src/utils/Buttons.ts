@@ -7,7 +7,7 @@ function getButtons(player: Dispatcher, client: Lavamusic): ActionRowBuilder<But
         { customId: "LOW_VOL_BUT", emoji: client.emoji.voldown, style: ButtonStyle.Secondary },
         { customId: "STOP_BUT", emoji: client.emoji.stop, style: ButtonStyle.Danger },
         { customId: "HIGH_VOL_BUT", emoji: client.emoji.volup, style: ButtonStyle.Secondary },
-        { customId: "FORWARD_BUT", emoji: client.emoji.froward, style: ButtonStyle.Secondary },
+        { customId: "FORWARD_BUT", emoji: client.emoji.forward, style: ButtonStyle.Secondary },
         { customId: "PREV_BUT", emoji: client.emoji.previous, style: ButtonStyle.Secondary },
         { customId: "LOOP_BUT", emoji: client.emoji.loop.none, style: ButtonStyle.Secondary },
         {
@@ -24,7 +24,6 @@ function getButtons(player: Dispatcher, client: Lavamusic): ActionRowBuilder<But
 
         let emojiFormat: EmojiIdentifierResolvable;
         if (typeof emoji === "string" && emoji.startsWith("<:")) {
-            // Custom emoji with ID format (e.g., <:emojiName:123456789012345678>)
             const match = emoji.match(/^<:\w+:(\d+)>$/);
             emojiFormat = match ? match[1] : emoji;
         } else {

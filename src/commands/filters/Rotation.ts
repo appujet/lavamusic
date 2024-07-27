@@ -38,7 +38,7 @@ export default class Rotation extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Rotation filter has been disabled.",
+                        description: "`✅` | Rotation filter has been `DISABLED`.",
                         color: this.client.color.main,
                     },
                 ],
@@ -49,7 +49,7 @@ export default class Rotation extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Rotation filter has been enabled.",
+                        description: "`✅` | Rotation filter has been `ENABLED`.",
                         color: this.client.color.main,
                     },
                 ],

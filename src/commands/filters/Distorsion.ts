@@ -40,7 +40,7 @@ export default class Distorsion extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Distorsion filter has been disabled.",
+                        description: "`✅` | Distorsion filter has been `DISABLED`.",
                         color: this.client.color.main,
                     },
                 ],
@@ -60,7 +60,7 @@ export default class Distorsion extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Distorsion filter has been enabled.",
+                        description: "`✅` | Distorsion filter has been `ENABLED`.",
                         color: this.client.color.main,
                     },
                 ],

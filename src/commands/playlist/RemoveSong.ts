@@ -54,18 +54,27 @@ export default class RemoveSong extends Command {
         }
 
         if (!song) {
-            const errorMessage = this.client.embed().setDescription("[Please provide a song]").setColor(this.client.color.red);
-            return await ctx.sendMessage({ embeds: [errorMessage] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: "[Please provide a song]",
+                        color: this.client.color.red,
+                    },
+                ],
+            });
         }
 
         const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
 
         if (!playlistData) {
-            const playlistNotFoundError = this.client
-                .embed()
-                .setDescription("[That playlist doesn't exist]")
-                .setColor(this.client.color.red);
-            return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: "[That playlist doesn't exist]",
+                        color: this.client.color.red,
+                    },
+                ],
+            });
         }
 
         const res = await client.queue.search(song);
@@ -78,21 +87,25 @@ export default class RemoveSong extends Command {
         const trackToRemove = res.data;
 
         try {
-            // Remove the track from the playlist
             await client.db.removeSong(ctx.author.id, playlist, trackToRemove.encoded);
-
-            const successMessage = this.client
-                .embed()
-                .setDescription(`[Removed ${trackToRemove.info.title} from ${playlistData.name}]`)
-                .setColor(this.client.color.green);
-            ctx.sendMessage({ embeds: [successMessage] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: `[Removed ${trackToRemove.info.title} from ${playlistData.name}]`,
+                        color: this.client.color.green,
+                    },
+                ],
+            });
         } catch (error) {
             console.error(error);
-            const genericError = this.client
-                .embed()
-                .setDescription("[An error occurred while removing the song]")
-                .setColor(this.client.color.red);
-            return await ctx.sendMessage({ embeds: [genericError] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: "[An error occurred while removing the song]",
+                        color: this.client.color.red,
+                    },
+                ],
+            });
         }
     }
 }

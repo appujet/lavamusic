@@ -42,7 +42,7 @@ export default class _8d extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "8D filter has been disabled.",
+                        description: "`✅` | 8D filter has been `DISABLED`.",
                         color: this.client.color.main,
                     },
                 ],
@@ -52,7 +52,7 @@ export default class _8d extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "8D filter has been enabled.",
+                        description: "`✅` | 8D filter has been `ENABLED`.",
                         color: this.client.color.main,
                     },
                 ],

@@ -45,7 +45,7 @@ export default class StealPlaylist extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const playlistName = args.shift();
-        let _userId: any;
+        let targetUserId: any;
         let targetUser = ctx.args[0];
 
         if (targetUser?.startsWith("<@") && targetUser.endsWith(">")) {
@@ -56,11 +56,12 @@ export default class StealPlaylist extends Command {
             }
 
             targetUser = await client.users.fetch(targetUser);
-            _userId = targetUser.id;
+            targetUserId = targetUser.id;
         } else if (targetUser) {
             targetUser = await client.users.fetch(ctx.args[0]);
+            targetUserId = targetUser.id;
         } else {
-            _userId = ctx.author.id;
+            targetUserId = ctx.author.id;
         }
 
         if (!playlistName) {
@@ -69,37 +70,62 @@ export default class StealPlaylist extends Command {
         }
 
         if (!targetUser) {
-            const errorMessage = this.client.embed().setDescription("[Please mention a user]").setColor(this.client.color.red);
-            return await ctx.sendMessage({ embeds: [errorMessage] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: "[Please mention a user]",
+                        color: this.client.color.red,
+                    },
+                ],
+            });
         }
 
         try {
-            const targetUserId = targetUser.id;
             const targetPlaylist = await client.db.getPlaylist(targetUserId, playlistName);
 
             if (!targetPlaylist) {
-                const playlistNotFoundError = this.client
-                    .embed()
-                    .setDescription("[That playlist doesn't exist for the mentioned user]")
-                    .setColor(this.client.color.red);
-                return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
+                return await ctx.sendMessage({
+                    embeds: [
+                        {
+                            description: "[That playlist doesn't exist for the mentioned user]",
+                            color: this.client.color.red,
+                        },
+                    ],
+                });
             }
 
             const targetSongs = await client.db.getSongs(targetUserId, playlistName);
             await client.db.createPlaylistWithSongs(ctx.author.id, playlistName, targetSongs);
 
-            const successMessage = this.client
-                .embed()
-                .setDescription(`[Successfully stole the playlist "${playlistName}" from ${targetUser.username}]`)
-                .setColor(this.client.color.green);
-            await ctx.sendMessage({ embeds: [successMessage] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: `[Successfully stole the playlist "${playlistName}" from ${targetUser.username}]`,
+                        color: this.client.color.green,
+                    },
+                ],
+            });
         } catch (error) {
             console.error(error);
-            const errorMessage = this.client
-                .embed()
-                .setDescription("[An error occurred while stealing the playlist]")
-                .setColor(this.client.color.red);
-            await ctx.sendMessage({ embeds: [errorMessage] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: "[An error occurred while stealing the playlist]",
+                        color: this.client.color.red,
+                    },
+                ],
+            });
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

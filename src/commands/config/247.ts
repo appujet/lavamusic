@@ -37,17 +37,10 @@ export default class _247 extends Command {
         try {
             const data = await client.db.get_247(ctx.guild.id);
             const member = ctx.member as GuildMember;
-            if (!member.voice.channel) {
-                return await ctx.sendMessage({
-                    embeds: [
-                        embed.setDescription("You need to be in a voice channel to use this command.").setColor(this.client.color.red),
-                    ],
-                });
-            }
             if (data) {
                 await client.db.delete_247(ctx.guild.id);
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription("**24/7 mode has been disabled**").setColor(this.client.color.red)],
+                    embeds: [embed.setDescription("`✅` | 24/7 has been `DISABLED`.").setColor(this.client.color.red)],
                 });
             }
             await client.db.set_247(ctx.guild.id, ctx.channel.id, member.voice.channel.id);
@@ -63,7 +56,7 @@ export default class _247 extends Command {
                 embeds: [
                     embed
                         .setDescription(
-                            "**24/7 mode has been enabled. The bot will not leave the voice channel even if there are no people in the voice channel.**",
+                            "`✅` | 24/7 mode has been `ENABLED`. \n**The bot will not leave the voice channel even if there are no people in the voice channel.**",
                         )
                         .setColor(this.client.color.main),
                 ],
@@ -71,7 +64,9 @@ export default class _247 extends Command {
         } catch (error) {
             console.error("Error in 247 command:", error);
             return await ctx.sendMessage({
-                embeds: [embed.setDescription("An error occurred while trying to execute this command.").setColor(this.client.color.red)],
+                embeds: [
+                    embed.setDescription("`❌` | An error occurred while trying to execute this command.").setColor(this.client.color.red),
+                ],
             });
         }
     }

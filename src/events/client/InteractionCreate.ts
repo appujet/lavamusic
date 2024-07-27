@@ -115,7 +115,7 @@ export default class InteractionCreate extends Event {
                     );
 
                     return await interaction.reply({
-                        content: "Wait! Before using this command, you must vote. Thank you.",
+                        content: "Wait! Before using this command, you must vote on top.gg. Thank you.",
                         components: [voteBtn],
                         ephemeral: true,
                     });

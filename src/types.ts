@@ -2,9 +2,12 @@ import { Locale } from "discord.js";
 
 export enum SearchEngine {
     YouTube = "ytsearch",
-    Spotify = "spsearch",
-    SoundCloud = "scsearch",
     YouTubeMusic = "ytmsearch",
+    Spotify = "spsearch",
+    Deezer = "dzsearch",
+    Apple = "amsearch",
+    SoundCloud = "scsearch",
+    Yandex = "ymsearch",
 }
 
 export enum Language {

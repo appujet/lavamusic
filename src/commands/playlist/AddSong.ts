@@ -71,8 +71,10 @@ export default class AddPlaylist extends Command {
             const noSongsFoundError = this.client.embed().setDescription("No songs found").setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [noSongsFoundError] });
         }
+
         let trackStrings: any;
         let count: number;
+
         if (res.loadType === LoadType.PLAYLIST) {
             trackStrings = res.data.tracks;
             count = res.data.tracks.length;
@@ -80,13 +82,14 @@ export default class AddPlaylist extends Command {
             trackStrings = [res.data];
             count = 1;
         }
-        client.db.addSong(ctx.author.id, playlist, trackStrings);
+
+        await client.db.addSong(ctx.author.id, playlist, trackStrings);
 
         const successMessage = this.client
             .embed()
             .setDescription(`Added ${count} song(s) to ${playlistData.name}`)
             .setColor(this.client.color.green);
-        ctx.sendMessage({ embeds: [successMessage] });
+        await ctx.sendMessage({ embeds: [successMessage] });
     }
 }
 

@@ -40,7 +40,7 @@ export default class BassBoost extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Bassboost filter has been disabled.",
+                        description: "`✅` | Bassboost filter has been `DISABLED`.",
                         color: this.client.color.main,
                     },
                 ],
@@ -56,7 +56,8 @@ export default class BassBoost extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Bassboost filter has been enabled. **Be careful, listening too loudly can damage your hearing!**",
+                        description:
+                            "`✅` | Bassboost filter has been `ENABLED`. \n**Be careful, listening too loudly can damage your hearing!**",
                         color: this.client.color.main,
                     },
                 ],

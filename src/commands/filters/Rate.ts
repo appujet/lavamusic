@@ -56,7 +56,7 @@ export default class Rate extends Command {
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Rate has been set to ${rate}.`,
+                    description: `\`✅\` | Rate has been set to \`${rate}\`.`,
                     color: this.client.color.main,
                 },
             ],

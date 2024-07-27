@@ -40,7 +40,7 @@ export default class LowPass extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Lowpass filter has been disabled.",
+                        description: "`✅` | Lowpass filter has been `DISABLED`.",
                         color: this.client.color.main,
                     },
                 ],
@@ -51,7 +51,7 @@ export default class LowPass extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Lowpass filter has been enabled.",
+                        description: "`✅` | Lowpass filter has been `ENABLED`.",
                         color: this.client.color.main,
                     },
                 ],

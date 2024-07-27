@@ -37,7 +37,7 @@ export default class Reset extends Command {
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: "Filters have been reset.",
+                    description: "`✅` | Filters have been reset.",
                     color: this.client.color.main,
                 },
             ],

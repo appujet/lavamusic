@@ -1,3 +1,4 @@
+//TODO
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class LoadPlaylist extends Command {
@@ -56,7 +57,7 @@ export default class LoadPlaylist extends Command {
                 embeds: [
                     {
                         description: "That playlist is empty.",
-                        color: client.color.red,
+                        color: this.client.color.red,
                     },
                 ],
             });

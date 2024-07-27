@@ -39,48 +39,60 @@ export default class GetPlaylists extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         try {
-            let userId: any;
+            let userId = ctx.author.id;
             let targetUser = ctx.args[0];
 
-            if (targetUser?.targetUser.startsWith("<@") && targetUser.endsWith(">")) {
+            if (targetUser?.startsWith("<@") && targetUser.endsWith(">")) {
                 targetUser = targetUser.slice(2, -1);
-
-                if (targetUser.startsWith("!")) {
-                    targetUser = targetUser.slice(1);
-                }
-
+                if (targetUser.startsWith("!")) targetUser = targetUser.slice(1);
                 targetUser = await client.users.fetch(targetUser);
                 userId = targetUser.id;
-            } else if (targetUser) {
-                targetUser = await client.users.fetch(ctx.args[0]);
-            } else {
-                userId = ctx.author.id;
             }
 
             const playlists = await client.db.getUserPlaylists(userId);
 
             if (!playlists || playlists.length === 0) {
-                const noPlaylistsMessage = this.client
-                    .embed()
-                    .setDescription("[This user has no playlists]")
-                    .setColor(this.client.color.red);
-                return await ctx.sendMessage({ embeds: [noPlaylistsMessage] });
+                return await ctx.sendMessage({
+                    embeds: [
+                        {
+                            description: "This user has no playlists",
+                            color: this.client.color.red,
+                        },
+                    ],
+                });
             }
 
             const targetUsername = targetUser ? targetUser.username : "Your";
-            const successMessage = this.client
-                .embed()
-                .setTitle(`${targetUsername}'s Playlists`)
-                .setDescription(playlists.map((playlist: any) => playlist.name).join("\n"))
-                .setColor(this.client.color.green);
-            await ctx.sendMessage({ embeds: [successMessage] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        title: `${targetUsername}'s Playlists`,
+                        description: playlists.map((playlist: any) => playlist.name).join("\n"),
+                        color: this.client.color.green,
+                    },
+                ],
+            });
         } catch (error) {
             console.error(error);
-            const errorMessage = this.client
-                .embed()
-                .setDescription("[An error occurred while retrieving the playlists]")
-                .setColor(this.client.color.red);
-            await ctx.sendMessage({ embeds: [errorMessage] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: "An error occurred while retrieving the playlists",
+                        color: this.client.color.red,
+                    },
+                ],
+            });
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

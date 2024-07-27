@@ -40,7 +40,7 @@ export default class Karaoke extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Karaoke filter has been disabled.",
+                        description: "`✅` | Karaoke filter has been `DISABLED`.",
                         color: this.client.color.main,
                     },
                 ],
@@ -56,7 +56,7 @@ export default class Karaoke extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Karaoke filter has been enabled.",
+                        description: "`✅` | Karaoke filter has been `ENABLED`.",
                         color: this.client.color.main,
                     },
                 ],

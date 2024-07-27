@@ -1,6 +1,5 @@
-import dotenv from "dotenv";
+import "dotenv/config";
 import { Language, SearchEngine } from "./types.js";
-dotenv.config();
 
 const parseBoolean = (value?: string): boolean => value?.trim().toLowerCase() === "true";
 
@@ -15,13 +14,14 @@ export default {
         main: 0x2f3136,
     },
     emoji: {
+        // Custom emoji with ID format (e.g., <:emojiName:123456789012345678>)
         pause: "⏸️",
         resume: "▶️",
         stop: "⏹️",
         skip: "⏩",
         previous: "⏪",
-        froward: "⏩",
-        replay: "🔃",
+        forward: "⏩",
+        replay: "🔄",
         voldown: "🔉",
         volup: "🔊",
         shuffle: "🔀",
@@ -37,12 +37,11 @@ export default {
             cancel: "⏹️",
         },
     },
-
     defaultLanguage: process.env.DEFAULT_LANGUAGE || Language.EnglishUS,
     topGG: process.env.TOPGG,
     keepAlive: parseBoolean(process.env.KEEP_ALIVE),
     autoNode: parseBoolean(process.env.AUTO_NODE),
-    searchEngine: process.env.SEARCH_ENGINE || SearchEngine.YouTube,
+    searchEngine: SearchEngine.YouTube, // YouTube (YouTube Search), YouTubeMusic (YouTube Music Search), Spotify (Spotify Search), SoundCloud (SoundCloud Search), Apple (Apple Search) or Yandex (Yandex Search).
     maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE || "100"),
     botStatus: process.env.BOT_STATUS || "online",
     botActivity: process.env.BOT_ACTIVITY || "Lavamusic",

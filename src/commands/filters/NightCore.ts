@@ -40,7 +40,7 @@ export default class NightCore extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Nightcore filter has been disabled.",
+                        description: "`✅` | Nightcore filter has been `DISABLED`.",
                         color: this.client.color.main,
                     },
                 ],
@@ -51,7 +51,7 @@ export default class NightCore extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Nightcore filter has been enabled.",
+                        description: "`✅` | Nightcore filter has been `ENABLED`.",
                         color: this.client.color.main,
                     },
                 ],

@@ -40,7 +40,7 @@ export default class Vibrato extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Vibrato filter has been disabled.",
+                        description: "`✅` | Vibrato filter has been `DISABLED`.",
                         color: this.client.color.main,
                     },
                 ],
@@ -52,7 +52,7 @@ export default class Vibrato extends Command {
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: "Vibrato filter has been enabled.",
+                    description: "`✅` | Vibrato filter has been `ENABLED`.",
                     color: this.client.color.main,
                 },
             ],

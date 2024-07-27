@@ -40,7 +40,7 @@ export default class Tremolo extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Tremolo filter has been disabled.",
+                        description: "`✅` | Tremolo filter has been `DISABLED`.",
                         color: this.client.color.main,
                     },
                 ],
@@ -52,7 +52,7 @@ export default class Tremolo extends Command {
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: "Tremolo filter has been enabled.",
+                    description: "`✅` | Tremolo filter has been `ENABLED`.",
                     color: this.client.color.main,
                 },
             ],

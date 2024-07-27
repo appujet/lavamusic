@@ -60,7 +60,7 @@ export default class CreatePlaylist extends Command {
                 ],
             });
         }
-        client.db.createPlaylist(ctx.author.id, name);
+        await client.db.createPlaylist(ctx.author.id, name);
         return await ctx.sendMessage({
             embeds: [
                 {

@@ -50,7 +50,7 @@ export default class DeletePlaylist extends Command {
                 ],
             });
         }
-        client.db.deletePlaylist(ctx.author.id, playlistName);
+        await client.db.deletePlaylist(ctx.author.id, playlistName);
         return await ctx.sendMessage({
             embeds: [
                 {
