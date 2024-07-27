@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { Api } from "@top-gg/sdk";
 import {
     ApplicationCommandType,
     Client,
@@ -15,6 +14,7 @@ import {
     Routes,
 } from "discord.js";
 import { Locale } from "discord.js";
+import { Api } from "@top-gg/sdk";
 import config from "../config.js";
 import ServerData from "../database/server.js";
 import loadPlugins from "../plugin/index.js";

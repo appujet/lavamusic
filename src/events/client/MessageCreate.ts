@@ -1,12 +1,12 @@
 import {
-    ActionRowBuilder,
-    ButtonBuilder,
-    ButtonStyle,
     ChannelType,
     Collection,
-    EmbedBuilder,
     type Message,
     PermissionFlagsBits,
+    ButtonBuilder,
+    ActionRowBuilder,
+    ButtonStyle,
+    EmbedBuilder,
     type TextChannel,
 } from "discord.js";
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
@@ -112,13 +112,13 @@ export default class MessageCreate extends Event {
             if (!voted) {
                 const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
                     new ButtonBuilder()
-                        .setLabel("Vote me!")
+                        .setLabel("Vote for Me!")
                         .setURL(`https://top.gg/bot/${this.client.config.clientId}/vote`)
                         .setStyle(ButtonStyle.Link),
                 );
 
-                return await message.reply({
-                    content: "Wait! Before using this command, You must vote me. Thank you.",
+                await message.reply({
+                    content: "Wait! Before using this command, you must vote. Thank you.",
                     components: [voteBtn],
                 });
             }
