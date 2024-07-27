@@ -1,4 +1,4 @@
-name: BiomeCheck
+name: Biome
 
 on:
   push:
