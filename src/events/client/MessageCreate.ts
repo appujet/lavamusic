@@ -117,7 +117,7 @@ export default class MessageCreate extends Event {
                         .setStyle(ButtonStyle.Link),
                 );
 
-                await message.reply({
+                return await message.reply({
                     content: "Wait! Before using this command, You must vote me. Thank you.",
                     components: [voteBtn],
                 });
