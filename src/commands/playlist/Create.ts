@@ -5,7 +5,7 @@ export default class CreatePlaylist extends Command {
         super(client, {
             name: "create",
             description: {
-                content: "Creates a playlist",
+                content: "cmd.create.description",
                 examples: ["create <name>"],
                 usage: "create <name>",
             },
@@ -13,7 +13,6 @@ export default class CreatePlaylist extends Command {
             aliases: ["cre"],
             cooldown: 3,
             args: true,
-            vote: false,
             player: {
                 voice: false,
                 dj: false,
@@ -29,7 +28,7 @@ export default class CreatePlaylist extends Command {
             options: [
                 {
                     name: "name",
-                    description: "The name of the playlist",
+                    description: "cmd.create.options.name",
                     type: 3,
                     required: true,
                 },
@@ -39,35 +38,24 @@ export default class CreatePlaylist extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const name = args.join(" ").trim();
+        const embed = this.client.embed();
+
         if (name.length > 50) {
             return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: "Playlist names can only be 50 characters long.",
-                        color: this.client.color.red,
-                    },
-                ],
+                embeds: [embed.setDescription(ctx.locale("cmd.create.messages.name_too_long")).setColor(this.client.color.red)],
             });
         }
+
         const playlistExists = await client.db.getPlaylist(ctx.author.id, name);
         if (playlistExists) {
             return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: "A playlist with that name already exists. Please use a different name.",
-                        color: this.client.color.main,
-                    },
-                ],
+                embeds: [embed.setDescription(ctx.locale("cmd.create.messages.playlist_exists")).setColor(this.client.color.red)],
             });
         }
+
         await client.db.createPlaylist(ctx.author.id, name);
         return await ctx.sendMessage({
-            embeds: [
-                {
-                    description: `Playlist **${name}** has been created.`,
-                    color: this.client.color.main,
-                },
-            ],
+            embeds: [embed.setDescription(ctx.locale("cmd.create.messages.playlist_created", { name })).setColor(this.client.color.green)],
         });
     }
 }

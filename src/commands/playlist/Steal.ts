@@ -5,7 +5,7 @@ export default class StealPlaylist extends Command {
         super(client, {
             name: "steal",
             description: {
-                content: "Steals a playlist from another user and adds it to your playlists",
+                content: "cmd.steal.description",
                 examples: ["steal <playlist_name> <@user>"],
                 usage: "steal <playlist_name> <@user>",
             },
@@ -13,7 +13,6 @@ export default class StealPlaylist extends Command {
             aliases: ["st"],
             cooldown: 3,
             args: true,
-            vote: false,
             player: {
                 voice: false,
                 dj: false,
@@ -29,15 +28,15 @@ export default class StealPlaylist extends Command {
             options: [
                 {
                     name: "playlist",
-                    description: "The playlist you want to steal",
+                    description: "cmd.steal.options.playlist",
                     type: 3,
                     required: true,
                 },
                 {
                     name: "user",
-                    description: "The user from whom you want to steal the playlist",
-                    type: 6,
-                    required: true, // 6 represents a USER type in Discord API
+                    description: "cmd.steal.options.user",
+                    type: 6, // USER type
+                    required: true,
                 },
             ],
         });
@@ -45,76 +44,63 @@ export default class StealPlaylist extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const playlistName = args.shift();
-        let targetUserId: any;
+        let targetUserId: string | null = null;
         let targetUser = ctx.args[0];
 
         if (targetUser?.startsWith("<@") && targetUser.endsWith(">")) {
             targetUser = targetUser.slice(2, -1);
-
             if (targetUser.startsWith("!")) {
                 targetUser = targetUser.slice(1);
             }
-
             targetUser = await client.users.fetch(targetUser);
             targetUserId = targetUser.id;
         } else if (targetUser) {
             targetUser = await client.users.fetch(ctx.args[0]);
             targetUserId = targetUser.id;
-        } else {
-            targetUserId = ctx.author.id;
         }
 
         if (!playlistName) {
-            const errorMessage = this.client.embed().setDescription("[Please provide a playlist name]").setColor(this.client.color.red);
+            const errorMessage = this.client
+                .embed()
+                .setDescription(ctx.locale("cmd.steal.messages.provide_playlist"))
+                .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [errorMessage] });
         }
 
-        if (!targetUser) {
-            return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: "[Please mention a user]",
-                        color: this.client.color.red,
-                    },
-                ],
-            });
+        if (!targetUserId) {
+            const errorMessage = this.client
+                .embed()
+                .setDescription(ctx.locale("cmd.steal.messages.provide_user"))
+                .setColor(this.client.color.red);
+            return await ctx.sendMessage({ embeds: [errorMessage] });
         }
 
         try {
             const targetPlaylist = await client.db.getPlaylist(targetUserId, playlistName);
 
             if (!targetPlaylist) {
-                return await ctx.sendMessage({
-                    embeds: [
-                        {
-                            description: "[That playlist doesn't exist for the mentioned user]",
-                            color: this.client.color.red,
-                        },
-                    ],
-                });
+                const playlistNotFoundError = this.client
+                    .embed()
+                    .setDescription(ctx.locale("cmd.steal.messages.playlist_not_exist"))
+                    .setColor(this.client.color.red);
+                return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
             }
 
             const targetSongs = await client.db.getSongs(targetUserId, playlistName);
             await client.db.createPlaylistWithSongs(ctx.author.id, playlistName, targetSongs);
 
-            return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: `[Successfully stole the playlist "${playlistName}" from ${targetUser.username}]`,
-                        color: this.client.color.green,
-                    },
-                ],
-            });
+            const successMessage = this.client
+                .embed()
+                .setDescription(ctx.locale("cmd.steal.messages.playlist_stolen", { playlist: playlistName, user: targetUser.username }))
+                .setColor(this.client.color.green);
+            await ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {
             console.error(error);
-            return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: "[An error occurred while stealing the playlist]",
-                        color: this.client.color.red,
-                    },
-                ],
-            });
+            const errorMessage = this.client
+                .embed()
+                .setDescription(ctx.locale("cmd.steal.messages.error_occurred"))
+                .setColor(this.client.color.red);
+            await ctx.sendMessage({ embeds: [errorMessage] });
         }
     }
 }
