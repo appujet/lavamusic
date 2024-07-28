@@ -5,7 +5,7 @@ export default class Karaoke extends Command {
         super(client, {
             name: "karaoke",
             description: {
-                content: "Toggle the karaoke filter on/off",
+                content: "cmd.karaoke.description",
                 examples: ["karaoke"],
                 usage: "karaoke",
             },
@@ -13,7 +13,6 @@ export default class Karaoke extends Command {
             aliases: ["kk"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: true,
@@ -31,7 +30,7 @@ export default class Karaoke extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const filterEnabled = player.filters.includes("karaoke");
 
         if (filterEnabled) {
@@ -40,7 +39,7 @@ export default class Karaoke extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Karaoke filter has been `DISABLED`.",
+                        description: ctx.locale("cmd.karaoke.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -56,7 +55,7 @@ export default class Karaoke extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Karaoke filter has been `ENABLED`.",
+                        description: ctx.locale("cmd.karaoke.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],

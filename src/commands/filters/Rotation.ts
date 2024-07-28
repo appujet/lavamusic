@@ -5,7 +5,7 @@ export default class Rotation extends Command {
         super(client, {
             name: "rotation",
             description: {
-                content: "on/off rotation filter",
+                content: "cmd.rotation.description",
                 examples: ["rotation"],
                 usage: "rotation",
             },
@@ -13,7 +13,6 @@ export default class Rotation extends Command {
             aliases: ["rt"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: true,
@@ -31,14 +30,14 @@ export default class Rotation extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         if (player.filters.includes("rotation")) {
             player.player.setRotation();
             player.filters = player.filters.filter((filter) => filter !== "rotation");
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Rotation filter has been `DISABLED`.",
+                        description: ctx.locale("cmd.rotation.messages.disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -49,7 +48,7 @@ export default class Rotation extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Rotation filter has been `ENABLED`.",
+                        description: ctx.locale("cmd.rotation.messages.enabled"),
                         color: this.client.color.main,
                     },
                 ],
