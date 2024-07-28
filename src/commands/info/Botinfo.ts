@@ -8,7 +8,7 @@ export default class Botinfo extends Command {
         super(client, {
             name: "botinfo",
             description: {
-                content: "Information about the bot",
+                content: "cmd.botinfo.description",
                 examples: ["botinfo"],
                 usage: "botinfo",
             },
@@ -16,7 +16,6 @@ export default class Botinfo extends Command {
             aliases: ["bi", "info", "stats", "status"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: false,
                 dj: false,
@@ -38,7 +37,7 @@ export default class Botinfo extends Command {
         const osUptime = client.utils.formatTime(os.uptime());
         const osHostname = os.hostname();
         const cpuInfo = `${os.arch()} (${os.cpus().length} cores)`;
-        const cpuUsed = (await usagePercent({ coreIndex: 0, sampleMs: 2000 })).percent.toFixed(2);
+        const cpuUsed = (await usagePercent({ coreIndex: 0, sampleMs: 2000 })).percent;
         const memTotal = showTotalMemory(true);
         const memUsed = (process.memoryUsage().rss / 1024 ** 2).toFixed(2);
         const nodeVersion = process.version;
@@ -47,17 +46,21 @@ export default class Botinfo extends Command {
         const channels = client.channels.cache.size;
         const users = client.users.cache.size;
         const commands = client.commands.size;
-        const botInfo = `Bot Information:
-- **Operating System**: ${osInfo}
-- **Uptime**: ${osUptime}
-- **Hostname**: ${osHostname}
-- **CPU Architecture**: ${cpuInfo}
-- **CPU Usage**: ${cpuUsed}%
-- **Memory Usage**: ${memUsed}MB / ${memTotal}GB
-- **Node Version**: ${nodeVersion}
-- **Discord Version**: ${discordJsVersion}
-- **Connected to** ${guilds} guilds, ${channels} channels, and ${users} users
-- **Total Commands**: ${commands}`;
+        const botInfo = ctx.locale("cmd.botinfo.content", {
+            osInfo,
+            osUptime,
+            osHostname,
+            cpuInfo,
+            cpuUsed,
+            memUsed,
+            memTotal,
+            nodeVersion,
+            discordJsVersion,
+            guilds,
+            channels,
+            users,
+            commands,
+        });
         const embed = this.client.embed();
         return await ctx.sendMessage({
             embeds: [embed.setColor(this.client.color.main).setDescription(botInfo)],
