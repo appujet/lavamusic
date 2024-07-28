@@ -7,6 +7,7 @@
   "scripts": {
     "start": "npm run clean && node .",
     "db:push": "npx prisma db push",
+    "dev": "npm run build && npm run start",
     "db:migrate": "npx prisma migrate dev --name init",
     "build": "tsc --project tsconfig.json",
     "clean": "node ./scripts/clean.js && npm run build",

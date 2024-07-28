@@ -73,7 +73,7 @@ export default class TrackStart extends Event {
         } else {
             const message = await channel.send({
                 embeds: [embed],
-                components: [createButtonRow(dispatcher, locale)],
+                components: [createButtonRow(dispatcher)],
             });
 
             dispatcher.nowPlayingMessage = message;
@@ -82,25 +82,25 @@ export default class TrackStart extends Event {
     }
 }
 
-function createButtonRow(dispatcher: Dispatcher, locale: string): ActionRowBuilder<ButtonBuilder> {
+function createButtonRow(dispatcher: Dispatcher): ActionRowBuilder<ButtonBuilder> {
     const previousButton = new ButtonBuilder()
 
-        .setCustomId(T(locale, "buttons.previous"))
+        .setCustomId("previous")
         .setEmoji("⏪")
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(!dispatcher.previous);
 
     const resumeButton = new ButtonBuilder()
-        .setCustomId(T(locale, "buttons.resume"))
+        .setCustomId("resume")
         .setEmoji(dispatcher.paused ? "▶️" : "⏸️")
         .setStyle(dispatcher.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
 
-    const stopButton = new ButtonBuilder().setCustomId(T(locale, "buttons.stop")).setEmoji("⏹️").setStyle(ButtonStyle.Danger);
+    const stopButton = new ButtonBuilder().setCustomId("stop").setEmoji("⏹️").setStyle(ButtonStyle.Danger);
 
-    const skipButton = new ButtonBuilder().setCustomId(T(locale, "buttons.skip")).setEmoji("⏩").setStyle(ButtonStyle.Secondary);
+    const skipButton = new ButtonBuilder().setCustomId("skip").setEmoji("⏩").setStyle(ButtonStyle.Secondary);
 
     const loopButton = new ButtonBuilder()
-        .setCustomId(T(locale, "buttons.loop"))
+        .setCustomId("loop")
         .setEmoji(dispatcher.loop === "repeat" ? "🔂" : "🔁")
         .setStyle(dispatcher.loop !== "off" ? ButtonStyle.Success : ButtonStyle.Secondary);
 
@@ -137,11 +137,10 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
             if (message) {
                 await message.edit({
                     embeds: [embed.setFooter({ text, iconURL: interaction.user.avatarURL({}) })],
-                    components: [createButtonRow(dispatcher, locale)],
+                    components: [createButtonRow(dispatcher)],
                 });
             }
         };
-
         switch (interaction.customId) {
             case "previous":
                 if (dispatcher.previous) {
@@ -166,6 +165,7 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 break;
             case "stop":
                 dispatcher.stop();
+                await interaction.deferUpdate();
                 break;
             case "skip":
                 if (dispatcher.queue.length) {
