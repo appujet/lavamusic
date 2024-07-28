@@ -68,7 +68,7 @@ export default class TrackStart extends Event {
             const id = setup.messageId;
 
             if (textChannel) {
-                await trackStart(id, textChannel, dispatcher, track, this.client);
+                await trackStart(id, textChannel, dispatcher, track, this.client, locale);
             }
         } else {
             const message = await channel.send({
