@@ -38,14 +38,19 @@ export default class Help extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = this.client.embed();
-        const guild = await client.db.get(ctx.guild.id);
+        const guild = await client.db.get(ctx.guild!.id);
         const commands = this.client.commands.filter((cmd) => cmd.category !== "dev");
         const categories = [...new Set(commands.map((cmd) => cmd.category))];
         if (args[0]) {
             const command = this.client.commands.get(args[0].toLowerCase());
             if (!command) {
                 return await ctx.sendMessage({
-                    embeds: [client.embed().setColor(client.color.red).setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] }))],
+                    embeds: [
+                        client
+                            .embed()
+                            .setColor(client.color.red)
+                            .setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] })),
+                    ],
                 });
             }
             const helpEmbed = embed

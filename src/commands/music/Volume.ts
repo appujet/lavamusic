@@ -5,7 +5,7 @@ export default class Volume extends Command {
         super(client, {
             name: "volume",
             description: {
-                content: "Sets the volume of the player",
+                content: "cmd.volume.description",
                 examples: ["volume 100"],
                 usage: "volume <number>",
             },
@@ -28,7 +28,7 @@ export default class Volume extends Command {
             options: [
                 {
                     name: "number",
-                    description: "The volume you want to set",
+                    description: "cmd.volume.options.number",
                     type: 4,
                     required: true,
                 },
@@ -37,28 +37,28 @@ export default class Volume extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
         const number = Number(args[0]);
+
         if (isNaN(number) || number < 0 || number > 200) {
             let description = "";
-            if (isNaN(number)) description = "Please provide a valid number.";
-            else if (number < 0) description = "The volume can't be lower than 0.";
-            else if (number > 200)
-                description =
-                    "The volume can't be higher than 200. Do you want to damage your hearing or speakers? Hmmm, I don't think that's such a good idea.";
+            if (isNaN(number)) description = ctx.locale("cmd.volume.messages.invalid_number");
+            else if (number < 0) description = ctx.locale("cmd.volume.messages.too_low");
+            else if (number > 200) description = ctx.locale("cmd.volume.messages.too_high");
+
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(description)],
             });
         }
 
-        // Set volume and read new value from player
         await player.player.setGlobalVolume(number);
         const currentVolume = player.player.volume;
 
-        // Make sure the value is read and displayed correctly
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Set the volume to ${currentVolume}`)],
+            embeds: [
+                embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.volume.messages.set", { volume: currentVolume })),
+            ],
         });
     }
 }

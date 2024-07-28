@@ -5,7 +5,7 @@ export default class Join extends Command {
         super(client, {
             name: "join",
             description: {
-                content: "Joins the voice channel",
+                content: "cmd.join.description",
                 examples: ["join"],
                 usage: "join",
             },
@@ -30,30 +30,33 @@ export default class Join extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        let player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
+        let player = client.queue.get(ctx.guild!.id);
+
         if (player) {
+            const channelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.main)
-                        .setDescription(`I'm already connected to <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`),
-                ],
+                embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.join.already_connected", { channelId }))],
             });
         }
-        const vc = ctx.member as any;
+
+        const memberVoiceChannel = (ctx.member as any).voice.channel;
+        if (!memberVoiceChannel) {
+            return await ctx.sendMessage({
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.join.no_voice_channel"))],
+            });
+        }
+
         player = await client.queue.create(
-            ctx.guild,
-            vc.voice.channel,
+            ctx.guild!,
+            memberVoiceChannel,
             ctx.channel,
             client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
         );
+
+        const joinedChannelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
         return await ctx.sendMessage({
-            embeds: [
-                embed
-                    .setColor(this.client.color.main)
-                    .setDescription(`Joined <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`),
-            ],
+            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.join.joined", { channelId: joinedChannelId }))],
         });
     }
 }

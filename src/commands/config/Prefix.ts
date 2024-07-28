@@ -50,7 +50,7 @@ export default class Prefix extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = client.embed().setColor(this.client.color.main);
-        const guildId = ctx.guild.id;
+        const guildId = ctx.guild!.id;
         const guildData = await client.db.get(guildId);
         const isInteraction = ctx.isInteraction;
         let subCommand: string;

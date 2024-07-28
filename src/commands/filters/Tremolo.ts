@@ -5,7 +5,7 @@ export default class Tremolo extends Command {
         super(client, {
             name: "tremolo",
             description: {
-                content: "on/off the tremolo filter",
+                content: "cmd.tremolo.description",
                 examples: ["tremolo"],
                 usage: "tremolo",
             },
@@ -30,7 +30,7 @@ export default class Tremolo extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const tremoloEnabled = player.filters.includes("tremolo");
 
         if (tremoloEnabled) {
@@ -39,23 +39,23 @@ export default class Tremolo extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Tremolo filter has been disabled.",
+                        description: ctx.locale("cmd.tremolo.messages.disabled"),
+                        color: this.client.color.main,
+                    },
+                ],
+            });
+        } else {
+            player.player.setTremolo({ depth: 0.75, frequency: 4 });
+            player.filters.push("tremolo");
+            await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: ctx.locale("cmd.tremolo.messages.enabled"),
                         color: this.client.color.main,
                     },
                 ],
             });
         }
-
-        player.player.setTremolo({ depth: 0.75, frequency: 4 });
-        player.filters.push("tremolo");
-        await ctx.sendMessage({
-            embeds: [
-                {
-                    description: "Tremolo filter has been enabled.",
-                    color: this.client.color.main,
-                },
-            ],
-        });
     }
 }
 

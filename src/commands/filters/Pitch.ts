@@ -5,7 +5,7 @@ export default class Pitch extends Command {
         super(client, {
             name: "pitch",
             description: {
-                content: "Toggle the pitch filter on/off",
+                content: "cmd.pitch.description",
                 examples: ["pitch 1", "pitch 1.5", "pitch 1,5"],
                 usage: "pitch <number>",
             },
@@ -28,7 +28,7 @@ export default class Pitch extends Command {
             options: [
                 {
                     name: "pitch",
-                    description: "The number you want to set the pitch to (between 0.5 and 5)",
+                    description: "cmd.pitch.options.pitch",
                     type: 3,
                     required: true,
                 },
@@ -37,25 +37,28 @@ export default class Pitch extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const pitchString = args[0].replace(",", ".");
         const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(pitchString);
         const pitch = parseFloat(pitchString);
+
         if (!isValidNumber || isNaN(pitch) || pitch < 0.5 || pitch > 5) {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Please provide a valid number between 0.5 and 5.",
+                        description: ctx.locale("cmd.pitch.errors.invalid_number"),
                         color: this.client.color.red,
                     },
                 ],
             });
+            return;
         }
+
         await player.player.setTimescale({ pitch });
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Pitch has been set to ${pitch}.`,
+                    description: ctx.locale("cmd.pitch.messages.pitch_set", { pitch }),
                     color: this.client.color.main,
                 },
             ],

@@ -52,7 +52,7 @@ export default class Setup extends Command {
         const embed = client.embed().setColor(this.client.color.main);
         switch (subCommand) {
             case "create": {
-                const data = await client.db.getSetup(ctx.guild.id);
+                const data = await client.db.getSetup(ctx.guild!.id);
                 if (data?.textId && data.messageId) {
                     return await ctx.sendMessage({
                         embeds: [
@@ -89,7 +89,7 @@ export default class Setup extends Command {
                         },
                     ],
                 });
-                const player = this.client.queue.get(ctx.guild.id);
+                const player = this.client.queue.get(ctx.guild!.id);
                 const image = this.client.config.links.img;
                 const desc =
                     player?.queue && player.current
@@ -97,7 +97,7 @@ export default class Setup extends Command {
                         : "Nothing playing right now.";
                 embed.setDescription(desc).setImage(image);
                 await textChannel.send({ embeds: [embed], components: getButtons(player) }).then((msg) => {
-                    client.db.setSetup(ctx.guild.id, textChannel.id, msg.id);
+                    client.db.setSetup(ctx.guild!.id, textChannel.id, msg.id);
                 });
                 await ctx.sendMessage({
                     embeds: [
@@ -110,7 +110,7 @@ export default class Setup extends Command {
                 break;
             }
             case "delete": {
-                const data2 = await client.db.getSetup(ctx.guild.id);
+                const data2 = await client.db.getSetup(ctx.guild!.id);
                 if (!data2) {
                     return await ctx.sendMessage({
                         embeds: [
@@ -121,7 +121,7 @@ export default class Setup extends Command {
                         ],
                     });
                 }
-                client.db.deleteSetup(ctx.guild.id);
+                client.db.deleteSetup(ctx.guild!.id);
                 const textChannel = ctx.guild.channels.cache.get(data2.textId);
                 if (textChannel) await textChannel.delete().catch(() => {});
                 await ctx.sendMessage({
@@ -135,7 +135,7 @@ export default class Setup extends Command {
                 break;
             }
             case "info": {
-                const data3 = await client.db.getSetup(ctx.guild.id);
+                const data3 = await client.db.getSetup(ctx.guild!.id);
                 if (!data3) {
                     return await ctx.sendMessage({
                         embeds: [

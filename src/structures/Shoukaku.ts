@@ -10,7 +10,7 @@ export default class ShoukakuClient extends Shoukaku {
             reconnectInterval: 30,
             reconnectTries: 2,
             restTimeout: 10000,
-            userAgent: "Lavamusic (@appujet)", // don't change this
+            userAgent: "Lavamusic (@appujet)",
             nodeResolver: (nodes) =>
                 [...nodes.values()]
                     .filter((node) => node.state === 2)

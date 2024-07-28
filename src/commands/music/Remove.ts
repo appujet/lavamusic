@@ -5,7 +5,7 @@ export default class Remove extends Command {
         super(client, {
             name: "remove",
             description: {
-                content: "Removes a song from the queue",
+                content: "cmd.remove.description",
                 examples: ["remove 1"],
                 usage: "remove <song number>",
             },
@@ -28,7 +28,7 @@ export default class Remove extends Command {
             options: [
                 {
                     name: "song",
-                    description: "The song number",
+                    description: "cmd.remove.options.song",
                     type: 4,
                     required: true,
                 },
@@ -37,22 +37,23 @@ export default class Remove extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
 
         if (!player.queue.length)
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.remove.errors.no_songs"))],
             });
 
         const songNumber = Number(args[0]);
         if (isNaN(songNumber) || songNumber <= 0 || songNumber > player.queue.length)
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("Please provide a valid song number.")],
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.remove.errors.invalid_number"))],
             });
+
         player.remove(songNumber - 1);
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Removed song number ${songNumber} from the queue`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.remove.messages.removed", { songNumber }))],
         });
     }
 }

@@ -30,7 +30,7 @@ export default class Distorsion extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const filterEnabled = player.filters.includes("distorsion");
 
         if (filterEnabled) {

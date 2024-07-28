@@ -5,7 +5,7 @@ export default class Rate extends Command {
         super(client, {
             name: "rate",
             description: {
-                content: "Change the rate of the song",
+                content: "cmd.rate.description",
                 examples: ["rate 1", "rate 1.5", "rate 1,5"],
                 usage: "rate <number>",
             },
@@ -28,7 +28,7 @@ export default class Rate extends Command {
             options: [
                 {
                     name: "rate",
-                    description: "The number you want to set the rate to (between 0.5 and 5)",
+                    description: "cmd.rate.options.rate",
                     type: 3,
                     required: true,
                 },
@@ -37,25 +37,28 @@ export default class Rate extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const rateString = args[0].replace(",", ".");
         const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(rateString);
         const rate = parseFloat(rateString);
+
         if (!isValidNumber || isNaN(rate) || rate < 0.5 || rate > 5) {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "Please provide a valid number between 0.5 and 5.",
+                        description: ctx.locale("cmd.rate.errors.invalid_number"),
                         color: this.client.color.red,
                     },
                 ],
             });
+            return;
         }
+
         await player.player.setTimescale({ rate });
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Rate has been set to ${rate}.`,
+                    description: ctx.locale("cmd.rate.messages.rate_set", { rate }),
                     color: this.client.color.main,
                 },
             ],

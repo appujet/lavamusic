@@ -6,7 +6,7 @@ export default class PlayNext extends Command {
         super(client, {
             name: "playnext",
             description: {
-                content: "Add the song to play next in queue",
+                content: "cmd.playnext.description",
                 examples: [
                     "playnext example",
                     "playnext https://www.youtube.com/watch?v=example",
@@ -34,7 +34,7 @@ export default class PlayNext extends Command {
             options: [
                 {
                     name: "song",
-                    description: "The song you want to play",
+                    description: "cmd.playnext.options.song",
                     type: 3,
                     required: true,
                     autocomplete: true,
@@ -45,23 +45,23 @@ export default class PlayNext extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const query = args.join(" ");
-        let player = client.queue.get(ctx.guild.id);
+        let player = client.queue.get(ctx.guild!.id);
         const vc = ctx.member as any;
         if (!player) player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel);
-        await ctx.sendDeferMessage("Loading...");
+        await ctx.sendDeferMessage(ctx.locale("cmd.playnext.loading"));
         const res = await this.client.queue.search(query);
         const embed = this.client.embed();
         switch (res.loadType) {
             case LoadType.ERROR:
                 ctx.editMessage({
                     content: "",
-                    embeds: [embed.setColor(this.client.color.red).setDescription("There was an error while searching.")],
+                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.playnext.errors.search_error"))],
                 });
                 break;
             case LoadType.EMPTY:
                 ctx.editMessage({
                     content: "",
-                    embeds: [embed.setColor(this.client.color.red).setDescription("There were no results found.")],
+                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.playnext.errors.no_results"))],
                 });
                 break;
             case LoadType.TRACK: {
@@ -72,7 +72,9 @@ export default class PlayNext extends Command {
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
-                                .setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`),
+                                .setDescription(
+                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                ),
                         ],
                     });
                 player.queue.splice(0, 0, track);
@@ -82,7 +84,9 @@ export default class PlayNext extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(`Added [${res.data.info.title}](${res.data.info.uri}) to play next in the queue.`),
+                            .setDescription(
+                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data.info.title, uri: res.data.info.uri }),
+                            ),
                     ],
                 });
                 break;
@@ -94,7 +98,9 @@ export default class PlayNext extends Command {
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
-                                .setDescription(`The playlist is too long. The maximum length is ${client.config.maxPlaylistSize} songs.`),
+                                .setDescription(
+                                    ctx.locale("cmd.playnext.errors.playlist_too_long", { maxPlaylistSize: client.config.maxPlaylistSize }),
+                                ),
                         ],
                     });
                 for (const track of res.data.tracks) {
@@ -105,7 +111,9 @@ export default class PlayNext extends Command {
                             embeds: [
                                 embed
                                     .setColor(this.client.color.red)
-                                    .setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`),
+                                    .setDescription(
+                                        ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                    ),
                             ],
                         });
                     player.queue.splice(0, 0, pl);
@@ -116,7 +124,7 @@ export default class PlayNext extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(`Added ${res.data.tracks.length} songs to play next in the queue.`),
+                            .setDescription(ctx.locale("cmd.playnext.added_playlist_to_play_next", { length: res.data.tracks.length })),
                     ],
                 });
                 break;
@@ -129,7 +137,9 @@ export default class PlayNext extends Command {
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
-                                .setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`),
+                                .setDescription(
+                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                ),
                         ],
                     });
                 player.queue.splice(0, 0, track1);
@@ -139,7 +149,9 @@ export default class PlayNext extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(`Added [${res.data[0].info.title}](${res.data[0].info.uri}) to play next in the queue.`),
+                            .setDescription(
+                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data[0].info.title, uri: res.data[0].info.uri }),
+                            ),
                     ],
                 });
                 break;

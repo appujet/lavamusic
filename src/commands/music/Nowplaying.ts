@@ -5,7 +5,7 @@ export default class Nowplaying extends Command {
         super(client, {
             name: "nowplaying",
             description: {
-                content: "Shows the currently playing song",
+                content: "cmd.nowplaying.description",
                 examples: ["nowplaying"],
                 usage: "nowplaying",
             },
@@ -30,21 +30,30 @@ export default class Nowplaying extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
-        const track = player.current;
+        const player = client.queue.get(ctx.guild!.id)!;
+        const track = player.current!;
         const position = player.player.position;
         const duration = track.info.length;
         const bar = client.utils.progressBar(position, duration, 20);
+
         const embed = this.client
             .embed()
             .setColor(this.client.color.main)
-            .setAuthor({ name: "Now Playing", iconURL: ctx.guild.iconURL({}) })
-            .setThumbnail(track.info.artworkUrl)
-            .setDescription(`[${track.info.title}](${track.info.uri}) - Request By: ${track.info.requester}\n\n\`${bar}\``)
+            .setAuthor({ name: ctx.locale("cmd.nowplaying.now_playing"), iconURL: ctx.guild?.iconURL({})! })
+            .setThumbnail(track.info.artworkUrl!)
+            .setDescription(
+                ctx.locale("cmd.nowplaying.track_info", {
+                    title: track.info.title,
+                    uri: track.info.uri,
+                    requester: track.info.requester,
+                    bar: bar,
+                }),
+            )
             .addFields({
                 name: "\u200b",
                 value: `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(duration)}\``,
             });
+
         return await ctx.sendMessage({ embeds: [embed] });
     }
 }

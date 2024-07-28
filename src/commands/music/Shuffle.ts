@@ -5,7 +5,7 @@ export default class Shuffle extends Command {
         super(client, {
             name: "shuffle",
             description: {
-                content: "Shuffles the queue",
+                content: "cmd.shuffle.description",
                 examples: ["shuffle"],
                 usage: "shuffle",
             },
@@ -30,16 +30,16 @@ export default class Shuffle extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
         if (!player.queue.length) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.no_songs"))],
             });
         }
         player.setShuffle();
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription("Shuffled the queue.")],
+            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.shuffle.messages.shuffled"))],
         });
     }
 }

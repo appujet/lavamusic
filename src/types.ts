@@ -5,6 +5,7 @@ export enum SearchEngine {
     Spotify = "spsearch",
     SoundCloud = "scsearch",
     YouTubeMusic = "ytmsearch",
+    JioSaavn = "jssearch",
 }
 
 export enum Language {

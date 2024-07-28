@@ -68,7 +68,7 @@ export default class Dj extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = this.client.embed().setColor(this.client.color.main);
-        const dj = await client.db.getDj(ctx.guild.id);
+        const dj = await client.db.getDj(ctx.guild!.id);
         let subCommand: string;
         let role: any;
 
@@ -89,13 +89,13 @@ export default class Dj extends Command {
                         embeds: [embed.setDescription(ctx.locale("cmd.dj.errors.provide_role"))],
                     });
                 }
-                if (await client.db.getRoles(ctx.guild.id).then((r) => r.some((re) => re.roleId === role.id))) {
+                if (await client.db.getRoles(ctx.guild!.id).then((r) => r.some((re) => re.roleId === role.id))) {
                     return ctx.sendMessage({
                         embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.role_exists", { roleId: role.id }))],
                     });
                 }
-                await client.db.addRole(ctx.guild.id, role.id);
-                await client.db.setDj(ctx.guild.id, true);
+                await client.db.addRole(ctx.guild!.id, role.id);
+                await client.db.setDj(ctx.guild!.id, true);
                 return ctx.sendMessage({
                     embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.role_added", { roleId: role.id }))],
                 });
@@ -106,12 +106,12 @@ export default class Dj extends Command {
                         embeds: [embed.setDescription(ctx.locale("cmd.dj.errors.provide_role"))],
                     });
                 }
-                if (!(await client.db.getRoles(ctx.guild.id).then((r) => r.some((re) => re.roleId === role.id)))) {
+                if (!(await client.db.getRoles(ctx.guild!.id).then((r) => r.some((re) => re.roleId === role.id)))) {
                     return ctx.sendMessage({
                         embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.role_not_found", { roleId: role.id }))],
                     });
                 }
-                await client.db.removeRole(ctx.guild.id, role.id);
+                await client.db.removeRole(ctx.guild!.id, role.id);
                 return ctx.sendMessage({
                     embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.role_removed", { roleId: role.id }))],
                 });
@@ -122,7 +122,7 @@ export default class Dj extends Command {
                         embeds: [embed.setDescription(ctx.locale("cmd.dj.errors.no_roles"))],
                     });
                 }
-                await client.db.clearRoles(ctx.guild.id);
+                await client.db.clearRoles(ctx.guild!.id);
                 return ctx.sendMessage({
                     embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.all_roles_cleared"))],
                 });
@@ -133,7 +133,7 @@ export default class Dj extends Command {
                         embeds: [embed.setDescription(ctx.locale("cmd.dj.errors.no_roles"))],
                     });
                 }
-                await client.db.setDj(ctx.guild.id, !dj.mode);
+                await client.db.setDj(ctx.guild!.id, !dj.mode);
                 return ctx.sendMessage({
                     embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.toggle", { status: dj.mode ? "disabled" : "enabled" }))],
                 });
