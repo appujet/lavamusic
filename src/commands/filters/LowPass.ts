@@ -13,6 +13,7 @@ export default class LowPass extends Command {
             aliases: ["lp"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

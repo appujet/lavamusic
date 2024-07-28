@@ -13,6 +13,7 @@ export default class Skip extends Command {
             aliases: ["sk"],
             cooldown: 3,
             args: false,
+            vote: true,
             player: {
                 voice: true,
                 dj: true,

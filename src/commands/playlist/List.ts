@@ -13,6 +13,7 @@ export default class GetPlaylists extends Command {
             aliases: ["lst"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

@@ -13,6 +13,7 @@ export default class Speed extends Command {
             aliases: ["spd"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

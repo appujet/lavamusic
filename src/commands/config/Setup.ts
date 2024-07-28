@@ -15,6 +15,7 @@ export default class Setup extends Command {
             aliases: ["set"],
             cooldown: 3,
             args: true,
+            vote: true,
             player: {
                 voice: false,
                 dj: false,

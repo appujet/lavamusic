@@ -13,6 +13,7 @@ export default class CreatePlaylist extends Command {
             aliases: ["cre"],
             cooldown: 3,
             args: true,
+            vote: true,
             player: {
                 voice: false,
                 dj: false,

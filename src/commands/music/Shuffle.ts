@@ -13,6 +13,7 @@ export default class Shuffle extends Command {
             aliases: ["sh"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

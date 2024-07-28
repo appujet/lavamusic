@@ -13,6 +13,7 @@ export default class Queue extends Command {
             aliases: ["q"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: false,

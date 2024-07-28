@@ -13,6 +13,7 @@ export default class Resume extends Command {
             aliases: ["r"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: false,

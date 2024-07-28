@@ -13,6 +13,7 @@ export default class Remove extends Command {
             aliases: ["rm"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

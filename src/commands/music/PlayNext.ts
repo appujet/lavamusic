@@ -19,6 +19,7 @@ export default class PlayNext extends Command {
             aliases: ["pn"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: true,
                 dj: false,

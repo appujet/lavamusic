@@ -13,6 +13,7 @@ export default class Prefix extends Command {
             aliases: ["pf"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

@@ -16,6 +16,7 @@ export default class Search extends Command {
             aliases: ["sc"],
             cooldown: 3,
             args: true,
+            vote: true,
             player: {
                 voice: true,
                 dj: false,

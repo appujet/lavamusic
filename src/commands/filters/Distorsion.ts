@@ -13,6 +13,7 @@ export default class Distorsion extends Command {
             aliases: ["dt"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

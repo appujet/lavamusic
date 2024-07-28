@@ -13,6 +13,7 @@ export default class DeletePlaylist extends Command {
             aliases: ["del"],
             cooldown: 3,
             args: true,
+            vote: true,
             player: {
                 voice: false,
                 dj: false,

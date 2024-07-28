@@ -13,6 +13,7 @@ export default class Grab extends Command {
             aliases: ["gr"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

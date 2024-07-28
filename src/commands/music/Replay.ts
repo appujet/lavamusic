@@ -13,6 +13,7 @@ export default class Replay extends Command {
             aliases: ["rp"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: false,

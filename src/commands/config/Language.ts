@@ -14,6 +14,7 @@ export default class LanguageCommand extends Command {
             aliases: ["language", "lang"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,

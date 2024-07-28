@@ -16,6 +16,7 @@ export default class Botinfo extends Command {
             aliases: ["bi", "info", "stats", "status"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,
@@ -42,28 +43,39 @@ export default class Botinfo extends Command {
         const memUsed = (process.memoryUsage().rss / 1024 ** 2).toFixed(2);
         const nodeVersion = process.version;
         const discordJsVersion = version;
-        const guilds = client.guilds.cache.size;
-        const channels = client.channels.cache.size;
-        const users = client.users.cache.size;
         const commands = client.commands.size;
-        const botInfo = ctx.locale("cmd.botinfo.content", {
-            osInfo,
-            osUptime,
-            osHostname,
-            cpuInfo,
-            cpuUsed,
-            memUsed,
-            memTotal,
-            nodeVersion,
-            discordJsVersion,
-            guilds,
-            channels,
-            users,
-            commands,
-        });
-        const embed = this.client.embed();
-        return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(botInfo)],
+
+        const promises = [
+            client.shard.broadcastEval(client => client.guilds.cache.size),
+            client.shard.broadcastEval(client => client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)),
+            client.shard.broadcastEval(client => client.channels.cache.size),
+        ];
+        return Promise.all(promises).then(async (results) => {
+            const guilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
+            const users = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
+            const channels = results[2].reduce((acc, channelCount) => acc + channelCount, 0);
+
+            const botInfo = ctx.locale("cmd.botinfo.content", {
+                osInfo,
+                osUptime,
+                osHostname,
+                cpuInfo,
+                cpuUsed,
+                memUsed,
+                memTotal,
+                nodeVersion,
+                discordJsVersion,
+                guilds,
+                channels,
+                users,
+                commands,
+            });
+
+            const embed = this.client.embed().setColor(this.client.color.main).setDescription(botInfo);
+
+            return await ctx.sendMessage({
+                embeds: [embed],
+            });
         });
     }
 }

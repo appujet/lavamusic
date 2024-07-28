@@ -13,6 +13,7 @@ export default class NightCore extends Command {
             aliases: ["nc"],
             cooldown: 3,
             args: false,
+            vote: false,
             player: {
                 voice: true,
                 dj: true,

@@ -13,6 +13,7 @@ export default class Seek extends Command {
             aliases: ["s"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: true,
                 dj: false,

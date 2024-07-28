@@ -13,6 +13,7 @@ export default class StealPlaylist extends Command {
             aliases: ["st"],
             cooldown: 3,
             args: true,
+            vote: false,
             player: {
                 voice: false,
                 dj: false,
