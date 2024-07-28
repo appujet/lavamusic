@@ -7,7 +7,6 @@ async function clean() {
         const path = resolve("dist");
         if (existsSync(path)) {
             await rm(path, { recursive: true, force: true });
-        } else {
         }
     } catch (error) {
         console.error("Error while cleaning dist folder:", error);
