@@ -127,7 +127,7 @@ export default class Setup extends Command {
                 await ctx.sendMessage({
                     embeds: [
                         {
-                            description: ctx.locale("cmd.setup.messages.channel_delete_fail"),
+                            description: ctx.locale("cmd.setup.messages.channel_deleted"),
                             color: this.client.color.main,
                         },
                     ],
