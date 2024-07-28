@@ -5,15 +5,14 @@ export default class Prefix extends Command {
         super(client, {
             name: "prefix",
             description: {
-                content: "Shows or sets the bot's prefix",
+                content: "cmd.prefix.description",
                 examples: ["prefix set !", "prefix reset"],
-                usage: "prefix [set <prefix> | reset]",
+                usage: "prefix",
             },
             category: "general",
             aliases: ["pf"],
             cooldown: 3,
             args: true,
-            vote: false,
             player: {
                 voice: false,
                 dj: false,
@@ -29,12 +28,12 @@ export default class Prefix extends Command {
             options: [
                 {
                     name: "set",
-                    description: "Sets the prefix",
+                    description: "cmd.prefix.options.set",
                     type: 1,
                     options: [
                         {
                             name: "prefix",
-                            description: "The prefix you want to set",
+                            description: "cmd.prefix.options.prefix",
                             type: 3,
                             required: true,
                         },
@@ -42,7 +41,7 @@ export default class Prefix extends Command {
                 },
                 {
                     name: "reset",
-                    description: "Resets the prefix to the default one",
+                    description: "cmd.prefix.options.reset",
                     type: 1,
                 },
             ],
@@ -51,7 +50,7 @@ export default class Prefix extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = client.embed().setColor(this.client.color.main);
-        const guildId = ctx.guild.id;
+        const guildId = ctx.guild!.id;
         const guildData = await client.db.get(guildId);
         const isInteraction = ctx.isInteraction;
         let subCommand: string;
@@ -69,26 +68,26 @@ export default class Prefix extends Command {
             case "set": {
                 if (!prefix) {
                     const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
-                    embed.setDescription(`The prefix for this server is \`${currentPrefix}\``);
+                    embed.setDescription(ctx.locale("cmd.prefix.messages.current_prefix", { prefix: currentPrefix }));
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
                 if (prefix.length > 3) {
-                    embed.setDescription("The prefix cannot be longer than 3 characters.");
+                    embed.setDescription(ctx.locale("cmd.prefix.errors.prefix_too_long"));
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
                 await client.db.setPrefix(guildId, prefix);
-                embed.setDescription(`The prefix for this server is now \`${prefix}\``);
+                embed.setDescription(ctx.locale("cmd.prefix.messages.prefix_set", { prefix }));
                 return await ctx.sendMessage({ embeds: [embed] });
             }
             case "reset": {
                 const defaultPrefix = client.config.prefix;
                 await client.db.setPrefix(guildId, defaultPrefix);
-                embed.setDescription(`The prefix for this server is now \`${defaultPrefix}\``);
+                embed.setDescription(ctx.locale("cmd.prefix.messages.prefix_reset", { prefix: defaultPrefix }));
                 return await ctx.sendMessage({ embeds: [embed] });
             }
             default: {
                 const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
-                embed.setDescription(`The prefix for this server is \`${currentPrefix}\``);
+                embed.setDescription(ctx.locale("cmd.prefix.messages.current_prefix", { prefix: currentPrefix }));
                 return await ctx.sendMessage({ embeds: [embed] });
             }
         }
