@@ -1,4 +1,3 @@
-//TODO
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class LoadPlaylist extends Command {
@@ -6,7 +5,7 @@ export default class LoadPlaylist extends Command {
         super(client, {
             name: "load",
             description: {
-                content: "Loads a playlist",
+                content: "cmd.load.description",
                 examples: ["load <playlist>"],
                 usage: "load <playlist>",
             },
@@ -14,7 +13,6 @@ export default class LoadPlaylist extends Command {
             aliases: ["lo"],
             cooldown: 3,
             args: true,
-            vote: true,
             player: {
                 voice: true,
                 dj: false,
@@ -30,7 +28,7 @@ export default class LoadPlaylist extends Command {
             options: [
                 {
                     name: "playlist",
-                    description: "The playlist you want to load",
+                    description: "cmd.load.options.playlist",
                     type: 3,
                     required: true,
                 },
@@ -39,51 +37,58 @@ export default class LoadPlaylist extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        let player = client.queue.get(ctx.guild.id);
-        const playlist = args.join(" ").replace(/\s/g, "");
-        const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
-        if (!playlistData)
+        let player = client.queue.get(ctx.guild!.id);
+        const playlistName = args.join(" ").trim();
+        const playlistData = await client.db.getPlaylist(ctx.author.id, playlistName);
+        if (!playlistData) {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "That playlist doesn't exist.",
+                        description: ctx.locale("cmd.load.messages.playlist_not_exist"),
                         color: this.client.color.red,
                     },
                 ],
             });
-        const songs = await client.db.getSongs(ctx.author.id, playlist);
-        if (!songs.length)
+        }
+
+        const songs = await client.db.getSongs(ctx.author.id, playlistName);
+        if (!songs.length) {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "That playlist is empty.",
-                        color: this.client.color.red,
+                        description: ctx.locale("cmd.load.messages.playlist_empty"),
+                        color: client.color.red,
                     },
                 ],
             });
-        songs.map(async (s) => {
-            for await (const song of JSON.parse(s.track)) {
-                const vc = ctx.member as any;
-                if (!player)
-                    player = await client.queue.create(
-                        ctx.guild,
-                        vc.voice.channel,
-                        ctx.channel,
-                        client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
-                    );
-                const track = player.buildTrack(song, ctx.author as any);
-                player.queue.push(track);
-                player.isPlaying();
+        }
+
+        const vc = ctx.member as any;
+        if (!player) {
+            player = await client.queue.create(
+                ctx.guild,
+                vc.voice.channel,
+                ctx.channel,
+                client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
+            );
+        }
+
+        for (const song of songs) {
+            const trackData = JSON.parse(song.track);
+            for (const track of trackData) {
+                const builtTrack = player.buildTrack(track, ctx.author as any);
+                player.queue.push(builtTrack);
             }
-            await player.isPlaying();
-            return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: `Loaded \`${playlistData.name}\` with \`${JSON.parse(s.track).length}\` songs.`,
-                        color: this.client.color.main,
-                    },
-                ],
-            });
+        }
+
+        await player.isPlaying();
+        return await ctx.sendMessage({
+            embeds: [
+                {
+                    description: ctx.locale("cmd.load.messages.playlist_loaded", { name: playlistData.name, count: songs.length }),
+                    color: this.client.color.main,
+                },
+            ],
         });
     }
 }

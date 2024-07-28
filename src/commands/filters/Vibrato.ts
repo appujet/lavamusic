@@ -5,7 +5,7 @@ export default class Vibrato extends Command {
         super(client, {
             name: "vibrato",
             description: {
-                content: "on/off vibrato filter",
+                content: "cmd.vibrato.description",
                 examples: ["vibrato"],
                 usage: "vibrato",
             },
@@ -13,7 +13,6 @@ export default class Vibrato extends Command {
             aliases: ["vb"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: true,
@@ -31,7 +30,7 @@ export default class Vibrato extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const vibratoEnabled = player.filters.includes("vibrato");
 
         if (vibratoEnabled) {
@@ -40,23 +39,23 @@ export default class Vibrato extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Vibrato filter has been `DISABLED`.",
+                        description: ctx.locale("cmd.vibrato.messages.disabled"),
+                        color: this.client.color.main,
+                    },
+                ],
+            });
+        } else {
+            player.player.setVibrato({ depth: 0.75, frequency: 4 });
+            player.filters.push("vibrato");
+            await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: ctx.locale("cmd.vibrato.messages.enabled"),
                         color: this.client.color.main,
                     },
                 ],
             });
         }
-
-        player.player.setVibrato({ depth: 0.75, frequency: 4 });
-        player.filters.push("vibrato");
-        await ctx.sendMessage({
-            embeds: [
-                {
-                    description: "`✅` | Vibrato filter has been `ENABLED`.",
-                    color: this.client.color.main,
-                },
-            ],
-        });
     }
 }
 

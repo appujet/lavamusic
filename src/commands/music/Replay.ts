@@ -5,7 +5,7 @@ export default class Replay extends Command {
         super(client, {
             name: "replay",
             description: {
-                content: "Replays the current track",
+                content: "cmd.replay.description",
                 examples: ["replay"],
                 usage: "replay",
             },
@@ -13,7 +13,6 @@ export default class Replay extends Command {
             aliases: ["rp"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: false,
@@ -31,19 +30,18 @@ export default class Replay extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
 
         if (!player.current?.info.isSeekable) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("Cannot replay this track as it is not seekable.")],
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.replay.errors.not_seekable"))],
             });
         }
 
         player.seek(0);
-
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription("Replaying the current track.")],
+            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.replay.messages.replaying"))],
         });
     }
 }

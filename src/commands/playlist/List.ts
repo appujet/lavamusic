@@ -5,7 +5,7 @@ export default class GetPlaylists extends Command {
         super(client, {
             name: "list",
             description: {
-                content: "Retrieves all playlists for the user",
+                content: "cmd.list.description",
                 examples: ["list", "list @user"],
                 usage: "list [@user]",
             },
@@ -13,7 +13,6 @@ export default class GetPlaylists extends Command {
             aliases: ["lst"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: false,
                 dj: false,
@@ -29,8 +28,8 @@ export default class GetPlaylists extends Command {
             options: [
                 {
                     name: "user",
-                    description: "The user whose playlists you want to retrieve",
-                    type: 6,
+                    description: "cmd.list.options.user",
+                    type: 6, // USER type
                     required: false,
                 },
             ],
@@ -39,60 +38,47 @@ export default class GetPlaylists extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         try {
-            let userId = ctx.author.id;
+            let userId: any;
             let targetUser = ctx.args[0];
 
             if (targetUser?.startsWith("<@") && targetUser.endsWith(">")) {
                 targetUser = targetUser.slice(2, -1);
-                if (targetUser.startsWith("!")) targetUser = targetUser.slice(1);
+
+                if (targetUser.startsWith("!")) {
+                    targetUser = targetUser.slice(1);
+                }
+
                 targetUser = await client.users.fetch(targetUser);
                 userId = targetUser.id;
+            } else if (targetUser) {
+                targetUser = await client.users.fetch(ctx.args[0]);
+                userId = targetUser.id;
+            } else {
+                userId = ctx.author.id;
+                targetUser = ctx.author;
             }
 
             const playlists = await client.db.getUserPlaylists(userId);
 
             if (!playlists || playlists.length === 0) {
-                return await ctx.sendMessage({
-                    embeds: [
-                        {
-                            description: "This user has no playlists",
-                            color: this.client.color.red,
-                        },
-                    ],
-                });
+                const noPlaylistsMessage = this.client
+                    .embed()
+                    .setDescription(ctx.locale("cmd.list.messages.no_playlists"))
+                    .setColor(this.client.color.red);
+                return await ctx.sendMessage({ embeds: [noPlaylistsMessage] });
             }
 
-            const targetUsername = targetUser ? targetUser.username : "Your";
-            return await ctx.sendMessage({
-                embeds: [
-                    {
-                        title: `${targetUsername}'s Playlists`,
-                        description: playlists.map((playlist: any) => playlist.name).join("\n"),
-                        color: this.client.color.green,
-                    },
-                ],
-            });
+            const targetUsername = targetUser ? targetUser.username : ctx.locale("cmd.list.messages.your");
+            const successMessage = this.client
+                .embed()
+                .setTitle(ctx.locale("cmd.list.messages.playlists_title", { username: targetUsername }))
+                .setDescription(playlists.map((playlist: any) => playlist.name).join("\n"))
+                .setColor(this.client.color.green);
+            await ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {
             console.error(error);
-            return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: "An error occurred while retrieving the playlists",
-                        color: this.client.color.red,
-                    },
-                ],
-            });
+            const errorMessage = this.client.embed().setDescription(ctx.locale("cmd.list.messages.error")).setColor(this.client.color.red);
+            await ctx.sendMessage({ embeds: [errorMessage] });
         }
     }
 }
-
-/**
- * Project: lavamusic
- * Author: Appu
- * Main Contributor: LucasB25
- * Company: Coders
- * Copyright (c) 2024. All rights reserved.
- * This code is the property of Coder and may not be reproduced or
- * modified without permission. For more information, contact us at
- * https://discord.gg/ns8CTk9J3e
- */

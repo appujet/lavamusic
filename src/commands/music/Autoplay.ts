@@ -5,7 +5,7 @@ export default class Autoplay extends Command {
         super(client, {
             name: "autoplay",
             description: {
-                content: "Toggles autoplay",
+                content: "cmd.autoplay.description",
                 examples: ["autoplay"],
                 usage: "autoplay",
             },
@@ -13,7 +13,6 @@ export default class Autoplay extends Command {
             aliases: ["ap"],
             cooldown: 3,
             args: false,
-            vote: true,
             player: {
                 voice: true,
                 dj: true,
@@ -29,16 +28,30 @@ export default class Autoplay extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
+        if (!player) {
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: ctx.locale("cmd.player.errors.no_player"),
+                        color: this.client.color.red,
+                    },
+                ],
+            });
+        }
+
         const embed = this.client.embed();
         const autoplay = player.autoplay;
         player.setAutoplay(!autoplay);
+
         if (autoplay) {
-            embed.setDescription("`✅` | Autoplay has been `DISABLED`").setColor(this.client.color.main);
+            embed.setDescription(ctx.locale("cmd.autoplay.messages.disabled")).setColor(this.client.color.main);
         } else {
-            embed.setDescription("`✅` | Autoplay has been `ENABLED`").setColor(this.client.color.main);
+            embed.setDescription(ctx.locale("cmd.autoplay.messages.enabled")).setColor(this.client.color.main);
         }
+
         await ctx.sendMessage({ embeds: [embed] });
     }
 }

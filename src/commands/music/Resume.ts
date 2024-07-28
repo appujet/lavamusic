@@ -5,7 +5,7 @@ export default class Resume extends Command {
         super(client, {
             name: "resume",
             description: {
-                content: "Resumes the current song",
+                content: "cmd.resume.description",
                 examples: ["resume"],
                 usage: "resume",
             },
@@ -13,7 +13,6 @@ export default class Resume extends Command {
             aliases: ["r"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: false,
@@ -31,16 +30,18 @@ export default class Resume extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
+
         if (!player.paused) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("The player is not paused.")],
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.resume.errors.not_paused"))],
             });
         }
+
         player.pause();
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription("Resumed the player.")],
+            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.resume.messages.resumed"))],
         });
     }
 }

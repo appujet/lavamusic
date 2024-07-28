@@ -5,7 +5,7 @@ export default class Leave extends Command {
         super(client, {
             name: "leave",
             description: {
-                content: "Leaves the voice channel",
+                content: "cmd.leave.description",
                 examples: ["leave"],
                 usage: "leave",
             },
@@ -13,7 +13,6 @@ export default class Leave extends Command {
             aliases: ["l"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: true,
@@ -31,22 +30,19 @@ export default class Leave extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
+
         if (player) {
-            await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.main)
-                        .setDescription(`Left <#${player.node.manager.connections.get(ctx.guild.id)?.channelId}>`),
-                ],
-            });
+            const channelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
             player.destroy();
-        } else {
-            await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(`I'm not in a voice channel`)],
+            return await ctx.sendMessage({
+                embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.leave.left", { channelId }))],
             });
         }
+        return await ctx.sendMessage({
+            embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.leave.not_in_channel"))],
+        });
     }
 }
 

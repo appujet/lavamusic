@@ -14,6 +14,7 @@ import {
 } from "discord.js";
 import { LoadType } from "shoukaku";
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
+import { T } from "../../structures/I18n.js";
 
 export default class InteractionCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -28,6 +29,7 @@ export default class InteractionCreate extends Event {
             const setup = await this.client.db.getSetup(interaction.guildId);
             const allowedCategories = ["filters", "music", "playlist"];
             const commandInSetup = this.client.commands.get(interaction.commandName);
+            const locale = await this.client.db.getLanguage(interaction.guildId);
 
             if (
                 setup &&
@@ -35,14 +37,14 @@ export default class InteractionCreate extends Event {
                 !(commandInSetup && allowedCategories.includes(commandInSetup.category))
             ) {
                 return await interaction.reply({
-                    content: `You can't use this command in setup channel.`,
+                    content: T(locale, "event.interaction.setup_channel"),
                     ephemeral: true,
                 });
             }
 
             const { commandName } = interaction;
             await this.client.db.get(interaction.guildId);
-            const locale = await this.client.db.getLanguage(interaction.guildId);
+
             const command = this.client.commands.get(commandName);
             if (!command) return;
 
@@ -52,47 +54,34 @@ export default class InteractionCreate extends Event {
             const clientMember = interaction.guild.members.resolve(this.client.user);
             if (!(interaction.inGuild() && interaction.channel.permissionsFor(clientMember)?.has(PermissionFlagsBits.ViewChannel))) return;
 
-            const logs = this.client.channels.cache.get(this.client.config.commandLogs);
-
-            if (logs) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({
-                        name: "Slash-Command Command Logs",
-                        iconURL: this.client.user?.avatarURL({ size: 2048 }),
-                    })
-                    .setColor(this.client.config.color.blue)
-                    .setDescription(
-                        `**\`${command.name}\`** | Used By **${interaction.user.tag} \`${interaction.user.id}\`** From **${interaction.guild.name} \`${interaction.guild.id}\`**`,
-                    )
-                    .setTimestamp();
-
-                await (logs as TextChannel).send({ embeds: [embed] });
-            }
-
             if (!clientMember.permissions.has(PermissionFlagsBits.SendMessages)) {
                 return await (interaction.member as GuildMember)
                     .send({
-                        content: `I don't have **\`SendMessage\`** permission in \`${interaction.guild.name}\`\nchannel: <#${interaction.channelId}>.`,
+                        content: T(locale, "event.interaction.no_send_message", {
+                            guild: interaction.guild.name,
+                            channel: `<#${interaction.channelId}>`,
+                        }),
                     })
                     .catch(() => {});
             }
 
             if (!clientMember.permissions.has(PermissionFlagsBits.EmbedLinks)) {
                 return await interaction.reply({
-                    content: "I don't have **`EmbedLinks`** permission.",
+                    content: T(locale, "event.interaction.no_embed_links"),
                 });
             }
+            const logs = this.client.channels.cache.get(this.client.config.commandLogs);
 
             if (command.permissions) {
                 if (command.permissions.client && !clientMember.permissions.has(command.permissions.client)) {
                     return await interaction.reply({
-                        content: "I don't have enough permissions to execute this command.",
+                        content: T(locale, "event.interaction.no_permission"),
                     });
                 }
 
                 if (command.permissions.user && !(interaction.member as GuildMember).permissions.has(command.permissions.user)) {
                     await interaction.reply({
-                        content: "You don't have enough permissions to use this command.",
+                        content: T(locale, "event.interaction.no_user_permission"),
                         ephemeral: true,
                     });
                     return;
@@ -103,7 +92,6 @@ export default class InteractionCreate extends Event {
                     if (!isDev) return;
                 }
             }
-
             if (command.vote) {
                 const voted = await this.client.topGG.hasVoted(interaction.user.id);
                 if (!voted) {
@@ -121,24 +109,23 @@ export default class InteractionCreate extends Event {
                     });
                 }
             }
-
             if (command.player) {
                 if (command.player.voice) {
                     if (!(interaction.member as GuildMember).voice.channel) {
                         return await interaction.reply({
-                            content: `You must be connected to a voice channel to use this \`${command.name}\` command.`,
+                            content: T(locale, "event.interaction.no_voice_channel", { command: command.name }),
                         });
                     }
 
                     if (!clientMember.permissions.has(PermissionFlagsBits.Connect)) {
                         return await interaction.reply({
-                            content: `I don't have \`CONNECT\` permissions to execute this \`${command.name}\` command.`,
+                            content: T(locale, "event.interaction.no_connect_permission", { command: command.name }),
                         });
                     }
 
                     if (!clientMember.permissions.has(PermissionFlagsBits.Speak)) {
                         return await interaction.reply({
-                            content: `I don't have \`SPEAK\` permissions to execute this \`${command.name}\` command.`,
+                            content: T(locale, "event.interaction.no_speak_permission", { command: command.name }),
                         });
                     }
 
@@ -147,7 +134,7 @@ export default class InteractionCreate extends Event {
                         !clientMember.permissions.has(PermissionFlagsBits.RequestToSpeak)
                     ) {
                         return await interaction.reply({
-                            content: `I don't have \`REQUEST TO SPEAK\` permission to execute this \`${command.name}\` command.`,
+                            content: T(locale, "event.interaction.no_request_to_speak", { command: command.name }),
                         });
                     }
 
@@ -156,7 +143,10 @@ export default class InteractionCreate extends Event {
                         clientMember.voice.channelId !== (interaction.member as GuildMember).voice.channelId
                     ) {
                         return await interaction.reply({
-                            content: `You are not connected to <#${clientMember.voice.channelId}> to use this \`${command.name}\` command.`,
+                            content: T(locale, "event.interaction.different_voice_channel", {
+                                channel: `<#${clientMember.voice.channelId}>`,
+                                command: command.name,
+                            }),
                         });
                     }
                 }
@@ -165,7 +155,7 @@ export default class InteractionCreate extends Event {
                     const queue = this.client.queue.get(interaction.guildId);
                     if (!(queue?.queue && queue.current)) {
                         return await interaction.reply({
-                            content: "Nothing is playing right now.",
+                            content: T(locale, "event.interaction.no_music_playing"),
                         });
                     }
                 }
@@ -176,7 +166,7 @@ export default class InteractionCreate extends Event {
                         const djRole = await this.client.db.getRoles(interaction.guildId);
                         if (!djRole) {
                             return await interaction.reply({
-                                content: "DJ role is not set.",
+                                content: T(locale, "event.interaction.no_dj_role"),
                             });
                         }
 
@@ -185,7 +175,7 @@ export default class InteractionCreate extends Event {
                         );
                         if (!(hasDJRole && !(interaction.member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild))) {
                             return await interaction.reply({
-                                content: "You need to have the DJ role to use this command.",
+                                content: T(locale, "event.interaction.no_dj_permission"),
                                 ephemeral: true,
                             });
                         }
@@ -206,7 +196,7 @@ export default class InteractionCreate extends Event {
                 const timeLeft = (expirationTime - now) / 1000;
                 if (now < expirationTime && timeLeft > 0.9) {
                     return await interaction.reply({
-                        content: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${commandName}\` command.`,
+                        content: T(locale, "event.interaction.cooldown", { time: timeLeft.toFixed(1), command: commandName }),
                     });
                 }
                 timestamps.set(interaction.user.id, now);
@@ -217,16 +207,30 @@ export default class InteractionCreate extends Event {
             }
 
             try {
-                const _reply = await command.run(this.client, ctx, ctx.args);
+                await command.run(this.client, ctx, ctx.args);
                 if (setup && interaction.channelId === setup.textId && allowedCategories.includes(command.category)) {
                     setTimeout(() => {
-                        (interaction as CommandInteraction).deleteReply().catch(() => {});
+                        interaction.deleteReply().catch(() => {});
                     }, 5000);
+                }
+                if (logs) {
+                    const embed = new EmbedBuilder()
+                        .setAuthor({
+                            name: "Slash-Command Command Logs",
+                            iconURL: this.client.user?.avatarURL({ size: 2048 }),
+                        })
+                        .setColor(this.client.config.color.blue)
+                        .setDescription(
+                            `**\`${command.name}\`** | Used By **${interaction.user.tag} \`${interaction.user.id}\`** From **${interaction.guild.name} \`${interaction.guild.id}\`**`,
+                        )
+                        .setTimestamp();
+
+                    await (logs as TextChannel).send({ embeds: [embed] });
                 }
             } catch (error) {
                 this.client.logger.error(error);
                 await interaction.reply({
-                    content: `An error occurred: \`${error}\``,
+                    content: T(locale, "event.interaction.error", { error }),
                 });
             }
         } else if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {

@@ -5,7 +5,7 @@ export default class Distorsion extends Command {
         super(client, {
             name: "distorsion",
             description: {
-                content: "Toggle the distorsion filter on/off",
+                content: "cmd.distorsion.description",
                 examples: ["distorsion"],
                 usage: "distorsion",
             },
@@ -13,7 +13,6 @@ export default class Distorsion extends Command {
             aliases: ["dt"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: true,
@@ -31,7 +30,7 @@ export default class Distorsion extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const filterEnabled = player.filters.includes("distorsion");
 
         if (filterEnabled) {
@@ -40,7 +39,7 @@ export default class Distorsion extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Distorsion filter has been `DISABLED`.",
+                        description: ctx.locale("cmd.distorsion.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -60,7 +59,7 @@ export default class Distorsion extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Distorsion filter has been `ENABLED`.",
+                        description: ctx.locale("cmd.distorsion.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],

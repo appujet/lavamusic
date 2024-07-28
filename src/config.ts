@@ -41,7 +41,7 @@ export default {
     topGG: process.env.TOPGG,
     keepAlive: parseBoolean(process.env.KEEP_ALIVE),
     autoNode: parseBoolean(process.env.AUTO_NODE),
-    searchEngine: SearchEngine.YouTube, // YouTube (YouTube Search), YouTubeMusic (YouTube Music Search), Spotify (Spotify Search), SoundCloud (SoundCloud Search), Apple (Apple Search) or Yandex (Yandex Search).
+    searchEngine: SearchEngine.YouTubeMusic, // YouTube (YouTube Search), YouTubeMusic (YouTube Music Search), Spotify (Spotify Search), SoundCloud (SoundCloud Search), Apple (Apple Search) or Yandex (Yandex Search).
     maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE || "100"),
     botStatus: process.env.BOT_STATUS || "online",
     botActivity: process.env.BOT_ACTIVITY || "Lavamusic",
@@ -61,6 +61,7 @@ export default {
         soundcloud: "https://i.imgur.com/MVnJ7mj.png",
         applemusic: "https://i.imgur.com/Wi0oyYm.png",
         deezer: "https://i.imgur.com/xyZ43FG.png",
+        jiosaavn: "https://i.imgur.com/N9Nt80h.png",
     },
     production: parseBoolean(process.env.PRODUCTION) ?? true,
     lavalink: [

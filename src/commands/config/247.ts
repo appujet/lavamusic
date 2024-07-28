@@ -6,7 +6,7 @@ export default class _247 extends Command {
         super(client, {
             name: "247",
             description: {
-                content: "Set the bot to stay in the voice channel",
+                content: "cmd.247.description",
                 examples: ["247"],
                 usage: "247",
             },
@@ -14,7 +14,6 @@ export default class _247 extends Command {
             aliases: ["stay"],
             cooldown: 3,
             args: false,
-            vote: true,
             player: {
                 voice: true,
                 dj: false,
@@ -33,17 +32,22 @@ export default class _247 extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed();
-        let player = client.shoukaku.players.get(ctx.guild.id) as any;
+        let player = client.shoukaku.players.get(ctx.guild!.id) as any;
         try {
-            const data = await client.db.get_247(ctx.guild.id);
+            const data = await client.db.get_247(ctx.guild!.id);
             const member = ctx.member as GuildMember;
-            if (data) {
-                await client.db.delete_247(ctx.guild.id);
+            if (!member.voice.channel) {
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription("`✅` | 24/7 has been `DISABLED`.").setColor(this.client.color.red)],
+                    embeds: [embed.setDescription(ctx.locale("cmd.247.errors.not_in_voice")).setColor(client.color.red)],
                 });
             }
-            await client.db.set_247(ctx.guild.id, ctx.channel.id, member.voice.channel.id);
+            if (data) {
+                await client.db.delete_247(ctx.guild!.id);
+                return await ctx.sendMessage({
+                    embeds: [embed.setDescription(ctx.locale("cmd.247.messages.disabled")).setColor(client.color.red)],
+                });
+            }
+            await client.db.set_247(ctx.guild!.id, ctx.channel.id, member.voice.channel.id);
             if (!player) {
                 player = await client.queue.create(
                     ctx.guild,
@@ -53,20 +57,12 @@ export default class _247 extends Command {
                 );
             }
             return await ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setDescription(
-                            "`✅` | 24/7 mode has been `ENABLED`. \n**The bot will not leave the voice channel even if there are no people in the voice channel.**",
-                        )
-                        .setColor(this.client.color.main),
-                ],
+                embeds: [embed.setDescription(ctx.locale("cmd.247.messages.enabled")).setColor(this.client.color.main)],
             });
         } catch (error) {
             console.error("Error in 247 command:", error);
             return await ctx.sendMessage({
-                embeds: [
-                    embed.setDescription("`❌` | An error occurred while trying to execute this command.").setColor(this.client.color.red),
-                ],
+                embeds: [embed.setDescription(ctx.locale("cmd.247.errors.generic")).setColor(client.color.red)],
             });
         }
     }

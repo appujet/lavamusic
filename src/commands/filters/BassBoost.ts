@@ -5,7 +5,7 @@ export default class BassBoost extends Command {
         super(client, {
             name: "bassboost",
             description: {
-                content: "on/off bassboost filter",
+                content: "cmd.bassboost.description",
                 examples: ["bassboost"],
                 usage: "bassboost",
             },
@@ -13,7 +13,6 @@ export default class BassBoost extends Command {
             aliases: ["bb"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: true,
@@ -31,7 +30,7 @@ export default class BassBoost extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const filterEnabled = player.filters.includes("bassboost");
 
         if (filterEnabled) {
@@ -40,7 +39,7 @@ export default class BassBoost extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Bassboost filter has been `DISABLED`.",
+                        description: ctx.locale("cmd.bassboost.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -56,8 +55,7 @@ export default class BassBoost extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description:
-                            "`✅` | Bassboost filter has been `ENABLED`. \n**Be careful, listening too loudly can damage your hearing!**",
+                        description: ctx.locale("cmd.bassboost.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],

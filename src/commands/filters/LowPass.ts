@@ -5,7 +5,7 @@ export default class LowPass extends Command {
         super(client, {
             name: "lowpass",
             description: {
-                content: "Toggle the lowpass filter on/off",
+                content: "cmd.lowpass.description",
                 examples: ["lowpass"],
                 usage: "lowpass <number>",
             },
@@ -13,7 +13,6 @@ export default class LowPass extends Command {
             aliases: ["lp"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: true,
@@ -31,7 +30,7 @@ export default class LowPass extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const filterEnabled = player.filters.includes("lowpass");
 
         if (filterEnabled) {
@@ -40,7 +39,7 @@ export default class LowPass extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Lowpass filter has been `DISABLED`.",
+                        description: ctx.locale("cmd.lowpass.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -51,7 +50,7 @@ export default class LowPass extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Lowpass filter has been `ENABLED`.",
+                        description: ctx.locale("cmd.lowpass.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],

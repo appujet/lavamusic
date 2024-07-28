@@ -5,7 +5,7 @@ export default class Loop extends Command {
         super(client, {
             name: "loop",
             description: {
-                content: "Loop the current song or the queue",
+                content: "cmd.loop.description",
                 examples: ["loop", "loop queue", "loop song"],
                 usage: "loop",
             },
@@ -13,7 +13,6 @@ export default class Loop extends Command {
             aliases: ["loop"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: false,
@@ -32,21 +31,21 @@ export default class Loop extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed().setColor(this.client.color.main);
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         let loopMessage = "";
 
-        switch (player.loop) {
+        switch (player?.loop) {
             case "off":
                 player.loop = "repeat";
-                loopMessage = "**Looping the song.**";
+                loopMessage = ctx.locale("cmd.loop.looping_song");
                 break;
             case "repeat":
                 player.loop = "queue";
-                loopMessage = "**Looping the queue.**";
+                loopMessage = ctx.locale("cmd.loop.looping_queue");
                 break;
             case "queue":
                 player.loop = "off";
-                loopMessage = "**Looping is now off.**";
+                loopMessage = ctx.locale("cmd.loop.looping_off");
                 break;
         }
 

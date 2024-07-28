@@ -5,7 +5,7 @@ export default class NightCore extends Command {
         super(client, {
             name: "nightcore",
             description: {
-                content: "Toggle the nightcore filter on/off",
+                content: "cmd.nightcore.description",
                 examples: ["nightcore"],
                 usage: "nightcore",
             },
@@ -13,7 +13,6 @@ export default class NightCore extends Command {
             aliases: ["nc"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: true,
@@ -31,7 +30,7 @@ export default class NightCore extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const filterEnabled = player.filters.includes("nightcore");
 
         if (filterEnabled) {
@@ -40,7 +39,7 @@ export default class NightCore extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Nightcore filter has been `DISABLED`.",
+                        description: ctx.locale("cmd.nightcore.messages.filter_disabled"),
                         color: this.client.color.main,
                     },
                 ],
@@ -51,7 +50,7 @@ export default class NightCore extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: "`✅` | Nightcore filter has been `ENABLED`.",
+                        description: ctx.locale("cmd.nightcore.messages.filter_enabled"),
                         color: this.client.color.main,
                     },
                 ],

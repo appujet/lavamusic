@@ -16,6 +16,7 @@ import type { Player } from "shoukaku";
 import type { Song } from "../../structures/Dispatcher.js";
 import { type Dispatcher, Event, type Lavamusic } from "../../structures/index.js";
 import { trackStart } from "../../utils/SetupSystem.js";
+import { T } from "../../structures/I18n.js";
 
 export default class TrackStart extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -35,26 +36,28 @@ export default class TrackStart extends Event {
 
         this.client.utils.updateStatus(this.client, guild.id);
 
+        const locale = await this.client.db.getLanguage(guild.id);
+
         const embed = this.client
             .embed()
             .setAuthor({
-                name: "Now Playing",
+                name: T(locale, "player.trackStart.now_playing"),
                 iconURL: this.client.config.icons[track.info.sourceName] ?? this.client.user.displayAvatarURL({ extension: "png" }),
             })
             .setColor(this.client.color.main)
             .setDescription(`**[${track.info.title}](${track.info.uri})**`)
             .setFooter({
-                text: `Requested by ${track.info.requester.tag}`,
+                text: T(locale, "player.trackStart.requested_by", { user: track.info.requester.tag }),
                 iconURL: track.info.requester.avatarURL({}),
             })
             .setThumbnail(track.info.artworkUrl)
             .addFields(
                 {
-                    name: "Duration",
+                    name: T(locale, "player.trackStart.duration"),
                     value: track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.length),
                     inline: true,
                 },
-                { name: "Author", value: track.info.author, inline: true },
+                { name: T(locale, "player.trackStart.author"), value: track.info.author, inline: true },
             )
             .setTimestamp();
 
@@ -70,40 +73,41 @@ export default class TrackStart extends Event {
         } else {
             const message = await channel.send({
                 embeds: [embed],
-                components: [createButtonRow(dispatcher, this.client)],
+                components: [createButtonRow(dispatcher)],
             });
 
             dispatcher.nowPlayingMessage = message;
-            createCollector(message, dispatcher, track, embed, this.client);
+            createCollector(message, dispatcher, track, embed, this.client, locale);
         }
     }
 }
 
-function createButtonRow(dispatcher: Dispatcher, client: Lavamusic): ActionRowBuilder<ButtonBuilder> {
+function createButtonRow(dispatcher: Dispatcher): ActionRowBuilder<ButtonBuilder> {
     const previousButton = new ButtonBuilder()
+
         .setCustomId("previous")
-        .setEmoji(client.emoji.previous)
+        .setEmoji("⏪")
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(!dispatcher.previous);
 
     const resumeButton = new ButtonBuilder()
         .setCustomId("resume")
-        .setEmoji(dispatcher.paused ? client.emoji.resume : client.emoji.pause)
+        .setEmoji(dispatcher.paused ? "▶️" : "⏸️")
         .setStyle(dispatcher.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
 
-    const stopButton = new ButtonBuilder().setCustomId("stop").setEmoji(client.emoji.stop).setStyle(ButtonStyle.Danger);
+    const stopButton = new ButtonBuilder().setCustomId("stop").setEmoji("⏹️").setStyle(ButtonStyle.Danger);
 
-    const skipButton = new ButtonBuilder().setCustomId("skip").setEmoji(client.emoji.skip).setStyle(ButtonStyle.Secondary);
+    const skipButton = new ButtonBuilder().setCustomId("skip").setEmoji("⏩").setStyle(ButtonStyle.Secondary);
 
     const loopButton = new ButtonBuilder()
         .setCustomId("loop")
-        .setEmoji(dispatcher.loop === "repeat" ? client.emoji.loop.track : client.emoji.loop.none)
+        .setEmoji(dispatcher.loop === "repeat" ? "🔂" : "🔁")
         .setStyle(dispatcher.loop !== "off" ? ButtonStyle.Success : ButtonStyle.Secondary);
 
     return new ActionRowBuilder<ButtonBuilder>().addComponents(resumeButton, previousButton, stopButton, skipButton, loopButton);
 }
 
-function createCollector(message: any, dispatcher: Dispatcher, _track: Song, embed: any, client: Lavamusic): void {
+function createCollector(message: any, dispatcher: Dispatcher, _track: Song, embed: any, client: Lavamusic, locale: string): void {
     const collector = message.createMessageComponentCollector({
         filter: async (b: ButtonInteraction) => {
             if (b.member instanceof GuildMember) {
@@ -111,7 +115,9 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 if (isSameVoiceChannel) return true;
             }
             await b.reply({
-                content: `You are not connected to <#${b.guild.members.me?.voice.channelId ?? "None"}> to use these buttons.`,
+                content: T(locale, "player.trackStart.not_connected_to_voice_channel", {
+                    channel: b.guild.members.me?.voice.channelId ?? "None",
+                }),
                 ephemeral: true,
             });
             return false;
@@ -121,7 +127,7 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
     collector.on("collect", async (interaction) => {
         if (!(await checkDj(client, interaction))) {
             await interaction.reply({
-                content: "You need to have the DJ role to use this command.",
+                content: T(locale, "player.trackStart.need_dj_role"),
                 ephemeral: true,
             });
             return;
@@ -131,20 +137,19 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
             if (message) {
                 await message.edit({
                     embeds: [embed.setFooter({ text, iconURL: interaction.user.avatarURL({}) })],
-                    components: [createButtonRow(dispatcher, client)],
+                    components: [createButtonRow(dispatcher)],
                 });
             }
         };
-
         switch (interaction.customId) {
             case "previous":
                 if (dispatcher.previous) {
                     await interaction.deferUpdate();
                     dispatcher.previousTrack();
-                    await editMessage(`Previous by ${interaction.user.tag}`);
+                    await editMessage(T(locale, "player.trackStart.previous_by", { user: interaction.user.tag }));
                 } else {
                     await interaction.reply({
-                        content: "There is no previous song.",
+                        content: T(locale, "player.trackStart.no_previous_song"),
                         ephemeral: true,
                     });
                 }
@@ -152,19 +157,24 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
             case "resume":
                 dispatcher.pause();
                 await interaction.deferUpdate();
-                await editMessage(dispatcher.paused ? `Paused by ${interaction.user.tag}` : `Resumed by ${interaction.user.tag}`);
+                await editMessage(
+                    dispatcher.paused
+                        ? T(locale, "player.trackStart.paused_by", { user: interaction.user.tag })
+                        : T(locale, "player.trackStart.resumed_by", { user: interaction.user.tag }),
+                );
                 break;
             case "stop":
                 dispatcher.stop();
+                await interaction.deferUpdate();
                 break;
             case "skip":
                 if (dispatcher.queue.length) {
                     await interaction.deferUpdate();
                     dispatcher.skip();
-                    await editMessage(`Skipped by ${interaction.user.tag}`);
+                    await editMessage(T(locale, "player.trackStart.skipped_by", { user: interaction.user.tag }));
                 } else {
                     await interaction.reply({
-                        content: "There is no more song in the queue.",
+                        content: T(locale, "player.trackStart.no_more_songs_in_queue"),
                         ephemeral: true,
                     });
                 }
@@ -174,15 +184,15 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 switch (dispatcher.loop) {
                     case "off":
                         dispatcher.loop = "repeat";
-                        await editMessage(`Looping by ${interaction.user.tag}`);
+                        await editMessage(T(locale, "player.trackStart.looping_by", { user: interaction.user.tag }));
                         break;
                     case "repeat":
                         dispatcher.loop = "queue";
-                        await editMessage(`Looping Queue by ${interaction.user.tag}`);
+                        await editMessage(T(locale, "player.trackStart.looping_queue_by", { user: interaction.user.tag }));
                         break;
                     case "queue":
                         dispatcher.loop = "off";
-                        await editMessage(`Looping Off by ${interaction.user.tag}`);
+                        await editMessage(T(locale, "player.trackStart.looping_off_by", { user: interaction.user.tag }));
                         break;
                 }
                 break;

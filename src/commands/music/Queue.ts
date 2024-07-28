@@ -5,7 +5,7 @@ export default class Queue extends Command {
         super(client, {
             name: "queue",
             description: {
-                content: "Shows the current queue",
+                content: "cmd.queue.description",
                 examples: ["queue"],
                 usage: "queue",
             },
@@ -13,7 +13,6 @@ export default class Queue extends Command {
             aliases: ["q"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: false,
@@ -29,19 +28,23 @@ export default class Queue extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
         if (player.queue.length === 0) {
             return await ctx.sendMessage({
                 embeds: [
-                    embed
-                        .setColor(this.client.color.main)
-                        .setDescription(
-                            `Now playing: [${player.current.info.title}](${player.current.info.uri}) - Request By: ${
-                                player.current?.info.requester
-                            } - Duration: ${player.current.info.isStream ? "LIVE" : client.utils.formatTime(player.current.info.length)}`,
-                        ),
+                    embed.setColor(this.client.color.main).setDescription(
+                        ctx.locale("cmd.queue.now_playing", {
+                            title: player.current.info.title,
+                            uri: player.current.info.uri,
+                            requester: player.current?.info.requester,
+                            duration: player.current.info.isStream
+                                ? ctx.locale("cmd.queue.live")
+                                : client.utils.formatTime(player.current.info.length),
+                        }),
+                    ),
                 ],
             });
         }
@@ -49,9 +52,13 @@ export default class Queue extends Command {
         for (let i = 0; i < player.queue.length; i++) {
             const track = player.queue[i];
             songStrings.push(
-                `${i + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${track?.info.requester} - Duration: ${
-                    track.info.isStream ? "LIVE" : client.utils.formatTime(track.info.length)
-                }`,
+                ctx.locale("cmd.queue.track_info", {
+                    index: i + 1,
+                    title: track.info.title,
+                    uri: track.info.uri,
+                    requester: track?.info.requester,
+                    duration: track.info.isStream ? ctx.locale("cmd.queue.live") : client.utils.formatTime(track.info.length),
+                }),
             );
         }
         let chunks = client.utils.chunk(songStrings, 10);
@@ -62,9 +69,9 @@ export default class Queue extends Command {
             return this.client
                 .embed()
                 .setColor(this.client.color.main)
-                .setAuthor({ name: "Queue", iconURL: ctx.guild.iconURL({}) })
+                .setAuthor({ name: ctx.locale("cmd.queue.title"), iconURL: ctx.guild.iconURL({}) })
                 .setDescription(chunk.join("\n"))
-                .setFooter({ text: `Page ${index + 1} of ${chunks.length}` });
+                .setFooter({ text: ctx.locale("cmd.queue.page_info", { index: index + 1, total: chunks.length }) });
         });
         return await client.utils.paginate(client, ctx, pages);
     }

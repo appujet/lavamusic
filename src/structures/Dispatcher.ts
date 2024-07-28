@@ -1,6 +1,7 @@
 import type { Message, User } from "discord.js";
-import type { Node, Player, Track } from "shoukaku";
+import { LoadType, type Node, type Player, type Track } from "shoukaku";
 import type { Lavamusic } from "./index.js";
+import { SearchEngine } from "../types.js";
 
 export class Song implements Track {
     encoded: string;
@@ -187,38 +188,106 @@ export default class Dispatcher {
             await this.play();
         }
     }
-
+    
     public async Autoplay(song: Song): Promise<void> {
-        const resolve = await this.node.rest.resolve(`${this.client.config.searchEngine}:${song.info.author}`);
-        if (!resolve?.data && Array.isArray(resolve.data)) {
+        if (!song?.info) return;
+
+        try {
+            const node = this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
+            if (!node) return;
+            switch (song.info.sourceName) {
+                case "youtube": {
+                    const resolve = await node.rest.resolve(`${SearchEngine.YouTubeMusic}:${song.info.author}`);
+                    this.addAutoplayTrack(resolve);
+                    break;
+                }
+                case "soundcloud":
+                    await node.rest.resolve(`${SearchEngine.SoundCloud}:${song.info.author}`);
+                    break;
+                case "spotify": {
+                    // need lavaSrc plugin in lavalink
+                    const data = await node.rest.resolve(`sprec:seed_tracks=${song.info.identifier}`);
+                    if (!data) return;
+                    if (data.loadType === LoadType.PLAYLIST) {
+                        const tracks = data.data.tracks;
+                        const trackUrl = tracks[Math.floor(Math.random() * tracks.length)]?.info?.uri;
+                        if (!trackUrl) return;
+                        const resolve = await node.rest.resolve(trackUrl);
+                        if (!resolve) return;
+                        if (resolve.loadType === LoadType.TRACK) {
+                            const song = new Song(resolve.data, this.client.user!);
+                            this.queue.push(song);
+                            return this.isPlaying();
+                        }
+                    }
+                    break;
+                }
+                // need jiosaavn plugin in lavalink (https://github.com/appujet/jiosaavn-plugin)
+                case "jiosaavn": {
+                    const data = await node.rest.resolve(`jsrec:${song.info.identifier}`);
+                    if (!data) return;
+                    if (data.loadType === LoadType.PLAYLIST) {
+                        const tracks = data.data.tracks;
+                        const trackUrl = tracks[Math.floor(Math.random() * tracks.length)]?.info?.uri;
+                        if (!trackUrl) return;
+                        const resolve = await node.rest.resolve(trackUrl);
+                        if (!resolve) return;
+                        if (resolve.loadType === LoadType.TRACK) {
+                            const song = new Song(resolve.data, this.client.user!);
+                            this.queue.push(song);
+                            return this.isPlaying();
+                        }
+                    }
+                    break;
+                }
+                case "deezer": {
+                    const resolve = await node.rest.resolve(`${SearchEngine.Deezer}:${song.info.author}`);
+                    this.addAutoplayTrack(resolve);
+                    break;
+                }
+                case "applemusic": {
+                    const resolve = await node.rest.resolve(`${SearchEngine.Apple}:${song.info.author}`);
+                    this.addAutoplayTrack(resolve);
+                    break;
+                }
+                default: {
+                    const resolve = await node.rest.resolve(`${SearchEngine.YouTubeMusic}:${song.info.author}`);
+                    this.addAutoplayTrack(resolve);
+                    break;
+                }
+            }
+        } catch (_error) {
             return this.destroy();
         }
-        const metadata = resolve.data as Track[];
-        let chosen: Song | null = null;
+    }
+    private addAutoplayTrack(resolve: any) {
+        if (!(resolve?.data && Array.isArray(resolve.data))) {
+            console.error("Failed to fetch node resolve data.");
+            return this.destroy();
+        }
+
+        let choosed: Song | null = null;
         const maxAttempts = 10;
         let attempts = 0;
 
+        const metadata = resolve.data as any[] as any;
+
         while (attempts < maxAttempts) {
-            const potentialChoice = this.buildTrack(metadata[Math.floor(Math.random() * metadata.length)], this.client.user);
+            const potentialChoice = new Song(metadata[Math.floor(Math.random() * metadata.length)], this.client.user!);
             if (
-                !(
-                    this.queue.some((s) => s.encoded === potentialChoice.encoded) ||
-                    this.history.some((s) => s.encoded === potentialChoice.encoded)
-                )
+                !(this.queue.some((s) => s.encoded === potentialChoice.encoded) ||this.history.some((s) => s.encoded === potentialChoice.encoded))
             ) {
-                chosen = potentialChoice;
+                choosed = potentialChoice;
                 break;
             }
             attempts++;
         }
-        if (chosen) {
-            this.queue.push(chosen);
-            await this.isPlaying();
-        } else {
-            this.destroy();
+
+        if (choosed) {
+            this.queue.push(choosed);
+            return this.isPlaying();
         }
     }
-
     public async setAutoplay(autoplay: boolean): Promise<void> {
         this.autoplay = autoplay;
         if (autoplay) {
