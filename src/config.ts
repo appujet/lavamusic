@@ -22,7 +22,7 @@ export default {
         previous: "⏪",
         forward: "⏭️",
         replay: "🔄",
-        voldown: "🔈",
+        voldown: "🔉",
         volup: "🔊",
         shuffle: "🔀",
         loop: {
