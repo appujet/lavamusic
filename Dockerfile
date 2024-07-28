@@ -40,6 +40,7 @@ COPY --from=builder /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.t
 COPY --from=builder /opt/lavamusic/prisma ./prisma
 COPY --from=builder /opt/lavamusic/scripts ./scripts
 COPY --from=builder /opt/lavamusic/package*.json ./
+COPY --from=builder /opt/lavamusic/languages ./languages
 
 RUN npm install --omit=dev
 
