@@ -22,7 +22,7 @@ export default {
         previous: "⏪",
         forward: "⏩",
         replay: "🔄",
-        voldown: "🔉",
+        voldown: "🔈",
         volup: "🔊",
         shuffle: "🔀",
         loop: {
@@ -31,9 +31,9 @@ export default {
         },
         page: {
             last: "⏩",
-            fast: "⏪",
-            back: "◀️",
-            next: "▶️",
+            first: "⏪",
+            back: "⬅️",
+            next: "➡️",
             cancel: "⏹️",
         },
     },
