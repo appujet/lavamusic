@@ -1,4 +1,14 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, Collection, EmbedBuilder, type Message, PermissionFlagsBits, type TextChannel } from "discord.js";
+import {
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
+    ChannelType,
+    Collection,
+    EmbedBuilder,
+    type Message,
+    PermissionFlagsBits,
+    type TextChannel,
+} from "discord.js";
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
 import { T } from "../../structures/I18n.js";
 
@@ -64,7 +74,6 @@ export default class MessageCreate extends Event {
         }
 
         const logs = this.client.channels.cache.get(this.client.config.commandLogs);
-
 
         if (command.permissions) {
             if (command.permissions.client && !clientMember.permissions.has(command.permissions.client)) {

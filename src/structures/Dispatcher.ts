@@ -188,7 +188,7 @@ export default class Dispatcher {
             await this.play();
         }
     }
-    
+
     public async Autoplay(song: Song): Promise<void> {
         if (!song?.info) return;
 
@@ -275,7 +275,10 @@ export default class Dispatcher {
         while (attempts < maxAttempts) {
             const potentialChoice = new Song(metadata[Math.floor(Math.random() * metadata.length)], this.client.user!);
             if (
-                !(this.queue.some((s) => s.encoded === potentialChoice.encoded) ||this.history.some((s) => s.encoded === potentialChoice.encoded))
+                !(
+                    this.queue.some((s) => s.encoded === potentialChoice.encoded) ||
+                    this.history.some((s) => s.encoded === potentialChoice.encoded)
+                )
             ) {
                 choosed = potentialChoice;
                 break;

@@ -42,7 +42,7 @@ export enum Language {
     Thai = "Thai",
     Turkish = "Turkish",
     Ukrainian = "Ukrainian",
-    Vietnamese = "Vietnamese"
+    Vietnamese = "Vietnamese",
 }
 export const LocaleFlags = {
     [Locale.Indonesian]: "🇮🇩",
@@ -75,7 +75,7 @@ export const LocaleFlags = {
     [Locale.Thai]: "🇹🇭",
     [Locale.Turkish]: "🇹🇷",
     [Locale.Ukrainian]: "🇺🇦",
-    [Locale.Vietnamese]: "🇻🇳"
+    [Locale.Vietnamese]: "🇻🇳",
 };
 /**
  * Project: lavamusic
