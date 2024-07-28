@@ -1,5 +1,5 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { exec } from "node:child_process";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Restart extends Command {
@@ -32,21 +32,17 @@ export default class Restart extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-
         const embed = this.client.embed();
 
-        const button = new ButtonBuilder()
-            .setStyle(ButtonStyle.Danger)
-            .setLabel("Confirm Restart")
-            .setCustomId("confirm-restart");
+        const button = new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Confirm Restart").setCustomId("confirm-restart");
 
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
 
         const restartembed = embed
-        .setColor(client.color.red)
-        .setDescription(`**Are you sure you want to restart the **\`${client.user.username}\`?`)
-        .setTimestamp();
-    
+            .setColor(client.color.red)
+            .setDescription(`**Are you sure you want to restart the **\`${client.user.username}\`?`)
+            .setTimestamp();
+
         const msg = await ctx.sendMessage({
             embeds: [restartembed],
             components: [row],

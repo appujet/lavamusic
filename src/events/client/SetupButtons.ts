@@ -1,9 +1,9 @@
 import type { Message } from "discord.js";
+import { T } from "../../structures/I18n.js";
 import { Event, type Lavamusic } from "../../structures/index.js";
 import { getButtons } from "../../utils/Buttons.js";
 import { buttonReply } from "../../utils/SetupSystem.js";
 import { checkDj } from "../player/TrackStart.js";
-import { T } from "../../structures/I18n.js";
 
 export default class SetupButtons extends Event {
     constructor(client: Lavamusic, file: string) {

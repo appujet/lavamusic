@@ -1,4 +1,3 @@
-
 export class ThemeSelector {
     /**
      * Applies a yellow fire effect to the text.
