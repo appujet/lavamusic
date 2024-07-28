@@ -6,20 +6,19 @@ if %errorlevel% neq 0 (
     echo Error: Failed to install npm packages.
     exit /b %errorlevel%
 )
-echo Successfully installed npm packages.
 
-echo Building the lavamusic application...
-npm run build
+cls
+echo Building the Lavamusic application...
+npm run clean
 if %errorlevel% neq 0 (
     echo Error: Build failed.
     exit /b %errorlevel%
 )
-echo Successfully built the lavamusic application.
 
-echo Starting the lavamusic application...
-npm start
+cls
+echo Starting the Lavamusic application...
+node .
 if %errorlevel% neq 0 (
-    echo Error: Failed to start the lavamusic application.
+    echo Error: Failed to start the Lavamusic application.
     exit /b %errorlevel%
 )
-echo lavamusic application started successfully.
