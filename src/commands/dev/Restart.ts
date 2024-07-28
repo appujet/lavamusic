@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-import { exec } from "child_process";
+import { exec } from "node:child_process";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Restart extends Command {
