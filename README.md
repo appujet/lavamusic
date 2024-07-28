@@ -99,7 +99,6 @@ cd lavamusic
 ```bash
 npm i
 ```
-Or for Windows users, run run.bat. The script will install the package and run the bot automatically. **Warning: You need to configure .env first!**
 
 4. Set up your environment variables:
 Create a .env file in the root directory of your project with the following variables:
