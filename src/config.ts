@@ -14,11 +14,11 @@ export default {
         main: 0x2f3136,
     },
     emoji: {
-        // Custom emoji with ID format (e.g., <:emojiName:123456789012345678>)
+        // You can add custom emoji with ID format (e.g., <:emojiName:123456789012345678>)
         pause: "⏸️",
         resume: "▶️",
         stop: "⏹️",
-        skip: "⏩",
+        skip: "⏭️",
         previous: "⏪",
         forward: "⏩",
         replay: "🔄",
