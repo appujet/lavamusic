@@ -16,6 +16,7 @@ import {
 import { LoadType } from "shoukaku";
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
 import { T } from "../../structures/I18n.js";
+import { Language } from "../../types.js";
 
 export default class InteractionCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -253,7 +254,8 @@ export default class InteractionCreate extends Event {
             }
 
             if (interaction.commandName === "language") {
-                const languages = Object.values(Locale);
+                const languages = Object.values(Language);
+                const search = interaction.options.getString("language");
                 const lang = [];
                 languages.forEach((x) => {
                     lang.push({
@@ -261,7 +263,15 @@ export default class InteractionCreate extends Event {
                         value: x,
                     });
                 });
-                return await interaction.respond(lang).catch(() => {});
+
+                const filtered = lang.filter((x) => x.name.toLowerCase().includes(search.toLowerCase()));
+
+                const choices = filtered.slice(0, 25).map((x) => ({
+                    name: x.name,
+                    value: x.value,
+                }));
+
+                return await interaction.respond(choices).catch(() => {});
             }
         }
     }

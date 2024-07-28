@@ -1,38 +1,6 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
-import { Language } from "../../types.js";
-export const LocaleFlags = {
-    [Language.Indonesian]: "🇮🇩",
-    [Language.EnglishUS]: "🇺🇸",
-    [Language.EnglishGB]: "🇬🇧",
-    [Language.Bulgarian]: "🇧🇬",
-    [Language.ChineseCN]: "🇨🇳",
-    [Language.ChineseTW]: "🇹🇼",
-    [Language.Croatian]: "🇭🇷",
-    [Language.Czech]: "🇨🇿",
-    [Language.Danish]: "🇩🇰",
-    [Language.Dutch]: "🇳🇱",
-    [Language.Finnish]: "🇫🇮",
-    [Language.French]: "🇫🇷",
-    [Language.German]: "🇩🇪",
-    [Language.Greek]: "🇬🇷",
-    [Language.Hindi]: "🇮🇳",
-    [Language.Hungarian]: "🇭🇺",
-    [Language.Italian]: "🇮🇹",
-    [Language.Japanese]: "🇯🇵",
-    [Language.Korean]: "🇰🇷",
-    [Language.Lithuanian]: "🇱🇹",
-    [Language.Norwegian]: "🇳🇴",
-    [Language.Polish]: "🇵🇱",
-    [Language.PortugueseBR]: "🇧🇷",
-    [Language.Romanian]: "🇷🇴",
-    [Language.Russian]: "🇷🇺",
-    [Language.SpanishES]: "🇪🇸",
-    [Language.Swedish]: "🇸🇪",
-    [Language.Thai]: "🇹🇭",
-    [Language.Turkish]: "🇹🇷",
-    [Language.Ukrainian]: "🇺🇦",
-    [Language.Vietnamese]: "🇻🇳",
-};
+import { Language, LocaleFlags } from "../../types.js";
+
 export default class LanguageCommand extends Command {
     constructor(client: Lavamusic) {
         super(client, {
@@ -90,7 +58,6 @@ export default class LanguageCommand extends Command {
         } else {
             subCommand = args.shift();
         }
-
         if (subCommand === "set") {
             const embed = client.embed().setColor(this.client.color.main);
 
@@ -105,12 +72,16 @@ export default class LanguageCommand extends Command {
             }
 
             if (!Object.values(Language).includes(lang as Language)) {
+                const availableLanguages = Object.entries(LocaleFlags)
+                    .map(([key, value]) => `${value}:\`${key}\``)
+                    .reduce((acc, curr, index) => {
+                        if (index % 2 === 0) {
+                            return acc + curr + (index === Object.entries(LocaleFlags).length - 1 ? "" : " ");
+                        }
+                        return `${acc + curr}\n`;
+                    }, "");
                 return ctx.sendMessage({
-                    embeds: [
-                        embed.setDescription(
-                            ctx.locale("cmd.language.invalid_language", { languages: `\`${Object.values(Language).join("`, `")}\`` }),
-                        ),
-                    ],
+                    embeds: [embed.setDescription(ctx.locale("cmd.language.invalid_language", { languages: availableLanguages }))],
                 });
             }
 
@@ -120,11 +91,22 @@ export default class LanguageCommand extends Command {
 
             await client.db.updateLanguage(ctx.guild!.id, lang);
             ctx.guildLocale = lang;
-            const availableLanguages = Object.entries(LocaleFlags)
-                .map(([key, value]) => `${value}:\`${key}\``)
-                .join(", ");
 
-            return ctx.sendMessage({ embeds: [embed.setDescription(ctx.locale("cmd.language.set", { language: availableLanguages }))] });
+            return ctx.sendMessage({ embeds: [embed.setDescription(ctx.locale("cmd.language.set", { language: lang }))] });
+        }
+        if (subCommand === "reset") {
+            const embed = client.embed().setColor(this.client.color.main);
+
+            const locale = await client.db.getLanguage(ctx.guild!.id);
+
+            if (!locale) {
+                return ctx.sendMessage({ embeds: [embed.setDescription(ctx.locale("cmd.language.not_set"))] });
+            }
+
+            await client.db.updateLanguage(ctx.guild!.id, Language.EnglishUS);
+            ctx.guildLocale = Language.EnglishUS;
+
+            return ctx.sendMessage({ embeds: [embed.setDescription(ctx.locale("cmd.language.reset"))] });
         }
     }
 }
