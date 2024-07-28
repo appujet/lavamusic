@@ -31,7 +31,7 @@ export default {
         },
         page: {
             last: "⏩",
-            first: "⏪",
+            fast: "⏪",
             back: "⬅️",
             next: "➡️",
             cancel: "⏹️",

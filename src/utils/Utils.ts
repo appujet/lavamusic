@@ -90,8 +90,8 @@ export class Utils {
             const lastEmbed = page === embed.length - 1;
             const pageEmbed = embed[page];
             const first = new ButtonBuilder()
-                .setCustomId("first")
-                .setEmoji(client.emoji.page.first)
+                .setCustomId("fast")
+                .setEmoji(client.emoji.page.fast)
                 .setStyle(ButtonStyle.Primary)
                 .setDisabled(firstEmbed);
             const back = new ButtonBuilder()
