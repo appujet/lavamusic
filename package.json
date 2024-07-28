@@ -45,6 +45,7 @@
   "dependencies": {
     "@prisma/client": "^5.17.0",
     "@top-gg/sdk": "^3.1.6",
+    "child_process": "^1.0.2",
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
     "i18n": "^0.15.1",
