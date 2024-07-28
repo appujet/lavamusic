@@ -5,7 +5,7 @@ export default class ClearQueue extends Command {
         super(client, {
             name: "clearqueue",
             description: {
-                content: "Clears the queue",
+                content: "cmd.clearqueue.description",
                 examples: ["clearqueue"],
                 usage: "clearqueue",
             },
@@ -13,7 +13,6 @@ export default class ClearQueue extends Command {
             aliases: ["cq"],
             cooldown: 3,
             args: false,
-            vote: false,
             player: {
                 voice: true,
                 dj: true,
@@ -31,18 +30,24 @@ export default class ClearQueue extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild.id);
+        const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
+
+        if (!player) {
+            return await ctx.sendMessage({
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.no_player"))],
+            });
+        }
 
         if (player.queue.length === 0) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription("There are no songs in the queue.")],
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.no_songs"))],
             });
         }
 
         player.queue = [];
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription("Cleared the queue.")],
+            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.clearqueue.messages.cleared"))],
         });
     }
 }

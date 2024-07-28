@@ -6,7 +6,7 @@ export default class Play extends Command {
         super(client, {
             name: "play",
             description: {
-                content: "Plays a song from YouTube, Spotify or http",
+                content: "cmd.play.description",
                 examples: [
                     "play example",
                     "play https://www.youtube.com/watch?v=example",
@@ -19,7 +19,6 @@ export default class Play extends Command {
             aliases: ["p"],
             cooldown: 3,
             args: true,
-            vote: false,
             player: {
                 voice: true,
                 dj: false,
@@ -35,7 +34,7 @@ export default class Play extends Command {
             options: [
                 {
                     name: "song",
-                    description: "The song you want to play",
+                    description: "cmd.play.options.song",
                     type: 3,
                     required: true,
                     autocomplete: true,
@@ -46,8 +45,8 @@ export default class Play extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const query = args.join(" ");
-        await ctx.sendDeferMessage("Loading...");
-        let player = client.queue.get(ctx.guild.id);
+        await ctx.sendDeferMessage(ctx.locale("cmd.play.loading"));
+        let player = client.queue.get(ctx.guild!.id);
         const vc = ctx.member as any;
         if (!player) player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel);
         const res = await this.client.queue.search(query);
@@ -55,86 +54,102 @@ export default class Play extends Command {
 
         switch (res.loadType) {
             case LoadType.ERROR:
-                return await ctx.editMessage({
-                    embeds: [embed.setColor(this.client.color.red).setDescription("There was an error while searching.")],
+                ctx.editMessage({
+                    content: "",
+                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.play.errors.search_error"))],
                 });
-
+                break;
             case LoadType.EMPTY:
-                return await ctx.editMessage({
-                    embeds: [embed.setColor(this.client.color.red).setDescription("There were no results found.")],
+                ctx.editMessage({
+                    content: "",
+                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.play.errors.no_results"))],
                 });
-
+                break;
             case LoadType.TRACK: {
                 const track = player.buildTrack(res.data, ctx.author);
-                if (player.queue.length > client.config.maxQueueSize) {
+                if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.editMessage({
+                        content: "",
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
-                                .setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`),
+                                .setDescription(ctx.locale("cmd.play.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize })),
                         ],
                     });
-                }
                 player.queue.push(track);
                 await player.isPlaying();
-                return await ctx.editMessage({
+                ctx.editMessage({
+                    content: "",
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(`Added [${res.data.info.title}](${res.data.info.uri}) to the queue.`),
+                            .setDescription(ctx.locale("cmd.play.added_to_queue", { title: res.data.info.title, uri: res.data.info.uri })),
                     ],
                 });
+                break;
             }
-
             case LoadType.PLAYLIST: {
-                if (res.data.tracks.length > client.config.maxPlaylistSize) {
+                if (res.data.tracks.length > client.config.maxPlaylistSize)
                     return await ctx.editMessage({
+                        content: "",
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
-                                .setDescription(`The playlist is too long. The maximum length is ${client.config.maxPlaylistSize} songs.`),
+                                .setDescription(
+                                    ctx.locale("cmd.play.errors.playlist_too_long", { maxPlaylistSize: client.config.maxPlaylistSize }),
+                                ),
                         ],
                     });
-                }
                 for (const track of res.data.tracks) {
                     const pl = player.buildTrack(track, ctx.author);
-                    if (player.queue.length > client.config.maxQueueSize) {
+                    if (player.queue.length > client.config.maxQueueSize)
                         return await ctx.editMessage({
+                            content: "",
                             embeds: [
                                 embed
                                     .setColor(this.client.color.red)
-                                    .setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`),
+                                    .setDescription(
+                                        ctx.locale("cmd.play.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                    ),
                             ],
                         });
-                    }
                     player.queue.push(pl);
                 }
                 await player.isPlaying();
-                return await ctx.editMessage({
-                    embeds: [embed.setColor(this.client.color.main).setDescription(`Added ${res.data.tracks.length} songs to the queue.`)],
-                });
-            }
-
-            case LoadType.SEARCH: {
-                const track1 = player.buildTrack(res.data[0], ctx.author);
-                if (player.queue.length > client.config.maxQueueSize) {
-                    return await ctx.editMessage({
-                        embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(`The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`),
-                        ],
-                    });
-                }
-                player.queue.push(track1);
-                await player.isPlaying();
-                return await ctx.editMessage({
+                ctx.editMessage({
+                    content: "",
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(`Added [${res.data[0].info.title}](${res.data[0].info.uri}) to the queue.`),
+                            .setDescription(ctx.locale("cmd.play.added_playlist_to_queue", { length: res.data.tracks.length })),
                     ],
                 });
+                break;
+            }
+            case LoadType.SEARCH: {
+                const track1 = player.buildTrack(res.data[0], ctx.author);
+                if (player.queue.length > client.config.maxQueueSize)
+                    return await ctx.editMessage({
+                        content: "",
+                        embeds: [
+                            embed
+                                .setColor(this.client.color.red)
+                                .setDescription(ctx.locale("cmd.play.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize })),
+                        ],
+                    });
+                player.queue.push(track1);
+                await player.isPlaying();
+                ctx.editMessage({
+                    content: "",
+                    embeds: [
+                        embed
+                            .setColor(this.client.color.main)
+                            .setDescription(
+                                ctx.locale("cmd.play.added_to_queue", { title: res.data[0].info.title, uri: res.data[0].info.uri }),
+                            ),
+                    ],
+                });
+                break;
             }
         }
     }
