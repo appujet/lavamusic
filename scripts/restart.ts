@@ -1,4 +1,4 @@
-import { exec } from 'child_process';
+import { exec } from 'node:child_process';
 
 function startLavamusic(): void {
     exec('npm start', (error, stdout, stderr) => {
