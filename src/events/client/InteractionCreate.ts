@@ -9,6 +9,7 @@ import {
     EmbedBuilder,
     type GuildMember,
     InteractionType,
+    Locale,
     PermissionFlagsBits,
     type TextChannel,
 } from "discord.js";
@@ -249,6 +250,18 @@ export default class InteractionCreate extends Event {
                 }
 
                 return await interaction.respond(songs).catch(() => {});
+            }
+
+            if (interaction.commandName === "language") {
+                const languages = Object.values(Locale);
+                const lang = [];
+                languages.forEach((x) => {
+                    lang.push({
+                        name: x,
+                        value: x,
+                    });
+                });
+                return await interaction.respond(lang).catch(() => {});
             }
         }
     }

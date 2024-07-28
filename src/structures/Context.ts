@@ -49,7 +49,12 @@ export default class Context {
         this.createdAt = ctx.createdAt;
         this.createdTimestamp = ctx.createdTimestamp;
         this.member = ctx.member;
+        this.args = args;
         this.setArgs(args);
+        this.setUpLocale();
+    }
+    private async setUpLocale(): Promise<void> {
+        this.guildLocale = this.guild ? await this.client.db.getLanguage(this.guild.id) : "en";
     }
 
     public get isInteraction(): boolean {
