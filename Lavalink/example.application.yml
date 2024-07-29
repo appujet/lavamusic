@@ -91,7 +91,7 @@ plugins:
       - IOS
 lavalink:
   plugins:
-    - dependency: "com.github.appujet:jiosaavn-plugin:v0.1.5"
+    - dependency: "com.github.appujet:jiosaavn-plugin:v0.1.6"
       repository: "https://jitpack.io"
     - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
       snapshot: false # set to true if you want to use snapshot builds.
