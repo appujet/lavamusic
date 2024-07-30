@@ -1,627 +1,627 @@
 {
 	"cmd": {
 		"247": {
-			"description": "Set the bot to stay in the voice channel",
+			"description": "Setter boten til å forbli i talekanalen",
 			"errors": {
-				"not_in_voice": "You need to be in a voice channel to use this command.",
-				"generic": "An error occurred while trying to execute this command."
+				"not_in_voice": "Du må være i en talekanal for å bruke denne kommandoen.",
+				"generic": "En feil oppstod under forsøk på å utføre denne kommandoen."
 			},
 			"messages": {
-				"disabled": "`✅` | 24/7 mode has been `DISABLED`",
-				"enabled": "`✅` | 24/7 mode has been `ENABLED`. \n**The bot will not leave the voice channel even if there are no people in the voice channel.**"
+				"disabled": "`✅` | 24/7-modus er `DEAKTIVERT`",
+				"enabled": "`✅` | 24/7-modus er `AKTIVERT`. \n**Boten vil ikke forlate talekanalen selv om det ikke er noen i den.**"
 			}
 		},
 		"ping": {
-			"description": "Shows the bot's ping.",
-			"content": "Pinging...",
-			"bot_latency": "Bot Latency",
-			"api_latency": "API Latency",
-			"requested_by": "Requested by {author}"
+			"description": "Viser botens ping.",
+			"content": "Pinger...",
+			"bot_latency": "Botforsinkelse",
+			"api_latency": "API-forsinkelse",
+			"requested_by": "Forespurt av {author}"
 		},
 		"lavalink": {
-			"description": "Shows the current Lavalink stats.",
-			"title": "Lavalink Stats",
-			"content": "Player: {players}\nPlaying Players: {playingPlayers}\nUptime: {uptime}\nCores: {cores} Core(s)\nMemory Usage: {used} / {reservable}\nSystem Load: {systemLoad}%\nLavalink Load: {lavalinkLoad}%"
+			"description": "Viser gjeldende Lavalink-statistikk.",
+			"title": "Lavalink-statistikk",
+			"content": "Spillere: {players}\nSpillende spillere: {playingPlayers}\nOppetid: {uptime}\nKjerner: {cores} Kjerne(r)\nMinnebruk: {used} / {reservable}\nSystembelastning: {systemLoad}%\nLavalink-belastning: {lavalinkLoad}%"
 		},
 		"invite": {
-			"description": "Get the bot invite link.",
-			"content": "You can invite me by clicking the button below. Any bugs or outages? Join the support server!"
+			"description": "Hent botinvitasjonslenken.",
+			"content": "Du kan invitere meg ved å klikke på knappen nedenfor. Eventuelle feil eller avbrudd? Bli med på støtteserveren!"
 		},
 		"help": {
-			"description": "Shows the help menu.",
+			"description": "Viser hjelpemenyen.",
 			"options": {
-				"command": "The command you want to get info on"
+				"command": "Kommandoen du vil ha informasjon om"
 			},
-			"content": "Hey there! I'm {bot}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord. You can use `{prefix}help <command>` to get more info on a command.",
-			"title": "Help Menu",
-			"not_found": "This `{cmdName}` command does not exist.",
-			"help_cmd": "**Description:** {description}\n**Usage:** {usage}\n**Examples:** {examples}\n**Aliases:** {aliases}\n**Category:** {category}\n**Cooldown:** {cooldown} seconds\n**Permissions:** {premUser}\n**Bot Permissions:** {premBot}\n**Developer Only:** {dev}\n**Slash Command:** {slash}\n**Args:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**DJ Permissions:** {djPerm}\n**Voice:** {voice}",
-			"footer": "Use {prefix}help <command> for more info on a command"
+			"content": "Hei der! Jeg er {bot}, en musikkbot laget med [Lavamusic](https://github.com/appujet/lavamusic) og Discord. Du kan bruke `{prefix}help <kommando>` for å få mer informasjon om en kommando.",
+			"title": "Hjelpemeny",
+			"not_found": "Kommandoen `{cmdName}` finnes ikke.",
+			"help_cmd": "**Beskrivelse:** {description}\n**Bruk:** {usage}\n**Eksempler:** {examples}\n**Aliaser:** {aliases}\n**Kategori:** {category}\n**Nedkjøling:** {cooldown} sekunder\n**Tillatelser:** {premUser}\n**Bottillatelser:** {premBot}\n**Kun for utviklere:** {dev}\n**Skråstrekkommando:** {slash}\n**Argumenter:** {args}\n**Spiller:** {player}\n**DJ:** {dj}\n**DJ-tillatelser:** {djPerm}\n**Stemme:** {voice}",
+			"footer": "Bruk {prefix}help <kommando> for mer informasjon om en kommando"
 		},
 		"botinfo": {
-			"description": "Information about the bot",
-			"content": "Bot Information:\n- **Operating System**: {osInfo}\n- **Uptime**: {osUptime}\n- **Hostname**: {osHostname}\n- **CPU Architecture**: {cpuInfo}\n- **CPU Usage**: {cpuUsed}%\n- **Memory Usage**: {memUsed}MB / {memTotal}GB\n- **Node Version**: {nodeVersion}\n- **Discord Version**: {discordJsVersion}\n- **Connected to** {guilds} guilds, {channels} channels, and {users} users\n- **Total Commands**: {commands}"
+			"description": "Informasjon om boten",
+			"content": "Botinformasjon:\n- **Operativsystem**: {osInfo}\n- **Oppetid**: {osUptime}\n- **Vertsnavn**: {osHostname}\n- **CPU-arkitektur**: {cpuInfo}\n- **CPU-bruk**: {cpuUsed}%\n- **Minnebruk**: {memUsed}MB / {memTotal}GB\n- **Nodeversjon**: {nodeVersion}\n- **Discord-versjon**: {discordJsVersion}\n- **Tilkoblet** {guilds} servere, {channels} kanaler og {users} brukere\n- **Totalt antall kommandoer**: {commands}"
 		},
 		"about": {
-			"description": "Shows information about the bot",
+			"description": "Viser informasjon om boten",
 			"fields": {
-				"creator": "Creator",
-				"repository": "Repository",
-				"support": "Support",
-				"description": "He really wanted to make his first open source project ever for more coding experience. In this project, he was challenged to make a project with fewer bugs. Hope you enjoy using LavaMusic!"
+				"creator": "Skaper",
+				"repository": "Kodelager",
+				"support": "Støtte",
+				"description": "Han ville virkelig lage sitt første åpen kildekode-prosjekt noensinne for mer kodingsopplevelse. I dette prosjektet ble han utfordret til å lage et prosjekt med færre feil. Håper du liker å bruke LavaMusic!"
 			}
 		},
 		"dj": {
-			"description": "Manage the DJ mode and associated roles",
+			"description": "Administrer DJ-modus og tilknyttede roller",
 			"errors": {
-				"provide_role": "Please provide a role.",
-				"no_roles": "The DJ role is empty.",
-				"invalid_subcommand": "Please provide a valid subcommand."
+				"provide_role": "Angi en rolle.",
+				"no_roles": "DJ-rollen er tom.",
+				"invalid_subcommand": "Angi en gyldig underkommando."
 			},
 			"messages": {
-				"role_exists": "The DJ role <@&{roleId}> is already added.",
-				"role_added": "The DJ role <@&{roleId}> has been added.",
-				"role_not_found": "The DJ role <@&{roleId}> is not added.",
-				"role_removed": "The DJ role <@&{roleId}> has been removed.",
-				"all_roles_cleared": "All DJ roles have been removed.",
-				"toggle": "The DJ mode has been toggled to {status}."
+				"role_exists": "DJ-rollen <@&{roleId}> er allerede lagt til.",
+				"role_added": "DJ-rollen <@&{roleId}> er lagt til.",
+				"role_not_found": "DJ-rollen <@&{roleId}> er ikke lagt til.",
+				"role_removed": "DJ-rollen <@&{roleId}> er fjernet.",
+				"all_roles_cleared": "Alle DJ-roller er fjernet.",
+				"toggle": "DJ-modusen er endret til {status}."
 			},
 			"options": {
-				"add": "The DJ role you want to add",
-				"remove": "The DJ role you want to remove",
-				"clear": "Clears all DJ roles",
-				"toggle": "Toggles the DJ role",
-				"role": "The DJ role"
+				"add": "DJ-rollen du vil legge til",
+				"remove": "DJ-rollen du vil fjerne",
+				"clear": "Fjerner alle DJ-roller",
+				"toggle": "Veksler DJ-rollen",
+				"role": "DJ-rollen"
 			},
-			"subcommands": "Subcommands"
+			"subcommands": "Underkommandoer"
 		},
 		"language": {
-			"description": "Set the language for the bot",
-			"invalid_language": "Please provide a valid language. Example: `EnglishUS` for English (United States)\n\nYou can find the list of supported languages [here](https://discord.com/developers/docs/reference#locales)\n\n**Available Languages:**\n{languages}",
-			"already_set": "The language is already set to `{language}`",
-			"not_set": "The language is not set.",
-			"set": "`✅` | The language has been set to `{language}`",
-			"reset": "`✅` | The language has been reset to the default language.",
+			"description": "Angi språket for boten",
+			"invalid_language": "Angi et gyldig språk. Eksempel: `EnglishUS` for engelsk (USA)\n\nDu finner listen over støttede språk [her](https://discord.com/developers/docs/reference#locales)\n\n**Tilgjengelige språk:**\n{languages}",
+			"already_set": "Språket er allerede satt til `{language}`",
+			"not_set": "Språket er ikke angitt.",
+			"set": "`✅` | Språket er satt til `{language}`",
+			"reset": "`✅` | Språket er tilbakestilt til standardspråket.",
 			"options": {
-				"set": "Set the language for the bot",
-				"language": "The language you want to set",
-				"reset": "Change the language back to the default language"
+				"set": "Angi språket for boten",
+				"language": "Språket du vil angi",
+				"reset": "Endre språket tilbake til standardspråket"
 			}
 		},
 		"prefix": {
-			"description": "Shows or sets the bot's prefix",
+			"description": "Viser eller angir botens prefiks",
 			"errors": {
-				"prefix_too_long": "The prefix cannot be longer than 3 characters."
+				"prefix_too_long": "Prefikset kan ikke være lengre enn 3 tegn."
 			},
 			"messages": {
-				"current_prefix": "The prefix for this server is `{prefix}`",
-				"prefix_set": "The prefix for this server is now `{prefix}`",
-				"prefix_reset": "The prefix for this server is now `{prefix}`"
+				"current_prefix": "Prefikset for denne serveren er `{prefix}`",
+				"prefix_set": "Prefikset for denne serveren er nå `{prefix}`",
+				"prefix_reset": "Prefikset for denne serveren er nå `{prefix}`"
 			},
 			"options": {
-				"set": "Sets the prefix",
-				"prefix": "The prefix you want to set",
-				"reset": "Resets the prefix to the default one"
+				"set": "Angir prefikset",
+				"prefix": "Prefikset du vil angi",
+				"reset": "Tilbakestiller prefikset til standard"
 			}
 		},
 		"setup": {
-			"description": "Sets up the bot",
+			"description": "Setter opp boten",
 			"errors": {
-				"channel_exists": "The song request channel already exists.",
-				"channel_not_exists": "The song request channel doesn't exist.",
-				"channel_delete_fail": "The song request channel has been deleted. If the channel is not deleted normally, please delete it yourself."
+				"channel_exists": "Sangforespørselkanalen finnes allerede.",
+				"channel_not_exists": "Sangforespørselkanalen finnes ikke.",
+				"channel_delete_fail": "Sangforespørselkanalen er slettet. Hvis kanalen ikke slettes normalt, slett den selv."
 			},
 			"messages": {
-				"channel_created": "The song request channel has been created in <#{channelId}>.",
-				"channel_deleted": "The song request channel has been deleted.",
-				"channel_info": "The song request channel is <#{channelId}>."
+				"channel_created": "Sangforespørselkanalen er opprettet i <#{channelId}>.",
+				"channel_deleted": "Sangforespørselkanalen er slettet.",
+				"channel_info": "Sangforespørselkanalen er <#{channelId}>."
 			},
 			"options": {
-				"create": "Creates the song request channel",
-				"delete": "Deletes the song request channel",
-				"info": "Shows the song request channel"
+				"create": "Oppretter sangforespørselkanalen",
+				"delete": "Sletter sangforespørselkanalen",
+				"info": "Viser sangforespørselkanalen"
 			}
 		},
 		"8d": {
-			"description": "on/off 8d filter",
+			"description": "Slå på/av 8d-filteret",
 			"messages": {
-				"filter_enabled": "`✅` | 8D filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | 8D filter has been `DISABLED`."
+				"filter_enabled": "`✅` | 8D-filteret er `AKTIVERT`.",
+				"filter_disabled": "`✅` | 8D-filteret er `DEAKTIVERT`."
 			}
 		},
 		"bassboost": {
-			"description": "on/off bassboost filter",
+			"description": "Slå på/av bassboost-filteret",
 			"messages": {
-				"filter_enabled": "`✅` | Bassboost filter has been `ENABLED`. \n**Be careful, listening too loudly can damage your hearing!**",
-				"filter_disabled": "`✅` | Bassboost filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Bassboost-filteret er `AKTIVERT`. \n**Vær forsiktig, å lytte for høyt kan skade hørselen!**",
+				"filter_disabled": "`✅` | Bassboost-filteret er `DEAKTIVERT`."
 			}
 		},
 		"distorsion": {
-			"description": "Toggle the distorsion filter on/off",
+			"description": "Slå på/av forvrengningsfilteret",
 			"messages": {
-				"filter_enabled": "`✅` | Distorsion filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Distorsion filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Forvrengningsfilteret er `AKTIVERT`.",
+				"filter_disabled": "`✅` | Forvrengningsfilteret er `DEAKTIVERT`."
 			}
 		},
 		"karaoke": {
-			"description": "Toggle the karaoke filter on/off",
+			"description": "Slå på/av karaokefilteret",
 			"messages": {
-				"filter_enabled": "`✅` | Karaoke filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Karaoke filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Karaokefilteret er `AKTIVERT`.",
+				"filter_disabled": "`✅` | Karaokefilteret er `DEAKTIVERT`."
 			}
 		},
 		"lowpass": {
-			"description": "Toggle the lowpass filter on/off",
+			"description": "Slå på/av lavpassfilteret",
 			"messages": {
-				"filter_enabled": "`✅` | Lowpass filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Lowpass filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Lavpassfilteret er `AKTIVERT`.",
+				"filter_disabled": "`✅` | Lavpassfilteret er `DEAKTIVERT`."
 			}
 		},
 		"nightcore": {
-			"description": "Toggle the nightcore filter on/off",
+			"description": "Slå på/av nightcore-filteret",
 			"messages": {
-				"filter_enabled": "`✅` | Nightcore filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Nightcore filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Nightcore-filteret er `AKTIVERT`.",
+				"filter_disabled": "`✅` | Nightcore-filteret er `DEAKTIVERT`."
 			}
 		},
 		"pitch": {
-			"description": "Toggle the pitch filter on/off",
+			"description": "Slå på/av tonehøydefilteret",
 			"options": {
-				"pitch": "The number you want to set the pitch to (between 0.5 and 5)"
+				"pitch": "Tallet du vil angi tonehøyden til (mellom 0,5 og 5)"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5."
+				"invalid_number": "Angi et gyldig tall mellom 0,5 og 5."
 			},
 			"messages": {
-				"pitch_set": "`✅` | Pitch has been set to **{pitch}**."
+				"pitch_set": "`✅` | Tonehøyden er satt til **{pitch}**."
 			}
 		},
 		"rate": {
-			"description": "Change the rate of the song",
+			"description": "Endre hastigheten på sangen",
 			"options": {
-				"rate": "The number you want to set the rate to (between 0.5 and 5)"
+				"rate": "Tallet du vil angi hastigheten til (mellom 0,5 og 5)"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5."
+				"invalid_number": "Angi et gyldig tall mellom 0,5 og 5."
 			},
 			"messages": {
-				"rate_set": "`✅` | Rate has been set to **{rate}**."
+				"rate_set": "`✅` | Hastigheten er satt til **{rate}**."
 			}
 		},
 		"reset": {
-			"description": "Resets the active filters",
+			"description": "Tilbakestiller de aktive filtrene",
 			"messages": {
-				"filters_reset": "`✅` | Filters have been reset."
+				"filters_reset": "`✅` | Filtrene er tilbakestilt."
 			}
 		},
 		"rotation": {
-			"description": "Toggle the rotation filter on/off",
+			"description": "Slå på/av rotasjonsfilteret",
 			"messages": {
-				"enabled": "`✅` | Rotation filter has been `ENABLED`.",
-				"disabled": "`✅` | Rotation filter has been `DISABLED`."
+				"enabled": "`✅` | Rotasjonsfilteret er `AKTIVERT`.",
+				"disabled": "`✅` | Rotasjonsfilteret er `DEAKTIVERT`."
 			}
 		},
 		"speed": {
-			"description": "Change the speed of the song",
+			"description": "Endre hastigheten på sangen",
 			"options": {
-				"speed": "The speed you want to set"
+				"speed": "Hastigheten du vil angi"
 			},
 			"messages": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5.",
-				"set_speed": "`✅` | Speed has been set to **{speed}**."
+				"invalid_number": "Angi et gyldig tall mellom 0,5 og 5.",
+				"set_speed": "`✅` | Hastigheten er satt til **{speed}**."
 			}
 		},
 		"tremolo": {
-			"description": "Toggle the tremolo filter on/off",
+			"description": "Slå på/av tremolofilteret",
 			"messages": {
-				"enabled": "`✅` | Tremolo filter has been `ENABLED`.",
-				"disabled": "`✅` | Tremolo filter has been `DISABLED`."
+				"enabled": "`✅` | Tremolofilteret er `AKTIVERT`.",
+				"disabled": "`✅` | Tremolofilteret er `DEAKTIVERT`."
 			}
 		},
 		"vibrato": {
-			"description": "Toggle the vibrato filter on/off",
+			"description": "Slå på/av vibratofilteret",
 			"messages": {
-				"enabled": "`✅` | Vibrato filter has been `ENABLED`.",
-				"disabled": "`✅` | Vibrato filter has been `DISABLED`."
+				"enabled": "`✅` | Vibratofilteret er `AKTIVERT`.",
+				"disabled": "`✅` | Vibratofilteret er `DEAKTIVERT`."
 			}
 		},
 		"autoplay": {
-			"description": "Toggles autoplay",
+			"description": "Veksler automatisk avspilling",
 			"messages": {
-				"enabled": "`✅` | Autoplay has been `ENABLED`.",
-				"disabled": "`✅` | Autoplay has been `DISABLED`."
+				"enabled": "`✅` | Autoavspilling er `AKTIVERT`.",
+				"disabled": "`✅` | Autoavspilling er `DEAKTIVERT`."
 			}
 		},
 		"clearqueue": {
-			"description": "Clears the queue",
+			"description": "Tømmer køen",
 			"messages": {
-				"cleared": "The queue has been cleared."
+				"cleared": "Køen er tømt."
 			}
 		},
 		"grab": {
-			"description": "Grabs the current playing song on your DM",
-			"content": "**Duration:** {length}\n**Requested by:** <@{requester}>\n**Link:** [Click here]({uri})",
-			"check_dm": "Please check your DM.",
-			"dm_failed": "I couldn't send you a DM."
+			"description": "Henter sangen som spilles av for øyeblikket til din DM",
+			"content": "**Varighet:** {length}\n**Forespurt av:** <@{requester}>\n**Lenke:** [Klikk her]({uri})",
+			"check_dm": "Sjekk din DM.",
+			"dm_failed": "Jeg kunne ikke sende deg en DM."
 		},
 		"join": {
-			"description": "Joins the voice channel",
-			"already_connected": "I'm already connected to <#{channelId}>.",
-			"no_voice_channel": "You need to be in a voice channel to use this command.",
-			"joined": "Successfully joined <#{channelId}>."
+			"description": "Blir med i talekanalen",
+			"already_connected": "Jeg er allerede tilkoblet <#{channelId}>.",
+			"no_voice_channel": "Du må være i en talekanal for å bruke denne kommandoen.",
+			"joined": "Ble med i <#{channelId}>."
 		},
 		"leave": {
-			"description": "Leaves the voice channel",
-			"left": "Successfully left <#{channelId}>.",
-			"not_in_channel": "I'm not in a voice channel."
+			"description": "Forlater talekanalen",
+			"left": "Forlot <#{channelId}>.",
+			"not_in_channel": "Jeg er ikke i en talekanal."
 		},
 		"loop": {
-			"description": "Loop the current song or the queue",
-			"looping_song": "**Looping the song.**",
-			"looping_queue": "**Looping the queue.**",
-			"looping_off": "**Looping is now off.**"
+			"description": "Loop gjeldende sang eller kø",
+			"looping_song": "**Looper sangen.**",
+			"looping_queue": "**Looper køen.**",
+			"looping_off": "**Looping er nå av.**"
 		},
 		"nowplaying": {
-			"description": "Shows the currently playing song",
-			"now_playing": "Now Playing",
-			"track_info": "[{title}]({uri}) - Requested By: <@{requester}>\n\n`{bar}`"
+			"description": "Viser sangen som spilles av for øyeblikket",
+			"now_playing": "Spilles nå",
+			"track_info": "[{title}]({uri}) - Forespurt av: <@{requester}>\n\n`{bar}`"
 		},
 		"pause": {
-			"description": "Pauses the current song",
-			"successfully_paused": "Successfully paused the song."
+			"description": "Pauser gjeldende sang",
+			"successfully_paused": "Sangen er pauset."
 		},
 		"play": {
-			"description": "Plays a song from YouTube, Spotify or http",
+			"description": "Spiller av en sang fra YouTube, Spotify eller http",
 			"options": {
-				"song": "The song you want to play"
+				"song": "Sangen du vil spille av"
 			},
-			"loading": "Loading...",
+			"loading": "Laster...",
 			"errors": {
-				"search_error": "There was an error while searching.",
-				"no_results": "There were no results found.",
-				"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
-				"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs."
+				"search_error": "Det oppstod en feil under søket.",
+				"no_results": "Fant ingen resultater.",
+				"queue_too_long": "Køen er for lang. Maksimal lengde er {maxQueueSize} sanger.",
+				"playlist_too_long": "Spillelisten er for lang. Maksimal lengde er {maxPlaylistSize} sanger."
 			},
-			"added_to_queue": "Added [{title}]({uri}) to the queue.",
-			"added_playlist_to_queue": "Added {length} songs to the queue."
+			"added_to_queue": "La til [{title}]({uri}) i køen.",
+			"added_playlist_to_queue": "La til {length} sanger i køen."
 		},
 		"playnext": {
-			"description": "Add the song to play next in queue",
+			"description": "Legg til sangen som skal spilles av neste i køen",
 			"options": {
-				"song": "The song you want to play"
+				"song": "Sangen du vil spille av"
 			},
-			"loading": "Loading...",
+			"loading": "Laster...",
 			"errors": {
-				"search_error": "There was an error while searching.",
-				"no_results": "There were no results found.",
-				"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
-				"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs."
+				"search_error": "Det oppstod en feil under søket.",
+				"no_results": "Fant ingen resultater.",
+				"queue_too_long": "Køen er for lang. Maksimal lengde er {maxQueueSize} sanger.",
+				"playlist_too_long": "Spillelisten er for lang. Maksimal lengde er {maxPlaylistSize} sanger."
 			},
-			"added_to_play_next": "Added [{title}]({uri}) to play next in the queue.",
-			"added_playlist_to_play_next": "Added {length} songs to play next in the queue."
+			"added_to_play_next": "La til [{title}]({uri}) for å spille av neste i køen.",
+			"added_playlist_to_play_next": "La til {length} sanger for å spille av neste i køen."
 		},
 		"queue": {
-			"description": "Shows the current queue",
-			"now_playing": "Now playing: [{title}]({uri}) - Requested By: <@{requester}> - Duration: `{duration}`",
-			"live": "LIVE",
-			"track_info": "{index}. [{title}]({uri}) - Requested By: <@{requester}> - Duration: `{duration}`",
-			"title": "Queue",
-			"page_info": "Page {index} of {total}"
+			"description": "Viser gjeldende kø",
+			"now_playing": "Spilles nå: [{title}]({uri}) - Forespurt av: <@{requester}> - Varighet: `{duration}`",
+			"live": "DIREKTE",
+			"track_info": "{index}. [{title}]({uri}) - Forespurt av: <@{requester}> - Varighet: `{duration}`",
+			"title": "Kø",
+			"page_info": "Side {index} av {total}"
 		},
 		"remove": {
-			"description": "Removes a song from the queue",
+			"description": "Fjerner en sang fra køen",
 			"options": {
-				"song": "The song number you want to remove"
+				"song": "Sangnummeret du vil fjerne"
 			},
 			"errors": {
-				"no_songs": "There are no songs in the queue.",
-				"invalid_number": "Please provide a valid song number."
+				"no_songs": "Det er ingen sanger i køen.",
+				"invalid_number": "Angi et gyldig sangnummer."
 			},
 			"messages": {
-				"removed": "Removed song number {songNumber} from the queue."
+				"removed": "Fjernet sangnummer {songNumber} fra køen."
 			}
 		},
 		"replay": {
-			"description": "Replays the current track",
+			"description": "Spiller gjeldende spor på nytt",
 			"errors": {
-				"not_seekable": "Cannot replay this track as it is not seekable."
+				"not_seekable": "Kan ikke spille av dette sporet på nytt, da det ikke kan søkes i."
 			},
 			"messages": {
-				"replaying": "Replaying the current track."
+				"replaying": "Spiller gjeldende spor på nytt."
 			}
 		},
 		"resume": {
-			"description": "Resumes the current song",
+			"description": "Gjenopptar gjeldende sang",
 			"errors": {
-				"not_paused": "The player is not paused."
+				"not_paused": "Spilleren er ikke pauset."
 			},
 			"messages": {
-				"resumed": "Resumed the player."
+				"resumed": "Gjenopptok spilleren."
 			}
 		},
 		"search": {
-			"description": "Searches for a song",
+			"description": "Søker etter en sang",
 			"options": {
-				"song": "The song you want to search"
+				"song": "Sangen du vil søke etter"
 			},
 			"errors": {
-				"no_results": "No results found.",
-				"search_error": "There was an error while searching."
+				"no_results": "Fant ingen resultater.",
+				"search_error": "Det oppstod en feil under søket."
 			},
 			"messages": {
-				"added_to_queue": "Added [{title}]({uri}) to the queue."
+				"added_to_queue": "La til [{title}]({uri}) i køen."
 			}
 		},
 		"seek": {
-			"description": "Seeks to a certain time in the song",
+			"description": "Søker til et bestemt tidspunkt i sangen",
 			"options": {
-				"duration": "The duration to seek to"
+				"duration": "Varigheten du vil søke til"
 			},
 			"errors": {
-				"invalid_format": "Invalid time format. Examples: seek 1m, seek 1h 30m",
-				"not_seekable": "This track is not seekable.",
-				"beyond_duration": "Cannot seek beyond the song duration of {length}."
+				"invalid_format": "Ugyldig tidsformat. Eksempler: seek 1m, seek 1h 30m",
+				"not_seekable": "Det kan ikke søkes i dette sporet.",
+				"beyond_duration": "Kan ikke søke utover sangens varighet på {length}."
 			},
 			"messages": {
-				"seeked_to": "Seeked to {duration}"
+				"seeked_to": "Søkte til {duration}"
 			}
 		},
 		"shuffle": {
-			"description": "Shuffles the queue",
+			"description": "Stokker køen",
 			"messages": {
-				"shuffled": "Shuffled the queue."
+				"shuffled": "Stokket køen."
 			}
 		},
 		"skip": {
-			"description": "Skips the current song",
+			"description": "Hopper over gjeldende sang",
 			"messages": {
-				"skipped": "Skipped [{title}]({uri})."
+				"skipped": "Hoppet over [{title}]({uri})."
 			}
 		},
 		"skipto": {
-			"description": "Skips to a specific song in the queue",
+			"description": "Hopper til en bestemt sang i køen",
 			"options": {
-				"number": "The number of the song you want to skip to"
+				"number": "Nummeret på sangen du vil hoppe til"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number."
+				"invalid_number": "Angi et gyldig nummer."
 			},
 			"messages": {
-				"skipped_to": "Skipped to song number {number}."
+				"skipped_to": "Hoppet til sangnummer {number}."
 			}
 		},
 		"stop": {
-			"description": "Stops the music and clears the queue",
+			"description": "Stopper musikken og tømmer køen",
 			"messages": {
-				"stopped": "Stopped the music and cleared the queue."
+				"stopped": "Stoppet musikken og tømte køen."
 			}
 		},
 		"volume": {
-			"description": "Sets the volume of the player",
+			"description": "Angir volumet til spilleren",
 			"options": {
-				"number": "The volume you want to set"
+				"number": "Volumet du vil angi"
 			},
 			"messages": {
-				"invalid_number": "Please provide a valid number.",
-				"too_low": "The volume can't be lower than 0.",
-				"too_high": "The volume can't be higher than 200. Do you want to damage your hearing or speakers? Hmmm, I don't think that's such a good idea.",
-				"set": "Set the volume to {volume}"
+				"invalid_number": "Angi et gyldig tall.",
+				"too_low": "Volumet kan ikke være lavere enn 0.",
+				"too_high": "Volumet kan ikke være høyere enn 200. Vil du skade hørselen eller høyttalerne? Hmmm, jeg tror ikke det er en god idé.",
+				"set": "Volumet er satt til {volume}"
 			}
 		},
 		"addsong": {
-			"description": "Adds a song to the playlist",
+			"description": "Legger til en sang i spillelisten",
 			"options": {
-				"playlist": "The playlist you want to add",
-				"song": "The song you want to add"
+				"playlist": "Spillelisten du vil legge til i",
+				"song": "Sangen du vil legge til"
 			},
 			"messages": {
-				"no_playlist": "Please provide a playlist",
-				"no_song": "Please provide a song",
-				"playlist_not_found": "That playlist doesn't exist",
-				"no_songs_found": "No songs found",
-				"added": "Added {count} song(s) to {playlist}"
+				"no_playlist": "Angi en spilleliste",
+				"no_song": "Angi en sang",
+				"playlist_not_found": "Finner ikke den spillelisten",
+				"no_songs_found": "Fant ingen sanger",
+				"added": "La til {count} sang(er) i {playlist}"
 			}
 		},
 		"create": {
-			"description": "Creates a playlist",
+			"description": "Oppretter en spilleliste",
 			"options": {
-				"name": "The name of the playlist"
+				"name": "Navnet på spillelisten"
 			},
 			"messages": {
-				"name_too_long": "Playlist names can only be 50 characters long.",
-				"playlist_exists": "A playlist with that name already exists. Please use a different name.",
-				"playlist_created": "Playlist **{name}** has been created."
+				"name_too_long": "Spillelistenavn kan bare være 50 tegn lange.",
+				"playlist_exists": "En spilleliste med det navnet finnes allerede. Bruk et annet navn.",
+				"playlist_created": "Spillelisten **{name}** er opprettet."
 			}
 		},
 		"delete": {
-			"description": "Deletes a playlist",
+			"description": "Sletter en spilleliste",
 			"options": {
-				"playlist": "The playlist you want to delete"
+				"playlist": "Spillelisten du vil slette"
 			},
 			"messages": {
-				"playlist_not_found": "That playlist doesn't exist.",
-				"playlist_deleted": "Deleted playlist **{playlistName}**."
+				"playlist_not_found": "Finner ikke den spillelisten.",
+				"playlist_deleted": "Slettet spillelisten **{playlistName}**."
 			}
 		},
 		"list": {
-			"description": "Retrieves all playlists for the user",
+			"description": "Henter alle spillelister for brukeren",
 			"options": {
-				"user": "The user whose playlists you want to retrieve"
+				"user": "Brukeren hvis spillelister du vil hente"
 			},
 			"messages": {
-				"no_playlists": "This user has no playlists.",
-				"your": "Your",
-				"playlists_title": "{username}'s Playlists",
-				"error": "An error occurred while retrieving the playlists."
+				"no_playlists": "Denne brukeren har ingen spillelister.",
+				"your": "Dine",
+				"playlists_title": "{username}s spillelister",
+				"error": "En feil oppstod under henting av spillelistene."
 			}
 		},
 		"load": {
-			"description": "Loads a playlist",
+			"description": "Laster en spilleliste",
 			"options": {
-				"playlist": "The playlist you want to load"
+				"playlist": "Spillelisten du vil laste"
 			},
 			"messages": {
-				"playlist_not_exist": "That playlist doesn't exist.",
-				"playlist_empty": "That playlist is empty.",
-				"playlist_loaded": "Loaded `{name}` with `{count}` songs."
+				"playlist_not_exist": "Finner ikke den spillelisten.",
+				"playlist_empty": "Den spillelisten er tom.",
+				"playlist_loaded": "Lastet `{name}` med `{count}` sanger."
 			}
 		},
 		"removesong": {
-			"description": "Removes a song from the playlist",
+			"description": "Fjerner en sang fra spillelisten",
 			"options": {
-				"playlist": "The playlist you want to remove from",
-				"song": "The song you want to remove"
+				"playlist": "Spillelisten du vil fjerne fra",
+				"song": "Sangen du vil fjerne"
 			},
 			"messages": {
-				"provide_playlist": "Please provide a playlist.",
-				"provide_song": "Please provide a song.",
-				"playlist_not_exist": "That playlist doesn't exist.",
-				"song_not_found": "No matching song found.",
-				"song_removed": "Removed {song} from {playlist}.",
-				"error_occurred": "An error occurred while removing the song."
+				"provide_playlist": "Angi en spilleliste.",
+				"provide_song": "Angi en sang.",
+				"playlist_not_exist": "Finner ikke den spillelisten.",
+				"song_not_found": "Fant ingen samsvarende sang.",
+				"song_removed": "Fjernet {song} fra {playlist}.",
+				"error_occurred": "En feil oppstod under fjerning av sangen."
 			}
 		},
 		"steal": {
-			"description": "Steals a playlist from another user and adds it to your playlists",
+			"description": "Stjeler en spilleliste fra en annen bruker og legger den til i spillelistene dine",
 			"options": {
-				"playlist": "The playlist you want to steal",
-				"user": "The user from whom you want to steal the playlist"
+				"playlist": "Spillelisten du vil stjele",
+				"user": "Brukeren du vil stjele spillelisten fra"
 			},
 			"messages": {
-				"provide_playlist": "Please provide a playlist name.",
-				"provide_user": "Please mention a user.",
-				"playlist_not_exist": "That playlist doesn't exist for the mentioned user.",
-				"playlist_stolen": "Successfully stole the playlist `{playlist}` from {user}.",
-				"error_occurred": "An error occurred while stealing the playlist."
+				"provide_playlist": "Angi et spillelistenavn.",
+				"provide_user": "Nevn en bruker.",
+				"playlist_not_exist": "Finner ikke den spillelisten for den nevnte brukeren.",
+				"playlist_stolen": "Stjal spillelisten `{playlist}` fra {user}.",
+				"error_occurred": "En feil oppstod under stjeling av spillelisten."
 			}
 		}
 	},
 	"buttons": {
-		"invite": "Invite",
-		"support": "Support Server",
-		"previous": "Previous",
-		"resume": "Resume",
-		"stop": "Stop",
-		"skip": "Skip",
+		"invite": "Inviter",
+		"support": "Støtteserver",
+		"previous": "Forrige",
+		"resume": "Gjenoppta",
+		"stop": "Stopp",
+		"skip": "Hopp over",
 		"loop": "Loop"
 	},
 	"player": {
 		"errors": {
-			"no_player": "There is no active player in this guild.",
-			"no_channel": "You need to be in a voice channel to use this command.",
-			"queue_empty": "The queue is empty.",
-			"no_previous": "There are no previous songs in the queue.",
-			"no_song": "There are no songs in the queue.",
-			"already_paused": "The song is already paused."
+			"no_player": "Det er ingen aktiv spiller i denne serveren.",
+			"no_channel": "Du må være i en talekanal for å bruke denne kommandoen.",
+			"queue_empty": "Køen er tom.",
+			"no_previous": "Det er ingen tidligere sanger i køen.",
+			"no_song": "Det er ingen sanger i køen.",
+			"already_paused": "Sangen er allerede pauset."
 		},
 		"trackStart": {
-			"now_playing": "Now Playing",
-			"requested_by": "Requested by {user}",
-			"duration": "Duration",
-			"author": "Author",
-			"not_connected_to_voice_channel": "You are not connected to <#{channel}> to use these buttons.",
-			"need_dj_role": "You need to have the DJ role to use this command.",
-			"previous_by": "Previous by {user}",
-			"no_previous_song": "There is no previous song.",
-			"paused_by": "Paused by {user}",
-			"resumed_by": "Resumed by {user}",
-			"skipped_by": "Skipped by {user}",
-			"no_more_songs_in_queue": "There is no more song in the queue.",
-			"looping_by": "Looping by {user}",
-			"looping_queue_by": "Looping Queue by {user}",
-			"looping_off_by": "Looping Off by {user}"
+			"now_playing": "Spilles nå",
+			"requested_by": "Forespurt av {user}",
+			"duration": "Varighet",
+			"author": "Skaper",
+			"not_connected_to_voice_channel": "Du er ikke tilkoblet <#{channel}> for å bruke disse knappene.",
+			"need_dj_role": "Du må ha DJ-rollen for å bruke denne kommandoen.",
+			"previous_by": "Forrige av {user}",
+			"no_previous_song": "Det er ingen forrige sang.",
+			"paused_by": "Pauset av {user}",
+			"resumed_by": "Gjenopptatt av {user}",
+			"skipped_by": "Hoppet over av {user}",
+			"no_more_songs_in_queue": "Det er ingen flere sanger i køen.",
+			"looping_by": "Looper av {user}",
+			"looping_queue_by": "Looper kø av {user}",
+			"looping_off_by": "Slår av looping av {user}"
 		},
 		"setupStart": {
-			"now_playing": "Now Playing",
-			"description": "[{title}]({uri}) by {author} • `[{length}]` - Requested by <@{requester}>",
-			"error_searching": "There was an error while searching.",
-			"no_results": "There were no results found.",
-			"nothing_playing": "Nothing playing right now.",
-			"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
-			"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs.",
-			"added_to_queue": "Added [{title}]({uri}) to the queue.",
-			"added_playlist_to_queue": "Added [{length}] songs from the playlist to the queue."
+			"now_playing": "Spilles nå",
+			"description": "[{title}]({uri}) av {author} • `[{length}]` - Forespurt av <@{requester}>",
+			"error_searching": "Det oppstod en feil under søket.",
+			"no_results": "Fant ingen resultater.",
+			"nothing_playing": "Ingen avspilling akkurat nå.",
+			"queue_too_long": "Køen er for lang. Maksimal lengde er {maxQueueSize} sanger.",
+			"playlist_too_long": "Spillelisten er for lang. Maksimal lengde er {maxPlaylistSize} sanger.",
+			"added_to_queue": "La til [{title}]({uri}) i køen.",
+			"added_playlist_to_queue": "La til [{length}] sanger fra spillelisten i køen."
 		}
 	},
 	"event": {
 		"interaction": {
-			"setup_channel": "You can't use this command in the setup channel.",
-			"no_send_message": "I don't have **`SendMessage`** permission in `{guild}`\nchannel: {channel}.",
-			"no_embed_links": "I don't have **`EmbedLinks`** permission.",
-			"no_permission": "I don't have enough permissions to execute this command.",
-			"no_user_permission": "You don't have enough permissions to use this command.",
-			"no_voice_channel": "You must be connected to a voice channel to use this `{command}` command.",
-			"no_connect_permission": "I don't have `CONNECT` permissions to execute this `{command}` command.",
-			"no_speak_permission": "I don't have `SPEAK` permissions to execute this `{command}` command.",
-			"no_request_to_speak": "I don't have `REQUEST TO SPEAK` permission to execute this `{command}` command.",
-			"different_voice_channel": "You are not connected to {channel} to use this `{command}` command.",
-			"no_music_playing": "Nothing is playing right now.",
-			"no_dj_role": "DJ role is not set.",
-			"no_dj_permission": "You need to have the DJ role to use this command.",
-			"cooldown": "Please wait {time} more second(s) before reusing the `{command}` command.",
-			"error": "An error occurred: `{error}`"
+			"setup_channel": "Du kan ikke bruke denne kommandoen i oppsettkanalen.",
+			"no_send_message": "Jeg har ikke tillatelsen **`SendMessage`** i `{guild}`\nkanal: {channel}.",
+			"no_embed_links": "Jeg har ikke tillatelsen **`EmbedLinks`**.",
+			"no_permission": "Jeg har ikke nok tillatelser til å utføre denne kommandoen.",
+			"no_user_permission": "Du har ikke nok tillatelser til å bruke denne kommandoen.",
+			"no_voice_channel": "Du må være koblet til en talekanal for å bruke denne `{command}`-kommandoen.",
+			"no_connect_permission": "Jeg har ikke `CONNECT`-tillatelsene til å utføre denne `{command}`-kommandoen.",
+			"no_speak_permission": "Jeg har ikke `SPEAK`-tillatelsene til å utføre denne `{command}`-kommandoen.",
+			"no_request_to_speak": "Jeg har ikke tillatelsen `REQUEST TO SPEAK` til å utføre denne `{command}`-kommandoen.",
+			"different_voice_channel": "Du er ikke tilkoblet {channel} for å bruke denne `{command}`-kommandoen.",
+			"no_music_playing": "Ingenting spilles av akkurat nå.",
+			"no_dj_role": "DJ-rollen er ikke angitt.",
+			"no_dj_permission": "Du må ha DJ-rollen for å bruke denne kommandoen.",
+			"cooldown": "Vent {time} sekund(er) til før du bruker `{command}`-kommandoen på nytt.",
+			"error": "En feil oppstod: `{error}`"
 		},
 		"message": {
-			"prefix_mention": "Hey, my prefix for this server is `{prefix}`. Want more info? then do `{prefix}help`\nStay Safe, Stay Awesome!",
-			"no_send_message": "I don't have **`SendMessage`** permission in `{guild}`\nchannel: {channel}.",
-			"no_embed_links": "I don't have **`EmbedLinks`** permission.",
-			"no_permission": "I don't have enough permissions to execute this command.",
-			"no_user_permission": "You don't have enough permissions to use this command.",
-			"no_voice_channel": "You must be connected to a voice channel to use this `{command}` command.",
-			"no_connect_permission": "I don't have `CONNECT` permissions to execute this `{command}` command.",
-			"no_speak_permission": "I don't have `SPEAK` permissions to execute this `{command}` command.",
-			"no_request_to_speak": "I don't have `REQUEST TO SPEAK` permission to execute this `{command}` command.",
-			"different_voice_channel": "You are not connected to {channel} to use this `{command}` command.",
-			"no_music_playing": "Nothing is playing right now.",
-			"no_dj_role": "DJ role is not set.",
-			"no_dj_permission": "You need to have the DJ role to use this command.",
-			"missing_arguments": "Missing Arguments",
-			"missing_arguments_description": "Please provide the required arguments for the `{command}` command.\n\nExamples:\n{examples}",
-			"syntax_footer": "Syntax: [] = optional, <> = required",
-			"cooldown": "Please wait {time} more second(s) before reusing the `{command}` command.",
-			"no_mention_everyone": "You can't use this command with everyone or here.",
-			"error": "An error occurred: `{error}`",
-			"no_voice_channel_queue": "You are not connected to a voice channel to queue songs.",
-			"no_permission_connect_speak": "I don't have enough permission to connect/speak in <#{channel}>.",
-			"different_voice_channel_queue": "You are not connected to <#{channel}> to queue songs."
+			"prefix_mention": "Hei, prefikset mitt for denne serveren er `{prefix}`. Vil du ha mer informasjon? Bruk da `{prefix}help`\nHold deg trygg, hold deg fantastisk!",
+			"no_send_message": "Jeg har ikke tillatelsen **`SendMessage`** i `{guild}`\nkanal: {channel}.",
+			"no_embed_links": "Jeg har ikke tillatelsen **`EmbedLinks`**.",
+			"no_permission": "Jeg har ikke nok tillatelser til å utføre denne kommandoen.",
+			"no_user_permission": "Du har ikke nok tillatelser til å bruke denne kommandoen.",
+			"no_voice_channel": "Du må være koblet til en talekanal for å bruke denne `{command}`-kommandoen.",
+			"no_connect_permission": "Jeg har ikke `CONNECT`-tillatelsene til å utføre denne `{command}`-kommandoen.",
+			"no_speak_permission": "Jeg har ikke `SPEAK`-tillatelsene til å utføre denne `{command}`-kommandoen.",
+			"no_request_to_speak": "Jeg har ikke tillatelsen `REQUEST TO SPEAK` til å utføre denne `{command}`-kommandoen.",
+			"different_voice_channel": "Du er ikke tilkoblet {channel} for å bruke denne `{command}`-kommandoen.",
+			"no_music_playing": "Ingenting spilles av akkurat nå.",
+			"no_dj_role": "DJ-rollen er ikke angitt.",
+			"no_dj_permission": "Du må ha DJ-rollen for å bruke denne kommandoen.",
+			"missing_arguments": "Mangler argumenter",
+			"missing_arguments_description": "Angi de nødvendige argumentene for `{command}`-kommandoen.\n\nEksempler:\n{examples}",
+			"syntax_footer": "Syntaks: [] = valgfri, <> = obligatorisk",
+			"cooldown": "Vent {time} sekund(er) til før du bruker `{command}`-kommandoen på nytt.",
+			"no_mention_everyone": "Du kan ikke bruke denne kommandoen med everyone eller here.",
+			"error": "En feil oppstod: `{error}`",
+			"no_voice_channel_queue": "Du er ikke tilkoblet en talekanal for å legge til sanger i køen.",
+			"no_permission_connect_speak": "Jeg har ikke nok tillatelse til å koble til/snakke i <#{channel}>.",
+			"different_voice_channel_queue": "Du er ikke tilkoblet <#{channel}> for å legge til sanger i køen."
 		},
 		"setupButton": {
-			"no_voice_channel_button": "You are not connected to a voice channel to use this button.",
-			"different_voice_channel_button": "You are not connected to {channel} to use these buttons.",
-			"now_playing": "Now Playing",
-			"live": "LIVE",
-			"requested_by": "Requested by <@{requester}>",
-			"no_dj_permission": "You need to have the DJ role to use this command.",
-			"volume_set": "Volume set to {vol}%",
-			"volume_footer": "Volume: {vol}%",
-			"paused": "Paused",
-			"resumed": "Resumed",
-			"pause_resume": "{name} the music.",
-			"pause_resume_footer": "{name} by {displayName}",
-			"no_music_to_skip": "There is no music to skip.",
-			"skipped": "Skipped the music.",
-			"skipped_footer": "Skipped by {displayName}",
-			"stopped": "Stopped the music.",
-			"stopped_footer": "Stopped by {displayName}",
-			"nothing_playing": "Nothing playing right now",
-			"loop_set": "Loop set to {loop}.",
-			"loop_footer": "Loop set to {loop} by {displayName}",
-			"shuffled": "Shuffled the queue.",
-			"no_previous_track": "There is no previous track.",
-			"playing_previous": "Playing the previous track.",
-			"previous_footer": "Playing the previous track by {displayName}",
-			"rewind_limit": "You cannot rewind the music more than the length of the song.",
-			"rewinded": "Rewinded the music.",
-			"rewind_footer": "Rewinded by {displayName}",
-			"forward_limit": "You cannot forward the music more than the length of the song.",
-			"forwarded": "Forwarded the music.",
-			"forward_footer": "Forwarded by {displayName}",
-			"button_not_available": "This button is not available.",
-			"no_music_playing": "There is no music playing in this server."
+			"no_voice_channel_button": "Du er ikke tilkoblet en talekanal for å bruke denne knappen.",
+			"different_voice_channel_button": "Du er ikke tilkoblet {channel} for å bruke disse knappene.",
+			"now_playing": "Spilles nå",
+			"live": "DIREKTE",
+			"requested_by": "Forespurt av <@{requester}>",
+			"no_dj_permission": "Du må ha DJ-rollen for å bruke denne kommandoen.",
+			"volume_set": "Volum satt til {vol}%",
+			"volume_footer": "Volum: {vol}%",
+			"paused": "Pauset",
+			"resumed": "Gjenopptatt",
+			"pause_resume": "{name} musikken.",
+			"pause_resume_footer": "{name} av {displayName}",
+			"no_music_to_skip": "Det er ingen musikk å hoppe over.",
+			"skipped": "Hoppet over musikken.",
+			"skipped_footer": "Hoppet over av {displayName}",
+			"stopped": "Stoppet musikken.",
+			"stopped_footer": "Stoppet av {displayName}",
+			"nothing_playing": "Ingen avspilling akkurat nå",
+			"loop_set": "Loop satt til {loop}.",
+			"loop_footer": "Loop satt til {loop} av {displayName}",
+			"shuffled": "Stokket køen.",
+			"no_previous_track": "Det er ingen forrige spor.",
+			"playing_previous": "Spiller av forrige spor.",
+			"previous_footer": "Spiller av forrige spor av {displayName}",
+			"rewind_limit": "Du kan ikke spole musikken tilbake mer enn lengden på sangen.",
+			"rewinded": "Spolet musikken tilbake.",
+			"rewind_footer": "Spolet tilbake av {displayName}",
+			"forward_limit": "Du kan ikke spole musikken fremover mer enn lengden på sangen.",
+			"forwarded": "Spolet musikken fremover.",
+			"forward_footer": "Spolet fremover av {displayName}",
+			"button_not_available": "Denne knappen er ikke tilgjengelig.",
+			"no_music_playing": "Det spilles ingen musikk på denne serveren."
 		}
 	},
-	"Evaluate code": "Evaluate code",
-	"Leave a guild": "Leave a guild",
-	"List all guilds the bot is in": "List all guilds the bot is in",
-	"Restart the bot": "Restart the bot"
+	"Evaluate code": "Evaluer kode",
+	"Leave a guild": "Forlat en server",
+	"List all guilds the bot is in": "List opp alle servere boten er på",
+	"Restart the bot": "Start boten på nytt"
 }

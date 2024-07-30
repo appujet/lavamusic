@@ -10,7 +10,7 @@
 ### 📚 Available Translations
 
 - [x] English (US) - `EnglishUS.json` (Default)
-- [x] Hindi - `Hindi.json` [by @Appujet](https://github.com/Appujet)
+- [x] Hindi - `Hindi.json` [by @Appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
 - [x] Spanish (ES) - `SpanishES.json` [by @LucasB25](https://github.com/LucasB25)
 - [x] Portuguese (PT) - `PortuguesePT.json` [by @LucasB25](https://github.com/LucasB25)
 - [x] Polish - `Polish.json` [by @InfNibor](https://github.com/infnibor) and [by @LucasB25](https://github.com/LucasB25)
@@ -21,7 +21,7 @@
 - [ ] Indonesian - `Indonesian.json` (Not Started)
 - [ ] English (GB) - `EnglishGB.json` (Not Started)
 - [ ] Bulgarian - `Bulgarian.json` (Not Started)
-- [ ] Chinese (CN) - `ChineseCN.json` (Not Started)
+- [x] Chinese (CN) - `ChineseCN.json` [by @appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
 - [ ] Chinese (TW) - `ChineseTW.json` (Not Started)
 - [ ] Croatian - `Croatian.json` (Not Started)
 - [ ] Czech - `Czech.json` (Not Started)
@@ -33,7 +33,7 @@
 - [ ] Italian - `Italian.json` (Not Started)
 - [x] Japanese - `Japanese.json` [by @hatry4](https://github.com/hatry4)
 - [ ] Lithuanian - `Lithuanian.json` (Not Started)
-- [ ] Norwegian - `Norwegian.json` (Not Started)
+- [x] Norwegian - `Norwegian.json` [by @appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
 - [ ] Portuguese (BR) - `PortugueseBR.json` (Not Started)
 - [ ] Romanian - `Romanian.json` (Not Started)
 - [ ] Swedish - `Swedish.json` (Not Started)
