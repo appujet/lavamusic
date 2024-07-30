@@ -128,7 +128,6 @@ export default class Lavamusic extends Client {
 
                         // subcommand options localizations
                         data.options.map((option) => {
-
                             if ("options" in option && option.options.length > 0) {
                                 option.options.map((subOption) => {
                                     // subcommand options name and description localizations
@@ -140,7 +139,10 @@ export default class Lavamusic extends Client {
                                         const [language, name] = localization.name;
                                         const [language2, description] = localization.description;
                                         subOption.name_localizations = { ...subOption.name_localizations, [language]: name };
-                                        subOption.description_localizations = { ...subOption.description_localizations, [language2]: description };
+                                        subOption.description_localizations = {
+                                            ...subOption.description_localizations,
+                                            [language2]: description,
+                                        };
                                     }
                                     // subcommand options description localization
                                     subOption.description = T(Locale.EnglishUS, subOption.description);

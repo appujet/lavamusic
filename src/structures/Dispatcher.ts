@@ -1,7 +1,7 @@
 import type { Message, User } from "discord.js";
 import { LoadType, type Node, type Player, type Track } from "shoukaku";
-import type { Lavamusic } from "./index.js";
 import { SearchEngine } from "../types.js";
+import type { Lavamusic } from "./index.js";
 
 export class Song implements Track {
     encoded: string;

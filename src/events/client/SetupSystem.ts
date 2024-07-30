@@ -1,7 +1,7 @@
 import { type Message, PermissionsBitField, TextChannel } from "discord.js";
+import { T } from "../../structures/I18n.js";
 import { Event, type Lavamusic } from "../../structures/index.js";
 import { oops, setupStart } from "../../utils/SetupSystem.js";
-import { T } from "../../structures/I18n.js";
 
 export default class SetupSystem extends Event {
     constructor(client: Lavamusic, file: string) {
