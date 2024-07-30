@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { Language, SearchEngine } from "./types.js";
+import { SearchEngine } from "./types.js";
 
 const parseBoolean = (value?: string): boolean => value?.trim().toLowerCase() === "true";
 
