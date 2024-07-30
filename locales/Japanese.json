@@ -1,627 +1,626 @@
 {
 	"cmd": {
 		"247": {
-			"description": "Set the bot to stay in the voice channel",
+			"description": "ボットをボイスチャンネルに留まらせるように設定します",
 			"errors": {
-				"not_in_voice": "You need to be in a voice channel to use this command.",
-				"generic": "An error occurred while trying to execute this command."
+				"not_in_voice": "このコマンドを使用するにはボイスチャンネルにいる必要があります。",
+				"generic": "このコマンドを実行しようとしたときにエラーが発生しました。"
 			},
 			"messages": {
-				"disabled": "`✅` | 24/7 mode has been `DISABLED`",
-				"enabled": "`✅` | 24/7 mode has been `ENABLED`. \n**The bot will not leave the voice channel even if there are no people in the voice channel.**"
+				"disabled": "`✅` | 24/7モードが`無効`になりました",
+				"enabled": "`✅` | 24/7モードが`有効`になりました。\n**ボットはボイスチャンネルに人がいなくても退出しません。**"
 			}
 		},
 		"ping": {
-			"description": "Shows the bot's ping.",
-			"content": "Pinging...",
-			"bot_latency": "Bot Latency",
-			"api_latency": "API Latency",
-			"requested_by": "Requested by {author}"
+			"description": "ボットのピングを表示します。",
+			"content": "ピング中...",
+			"bot_latency": "ボットのレイテンシ",
+			"api_latency": "APIのレイテンシ",
+			"requested_by": "{author}によってリクエストされました"
 		},
 		"lavalink": {
-			"description": "Shows the current Lavalink stats.",
-			"title": "Lavalink Stats",
-			"content": "Player: {players}\nPlaying Players: {playingPlayers}\nUptime: {uptime}\nCores: {cores} Core(s)\nMemory Usage: {used} / {reservable}\nSystem Load: {systemLoad}%\nLavalink Load: {lavalinkLoad}%"
+			"description": "現在のLavalinkの統計情報を表示します。",
+			"title": "Lavalinkの統計情報",
+			"content": "プレイヤー: {players}\n再生中のプレイヤー: {playingPlayers}\n稼働時間: {uptime}\nコア: {cores} コア\nメモリ使用量: {used} / {reservable}\nシステム負荷: {systemLoad}%\nLavalink負荷: {lavalinkLoad}%"
 		},
 		"invite": {
-			"description": "Get the bot invite link.",
-			"content": "You can invite me by clicking the button below. Any bugs or outages? Join the support server!"
+			"description": "ボットの招待リンクを取得します。",
+			"content": "以下のボタンをクリックして私を招待できます。バグや障害がある場合は、サポートサーバーに参加してください！"
 		},
 		"help": {
-			"description": "Shows the help menu.",
+			"description": "ヘルプメニューを表示します。",
 			"options": {
-				"command": "The command you want to get info on"
+				"command": "情報を取得したいコマンド"
 			},
-			"content": "Hey there! I'm {bot}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord. You can use `{prefix}help <command>` to get more info on a command.",
-			"title": "Help Menu",
-			"not_found": "This `{cmdName}` command does not exist.",
-			"help_cmd": "**Description:** {description}\n**Usage:** {usage}\n**Examples:** {examples}\n**Aliases:** {aliases}\n**Category:** {category}\n**Cooldown:** {cooldown} seconds\n**Permissions:** {premUser}\n**Bot Permissions:** {premBot}\n**Developer Only:** {dev}\n**Slash Command:** {slash}\n**Args:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**DJ Permissions:** {djPerm}\n**Voice:** {voice}",
-			"footer": "Use {prefix}help <command> for more info on a command"
+			"content": "こんにちは！私は{bot}、[Lavamusic](https://github.com/appujet/lavamusic)とDiscordで作られた音楽ボットです。`{prefix}help <command>`を使用して、コマンドの詳細を取得できます。",
+			"title": "ヘルプメニュー",
+			"not_found": "この`{cmdName}`コマンドは存在しません。",
+			"help_cmd": "**説明:** {description}\n**使用法:** {usage}\n**例:** {examples}\n**別名:** {aliases}\n**カテゴリ:** {category}\n**クールダウン:** {cooldown}秒\n**権限:** {premUser}\n**ボットの権限:** {premBot}\n**開発者専用:** {dev}\n**スラッシュコマンド:** {slash}\n**引数:** {args}\n**プレイヤー:** {player}\n**DJ:** {dj}\n**DJの権限:** {djPerm}\n**ボイス:** {voice}",
+			"footer": "コマンドの詳細を取得するには、{prefix}help <command>を使用してください"
 		},
 		"botinfo": {
-			"description": "Information about the bot",
-			"content": "Bot Information:\n- **Operating System**: {osInfo}\n- **Uptime**: {osUptime}\n- **Hostname**: {osHostname}\n- **CPU Architecture**: {cpuInfo}\n- **CPU Usage**: {cpuUsed}%\n- **Memory Usage**: {memUsed}MB / {memTotal}GB\n- **Node Version**: {nodeVersion}\n- **Discord Version**: {discordJsVersion}\n- **Connected to** {guilds} guilds, {channels} channels, and {users} users\n- **Total Commands**: {commands}"
+			"description": "ボットに関する情報",
+			"content": "ボット情報:\n- **オペレーティングシステム**: {osInfo}\n- **稼働時間**: {osUptime}\n- **ホスト名**: {osHostname}\n- **CPUアーキテクチャ**: {cpuInfo}\n- **CPU使用率**: {cpuUsed}%\n- **メモリ使用量**: {memUsed}MB / {memTotal}GB\n- **Nodeバージョン**: {nodeVersion}\n- **Discordバージョン**: {discordJsVersion}\n- **接続中** {guilds} サーバー, {channels} チャンネル, {users} ユーザー\n- **合計コマンド数**: {commands}"
 		},
 		"about": {
-			"description": "Shows information about the bot",
+			"description": "ボットに関する情報を表示します",
 			"fields": {
-				"creator": "Creator",
-				"repository": "Repository",
-				"support": "Support",
-				"description": "He really wanted to make his first open source project ever for more coding experience. In this project, he was challenged to make a project with fewer bugs. Hope you enjoy using LavaMusic!"
+				"creator": "作成者",
+				"repository": "リポジトリ",
+				"support": "サポート",
+				"description": "彼はより多くのコーディング経験を積むために、彼の最初のオープンソースプロジェクトを作りたいと思っていました。このプロジェクトでは、バグの少ないプロジェクトを作ることに挑戦しました。LavaMusicを楽しんでいただけると嬉しいです！"
 			}
 		},
 		"dj": {
-			"description": "Manage the DJ mode and associated roles",
+			"description": "DJモードと関連するロールを管理します",
 			"errors": {
-				"provide_role": "Please provide a role.",
-				"no_roles": "The DJ role is empty.",
-				"invalid_subcommand": "Please provide a valid subcommand."
+				"provide_role": "ロールを指定してください。",
+				"no_roles": "DJロールが空です。",
+				"invalid_subcommand": "有効なサブコマンドを指定してください。"
 			},
 			"messages": {
-				"role_exists": "The DJ role <@&{roleId}> is already added.",
-				"role_added": "The DJ role <@&{roleId}> has been added.",
-				"role_not_found": "The DJ role <@&{roleId}> is not added.",
-				"role_removed": "The DJ role <@&{roleId}> has been removed.",
-				"all_roles_cleared": "All DJ roles have been removed.",
-				"toggle": "The DJ mode has been toggled to {status}."
+				"role_exists": "DJロール<@&{roleId}>は既に追加されています。",
+				"role_added": "DJロール<@&{roleId}>が追加されました。",
+				"role_not_found": "DJロール<@&{roleId}>は追加されていません。",
+				"role_removed": "DJロール<@&{roleId}>が削除されました。",
+				"all_roles_cleared": "すべてのDJロールが削除されました。",
+				"toggle": "DJモードが{status}に切り替えられました。"
 			},
 			"options": {
-				"add": "The DJ role you want to add",
-				"remove": "The DJ role you want to remove",
-				"clear": "Clears all DJ roles",
-				"toggle": "Toggles the DJ role",
-				"role": "The DJ role"
+				"add": "追加するDJロール",
+				"remove": "削除するDJロール",
+				"clear": "すべてのDJロールをクリア",
+				"toggle": "DJロールを切り替え",
+				"role": "DJロール"
 			},
-			"subcommands": "Subcommands"
+			"subcommands": "サブコマンド"
 		},
 		"language": {
-			"description": "Set the language for the bot",
-			"invalid_language": "Please provide a valid language. Example: `EnglishUS` for English (United States)\n\nYou can find the list of supported languages [here](https://discord.com/developers/docs/reference#locales)\n\n**Available Languages:**\n{languages}",
-			"already_set": "The language is already set to `{language}`",
-			"not_set": "The language is not set.",
-			"set": "`✅` | The language has been set to `{language}`",
-			"reset": "`✅` | The language has been reset to the default language.",
+			"description": "ボットの言語を設定します",
+			"invalid_language": "有効な言語を指定してください。例: `EnglishUS`は英語(アメリカ)\n\nサポートされている言語のリストは[こちら](https://discord.com/developers/docs/reference#locales)をご覧ください\n\n**利用可能な言語:**\n{languages}",
+			"already_set": "言語はすでに`{language}`に設定されています",
+			"not_set": "言語が設定されていません。",
+			"set": "`✅` | 言語が`{language}`に設定されました",
+			"reset": "`✅` | 言語がデフォルト言語にリセットされました。",
 			"options": {
-				"set": "Set the language for the bot",
-				"language": "The language you want to set",
-				"reset": "Change the language back to the default language"
+				"set": "ボットの言語を設定",
+				"language": "設定したい言語",
+				"reset": "言語をデフォルトに戻します"
 			}
 		},
 		"prefix": {
-			"description": "Shows or sets the bot's prefix",
+			"description": "ボットのプレフィックスを表示または設定します",
 			"errors": {
-				"prefix_too_long": "The prefix cannot be longer than 3 characters."
+				"prefix_too_long": "プレフィックスは3文字以内でなければなりません。"
 			},
 			"messages": {
-				"current_prefix": "The prefix for this server is `{prefix}`",
-				"prefix_set": "The prefix for this server is now `{prefix}`",
-				"prefix_reset": "The prefix for this server is now `{prefix}`"
+				"current_prefix": "このサーバーのプレフィックスは`{prefix}`です",
+				"prefix_set": "このサーバーのプレフィックスは`{prefix}`に設定されました",
+				"prefix_reset": "このサーバーのプレフィックスは`{prefix}`にリセットされました"
 			},
 			"options": {
-				"set": "Sets the prefix",
-				"prefix": "The prefix you want to set",
-				"reset": "Resets the prefix to the default one"
+				"set": "プレフィックスを設定",
+				"prefix": "設定したいプレフィックス",
+				"reset": "プレフィックスをデフォルトにリセット"
 			}
 		},
 		"setup": {
-			"description": "Sets up the bot",
+			"description": "ボットを設定します",
 			"errors": {
-				"channel_exists": "The song request channel already exists.",
-				"channel_not_exists": "The song request channel doesn't exist.",
-				"channel_delete_fail": "The song request channel has been deleted. If the channel is not deleted normally, please delete it yourself."
+				"channel_exists": "ソングリクエストチャンネルは既に存在します。",
+				"channel_not_exists": "ソングリクエストチャンネルが存在しません。",
+				"channel_delete_fail": "ソングリクエストチャンネルが削除されました。チャンネルが正常に削除されない場合は、手動で削除してください。"
 			},
 			"messages": {
-				"channel_created": "The song request channel has been created in <#{channelId}>.",
-				"channel_deleted": "The song request channel has been deleted.",
-				"channel_info": "The song request channel is <#{channelId}>."
+				"channel_created": "ソングリクエストチャンネルが<#{channelId}>に作成されました。",
+				"channel_deleted": "ソングリクエストチャンネルが削除されました。",
+				"channel_info": "ソングリクエストチャンネルは<#{channelId}>です。"
 			},
 			"options": {
-				"create": "Creates the song request channel",
-				"delete": "Deletes the song request channel",
-				"info": "Shows the song request channel"
+				"create": "ソングリクエストチャンネルを作成します",
+				"delete": "ソングリクエストチャンネルを削除します",
+				"info": "ソングリクエストチャンネルを表示します"
 			}
 		},
 		"8d": {
-			"description": "on/off 8d filter",
+			"description": "8Dフィルターのオン/オフ",
 			"messages": {
-				"filter_enabled": "`✅` | 8D filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | 8D filter has been `DISABLED`."
+				"filter_enabled": "`✅` | 8Dフィルターが`有効`になりました。",
+				"filter_disabled": "`✅` | 8Dフィルターが`無効`になりました。"
 			}
 		},
 		"bassboost": {
-			"description": "on/off bassboost filter",
+			"description": "ベースブーストフィルターのオン/オフ",
 			"messages": {
-				"filter_enabled": "`✅` | Bassboost filter has been `ENABLED`. \n**Be careful, listening too loudly can damage your hearing!**",
-				"filter_disabled": "`✅` | Bassboost filter has been `DISABLED`."
+				"filter_enabled": "`✅` | ベースブーストフィルターが`有効`になりました。\n**音量を上げすぎると聴覚に悪影響を与える可能性があるので注意してください！**",
+				"filter_disabled": "`✅` | ベースブーストフィルターが`無効`になりました。"
 			}
 		},
 		"distorsion": {
-			"description": "Toggle the distorsion filter on/off",
+			"description": "ディストーションフィルターのオン/オフを切り替えます",
 			"messages": {
-				"filter_enabled": "`✅` | Distorsion filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Distorsion filter has been `DISABLED`."
+				"filter_enabled": "`✅` | ディストーションフィルターが`有効`になりました。",
+				"filter_disabled": "`✅` | ディストーションフィルターが`無効`になりました。"
 			}
 		},
 		"karaoke": {
-			"description": "Toggle the karaoke filter on/off",
+			"description": "カラオケフィルターのオン/オフを切り替えます",
 			"messages": {
-				"filter_enabled": "`✅` | Karaoke filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Karaoke filter has been `DISABLED`."
+				"filter_enabled": "`✅` | カラオケフィルターが`有効`になりました。",
+				"filter_disabled": "`✅` | カラオケフィルターが`無効`になりました。"
 			}
 		},
 		"lowpass": {
-			"description": "Toggle the lowpass filter on/off",
+			"description": "ローパスフィルターのオン/オフを切り替えます",
 			"messages": {
-				"filter_enabled": "`✅` | Lowpass filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Lowpass filter has been `DISABLED`."
+				"filter_enabled": "`✅` | ローパスフィルターが`有効`になりました。",
+				"filter_disabled": "`✅` | ローパスフィルターが`無効`になりました。"
 			}
 		},
 		"nightcore": {
-			"description": "Toggle the nightcore filter on/off",
+			"description": "ナイトコアフィルターのオン/オフを切り替えます",
 			"messages": {
-				"filter_enabled": "`✅` | Nightcore filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Nightcore filter has been `DISABLED`."
+				"filter_enabled": "`✅` | ナイトコアフィルターが`有効`になりました。",
+				"filter_disabled": "`✅` | ナイトコアフィルターが`無効`になりました。"
 			}
 		},
 		"pitch": {
-			"description": "Toggle the pitch filter on/off",
+			"description": "ピッチフィルターのオン/オフを切り替えます",
 			"options": {
-				"pitch": "The number you want to set the pitch to (between 0.5 and 5)"
+				"pitch": "ピッチを設定したい数値 (0.5から5の間)"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5."
+				"invalid_number": "0.5から5の間の有効な数値を指定してください。"
 			},
 			"messages": {
-				"pitch_set": "`✅` | Pitch has been set to **{pitch}**."
+				"pitch_set": "`✅` | ピッチが**{pitch}**に設定されました。"
 			}
 		},
 		"rate": {
-			"description": "Change the rate of the song",
+			"description": "曲の速度を変更します",
 			"options": {
-				"rate": "The number you want to set the rate to (between 0.5 and 5)"
+				"rate": "速度を設定したい数値 (0.5から5の間)"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5."
+				"invalid_number": "0.5から5の間の有効な数値を指定してください。"
 			},
 			"messages": {
-				"rate_set": "`✅` | Rate has been set to **{rate}**."
+				"rate_set": "`✅` | 速度が**{rate}**に設定されました。"
 			}
 		},
 		"reset": {
-			"description": "Resets the active filters",
+			"description": "アクティブフィルターをリセットします",
 			"messages": {
-				"filters_reset": "`✅` | Filters have been reset."
+				"filters_reset": "`✅` | フィルターがリセットされました。"
 			}
 		},
 		"rotation": {
-			"description": "Toggle the rotation filter on/off",
+			"description": "ローテーションフィルターのオン/オフを切り替えます",
 			"messages": {
-				"enabled": "`✅` | Rotation filter has been `ENABLED`.",
-				"disabled": "`✅` | Rotation filter has been `DISABLED`."
+				"enabled": "`✅` | ローテーションフィルターが`有効`になりました。",
+				"disabled": "`✅` | ローテーションフィルターが`無効`になりました。"
 			}
 		},
 		"speed": {
-			"description": "Change the speed of the song",
+			"description": "曲の速度を変更します",
 			"options": {
-				"speed": "The speed you want to set"
+				"speed": "設定したい速度"
 			},
 			"messages": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5.",
-				"set_speed": "`✅` | Speed has been set to **{speed}**."
+				"invalid_number": "0.5から5の間の有効な数値を指定してください。",
+				"set_speed": "`✅` | 速度が**{speed}**に設定されました。"
 			}
 		},
 		"tremolo": {
-			"description": "Toggle the tremolo filter on/off",
+			"description": "トレモロフィルターのオン/オフを切り替えます",
 			"messages": {
-				"enabled": "`✅` | Tremolo filter has been `ENABLED`.",
-				"disabled": "`✅` | Tremolo filter has been `DISABLED`."
+				"enabled": "`✅` | トレモロフィルターが`有効`になりました。",
+				"disabled": "`✅` | トレモロフィルターが`無効`になりました。"
 			}
 		},
 		"vibrato": {
-			"description": "Toggle the vibrato filter on/off",
+			"description": "ビブラートフィルターのオン/オフを切り替えます",
 			"messages": {
-				"enabled": "`✅` | Vibrato filter has been `ENABLED`.",
-				"disabled": "`✅` | Vibrato filter has been `DISABLED`."
+				"enabled": "`✅` | ビブラートフィルターが`有効`になりました。",
+				"disabled": "`✅` | ビブラートフィルターが`無効`になりました。"
 			}
 		},
 		"autoplay": {
-			"description": "Toggles autoplay",
+			"description": "自動再生を切り替えます",
 			"messages": {
-				"enabled": "`✅` | Autoplay has been `ENABLED`.",
-				"disabled": "`✅` | Autoplay has been `DISABLED`."
+				"enabled": "`✅` | 自動再生が`有効`になりました。",
+				"disabled": "`✅` | 自動再生が`無効`になりました。"
 			}
 		},
 		"clearqueue": {
-			"description": "Clears the queue",
+			"description": "キューをクリアします",
 			"messages": {
-				"cleared": "The queue has been cleared."
+				"cleared": "キューがクリアされました。"
 			}
 		},
 		"grab": {
-			"description": "Grabs the current playing song on your DM",
-			"content": "**Duration:** {length}\n**Requested by:** <@{requester}>\n**Link:** [Click here]({uri})",
-			"check_dm": "Please check your DM.",
-			"dm_failed": "I couldn't send you a DM."
+			"description": "現在再生中の曲をDMに送信します",
+			"content": "**再生時間:** {length}\n**リクエスト者:** {requester}\n**リンク:** [ここをクリック]({uri})",
+			"check_dm": "DMを確認してください。",
+			"dm_failed": "DMを送信できませんでした。"
 		},
 		"join": {
-			"description": "Joins the voice channel",
-			"already_connected": "I'm already connected to <#{channelId}>.",
-			"no_voice_channel": "You need to be in a voice channel to use this command.",
-			"joined": "Successfully joined <#{channelId}>."
+			"description": "ボイスチャンネルに参加します",
+			"already_connected": "すでに <#{channelId}> に接続しています。",
+			"no_voice_channel": "このコマンドを使用するにはボイスチャンネルに参加する必要があります。",
+			"joined": "正常に <#{channelId}> に参加しました。"
 		},
 		"leave": {
-			"description": "Leaves the voice channel",
-			"left": "Successfully left <#{channelId}>.",
-			"not_in_channel": "I'm not in a voice channel."
+			"description": "ボイスチャンネルから退出します",
+			"left": "正常に <#{channelId}> から退出しました。",
+			"not_in_channel": "ボイスチャンネルに参加していません。"
 		},
 		"loop": {
-			"description": "Loop the current song or the queue",
-			"looping_song": "**Looping the song.**",
-			"looping_queue": "**Looping the queue.**",
-			"looping_off": "**Looping is now off.**"
+			"description": "現在の曲またはキューをループします",
+			"looping_song": "**曲をループしています。**",
+			"looping_queue": "**キューをループしています。**",
+			"looping_off": "**ループがオフになりました。**"
 		},
 		"nowplaying": {
-			"description": "Shows the currently playing song",
-			"now_playing": "Now Playing",
-			"track_info": "[{title}]({uri}) - Requested By: <@{requester}>\n\n`{bar}`"
+			"description": "現在再生中の曲を表示します",
+			"now_playing": "再生中",
+			"track_info": "[{title}]({uri}) - リクエスト者: {requester}\n\n`{bar}`"
 		},
 		"pause": {
-			"description": "Pauses the current song",
-			"successfully_paused": "Successfully paused the song."
+			"description": "現在の曲を一時停止します",
+			"successfully_paused": "曲が正常に一時停止されました。"
 		},
 		"play": {
-			"description": "Plays a song from YouTube, Spotify or http",
+			"description": "YouTube、Spotify、またはhttpから曲を再生します",
 			"options": {
-				"song": "The song you want to play"
+				"song": "再生したい曲"
 			},
-			"loading": "Loading...",
+			"loading": "読み込み中...",
 			"errors": {
-				"search_error": "There was an error while searching.",
-				"no_results": "There were no results found.",
-				"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
-				"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs."
+				"search_error": "検索中にエラーが発生しました。",
+				"no_results": "結果が見つかりませんでした。",
+				"queue_too_long": "キューが長すぎます。最大長は {maxQueueSize} 曲です。",
+				"playlist_too_long": "プレイリストが長すぎます。最大長は {maxPlaylistSize} 曲です。"
 			},
-			"added_to_queue": "Added [{title}]({uri}) to the queue.",
-			"added_playlist_to_queue": "Added {length} songs to the queue."
+			"added_to_queue": "[{title}]({uri}) をキューに追加しました。",
+			"added_playlist_to_queue": "{length} 曲をキューに追加しました。"
 		},
 		"playnext": {
-			"description": "Add the song to play next in queue",
+			"description": "キューの次に再生する曲を追加します",
 			"options": {
-				"song": "The song you want to play"
+				"song": "再生したい曲"
 			},
-			"loading": "Loading...",
+			"loading": "読み込み中...",
 			"errors": {
-				"search_error": "There was an error while searching.",
-				"no_results": "There were no results found.",
-				"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
-				"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs."
+				"search_error": "検索中にエラーが発生しました。",
+				"no_results": "結果が見つかりませんでした。",
+				"queue_too_long": "キューが長すぎます。最大長は {maxQueueSize} 曲です。",
+				"playlist_too_long": "プレイリストが長すぎます。最大長は {maxPlaylistSize} 曲です。"
 			},
-			"added_to_play_next": "Added [{title}]({uri}) to play next in the queue.",
-			"added_playlist_to_play_next": "Added {length} songs to play next in the queue."
+			"added_to_play_next": "[{title}]({uri}) を次に再生するキューに追加しました。",
+			"added_playlist_to_play_next": "{length} 曲を次に再生するキューに追加しました。"
 		},
 		"queue": {
-			"description": "Shows the current queue",
-			"now_playing": "Now playing: [{title}]({uri}) - Requested By: <@{requester}> - Duration: `{duration}`",
-			"live": "LIVE",
-			"track_info": "{index}. [{title}]({uri}) - Requested By: <@{requester}> - Duration: `{duration}`",
-			"title": "Queue",
-			"page_info": "Page {index} of {total}"
+			"description": "現在のキューを表示します",
+			"now_playing": "現在再生中: [{title}]({uri}) - リクエスト者: <@{requester}> - 再生時間: `{duration}`",
+			"live": "ライブ",
+			"track_info": "{index}. [{title}]({uri}) - リクエスト者: <@{requester}> - 再生時間: `{duration}`",
+			"title": "キュー",
+			"page_info": "ページ {index} / {total}"
 		},
 		"remove": {
-			"description": "Removes a song from the queue",
+			"description": "キューから曲を削除します",
 			"options": {
-				"song": "The song number you want to remove"
+				"song": "削除したい曲の番号"
 			},
 			"errors": {
-				"no_songs": "There are no songs in the queue.",
-				"invalid_number": "Please provide a valid song number."
+				"no_songs": "キューに曲がありません。",
+				"invalid_number": "有効な曲番号を指定してください。"
 			},
 			"messages": {
-				"removed": "Removed song number {songNumber} from the queue."
+				"removed": "キューから曲番号 {songNumber} を削除しました。"
 			}
 		},
 		"replay": {
-			"description": "Replays the current track",
+			"description": "現在の曲を再生します",
 			"errors": {
-				"not_seekable": "Cannot replay this track as it is not seekable."
+				"not_seekable": "このトラックはシークできないため、再生できません。"
 			},
 			"messages": {
-				"replaying": "Replaying the current track."
+				"replaying": "現在の曲を再生中です。"
 			}
 		},
 		"resume": {
-			"description": "Resumes the current song",
+			"description": "現在の曲を再開します",
 			"errors": {
-				"not_paused": "The player is not paused."
+				"not_paused": "プレーヤーは一時停止していません。"
 			},
 			"messages": {
-				"resumed": "Resumed the player."
+				"resumed": "プレーヤーを再開しました。"
 			}
 		},
 		"search": {
-			"description": "Searches for a song",
+			"description": "曲を検索します",
 			"options": {
-				"song": "The song you want to search"
+				"song": "検索したい曲"
 			},
 			"errors": {
-				"no_results": "No results found.",
-				"search_error": "There was an error while searching."
+				"no_results": "結果が見つかりませんでした。",
+				"search_error": "検索中にエラーが発生しました。"
 			},
 			"messages": {
-				"added_to_queue": "Added [{title}]({uri}) to the queue."
+				"added_to_queue": "[{title}]({uri}) をキューに追加しました。"
 			}
 		},
 		"seek": {
-			"description": "Seeks to a certain time in the song",
+			"description": "曲の特定の時間にシークします",
 			"options": {
-				"duration": "The duration to seek to"
+				"duration": "シークしたい時間"
 			},
 			"errors": {
-				"invalid_format": "Invalid time format. Examples: seek 1m, seek 1h 30m",
-				"not_seekable": "This track is not seekable.",
-				"beyond_duration": "Cannot seek beyond the song duration of {length}."
+				"invalid_format": "無効な時間形式です。例: seek 1m, seek 1h 30m",
+				"not_seekable": "このトラックはシークできません。",
+				"beyond_duration": "曲の長さ {length} を超える位置にはシークできません。"
 			},
 			"messages": {
-				"seeked_to": "Seeked to {duration}"
+				"seeked_to": "{duration} にシークしました"
 			}
 		},
 		"shuffle": {
-			"description": "Shuffles the queue",
+			"description": "キューをシャッフルします",
 			"messages": {
-				"shuffled": "Shuffled the queue."
+				"shuffled": "キューをシャッフルしました。"
 			}
 		},
 		"skip": {
-			"description": "Skips the current song",
+			"description": "現在の曲をスキップします",
 			"messages": {
-				"skipped": "Skipped [{title}]({uri})."
+				"skipped": "[{title}]({uri}) をスキップしました。"
 			}
 		},
 		"skipto": {
-			"description": "Skips to a specific song in the queue",
+			"description": "キュー内の特定の曲にスキップします",
 			"options": {
-				"number": "The number of the song you want to skip to"
+				"number": "スキップしたい曲の番号"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number."
+				"invalid_number": "有効な番号を指定してください。"
 			},
 			"messages": {
-				"skipped_to": "Skipped to song number {number}."
+				"skipped_to": "{number} 番目の曲にスキップしました。"
 			}
 		},
 		"stop": {
-			"description": "Stops the music and clears the queue",
+			"description": "音楽を停止し、キューをクリアします",
 			"messages": {
-				"stopped": "Stopped the music and cleared the queue."
+				"stopped": "音楽を停止し、キューをクリアしました。"
 			}
 		},
 		"volume": {
-			"description": "Sets the volume of the player",
+			"description": "プレーヤーの音量を設定します",
 			"options": {
-				"number": "The volume you want to set"
+				"number": "設定したい音量"
 			},
 			"messages": {
-				"invalid_number": "Please provide a valid number.",
-				"too_low": "The volume can't be lower than 0.",
-				"too_high": "The volume can't be higher than 200. Do you want to damage your hearing or speakers? Hmmm, I don't think that's such a good idea.",
-				"set": "Set the volume to {volume}"
+				"invalid_number": "有効な番号を指定してください。",
+				"too_low": "音量は0より低くすることはできません。",
+				"too_high": "音量は200より高くすることはできません。耳やスピーカーを傷つけたいですか？うーん、それは良い考えとは思えません。",
+				"set": "音量を {volume} に設定しました"
 			}
 		},
 		"addsong": {
-			"description": "Adds a song to the playlist",
+			"description": "プレイリストに曲を追加します",
 			"options": {
-				"playlist": "The playlist you want to add",
-				"song": "The song you want to add"
+				"playlist": "追加したいプレイリスト",
+				"song": "追加したい曲"
 			},
 			"messages": {
-				"no_playlist": "Please provide a playlist",
-				"no_song": "Please provide a song",
-				"playlist_not_found": "That playlist doesn't exist",
-				"no_songs_found": "No songs found",
-				"added": "Added {count} song(s) to {playlist}"
+				"no_playlist": "プレイリストを指定してください",
+				"no_song": "曲を指定してください",
+				"playlist_not_found": "そのプレイリストは存在しません",
+				"no_songs_found": "曲が見つかりません",
+				"added": "{count} 曲を {playlist} に追加しました"
 			}
 		},
 		"create": {
-			"description": "Creates a playlist",
+			"description": "プレイリストを作成します",
 			"options": {
-				"name": "The name of the playlist"
+				"name": "プレイリストの名前"
 			},
 			"messages": {
-				"name_too_long": "Playlist names can only be 50 characters long.",
-				"playlist_exists": "A playlist with that name already exists. Please use a different name.",
-				"playlist_created": "Playlist **{name}** has been created."
+				"name_too_long": "プレイリストの名前は50文字以内にしてください。",
+				"playlist_exists": "その名前のプレイリストは既に存在します。別の名前を使用してください。",
+				"playlist_created": "プレイリスト **{name}** が作成されました。"
 			}
 		},
 		"delete": {
-			"description": "Deletes a playlist",
+			"description": "プレイリストを削除します",
 			"options": {
-				"playlist": "The playlist you want to delete"
+				"playlist": "削除したいプレイリスト"
 			},
 			"messages": {
-				"playlist_not_found": "That playlist doesn't exist.",
-				"playlist_deleted": "Deleted playlist **{playlistName}**."
+				"playlist_not_found": "そのプレイリストは存在しません。",
+				"playlist_deleted": "プレイリスト **{playlistName}** を削除しました。"
 			}
 		},
 		"list": {
-			"description": "Retrieves all playlists for the user",
+			"description": "ユーザーのすべてのプレイリストを取得します",
 			"options": {
-				"user": "The user whose playlists you want to retrieve"
+				"user": "取得したいプレイリストのユーザー"
 			},
 			"messages": {
-				"no_playlists": "This user has no playlists.",
-				"your": "Your",
-				"playlists_title": "{username}'s Playlists",
-				"error": "An error occurred while retrieving the playlists."
+				"no_playlists": "このユーザーにはプレイリストがありません。",
+				"your": "あなたの",
+				"playlists_title": "{username} のプレイリスト",
+				"error": "プレイリストの取得中にエラーが発生しました。"
 			}
 		},
 		"load": {
-			"description": "Loads a playlist",
+			"description": "プレイリストをロードします",
 			"options": {
-				"playlist": "The playlist you want to load"
+				"playlist": "ロードしたいプレイリスト"
 			},
 			"messages": {
-				"playlist_not_exist": "That playlist doesn't exist.",
-				"playlist_empty": "That playlist is empty.",
-				"playlist_loaded": "Loaded `{name}` with `{count}` songs."
+				"playlist_not_exist": "そのプレイリストは存在しません。",
+				"playlist_empty": "そのプレイリストは空です。",
+				"playlist_loaded": "`{name}` に `{count}` 曲をロードしました。"
 			}
 		},
 		"removesong": {
-			"description": "Removes a song from the playlist",
+			"description": "プレイリストから曲を削除します",
 			"options": {
-				"playlist": "The playlist you want to remove from",
-				"song": "The song you want to remove"
+				"playlist": "削除したいプレイリスト",
+				"song": "削除したい曲"
 			},
 			"messages": {
-				"provide_playlist": "Please provide a playlist.",
-				"provide_song": "Please provide a song.",
-				"playlist_not_exist": "That playlist doesn't exist.",
-				"song_not_found": "No matching song found.",
-				"song_removed": "Removed {song} from {playlist}.",
-				"error_occurred": "An error occurred while removing the song."
+				"provide_playlist": "プレイリストを指定してください。",
+				"provide_song": "曲を指定してください。",
+				"playlist_not_exist": "そのプレイリストは存在しません。",
+				"song_not_found": "一致する曲が見つかりません。",
+				"song_removed": "{playlist} から {song} を削除しました。",
+				"error_occurred": "曲の削除中にエラーが発生しました。"
 			}
 		},
 		"steal": {
-			"description": "Steals a playlist from another user and adds it to your playlists",
+			"description": "他のユーザーからプレイリストを盗んで自分のプレイリストに追加します",
 			"options": {
-				"playlist": "The playlist you want to steal",
-				"user": "The user from whom you want to steal the playlist"
+				"playlist": "盗みたいプレイリスト",
+				"user": "プレイリストを盗みたいユーザー"
 			},
 			"messages": {
-				"provide_playlist": "Please provide a playlist name.",
-				"provide_user": "Please mention a user.",
-				"playlist_not_exist": "That playlist doesn't exist for the mentioned user.",
-				"playlist_stolen": "Successfully stole the playlist `{playlist}` from {user}.",
-				"error_occurred": "An error occurred while stealing the playlist."
+				"provide_playlist": "プレイリスト名を指定してください。",
+				"provide_user": "ユーザーを指定してください。",
+				"playlist_not_exist": "指定されたユーザーのプレイリストは存在しません。",
+				"playlist_stolen": "{user} からプレイリスト `{playlist}` を正常に盗みました。",
+				"error_occurred": "プレイリストの盗難中にエラーが発生しました。"
 			}
 		}
 	},
 	"buttons": {
-		"invite": "Invite",
-		"support": "Support Server",
-		"previous": "Previous",
-		"resume": "Resume",
-		"stop": "Stop",
-		"skip": "Skip",
-		"loop": "Loop"
+		"invite": "招待",
+		"support": "サポートサーバー",
+		"previous": "前の曲",
+		"resume": "再開",
+		"stop": "停止",
+		"skip": "スキップ",
+		"loop": "ループ"
 	},
 	"player": {
 		"errors": {
-			"no_player": "There is no active player in this guild.",
-			"no_channel": "You need to be in a voice channel to use this command.",
-			"queue_empty": "The queue is empty.",
-			"no_previous": "There are no previous songs in the queue.",
-			"no_song": "There are no songs in the queue.",
-			"already_paused": "The song is already paused."
+			"no_player": "このギルドにはアクティブなプレイヤーがありません。",
+			"no_channel": "このコマンドを使用するにはボイスチャンネルにいる必要があります。",
+			"queue_empty": "キューは空です。",
+			"no_previous": "キューには前の曲がありません。",
+			"no_song": "キューには曲がありません。",
+			"already_paused": "曲はすでに一時停止されています。"
 		},
 		"trackStart": {
-			"now_playing": "Now Playing",
-			"requested_by": "Requested by {user}",
-			"duration": "Duration",
-			"author": "Author",
-			"not_connected_to_voice_channel": "You are not connected to <#{channel}> to use these buttons.",
-			"need_dj_role": "You need to have the DJ role to use this command.",
-			"previous_by": "Previous by {user}",
-			"no_previous_song": "There is no previous song.",
-			"paused_by": "Paused by {user}",
-			"resumed_by": "Resumed by {user}",
-			"skipped_by": "Skipped by {user}",
-			"no_more_songs_in_queue": "There is no more song in the queue.",
-			"looping_by": "Looping by {user}",
-			"looping_queue_by": "Looping Queue by {user}",
-			"looping_off_by": "Looping Off by {user}"
+			"now_playing": "再生中",
+			"requested_by": "{user} によってリクエストされました",
+			"duration": "再生時間",
+			"author": "アーティスト",
+			"not_connected_to_voice_channel": "これらのボタンを使用するには <#{channel}> に接続されていません。",
+			"need_dj_role": "このコマンドを使用するにはDJロールが必要です。",
+			"previous_by": "{user} によって前の曲",
+			"no_previous_song": "前の曲がありません。",
+			"paused_by": "{user} によって一時停止されました",
+			"resumed_by": "{user} によって再開されました",
+			"skipped_by": "{user} によってスキップされました",
+			"no_more_songs_in_queue": "キューにはもう曲がありません。",
+			"looping_by": "{user} によってループ中",
+			"looping_queue_by": "{user} によってキューをループ中",
+			"looping_off_by": "{user} によってループオフ"
 		},
 		"setupStart": {
-			"now_playing": "Now Playing",
-			"description": "[{title}]({uri}) by {author} • `[{length}]` - Requested by <@{requester}>",
-			"error_searching": "There was an error while searching.",
-			"no_results": "There were no results found.",
-			"nothing_playing": "Nothing playing right now.",
-			"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
-			"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs.",
-			"added_to_queue": "Added [{title}]({uri}) to the queue.",
-			"added_playlist_to_queue": "Added [{length}] songs from the playlist to the queue."
+			"now_playing": "再生中",
+			"description": "[{title}]({uri}) by {author} • `[${length}]` - <@{requester}> によってリクエストされました",
+			"error_searching": "検索中にエラーが発生しました。",
+			"no_results": "結果が見つかりませんでした。",
+			"nothing_playing": "現在再生中の曲はありません。",
+			"queue_too_long": "キューが長すぎます。最大長は {maxQueueSize} 曲です。",
+			"playlist_too_long": "プレイリストが長すぎます。最大長は {maxPlaylistSize} 曲です。",
+			"added_to_queue": "[{title}]({uri}) をキューに追加しました。",
+			"added_playlist_to_queue": "プレイリストから [{length}] 曲をキューに追加しました。"
 		}
 	},
 	"event": {
 		"interaction": {
-			"setup_channel": "You can't use this command in the setup channel.",
-			"no_send_message": "I don't have **`SendMessage`** permission in `{guild}`\nchannel: {channel}.",
-			"no_embed_links": "I don't have **`EmbedLinks`** permission.",
-			"no_permission": "I don't have enough permissions to execute this command.",
-			"no_user_permission": "You don't have enough permissions to use this command.",
-			"no_voice_channel": "You must be connected to a voice channel to use this `{command}` command.",
-			"no_connect_permission": "I don't have `CONNECT` permissions to execute this `{command}` command.",
-			"no_speak_permission": "I don't have `SPEAK` permissions to execute this `{command}` command.",
-			"no_request_to_speak": "I don't have `REQUEST TO SPEAK` permission to execute this `{command}` command.",
-			"different_voice_channel": "You are not connected to {channel} to use this `{command}` command.",
-			"no_music_playing": "Nothing is playing right now.",
-			"no_dj_role": "DJ role is not set.",
-			"no_dj_permission": "You need to have the DJ role to use this command.",
-			"cooldown": "Please wait {time} more second(s) before reusing the `{command}` command.",
-			"error": "An error occurred: `{error}`"
+			"setup_channel": "設定チャンネルではこのコマンドを使用できません。",
+			"no_send_message": "`{guild}` のチャンネル {channel} で **`SendMessage`** 権限がありません。",
+			"no_embed_links": "**`EmbedLinks`** 権限がありません。",
+			"no_permission": "このコマンドを実行するための権限が不足しています。",
+			"no_user_permission": "このコマンドを使用するための権限が不足しています。",
+			"no_voice_channel": "この `{command}` コマンドを使用するにはボイスチャンネルに接続する必要があります。",
+			"no_connect_permission": "この `{command}` コマンドを実行するための `CONNECT` 権限がありません。",
+			"no_speak_permission": "この `{command}` コマンドを実行するための `SPEAK` 権限がありません。",
+			"no_request_to_speak": "この `{command}` コマンドを実行するための `REQUEST TO SPEAK` 権限がありません。",
+			"different_voice_channel": "この `{command}` コマンドを使用するために {channel} に接続されていません。",
+			"no_music_playing": "現在、何も再生されていません。",
+			"no_dj_role": "DJ ロールが設定されていません。",
+			"no_dj_permission": "このコマンドを使用するにはDJロールが必要です。",
+			"cooldown": "この `{command}` コマンドを再度使用する前に、あと {time} 秒待ってください。",
+			"error": "エラーが発生しました: `{error}`"
 		},
 		"message": {
-			"prefix_mention": "Hey, my prefix for this server is `{prefix}`. Want more info? then do `{prefix}help`\nStay Safe, Stay Awesome!",
-			"no_send_message": "I don't have **`SendMessage`** permission in `{guild}`\nchannel: {channel}.",
-			"no_embed_links": "I don't have **`EmbedLinks`** permission.",
-			"no_permission": "I don't have enough permissions to execute this command.",
-			"no_user_permission": "You don't have enough permissions to use this command.",
-			"no_voice_channel": "You must be connected to a voice channel to use this `{command}` command.",
-			"no_connect_permission": "I don't have `CONNECT` permissions to execute this `{command}` command.",
-			"no_speak_permission": "I don't have `SPEAK` permissions to execute this `{command}` command.",
-			"no_request_to_speak": "I don't have `REQUEST TO SPEAK` permission to execute this `{command}` command.",
-			"different_voice_channel": "You are not connected to {channel} to use this `{command}` command.",
-			"no_music_playing": "Nothing is playing right now.",
-			"no_dj_role": "DJ role is not set.",
-			"no_dj_permission": "You need to have the DJ role to use this command.",
-			"missing_arguments": "Missing Arguments",
-			"missing_arguments_description": "Please provide the required arguments for the `{command}` command.\n\nExamples:\n{examples}",
-			"syntax_footer": "Syntax: [] = optional, <> = required",
-			"cooldown": "Please wait {time} more second(s) before reusing the `{command}` command.",
-			"no_mention_everyone": "You can't use this command with everyone or here.",
-			"error": "An error occurred: `{error}`",
-			"no_voice_channel_queue": "You are not connected to a voice channel to queue songs.",
-			"no_permission_connect_speak": "I don't have enough permission to connect/speak in <#{channel}>.",
-			"different_voice_channel_queue": "You are not connected to <#{channel}> to queue songs."
+			"prefix_mention": "こんにちは、このサーバーの私のプレフィックスは `{prefix}` です。詳細を知りたい場合は `{prefix}help` と入力してください。\n安全に、そして素晴らしく過ごしましょう！",
+			"no_send_message": "`{guild}` のチャンネル {channel} で **`SendMessage`** 権限がありません。",
+			"no_embed_links": "**`EmbedLinks`** 権限がありません。",
+			"no_permission": "このコマンドを実行するための権限が不足しています。",
+			"no_user_permission": "このコマンドを使用するための権限が不足しています。",
+			"no_voice_channel": "この `{command}` コマンドを使用するにはボイスチャンネルに接続する必要があります。",
+			"no_connect_permission": "この `{command}` コマンドを実行するための `CONNECT` 権限がありません。",
+			"no_speak_permission": "この `{command}` コマンドを実行するための `SPEAK` 権限がありません。",
+			"no_request_to_speak": "この `{command}` コマンドを実行するための `REQUEST TO SPEAK` 権限がありません。",
+			"different_voice_channel": "この `{command}` コマンドを使用するために {channel} に接続されていません。",
+			"no_music_playing": "現在、何も再生されていません。",
+			"no_dj_role": "DJ ロールが設定されていません。",
+			"no_dj_permission": "このコマンドを使用するにはDJロールが必要です。",
+			"missing_arguments": "引数が不足しています",
+			"missing_arguments_description": "この `{command}` コマンドのために必要な引数を提供してください。\n\n例:\n{examples}",
+			"syntax_footer": "構文: [] = 任意, <> = 必須",
+			"cooldown": "この `{command}` コマンドを再度使用する前に、あと {time} 秒待ってください。",
+			"no_mention_everyone": "このコマンドを everyone または here と一緒に使用することはできません。",
+			"error": "エラーが発生しました: `{error}`",
+			"no_voice_channel_queue": "曲をキューに入れるにはボイスチャンネルに接続する必要があります。",
+			"no_permission_connect_speak": "<#{channel}> で接続/発言するための十分な権限がありません。",
+			"different_voice_channel_queue": "曲をキューに入れるために <#{channel}> に接続されていません。"
 		},
 		"setupButton": {
-			"no_voice_channel_button": "You are not connected to a voice channel to use this button.",
-			"different_voice_channel_button": "You are not connected to {channel} to use these buttons.",
-			"now_playing": "Now Playing",
-			"live": "LIVE",
-			"requested_by": "Requested by <@{requester}>",
-			"no_dj_permission": "You need to have the DJ role to use this command.",
-			"volume_set": "Volume set to {vol}%",
-			"volume_footer": "Volume: {vol}%",
-			"paused": "Paused",
-			"resumed": "Resumed",
-			"pause_resume": "{name} the music.",
-			"pause_resume_footer": "{name} by {displayName}",
-			"no_music_to_skip": "There is no music to skip.",
-			"skipped": "Skipped the music.",
-			"skipped_footer": "Skipped by {displayName}",
-			"stopped": "Stopped the music.",
-			"stopped_footer": "Stopped by {displayName}",
-			"nothing_playing": "Nothing playing right now",
-			"loop_set": "Loop set to {loop}.",
-			"loop_footer": "Loop set to {loop} by {displayName}",
-			"shuffled": "Shuffled the queue.",
-			"no_previous_track": "There is no previous track.",
-			"playing_previous": "Playing the previous track.",
-			"previous_footer": "Playing the previous track by {displayName}",
-			"rewind_limit": "You cannot rewind the music more than the length of the song.",
-			"rewinded": "Rewinded the music.",
-			"rewind_footer": "Rewinded by {displayName}",
-			"forward_limit": "You cannot forward the music more than the length of the song.",
-			"forwarded": "Forwarded the music.",
-			"forward_footer": "Forwarded by {displayName}",
-			"button_not_available": "This button is not available.",
-			"no_music_playing": "There is no music playing in this server."
+			"no_voice_channel_button": "このボタンを使用するにはボイスチャンネルに接続する必要があります。",
+			"different_voice_channel_button": "これらのボタンを使用するために {channel} に接続されていません。",
+			"now_playing": "再生中",
+			"live": "ライブ",
+			"requested_by": "{requester} によってリクエストされました",
+			"no_dj_permission": "このコマンドを使用するにはDJロールが必要です。",
+			"volume_set": "音量を {vol}% に設定しました。",
+			"volume_footer": "音量: {vol}%",
+			"paused": "一時停止",
+			"resumed": "再開",
+			"pause_resume": "{name} 音楽。",
+			"pause_resume_footer": "{displayName} によって {name} されました",
+			"no_music_to_skip": "スキップする音楽がありません。",
+			"skipped": "音楽をスキップしました。",
+			"skipped_footer": "{displayName} によってスキップされました",
+			"stopped": "音楽を停止しました。",
+			"stopped_footer": "{displayName} によって停止されました",
+			"nothing_playing": "現在、何も再生されていません",
+			"loop_set": "ループが {loop} に設定されました。",
+			"loop_footer": "{displayName} によって {loop} に設定されました",
+			"shuffled": "キューをシャッフルしました。",
+			"no_previous_track": "前のトラックがありません。",
+			"playing_previous": "前のトラックを再生中です。",
+			"previous_footer": "{displayName} によって前のトラックを再生中です",
+			"rewind_limit": "曲の長さ以上に巻き戻すことはできません。",
+			"rewinded": "音楽を巻き戻しました。",
+			"rewind_footer": "{displayName} によって巻き戻されました",
+			"forward_limit": "曲の長さ以上に早送りすることはできません。",
+			"forwarded": "音楽を早送りしました。",
+			"forward_footer": "{displayName} によって早送りされました",
+			"button_not_available": "このボタンは使用できません。"
 		}
 	},
-	"Evaluate code": "Evaluate code",
-	"Leave a guild": "Leave a guild",
-	"List all guilds the bot is in": "List all guilds the bot is in",
-	"Restart the bot": "Restart the bot"
+	"Evaluate code": "コードを評価",
+	"Leave a guild": "ギルドを離れる",
+	"List all guilds the bot is in": "ボットが所属しているすべてのギルドを一覧表示",
+	"Restart the bot": "ボットを再起動"
 }
