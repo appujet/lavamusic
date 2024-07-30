@@ -1,9 +1,9 @@
 import { type ColorResolvable, EmbedBuilder, type Message, type TextChannel } from "discord.js";
 import { LoadType } from "shoukaku";
 import type { Song } from "../structures/Dispatcher.js";
+import { T } from "../structures/I18n.js";
 import type { Dispatcher, Lavamusic } from "../structures/index.js";
 import { getButtons } from "./Buttons.js";
-import { T } from "../structures/I18n.js";
 
 function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic, locale: string): EmbedBuilder {
     if (!player?.current?.info) return embed;
