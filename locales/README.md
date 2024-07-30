@@ -17,9 +17,7 @@
 - [x] French - `French.json` [by @LucasB25](https://github.com/LucasB25)
 - [x] German - `German.json` [by @LucasB25](https://github.com/LucasB25)
 - [x] Russian - `Russian.json` [by @LucasB25](https://github.com/LucasB25)
-
 - [ ] Korean - `Korean.json` (In Progress)
-
 - [ ] Indonesian - `Indonesian.json` (Not Started)
 - [ ] English (GB) - `EnglishGB.json` (Not Started)
 - [ ] Bulgarian - `Bulgarian.json` (Not Started)
@@ -33,7 +31,7 @@
 - [ ] Greek - `Greek.json` (Not Started)
 - [ ] Hungarian - `Hungarian.json` (Not Started)
 - [ ] Italian - `Italian.json` (Not Started)
-- [ ] Japanese - `Japanese.json` (Not Started)
+- [x] Japanese - `Japanese.json` [by @hatry4](https://github.com/hatry4)
 - [ ] Lithuanian - `Lithuanian.json` (Not Started)
 - [ ] Norwegian - `Norwegian.json` (Not Started)
 - [ ] Portuguese (BR) - `PortugueseBR.json` (Not Started)
