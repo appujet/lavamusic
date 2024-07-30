@@ -1,7 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, type ButtonInteraction, ButtonStyle, ComponentType } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-
 export default class Deploy extends Command {
     constructor(client: Lavamusic) {
         super(client, {
@@ -14,7 +13,7 @@ export default class Deploy extends Command {
             category: "dev",
             aliases: ["deploy-commands"],
             cooldown: 3,
-            args: true,
+            args: false,
             player: {
                 voice: false,
                 dj: false,
@@ -32,12 +31,11 @@ export default class Deploy extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, _args: string[]): Promise<any> {
-        
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
             new ButtonBuilder().setCustomId("deploy-global").setLabel("Global").setStyle(ButtonStyle.Secondary),
             new ButtonBuilder().setCustomId("deploy-guild").setLabel("Guild").setStyle(ButtonStyle.Secondary),
         );
-        
+
         const msg = await ctx.sendMessage({
             content: "Where do you want to deploy the commands?",
             components: [row],
