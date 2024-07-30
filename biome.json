@@ -48,7 +48,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": [".vscode", "dist", "locales]
+    "ignore": [".vscode", "dist", "locales"]
   },
   "json": {
     "formatter": {
