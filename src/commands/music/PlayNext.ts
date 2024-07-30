@@ -55,13 +55,11 @@ export default class PlayNext extends Command {
         switch (res.loadType) {
             case LoadType.ERROR:
                 ctx.editMessage({
-                    content: "",
                     embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.playnext.errors.search_error"))],
                 });
                 break;
             case LoadType.EMPTY:
                 ctx.editMessage({
-                    content: "",
                     embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.playnext.errors.no_results"))],
                 });
                 break;
@@ -69,7 +67,6 @@ export default class PlayNext extends Command {
                 const track = player.buildTrack(res.data, ctx.author);
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.editMessage({
-                        content: "",
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
@@ -81,7 +78,6 @@ export default class PlayNext extends Command {
                 player.queue.splice(0, 0, track);
                 await player.isPlaying();
                 ctx.editMessage({
-                    content: "",
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
@@ -95,7 +91,6 @@ export default class PlayNext extends Command {
             case LoadType.PLAYLIST: {
                 if (res.data.tracks.length > client.config.maxPlaylistSize)
                     return await ctx.editMessage({
-                        content: "",
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
@@ -108,7 +103,6 @@ export default class PlayNext extends Command {
                     const pl = player.buildTrack(track, ctx.author);
                     if (player.queue.length > client.config.maxQueueSize)
                         return await ctx.editMessage({
-                            content: "",
                             embeds: [
                                 embed
                                     .setColor(this.client.color.red)
@@ -121,7 +115,6 @@ export default class PlayNext extends Command {
                 }
                 await player.isPlaying();
                 ctx.editMessage({
-                    content: "",
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
@@ -134,7 +127,6 @@ export default class PlayNext extends Command {
                 const track1 = player.buildTrack(res.data[0], ctx.author);
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.editMessage({
-                        content: "",
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
@@ -146,7 +138,6 @@ export default class PlayNext extends Command {
                 player.queue.splice(0, 0, track1);
                 await player.isPlaying();
                 ctx.editMessage({
-                    content: "",
                     embeds: [
                         embed
                             .setColor(this.client.color.main)

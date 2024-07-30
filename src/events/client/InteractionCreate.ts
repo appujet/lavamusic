@@ -9,7 +9,6 @@ import {
     EmbedBuilder,
     type GuildMember,
     InteractionType,
-    Locale,
     PermissionFlagsBits,
     type TextChannel,
 } from "discord.js";

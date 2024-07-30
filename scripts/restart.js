@@ -1,7 +1,7 @@
-import { exec } from 'node:child_process';
+import { exec } from "node:child_process";
 
 function startLavamusic() {
-    exec('npm start', (error, stdout, stderr) => {
+    exec("npm start", (error, stdout, stderr) => {
         if (error) {
             console.error(`Error starting Lavamusic: ${error.message}`);
             return;
