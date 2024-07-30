@@ -95,7 +95,7 @@ export default class MessageCreate extends Event {
                 if (!isDev) return;
             }
         }
-        if (command.vote) {
+        if (command.vote && this.client.config.topGG) {
             const voted = await this.client.topGG.hasVoted(message.author.id);
             if (!voted) {
                 const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(

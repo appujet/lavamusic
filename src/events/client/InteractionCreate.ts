@@ -94,7 +94,7 @@ export default class InteractionCreate extends Event {
                     if (!isDev) return;
                 }
             }
-            if (command.vote) {
+            if (command.vote && this.client.config.topGG) {
                 const voted = await this.client.topGG.hasVoted(interaction.user.id);
                 if (!voted) {
                     const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(

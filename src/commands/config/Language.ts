@@ -7,7 +7,7 @@ export default class LanguageCommand extends Command {
             name: "language",
             description: {
                 content: "cmd.language.description",
-                examples: ["language set en", "language reset"],
+                examples: ["language set \`EnglishUS\`", "language reset"],
                 usage: "language",
             },
             category: "general",
