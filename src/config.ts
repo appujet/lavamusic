@@ -37,7 +37,7 @@ export default {
             cancel: "⏹️",
         },
     },
-    defaultLanguage: process.env.DEFAULT_LANGUAGE || Language.EnglishUS,
+    defaultLanguage: process.env.DEFAULT_LANGUAGE,
     topGG: process.env.TOPGG,
     keepAlive: parseBoolean(process.env.KEEP_ALIVE),
     autoNode: parseBoolean(process.env.AUTO_NODE),
