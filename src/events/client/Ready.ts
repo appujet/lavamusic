@@ -1,5 +1,6 @@
 import config from "../../config.js";
 import { Event, type Lavamusic } from "../../structures/index.js";
+import { AutoPoster } from "topgg-autoposter";
 
 export default class Ready extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -8,9 +9,9 @@ export default class Ready extends Event {
         });
     }
 
-    // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(): Promise<void> {
         this.client.logger.success(`${this.client.user?.tag} is ready!`);
+
         this.client.user?.setPresence({
             activities: [
                 {
@@ -20,6 +21,17 @@ export default class Ready extends Event {
             ],
             status: config.botStatus as any,
         });
+
+        if (config.topGG) {
+            const autoPoster = AutoPoster(config.topGG, this.client);
+            setInterval(() => {
+                autoPoster.on("posted", (stats) => {
+                    console.log(`[INFO] Posted stats to Top.gg | ${stats.serverCount} servers`);
+                });
+            }, 86400000); // 24 hours in milliseconds
+        } else {
+            this.client.logger.warn("Top.gg token not found. Skipping auto poster.");
+        }
     }
 }
 
