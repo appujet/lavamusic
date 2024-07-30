@@ -10,7 +10,7 @@ export default class LanguageCommand extends Command {
                 examples: ["language set `EnglishUS`", "language reset"],
                 usage: "language",
             },
-            category: "general",
+            category: "config",
             aliases: ["language", "lang"],
             cooldown: 3,
             args: true,
