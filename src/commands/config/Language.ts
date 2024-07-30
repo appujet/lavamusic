@@ -11,7 +11,7 @@ export default class LanguageCommand extends Command {
                 usage: "language",
             },
             category: "config",
-            aliases: ["language", "lang"],
+            aliases: ["lang"],
             cooldown: 3,
             args: true,
             vote: false,
