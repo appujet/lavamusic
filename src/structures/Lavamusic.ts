@@ -154,20 +154,20 @@ export default class Lavamusic extends Client {
                 }
             }
         }
+    }
 
-        this.once("ready", async () => {
-            const route = this.config.production
-                ? Routes.applicationCommands(this.user?.id ?? "")
-                : Routes.applicationGuildCommands(this.user?.id ?? "", this.config.guildId ?? "");
+    public async deployCommands(guildId?: string): Promise<void> {
+        const route = guildId
+            ? Routes.applicationGuildCommands(this.user?.id ?? "", guildId)
+            : Routes.applicationCommands(this.user?.id ?? "");
 
-            try {
-                const rest = new REST({ version: "10" }).setToken(this.config.token ?? "");
-                await rest.put(route, { body: this.body });
-                this.logger.info("Successfully loaded slash commands!");
-            } catch (error) {
-                this.logger.error(error);
-            }
-        });
+        try {
+            const rest = new REST({ version: "10" }).setToken(this.config.token ?? "");
+            await rest.put(route, { body: this.body });
+            this.logger.info("Successfully deployed slash commands!");
+        } catch (error) {
+            this.logger.error(error);
+        }
     }
 
     private async getNodes(): Promise<any> {
