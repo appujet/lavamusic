@@ -31,7 +31,7 @@
         "noExcessiveCognitiveComplexity": {
           "level": "warn",
           "options": {
-            "maxAllowedComplexity": 30
+            "maxAllowedComplexity": 255
           }
         }
       },
@@ -54,7 +54,7 @@
     "formatter": {
       "enabled": true,
       "indentWidth": 2,
-      "lineWidth": 120
+      "lineWidth": 100
     }
   },
   "formatter": {
