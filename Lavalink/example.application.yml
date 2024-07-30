@@ -4,8 +4,6 @@ server: # REST and WS server
   http2:
     enabled: false # Whether to enable HTTP/2 support
 plugins:
-  jiosaavn:
-    apiURL: "https://saavn.dev/api" # The API URL for JioSaavn
   dunctebot:
     ttsLanguage: 'en-US' # language of the TTS engine
     sources:
@@ -19,6 +17,8 @@ plugins:
       tiktok: true # tiktok.com
       mixcloud: true # mixcloud.com
       soundgasm: true # soundgasm.net
+  jiosaavn:
+    apiURL: "https://saavn.dev/api" # The API URL for JioSaavn
   lavasrc:
     providers: # Custom providers for track loading. This is the default
       # - "dzisrc:%ISRC%" # Deezer ISRC provider

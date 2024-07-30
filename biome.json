@@ -31,7 +31,7 @@
         "noExcessiveCognitiveComplexity": {
           "level": "warn",
           "options": {
-            "maxAllowedComplexity": 30
+            "maxAllowedComplexity": 255
           }
         }
       },
@@ -48,13 +48,13 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": [".vscode", "node_modules", "dist"]
+    "ignore": [".vscode", "dist", "locales", "node_modules"]
   },
   "json": {
     "formatter": {
       "enabled": true,
       "indentWidth": 2,
-      "lineWidth": 80
+      "lineWidth": 100
     }
   },
   "formatter": {

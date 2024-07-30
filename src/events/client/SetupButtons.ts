@@ -12,7 +12,6 @@ export default class SetupButtons extends Event {
         });
     }
 
-    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
     public async run(interaction: any): Promise<void> {
         const locale = await this.client.db.getLanguage(interaction.guildId);
 
