@@ -95,7 +95,7 @@ export default class Setup extends Command {
                 const desc =
                     player?.queue && player.current
                         ? `[${player.current.info.title}](${player.current.info.uri})`
-                        : "Nothing playing right now.";
+                        : ctx.locale("player.setupStart.nothing_playing");
                 embed.setDescription(desc).setImage(image);
                 await textChannel.send({ embeds: [embed], components: getButtons(player, client) }).then((msg) => {
                     client.db.setSetup(ctx.guild!.id, textChannel.id, msg.id);

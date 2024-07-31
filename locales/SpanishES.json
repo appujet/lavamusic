@@ -503,7 +503,10 @@
 		"resume": "Reanudar",
 		"stop": "Detener",
 		"skip": "Saltar",
-		"loop": "Bucle"
+		"loop": "Bucle",
+		"errors": {
+			"not_author": "No puedes usar este botón."
+		}
 	},
 	"player": {
 		"errors": {

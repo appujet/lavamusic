@@ -503,7 +503,10 @@
 		"resume": "Gjenoppta",
 		"stop": "Stopp",
 		"skip": "Hopp over",
-		"loop": "Loop"
+		"loop": "Loop",
+		"errors": {
+			"not_author": "Du kan ikke bruke denne knappen."
+		}
 	},
 	"player": {
 		"errors": {

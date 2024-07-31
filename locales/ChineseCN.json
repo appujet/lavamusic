@@ -503,7 +503,10 @@
 		"resume": "恢复",
 		"stop": "停止",
 		"skip": "跳过",
-		"loop": "循环"
+		"loop": "循环",
+		"errors": {
+			"not_author": "您不能使用此按钮。"
+		}
 	},
 	"player": {
 		"errors": {

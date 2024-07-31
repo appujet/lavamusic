@@ -503,7 +503,10 @@
 		"resume": "Reprendre",
 		"stop": "Arrêter",
 		"skip": "Passer",
-		"loop": "Boucle"
+		"loop": "Boucle",
+		"errors": {
+			"not_author": "Vous ne pouvez pas utiliser ce bouton."
+		}
 	},
 	"player": {
 		"errors": {

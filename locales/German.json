@@ -503,7 +503,10 @@
 		"resume": "Fortsetzen",
 		"stop": "Stoppen",
 		"skip": "Überspringen",
-		"loop": "Schleife"
+		"loop": "Schleife",
+		"errors": {
+			"not_author": "Du kannst diesen Button nicht verwenden."
+		}
 	},
 	"player": {
 		"errors": {

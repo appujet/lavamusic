@@ -503,7 +503,10 @@
 		"resume": "Wznów",
 		"stop": "Zatrzymaj",
 		"skip": "Pomiń",
-		"loop": "Zapętl"
+		"loop": "Zapętl",
+		"errors": {
+			"not_author": "Nie możesz użyć tego przycisku."
+		}
 	},
 	"player": {
 		"errors": {

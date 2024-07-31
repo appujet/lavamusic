@@ -503,7 +503,10 @@
 		"resume": "再開",
 		"stop": "停止",
 		"skip": "スキップ",
-		"loop": "ループ"
+		"loop": "ループ",
+		"errors": {
+			"not_author": "このボタンを使用する権限がありません。"
+		}
 	},
 	"player": {
 		"errors": {
