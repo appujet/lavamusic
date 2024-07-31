@@ -327,7 +327,7 @@
 				"not_seekable": "노래의 길이를 이동할 수 없어 다시 재생할 수 없어요."
 			},
 			"messages": {
-				"replaying": "노래를 다시 재생했어요."
+				"replaying": "노래를 다시 재생할게요."
 			}
 		},
 		"resume": {
