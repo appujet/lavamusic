@@ -50,7 +50,7 @@ export default class Restart extends Command {
 
         collector.on("collect", async (i) => {
             await i.deferUpdate();
-            await msg.edit({ content: "Restarting the bot...", components: [] });
+            await msg.edit({ content: "Restarting the bot...", embeds: [], components: [] });
             await client.destroy();
             exec("node scripts/restart.ts");
             process.exit(0);
