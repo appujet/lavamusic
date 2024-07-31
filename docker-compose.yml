@@ -77,6 +77,7 @@ services:
         volumes:
             # mount .env from the same directory or use environment variables
             - .env:/opt/lavamusic/.env
+            - ./locales:/opt/lavamusic/locales
         restart: on-failure
         depends_on:
             lavalink:
