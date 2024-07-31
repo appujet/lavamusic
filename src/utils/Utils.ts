@@ -142,7 +142,7 @@ export class Utils {
                 }
                 await interaction.editReply(getButton(page));
             } else {
-                await interaction.reply({ content: "You can't use this button", ephemeral: true });
+                await interaction.reply({ content: ctx.locale("buttons.errors.not_author"), ephemeral: true });
             }
         });
 
