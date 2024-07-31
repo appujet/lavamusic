@@ -22,7 +22,7 @@ export default class Replay extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel"],
+                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,

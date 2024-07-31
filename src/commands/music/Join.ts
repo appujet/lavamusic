@@ -22,7 +22,7 @@ export default class Join extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks", "Connect", "Speak"],
                 user: [],
             },
             slashCommand: true,

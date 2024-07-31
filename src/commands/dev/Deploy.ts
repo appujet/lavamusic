@@ -22,7 +22,7 @@ export default class Deploy extends Command {
             },
             permissions: {
                 dev: true,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: false,

@@ -216,7 +216,7 @@ export default class InteractionCreate extends Event {
                 if (logs) {
                     const embed = new EmbedBuilder()
                         .setAuthor({
-                            name: "Slash-Command Command Logs",
+                            name: "Slash - Command Logs",
                             iconURL: this.client.user?.avatarURL({ size: 2048 }),
                         })
                         .setColor(this.client.config.color.blue)

@@ -22,7 +22,7 @@ export default class Reset extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,

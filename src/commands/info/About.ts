@@ -23,7 +23,7 @@ export default class About extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ViewChannel", "EmbedLinks"],
+                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
                 user: [],
             },
             slashCommand: true,
