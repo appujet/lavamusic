@@ -50,7 +50,7 @@ export default class Restart extends Command {
 
         collector.on("collect", async (i) => {
             await i.deferUpdate();
-            await msg.edit({ content: "Restarting the bot...", components: [] });
+            await msg.edit({ content: "Restarting the bot...", embeds: [], components: [] });
             await client.destroy();
             exec("node scripts/restart.ts");
             process.exit(0);
@@ -63,3 +63,14 @@ export default class Restart extends Command {
         });
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

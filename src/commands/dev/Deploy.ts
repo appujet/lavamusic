@@ -58,10 +58,10 @@ export default class Deploy extends Command {
         collector.on("collect", async (interaction) => {
             if (interaction.customId === "deploy-global") {
                 await client.deployCommands();
-                await interaction.update({ content: "Commands deployed globally", components: [] });
+                await interaction.update({ content: "Commands deployed globally.", components: [] });
             } else if (interaction.customId === "deploy-guild") {
                 await client.deployCommands(interaction.guild.id);
-                await interaction.update({ content: "Commands deployed in this guild", components: [] });
+                await interaction.update({ content: "Commands deployed in this guild.", components: [] });
             }
         });
 
@@ -70,3 +70,14 @@ export default class Deploy extends Command {
         });
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

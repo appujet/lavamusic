@@ -35,7 +35,7 @@
 			"content": "안녕하세요! 저는 [Lavamusic](https://github.com/appujet/lavamusic)과 Discord로 만들어진 음악 봇이에요. `{prefix}help <명령어>`를 사용하여 그 명령어의 자세한 정보를 얻을 수 있어요.",
 			"title": "도움말 메뉴",
 			"not_found": "`{cmdName}` 명령어는 존재하지 않아요.",
-			"help_cmd": "**설명:** {description}\n**사용 방법:** {usage}\n**예시:** {examples}\n**줄인 명령어:** {aliases}\n**카테고리:** {category}\n**쿨다운:** {cooldown}초\n**필요한 권한:** {premUser}\n**봇에게 필요한 권한:** {premBot}\n**개발자 전용:** {dev}\n**빗금 명령어(/) 사용 가능:** {slash}\n**인수:** {args}\n**노래 재생 중에만 사용 가능:** {player}\n**DJ만 사용 가능:** {dj}\n**DJ에게 필요한 권한:** {djPerm}\n**음성 채널 접속 중에만 사용 가능:** {voice}",
+			"help_cmd": "**설명:** {description}\n**사용 방법:** {usage}\n**예시:** {examples}\n**줄인 명령어:** {aliases}\n**카테고리:** {category}\n**쿨다운:** {cooldown}초\n**필요한 권한:** {premUser}\n**봇에게 필요한 권한:** {premBot}\n**개발자 전용:** {dev}\n**빗금 명령어 사용 가능:** {slash}\n**인수 필요:** {args}\n**노래 재생 중에만 사용 가능:** {player}\n**DJ만 사용 가능:** {dj}\n**DJ에게 필요한 권한:** {djPerm}\n**음성 채널 접속 중에만 사용 가능:** {voice}",
 			"footer": "명령어에 대한 자세한 내용을 보려면 {prefix}help <command>를 사용하세요."
 		},
 		"botinfo": {
@@ -327,7 +327,7 @@
 				"not_seekable": "노래의 길이를 이동할 수 없어 다시 재생할 수 없어요."
 			},
 			"messages": {
-				"replaying": "노래를 다시 재생했어요."
+				"replaying": "노래를 다시 재생할게요."
 			}
 		},
 		"resume": {

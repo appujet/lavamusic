@@ -29,14 +29,15 @@
 
 ## 🔥 Unique Features
 
+- User-friendly and Easy to Use
+- Highly Configurable
+- Customizable Prefix
+- Multilingual support
+- Hybrid Command Handling (Slash and Normal Commands)
 - Developed using TypeScript and Discord.js v14
 - Advanced Music System
-- Customizable Prefix
 - Powerful Search Engine
 - 12 + Music Filters
-- Hybrid Command Handling (Slash and Normal Commands)
-- Highly Configurable
-- User-friendly and Easy to Use
 - 24/7 Music Playback
 - Playlist commands
 - Music channel system
