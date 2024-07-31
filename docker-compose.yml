@@ -5,13 +5,15 @@ services:
         image: ghcr.io/lavalink-devs/lavalink
         restart: on-failure
         environment:
-            SERVER_PORT: 2333
-            SERVER_ADDRESS: 0.0.0.0
+            - SERVER_PORT=2333
         volumes:
             # mount application.yml from the same directory or use environment variables
             - ./Lavalink/application.yml:/opt/Lavalink/application.yml
             # persist plugins between restarts, make sure to set the correct permissions (user: 322, group: 322)
             - ./Lavalink/plugins/:/opt/Lavalink/plugins/
+        
+        networks:
+            - lavalink
         #expose:
         # lavalink exposes port 2333 to connect to for other containers (this is for documentation purposes only)
         #- 2333
@@ -82,3 +84,6 @@ services:
         depends_on:
             lavalink:
                 condition: service_healthy
+networks:
+    lavalink:
+        name: lavalink
