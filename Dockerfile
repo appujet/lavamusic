@@ -19,9 +19,6 @@ COPY . .
 COPY tsconfig.json ./
 # Copy prisma
 COPY prisma ./prisma
-
-ENV DATABASE_URL=${DATABASE_URL}
-
 # Generate Prisma client
 RUN npx prisma generate
 # Build TypeScript
