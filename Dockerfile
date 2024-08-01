@@ -27,6 +27,8 @@ RUN npm run build
 # Stage 2: Create production image
 FROM node:22-slim
 
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
 ENV NODE_ENV=production
 
 WORKDIR /opt/lavamusic/
