@@ -40,7 +40,7 @@
 - [ ] Thai - `Thai.json` (Not Started)
 - [ ] Turkish - `Turkish.json` (Not Started)
 - [ ] Ukrainian - `Ukrainian.json` (Not Started)
-- [ ] Vietnamese - `Vietnamese.json` (Not Started)
+- [x] Vietnamese - `Vietnamese.json` [by @nhutlamm](https://github.com/nhutlamm) (Ai Translation - Not Accurate)
 
 
 ## 📚 How to Use the Translations
