@@ -20,7 +20,7 @@ COPY tsconfig.json ./
 # Copy prisma
 COPY prisma ./prisma
 # Generate Prisma client
-RUN npx prisma db push
+RUN npx prisma generate
 # Build TypeScript
 RUN npm run build
 
@@ -45,7 +45,7 @@ COPY --from=builder /opt/lavamusic/locales ./locales
 RUN npm install --omit=dev
 
 RUN npx prisma generate
-RUN npx prisma db push
+RUN npx prisma migrate dev --name init
 
 # Ensure application.yml is a file, not a directory
 RUN rm -rf /opt/lavamusic/application.yml && \
