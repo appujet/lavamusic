@@ -72,6 +72,7 @@ services:
             # Your lavalink secure (true or false)
             - LAVALINK_SECURE=false
             # database url
+            - DATABASE_URL=DATABASE_URL
         #    - DATABASE_URL= put your database url here (mongodb or postgres)
         #   - DATABASE_URL=postgresql://lavamusic:lavamusic@postgres:5432/lavamusic (for postgres)
         #   - DATABASE_URL=mongodb://mongoadmin:mongopassword@mongodb:27017/lavamusic?authSource=admin (for mongodb)
