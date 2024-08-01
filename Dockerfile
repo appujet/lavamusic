@@ -47,7 +47,7 @@ COPY --from=builder /opt/lavamusic/locales ./locales
 RUN npm install --omit=dev
 
 RUN npx prisma generate
-RUN npx prisma migrate dev --name init
+RUN npx prisma migrate deploy
 
 # Ensure application.yml is a file, not a directory
 RUN rm -rf /opt/lavamusic/application.yml && \
