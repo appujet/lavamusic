@@ -10,15 +10,6 @@ export enum SearchEngine {
 }
 
 export enum Language {
-    Indonesian = "Indonesian",
-    EnglishUS = "EnglishUS",
-    Hindi = "Hindi",
-    Polish = "Polish",
-    Korean = "Korean",
-    French = "French",
-    German = "German",
-    SpanishES = "SpanishES",
-    EnglishGB = "EnglishGB",
     Bulgarian = "Bulgarian",
     ChineseCN = "ChineseCN",
     ChineseTW = "ChineseTW",
@@ -26,16 +17,25 @@ export enum Language {
     Czech = "Czech",
     Danish = "Danish",
     Dutch = "Dutch",
+    EnglishGB = "EnglishGB",
+    EnglishUS = "EnglishUS",
     Finnish = "Finnish",
+    French = "French",
+    German = "German",
     Greek = "Greek",
+    Hindi = "Hindi",
     Hungarian = "Hungarian",
+    Indonesian = "Indonesian",
     Italian = "Italian",
     Japanese = "Japanese",
+    Korean = "Korean",
     Lithuanian = "Lithuanian",
     Norwegian = "Norwegian",
+    Polish = "Polish",
     PortugueseBR = "PortugueseBR",
     Romanian = "Romanian",
     Russian = "Russian",
+    SpanishES = "SpanishES",
     Swedish = "Swedish",
     Thai = "Thai",
     Turkish = "Turkish",
@@ -43,9 +43,6 @@ export enum Language {
     Vietnamese = "Vietnamese",
 }
 export const LocaleFlags = {
-    [Language.Indonesian]: "🇮🇩",
-    [Language.EnglishUS]: "🇺🇸",
-    [Language.EnglishGB]: "🇬🇧",
     [Language.Bulgarian]: "🇧🇬",
     [Language.ChineseCN]: "🇨🇳",
     [Language.ChineseTW]: "🇹🇼",
@@ -53,12 +50,15 @@ export const LocaleFlags = {
     [Language.Czech]: "🇨🇿",
     [Language.Danish]: "🇩🇰",
     [Language.Dutch]: "🇳🇱",
+    [Language.EnglishGB]: "🇬🇧",
+    [Language.EnglishUS]: "🇺🇸",
     [Language.Finnish]: "🇫🇮",
     [Language.French]: "🇫🇷",
     [Language.German]: "🇩🇪",
     [Language.Greek]: "🇬🇷",
     [Language.Hindi]: "🇮🇳",
     [Language.Hungarian]: "🇭🇺",
+    [Language.Indonesian]: "🇮🇩",
     [Language.Italian]: "🇮🇹",
     [Language.Japanese]: "🇯🇵",
     [Language.Korean]: "🇰🇷",
@@ -75,6 +75,7 @@ export const LocaleFlags = {
     [Language.Ukrainian]: "🇺🇦",
     [Language.Vietnamese]: "🇻🇳",
 };
+
 /**
  * Project: lavamusic
  * Author: Appu

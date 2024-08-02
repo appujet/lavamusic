@@ -70,7 +70,7 @@ export default class Play extends Command {
                 const track = player.buildTrack(res.data, ctx.author);
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.editMessage({
-                       content: "",
+                        content: "",
                         embeds: [
                             embed
                                 .setColor(this.client.color.red)
