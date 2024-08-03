@@ -121,7 +121,7 @@ export default class RemoveSong extends Command {
         );
 
         await interaction.respond(
-            filtered.map(playlist => ({ name: playlist.name, value: playlist.id }))
+            filtered.map(playlist => ({ name: playlist.name, value: playlist.name }))
         );
     }
 }
