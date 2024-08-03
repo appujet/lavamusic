@@ -10,6 +10,19 @@ const clientOptions: ClientOptions = {
 };
 
 const client = new Lavamusic(clientOptions);
+client.on('interactionCreate', async interaction => {
+    if (interaction.isAutocomplete()) {
+        const command = client.commands.get(interaction.commandName);
+        if (!command) return;
+
+        try {
+            await command.autocomplete(interaction);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+});
+
 client.start(config.token);
 
 /**
