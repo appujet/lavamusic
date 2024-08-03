@@ -108,7 +108,7 @@ export default class LoadPlaylist extends Command {
         );
 
         await interaction.respond(
-            filtered.map(playlist => ({ name: playlist.name, value: playlist.id }))
+            filtered.map(playlist => ({ name: playlist.name, value: playlist.name }))
         );
     }
 }
