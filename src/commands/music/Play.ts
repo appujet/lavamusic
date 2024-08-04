@@ -158,21 +158,33 @@ export default class Play extends Command {
     public async autocomplete(interaction) {
         const focusedValue = interaction.options.getFocused();
 
-        // Search for songs based on the focused value
-        const res = await this.client.queue.search(focusedValue);
-        const songs = [];
+        try {
+            const res = await this.client.queue.search(focusedValue);
+            const songs = [];
 
-        if (res.loadType === LoadType.SEARCH && res.data.length) {
-            res.data.slice(0, 10).forEach((x) => {
-                songs.push({
-                    name: `${x.info.title} by ${x.info.author}`,
-                    value: x.info.uri,
-                });
-            });
+            if (res && res.loadType) {
+                if (res.loadType === LoadType.SEARCH && res.data.length) {
+                    res.data.slice(0, 10).forEach((track) => {
+                        songs.push({
+                            name: `${track.info.title} by ${track.info.author}`,
+                            value: track.info.uri,
+                        });
+                    });
+                } else if (res.loadType === LoadType.PLAYLIST && res.data.tracks.length) {
+                    res.data.tracks.slice(0, 10).forEach((track) => {
+                        songs.push({
+                            name: `${track.info.title} by ${track.info.author}`,
+                            value: track.info.uri,
+                        });
+                    });
+                }
+            }
+
+            await interaction.respond(songs).catch(console.error);
+        } catch (error) {
+            console.error("Error during autocomplete interaction:", error);
+            await interaction.respond([]).catch(console.error);
         }
-
-        // Respond with the song suggestions
-        await interaction.respond(songs).catch(console.error);
     }
 
 }
