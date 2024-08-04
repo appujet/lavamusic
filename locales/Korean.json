@@ -240,7 +240,7 @@
 		},
 		"grab": {
 			"description": "DM으로 현재 재생 중인 노래를 보내줘요",
-			"content": "**길이:** {length}\n**요청자:** <@{requester}>\n**링크:** [여기 클릭]({uri})",
+			"content": "**길이:** {length}\n**요청자:** <@{requester}>\n**링크:** [클릭]({uri})",
 			"check_dm": "DM을 확인해주세요.",
 			"dm_failed": "DM을 보내지 못했어요. 다이렉트 메시지 허용이 켜져 있는지 확인해주세요."
 		},
