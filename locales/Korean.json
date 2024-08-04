@@ -40,7 +40,7 @@
 		},
 		"botinfo": {
 			"description": "봇에 대한 정보를 표시해요",
-			"content": "봇 정보:\n- **운영체제**: {osInfo}\n- **가동시간**: {osUptime}\n- **호스트 이름**: {osHostname}\n- **CPU 및 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord 버전**: {discordJsVersion}\n- {guilds} 서버, {channels} 채널, {users} 유저 캐시됨\n- **명령어 수**: {commands}개"
+			"content": "봇 정보:\n- **운영체제**: {osInfo}\n- **가동시간**: {osUptime}\n- **컴퓨터 이름**: {osHostname}\n- **CPU 및 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord 버전**: {discordJsVersion}\n- {guilds} 서버, {channels} 채널, {users} 유저 캐시됨\n- **명령어 수**: {commands}개"
 		},
 		"about": {
 			"description": "봇에 대해 알려줘요",
@@ -77,7 +77,7 @@
 		},
 		"language": {
 			"description": "언어를 설정해요",
-			"invalid_language": "올바른 언어를 지정해주세요. 예: `EnglishUS`는 영어 (미국)\n\n[여기](https://discord.com/developers/docs/reference#locales)에서 지원되는 언어 목록을 확인할 수 있어요.\n\n**현재 사용 가능한 언어:**\n{languages}",
+			"invalid_language": "올바른 언어를 지정해주세요. 예시: `EnglishUS` = 영어 (미국)\n\n[여기](https://discord.com/developers/docs/reference#locales)에서 지원되는 언어 목록을 확인할 수 있어요.\n\n**현재 사용 가능한 언어:**\n{languages}",
 			"already_set": "`{language}`로 언어가 이미 설정되어 있어요.",
 			"not_set": "언어가 설정되지 않았어요.",
 			"set": "`✅` | 언어가 `{language}`로 변경되었어요.",
@@ -114,7 +114,7 @@
 			"messages": {
 				"channel_created": "<#{channelId}>로 음악 채널이 만들어졌어요.",
 				"channel_deleted": "음악채널이 삭제되었어요.",
-				"channel_info": "<#{channelId}>가 현재 등록된 음악 채널이에요."
+				"channel_info": "현재 등록된 음악 채널은 <#{channelId}> 이에요."
 			},
 			"options": {
 				"create": "음악채널을 만들어요",
@@ -240,7 +240,7 @@
 		},
 		"grab": {
 			"description": "DM으로 현재 재생 중인 노래를 보내줘요",
-			"content": "**길이:** {length}\n**요청자:** <@{requester}>\n**링크:** [여기]({uri})",
+			"content": "**길이:** {length}\n**요청자:** <@{requester}>\n**링크:** [여기 클릭]({uri})",
 			"check_dm": "DM을 확인해주세요.",
 			"dm_failed": "DM을 보내지 못했어요. 다이렉트 메시지 허용이 켜져 있는지 확인해주세요."
 		},
@@ -522,7 +522,7 @@
 			"requested_by": "요청자: {user}",
 			"duration": "길이",
 			"author": "제작자",
-			"not_connected_to_voice_channel": "이 버튼을 누르려면 먼저 <#{channel}>에 접속해주세요.",
+			"not_connected_to_voice_channel": "이 버튼을 사용하려면 먼저 <#{channel}>에 접속해주세요.",
 			"need_dj_role": "이 명령어를 사용하려면 DJ 권한이 있어야 해요.",
 			"previous_by": "{user}에 의해 이전 노래 재생 중",
 			"no_previous_song": "이전 노래가 없어요.",
