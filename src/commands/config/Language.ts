@@ -110,4 +110,24 @@ export default class LanguageCommand extends Command {
             return ctx.sendMessage({ embeds: [embed.setDescription(ctx.locale("cmd.language.reset"))] });
         }
     }
+
+    public async autocomplete(interaction) {
+        const focusedValue = interaction.options.getFocused();
+
+        // Fetch all available languages
+        const languages = Object.values(Language).map(language => ({
+            name: language,
+            value: language,
+        }));
+
+        // Filter languages based on the focused value
+        const filtered = languages.filter(language =>
+            language.name.toLowerCase().includes(focusedValue.toLowerCase())
+        );
+
+        // Respond with the filtered language options
+        await interaction.respond(filtered.slice(0, 25)).catch(console.error);
+    }
+
+
 }

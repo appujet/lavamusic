@@ -154,6 +154,27 @@ export default class Play extends Command {
             }
         }
     }
+
+    public async autocomplete(interaction) {
+        const focusedValue = interaction.options.getFocused();
+
+        // Search for songs based on the focused value
+        const res = await this.client.queue.search(focusedValue);
+        const songs = [];
+
+        if (res.loadType === LoadType.SEARCH && res.data.length) {
+            res.data.slice(0, 10).forEach((x) => {
+                songs.push({
+                    name: `${x.info.title} by ${x.info.author}`,
+                    value: x.info.uri,
+                });
+            });
+        }
+
+        // Respond with the song suggestions
+        await interaction.respond(songs).catch(console.error);
+    }
+
 }
 
 /**
