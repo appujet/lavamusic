@@ -162,7 +162,7 @@ export default class Play extends Command {
             const res = await this.client.queue.search(focusedValue);
             const songs = [];
 
-            if·(res?.loadType) {
+            if(res?.loadType) {
                 if (res.loadType === LoadType.SEARCH && res.data.length) {
                     res.data.slice(0, 10).forEach((track) => {
                         songs.push({
