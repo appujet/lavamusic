@@ -80,13 +80,11 @@ async function setupStart(
                         await message.channel
                             .send({
                                 embeds: [
-                                    embed
-                                        .setColor(client.color.red)
-                                        .setDescription(
-                                            T(locale, "player.setupStart.queue_too_long", {
-                                                maxQueueSize: client.config.maxQueueSize,
-                                            }),
-                                        ),
+                                    embed.setColor(client.color.red).setDescription(
+                                        T(locale, "player.setupStart.queue_too_long", {
+                                            maxQueueSize: client.config.maxQueueSize,
+                                        }),
+                                    ),
                                 ],
                             })
                             .then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -147,13 +145,11 @@ async function setupStart(
                     await message.channel
                         .send({
                             embeds: [
-                                embed
-                                    .setColor(client.color.main)
-                                    .setDescription(
-                                        T(locale, "player.setupStart.added_playlist_to_queue", {
-                                            length: res.data.tracks.length,
-                                        }),
-                                    ),
+                                embed.setColor(client.color.main).setDescription(
+                                    T(locale, "player.setupStart.added_playlist_to_queue", {
+                                        length: res.data.tracks.length,
+                                    }),
+                                ),
                             ],
                         })
                         .then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -166,13 +162,11 @@ async function setupStart(
                         await message.channel
                             .send({
                                 embeds: [
-                                    embed
-                                        .setColor(client.color.red)
-                                        .setDescription(
-                                            T(locale, "player.setupStart.queue_too_long", {
-                                                maxQueueSize: client.config.maxQueueSize,
-                                            }),
-                                        ),
+                                    embed.setColor(client.color.red).setDescription(
+                                        T(locale, "player.setupStart.queue_too_long", {
+                                            maxQueueSize: client.config.maxQueueSize,
+                                        }),
+                                    ),
                                 ],
                             })
                             .then((msg) => setTimeout(() => msg.delete(), 5000));

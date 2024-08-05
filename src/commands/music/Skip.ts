@@ -47,14 +47,12 @@ export default class Skip extends Command {
         if (ctx.isInteraction) {
             return await ctx.sendMessage({
                 embeds: [
-                    embed
-                        .setColor(this.client.color.main)
-                        .setDescription(
-                            ctx.locale("cmd.skip.messages.skipped", {
-                                title: currentTrack.title,
-                                uri: currentTrack.uri,
-                            }),
-                        ),
+                    embed.setColor(this.client.color.main).setDescription(
+                        ctx.locale("cmd.skip.messages.skipped", {
+                            title: currentTrack.title,
+                            uri: currentTrack.uri,
+                        }),
+                    ),
                 ],
             });
         }
