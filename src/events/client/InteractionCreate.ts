@@ -12,10 +12,8 @@ import {
     PermissionFlagsBits,
     type TextChannel,
 } from "discord.js";
-import { LoadType } from "shoukaku";
 import { T } from "../../structures/I18n.js";
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
-import { Language } from "../../types.js";
 
 export default class InteractionCreate extends Event {
     constructor(client: Lavamusic, file: string) {

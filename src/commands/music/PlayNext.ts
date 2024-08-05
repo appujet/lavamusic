@@ -170,7 +170,6 @@ export default class PlayNext extends Command {
         // Respond with the song suggestions
         await interaction.respond(songs).catch(console.error);
     }
-
 }
 
 /**
