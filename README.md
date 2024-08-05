@@ -123,6 +123,7 @@ or you can use the [.env.example](https://raw.githubusercontent.com/appujet/lava
 ```bash
 TOKEN= "" # Your bot token.
 CLIENT_ID= "" # Your bot's client ID (If this value is left blank, bots cannot be invited using /invite or /about commands.).
+DEFAULT_LANGUAGE= "EnglishUS" # Default language for bot
 PREFIX= "!" # Your prefix.
 OWNER_IDS= ["",""] # Your discord id (You can add multiple ids.).
 GUILD_ID= "" # Your server ID (If you want to use the bot for a single server).
@@ -177,6 +178,7 @@ Your .env file should look like this or you can use the [.env.example](https://r
 
 ```yaml
 TOKEN="." # Your bot token and remember, don't show everyone your bot token
+DEFAULT_LANGUAGE= "EnglishUS" # Default language for bot
 PREFIX="!" # Your prefix
 OWNER_IDS=["859640640640640640","859640640640640640"] # Your discord id, you can add multiple ids
 GUILD_ID="859640640640640640" # Your server ID (if you want to use it for a single server)
