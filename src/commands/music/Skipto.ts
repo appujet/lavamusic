@@ -44,13 +44,21 @@ export default class Skipto extends Command {
 
         if (!player.queue.length || isNaN(num) || num > player.queue.length || num < 1) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.skipto.errors.invalid_number"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("cmd.skipto.errors.invalid_number")),
+                ],
             });
         }
 
         player.skip(num);
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.skipto.messages.skipped_to", { number: num }))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(ctx.locale("cmd.skipto.messages.skipped_to", { number: num })),
+            ],
         });
     }
 }

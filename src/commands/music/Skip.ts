@@ -35,7 +35,11 @@ export default class Skip extends Command {
         const embed = this.client.embed();
         if (player.queue.length === 0) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.no_songs"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("cmd.player.errors.no_songs")),
+                ],
             });
         }
         const currentTrack = player.current.info;
@@ -45,7 +49,12 @@ export default class Skip extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.main)
-                        .setDescription(ctx.locale("cmd.skip.messages.skipped", { title: currentTrack.title, uri: currentTrack.uri })),
+                        .setDescription(
+                            ctx.locale("cmd.skip.messages.skipped", {
+                                title: currentTrack.title,
+                                uri: currentTrack.uri,
+                            }),
+                        ),
                 ],
             });
         }

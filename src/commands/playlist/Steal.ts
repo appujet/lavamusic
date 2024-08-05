@@ -92,7 +92,12 @@ export default class StealPlaylist extends Command {
 
             const successMessage = this.client
                 .embed()
-                .setDescription(ctx.locale("cmd.steal.messages.playlist_stolen", { playlist: playlistName, user: targetUser.username }))
+                .setDescription(
+                    ctx.locale("cmd.steal.messages.playlist_stolen", {
+                        playlist: playlistName,
+                        user: targetUser.username,
+                    }),
+                )
                 .setColor(this.client.color.green);
             await ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {
@@ -112,7 +117,12 @@ export default class StealPlaylist extends Command {
 
             if (!userOptionId) {
                 await interaction
-                    .respond([{ name: "Please specify a user to search their playlists.", value: "NoUser" }])
+                    .respond([
+                        {
+                            name: "Please specify a user to search their playlists.",
+                            value: "NoUser",
+                        },
+                    ])
                     .catch(console.error);
                 return;
             }
@@ -120,7 +130,9 @@ export default class StealPlaylist extends Command {
             // Fetch the user object using the client
             const user = await interaction.client.users.fetch(userOptionId);
             if (!user) {
-                await interaction.respond([{ name: "User not found.", value: "NoUserFound" }]).catch(console.error);
+                await interaction
+                    .respond([{ name: "User not found.", value: "NoUserFound" }])
+                    .catch(console.error);
                 return; // Exit early if user cannot be found
             }
 
@@ -129,18 +141,28 @@ export default class StealPlaylist extends Command {
 
             // If no playlists are found, respond accordingly
             if (!playlists || playlists.length === 0) {
-                await interaction.respond([{ name: "No playlists found for this user.", value: "NoPlaylists" }]).catch(console.error);
+                await interaction
+                    .respond([{ name: "No playlists found for this user.", value: "NoPlaylists" }])
+                    .catch(console.error);
                 return; // Exit early as there are no playlists
             }
 
             // Filter playlists based on the focused value
-            const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
+            const filtered = playlists.filter((playlist) =>
+                playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()),
+            );
 
             // Respond with filtered playlist names
-            await interaction.respond(filtered.map((playlist) => ({ name: playlist.name, value: playlist.name }))).catch(console.error);
+            await interaction
+                .respond(
+                    filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })),
+                )
+                .catch(console.error);
         } catch (error) {
             console.error("Error in autocomplete interaction:", error);
-            await interaction.respond([{ name: "An error occurred while fetching playlists.", value: "Error" }]).catch(console.error);
+            await interaction
+                .respond([{ name: "An error occurred while fetching playlists.", value: "Error" }])
+                .catch(console.error);
         }
     }
 }

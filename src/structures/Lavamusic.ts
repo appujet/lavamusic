@@ -59,7 +59,11 @@ export default class Lavamusic extends Client {
         this.on(Events.InteractionCreate, async (interaction: Interaction<"cached">) => {
             if (interaction.isButton()) {
                 const setup = await this.db.getSetup(interaction.guildId);
-                if (setup && interaction.channelId === setup.textId && interaction.message.id === setup.messageId) {
+                if (
+                    setup &&
+                    interaction.channelId === setup.textId &&
+                    interaction.message.id === setup.messageId
+                ) {
                     this.emit("setupButtons", interaction);
                 }
             }
@@ -71,7 +75,9 @@ export default class Lavamusic extends Client {
         const commandDirs = fs.readdirSync(commandsPath);
 
         for (const dir of commandDirs) {
-            const commandFiles = fs.readdirSync(path.join(commandsPath, dir)).filter((file) => file.endsWith(".js"));
+            const commandFiles = fs
+                .readdirSync(path.join(commandsPath, dir))
+                .filter((file) => file.endsWith(".js"));
 
             for (const file of commandFiles) {
                 const cmdModule = await import(`../commands/${dir}/${file}`);
@@ -90,8 +96,11 @@ export default class Lavamusic extends Client {
                         type: ApplicationCommandType.ChatInput,
                         options: command.options || [],
                         default_member_permissions:
-                            Array.isArray(command.permissions.user) && command.permissions.user.length > 0
-                                ? PermissionsBitField.resolve(command.permissions.user as any).toString()
+                            Array.isArray(command.permissions.user) &&
+                            command.permissions.user.length > 0
+                                ? PermissionsBitField.resolve(
+                                      command.permissions.user as any,
+                                  ).toString()
                                 : null,
                         name_localizations: null,
                         description_localizations: null,
@@ -99,13 +108,18 @@ export default class Lavamusic extends Client {
                     // command description and name localizations
                     const localizations = [];
                     i18n.getLocales().map((locale) => {
-                        localizations.push(localization(locale, command.name, command.description.content));
+                        localizations.push(
+                            localization(locale, command.name, command.description.content),
+                        );
                     });
                     for (const localization of localizations) {
                         const [language, name] = localization.name;
                         const [language2, description] = localization.description;
                         data.name_localizations = { ...data.name_localizations, [language]: name };
-                        data.description_localizations = { ...data.description_localizations, [language2]: description };
+                        data.description_localizations = {
+                            ...data.description_localizations,
+                            [language2]: description,
+                        };
                     }
 
                     // command options localizations
@@ -114,13 +128,21 @@ export default class Lavamusic extends Client {
                             // command options name and description localizations
                             const optionsLocalizations = [];
                             i18n.getLocales().map((locale) => {
-                                optionsLocalizations.push(localization(locale, option.name, option.description));
+                                optionsLocalizations.push(
+                                    localization(locale, option.name, option.description),
+                                );
                             });
                             for (const localization of optionsLocalizations) {
                                 const [language, name] = localization.name;
                                 const [language2, description] = localization.description;
-                                option.name_localizations = { ...option.name_localizations, [language]: name };
-                                option.description_localizations = { ...option.description_localizations, [language2]: description };
+                                option.name_localizations = {
+                                    ...option.name_localizations,
+                                    [language]: name,
+                                };
+                                option.description_localizations = {
+                                    ...option.description_localizations,
+                                    [language2]: description,
+                                };
                             }
                             // command options description localization
                             option.description = T(Locale.EnglishUS, option.description);
@@ -133,19 +155,31 @@ export default class Lavamusic extends Client {
                                     // subcommand options name and description localizations
                                     const subOptionsLocalizations = [];
                                     i18n.getLocales().map((locale) => {
-                                        subOptionsLocalizations.push(localization(locale, subOption.name, subOption.description));
+                                        subOptionsLocalizations.push(
+                                            localization(
+                                                locale,
+                                                subOption.name,
+                                                subOption.description,
+                                            ),
+                                        );
                                     });
                                     for (const localization of subOptionsLocalizations) {
                                         const [language, name] = localization.name;
                                         const [language2, description] = localization.description;
-                                        subOption.name_localizations = { ...subOption.name_localizations, [language]: name };
+                                        subOption.name_localizations = {
+                                            ...subOption.name_localizations,
+                                            [language]: name,
+                                        };
                                         subOption.description_localizations = {
                                             ...subOption.description_localizations,
                                             [language2]: description,
                                         };
                                     }
                                     // subcommand options description localization
-                                    subOption.description = T(Locale.EnglishUS, subOption.description);
+                                    subOption.description = T(
+                                        Locale.EnglishUS,
+                                        subOption.description,
+                                    );
                                 });
                             }
                         });
@@ -189,7 +223,9 @@ export default class Lavamusic extends Client {
         const eventDirs = fs.readdirSync(eventsPath);
 
         for (const dir of eventDirs) {
-            const eventFiles = fs.readdirSync(path.join(eventsPath, dir)).filter((file) => file.endsWith(".js"));
+            const eventFiles = fs
+                .readdirSync(path.join(eventsPath, dir))
+                .filter((file) => file.endsWith(".js"));
 
             for (const file of eventFiles) {
                 const eventModule = await import(`../events/${dir}/${file}`);

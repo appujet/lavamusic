@@ -58,7 +58,11 @@ export default class Volume extends Command {
 
         return await ctx.sendMessage({
             embeds: [
-                embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.volume.messages.set", { volume: currentVolume })),
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(
+                        ctx.locale("cmd.volume.messages.set", { volume: currentVolume }),
+                    ),
             ],
         });
     }

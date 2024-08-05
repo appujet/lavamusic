@@ -38,11 +38,19 @@ export default class Leave extends Command {
             const channelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
             player.destroy();
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.leave.left", { channelId }))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.main)
+                        .setDescription(ctx.locale("cmd.leave.left", { channelId })),
+                ],
             });
         }
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.leave.not_in_channel"))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.red)
+                    .setDescription(ctx.locale("cmd.leave.not_in_channel")),
+            ],
         });
     }
 }

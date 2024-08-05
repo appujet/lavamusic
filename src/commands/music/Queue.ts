@@ -58,7 +58,9 @@ export default class Queue extends Command {
                     title: track.info.title,
                     uri: track.info.uri,
                     requester: track?.info.requester,
-                    duration: track.info.isStream ? ctx.locale("cmd.queue.live") : client.utils.formatTime(track.info.length),
+                    duration: track.info.isStream
+                        ? ctx.locale("cmd.queue.live")
+                        : client.utils.formatTime(track.info.length),
                 }),
             );
         }
@@ -72,7 +74,12 @@ export default class Queue extends Command {
                 .setColor(this.client.color.main)
                 .setAuthor({ name: ctx.locale("cmd.queue.title"), iconURL: ctx.guild.iconURL({}) })
                 .setDescription(chunk.join("\n"))
-                .setFooter({ text: ctx.locale("cmd.queue.page_info", { index: index + 1, total: chunks.length }) });
+                .setFooter({
+                    text: ctx.locale("cmd.queue.page_info", {
+                        index: index + 1,
+                        total: chunks.length,
+                    }),
+                });
         });
         return await client.utils.paginate(client, ctx, pages);
     }

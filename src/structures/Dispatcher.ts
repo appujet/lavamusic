@@ -76,7 +76,9 @@ export default class Dispatcher {
         this.nowPlayingMessage = null;
         this.history = [];
         this.player
-            .on("start", () => this.client.shoukaku.emit("trackStart", this.player, this.current, this))
+            .on("start", () =>
+                this.client.shoukaku.emit("trackStart", this.player, this.current, this),
+            )
             .on("end", () => {
                 if (!this.queue.length) {
                     this.client.shoukaku.emit("queueEnd", this.player, this.current, this);
@@ -84,7 +86,9 @@ export default class Dispatcher {
                 this.client.shoukaku.emit("trackEnd", this.player, this.current, this);
             })
             .on("stuck", () => this.client.shoukaku.emit("trackStuck", this.player, this.current))
-            .on("closed", (...args) => this.client.shoukaku.emit("socketClosed", this.player, ...args));
+            .on("closed", (...args) =>
+                this.client.shoukaku.emit("socketClosed", this.player, ...args),
+            );
     }
 
     get exists(): boolean {
@@ -197,7 +201,9 @@ export default class Dispatcher {
             if (!node) return;
             switch (song.info.sourceName) {
                 case "youtube": {
-                    const resolve = await node.rest.resolve(`${SearchEngine.YouTubeMusic}:${song.info.author}`);
+                    const resolve = await node.rest.resolve(
+                        `${SearchEngine.YouTubeMusic}:${song.info.author}`,
+                    );
                     this.addAutoplayTrack(resolve);
                     break;
                 }
@@ -206,11 +212,14 @@ export default class Dispatcher {
                     break;
                 case "spotify": {
                     // need lavaSrc plugin in lavalink
-                    const data = await node.rest.resolve(`sprec:seed_tracks=${song.info.identifier}`);
+                    const data = await node.rest.resolve(
+                        `sprec:seed_tracks=${song.info.identifier}`,
+                    );
                     if (!data) return;
                     if (data.loadType === LoadType.PLAYLIST) {
                         const tracks = data.data.tracks;
-                        const trackUrl = tracks[Math.floor(Math.random() * tracks.length)]?.info?.uri;
+                        const trackUrl =
+                            tracks[Math.floor(Math.random() * tracks.length)]?.info?.uri;
                         if (!trackUrl) return;
                         const resolve = await node.rest.resolve(trackUrl);
                         if (!resolve) return;
@@ -228,7 +237,8 @@ export default class Dispatcher {
                     if (!data) return;
                     if (data.loadType === LoadType.PLAYLIST) {
                         const tracks = data.data.tracks;
-                        const trackUrl = tracks[Math.floor(Math.random() * tracks.length)]?.info?.uri;
+                        const trackUrl =
+                            tracks[Math.floor(Math.random() * tracks.length)]?.info?.uri;
                         if (!trackUrl) return;
                         const resolve = await node.rest.resolve(trackUrl);
                         if (!resolve) return;
@@ -241,17 +251,23 @@ export default class Dispatcher {
                     break;
                 }
                 case "deezer": {
-                    const resolve = await node.rest.resolve(`${SearchEngine.Deezer}:${song.info.author}`);
+                    const resolve = await node.rest.resolve(
+                        `${SearchEngine.Deezer}:${song.info.author}`,
+                    );
                     this.addAutoplayTrack(resolve);
                     break;
                 }
                 case "applemusic": {
-                    const resolve = await node.rest.resolve(`${SearchEngine.Apple}:${song.info.author}`);
+                    const resolve = await node.rest.resolve(
+                        `${SearchEngine.Apple}:${song.info.author}`,
+                    );
                     this.addAutoplayTrack(resolve);
                     break;
                 }
                 default: {
-                    const resolve = await node.rest.resolve(`${SearchEngine.YouTubeMusic}:${song.info.author}`);
+                    const resolve = await node.rest.resolve(
+                        `${SearchEngine.YouTubeMusic}:${song.info.author}`,
+                    );
                     this.addAutoplayTrack(resolve);
                     break;
                 }
@@ -273,7 +289,10 @@ export default class Dispatcher {
         const metadata = resolve.data as any[] as any;
 
         while (attempts < maxAttempts) {
-            const potentialChoice = new Song(metadata[Math.floor(Math.random() * metadata.length)], this.client.user!);
+            const potentialChoice = new Song(
+                metadata[Math.floor(Math.random() * metadata.length)],
+                this.client.user!,
+            );
             if (
                 !(
                     this.queue.some((s) => s.encoded === potentialChoice.encoded) ||

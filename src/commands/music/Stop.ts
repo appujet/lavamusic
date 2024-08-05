@@ -38,7 +38,11 @@ export default class Stop extends Command {
         player.stop();
 
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.stop.messages.stopped"))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(ctx.locale("cmd.stop.messages.stopped")),
+            ],
         });
     }
 }

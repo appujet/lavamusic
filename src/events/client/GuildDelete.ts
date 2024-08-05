@@ -26,9 +26,21 @@ export default class GuildDelete extends Event {
             .setThumbnail(guild.iconURL({ extension: "jpeg" }))
             .addFields(
                 { name: "Owner", value: owner ? owner.user.tag : "Unknown#0000", inline: true },
-                { name: "Members", value: guild.memberCount?.toString() || "Unknown", inline: true },
-                { name: "Created At", value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`, inline: true },
-                { name: "Removed At", value: `<t:${Math.floor(Date.now() / 1000)}:F>`, inline: true },
+                {
+                    name: "Members",
+                    value: guild.memberCount?.toString() || "Unknown",
+                    inline: true,
+                },
+                {
+                    name: "Created At",
+                    value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`,
+                    inline: true,
+                },
+                {
+                    name: "Removed At",
+                    value: `<t:${Math.floor(Date.now() / 1000)}:F>`,
+                    inline: true,
+                },
                 { name: "ID", value: guild.id, inline: true },
             )
             .setTimestamp();
@@ -49,7 +61,9 @@ export default class GuildDelete extends Event {
             }
             await channel.send({ embeds: [embed] });
         } catch (error) {
-            this.client.logger.error(`Error sending message to log channel ${logChannelId}: ${error}`);
+            this.client.logger.error(
+                `Error sending message to log channel ${logChannelId}: ${error}`,
+            );
         }
     }
 }

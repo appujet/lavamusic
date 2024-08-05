@@ -54,7 +54,10 @@ export default class Eval extends Command {
                 });
             }
 
-            const button = new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Delete").setCustomId("eval-delete");
+            const button = new ButtonBuilder()
+                .setStyle(ButtonStyle.Danger)
+                .setLabel("Delete")
+                .setCustomId("eval-delete");
             const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
 
             const msg = await ctx.sendMessage({

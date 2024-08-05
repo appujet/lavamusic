@@ -47,7 +47,11 @@ export default class Help extends Command {
             const command = this.client.commands.get(args[0].toLowerCase());
             if (!command) {
                 return await ctx.sendMessage({
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] }))],
+                    embeds: [
+                        embed
+                            .setColor(this.client.color.red)
+                            .setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] })),
+                    ],
                 });
             }
             const helpEmbed = embed
@@ -57,12 +61,16 @@ export default class Help extends Command {
                     ctx.locale("cmd.help.help_cmd", {
                         description: ctx.locale(command.description.content),
                         usage: `${guild.prefix}${command.description.usage}`,
-                        examples: command.description.examples.map((example) => `${guild.prefix}${example}`).join(", "),
+                        examples: command.description.examples
+                            .map((example) => `${guild.prefix}${example}`)
+                            .join(", "),
                         aliases: command.aliases.map((alias) => `\`${alias}\``).join(", "),
                         category: command.category,
                         cooldown: command.cooldown,
                         premUser:
-                            command.permissions.user.length > 0 ? command.permissions.user.map((perm) => `\`${perm}\``).join(", ") : "None",
+                            command.permissions.user.length > 0
+                                ? command.permissions.user.map((perm) => `\`${perm}\``).join(", ")
+                                : "None",
                         premBot: command.permissions.client.map((perm) => `\`${perm}\``).join(", "),
                         dev: command.permissions.dev ? "Yes" : "No",
                         slash: command.slashCommand ? "Yes" : "No",
@@ -88,7 +96,9 @@ export default class Help extends Command {
         const helpEmbed = embed
             .setColor(client.color.main)
             .setTitle(ctx.locale("cmd.help.title"))
-            .setDescription(ctx.locale("cmd.help.content", { bot: client.user.username, prefix: guild.prefix }))
+            .setDescription(
+                ctx.locale("cmd.help.content", { bot: client.user.username, prefix: guild.prefix }),
+            )
             .setFooter({ text: ctx.locale("cmd.help.footer", { prefix: guild.prefix }) })
             .addFields(...fields);
 

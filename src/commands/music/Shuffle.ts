@@ -35,12 +35,20 @@ export default class Shuffle extends Command {
         const embed = this.client.embed();
         if (!player.queue.length) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.no_songs"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("cmd.player.errors.no_songs")),
+                ],
             });
         }
         player.setShuffle();
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.shuffle.messages.shuffled"))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(ctx.locale("cmd.shuffle.messages.shuffled")),
+            ],
         });
     }
 }

@@ -77,23 +77,41 @@ export default class LanguageCommand extends Command {
                     .map(([key, value]) => `${value}:\`${key}\``)
                     .reduce((acc, curr, index) => {
                         if (index % 2 === 0) {
-                            return acc + curr + (index === Object.entries(LocaleFlags).length - 1 ? "" : " ");
+                            return (
+                                acc +
+                                curr +
+                                (index === Object.entries(LocaleFlags).length - 1 ? "" : " ")
+                            );
                         }
                         return `${acc + curr}\n`;
                     }, "");
                 return ctx.sendMessage({
-                    embeds: [embed.setDescription(ctx.locale("cmd.language.invalid_language", { languages: availableLanguages }))],
+                    embeds: [
+                        embed.setDescription(
+                            ctx.locale("cmd.language.invalid_language", {
+                                languages: availableLanguages,
+                            }),
+                        ),
+                    ],
                 });
             }
 
             if (locale && locale === lang) {
-                return ctx.sendMessage({ embeds: [embed.setDescription(ctx.locale("cmd.language.already_set", { language: lang }))] });
+                return ctx.sendMessage({
+                    embeds: [
+                        embed.setDescription(
+                            ctx.locale("cmd.language.already_set", { language: lang }),
+                        ),
+                    ],
+                });
             }
 
             await client.db.updateLanguage(ctx.guild!.id, lang);
             ctx.guildLocale = lang;
 
-            return ctx.sendMessage({ embeds: [embed.setDescription(ctx.locale("cmd.language.set", { language: lang }))] });
+            return ctx.sendMessage({
+                embeds: [embed.setDescription(ctx.locale("cmd.language.set", { language: lang }))],
+            });
         }
         if (subCommand === "reset") {
             const embed = client.embed().setColor(this.client.color.main);
@@ -101,13 +119,17 @@ export default class LanguageCommand extends Command {
             const locale = await client.db.getLanguage(ctx.guild!.id);
 
             if (!locale) {
-                return ctx.sendMessage({ embeds: [embed.setDescription(ctx.locale("cmd.language.not_set"))] });
+                return ctx.sendMessage({
+                    embeds: [embed.setDescription(ctx.locale("cmd.language.not_set"))],
+                });
             }
 
             await client.db.updateLanguage(ctx.guild!.id, Language.EnglishUS);
             ctx.guildLocale = Language.EnglishUS;
 
-            return ctx.sendMessage({ embeds: [embed.setDescription(ctx.locale("cmd.language.reset"))] });
+            return ctx.sendMessage({
+                embeds: [embed.setDescription(ctx.locale("cmd.language.reset"))],
+            });
         }
     }
 
@@ -121,7 +143,9 @@ export default class LanguageCommand extends Command {
         }));
 
         // Filter languages based on the focused value
-        const filtered = languages.filter((language) => language.name.toLowerCase().includes(focusedValue.toLowerCase()));
+        const filtered = languages.filter((language) =>
+            language.name.toLowerCase().includes(focusedValue.toLowerCase()),
+        );
 
         // Respond with the filtered language options
         await interaction.respond(filtered.slice(0, 25)).catch(console.error);

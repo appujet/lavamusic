@@ -87,7 +87,10 @@ export default class LoadPlaylist extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: ctx.locale("cmd.load.messages.playlist_loaded", { name: playlistData.name, count: songs.length }),
+                    description: ctx.locale("cmd.load.messages.playlist_loaded", {
+                        name: playlistData.name,
+                        count: songs.length,
+                    }),
                     color: this.client.color.main,
                 },
             ],
@@ -103,9 +106,13 @@ export default class LoadPlaylist extends Command {
         const playlists = await this.client.db.getUserPlaylists(userId);
 
         // Filter playlists based on the focused value and respond
-        const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
+        const filtered = playlists.filter((playlist) =>
+            playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()),
+        );
 
-        await interaction.respond(filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })));
+        await interaction.respond(
+            filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })),
+        );
     }
 }
 

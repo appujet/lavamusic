@@ -33,7 +33,10 @@ export default class Restart extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<void> {
         const embed = this.client.embed();
-        const button = new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Confirm Restart").setCustomId("confirm-restart");
+        const button = new ButtonBuilder()
+            .setStyle(ButtonStyle.Danger)
+            .setLabel("Confirm Restart")
+            .setCustomId("confirm-restart");
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
         const restartembed = embed
             .setColor(this.client.color.red)

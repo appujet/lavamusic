@@ -22,7 +22,14 @@ export default class Join extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks", "Connect", "Speak"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                    "Connect",
+                    "Speak",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -37,14 +44,22 @@ export default class Join extends Command {
         if (player) {
             const channelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.join.already_connected", { channelId }))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.main)
+                        .setDescription(ctx.locale("cmd.join.already_connected", { channelId })),
+                ],
             });
         }
 
         const memberVoiceChannel = (ctx.member as any).voice.channel;
         if (!memberVoiceChannel) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.join.no_voice_channel"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("cmd.join.no_voice_channel")),
+                ],
             });
         }
 
@@ -57,7 +72,11 @@ export default class Join extends Command {
 
         const joinedChannelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.join.joined", { channelId: joinedChannelId }))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(ctx.locale("cmd.join.joined", { channelId: joinedChannelId })),
+            ],
         });
     }
 }

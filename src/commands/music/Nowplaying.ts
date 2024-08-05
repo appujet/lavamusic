@@ -40,7 +40,10 @@ export default class Nowplaying extends Command {
         const embed = this.client
             .embed()
             .setColor(this.client.color.main)
-            .setAuthor({ name: ctx.locale("cmd.nowplaying.now_playing"), iconURL: ctx.guild?.iconURL({})! })
+            .setAuthor({
+                name: ctx.locale("cmd.nowplaying.now_playing"),
+                iconURL: ctx.guild?.iconURL({})!,
+            })
             .setThumbnail(track.info.artworkUrl!)
             .setDescription(
                 ctx.locale("cmd.nowplaying.track_info", {

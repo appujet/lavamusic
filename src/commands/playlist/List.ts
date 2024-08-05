@@ -69,16 +69,23 @@ export default class GetPlaylists extends Command {
                 return await ctx.sendMessage({ embeds: [noPlaylistsMessage] });
             }
 
-            const targetUsername = targetUser ? targetUser.username : ctx.locale("cmd.list.messages.your");
+            const targetUsername = targetUser
+                ? targetUser.username
+                : ctx.locale("cmd.list.messages.your");
             const successMessage = this.client
                 .embed()
-                .setTitle(ctx.locale("cmd.list.messages.playlists_title", { username: targetUsername }))
+                .setTitle(
+                    ctx.locale("cmd.list.messages.playlists_title", { username: targetUsername }),
+                )
                 .setDescription(playlists.map((playlist: any) => playlist.name).join("\n"))
                 .setColor(this.client.color.green);
             await ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {
             console.error(error);
-            const errorMessage = this.client.embed().setDescription(ctx.locale("cmd.list.messages.error")).setColor(this.client.color.red);
+            const errorMessage = this.client
+                .embed()
+                .setDescription(ctx.locale("cmd.list.messages.error"))
+                .setColor(this.client.color.red);
             await ctx.sendMessage({ embeds: [errorMessage] });
         }
     }

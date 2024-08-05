@@ -50,7 +50,15 @@ export default class InteractionCreate extends Event {
             ctx.setArgs(interaction.options.data as any);
             ctx.guildLocale = locale;
             const clientMember = interaction.guild.members.resolve(this.client.user);
-            if (!(interaction.inGuild() && interaction.channel.permissionsFor(clientMember)?.has(PermissionFlagsBits.ViewChannel))) return;
+            if (
+                !(
+                    interaction.inGuild() &&
+                    interaction.channel
+                        .permissionsFor(clientMember)
+                        ?.has(PermissionFlagsBits.ViewChannel)
+                )
+            )
+                return;
 
             if (!clientMember.permissions.has(PermissionFlagsBits.SendMessages)) {
                 return await (interaction.member as GuildMember)
@@ -71,13 +79,19 @@ export default class InteractionCreate extends Event {
             const logs = this.client.channels.cache.get(this.client.config.commandLogs);
 
             if (command.permissions) {
-                if (command.permissions.client && !clientMember.permissions.has(command.permissions.client)) {
+                if (
+                    command.permissions.client &&
+                    !clientMember.permissions.has(command.permissions.client)
+                ) {
                     return await interaction.reply({
                         content: T(locale, "event.interaction.no_permission"),
                     });
                 }
 
-                if (command.permissions.user && !(interaction.member as GuildMember).permissions.has(command.permissions.user)) {
+                if (
+                    command.permissions.user &&
+                    !(interaction.member as GuildMember).permissions.has(command.permissions.user)
+                ) {
                     await interaction.reply({
                         content: T(locale, "event.interaction.no_user_permission"),
                         ephemeral: true,
@@ -101,7 +115,8 @@ export default class InteractionCreate extends Event {
                     );
 
                     return await interaction.reply({
-                        content: "Wait! Before using this command, you must vote on top.gg. Thank you.",
+                        content:
+                            "Wait! Before using this command, you must vote on top.gg. Thank you.",
                         components: [voteBtn],
                         ephemeral: true,
                     });
@@ -111,34 +126,44 @@ export default class InteractionCreate extends Event {
                 if (command.player.voice) {
                     if (!(interaction.member as GuildMember).voice.channel) {
                         return await interaction.reply({
-                            content: T(locale, "event.interaction.no_voice_channel", { command: command.name }),
+                            content: T(locale, "event.interaction.no_voice_channel", {
+                                command: command.name,
+                            }),
                         });
                     }
 
                     if (!clientMember.permissions.has(PermissionFlagsBits.Connect)) {
                         return await interaction.reply({
-                            content: T(locale, "event.interaction.no_connect_permission", { command: command.name }),
+                            content: T(locale, "event.interaction.no_connect_permission", {
+                                command: command.name,
+                            }),
                         });
                     }
 
                     if (!clientMember.permissions.has(PermissionFlagsBits.Speak)) {
                         return await interaction.reply({
-                            content: T(locale, "event.interaction.no_speak_permission", { command: command.name }),
+                            content: T(locale, "event.interaction.no_speak_permission", {
+                                command: command.name,
+                            }),
                         });
                     }
 
                     if (
-                        (interaction.member as GuildMember).voice.channel.type === ChannelType.GuildStageVoice &&
+                        (interaction.member as GuildMember).voice.channel.type ===
+                            ChannelType.GuildStageVoice &&
                         !clientMember.permissions.has(PermissionFlagsBits.RequestToSpeak)
                     ) {
                         return await interaction.reply({
-                            content: T(locale, "event.interaction.no_request_to_speak", { command: command.name }),
+                            content: T(locale, "event.interaction.no_request_to_speak", {
+                                command: command.name,
+                            }),
                         });
                     }
 
                     if (
                         clientMember.voice.channel &&
-                        clientMember.voice.channelId !== (interaction.member as GuildMember).voice.channelId
+                        clientMember.voice.channelId !==
+                            (interaction.member as GuildMember).voice.channelId
                     ) {
                         return await interaction.reply({
                             content: T(locale, "event.interaction.different_voice_channel", {
@@ -168,10 +193,17 @@ export default class InteractionCreate extends Event {
                             });
                         }
 
-                        const hasDJRole = (interaction.member as GuildMember).roles.cache.some((role) =>
-                            djRole.map((r) => r.roleId).includes(role.id),
+                        const hasDJRole = (interaction.member as GuildMember).roles.cache.some(
+                            (role) => djRole.map((r) => r.roleId).includes(role.id),
                         );
-                        if (!(hasDJRole && !(interaction.member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild))) {
+                        if (
+                            !(
+                                hasDJRole &&
+                                !(interaction.member as GuildMember).permissions.has(
+                                    PermissionFlagsBits.ManageGuild,
+                                )
+                            )
+                        ) {
                             return await interaction.reply({
                                 content: T(locale, "event.interaction.no_dj_permission"),
                                 ephemeral: true,
@@ -194,7 +226,10 @@ export default class InteractionCreate extends Event {
                 const timeLeft = (expirationTime - now) / 1000;
                 if (now < expirationTime && timeLeft > 0.9) {
                     return await interaction.reply({
-                        content: T(locale, "event.interaction.cooldown", { time: timeLeft.toFixed(1), command: commandName }),
+                        content: T(locale, "event.interaction.cooldown", {
+                            time: timeLeft.toFixed(1),
+                            command: commandName,
+                        }),
                     });
                 }
                 timestamps.set(interaction.user.id, now);
@@ -206,7 +241,11 @@ export default class InteractionCreate extends Event {
 
             try {
                 await command.run(this.client, ctx, ctx.args);
-                if (setup && interaction.channelId === setup.textId && allowedCategories.includes(command.category)) {
+                if (
+                    setup &&
+                    interaction.channelId === setup.textId &&
+                    allowedCategories.includes(command.category)
+                ) {
                     setTimeout(() => {
                         interaction.deleteReply().catch(() => {});
                     }, 5000);

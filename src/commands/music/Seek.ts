@@ -44,12 +44,20 @@ export default class Seek extends Command {
         const duration = client.utils.parseTime(args.join(" "));
         if (!duration) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.seek.errors.invalid_format"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("cmd.seek.errors.invalid_format")),
+                ],
             });
         }
         if (!current.isSeekable) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.seek.errors.not_seekable"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("cmd.seek.errors.not_seekable")),
+                ],
             });
         }
         if (duration > current.length) {
@@ -57,7 +65,11 @@ export default class Seek extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(ctx.locale("cmd.seek.errors.beyond_duration", { length: client.utils.formatTime(current.length) })),
+                        .setDescription(
+                            ctx.locale("cmd.seek.errors.beyond_duration", {
+                                length: client.utils.formatTime(current.length),
+                            }),
+                        ),
                 ],
             });
         }
@@ -66,7 +78,11 @@ export default class Seek extends Command {
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(ctx.locale("cmd.seek.messages.seeked_to", { duration: client.utils.formatTime(duration) })),
+                    .setDescription(
+                        ctx.locale("cmd.seek.messages.seeked_to", {
+                            duration: client.utils.formatTime(duration),
+                        }),
+                    ),
             ],
         });
     }

@@ -39,13 +39,21 @@ export default class _247 extends Command {
             const member = ctx.member as GuildMember;
             if (!member.voice.channel) {
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription(ctx.locale("cmd.247.errors.not_in_voice")).setColor(client.color.red)],
+                    embeds: [
+                        embed
+                            .setDescription(ctx.locale("cmd.247.errors.not_in_voice"))
+                            .setColor(client.color.red),
+                    ],
                 });
             }
             if (data) {
                 await client.db.delete_247(ctx.guild!.id);
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription(ctx.locale("cmd.247.messages.disabled")).setColor(client.color.red)],
+                    embeds: [
+                        embed
+                            .setDescription(ctx.locale("cmd.247.messages.disabled"))
+                            .setColor(client.color.red),
+                    ],
                 });
             }
             await client.db.set_247(ctx.guild!.id, ctx.channel.id, member.voice.channel.id);
@@ -58,12 +66,20 @@ export default class _247 extends Command {
                 );
             }
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(ctx.locale("cmd.247.messages.enabled")).setColor(this.client.color.main)],
+                embeds: [
+                    embed
+                        .setDescription(ctx.locale("cmd.247.messages.enabled"))
+                        .setColor(this.client.color.main),
+                ],
             });
         } catch (error) {
             console.error("Error in 247 command:", error);
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(ctx.locale("cmd.247.errors.generic")).setColor(client.color.red)],
+                embeds: [
+                    embed
+                        .setDescription(ctx.locale("cmd.247.errors.generic"))
+                        .setColor(client.color.red),
+                ],
             });
         }
     }

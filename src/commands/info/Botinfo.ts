@@ -47,7 +47,9 @@ export default class Botinfo extends Command {
 
         const promises = [
             client.shard.broadcastEval((client) => client.guilds.cache.size),
-            client.shard.broadcastEval((client) => client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)),
+            client.shard.broadcastEval((client) =>
+                client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0),
+            ),
             client.shard.broadcastEval((client) => client.channels.cache.size),
         ];
         return Promise.all(promises).then(async (results) => {
@@ -71,7 +73,10 @@ export default class Botinfo extends Command {
                 commands,
             });
 
-            const embed = this.client.embed().setColor(this.client.color.main).setDescription(botInfo);
+            const embed = this.client
+                .embed()
+                .setColor(this.client.color.main)
+                .setDescription(botInfo);
 
             return await ctx.sendMessage({
                 embeds: [embed],

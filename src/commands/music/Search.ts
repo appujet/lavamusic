@@ -56,7 +56,11 @@ export default class Search extends Command {
         const res = await this.client.queue.search(query);
         if (!res) {
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(ctx.locale("cmd.search.errors.no_results")).setColor(this.client.color.red)],
+                embeds: [
+                    embed
+                        .setDescription(ctx.locale("cmd.search.errors.no_results"))
+                        .setColor(this.client.color.red),
+                ],
             });
         }
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
@@ -69,18 +73,27 @@ export default class Search extends Command {
         switch (res.loadType) {
             case LoadType.ERROR:
                 ctx.sendMessage({
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.search.errors.search_error"))],
+                    embeds: [
+                        embed
+                            .setColor(this.client.color.red)
+                            .setDescription(ctx.locale("cmd.search.errors.search_error")),
+                    ],
                 });
                 break;
             case LoadType.EMPTY:
                 ctx.sendMessage({
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.search.errors.no_results"))],
+                    embeds: [
+                        embed
+                            .setColor(this.client.color.red)
+                            .setDescription(ctx.locale("cmd.search.errors.no_results")),
+                    ],
                 });
                 break;
             case LoadType.SEARCH: {
                 const tracks = res.data.slice(0, 5);
                 const embeds = tracks.map(
-                    (track: Song, index: number) => `${index + 1}. [${track.info.title}](${track.info.uri}) - \`${track.info.author}\``,
+                    (track: Song, index: number) =>
+                        `${index + 1}. [${track.info.title}](${track.info.uri}) - \`${track.info.author}\``,
                 );
                 await ctx.sendMessage({
                     embeds: [embed.setDescription(embeds.join("\n"))],
@@ -104,7 +117,12 @@ export default class Search extends Command {
             player.isPlaying();
             await ctx.editMessage({
                 embeds: [
-                    embed.setDescription(ctx.locale("cmd.search.messages.added_to_queue", { title: song.info.title, uri: song.info.uri })),
+                    embed.setDescription(
+                        ctx.locale("cmd.search.messages.added_to_queue", {
+                            title: song.info.title,
+                            uri: song.info.uri,
+                        }),
+                    ),
                 ],
                 components: [],
             });

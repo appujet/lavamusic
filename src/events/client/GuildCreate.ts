@@ -24,8 +24,16 @@ export default class GuildCreate extends Event {
             .addFields(
                 { name: "Owner", value: owner ? owner.user.tag : "Unknown#0000", inline: true },
                 { name: "Members", value: guild.memberCount.toString(), inline: true },
-                { name: "Created At", value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`, inline: true },
-                { name: "Joined At", value: `<t:${Math.floor(guild.joinedTimestamp / 1000)}:F>`, inline: true },
+                {
+                    name: "Created At",
+                    value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`,
+                    inline: true,
+                },
+                {
+                    name: "Joined At",
+                    value: `<t:${Math.floor(guild.joinedTimestamp / 1000)}:F>`,
+                    inline: true,
+                },
                 { name: "ID", value: guild.id, inline: true },
             )
             .setTimestamp();
@@ -47,7 +55,9 @@ export default class GuildCreate extends Event {
 
             await channel.send({ embeds: [embed] });
         } catch (error) {
-            this.client.logger.error(`Error sending message to log channel ${logChannelId}: ${error}`);
+            this.client.logger.error(
+                `Error sending message to log channel ${logChannelId}: ${error}`,
+            );
         }
     }
 }

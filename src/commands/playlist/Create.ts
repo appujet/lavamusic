@@ -43,20 +43,32 @@ export default class CreatePlaylist extends Command {
 
         if (name.length > 50) {
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(ctx.locale("cmd.create.messages.name_too_long")).setColor(this.client.color.red)],
+                embeds: [
+                    embed
+                        .setDescription(ctx.locale("cmd.create.messages.name_too_long"))
+                        .setColor(this.client.color.red),
+                ],
             });
         }
 
         const playlistExists = await client.db.getPlaylist(ctx.author.id, name);
         if (playlistExists) {
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(ctx.locale("cmd.create.messages.playlist_exists")).setColor(this.client.color.red)],
+                embeds: [
+                    embed
+                        .setDescription(ctx.locale("cmd.create.messages.playlist_exists"))
+                        .setColor(this.client.color.red),
+                ],
             });
         }
 
         await client.db.createPlaylist(ctx.author.id, name);
         return await ctx.sendMessage({
-            embeds: [embed.setDescription(ctx.locale("cmd.create.messages.playlist_created", { name })).setColor(this.client.color.green)],
+            embeds: [
+                embed
+                    .setDescription(ctx.locale("cmd.create.messages.playlist_created", { name }))
+                    .setColor(this.client.color.green),
+            ],
         });
     }
 }

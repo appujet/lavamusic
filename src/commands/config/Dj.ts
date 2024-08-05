@@ -90,15 +90,27 @@ export default class Dj extends Command {
                         embeds: [embed.setDescription(ctx.locale("cmd.dj.errors.provide_role"))],
                     });
                 }
-                if (await client.db.getRoles(ctx.guild!.id).then((r) => r.some((re) => re.roleId === role.id))) {
+                if (
+                    await client.db
+                        .getRoles(ctx.guild!.id)
+                        .then((r) => r.some((re) => re.roleId === role.id))
+                ) {
                     return ctx.sendMessage({
-                        embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.role_exists", { roleId: role.id }))],
+                        embeds: [
+                            embed.setDescription(
+                                ctx.locale("cmd.dj.messages.role_exists", { roleId: role.id }),
+                            ),
+                        ],
                     });
                 }
                 await client.db.addRole(ctx.guild!.id, role.id);
                 await client.db.setDj(ctx.guild!.id, true);
                 return ctx.sendMessage({
-                    embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.role_added", { roleId: role.id }))],
+                    embeds: [
+                        embed.setDescription(
+                            ctx.locale("cmd.dj.messages.role_added", { roleId: role.id }),
+                        ),
+                    ],
                 });
 
             case "remove":
@@ -107,14 +119,26 @@ export default class Dj extends Command {
                         embeds: [embed.setDescription(ctx.locale("cmd.dj.errors.provide_role"))],
                     });
                 }
-                if (!(await client.db.getRoles(ctx.guild!.id).then((r) => r.some((re) => re.roleId === role.id)))) {
+                if (
+                    !(await client.db
+                        .getRoles(ctx.guild!.id)
+                        .then((r) => r.some((re) => re.roleId === role.id)))
+                ) {
                     return ctx.sendMessage({
-                        embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.role_not_found", { roleId: role.id }))],
+                        embeds: [
+                            embed.setDescription(
+                                ctx.locale("cmd.dj.messages.role_not_found", { roleId: role.id }),
+                            ),
+                        ],
                     });
                 }
                 await client.db.removeRole(ctx.guild!.id, role.id);
                 return ctx.sendMessage({
-                    embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.role_removed", { roleId: role.id }))],
+                    embeds: [
+                        embed.setDescription(
+                            ctx.locale("cmd.dj.messages.role_removed", { roleId: role.id }),
+                        ),
+                    ],
                 });
 
             case "clear":
@@ -136,7 +160,13 @@ export default class Dj extends Command {
                 }
                 await client.db.setDj(ctx.guild!.id, !dj.mode);
                 return ctx.sendMessage({
-                    embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.toggle", { status: dj.mode ? "disabled" : "enabled" }))],
+                    embeds: [
+                        embed.setDescription(
+                            ctx.locale("cmd.dj.messages.toggle", {
+                                status: dj.mode ? "disabled" : "enabled",
+                            }),
+                        ),
+                    ],
                 });
 
             default:
@@ -144,7 +174,10 @@ export default class Dj extends Command {
                     embeds: [
                         embed
                             .setDescription(ctx.locale("cmd.dj.errors.invalid_subcommand"))
-                            .addFields({ name: ctx.locale("cmd.dj.subcommands"), value: "`add`, `remove`, `clear`, `toggle`" }),
+                            .addFields({
+                                name: ctx.locale("cmd.dj.subcommands"),
+                                value: "`add`, `remove`, `clear`, `toggle`",
+                            }),
                     ],
                 });
         }

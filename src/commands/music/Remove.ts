@@ -43,18 +43,30 @@ export default class Remove extends Command {
 
         if (!player.queue.length)
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.remove.errors.no_songs"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("cmd.remove.errors.no_songs")),
+                ],
             });
 
         const songNumber = Number(args[0]);
         if (isNaN(songNumber) || songNumber <= 0 || songNumber > player.queue.length)
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.remove.errors.invalid_number"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("cmd.remove.errors.invalid_number")),
+                ],
             });
 
         player.remove(songNumber - 1);
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.remove.messages.removed", { songNumber }))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(ctx.locale("cmd.remove.messages.removed", { songNumber })),
+            ],
         });
     }
 }

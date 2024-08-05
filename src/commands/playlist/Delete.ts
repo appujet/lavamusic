@@ -45,7 +45,11 @@ export default class DeletePlaylist extends Command {
         const playlistExists = await client.db.getPlaylist(ctx.author.id, playlistName);
         if (!playlistExists) {
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(ctx.locale("cmd.delete.messages.playlist_not_found")).setColor(this.client.color.red)],
+                embeds: [
+                    embed
+                        .setDescription(ctx.locale("cmd.delete.messages.playlist_not_found"))
+                        .setColor(this.client.color.red),
+                ],
             });
         }
 
@@ -56,7 +60,9 @@ export default class DeletePlaylist extends Command {
         return await ctx.sendMessage({
             embeds: [
                 embed
-                    .setDescription(ctx.locale("cmd.delete.messages.playlist_deleted", { playlistName }))
+                    .setDescription(
+                        ctx.locale("cmd.delete.messages.playlist_deleted", { playlistName }),
+                    )
                     .setColor(this.client.color.green),
             ],
         });
@@ -71,9 +77,13 @@ export default class DeletePlaylist extends Command {
         const playlists = await this.client.db.getUserPlaylists(userId);
 
         // Filter playlists based on the focused value and respond
-        const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
+        const filtered = playlists.filter((playlist) =>
+            playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()),
+        );
 
-        await interaction.respond(filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })));
+        await interaction.respond(
+            filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })),
+        );
     }
 }
 

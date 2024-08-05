@@ -28,7 +28,8 @@ export default class Context {
     public channelId: string;
     public client: Lavamusic;
     public author: User | null;
-    public channel: PartialDMChannel | GuildTextBasedChannel | TextChannel | DMChannel | null = null;
+    public channel: PartialDMChannel | GuildTextBasedChannel | TextChannel | DMChannel | null =
+        null;
     public guild: Guild | null;
     public createdAt: Date;
     public createdTimestamp: number;
@@ -64,7 +65,9 @@ export default class Context {
     public setArgs(args: any[]): void {
         this.args = this.isInteraction ? args.map((arg: { value: any }) => arg.value) : args;
     }
-    public async sendMessage(content: string | MessagePayload | MessageCreateOptions | InteractionReplyOptions): Promise<Message> {
+    public async sendMessage(
+        content: string | MessagePayload | MessageCreateOptions | InteractionReplyOptions,
+    ): Promise<Message> {
         if (this.isInteraction) {
             if (typeof content === "string" || isInteractionReplyOptions(content)) {
                 this.msg = await this.interaction.reply(content);
@@ -77,7 +80,9 @@ export default class Context {
         return this.msg;
     }
 
-    public async editMessage(content: string | MessagePayload | InteractionEditReplyOptions | MessageEditOptions): Promise<Message> {
+    public async editMessage(
+        content: string | MessagePayload | InteractionEditReplyOptions | MessageEditOptions,
+    ): Promise<Message> {
         if (this.isInteraction && this.msg) {
             this.msg = await this.interaction.editReply(content);
             return this.msg;
@@ -89,7 +94,9 @@ export default class Context {
         return this.msg;
     }
 
-    public async sendDeferMessage(content: string | MessagePayload | MessageCreateOptions): Promise<Message> {
+    public async sendDeferMessage(
+        content: string | MessagePayload | MessageCreateOptions,
+    ): Promise<Message> {
         if (this.isInteraction) {
             this.msg = await this.interaction.deferReply({ fetchReply: true });
             return this.msg;
@@ -101,7 +108,9 @@ export default class Context {
     public locale(key: string, ...args: any) {
         return T(this.guildLocale, key, ...args);
     }
-    public async sendFollowUp(content: string | MessagePayload | MessageCreateOptions | InteractionReplyOptions): Promise<void> {
+    public async sendFollowUp(
+        content: string | MessagePayload | MessageCreateOptions | InteractionReplyOptions,
+    ): Promise<void> {
         if (this.isInteraction) {
             if (typeof content === "string" || isInteractionReplyOptions(content)) {
                 await this.interaction.followUp(content);

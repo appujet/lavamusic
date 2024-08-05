@@ -36,14 +36,22 @@ export default class Pause extends Command {
 
         if (player?.paused) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.already_paused"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("cmd.player.errors.already_paused")),
+                ],
             });
         }
 
         player?.pause();
 
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.pause.successfully_paused"))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(ctx.locale("cmd.pause.successfully_paused")),
+            ],
         });
     }
 }

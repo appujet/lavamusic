@@ -5,9 +5,16 @@ import { T } from "../structures/I18n.js";
 import type { Dispatcher, Lavamusic } from "../structures/index.js";
 import { getButtons } from "./Buttons.js";
 
-function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic, locale: string): EmbedBuilder {
+function neb(
+    embed: EmbedBuilder,
+    player: Dispatcher,
+    client: Lavamusic,
+    locale: string,
+): EmbedBuilder {
     if (!player?.current?.info) return embed;
-    const iconUrl = client.config.icons[player.current.info.sourceName] || client.user.displayAvatarURL({ extension: "png" });
+    const iconUrl =
+        client.config.icons[player.current.info.sourceName] ||
+        client.user.displayAvatarURL({ extension: "png" });
     const icon = player.current.info.artworkUrl || client.config.links.img;
 
     const description = T(locale, "player.setupStart.description", {
@@ -24,14 +31,20 @@ function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic, locale:
         .setColor(client.color.main);
 }
 
-async function setupStart(client: Lavamusic, query: string, player: Dispatcher, message: Message): Promise<void> {
+async function setupStart(
+    client: Lavamusic,
+    query: string,
+    player: Dispatcher,
+    message: Message,
+): Promise<void> {
     let m: Message;
     const embed = client.embed();
     const n = client.embed().setColor(client.color.main);
     const data = await client.db.getSetup(message.guild.id);
     const locale = await client.db.getLanguage(message.guildId);
     try {
-        if (data) m = await message.channel.messages.fetch({ message: data.messageId, cache: true });
+        if (data)
+            m = await message.channel.messages.fetch({ message: data.messageId, cache: true });
     } catch (error) {
         client.logger.error(error);
     }
@@ -42,14 +55,22 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
                 case LoadType.ERROR:
                     await message.channel
                         .send({
-                            embeds: [embed.setColor(client.color.red).setDescription(T(locale, "player.setupStart.error_searching"))],
+                            embeds: [
+                                embed
+                                    .setColor(client.color.red)
+                                    .setDescription(T(locale, "player.setupStart.error_searching")),
+                            ],
                         })
                         .then((msg) => setTimeout(() => msg.delete(), 5000));
                     break;
                 case LoadType.EMPTY:
                     await message.channel
                         .send({
-                            embeds: [embed.setColor(client.color.red).setDescription(T(locale, "player.setupStart.no_results"))],
+                            embeds: [
+                                embed
+                                    .setColor(client.color.red)
+                                    .setDescription(T(locale, "player.setupStart.no_results")),
+                            ],
                         })
                         .then((msg) => setTimeout(() => msg.delete(), 5000));
                     break;
@@ -62,7 +83,9 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
                                     embed
                                         .setColor(client.color.red)
                                         .setDescription(
-                                            T(locale, "player.setupStart.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                            T(locale, "player.setupStart.queue_too_long", {
+                                                maxQueueSize: client.config.maxQueueSize,
+                                            }),
                                         ),
                                 ],
                             })
@@ -127,7 +150,9 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
                                 embed
                                     .setColor(client.color.main)
                                     .setDescription(
-                                        T(locale, "player.setupStart.added_playlist_to_queue", { length: res.data.tracks.length }),
+                                        T(locale, "player.setupStart.added_playlist_to_queue", {
+                                            length: res.data.tracks.length,
+                                        }),
                                     ),
                             ],
                         })
@@ -144,7 +169,9 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
                                     embed
                                         .setColor(client.color.red)
                                         .setDescription(
-                                            T(locale, "player.setupStart.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                            T(locale, "player.setupStart.queue_too_long", {
+                                                maxQueueSize: client.config.maxQueueSize,
+                                            }),
                                         ),
                                 ],
                             })
@@ -193,7 +220,9 @@ async function trackStart(
         client.logger.error(error);
     }
 
-    const iconUrl = client.config.icons[player.current.info.sourceName] || client.user.displayAvatarURL({ extension: "png" });
+    const iconUrl =
+        client.config.icons[player.current.info.sourceName] ||
+        client.user.displayAvatarURL({ extension: "png" });
     const description = T(locale, "player.setupStart.description", {
         title: track.info.title,
         uri: track.info.uri,
@@ -250,7 +279,9 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
     if (m) {
         const player = client.queue.get(guild.id);
         if (player?.current) {
-            const iconUrl = client.config.icons[player.current.info.sourceName] || client.user.displayAvatarURL({ extension: "png" });
+            const iconUrl =
+                client.config.icons[player.current.info.sourceName] ||
+                client.user.displayAvatarURL({ extension: "png" });
             const description = T(locale, "player.setupStart.description", {
                 title: player.current.info.title,
                 uri: player.current.info.uri,
@@ -301,9 +332,13 @@ async function buttonReply(int: any, args: string, color: ColorResolvable): Prom
     const embed = new EmbedBuilder();
     let m: Message;
     if (int.replied) {
-        m = await int.editReply({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => {});
+        m = await int
+            .editReply({ embeds: [embed.setColor(color).setDescription(args)] })
+            .catch(() => {});
     } else {
-        m = await int.followUp({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => {});
+        m = await int
+            .followUp({ embeds: [embed.setColor(color).setDescription(args)] })
+            .catch(() => {});
     }
     setTimeout(async () => {
         if (int && !int.ephemeral) {

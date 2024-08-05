@@ -48,9 +48,13 @@ export default class Autoplay extends Command {
         player.setAutoplay(!autoplay);
 
         if (autoplay) {
-            embed.setDescription(ctx.locale("cmd.autoplay.messages.disabled")).setColor(this.client.color.main);
+            embed
+                .setDescription(ctx.locale("cmd.autoplay.messages.disabled"))
+                .setColor(this.client.color.main);
         } else {
-            embed.setDescription(ctx.locale("cmd.autoplay.messages.enabled")).setColor(this.client.color.main);
+            embed
+                .setDescription(ctx.locale("cmd.autoplay.messages.enabled"))
+                .setColor(this.client.color.main);
         }
 
         await ctx.sendMessage({ embeds: [embed] });

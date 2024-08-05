@@ -42,22 +42,32 @@ export default class TrackStart extends Event {
             .embed()
             .setAuthor({
                 name: T(locale, "player.trackStart.now_playing"),
-                iconURL: this.client.config.icons[track.info.sourceName] ?? this.client.user.displayAvatarURL({ extension: "png" }),
+                iconURL:
+                    this.client.config.icons[track.info.sourceName] ??
+                    this.client.user.displayAvatarURL({ extension: "png" }),
             })
             .setColor(this.client.color.main)
             .setDescription(`**[${track.info.title}](${track.info.uri})**`)
             .setFooter({
-                text: T(locale, "player.trackStart.requested_by", { user: track.info.requester.tag }),
+                text: T(locale, "player.trackStart.requested_by", {
+                    user: track.info.requester.tag,
+                }),
                 iconURL: track.info.requester.avatarURL({}),
             })
             .setThumbnail(track.info.artworkUrl)
             .addFields(
                 {
                     name: T(locale, "player.trackStart.duration"),
-                    value: track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.length),
+                    value: track.info.isStream
+                        ? "LIVE"
+                        : this.client.utils.formatTime(track.info.length),
                     inline: true,
                 },
-                { name: T(locale, "player.trackStart.author"), value: track.info.author, inline: true },
+                {
+                    name: T(locale, "player.trackStart.author"),
+                    value: track.info.author,
+                    inline: true,
+                },
             )
             .setTimestamp();
 
@@ -82,7 +92,10 @@ export default class TrackStart extends Event {
     }
 }
 
-function createButtonRow(dispatcher: Dispatcher, client: Lavamusic): ActionRowBuilder<ButtonBuilder> {
+function createButtonRow(
+    dispatcher: Dispatcher,
+    client: Lavamusic,
+): ActionRowBuilder<ButtonBuilder> {
     const previousButton = new ButtonBuilder()
 
         .setCustomId("previous")
@@ -95,23 +108,43 @@ function createButtonRow(dispatcher: Dispatcher, client: Lavamusic): ActionRowBu
         .setEmoji(dispatcher.paused ? client.emoji.resume : client.emoji.pause)
         .setStyle(dispatcher.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
 
-    const stopButton = new ButtonBuilder().setCustomId("stop").setEmoji(client.emoji.stop).setStyle(ButtonStyle.Danger);
+    const stopButton = new ButtonBuilder()
+        .setCustomId("stop")
+        .setEmoji(client.emoji.stop)
+        .setStyle(ButtonStyle.Danger);
 
-    const skipButton = new ButtonBuilder().setCustomId("skip").setEmoji(client.emoji.skip).setStyle(ButtonStyle.Secondary);
+    const skipButton = new ButtonBuilder()
+        .setCustomId("skip")
+        .setEmoji(client.emoji.skip)
+        .setStyle(ButtonStyle.Secondary);
 
     const loopButton = new ButtonBuilder()
         .setCustomId("loop")
         .setEmoji(dispatcher.loop === "repeat" ? client.emoji.loop.track : client.emoji.loop.none)
         .setStyle(dispatcher.loop !== "off" ? ButtonStyle.Success : ButtonStyle.Secondary);
 
-    return new ActionRowBuilder<ButtonBuilder>().addComponents(resumeButton, previousButton, stopButton, skipButton, loopButton);
+    return new ActionRowBuilder<ButtonBuilder>().addComponents(
+        resumeButton,
+        previousButton,
+        stopButton,
+        skipButton,
+        loopButton,
+    );
 }
 
-function createCollector(message: any, dispatcher: Dispatcher, _track: Song, embed: any, client: Lavamusic, locale: string): void {
+function createCollector(
+    message: any,
+    dispatcher: Dispatcher,
+    _track: Song,
+    embed: any,
+    client: Lavamusic,
+    locale: string,
+): void {
     const collector = message.createMessageComponentCollector({
         filter: async (b: ButtonInteraction) => {
             if (b.member instanceof GuildMember) {
-                const isSameVoiceChannel = b.guild.members.me?.voice.channelId === b.member.voice.channelId;
+                const isSameVoiceChannel =
+                    b.guild.members.me?.voice.channelId === b.member.voice.channelId;
                 if (isSameVoiceChannel) return true;
             }
             await b.reply({
@@ -146,7 +179,9 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 if (dispatcher.previous) {
                     await interaction.deferUpdate();
                     dispatcher.previousTrack();
-                    await editMessage(T(locale, "player.trackStart.previous_by", { user: interaction.user.tag }));
+                    await editMessage(
+                        T(locale, "player.trackStart.previous_by", { user: interaction.user.tag }),
+                    );
                 } else {
                     await interaction.reply({
                         content: T(locale, "player.trackStart.no_previous_song"),
@@ -171,7 +206,9 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 if (dispatcher.queue.length) {
                     await interaction.deferUpdate();
                     dispatcher.skip();
-                    await editMessage(T(locale, "player.trackStart.skipped_by", { user: interaction.user.tag }));
+                    await editMessage(
+                        T(locale, "player.trackStart.skipped_by", { user: interaction.user.tag }),
+                    );
                 } else {
                     await interaction.reply({
                         content: T(locale, "player.trackStart.no_more_songs_in_queue"),
@@ -184,15 +221,27 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 switch (dispatcher.loop) {
                     case "off":
                         dispatcher.loop = "repeat";
-                        await editMessage(T(locale, "player.trackStart.looping_by", { user: interaction.user.tag }));
+                        await editMessage(
+                            T(locale, "player.trackStart.looping_by", {
+                                user: interaction.user.tag,
+                            }),
+                        );
                         break;
                     case "repeat":
                         dispatcher.loop = "queue";
-                        await editMessage(T(locale, "player.trackStart.looping_queue_by", { user: interaction.user.tag }));
+                        await editMessage(
+                            T(locale, "player.trackStart.looping_queue_by", {
+                                user: interaction.user.tag,
+                            }),
+                        );
                         break;
                     case "queue":
                         dispatcher.loop = "off";
-                        await editMessage(T(locale, "player.trackStart.looping_off_by", { user: interaction.user.tag }));
+                        await editMessage(
+                            T(locale, "player.trackStart.looping_off_by", {
+                                user: interaction.user.tag,
+                            }),
+                        );
                         break;
                 }
                 break;
@@ -214,7 +263,9 @@ export async function checkDj(
     if (dj?.mode) {
         const djRole = await client.db.getRoles(interaction.guildId);
         if (!djRole) return false;
-        const hasDjRole = interaction.member.roles.cache.some((role) => djRole.map((r) => r.roleId).includes(role.id));
+        const hasDjRole = interaction.member.roles.cache.some((role) =>
+            djRole.map((r) => r.roleId).includes(role.id),
+        );
         if (!(hasDjRole || interaction.member.permissions.has(PermissionFlagsBits.ManageGuild))) {
             return false;
         }

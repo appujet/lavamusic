@@ -93,7 +93,10 @@ export default class RemoveSong extends Command {
             const successMessage = this.client
                 .embed()
                 .setDescription(
-                    ctx.locale("cmd.removesong.messages.song_removed", { song: trackToRemove.info.title, playlist: playlistData.name }),
+                    ctx.locale("cmd.removesong.messages.song_removed", {
+                        song: trackToRemove.info.title,
+                        playlist: playlistData.name,
+                    }),
                 )
                 .setColor(this.client.color.green);
             await ctx.sendMessage({ embeds: [successMessage] });
@@ -115,9 +118,13 @@ export default class RemoveSong extends Command {
         const playlists = await this.client.db.getUserPlaylists(userId);
 
         // Filter playlists based on the focused value and respond
-        const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
+        const filtered = playlists.filter((playlist) =>
+            playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()),
+        );
 
-        await interaction.respond(filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })));
+        await interaction.respond(
+            filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })),
+        );
     }
 }
 

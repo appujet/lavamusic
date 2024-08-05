@@ -24,7 +24,13 @@ export default class Setup extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks", "ManageChannels"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                    "ManageChannels",
+                ],
                 user: ["ManageGuild"],
             },
             slashCommand: true,
@@ -97,13 +103,17 @@ export default class Setup extends Command {
                         ? `[${player.current.info.title}](${player.current.info.uri})`
                         : ctx.locale("player.setupStart.nothing_playing");
                 embed.setDescription(desc).setImage(image);
-                await textChannel.send({ embeds: [embed], components: getButtons(player, client) }).then((msg) => {
-                    client.db.setSetup(ctx.guild!.id, textChannel.id, msg.id);
-                });
+                await textChannel
+                    .send({ embeds: [embed], components: getButtons(player, client) })
+                    .then((msg) => {
+                        client.db.setSetup(ctx.guild!.id, textChannel.id, msg.id);
+                    });
                 await ctx.sendMessage({
                     embeds: [
                         {
-                            description: ctx.locale("cmd.setup.messages.channel_created", { channelId: textChannel.id }),
+                            description: ctx.locale("cmd.setup.messages.channel_created", {
+                                channelId: textChannel.id,
+                            }),
                             color: this.client.color.main,
                         },
                     ],
@@ -149,7 +159,9 @@ export default class Setup extends Command {
                 }
                 const channel = ctx.guild.channels.cache.get(data3.textId);
                 if (channel) {
-                    embed.setDescription(ctx.locale("cmd.setup.messages.channel_info", { channelId: channel.id }));
+                    embed.setDescription(
+                        ctx.locale("cmd.setup.messages.channel_info", { channelId: channel.id }),
+                    );
                     await ctx.sendMessage({ embeds: [embed] });
                 } else {
                     await ctx.sendMessage({

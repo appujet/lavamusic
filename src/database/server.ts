@@ -129,7 +129,11 @@ export default class ServerData {
         });
     }
 
-    public async createPlaylistWithSongs(userId: string, name: string, songs: any[]): Promise<void> {
+    public async createPlaylistWithSongs(
+        userId: string,
+        name: string,
+        songs: any[],
+    ): Promise<void> {
         await this.prisma.playlist.create({
             data: {
                 userId,
@@ -177,7 +181,11 @@ export default class ServerData {
         }
     }
 
-    public async removeSong(userId: string, playlistName: string, encodedSong: string): Promise<void> {
+    public async removeSong(
+        userId: string,
+        playlistName: string,
+        encodedSong: string,
+    ): Promise<void> {
         const playlist = await this.getPlaylist(userId, playlistName);
         if (playlist) {
             await this.prisma.song.deleteMany({

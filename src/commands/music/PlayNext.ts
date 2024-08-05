@@ -28,7 +28,14 @@ export default class PlayNext extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks", "Connect", "Speak"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                    "Connect",
+                    "Speak",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -55,12 +62,20 @@ export default class PlayNext extends Command {
         switch (res.loadType) {
             case LoadType.ERROR:
                 ctx.editMessage({
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.playnext.errors.search_error"))],
+                    embeds: [
+                        embed
+                            .setColor(this.client.color.red)
+                            .setDescription(ctx.locale("cmd.playnext.errors.search_error")),
+                    ],
                 });
                 break;
             case LoadType.EMPTY:
                 ctx.editMessage({
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.playnext.errors.no_results"))],
+                    embeds: [
+                        embed
+                            .setColor(this.client.color.red)
+                            .setDescription(ctx.locale("cmd.playnext.errors.no_results")),
+                    ],
                 });
                 break;
             case LoadType.TRACK: {
@@ -71,7 +86,9 @@ export default class PlayNext extends Command {
                             embed
                                 .setColor(this.client.color.red)
                                 .setDescription(
-                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                    ctx.locale("cmd.playnext.errors.queue_too_long", {
+                                        maxQueueSize: client.config.maxQueueSize,
+                                    }),
                                 ),
                         ],
                     });
@@ -82,7 +99,10 @@ export default class PlayNext extends Command {
                         embed
                             .setColor(this.client.color.main)
                             .setDescription(
-                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data.info.title, uri: res.data.info.uri }),
+                                ctx.locale("cmd.playnext.added_to_play_next", {
+                                    title: res.data.info.title,
+                                    uri: res.data.info.uri,
+                                }),
                             ),
                     ],
                 });
@@ -95,7 +115,9 @@ export default class PlayNext extends Command {
                             embed
                                 .setColor(this.client.color.red)
                                 .setDescription(
-                                    ctx.locale("cmd.playnext.errors.playlist_too_long", { maxPlaylistSize: client.config.maxPlaylistSize }),
+                                    ctx.locale("cmd.playnext.errors.playlist_too_long", {
+                                        maxPlaylistSize: client.config.maxPlaylistSize,
+                                    }),
                                 ),
                         ],
                     });
@@ -107,7 +129,9 @@ export default class PlayNext extends Command {
                                 embed
                                     .setColor(this.client.color.red)
                                     .setDescription(
-                                        ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                        ctx.locale("cmd.playnext.errors.queue_too_long", {
+                                            maxQueueSize: client.config.maxQueueSize,
+                                        }),
                                     ),
                             ],
                         });
@@ -118,7 +142,11 @@ export default class PlayNext extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(ctx.locale("cmd.playnext.added_playlist_to_play_next", { length: res.data.tracks.length })),
+                            .setDescription(
+                                ctx.locale("cmd.playnext.added_playlist_to_play_next", {
+                                    length: res.data.tracks.length,
+                                }),
+                            ),
                     ],
                 });
                 break;
@@ -131,7 +159,9 @@ export default class PlayNext extends Command {
                             embed
                                 .setColor(this.client.color.red)
                                 .setDescription(
-                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                    ctx.locale("cmd.playnext.errors.queue_too_long", {
+                                        maxQueueSize: client.config.maxQueueSize,
+                                    }),
                                 ),
                         ],
                     });
@@ -142,7 +172,10 @@ export default class PlayNext extends Command {
                         embed
                             .setColor(this.client.color.main)
                             .setDescription(
-                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data[0].info.title, uri: res.data[0].info.uri }),
+                                ctx.locale("cmd.playnext.added_to_play_next", {
+                                    title: res.data[0].info.title,
+                                    uri: res.data[0].info.uri,
+                                }),
                             ),
                     ],
                 });
