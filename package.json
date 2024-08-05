@@ -10,8 +10,8 @@
     "db:migrate": "npx prisma migrate dev --name init",
     "build": "tsc --project tsconfig.json",
     "clean": "node scripts/clean.js && npm run build",
-    "lint": "biome lint --write src/",
-    "format": "biome format --write src/"
+    "lint": "biome lint --write",
+    "format": "biome format --write"
   },
   "repository": {
     "type": "git",
