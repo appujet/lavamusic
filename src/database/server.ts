@@ -151,6 +151,17 @@ export default class ServerData {
         });
     }
 
+    public async deleteSongsFromPlaylist(userId: string, playlistName: string): Promise<void> {
+        const playlist = await this.getPlaylist(userId, playlistName);
+        if (playlist) {
+            await this.prisma.song.deleteMany({
+                where: {
+                    playlistId: playlist.id,
+                },
+            });
+        }
+    }
+
     public async addSong(userId: string, name: string, song: string): Promise<void> {
         const playlist = await this.getPlaylist(userId, name);
         if (playlist) {

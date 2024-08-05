@@ -154,6 +154,39 @@ export default class Play extends Command {
             }
         }
     }
+
+    public async autocomplete(interaction) {
+        const focusedValue = interaction.options.getFocused();
+
+        try {
+            const res = await this.client.queue.search(focusedValue);
+            const songs = [];
+
+            if·(res?.loadType) {
+                if (res.loadType === LoadType.SEARCH && res.data.length) {
+                    res.data.slice(0, 10).forEach((track) => {
+                        songs.push({
+                            name: `${track.info.title} by ${track.info.author}`,
+                            value: track.info.uri,
+                        });
+                    });
+                } else if (res.loadType === LoadType.PLAYLIST && res.data.tracks.length) {
+                    res.data.tracks.slice(0, 10).forEach((track) => {
+                        songs.push({
+                            name: `${track.info.title} by ${track.info.author}`,
+                            value: track.info.uri,
+                        });
+                    });
+                }
+            }
+
+            await interaction.respond(songs).catch(console.error);
+        } catch (error) {
+            console.error("Error during autocomplete interaction:", error);
+            await interaction.respond([]).catch(console.error);
+        }
+    }
+
 }
 
 /**
