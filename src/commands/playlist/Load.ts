@@ -32,6 +32,7 @@ export default class LoadPlaylist extends Command {
                     description: "cmd.load.options.playlist",
                     type: 3,
                     required: true,
+                    autocomplete: true,
                 },
             ],
         });
@@ -91,6 +92,24 @@ export default class LoadPlaylist extends Command {
                 },
             ],
         });
+    }
+
+    // Add autocomplete handler
+    public async autocomplete(interaction) {
+        const focusedValue = interaction.options.getFocused();
+        const userId = interaction.user.id;
+
+        // Fetch user playlists from the database
+        const playlists = await this.client.db.getUserPlaylists(userId);
+
+        // Filter playlists based on the focused value and respond
+        const filtered = playlists.filter(playlist =>
+            playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase())
+        );
+
+        await interaction.respond(
+            filtered.map(playlist => ({ name: playlist.name, value: playlist.name }))
+        );
     }
 }
 

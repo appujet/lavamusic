@@ -234,42 +234,13 @@ export default class InteractionCreate extends Event {
                 });
             }
         } else if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
-            if (interaction.commandName === "play" || interaction.commandName === "playnext") {
-                const song = interaction.options.getString("song");
-                const res = await this.client.queue.search(song);
-                const songs = [];
+            const command = this.client.commands.get(interaction.commandName);
+            if (!command) return;
 
-                if (res.loadType === LoadType.SEARCH && res.data.length) {
-                    res.data.slice(0, 10).forEach((x) => {
-                        songs.push({
-                            name: `${x.info.title} by ${x.info.author}`,
-                            value: x.info.uri,
-                        });
-                    });
-                }
-
-                return await interaction.respond(songs).catch(() => {});
-            }
-
-            if (interaction.commandName === "language") {
-                const languages = Object.values(Language);
-                const search = interaction.options.getString("language");
-                const lang = [];
-                languages.forEach((x) => {
-                    lang.push({
-                        name: x,
-                        value: x,
-                    });
-                });
-
-                const filtered = lang.filter((x) => x.name.toLowerCase().includes(search.toLowerCase()));
-
-                const choices = filtered.slice(0, 25).map((x) => ({
-                    name: x.name,
-                    value: x.value,
-                }));
-
-                return await interaction.respond(choices).catch(() => {});
+            try {
+                await command.autocomplete(interaction);
+            } catch (error) {
+                console.error(error);
             }
         }
     }

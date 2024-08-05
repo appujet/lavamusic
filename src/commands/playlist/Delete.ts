@@ -32,6 +32,7 @@ export default class DeletePlaylist extends Command {
                     description: "cmd.delete.options.playlist",
                     type: 3,
                     required: true,
+                    autocomplete: true,
                 },
             ],
         });
@@ -48,6 +49,9 @@ export default class DeletePlaylist extends Command {
             });
         }
 
+        // First, delete all songs from the playlist
+        await client.db.deleteSongsFromPlaylist(ctx.author.id, playlistName);
+
         await client.db.deletePlaylist(ctx.author.id, playlistName);
         return await ctx.sendMessage({
             embeds: [
@@ -56,6 +60,24 @@ export default class DeletePlaylist extends Command {
                     .setColor(this.client.color.green),
             ],
         });
+    }
+
+    // Add autocomplete handler
+    public async autocomplete(interaction) {
+        const focusedValue = interaction.options.getFocused();
+        const userId = interaction.user.id;
+
+        // Fetch user playlists from the database
+        const playlists = await this.client.db.getUserPlaylists(userId);
+
+        // Filter playlists based on the focused value and respond
+        const filtered = playlists.filter(playlist =>
+            playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase())
+        );
+
+        await interaction.respond(
+            filtered.map(playlist => ({ name: playlist.name, value: playlist.name }))
+        );
     }
 }
 

@@ -36,7 +36,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
     "@types/i18n": "^0.13.12",
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.1.0",
     "@types/signale": "^1.4.7",
     "prisma": "^5.17.0",
     "typescript": "^5.5.4"
@@ -52,7 +52,7 @@
     "signale": "^1.4.0",
     "topgg-autoposter": "^2.0.2",
     "tslib": "^2.6.3",
-    "undici": "^6.19.4"
+    "undici": "^6.19.5"
   },
   "signale": {
     "displayScope": true,
