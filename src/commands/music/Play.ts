@@ -1,5 +1,6 @@
 import { LoadType } from "shoukaku";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import type { AutocompleteInteraction } from "discord.js";
 
 export default class Play extends Command {
     constructor(client: Lavamusic) {
@@ -165,7 +166,7 @@ export default class Play extends Command {
         }
     }
 
-    public async autocomplete(interaction) {
+    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
         const focusedValue = interaction.options.getFocused();
 
         try {

@@ -36,7 +36,7 @@ export default class StealPlaylist extends Command {
                 {
                     name: "user",
                     description: "cmd.steal.options.user",
-                    type: 6, // USER type
+                    type: 6,
                     required: true,
                 },
             ],
@@ -129,17 +129,14 @@ export default class StealPlaylist extends Command {
                 return;
             }
 
-            // Fetch the user object using the client
             const user = await interaction.client.users.fetch(userOptionId);
             if (!user) {
                 await interaction.respond([{ name: "User not found.", value: "NoUserFound" }]).catch(console.error);
-                return; // Exit early if user cannot be found
+                return;
             }
 
-            // Proceed with fetching the user's playlists
             const playlists = await this.client.db.getUserPlaylists(user.id);
 
-            // If no playlists are found, respond accordingly
             if (!playlists || playlists.length === 0) {
                 await interaction
                     .respond([
@@ -149,13 +146,11 @@ export default class StealPlaylist extends Command {
                         },
                     ])
                     .catch(console.error);
-                return; // Exit early as there are no playlists
+                return;
             }
 
-            // Filter playlists based on the focused value
             const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
 
-            // Respond with filtered playlist names
             await interaction
                 .respond(
                     filtered.map((playlist) => ({

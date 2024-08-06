@@ -17,7 +17,7 @@ export class Utils {
     public static updateStatus(client: Lavamusic, guildId?: string): void {
         const { user } = client;
         if (user && guildId === config.guildId) {
-            const player = client.queue.get(config.guildId);
+            const player = client.queue.get(config.guildId!);
             user.setPresence({
                 activities: [
                     {
@@ -80,6 +80,7 @@ export class Utils {
                 ctx.deferred ? ctx.interaction.followUp({ embeds: embed }) : ctx.interaction.reply({ embeds: embed });
                 return;
             }
+
             (ctx.channel as TextChannel).send({ embeds: embed });
             return;
         }
@@ -117,11 +118,11 @@ export class Utils {
         const msgOptions = getButton(0);
         const msg = ctx.isInteraction
             ? await (ctx.deferred
-                  ? ctx.interaction.followUp({
+                  ? ctx.interaction!.followUp({
                         ...msgOptions,
                         fetchReply: true as boolean,
                     })
-                  : ctx.interaction.reply({ ...msgOptions, fetchReply: true }))
+                  : ctx.interaction!.reply({ ...msgOptions, fetchReply: true }))
             : await (ctx.channel as TextChannel).send({
                   ...msgOptions,
                   fetchReply: true,

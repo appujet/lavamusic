@@ -1,5 +1,6 @@
 import { LoadType } from "shoukaku";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import type { AutocompleteInteraction } from "discord.js";
 
 export default class PlayNext extends Command {
     constructor(client: Lavamusic) {
@@ -153,10 +154,9 @@ export default class PlayNext extends Command {
         }
     }
 
-    public async autocomplete(interaction) {
+    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
         const focusedValue = interaction.options.getFocused();
 
-        // Search for songs based on the focused value
         const res = await this.client.queue.search(focusedValue);
         const songs = [];
 
@@ -169,7 +169,6 @@ export default class PlayNext extends Command {
             });
         }
 
-        // Respond with the song suggestions
         await interaction.respond(songs).catch(console.error);
     }
 }

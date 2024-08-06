@@ -30,7 +30,7 @@ export default class GetPlaylists extends Command {
                 {
                     name: "user",
                     description: "cmd.list.options.user",
-                    type: 6, // USER type
+                    type: 6,
                     required: false,
                 },
             ],
