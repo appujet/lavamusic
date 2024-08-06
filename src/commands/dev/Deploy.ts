@@ -43,7 +43,10 @@ export default class Deploy extends Command {
 
         const filter = (interaction: ButtonInteraction<"cached">) => {
             if (interaction.user.id !== ctx.author.id) {
-                interaction.reply({ content: "You can't interact with this message", ephemeral: true });
+                interaction.reply({
+                    content: "You can't interact with this message",
+                    ephemeral: true,
+                });
                 return false;
             }
             return true;
@@ -58,10 +61,16 @@ export default class Deploy extends Command {
         collector.on("collect", async (interaction) => {
             if (interaction.customId === "deploy-global") {
                 await client.deployCommands();
-                await interaction.update({ content: "Commands deployed globally.", components: [] });
+                await interaction.update({
+                    content: "Commands deployed globally.",
+                    components: [],
+                });
             } else if (interaction.customId === "deploy-guild") {
                 await client.deployCommands(interaction.guild.id);
-                await interaction.update({ content: "Commands deployed in this guild.", components: [] });
+                await interaction.update({
+                    content: "Commands deployed in this guild.",
+                    components: [],
+                });
             }
         });
 

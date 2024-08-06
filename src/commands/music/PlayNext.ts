@@ -68,22 +68,23 @@ export default class PlayNext extends Command {
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.editMessage({
                         embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(
-                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                ),
+                            embed.setColor(this.client.color.red).setDescription(
+                                ctx.locale("cmd.playnext.errors.queue_too_long", {
+                                    maxQueueSize: client.config.maxQueueSize,
+                                }),
+                            ),
                         ],
                     });
                 player.queue.splice(0, 0, track);
                 await player.isPlaying();
                 ctx.editMessage({
                     embeds: [
-                        embed
-                            .setColor(this.client.color.main)
-                            .setDescription(
-                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data.info.title, uri: res.data.info.uri }),
-                            ),
+                        embed.setColor(this.client.color.main).setDescription(
+                            ctx.locale("cmd.playnext.added_to_play_next", {
+                                title: res.data.info.title,
+                                uri: res.data.info.uri,
+                            }),
+                        ),
                     ],
                 });
                 break;
@@ -92,11 +93,11 @@ export default class PlayNext extends Command {
                 if (res.data.tracks.length > client.config.maxPlaylistSize)
                     return await ctx.editMessage({
                         embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(
-                                    ctx.locale("cmd.playnext.errors.playlist_too_long", { maxPlaylistSize: client.config.maxPlaylistSize }),
-                                ),
+                            embed.setColor(this.client.color.red).setDescription(
+                                ctx.locale("cmd.playnext.errors.playlist_too_long", {
+                                    maxPlaylistSize: client.config.maxPlaylistSize,
+                                }),
+                            ),
                         ],
                     });
                 for (const track of res.data.tracks) {
@@ -104,11 +105,11 @@ export default class PlayNext extends Command {
                     if (player.queue.length > client.config.maxQueueSize)
                         return await ctx.editMessage({
                             embeds: [
-                                embed
-                                    .setColor(this.client.color.red)
-                                    .setDescription(
-                                        ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                    ),
+                                embed.setColor(this.client.color.red).setDescription(
+                                    ctx.locale("cmd.playnext.errors.queue_too_long", {
+                                        maxQueueSize: client.config.maxQueueSize,
+                                    }),
+                                ),
                             ],
                         });
                     player.queue.splice(0, 0, pl);
@@ -128,22 +129,23 @@ export default class PlayNext extends Command {
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.editMessage({
                         embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(
-                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                ),
+                            embed.setColor(this.client.color.red).setDescription(
+                                ctx.locale("cmd.playnext.errors.queue_too_long", {
+                                    maxQueueSize: client.config.maxQueueSize,
+                                }),
+                            ),
                         ],
                     });
                 player.queue.splice(0, 0, track1);
                 await player.isPlaying();
                 ctx.editMessage({
                     embeds: [
-                        embed
-                            .setColor(this.client.color.main)
-                            .setDescription(
-                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data[0].info.title, uri: res.data[0].info.uri }),
-                            ),
+                        embed.setColor(this.client.color.main).setDescription(
+                            ctx.locale("cmd.playnext.added_to_play_next", {
+                                title: res.data[0].info.title,
+                                uri: res.data[0].info.uri,
+                            }),
+                        ),
                     ],
                 });
                 break;

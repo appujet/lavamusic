@@ -104,7 +104,12 @@ export default class Search extends Command {
             player.isPlaying();
             await ctx.editMessage({
                 embeds: [
-                    embed.setDescription(ctx.locale("cmd.search.messages.added_to_queue", { title: song.info.title, uri: song.info.uri })),
+                    embed.setDescription(
+                        ctx.locale("cmd.search.messages.added_to_queue", {
+                            title: song.info.title,
+                            uri: song.info.uri,
+                        }),
+                    ),
                 ],
                 components: [],
             });

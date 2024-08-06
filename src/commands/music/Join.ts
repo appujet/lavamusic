@@ -37,7 +37,13 @@ export default class Join extends Command {
         if (player) {
             const channelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.join.already_connected", { channelId }))],
+                embeds: [
+                    embed.setColor(this.client.color.main).setDescription(
+                        ctx.locale("cmd.join.already_connected", {
+                            channelId,
+                        }),
+                    ),
+                ],
             });
         }
 
@@ -57,7 +63,13 @@ export default class Join extends Command {
 
         const joinedChannelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.join.joined", { channelId: joinedChannelId }))],
+            embeds: [
+                embed.setColor(this.client.color.main).setDescription(
+                    ctx.locale("cmd.join.joined", {
+                        channelId: joinedChannelId,
+                    }),
+                ),
+            ],
         });
     }
 }

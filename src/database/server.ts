@@ -194,7 +194,9 @@ export default class ServerData {
     public async getSongs(userId: string, name: string): Promise<Song[]> {
         const playlist = await this.getPlaylist(userId, name);
         if (playlist) {
-            return this.prisma.song.findMany({ where: { playlistId: playlist.id } });
+            return this.prisma.song.findMany({
+                where: { playlistId: playlist.id },
+            });
         }
         return [];
     }
@@ -202,7 +204,9 @@ export default class ServerData {
     public async clearPlaylist(userId: string, name: string): Promise<void> {
         const playlist = await this.getPlaylist(userId, name);
         if (playlist) {
-            await this.prisma.song.deleteMany({ where: { playlistId: playlist.id } });
+            await this.prisma.song.deleteMany({
+                where: { playlistId: playlist.id },
+            });
         }
     }
 

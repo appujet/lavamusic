@@ -56,7 +56,15 @@ export default class CreatePlaylist extends Command {
 
         await client.db.createPlaylist(ctx.author.id, name);
         return await ctx.sendMessage({
-            embeds: [embed.setDescription(ctx.locale("cmd.create.messages.playlist_created", { name })).setColor(this.client.color.green)],
+            embeds: [
+                embed
+                    .setDescription(
+                        ctx.locale("cmd.create.messages.playlist_created", {
+                            name,
+                        }),
+                    )
+                    .setColor(this.client.color.green),
+            ],
         });
     }
 }

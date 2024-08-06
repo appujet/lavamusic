@@ -34,7 +34,10 @@ export default class Ping extends Command {
         const msg = await ctx.sendDeferMessage(ctx.locale("cmd.ping.content"));
         const embed = this.client
             .embed()
-            .setAuthor({ name: "Pong", iconURL: this.client.user.displayAvatarURL() })
+            .setAuthor({
+                name: "Pong",
+                iconURL: this.client.user.displayAvatarURL(),
+            })
             .setColor(this.client.color.main)
             .addFields([
                 {
@@ -49,7 +52,9 @@ export default class Ping extends Command {
                 },
             ])
             .setFooter({
-                text: ctx.locale("cmd.ping.requested_by", { author: ctx.author.tag }),
+                text: ctx.locale("cmd.ping.requested_by", {
+                    author: ctx.author.tag,
+                }),
                 iconURL: ctx.author.avatarURL({}),
             })
             .setTimestamp();

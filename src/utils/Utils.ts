@@ -117,14 +117,23 @@ export class Utils {
         const msgOptions = getButton(0);
         const msg = ctx.isInteraction
             ? await (ctx.deferred
-                  ? ctx.interaction.followUp({ ...msgOptions, fetchReply: true as boolean })
+                  ? ctx.interaction.followUp({
+                        ...msgOptions,
+                        fetchReply: true as boolean,
+                    })
                   : ctx.interaction.reply({ ...msgOptions, fetchReply: true }))
-            : await (ctx.channel as TextChannel).send({ ...msgOptions, fetchReply: true });
+            : await (ctx.channel as TextChannel).send({
+                  ...msgOptions,
+                  fetchReply: true,
+              });
 
         const author = ctx instanceof CommandInteraction ? ctx.user : ctx.author;
 
         const filter = (int: any): any => int.user.id === author.id;
-        const collector = msg.createMessageComponentCollector({ filter, time: 60000 });
+        const collector = msg.createMessageComponentCollector({
+            filter,
+            time: 60000,
+        });
 
         collector.on("collect", async (interaction) => {
             if (interaction.user.id === author.id) {
@@ -142,7 +151,10 @@ export class Utils {
                 }
                 await interaction.editReply(getButton(page));
             } else {
-                await interaction.reply({ content: ctx.locale("buttons.errors.not_author"), ephemeral: true });
+                await interaction.reply({
+                    content: ctx.locale("buttons.errors.not_author"),
+                    ephemeral: true,
+                });
             }
         });
 

@@ -105,7 +105,12 @@ export default class LoadPlaylist extends Command {
         // Filter playlists based on the focused value and respond
         const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
 
-        await interaction.respond(filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })));
+        await interaction.respond(
+            filtered.map((playlist) => ({
+                name: playlist.name,
+                value: playlist.name,
+            })),
+        );
     }
 }
 

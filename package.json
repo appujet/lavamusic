@@ -10,8 +10,8 @@
     "db:migrate": "npx prisma migrate dev --name init",
     "build": "tsc --project tsconfig.json",
     "clean": "node scripts/clean.js && npm run build",
-    "lint": "biome lint --write src/",
-    "format": "biome format --write src/"
+    "lint": "biome lint --write",
+    "format": "biome format --write"
   },
   "repository": {
     "type": "git",
@@ -38,11 +38,11 @@
     "@types/i18n": "^0.13.12",
     "@types/node": "^22.1.0",
     "@types/signale": "^1.4.7",
-    "prisma": "^5.17.0",
+    "prisma": "^5.18.0",
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@prisma/client": "^5.17.0",
+    "@prisma/client": "^5.18.0",
     "@top-gg/sdk": "^3.1.6",
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",

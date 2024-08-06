@@ -47,7 +47,9 @@ export default class TrackStart extends Event {
             .setColor(this.client.color.main)
             .setDescription(`**[${track.info.title}](${track.info.uri})**`)
             .setFooter({
-                text: T(locale, "player.trackStart.requested_by", { user: track.info.requester.tag }),
+                text: T(locale, "player.trackStart.requested_by", {
+                    user: track.info.requester.tag,
+                }),
                 iconURL: track.info.requester.avatarURL({}),
             })
             .setThumbnail(track.info.artworkUrl)
@@ -57,7 +59,11 @@ export default class TrackStart extends Event {
                     value: track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.length),
                     inline: true,
                 },
-                { name: T(locale, "player.trackStart.author"), value: track.info.author, inline: true },
+                {
+                    name: T(locale, "player.trackStart.author"),
+                    value: track.info.author,
+                    inline: true,
+                },
             )
             .setTimestamp();
 
@@ -136,7 +142,12 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
         const editMessage = async (text: string): Promise<void> => {
             if (message) {
                 await message.edit({
-                    embeds: [embed.setFooter({ text, iconURL: interaction.user.avatarURL({}) })],
+                    embeds: [
+                        embed.setFooter({
+                            text,
+                            iconURL: interaction.user.avatarURL({}),
+                        }),
+                    ],
                     components: [createButtonRow(dispatcher, client)],
                 });
             }
@@ -146,7 +157,11 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 if (dispatcher.previous) {
                     await interaction.deferUpdate();
                     dispatcher.previousTrack();
-                    await editMessage(T(locale, "player.trackStart.previous_by", { user: interaction.user.tag }));
+                    await editMessage(
+                        T(locale, "player.trackStart.previous_by", {
+                            user: interaction.user.tag,
+                        }),
+                    );
                 } else {
                     await interaction.reply({
                         content: T(locale, "player.trackStart.no_previous_song"),
@@ -159,8 +174,12 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 await interaction.deferUpdate();
                 await editMessage(
                     dispatcher.paused
-                        ? T(locale, "player.trackStart.paused_by", { user: interaction.user.tag })
-                        : T(locale, "player.trackStart.resumed_by", { user: interaction.user.tag }),
+                        ? T(locale, "player.trackStart.paused_by", {
+                              user: interaction.user.tag,
+                          })
+                        : T(locale, "player.trackStart.resumed_by", {
+                              user: interaction.user.tag,
+                          }),
                 );
                 break;
             case "stop":
@@ -171,7 +190,11 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 if (dispatcher.queue.length) {
                     await interaction.deferUpdate();
                     dispatcher.skip();
-                    await editMessage(T(locale, "player.trackStart.skipped_by", { user: interaction.user.tag }));
+                    await editMessage(
+                        T(locale, "player.trackStart.skipped_by", {
+                            user: interaction.user.tag,
+                        }),
+                    );
                 } else {
                     await interaction.reply({
                         content: T(locale, "player.trackStart.no_more_songs_in_queue"),
@@ -184,15 +207,27 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 switch (dispatcher.loop) {
                     case "off":
                         dispatcher.loop = "repeat";
-                        await editMessage(T(locale, "player.trackStart.looping_by", { user: interaction.user.tag }));
+                        await editMessage(
+                            T(locale, "player.trackStart.looping_by", {
+                                user: interaction.user.tag,
+                            }),
+                        );
                         break;
                     case "repeat":
                         dispatcher.loop = "queue";
-                        await editMessage(T(locale, "player.trackStart.looping_queue_by", { user: interaction.user.tag }));
+                        await editMessage(
+                            T(locale, "player.trackStart.looping_queue_by", {
+                                user: interaction.user.tag,
+                            }),
+                        );
                         break;
                     case "queue":
                         dispatcher.loop = "off";
-                        await editMessage(T(locale, "player.trackStart.looping_off_by", { user: interaction.user.tag }));
+                        await editMessage(
+                            T(locale, "player.trackStart.looping_off_by", {
+                                user: interaction.user.tag,
+                            }),
+                        );
                         break;
                 }
                 break;

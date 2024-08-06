@@ -50,7 +50,13 @@ export default class Skipto extends Command {
 
         player.skip(num);
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.skipto.messages.skipped_to", { number: num }))],
+            embeds: [
+                embed.setColor(this.client.color.main).setDescription(
+                    ctx.locale("cmd.skipto.messages.skipped_to", {
+                        number: num,
+                    }),
+                ),
+            ],
         });
     }
 }
