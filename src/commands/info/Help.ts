@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Help extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Help extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -37,10 +46,16 @@ export default class Help extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const embed = this.client.embed();
         const guild = await client.db.get(ctx.guild.id);
-        const commands = this.client.commands.filter((cmd) => cmd.category !== "dev");
+        const commands = this.client.commands.filter(
+            (cmd) => cmd.category !== "dev",
+        );
         const categories = [...new Set(commands.map((cmd) => cmd.category))];
 
         if (args[0]) {
@@ -48,9 +63,11 @@ export default class Help extends Command {
             if (!command) {
                 return await ctx.sendMessage({
                     embeds: [
-                        embed
-                            .setColor(this.client.color.red)
-                            .setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] })),
+                        embed.setColor(this.client.color.red).setDescription(
+                            ctx.locale("cmd.help.not_found", {
+                                cmdName: args[0],
+                            }),
+                        ),
                     ],
                 });
             }
@@ -64,20 +81,28 @@ export default class Help extends Command {
                         examples: command.description.examples
                             .map((example) => `${guild.prefix}${example}`)
                             .join(", "),
-                        aliases: command.aliases.map((alias) => `\`${alias}\``).join(", "),
+                        aliases: command.aliases
+                            .map((alias) => `\`${alias}\``)
+                            .join(", "),
                         category: command.category,
                         cooldown: command.cooldown,
                         premUser:
                             command.permissions.user.length > 0
-                                ? command.permissions.user.map((perm) => `\`${perm}\``).join(", ")
+                                ? command.permissions.user
+                                      .map((perm) => `\`${perm}\``)
+                                      .join(", ")
                                 : "None",
-                        premBot: command.permissions.client.map((perm) => `\`${perm}\``).join(", "),
+                        premBot: command.permissions.client
+                            .map((perm) => `\`${perm}\``)
+                            .join(", "),
                         dev: command.permissions.dev ? "Yes" : "No",
                         slash: command.slashCommand ? "Yes" : "No",
                         args: command.args ? "Yes" : "No",
                         player: command.player.active ? "Yes" : "No",
                         dj: command.player.dj ? "Yes" : "No",
-                        djPerm: command.player.djPerm ? command.player.djPerm : "None",
+                        djPerm: command.player.djPerm
+                            ? command.player.djPerm
+                            : "None",
                         voice: command.player.voice ? "Yes" : "No",
                     }),
                 );
@@ -97,9 +122,14 @@ export default class Help extends Command {
             .setColor(client.color.main)
             .setTitle(ctx.locale("cmd.help.title"))
             .setDescription(
-                ctx.locale("cmd.help.content", { bot: client.user.username, prefix: guild.prefix }),
+                ctx.locale("cmd.help.content", {
+                    bot: client.user.username,
+                    prefix: guild.prefix,
+                }),
             )
-            .setFooter({ text: ctx.locale("cmd.help.footer", { prefix: guild.prefix }) })
+            .setFooter({
+                text: ctx.locale("cmd.help.footer", { prefix: guild.prefix }),
+            })
             .addFields(...fields);
 
         return await ctx.sendMessage({ embeds: [helpEmbed] });

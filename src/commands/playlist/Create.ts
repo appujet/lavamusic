@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class CreatePlaylist extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class CreatePlaylist extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -37,7 +46,11 @@ export default class CreatePlaylist extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const name = args.join(" ").trim();
         const embed = this.client.embed();
 
@@ -45,7 +58,9 @@ export default class CreatePlaylist extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     embed
-                        .setDescription(ctx.locale("cmd.create.messages.name_too_long"))
+                        .setDescription(
+                            ctx.locale("cmd.create.messages.name_too_long"),
+                        )
                         .setColor(this.client.color.red),
                 ],
             });
@@ -56,7 +71,9 @@ export default class CreatePlaylist extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     embed
-                        .setDescription(ctx.locale("cmd.create.messages.playlist_exists"))
+                        .setDescription(
+                            ctx.locale("cmd.create.messages.playlist_exists"),
+                        )
                         .setColor(this.client.color.red),
                 ],
             });
@@ -66,7 +83,11 @@ export default class CreatePlaylist extends Command {
         return await ctx.sendMessage({
             embeds: [
                 embed
-                    .setDescription(ctx.locale("cmd.create.messages.playlist_created", { name }))
+                    .setDescription(
+                        ctx.locale("cmd.create.messages.playlist_created", {
+                            name,
+                        }),
+                    )
                     .setColor(this.client.color.green),
             ],
         });

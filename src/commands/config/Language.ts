@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 import { Language, LocaleFlags } from "../../types.js";
 
 export default class LanguageCommand extends Command {
@@ -23,7 +27,12 @@ export default class LanguageCommand extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: ["ManageGuild"],
             },
             slashCommand: true,
@@ -51,7 +60,11 @@ export default class LanguageCommand extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         let subCommand: string;
 
         if (ctx.isInteraction) {
@@ -67,7 +80,8 @@ export default class LanguageCommand extends Command {
             let lang: string;
 
             if (ctx.isInteraction) {
-                lang = ctx.interaction.options.data[0].options[0].value as string;
+                lang = ctx.interaction.options.data[0].options[0]
+                    .value as string;
             } else {
                 lang = args[0];
             }
@@ -80,7 +94,10 @@ export default class LanguageCommand extends Command {
                             return (
                                 acc +
                                 curr +
-                                (index === Object.entries(LocaleFlags).length - 1 ? "" : " ")
+                                (index ===
+                                Object.entries(LocaleFlags).length - 1
+                                    ? ""
+                                    : " ")
                             );
                         }
                         return `${acc + curr}\n`;
@@ -100,7 +117,9 @@ export default class LanguageCommand extends Command {
                 return ctx.sendMessage({
                     embeds: [
                         embed.setDescription(
-                            ctx.locale("cmd.language.already_set", { language: lang }),
+                            ctx.locale("cmd.language.already_set", {
+                                language: lang,
+                            }),
                         ),
                     ],
                 });
@@ -110,7 +129,11 @@ export default class LanguageCommand extends Command {
             ctx.guildLocale = lang;
 
             return ctx.sendMessage({
-                embeds: [embed.setDescription(ctx.locale("cmd.language.set", { language: lang }))],
+                embeds: [
+                    embed.setDescription(
+                        ctx.locale("cmd.language.set", { language: lang }),
+                    ),
+                ],
             });
         }
         if (subCommand === "reset") {
@@ -120,7 +143,11 @@ export default class LanguageCommand extends Command {
 
             if (!locale) {
                 return ctx.sendMessage({
-                    embeds: [embed.setDescription(ctx.locale("cmd.language.not_set"))],
+                    embeds: [
+                        embed.setDescription(
+                            ctx.locale("cmd.language.not_set"),
+                        ),
+                    ],
                 });
             }
 
@@ -128,7 +155,9 @@ export default class LanguageCommand extends Command {
             ctx.guildLocale = Language.EnglishUS;
 
             return ctx.sendMessage({
-                embeds: [embed.setDescription(ctx.locale("cmd.language.reset"))],
+                embeds: [
+                    embed.setDescription(ctx.locale("cmd.language.reset")),
+                ],
             });
         }
     }

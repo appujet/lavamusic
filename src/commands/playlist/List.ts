@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class GetPlaylists extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class GetPlaylists extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -64,7 +73,9 @@ export default class GetPlaylists extends Command {
             if (!playlists || playlists.length === 0) {
                 const noPlaylistsMessage = this.client
                     .embed()
-                    .setDescription(ctx.locale("cmd.list.messages.no_playlists"))
+                    .setDescription(
+                        ctx.locale("cmd.list.messages.no_playlists"),
+                    )
                     .setColor(this.client.color.red);
                 return await ctx.sendMessage({ embeds: [noPlaylistsMessage] });
             }
@@ -75,9 +86,13 @@ export default class GetPlaylists extends Command {
             const successMessage = this.client
                 .embed()
                 .setTitle(
-                    ctx.locale("cmd.list.messages.playlists_title", { username: targetUsername }),
+                    ctx.locale("cmd.list.messages.playlists_title", {
+                        username: targetUsername,
+                    }),
                 )
-                .setDescription(playlists.map((playlist: any) => playlist.name).join("\n"))
+                .setDescription(
+                    playlists.map((playlist: any) => playlist.name).join("\n"),
+                )
                 .setColor(this.client.color.green);
             await ctx.sendMessage({ embeds: [successMessage] });
         } catch (error) {

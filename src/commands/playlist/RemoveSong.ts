@@ -1,5 +1,9 @@
 import { LoadType } from "shoukaku";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class RemoveSong extends Command {
     constructor(client: Lavamusic) {
@@ -23,7 +27,12 @@ export default class RemoveSong extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -45,14 +54,20 @@ export default class RemoveSong extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const playlist = args.shift();
         const song = args.join(" ");
 
         if (!playlist) {
             const errorMessage = this.client
                 .embed()
-                .setDescription(ctx.locale("cmd.removesong.messages.provide_playlist"))
+                .setDescription(
+                    ctx.locale("cmd.removesong.messages.provide_playlist"),
+                )
                 .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [errorMessage] });
         }
@@ -60,17 +75,24 @@ export default class RemoveSong extends Command {
         if (!song) {
             const errorMessage = this.client
                 .embed()
-                .setDescription(ctx.locale("cmd.removesong.messages.provide_song"))
+                .setDescription(
+                    ctx.locale("cmd.removesong.messages.provide_song"),
+                )
                 .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [errorMessage] });
         }
 
-        const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
+        const playlistData = await client.db.getPlaylist(
+            ctx.author.id,
+            playlist,
+        );
 
         if (!playlistData) {
             const playlistNotFoundError = this.client
                 .embed()
-                .setDescription(ctx.locale("cmd.removesong.messages.playlist_not_exist"))
+                .setDescription(
+                    ctx.locale("cmd.removesong.messages.playlist_not_exist"),
+                )
                 .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
         }
@@ -80,7 +102,9 @@ export default class RemoveSong extends Command {
         if (!res || res.loadType !== LoadType.TRACK) {
             const noSongsFoundError = this.client
                 .embed()
-                .setDescription(ctx.locale("cmd.removesong.messages.song_not_found"))
+                .setDescription(
+                    ctx.locale("cmd.removesong.messages.song_not_found"),
+                )
                 .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [noSongsFoundError] });
         }
@@ -88,7 +112,11 @@ export default class RemoveSong extends Command {
         const trackToRemove = res.data;
 
         try {
-            await client.db.removeSong(ctx.author.id, playlist, trackToRemove.encoded);
+            await client.db.removeSong(
+                ctx.author.id,
+                playlist,
+                trackToRemove.encoded,
+            );
 
             const successMessage = this.client
                 .embed()
@@ -104,7 +132,9 @@ export default class RemoveSong extends Command {
             console.error(error);
             const genericError = this.client
                 .embed()
-                .setDescription(ctx.locale("cmd.removesong.messages.error_occurred"))
+                .setDescription(
+                    ctx.locale("cmd.removesong.messages.error_occurred"),
+                )
                 .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [genericError] });
         }
@@ -123,7 +153,10 @@ export default class RemoveSong extends Command {
         );
 
         await interaction.respond(
-            filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })),
+            filtered.map((playlist) => ({
+                name: playlist.name,
+                value: playlist.name,
+            })),
         );
     }
 }

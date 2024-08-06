@@ -1,7 +1,8 @@
 import "dotenv/config";
 import { SearchEngine } from "./types.js";
 
-const parseBoolean = (value?: string): boolean => value?.trim().toLowerCase() === "true";
+const parseBoolean = (value?: string): boolean =>
+    value?.trim().toLowerCase() === "true";
 
 export default {
     token: process.env.TOKEN,

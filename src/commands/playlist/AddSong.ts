@@ -1,5 +1,9 @@
 import { LoadType } from "shoukaku";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class AddSong extends Command {
     constructor(client: Lavamusic) {
@@ -23,7 +27,12 @@ export default class AddSong extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -45,7 +54,11 @@ export default class AddSong extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const playlist = args.shift();
         const song = args.join(" ");
 
@@ -65,12 +78,17 @@ export default class AddSong extends Command {
             return await ctx.sendMessage({ embeds: [errorMessage] });
         }
 
-        const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
+        const playlistData = await client.db.getPlaylist(
+            ctx.author.id,
+            playlist,
+        );
 
         if (!playlistData) {
             const playlistNotFoundError = this.client
                 .embed()
-                .setDescription(ctx.locale("cmd.addsong.messages.playlist_not_found"))
+                .setDescription(
+                    ctx.locale("cmd.addsong.messages.playlist_not_found"),
+                )
                 .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
         }
@@ -79,7 +97,9 @@ export default class AddSong extends Command {
         if (!res) {
             const noSongsFoundError = this.client
                 .embed()
-                .setDescription(ctx.locale("cmd.addsong.messages.no_songs_found"))
+                .setDescription(
+                    ctx.locale("cmd.addsong.messages.no_songs_found"),
+                )
                 .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [noSongsFoundError] });
         }
@@ -99,7 +119,10 @@ export default class AddSong extends Command {
         const successMessage = this.client
             .embed()
             .setDescription(
-                ctx.locale("cmd.addsong.messages.added", { count, playlist: playlistData.name }),
+                ctx.locale("cmd.addsong.messages.added", {
+                    count,
+                    playlist: playlistData.name,
+                }),
             )
             .setColor(this.client.color.green);
         await ctx.sendMessage({ embeds: [successMessage] });
@@ -119,7 +142,10 @@ export default class AddSong extends Command {
         );
 
         await interaction.respond(
-            filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })),
+            filtered.map((playlist) => ({
+                name: playlist.name,
+                value: playlist.name,
+            })),
         );
     }
 }

@@ -44,7 +44,10 @@ export class Queue extends Map<string, Dispatcher> {
                 player.destroy();
             }
             const node =
-                givenNode ?? this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
+                givenNode ??
+                this.client.shoukaku.options.nodeResolver(
+                    this.client.shoukaku.nodes,
+                );
             player = await this.client.shoukaku.joinVoiceChannel({
                 guildId: guild.id,
                 channelId: voice.id,
@@ -67,7 +70,9 @@ export class Queue extends Map<string, Dispatcher> {
     }
 
     public async search(query: string): Promise<LavalinkResponse | null> {
-        const node = this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
+        const node = this.client.shoukaku.options.nodeResolver(
+            this.client.shoukaku.nodes,
+        );
         const searchQuery = /^https?:\/\//.test(query)
             ? query
             : `${this.client.config.searchEngine}:${query}`;

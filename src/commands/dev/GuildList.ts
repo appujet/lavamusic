@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class GuildList extends Command {
     constructor(client: Lavamusic) {
@@ -21,7 +25,12 @@ export default class GuildList extends Command {
             },
             permissions: {
                 dev: true,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: false,
@@ -30,7 +39,9 @@ export default class GuildList extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const guilds = client.guilds.cache.map((guild) => `- **${guild.name}** - (${guild.id})`);
+        const guilds = client.guilds.cache.map(
+            (guild) => `- **${guild.name}** - (${guild.id})`,
+        );
         const chunks = client.utils.chunk(guilds, 10) || [[]];
         const pages = chunks.map((chunk, index) => {
             return this.client

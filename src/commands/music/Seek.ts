@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Seek extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Seek extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -37,7 +46,11 @@ export default class Seek extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const player = client.queue.get(ctx.guild!.id);
         const current = player.current.info;
         const embed = this.client.embed();
@@ -47,7 +60,9 @@ export default class Seek extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(ctx.locale("cmd.seek.errors.invalid_format")),
+                        .setDescription(
+                            ctx.locale("cmd.seek.errors.invalid_format"),
+                        ),
                 ],
             });
         }
@@ -56,7 +71,9 @@ export default class Seek extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(ctx.locale("cmd.seek.errors.not_seekable")),
+                        .setDescription(
+                            ctx.locale("cmd.seek.errors.not_seekable"),
+                        ),
                 ],
             });
         }

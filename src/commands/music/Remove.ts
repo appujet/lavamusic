@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Remove extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Remove extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -37,7 +46,11 @@ export default class Remove extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
 
@@ -46,26 +59,36 @@ export default class Remove extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(ctx.locale("cmd.remove.errors.no_songs")),
+                        .setDescription(
+                            ctx.locale("cmd.remove.errors.no_songs"),
+                        ),
                 ],
             });
 
         const songNumber = Number(args[0]);
-        if (isNaN(songNumber) || songNumber <= 0 || songNumber > player.queue.length)
+        if (
+            isNaN(songNumber) ||
+            songNumber <= 0 ||
+            songNumber > player.queue.length
+        )
             return await ctx.sendMessage({
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(ctx.locale("cmd.remove.errors.invalid_number")),
+                        .setDescription(
+                            ctx.locale("cmd.remove.errors.invalid_number"),
+                        ),
                 ],
             });
 
         player.remove(songNumber - 1);
         return await ctx.sendMessage({
             embeds: [
-                embed
-                    .setColor(this.client.color.main)
-                    .setDescription(ctx.locale("cmd.remove.messages.removed", { songNumber })),
+                embed.setColor(this.client.color.main).setDescription(
+                    ctx.locale("cmd.remove.messages.removed", {
+                        songNumber,
+                    }),
+                ),
             ],
         });
     }

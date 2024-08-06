@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Replay extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Replay extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -39,7 +48,9 @@ export default class Replay extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(ctx.locale("cmd.replay.errors.not_seekable")),
+                        .setDescription(
+                            ctx.locale("cmd.replay.errors.not_seekable"),
+                        ),
                 ],
             });
         }
@@ -49,7 +60,9 @@ export default class Replay extends Command {
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(ctx.locale("cmd.replay.messages.replaying")),
+                    .setDescription(
+                        ctx.locale("cmd.replay.messages.replaying"),
+                    ),
             ],
         });
     }

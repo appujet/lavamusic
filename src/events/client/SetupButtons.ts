@@ -15,7 +15,8 @@ export default class SetupButtons extends Event {
     public async run(interaction: any): Promise<void> {
         const locale = await this.client.db.getLanguage(interaction.guildId);
 
-        if (!interaction.replied) await interaction.deferReply().catch(() => {});
+        if (!interaction.replied)
+            await interaction.deferReply().catch(() => {});
         if (!interaction.member.voice.channel) {
             return await buttonReply(
                 interaction,
@@ -23,7 +24,9 @@ export default class SetupButtons extends Event {
                 this.client.color.red,
             );
         }
-        const clientMember = interaction.guild.members.cache.get(this.client.user.id);
+        const clientMember = interaction.guild.members.cache.get(
+            this.client.user.id,
+        );
         if (
             clientMember.voice.channel &&
             clientMember.voice.channelId !== interaction.member.voice.channelId
@@ -56,11 +59,20 @@ export default class SetupButtons extends Event {
                 this.client.color.red,
             );
         const data = await this.client.db.getSetup(interaction.guildId);
-        const { title, uri, length, artworkUrl, sourceName, isStream, requester } =
-            player.current.info;
+        const {
+            title,
+            uri,
+            length,
+            artworkUrl,
+            sourceName,
+            isStream,
+            requester,
+        } = player.current.info;
         let message: Message;
         try {
-            message = await interaction.channel.messages.fetch(data.messageId, { cache: true });
+            message = await interaction.channel.messages.fetch(data.messageId, {
+                cache: true,
+            });
         } catch (_e) {
             /* empty */
         }
@@ -70,12 +82,18 @@ export default class SetupButtons extends Event {
             this.client.user.displayAvatarURL({ extension: "png" });
         const embed = this.client
             .embed()
-            .setAuthor({ name: T(locale, "event.setupButton.now_playing"), iconURL: iconUrl })
+            .setAuthor({
+                name: T(locale, "event.setupButton.now_playing"),
+                iconURL: iconUrl,
+            })
             .setColor(this.client.color.main)
             .setDescription(
                 `[${title}](${uri}) - ${isStream ? T(locale, "event.setupButton.live") : this.client.utils.formatTime(length)} - ${T(locale, "event.setupButton.requested_by", { requester })}`,
             )
-            .setImage(artworkUrl || this.client.user.displayAvatarURL({ extension: "png" }));
+            .setImage(
+                artworkUrl ||
+                    this.client.user.displayAvatarURL({ extension: "png" }),
+            );
 
         if (!interaction.isButton()) return;
         if (!(await checkDj(this.client, interaction))) {
@@ -126,11 +144,18 @@ export default class SetupButtons extends Event {
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: T(locale, "event.setupButton.pause_resume_footer", {
-                                    name,
-                                    displayName: interaction.member.displayName,
-                                }),
-                                iconURL: interaction.member.displayAvatarURL({}),
+                                text: T(
+                                    locale,
+                                    "event.setupButton.pause_resume_footer",
+                                    {
+                                        name,
+                                        displayName:
+                                            interaction.member.displayName,
+                                    },
+                                ),
+                                iconURL: interaction.member.displayAvatarURL(
+                                    {},
+                                ),
                             }),
                         ],
                         components: getButtons(player, this.client),
@@ -154,10 +179,17 @@ export default class SetupButtons extends Event {
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: T(locale, "event.setupButton.skipped_footer", {
-                                    displayName: interaction.member.displayName,
-                                }),
-                                iconURL: interaction.member.displayAvatarURL({}),
+                                text: T(
+                                    locale,
+                                    "event.setupButton.skipped_footer",
+                                    {
+                                        displayName:
+                                            interaction.member.displayName,
+                                    },
+                                ),
+                                iconURL: interaction.member.displayAvatarURL(
+                                    {},
+                                ),
                             }),
                         ],
                     });
@@ -173,12 +205,23 @@ export default class SetupButtons extends Event {
                         embeds: [
                             embed
                                 .setFooter({
-                                    text: T(locale, "event.setupButton.stopped_footer", {
-                                        displayName: interaction.member.displayName,
-                                    }),
-                                    iconURL: interaction.member.displayAvatarURL({}),
+                                    text: T(
+                                        locale,
+                                        "event.setupButton.stopped_footer",
+                                        {
+                                            displayName:
+                                                interaction.member.displayName,
+                                        },
+                                    ),
+                                    iconURL:
+                                        interaction.member.displayAvatarURL({}),
                                 })
-                                .setDescription(T(locale, "event.setupButton.nothing_playing"))
+                                .setDescription(
+                                    T(
+                                        locale,
+                                        "event.setupButton.nothing_playing",
+                                    ),
+                                )
                                 .setImage(this.client.config.links.img)
                                 .setAuthor({
                                     name: this.client.user.username,
@@ -196,21 +239,33 @@ export default class SetupButtons extends Event {
                         "repeat",
                     ];
                     const newLoop =
-                        loopOptions[(loopOptions.indexOf(player.loop) + 1) % loopOptions.length];
+                        loopOptions[
+                            (loopOptions.indexOf(player.loop) + 1) %
+                                loopOptions.length
+                        ];
                     player.setLoop(newLoop);
                     await buttonReply(
                         interaction,
-                        T(locale, "event.setupButton.loop_set", { loop: newLoop }),
+                        T(locale, "event.setupButton.loop_set", {
+                            loop: newLoop,
+                        }),
                         this.client.color.main,
                     );
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: T(locale, "event.setupButton.loop_footer", {
-                                    loop: newLoop,
-                                    displayName: interaction.member.displayName,
-                                }),
-                                iconURL: interaction.member.displayAvatarURL({}),
+                                text: T(
+                                    locale,
+                                    "event.setupButton.loop_footer",
+                                    {
+                                        loop: newLoop,
+                                        displayName:
+                                            interaction.member.displayName,
+                                    },
+                                ),
+                                iconURL: interaction.member.displayAvatarURL(
+                                    {},
+                                ),
                             }),
                         ],
                     });
@@ -241,10 +296,17 @@ export default class SetupButtons extends Event {
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: T(locale, "event.setupButton.previous_footer", {
-                                    displayName: interaction.member.displayName,
-                                }),
-                                iconURL: interaction.member.displayAvatarURL({}),
+                                text: T(
+                                    locale,
+                                    "event.setupButton.previous_footer",
+                                    {
+                                        displayName:
+                                            interaction.member.displayName,
+                                    },
+                                ),
+                                iconURL: interaction.member.displayAvatarURL(
+                                    {},
+                                ),
                             }),
                         ],
                     });
@@ -267,10 +329,17 @@ export default class SetupButtons extends Event {
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: T(locale, "event.setupButton.rewind_footer", {
-                                    displayName: interaction.member.displayName,
-                                }),
-                                iconURL: interaction.member.displayAvatarURL({}),
+                                text: T(
+                                    locale,
+                                    "event.setupButton.rewind_footer",
+                                    {
+                                        displayName:
+                                            interaction.member.displayName,
+                                    },
+                                ),
+                                iconURL: interaction.member.displayAvatarURL(
+                                    {},
+                                ),
                             }),
                         ],
                     });
@@ -294,10 +363,17 @@ export default class SetupButtons extends Event {
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: T(locale, "event.setupButton.forward_footer", {
-                                    displayName: interaction.member.displayName,
-                                }),
-                                iconURL: interaction.member.displayAvatarURL({}),
+                                text: T(
+                                    locale,
+                                    "event.setupButton.forward_footer",
+                                    {
+                                        displayName:
+                                            interaction.member.displayName,
+                                    },
+                                ),
+                                iconURL: interaction.member.displayAvatarURL(
+                                    {},
+                                ),
                             }),
                         ],
                     });

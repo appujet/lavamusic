@@ -1,7 +1,11 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { LoadType } from "shoukaku";
 import type { Song } from "../../structures/Dispatcher.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Search extends Command {
     constructor(client: Lavamusic) {
@@ -25,7 +29,12 @@ export default class Search extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -40,7 +49,11 @@ export default class Search extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const embed = this.client.embed().setColor(this.client.color.main);
         let player = client.queue.get(ctx.guild!.id);
         const query = args.join(" ");
@@ -58,17 +71,34 @@ export default class Search extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     embed
-                        .setDescription(ctx.locale("cmd.search.errors.no_results"))
+                        .setDescription(
+                            ctx.locale("cmd.search.errors.no_results"),
+                        )
                         .setColor(this.client.color.red),
                 ],
             });
         }
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-            new ButtonBuilder().setCustomId("1").setLabel("1").setStyle(ButtonStyle.Primary),
-            new ButtonBuilder().setCustomId("2").setLabel("2").setStyle(ButtonStyle.Primary),
-            new ButtonBuilder().setCustomId("3").setLabel("3").setStyle(ButtonStyle.Primary),
-            new ButtonBuilder().setCustomId("4").setLabel("4").setStyle(ButtonStyle.Primary),
-            new ButtonBuilder().setCustomId("5").setLabel("5").setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
+                .setCustomId("1")
+                .setLabel("1")
+                .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
+                .setCustomId("2")
+                .setLabel("2")
+                .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
+                .setCustomId("3")
+                .setLabel("3")
+                .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
+                .setCustomId("4")
+                .setLabel("4")
+                .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
+                .setCustomId("5")
+                .setLabel("5")
+                .setStyle(ButtonStyle.Primary),
         );
         switch (res.loadType) {
             case LoadType.ERROR:
@@ -76,7 +106,9 @@ export default class Search extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.red)
-                            .setDescription(ctx.locale("cmd.search.errors.search_error")),
+                            .setDescription(
+                                ctx.locale("cmd.search.errors.search_error"),
+                            ),
                     ],
                 });
                 break;
@@ -85,7 +117,9 @@ export default class Search extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.red)
-                            .setDescription(ctx.locale("cmd.search.errors.no_results")),
+                            .setDescription(
+                                ctx.locale("cmd.search.errors.no_results"),
+                            ),
                     ],
                 });
                 break;

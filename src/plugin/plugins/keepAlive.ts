@@ -10,7 +10,9 @@ const keepAlive: BotPlugin = {
         if (client.config.keepAlive) {
             const server = http.createServer((_req, res) => {
                 res.writeHead(200, { "Content-Type": "text/plain" });
-                res.end(`I'm alive! Currently serving ${client.guilds.cache.size} guilds.`);
+                res.end(
+                    `I'm alive! Currently serving ${client.guilds.cache.size} guilds.`,
+                );
             });
             server.listen(3000, () => {
                 client.logger.info("Keep-Alive server is running on port 3000");

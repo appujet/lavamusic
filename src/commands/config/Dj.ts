@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Dj extends Command {
     constructor(client: Lavamusic) {
@@ -6,7 +10,12 @@ export default class Dj extends Command {
             name: "dj",
             description: {
                 content: "cmd.dj.description",
-                examples: ["dj add @role", "dj remove @role", "dj clear", "dj toggle"],
+                examples: [
+                    "dj add @role",
+                    "dj remove @role",
+                    "dj clear",
+                    "dj toggle",
+                ],
                 usage: "dj",
             },
             category: "general",
@@ -22,7 +31,12 @@ export default class Dj extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: ["ManageGuild"],
             },
             slashCommand: true,
@@ -67,7 +81,11 @@ export default class Dj extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const embed = this.client.embed().setColor(this.client.color.main);
         const dj = await client.db.getDj(ctx.guild!.id);
         let subCommand: string;
@@ -80,14 +98,20 @@ export default class Dj extends Command {
             }
         } else {
             subCommand = args[0];
-            role = ctx.message.mentions.roles.first() || ctx.guild.roles.cache.get(args[1]);
+            role =
+                ctx.message.mentions.roles.first() ||
+                ctx.guild.roles.cache.get(args[1]);
         }
 
         switch (subCommand) {
             case "add":
                 if (!role) {
                     return ctx.sendMessage({
-                        embeds: [embed.setDescription(ctx.locale("cmd.dj.errors.provide_role"))],
+                        embeds: [
+                            embed.setDescription(
+                                ctx.locale("cmd.dj.errors.provide_role"),
+                            ),
+                        ],
                     });
                 }
                 if (
@@ -98,7 +122,9 @@ export default class Dj extends Command {
                     return ctx.sendMessage({
                         embeds: [
                             embed.setDescription(
-                                ctx.locale("cmd.dj.messages.role_exists", { roleId: role.id }),
+                                ctx.locale("cmd.dj.messages.role_exists", {
+                                    roleId: role.id,
+                                }),
                             ),
                         ],
                     });
@@ -108,7 +134,9 @@ export default class Dj extends Command {
                 return ctx.sendMessage({
                     embeds: [
                         embed.setDescription(
-                            ctx.locale("cmd.dj.messages.role_added", { roleId: role.id }),
+                            ctx.locale("cmd.dj.messages.role_added", {
+                                roleId: role.id,
+                            }),
                         ),
                     ],
                 });
@@ -116,7 +144,11 @@ export default class Dj extends Command {
             case "remove":
                 if (!role) {
                     return ctx.sendMessage({
-                        embeds: [embed.setDescription(ctx.locale("cmd.dj.errors.provide_role"))],
+                        embeds: [
+                            embed.setDescription(
+                                ctx.locale("cmd.dj.errors.provide_role"),
+                            ),
+                        ],
                     });
                 }
                 if (
@@ -127,7 +159,9 @@ export default class Dj extends Command {
                     return ctx.sendMessage({
                         embeds: [
                             embed.setDescription(
-                                ctx.locale("cmd.dj.messages.role_not_found", { roleId: role.id }),
+                                ctx.locale("cmd.dj.messages.role_not_found", {
+                                    roleId: role.id,
+                                }),
                             ),
                         ],
                     });
@@ -136,7 +170,9 @@ export default class Dj extends Command {
                 return ctx.sendMessage({
                     embeds: [
                         embed.setDescription(
-                            ctx.locale("cmd.dj.messages.role_removed", { roleId: role.id }),
+                            ctx.locale("cmd.dj.messages.role_removed", {
+                                roleId: role.id,
+                            }),
                         ),
                     ],
                 });
@@ -144,18 +180,30 @@ export default class Dj extends Command {
             case "clear":
                 if (!dj) {
                     return ctx.sendMessage({
-                        embeds: [embed.setDescription(ctx.locale("cmd.dj.errors.no_roles"))],
+                        embeds: [
+                            embed.setDescription(
+                                ctx.locale("cmd.dj.errors.no_roles"),
+                            ),
+                        ],
                     });
                 }
                 await client.db.clearRoles(ctx.guild!.id);
                 return ctx.sendMessage({
-                    embeds: [embed.setDescription(ctx.locale("cmd.dj.messages.all_roles_cleared"))],
+                    embeds: [
+                        embed.setDescription(
+                            ctx.locale("cmd.dj.messages.all_roles_cleared"),
+                        ),
+                    ],
                 });
 
             case "toggle":
                 if (!dj) {
                     return ctx.sendMessage({
-                        embeds: [embed.setDescription(ctx.locale("cmd.dj.errors.no_roles"))],
+                        embeds: [
+                            embed.setDescription(
+                                ctx.locale("cmd.dj.errors.no_roles"),
+                            ),
+                        ],
                     });
                 }
                 await client.db.setDj(ctx.guild!.id, !dj.mode);
@@ -173,7 +221,9 @@ export default class Dj extends Command {
                 return ctx.sendMessage({
                     embeds: [
                         embed
-                            .setDescription(ctx.locale("cmd.dj.errors.invalid_subcommand"))
+                            .setDescription(
+                                ctx.locale("cmd.dj.errors.invalid_subcommand"),
+                            )
                             .addFields({
                                 name: ctx.locale("cmd.dj.subcommands"),
                                 value: "`add`, `remove`, `clear`, `toggle`",

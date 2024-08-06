@@ -1,5 +1,9 @@
 import type { GuildMember } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class _247 extends Command {
     constructor(client: Lavamusic) {
@@ -23,7 +27,12 @@ export default class _247 extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: ["ManageGuild"],
             },
             slashCommand: true,
@@ -41,7 +50,9 @@ export default class _247 extends Command {
                 return await ctx.sendMessage({
                     embeds: [
                         embed
-                            .setDescription(ctx.locale("cmd.247.errors.not_in_voice"))
+                            .setDescription(
+                                ctx.locale("cmd.247.errors.not_in_voice"),
+                            )
                             .setColor(client.color.red),
                     ],
                 });
@@ -51,12 +62,18 @@ export default class _247 extends Command {
                 return await ctx.sendMessage({
                     embeds: [
                         embed
-                            .setDescription(ctx.locale("cmd.247.messages.disabled"))
+                            .setDescription(
+                                ctx.locale("cmd.247.messages.disabled"),
+                            )
                             .setColor(client.color.red),
                     ],
                 });
             }
-            await client.db.set_247(ctx.guild!.id, ctx.channel.id, member.voice.channel.id);
+            await client.db.set_247(
+                ctx.guild!.id,
+                ctx.channel.id,
+                member.voice.channel.id,
+            );
             if (!player) {
                 player = await client.queue.create(
                     ctx.guild,

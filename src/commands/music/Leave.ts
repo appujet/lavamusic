@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Leave extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Leave extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -35,13 +44,17 @@ export default class Leave extends Command {
         const embed = this.client.embed();
 
         if (player) {
-            const channelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
+            const channelId = player.node.manager.connections.get(
+                ctx.guild!.id,
+            )!.channelId;
             player.destroy();
             return await ctx.sendMessage({
                 embeds: [
                     embed
                         .setColor(this.client.color.main)
-                        .setDescription(ctx.locale("cmd.leave.left", { channelId })),
+                        .setDescription(
+                            ctx.locale("cmd.leave.left", { channelId }),
+                        ),
                 ],
             });
         }

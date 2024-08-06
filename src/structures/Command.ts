@@ -1,4 +1,7 @@
-import type { APIApplicationCommandOption, PermissionResolvable } from "discord.js";
+import type {
+    APIApplicationCommandOption,
+    PermissionResolvable,
+} from "discord.js";
 import type Lavamusic from "./Lavamusic.js";
 
 interface CommandDescription {
@@ -61,7 +64,8 @@ export default class Command {
             usage: options.description?.usage ?? "No usage provided",
             examples: options.description?.examples ?? ["No examples provided"],
         };
-        this.description_localizations = options.description_localizations ?? {};
+        this.description_localizations =
+            options.description_localizations ?? {};
         this.aliases = options.aliases ?? [];
         this.cooldown = options.cooldown ?? 3;
         this.args = options.args ?? false;
@@ -74,7 +78,11 @@ export default class Command {
         };
         this.permissions = {
             dev: options.permissions?.dev ?? false,
-            client: options.permissions?.client ?? ["SendMessages", "ViewChannel", "EmbedLinks"],
+            client: options.permissions?.client ?? [
+                "SendMessages",
+                "ViewChannel",
+                "EmbedLinks",
+            ],
             user: options.permissions?.user ?? [],
         };
         this.slashCommand = options.slashCommand ?? false;
@@ -82,7 +90,11 @@ export default class Command {
         this.category = options.category ?? "general";
     }
 
-    public async run(_client: Lavamusic, _message: any, _args: string[]): Promise<any> {
+    public async run(
+        _client: Lavamusic,
+        _message: any,
+        _args: string[],
+    ): Promise<any> {
         return await Promise.resolve();
     }
 }

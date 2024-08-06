@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class LoadPlaylist extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class LoadPlaylist extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -38,15 +47,24 @@ export default class LoadPlaylist extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         let player = client.queue.get(ctx.guild!.id);
         const playlistName = args.join(" ").trim();
-        const playlistData = await client.db.getPlaylist(ctx.author.id, playlistName);
+        const playlistData = await client.db.getPlaylist(
+            ctx.author.id,
+            playlistName,
+        );
         if (!playlistData) {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.load.messages.playlist_not_exist"),
+                        description: ctx.locale(
+                            "cmd.load.messages.playlist_not_exist",
+                        ),
                         color: this.client.color.red,
                     },
                 ],
@@ -58,7 +76,9 @@ export default class LoadPlaylist extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.load.messages.playlist_empty"),
+                        description: ctx.locale(
+                            "cmd.load.messages.playlist_empty",
+                        ),
                         color: client.color.red,
                     },
                 ],
@@ -87,10 +107,13 @@ export default class LoadPlaylist extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: ctx.locale("cmd.load.messages.playlist_loaded", {
-                        name: playlistData.name,
-                        count: songs.length,
-                    }),
+                    description: ctx.locale(
+                        "cmd.load.messages.playlist_loaded",
+                        {
+                            name: playlistData.name,
+                            count: songs.length,
+                        },
+                    ),
                     color: this.client.color.main,
                 },
             ],
@@ -111,7 +134,10 @@ export default class LoadPlaylist extends Command {
         );
 
         await interaction.respond(
-            filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })),
+            filtered.map((playlist) => ({
+                name: playlist.name,
+                value: playlist.name,
+            })),
         );
     }
 }

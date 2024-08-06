@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Rotation extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Rotation extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -34,11 +43,15 @@ export default class Rotation extends Command {
         const player = client.queue.get(ctx.guild!.id);
         if (player.filters.includes("rotation")) {
             player.player.setRotation();
-            player.filters = player.filters.filter((filter) => filter !== "rotation");
+            player.filters = player.filters.filter(
+                (filter) => filter !== "rotation",
+            );
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.rotation.messages.disabled"),
+                        description: ctx.locale(
+                            "cmd.rotation.messages.disabled",
+                        ),
                         color: this.client.color.main,
                     },
                 ],
@@ -49,7 +62,9 @@ export default class Rotation extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.rotation.messages.enabled"),
+                        description: ctx.locale(
+                            "cmd.rotation.messages.enabled",
+                        ),
                         color: this.client.color.main,
                     },
                 ],

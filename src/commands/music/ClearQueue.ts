@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class ClearQueue extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class ClearQueue extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -39,7 +48,9 @@ export default class ClearQueue extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(ctx.locale("cmd.player.errors.no_player")),
+                        .setDescription(
+                            ctx.locale("cmd.player.errors.no_player"),
+                        ),
                 ],
             });
         }
@@ -49,7 +60,9 @@ export default class ClearQueue extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(ctx.locale("cmd.player.errors.no_songs")),
+                        .setDescription(
+                            ctx.locale("cmd.player.errors.no_songs"),
+                        ),
                 ],
             });
         }
@@ -59,7 +72,9 @@ export default class ClearQueue extends Command {
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(ctx.locale("cmd.clearqueue.messages.cleared")),
+                    .setDescription(
+                        ctx.locale("cmd.clearqueue.messages.cleared"),
+                    ),
             ],
         });
     }

@@ -15,7 +15,11 @@ import {
 import type { Player } from "shoukaku";
 import type { Song } from "../../structures/Dispatcher.js";
 import { T } from "../../structures/I18n.js";
-import { type Dispatcher, Event, type Lavamusic } from "../../structures/index.js";
+import {
+    type Dispatcher,
+    Event,
+    type Lavamusic,
+} from "../../structures/index.js";
 import { trackStart } from "../../utils/SetupSystem.js";
 
 export default class TrackStart extends Event {
@@ -25,13 +29,19 @@ export default class TrackStart extends Event {
         });
     }
 
-    public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
+    public async run(
+        player: Player,
+        track: Song,
+        dispatcher: Dispatcher,
+    ): Promise<void> {
         if (!track?.info) return;
 
         const guild = this.client.guilds.cache.get(player.guildId);
         if (!guild) return;
 
-        const channel = guild.channels.cache.get(dispatcher.channelId) as TextChannel;
+        const channel = guild.channels.cache.get(
+            dispatcher.channelId,
+        ) as TextChannel;
         if (!channel) return;
 
         this.client.utils.updateStatus(this.client, guild.id);
@@ -74,11 +84,20 @@ export default class TrackStart extends Event {
         const setup = await this.client.db.getSetup(guild.id);
 
         if (setup?.textId) {
-            const textChannel = guild.channels.cache.get(setup.textId) as TextChannel;
+            const textChannel = guild.channels.cache.get(
+                setup.textId,
+            ) as TextChannel;
             const id = setup.messageId;
 
             if (textChannel) {
-                await trackStart(id, textChannel, dispatcher, track, this.client, locale);
+                await trackStart(
+                    id,
+                    textChannel,
+                    dispatcher,
+                    track,
+                    this.client,
+                    locale,
+                );
             }
         } else {
             const message = await channel.send({
@@ -87,7 +106,14 @@ export default class TrackStart extends Event {
             });
 
             dispatcher.nowPlayingMessage = message;
-            createCollector(message, dispatcher, track, embed, this.client, locale);
+            createCollector(
+                message,
+                dispatcher,
+                track,
+                embed,
+                this.client,
+                locale,
+            );
         }
     }
 }
@@ -106,7 +132,9 @@ function createButtonRow(
     const resumeButton = new ButtonBuilder()
         .setCustomId("resume")
         .setEmoji(dispatcher.paused ? client.emoji.resume : client.emoji.pause)
-        .setStyle(dispatcher.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
+        .setStyle(
+            dispatcher.paused ? ButtonStyle.Success : ButtonStyle.Secondary,
+        );
 
     const stopButton = new ButtonBuilder()
         .setCustomId("stop")
@@ -120,8 +148,16 @@ function createButtonRow(
 
     const loopButton = new ButtonBuilder()
         .setCustomId("loop")
-        .setEmoji(dispatcher.loop === "repeat" ? client.emoji.loop.track : client.emoji.loop.none)
-        .setStyle(dispatcher.loop !== "off" ? ButtonStyle.Success : ButtonStyle.Secondary);
+        .setEmoji(
+            dispatcher.loop === "repeat"
+                ? client.emoji.loop.track
+                : client.emoji.loop.none,
+        )
+        .setStyle(
+            dispatcher.loop !== "off"
+                ? ButtonStyle.Success
+                : ButtonStyle.Secondary,
+        );
 
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
         resumeButton,
@@ -144,13 +180,18 @@ function createCollector(
         filter: async (b: ButtonInteraction) => {
             if (b.member instanceof GuildMember) {
                 const isSameVoiceChannel =
-                    b.guild.members.me?.voice.channelId === b.member.voice.channelId;
+                    b.guild.members.me?.voice.channelId ===
+                    b.member.voice.channelId;
                 if (isSameVoiceChannel) return true;
             }
             await b.reply({
-                content: T(locale, "player.trackStart.not_connected_to_voice_channel", {
-                    channel: b.guild.members.me?.voice.channelId ?? "None",
-                }),
+                content: T(
+                    locale,
+                    "player.trackStart.not_connected_to_voice_channel",
+                    {
+                        channel: b.guild.members.me?.voice.channelId ?? "None",
+                    },
+                ),
                 ephemeral: true,
             });
             return false;
@@ -169,7 +210,12 @@ function createCollector(
         const editMessage = async (text: string): Promise<void> => {
             if (message) {
                 await message.edit({
-                    embeds: [embed.setFooter({ text, iconURL: interaction.user.avatarURL({}) })],
+                    embeds: [
+                        embed.setFooter({
+                            text,
+                            iconURL: interaction.user.avatarURL({}),
+                        }),
+                    ],
                     components: [createButtonRow(dispatcher, client)],
                 });
             }
@@ -180,11 +226,16 @@ function createCollector(
                     await interaction.deferUpdate();
                     dispatcher.previousTrack();
                     await editMessage(
-                        T(locale, "player.trackStart.previous_by", { user: interaction.user.tag }),
+                        T(locale, "player.trackStart.previous_by", {
+                            user: interaction.user.tag,
+                        }),
                     );
                 } else {
                     await interaction.reply({
-                        content: T(locale, "player.trackStart.no_previous_song"),
+                        content: T(
+                            locale,
+                            "player.trackStart.no_previous_song",
+                        ),
                         ephemeral: true,
                     });
                 }
@@ -194,8 +245,12 @@ function createCollector(
                 await interaction.deferUpdate();
                 await editMessage(
                     dispatcher.paused
-                        ? T(locale, "player.trackStart.paused_by", { user: interaction.user.tag })
-                        : T(locale, "player.trackStart.resumed_by", { user: interaction.user.tag }),
+                        ? T(locale, "player.trackStart.paused_by", {
+                              user: interaction.user.tag,
+                          })
+                        : T(locale, "player.trackStart.resumed_by", {
+                              user: interaction.user.tag,
+                          }),
                 );
                 break;
             case "stop":
@@ -207,11 +262,16 @@ function createCollector(
                     await interaction.deferUpdate();
                     dispatcher.skip();
                     await editMessage(
-                        T(locale, "player.trackStart.skipped_by", { user: interaction.user.tag }),
+                        T(locale, "player.trackStart.skipped_by", {
+                            user: interaction.user.tag,
+                        }),
                     );
                 } else {
                     await interaction.reply({
-                        content: T(locale, "player.trackStart.no_more_songs_in_queue"),
+                        content: T(
+                            locale,
+                            "player.trackStart.no_more_songs_in_queue",
+                        ),
                         ephemeral: true,
                     });
                 }
@@ -266,7 +326,14 @@ export async function checkDj(
         const hasDjRole = interaction.member.roles.cache.some((role) =>
             djRole.map((r) => r.roleId).includes(role.id),
         );
-        if (!(hasDjRole || interaction.member.permissions.has(PermissionFlagsBits.ManageGuild))) {
+        if (
+            !(
+                hasDjRole ||
+                interaction.member.permissions.has(
+                    PermissionFlagsBits.ManageGuild,
+                )
+            )
+        ) {
             return false;
         }
     }

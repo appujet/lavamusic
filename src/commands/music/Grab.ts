@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Grab extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Grab extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -39,7 +48,9 @@ export default class Grab extends Command {
                     this.client
                         .embed()
                         .setColor(this.client.color.red)
-                        .setDescription(ctx.locale("cmd.player.errors.no_song")),
+                        .setDescription(
+                            ctx.locale("cmd.player.errors.no_song"),
+                        ),
                 ],
             });
         }
@@ -50,7 +61,9 @@ export default class Grab extends Command {
             title: song.info.title,
             uri: song.info.uri,
             artworkUrl: song.info.artworkUrl,
-            length: song.info.isStream ? "LIVE" : client.utils.formatTime(song.info.length),
+            length: song.info.isStream
+                ? "LIVE"
+                : client.utils.formatTime(song.info.length),
             requester: song.info.requester,
         });
 

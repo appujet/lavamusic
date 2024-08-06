@@ -1,5 +1,9 @@
 import { ChannelType, OverwriteType, PermissionFlagsBits } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 import { getButtons } from "../../utils/Buttons.js";
 
 export default class Setup extends Command {
@@ -54,8 +58,14 @@ export default class Setup extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const subCommand = ctx.isInteraction ? ctx.interaction.options.data[0].name : args[0];
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
+        const subCommand = ctx.isInteraction
+            ? ctx.interaction.options.data[0].name
+            : args[0];
         const embed = client.embed().setColor(this.client.color.main);
         switch (subCommand) {
             case "create": {
@@ -64,7 +74,9 @@ export default class Setup extends Command {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: ctx.locale("cmd.setup.errors.channel_exists"),
+                                description: ctx.locale(
+                                    "cmd.setup.errors.channel_exists",
+                                ),
                                 color: client.color.red,
                             },
                         ],
@@ -104,16 +116,26 @@ export default class Setup extends Command {
                         : ctx.locale("player.setupStart.nothing_playing");
                 embed.setDescription(desc).setImage(image);
                 await textChannel
-                    .send({ embeds: [embed], components: getButtons(player, client) })
+                    .send({
+                        embeds: [embed],
+                        components: getButtons(player, client),
+                    })
                     .then((msg) => {
-                        client.db.setSetup(ctx.guild!.id, textChannel.id, msg.id);
+                        client.db.setSetup(
+                            ctx.guild!.id,
+                            textChannel.id,
+                            msg.id,
+                        );
                     });
                 await ctx.sendMessage({
                     embeds: [
                         {
-                            description: ctx.locale("cmd.setup.messages.channel_created", {
-                                channelId: textChannel.id,
-                            }),
+                            description: ctx.locale(
+                                "cmd.setup.messages.channel_created",
+                                {
+                                    channelId: textChannel.id,
+                                },
+                            ),
                             color: this.client.color.main,
                         },
                     ],
@@ -126,7 +148,9 @@ export default class Setup extends Command {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: ctx.locale("cmd.setup.errors.channel_not_exists"),
+                                description: ctx.locale(
+                                    "cmd.setup.errors.channel_not_exists",
+                                ),
                                 color: client.color.red,
                             },
                         ],
@@ -138,7 +162,9 @@ export default class Setup extends Command {
                 await ctx.sendMessage({
                     embeds: [
                         {
-                            description: ctx.locale("cmd.setup.messages.channel_deleted"),
+                            description: ctx.locale(
+                                "cmd.setup.messages.channel_deleted",
+                            ),
                             color: this.client.color.main,
                         },
                     ],
@@ -151,7 +177,9 @@ export default class Setup extends Command {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: ctx.locale("cmd.setup.errors.channel_not_exists"),
+                                description: ctx.locale(
+                                    "cmd.setup.errors.channel_not_exists",
+                                ),
                                 color: client.color.red,
                             },
                         ],
@@ -160,14 +188,18 @@ export default class Setup extends Command {
                 const channel = ctx.guild.channels.cache.get(data3.textId);
                 if (channel) {
                     embed.setDescription(
-                        ctx.locale("cmd.setup.messages.channel_info", { channelId: channel.id }),
+                        ctx.locale("cmd.setup.messages.channel_info", {
+                            channelId: channel.id,
+                        }),
                     );
                     await ctx.sendMessage({ embeds: [embed] });
                 } else {
                     await ctx.sendMessage({
                         embeds: [
                             {
-                                description: ctx.locale("cmd.setup.errors.channel_not_exists"),
+                                description: ctx.locale(
+                                    "cmd.setup.errors.channel_not_exists",
+                                ),
                                 color: client.color.red,
                             },
                         ],

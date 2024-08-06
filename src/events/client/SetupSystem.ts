@@ -15,7 +15,10 @@ export default class SetupSystem extends Event {
         const channel = message.channel as TextChannel;
         if (!(channel instanceof TextChannel)) return;
         if (!message.member?.voice.channel) {
-            await oops(channel, T(locale, "event.message.no_voice_channel_queue"));
+            await oops(
+                channel,
+                T(locale, "event.message.no_voice_channel_queue"),
+            );
             await message.delete().catch(() => {});
             return;
         }
@@ -27,7 +30,10 @@ export default class SetupSystem extends Event {
         if (
             !voiceChannel
                 .permissionsFor(clientUser)
-                .has(PermissionsBitField.Flags.Connect | PermissionsBitField.Flags.Speak)
+                .has(
+                    PermissionsBitField.Flags.Connect |
+                        PermissionsBitField.Flags.Speak,
+                )
         ) {
             await oops(
                 channel,
@@ -39,7 +45,10 @@ export default class SetupSystem extends Event {
             return;
         }
 
-        if (clientMember?.voice.channel && clientMember.voice.channelId !== voiceChannel.id) {
+        if (
+            clientMember?.voice.channel &&
+            clientMember.voice.channelId !== voiceChannel.id
+        ) {
             await oops(
                 channel,
                 T(locale, "event.message.different_voice_channel_queue", {
@@ -56,7 +65,9 @@ export default class SetupSystem extends Event {
                 message.guild,
                 voiceChannel,
                 message.channel,
-                this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes),
+                this.client.shoukaku.options.nodeResolver(
+                    this.client.shoukaku.nodes,
+                ),
             );
         }
 

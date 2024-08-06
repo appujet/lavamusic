@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Speed extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Speed extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -37,7 +46,11 @@ export default class Speed extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const player = client.queue.get(ctx.guild!.id);
         const speedString = args[0].replace(",", ".");
         const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(speedString);
@@ -47,7 +60,9 @@ export default class Speed extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.speed.messages.invalid_number"),
+                        description: ctx.locale(
+                            "cmd.speed.messages.invalid_number",
+                        ),
                         color: this.client.color.red,
                     },
                 ],
@@ -59,7 +74,9 @@ export default class Speed extends Command {
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: ctx.locale("cmd.speed.messages.set_speed", { speed }),
+                    description: ctx.locale("cmd.speed.messages.set_speed", {
+                        speed,
+                    }),
                     color: this.client.color.main,
                 },
             ],

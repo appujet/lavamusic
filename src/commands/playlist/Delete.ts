@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class DeletePlaylist extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class DeletePlaylist extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -38,16 +47,27 @@ export default class DeletePlaylist extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const playlistName = args.join(" ").trim();
         const embed = this.client.embed();
 
-        const playlistExists = await client.db.getPlaylist(ctx.author.id, playlistName);
+        const playlistExists = await client.db.getPlaylist(
+            ctx.author.id,
+            playlistName,
+        );
         if (!playlistExists) {
             return await ctx.sendMessage({
                 embeds: [
                     embed
-                        .setDescription(ctx.locale("cmd.delete.messages.playlist_not_found"))
+                        .setDescription(
+                            ctx.locale(
+                                "cmd.delete.messages.playlist_not_found",
+                            ),
+                        )
                         .setColor(this.client.color.red),
                 ],
             });
@@ -61,7 +81,9 @@ export default class DeletePlaylist extends Command {
             embeds: [
                 embed
                     .setDescription(
-                        ctx.locale("cmd.delete.messages.playlist_deleted", { playlistName }),
+                        ctx.locale("cmd.delete.messages.playlist_deleted", {
+                            playlistName,
+                        }),
                     )
                     .setColor(this.client.color.green),
             ],
@@ -82,7 +104,10 @@ export default class DeletePlaylist extends Command {
         );
 
         await interaction.respond(
-            filtered.map((playlist) => ({ name: playlist.name, value: playlist.name })),
+            filtered.map((playlist) => ({
+                name: playlist.name,
+                value: playlist.name,
+            })),
         );
     }
 }

@@ -77,15 +77,36 @@ export default class Dispatcher {
         this.history = [];
         this.player
             .on("start", () =>
-                this.client.shoukaku.emit("trackStart", this.player, this.current, this),
+                this.client.shoukaku.emit(
+                    "trackStart",
+                    this.player,
+                    this.current,
+                    this,
+                ),
             )
             .on("end", () => {
                 if (!this.queue.length) {
-                    this.client.shoukaku.emit("queueEnd", this.player, this.current, this);
+                    this.client.shoukaku.emit(
+                        "queueEnd",
+                        this.player,
+                        this.current,
+                        this,
+                    );
                 }
-                this.client.shoukaku.emit("trackEnd", this.player, this.current, this);
+                this.client.shoukaku.emit(
+                    "trackEnd",
+                    this.player,
+                    this.current,
+                    this,
+                );
             })
-            .on("stuck", () => this.client.shoukaku.emit("trackStuck", this.player, this.current))
+            .on("stuck", () =>
+                this.client.shoukaku.emit(
+                    "trackStuck",
+                    this.player,
+                    this.current,
+                ),
+            )
             .on("closed", (...args) =>
                 this.client.shoukaku.emit("socketClosed", this.player, ...args),
             );
@@ -197,7 +218,9 @@ export default class Dispatcher {
         if (!song?.info) return;
 
         try {
-            const node = this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
+            const node = this.client.shoukaku.options.nodeResolver(
+                this.client.shoukaku.nodes,
+            );
             if (!node) return;
             switch (song.info.sourceName) {
                 case "youtube": {
@@ -208,7 +231,9 @@ export default class Dispatcher {
                     break;
                 }
                 case "soundcloud":
-                    await node.rest.resolve(`${SearchEngine.SoundCloud}:${song.info.author}`);
+                    await node.rest.resolve(
+                        `${SearchEngine.SoundCloud}:${song.info.author}`,
+                    );
                     break;
                 case "spotify": {
                     // need lavaSrc plugin in lavalink
@@ -219,12 +244,16 @@ export default class Dispatcher {
                     if (data.loadType === LoadType.PLAYLIST) {
                         const tracks = data.data.tracks;
                         const trackUrl =
-                            tracks[Math.floor(Math.random() * tracks.length)]?.info?.uri;
+                            tracks[Math.floor(Math.random() * tracks.length)]
+                                ?.info?.uri;
                         if (!trackUrl) return;
                         const resolve = await node.rest.resolve(trackUrl);
                         if (!resolve) return;
                         if (resolve.loadType === LoadType.TRACK) {
-                            const song = new Song(resolve.data, this.client.user!);
+                            const song = new Song(
+                                resolve.data,
+                                this.client.user!,
+                            );
                             this.queue.push(song);
                             return this.isPlaying();
                         }
@@ -233,17 +262,23 @@ export default class Dispatcher {
                 }
                 // need jiosaavn plugin in lavalink (https://github.com/appujet/jiosaavn-plugin)
                 case "jiosaavn": {
-                    const data = await node.rest.resolve(`jsrec:${song.info.identifier}`);
+                    const data = await node.rest.resolve(
+                        `jsrec:${song.info.identifier}`,
+                    );
                     if (!data) return;
                     if (data.loadType === LoadType.PLAYLIST) {
                         const tracks = data.data.tracks;
                         const trackUrl =
-                            tracks[Math.floor(Math.random() * tracks.length)]?.info?.uri;
+                            tracks[Math.floor(Math.random() * tracks.length)]
+                                ?.info?.uri;
                         if (!trackUrl) return;
                         const resolve = await node.rest.resolve(trackUrl);
                         if (!resolve) return;
                         if (resolve.loadType === LoadType.TRACK) {
-                            const song = new Song(resolve.data, this.client.user!);
+                            const song = new Song(
+                                resolve.data,
+                                this.client.user!,
+                            );
                             this.queue.push(song);
                             return this.isPlaying();
                         }
@@ -295,8 +330,12 @@ export default class Dispatcher {
             );
             if (
                 !(
-                    this.queue.some((s) => s.encoded === potentialChoice.encoded) ||
-                    this.history.some((s) => s.encoded === potentialChoice.encoded)
+                    this.queue.some(
+                        (s) => s.encoded === potentialChoice.encoded,
+                    ) ||
+                    this.history.some(
+                        (s) => s.encoded === potentialChoice.encoded,
+                    )
                 )
             ) {
                 choosed = potentialChoice;

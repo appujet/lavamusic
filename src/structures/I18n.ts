@@ -30,7 +30,11 @@ export function initI18n() {
 
 export { i18n };
 
-export function T(locale: string, text: string | i18n.TranslateOptions, ...params: any) {
+export function T(
+    locale: string,
+    text: string | i18n.TranslateOptions,
+    ...params: any
+) {
     i18n.setLocale(locale);
     return i18n.__mf(text, ...params);
 }
@@ -43,7 +47,9 @@ export function localization(lan: any, name: any, desc: any) {
 }
 
 export function descriptionLocalization(name: any, text: any) {
-    return i18n.getLocales().map((locale) => localization(Locale[locale] || locale, name, text));
+    return i18n
+        .getLocales()
+        .map((locale) => localization(Locale[locale] || locale, name, text));
 }
 
 /**

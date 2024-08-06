@@ -10,7 +10,9 @@ export default class BotLog {
     ): void {
         if (!client?.channels.cache && client.config.logChannelId) return;
 
-        const channel = client.channels.cache.get(client.config.logChannelId) as TextChannel;
+        const channel = client.channels.cache.get(
+            client.config.logChannelId,
+        ) as TextChannel;
         if (!channel) return;
 
         const colors = {
@@ -21,7 +23,11 @@ export default class BotLog {
         } as const;
 
         const color = colors[type];
-        const embed = client.embed().setColor(color).setDescription(message).setTimestamp();
+        const embed = client
+            .embed()
+            .setColor(color)
+            .setDescription(message)
+            .setTimestamp();
 
         channel.send({ embeds: [embed] }).catch(() => {});
     }

@@ -8,7 +8,10 @@ export default class VoiceStateUpdate extends Event {
         });
     }
 
-    public async run(_oldState: VoiceState, newState: VoiceState): Promise<void> {
+    public async run(
+        _oldState: VoiceState,
+        newState: VoiceState,
+    ): Promise<void> {
         const guildId = newState.guild.id;
         if (!guildId) return;
 
@@ -24,7 +27,10 @@ export default class VoiceStateUpdate extends Event {
         const is247 = await this.client.db.get_247(guildId);
 
         if (
-            !(newState.guild.members.cache.get(this.client.user.id)?.voice.channelId || !is247) &&
+            !(
+                newState.guild.members.cache.get(this.client.user.id)?.voice
+                    .channelId || !is247
+            ) &&
             player
         ) {
             return player.destroy();
@@ -37,10 +43,17 @@ export default class VoiceStateUpdate extends Event {
             newState.guild.members.me.voice.suppress
         ) {
             if (
-                newState.guild.members.me.permissions.has(["Connect", "Speak"]) ||
-                newState.channel.permissionsFor(newState.guild.members.me).has("MuteMembers")
+                newState.guild.members.me.permissions.has([
+                    "Connect",
+                    "Speak",
+                ]) ||
+                newState.channel
+                    .permissionsFor(newState.guild.members.me)
+                    .has("MuteMembers")
             ) {
-                await newState.guild.members.me.voice.setSuppressed(false).catch(() => {});
+                await newState.guild.members.me.voice
+                    .setSuppressed(false)
+                    .catch(() => {});
             }
         }
 
@@ -54,18 +67,28 @@ export default class VoiceStateUpdate extends Event {
             await newState.setDeaf(true);
         }
 
-        if (newState.id === this.client.user.id && newState.serverMute && !player.paused) {
+        if (
+            newState.id === this.client.user.id &&
+            newState.serverMute &&
+            !player.paused
+        ) {
             player.pause();
-        } else if (newState.id === this.client.user.id && !newState.serverMute && player.paused) {
+        } else if (
+            newState.id === this.client.user.id &&
+            !newState.serverMute &&
+            player.paused
+        ) {
             player.pause();
         }
 
         if (
             vc.members instanceof Map &&
-            [...vc.members.values()].filter((x: GuildMember) => !x.user.bot).length <= 0
+            [...vc.members.values()].filter((x: GuildMember) => !x.user.bot)
+                .length <= 0
         ) {
             setTimeout(async () => {
-                const vcConnection = player.node.manager.connections.get(guildId);
+                const vcConnection =
+                    player.node.manager.connections.get(guildId);
                 if (!vcConnection?.channelId) return;
 
                 const playerVoiceChannel = newState.guild.channels.cache.get(
@@ -75,8 +98,9 @@ export default class VoiceStateUpdate extends Event {
                     player &&
                     playerVoiceChannel &&
                     playerVoiceChannel.members instanceof Map &&
-                    [...playerVoiceChannel.members.values()].filter((x: GuildMember) => !x.user.bot)
-                        .length <= 0
+                    [...playerVoiceChannel.members.values()].filter(
+                        (x: GuildMember) => !x.user.bot,
+                    ).length <= 0
                 ) {
                     if (!is247) {
                         player.destroy();

@@ -1,4 +1,9 @@
-import { type ColorResolvable, EmbedBuilder, type Message, type TextChannel } from "discord.js";
+import {
+    type ColorResolvable,
+    EmbedBuilder,
+    type Message,
+    type TextChannel,
+} from "discord.js";
 import { LoadType } from "shoukaku";
 import type { Song } from "../structures/Dispatcher.js";
 import { T } from "../structures/I18n.js";
@@ -25,7 +30,10 @@ function neb(
         requester: player.current.info.requester,
     });
     return embed
-        .setAuthor({ name: T(locale, "player.setupStart.now_playing"), iconURL: iconUrl })
+        .setAuthor({
+            name: T(locale, "player.setupStart.now_playing"),
+            iconURL: iconUrl,
+        })
         .setDescription(description)
         .setImage(icon)
         .setColor(client.color.main);
@@ -44,7 +52,10 @@ async function setupStart(
     const locale = await client.db.getLanguage(message.guildId);
     try {
         if (data)
-            m = await message.channel.messages.fetch({ message: data.messageId, cache: true });
+            m = await message.channel.messages.fetch({
+                message: data.messageId,
+                cache: true,
+            });
     } catch (error) {
         client.logger.error(error);
     }
@@ -58,7 +69,12 @@ async function setupStart(
                             embeds: [
                                 embed
                                     .setColor(client.color.red)
-                                    .setDescription(T(locale, "player.setupStart.error_searching")),
+                                    .setDescription(
+                                        T(
+                                            locale,
+                                            "player.setupStart.error_searching",
+                                        ),
+                                    ),
                             ],
                         })
                         .then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -69,7 +85,12 @@ async function setupStart(
                             embeds: [
                                 embed
                                     .setColor(client.color.red)
-                                    .setDescription(T(locale, "player.setupStart.no_results")),
+                                    .setDescription(
+                                        T(
+                                            locale,
+                                            "player.setupStart.no_results",
+                                        ),
+                                    ),
                             ],
                         })
                         .then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -80,14 +101,24 @@ async function setupStart(
                         await message.channel
                             .send({
                                 embeds: [
-                                    embed.setColor(client.color.red).setDescription(
-                                        T(locale, "player.setupStart.queue_too_long", {
-                                            maxQueueSize: client.config.maxQueueSize,
-                                        }),
-                                    ),
+                                    embed
+                                        .setColor(client.color.red)
+                                        .setDescription(
+                                            T(
+                                                locale,
+                                                "player.setupStart.queue_too_long",
+                                                {
+                                                    maxQueueSize:
+                                                        client.config
+                                                            .maxQueueSize,
+                                                },
+                                            ),
+                                        ),
                                 ],
                             })
-                            .then((msg) => setTimeout(() => msg.delete(), 5000));
+                            .then((msg) =>
+                                setTimeout(() => msg.delete(), 5000),
+                            );
                         return;
                     }
                     player.queue.push(track);
@@ -95,12 +126,18 @@ async function setupStart(
                     await message.channel
                         .send({
                             embeds: [
-                                embed.setColor(client.color.main).setDescription(
-                                    T(locale, "player.setupStart.added_to_queue", {
-                                        title: res.data.info.title,
-                                        uri: res.data.info.uri,
-                                    }),
-                                ),
+                                embed
+                                    .setColor(client.color.main)
+                                    .setDescription(
+                                        T(
+                                            locale,
+                                            "player.setupStart.added_to_queue",
+                                            {
+                                                title: res.data.info.title,
+                                                uri: res.data.info.uri,
+                                            },
+                                        ),
+                                    ),
                             ],
                         })
                         .then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -109,18 +146,30 @@ async function setupStart(
                     break;
                 }
                 case LoadType.PLAYLIST:
-                    if (res.data.tracks.length > client.config.maxPlaylistSize) {
+                    if (
+                        res.data.tracks.length > client.config.maxPlaylistSize
+                    ) {
                         await message.channel
                             .send({
                                 embeds: [
-                                    embed.setColor(client.color.red).setDescription(
-                                        T(locale, "player.setupStart.playlist_too_long", {
-                                            maxPlaylistSize: client.config.maxPlaylistSize,
-                                        }),
-                                    ),
+                                    embed
+                                        .setColor(client.color.red)
+                                        .setDescription(
+                                            T(
+                                                locale,
+                                                "player.setupStart.playlist_too_long",
+                                                {
+                                                    maxPlaylistSize:
+                                                        client.config
+                                                            .maxPlaylistSize,
+                                                },
+                                            ),
+                                        ),
                                 ],
                             })
-                            .then((msg) => setTimeout(() => msg.delete(), 5000));
+                            .then((msg) =>
+                                setTimeout(() => msg.delete(), 5000),
+                            );
                         return;
                     }
                     for (const track of res.data.tracks) {
@@ -129,14 +178,24 @@ async function setupStart(
                             await message.channel
                                 .send({
                                     embeds: [
-                                        embed.setColor(client.color.red).setDescription(
-                                            T(locale, "player.setupStart.queue_too_long", {
-                                                maxQueueSize: client.config.maxQueueSize,
-                                            }),
-                                        ),
+                                        embed
+                                            .setColor(client.color.red)
+                                            .setDescription(
+                                                T(
+                                                    locale,
+                                                    "player.setupStart.queue_too_long",
+                                                    {
+                                                        maxQueueSize:
+                                                            client.config
+                                                                .maxQueueSize,
+                                                    },
+                                                ),
+                                            ),
                                     ],
                                 })
-                                .then((msg) => setTimeout(() => msg.delete(), 5000));
+                                .then((msg) =>
+                                    setTimeout(() => msg.delete(), 5000),
+                                );
                             return;
                         }
                         player.queue.push(pl);
@@ -145,11 +204,17 @@ async function setupStart(
                     await message.channel
                         .send({
                             embeds: [
-                                embed.setColor(client.color.main).setDescription(
-                                    T(locale, "player.setupStart.added_playlist_to_queue", {
-                                        length: res.data.tracks.length,
-                                    }),
-                                ),
+                                embed
+                                    .setColor(client.color.main)
+                                    .setDescription(
+                                        T(
+                                            locale,
+                                            "player.setupStart.added_playlist_to_queue",
+                                            {
+                                                length: res.data.tracks.length,
+                                            },
+                                        ),
+                                    ),
                             ],
                         })
                         .then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -157,19 +222,32 @@ async function setupStart(
                     await m.edit({ embeds: [n] }).catch(() => {});
                     break;
                 case LoadType.SEARCH: {
-                    const track = player.buildTrack(res.data[0], message.author);
+                    const track = player.buildTrack(
+                        res.data[0],
+                        message.author,
+                    );
                     if (player.queue.length > client.config.maxQueueSize) {
                         await message.channel
                             .send({
                                 embeds: [
-                                    embed.setColor(client.color.red).setDescription(
-                                        T(locale, "player.setupStart.queue_too_long", {
-                                            maxQueueSize: client.config.maxQueueSize,
-                                        }),
-                                    ),
+                                    embed
+                                        .setColor(client.color.red)
+                                        .setDescription(
+                                            T(
+                                                locale,
+                                                "player.setupStart.queue_too_long",
+                                                {
+                                                    maxQueueSize:
+                                                        client.config
+                                                            .maxQueueSize,
+                                                },
+                                            ),
+                                        ),
                                 ],
                             })
-                            .then((msg) => setTimeout(() => msg.delete(), 5000));
+                            .then((msg) =>
+                                setTimeout(() => msg.delete(), 5000),
+                            );
                         return;
                     }
                     player.queue.push(track);
@@ -177,12 +255,18 @@ async function setupStart(
                     await message.channel
                         .send({
                             embeds: [
-                                embed.setColor(client.color.main).setDescription(
-                                    T(locale, "player.setupStart.added_to_queue", {
-                                        title: res.data[0].info.title,
-                                        uri: res.data[0].info.uri,
-                                    }),
-                                ),
+                                embed
+                                    .setColor(client.color.main)
+                                    .setDescription(
+                                        T(
+                                            locale,
+                                            "player.setupStart.added_to_queue",
+                                            {
+                                                title: res.data[0].info.title,
+                                                uri: res.data[0].info.uri,
+                                            },
+                                        ),
+                                    ),
                             ],
                         })
                         .then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -205,7 +289,9 @@ async function trackStart(
     client: Lavamusic,
     locale: string,
 ): Promise<void> {
-    const icon = player.current ? player.current.info.artworkUrl : client.config.links.img;
+    const icon = player.current
+        ? player.current.info.artworkUrl
+        : client.config.links.img;
     let m: Message;
 
     try {
@@ -227,7 +313,10 @@ async function trackStart(
 
     const embed = client
         .embed()
-        .setAuthor({ name: T(locale, "player.setupStart.now_playing"), iconURL: iconUrl })
+        .setAuthor({
+            name: T(locale, "player.setupStart.now_playing"),
+            iconURL: iconUrl,
+        })
         .setColor(client.color.main)
         .setDescription(description)
         .setImage(icon);
@@ -237,7 +326,9 @@ async function trackStart(
             .edit({
                 embeds: [embed],
                 components: getButtons(player, client).map((b) => {
-                    b.components.forEach((c) => c.setDisabled(!player?.current));
+                    b.components.forEach((c) =>
+                        c.setDisabled(!player?.current),
+                    );
                     return b;
                 }),
             })
@@ -247,7 +338,9 @@ async function trackStart(
             .send({
                 embeds: [embed],
                 components: getButtons(player, client).map((b) => {
-                    b.components.forEach((c) => c.setDisabled(!player?.current));
+                    b.components.forEach((c) =>
+                        c.setDisabled(!player?.current),
+                    );
                     return b;
                 }),
             })
@@ -258,14 +351,23 @@ async function trackStart(
     }
 }
 
-async function updateSetup(client: Lavamusic, guild: any, locale: string): Promise<void> {
+async function updateSetup(
+    client: Lavamusic,
+    guild: any,
+    locale: string,
+): Promise<void> {
     const setup = await client.db.getSetup(guild.id);
     let m: Message;
     if (setup?.textId) {
-        const textChannel = guild.channels.cache.get(setup.textId) as TextChannel;
+        const textChannel = guild.channels.cache.get(
+            setup.textId,
+        ) as TextChannel;
         if (!textChannel) return;
         try {
-            m = await textChannel.messages.fetch({ message: setup.messageId, cache: true });
+            m = await textChannel.messages.fetch({
+                message: setup.messageId,
+                cache: true,
+            });
         } catch (error) {
             client.logger.error(error);
         }
@@ -286,7 +388,10 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
 
             const embed = client
                 .embed()
-                .setAuthor({ name: T(locale, "player.setupStart.now_playing"), iconURL: iconUrl })
+                .setAuthor({
+                    name: T(locale, "player.setupStart.now_playing"),
+                    iconURL: iconUrl,
+                })
                 .setColor(client.color.main)
                 .setDescription(description)
                 .setImage(player.current.info.artworkUrl);
@@ -294,7 +399,9 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
                 .edit({
                     embeds: [embed],
                     components: getButtons(player, client).map((b) => {
-                        b.components.forEach((c) => c.setDisabled(!player?.current));
+                        b.components.forEach((c) =>
+                            c.setDisabled(!player?.current),
+                        );
                         return b;
                     }),
                 })
@@ -322,7 +429,11 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
     }
 }
 
-async function buttonReply(int: any, args: string, color: ColorResolvable): Promise<void> {
+async function buttonReply(
+    int: any,
+    args: string,
+    color: ColorResolvable,
+): Promise<void> {
     const embed = new EmbedBuilder();
     let m: Message;
     if (int.replied) {
@@ -343,7 +454,9 @@ async function buttonReply(int: any, args: string, color: ColorResolvable): Prom
 
 async function oops(channel: TextChannel, args: string): Promise<void> {
     try {
-        const embed1 = new EmbedBuilder().setColor("Red").setDescription(`${args}`);
+        const embed1 = new EmbedBuilder()
+            .setColor("Red")
+            .setDescription(`${args}`);
         const m = await channel.send({
             embeds: [embed1],
         });
