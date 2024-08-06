@@ -162,8 +162,12 @@ export default class PlayNext extends Command {
 
         if (res.loadType === LoadType.SEARCH && res.data.length) {
             res.data.slice(0, 10).forEach((x) => {
+                let name = `${x.info.title} by ${x.info.author}`;
+                if (name.length > 100) {
+                    name = name.substring(0, 97) + '...';
+                }
                 songs.push({
-                    name: `${x.info.title} by ${x.info.author}`,
+                    name: name,
                     value: x.info.uri,
                 });
             });
