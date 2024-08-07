@@ -1,6 +1,6 @@
+import type { AutocompleteInteraction } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 import { Language, LocaleFlags } from "../../types.js";
-import type { AutocompleteInteraction } from "discord.js";
 
 export default class LanguageCommand extends Command {
     constructor(client: Lavamusic) {

@@ -46,7 +46,6 @@
 
 ### 🔍 Default Sources
 
-- ![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=plastic&logo=youtube&logoColor=white) ([Required Plugin][youtube-source])
 - ![SoundCloud](https://img.shields.io/badge/SoundCloud-FF3300?style=plastic&logo=soundcloud&logoColor=white)
 - ![Twitch](https://img.shields.io/badge/Twitch-9146FF?style=plastic&logo=twitch&logoColor=white)
 - ![Bandcamp](https://img.shields.io/badge/Bandcamp-629AA9?style=plastic&logo=bandcamp&logoColor=white)
@@ -55,10 +54,11 @@
 - ![Mixer](https://img.shields.io/badge/Mixer-FFA500?style=plastic&logo=mixer&logoColor=white)
 - ![http](https://img.shields.io/badge/http-FFA500?style=plastic&logo=http&logoColor=white)
 
-### 🔌 Plugin Sources: `(Require: LavaSrc and Skybot Plugin)`
+### 🔌 Plugin Sources
 
 **Note: You need to install the plugins to use these sources**
 
+- ![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=plastic&logo=youtube&logoColor=white) ([Required Plugin][youtube-source])
 - ![Spotify](https://img.shields.io/badge/Spotify-1ED760?style=plastic&logo=spotify&logoColor=white) ([Required Plugin][LavaSrc])
 - ![Deezer](https://img.shields.io/badge/Deezer-FF0000?style=plastic&logo=deezer&logoColor=white) ([Required Plugin][LavaSrc])
 - ![Apple Music](https://img.shields.io/badge/Apple%20Music-000000?style=plastic&logo=apple-music&logoColor=white) ([Required Plugin][LavaSrc])
@@ -78,9 +78,11 @@
 [youtube-source]: https://github.com/lavalink-devs/youtube-source
 [jiosaavn]: https://github.com/appujet/jiosaavn-plugin
 
-To Setup a Lavalink server on Windows, Linux, or Replit, [Click Here.](https://github.com/LucasB25/lavalink-server)
+To Setup a Lavalink server on Windows, Linux, or Replit, [Click Here!](https://github.com/LucasB25/lavalink-server)
 
-### **Need Help with plugins?** Join our [Discord Server](https://discord.gg/YsJCtDuTXp) and ask for help in the `#support` channel
+### **Need help with plugins?**
+
+Join our [Discord Server](https://discord.gg/YsJCtDuTXp) and ask for help in the `#support` channel!
 
 ## 🔧 Requirements
 
@@ -116,34 +118,8 @@ cd lavamusic
 npm i
 ```
 
-4. Set up your environment variables:
-Create a .env file in the root directory of your project with the following variables:
-or you can use the [.env.example](https://raw.githubusercontent.com/appujet/lavamusic/main/.env.example) file
-
-```bash
-TOKEN= "" # Your bot token.
-CLIENT_ID= "" # Your bot's client ID (If this value is left blank, bots cannot be invited using /invite or /about commands.).
-DEFAULT_LANGUAGE= "EnglishUS" # Default language for bot
-PREFIX= "!" # Your prefix.
-OWNER_IDS= ["",""] # Your discord id (You can add multiple ids.).
-GUILD_ID= "" # Your server ID (If you want to use the bot for a single server).
-PRODUCTION= "true" # true for production.
-TOPGG= "" # Your Top.gg API key. Obtain this from https://top.gg
-KEEP_ALIVE= "false" # true for keep alive in https://replit.com
-LOG_CHANNEL_ID= "" # If you enter this, you will be able to receive the status of Lavalink nodes and guild join/leave logs through the corresponding channel.
-LOG_COMMANDS_ID= "" # The channel ID where command usage logs will be sent.
-BOT_STATUS= "online" # Your bot status (online, dnd, idle, invisible or offline).
-BOT_ACTIVITY_TYPE= 0 # Activity type is a number from 0 to 5. See more here: https://discord.com/developers/docs/topics/gateway-events#activity-object-activity-types
-BOT_ACTIVITY= "Lavamusic" # Your bot activity.
-DATABASE_URL= "" # Your database url (If you want to use sqlite, then you can leave it blank.).
-AUTO_NODE= "false" # true for auto node. It is given from lavainfo-api (https://lavainfo-api.deno.dev).
-LAVALINK_URL= "localhost:2333" # Your Lavalink url (If auto node is true, then you can leave it blank).
-LAVALINK_AUTH= "youshallnotpass" # Your Lavalink password (If auto node is true, then you can leave it blank.).
-LAVALINK_NAME= "Lavamusic" # Your Lavalink name (If auto node is true, then you can leave it blank.).
-LAVALINK_SECURE= "false" # true for secure Lavalink (If auto node is true, then you can leave it blank.).
-MAX_PLAYLIST_SIZE= "100" # Max playlist size.
-MAX_QUEUE_SIZE= "100" # Max queue size.
-```
+4. Copy the .env.example file to .env and fill in all required values.
+Note: Optional values ​​are noted as comments in the settings.
 
 5. Generate the Prisma client:
 
@@ -151,7 +127,7 @@ MAX_QUEUE_SIZE= "100" # Max queue size.
 npm run db:push
 ```
 
-6. Run the migrations (Only if you want to migrate your database)
+6. Run the migrations (Only if you want to migrate your database):
 
 ```bash
 npm run db:migrate
@@ -167,14 +143,13 @@ npm start
 
 8. Invite the bot to your server:
 
-Generate an invite link for your bot and invite it to your server using the <a href="https://discord.com/developers/applications">Discord Developer Portal</a> or using <a href="https://discordapi.com/permissions.html">Permissions Calculator.</a>
+Generate an invite link for your bot and invite it to your server using the [Discord Developer Portal](https://discord.com/developers/applications) or [Permissions Calculator](https://discordapi.com/permissions.html).
 
 ## 🚀 Installation using Docker Compose
 
 This section assumes you have Docker and Docker Compose installed and running correctly.
-Download the [docker-compose.yml file](https://raw.githubusercontent.com/appujet/lavamusic/main/docker-compose.yml) in a separate folder like lavamusic.
 Edit docker-compose.yml and make sure to set the following variables:
-Your .env file should look like this or you can use the [.env.example](https://raw.githubusercontent.com/appujet/lavamusic/main/.env.example) file.
+Your .env file should look like this or you can use the .env.example file.
 
 ```yaml
 TOKEN="." # Your bot token and remember, don't show everyone your bot token
@@ -194,6 +169,8 @@ docker-compose up -d
 ```
 
 The above command will start all your services and your bot should be up and running!
+If you want to run it from the console, remove the -d argument.
+
 To update, you only have to type the following:
 
 ```bash
@@ -225,7 +202,7 @@ Do note that the bot will restart itself to update to the latest!
 
 ## 📝 Tutorial
 
-A tutorial has been uploaded on YouTube. Watch it by clicking [here](https://youtu.be/x5lQD2rguz0).
+A tutorial has been uploaded on YouTube. Watch it by [clicking here](https://youtu.be/x5lQD2rguz0).
 
 ## 📜 Contributing
 

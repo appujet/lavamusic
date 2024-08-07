@@ -1,6 +1,6 @@
+import type { AutocompleteInteraction } from "discord.js";
 import { LoadType } from "shoukaku";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
-import type { AutocompleteInteraction } from "discord.js";
 
 export default class AddSong extends Command {
     constructor(client: Lavamusic) {
