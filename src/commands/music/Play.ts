@@ -178,7 +178,7 @@ export default class Play extends Command {
                     res.data.slice(0, 10).forEach((track) => {
                         const name = `${track.info.title} by ${track.info.author}`;
                         songs.push({
-                            name: name.length > 100 ? name.substring(0, 97) + "..." : name,
+                            name: name.length > 100 ? `${name.substring(0, 97)}...` : name,
                             value: track.info.uri,
                         });
                     });
@@ -186,7 +186,7 @@ export default class Play extends Command {
                     res.data.tracks.slice(0, 10).forEach((track) => {
                         const name = `${track.info.title} by ${track.info.author}`;
                         songs.push({
-                            name: name.length > 100 ? name.substring(0, 97) + "..." : name,
+                            name: name.length > 100 ? `${name.substring(0, 97)}...` : name,
                             value: track.info.uri,
                         });
                     });

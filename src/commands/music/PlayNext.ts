@@ -164,7 +164,7 @@ export default class PlayNext extends Command {
             res.data.slice(0, 10).forEach((x) => {
                 let name = `${x.info.title} by ${x.info.author}`;
                 if (name.length > 100) {
-                    name = name.substring(0, 97) + '...';
+                    name = `${name.substring(0, 97)}...`;
                 }
                 songs.push({
                     name: name,
