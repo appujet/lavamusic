@@ -54,7 +54,7 @@
 - ![Mixer](https://img.shields.io/badge/Mixer-FFA500?style=plastic&logo=mixer&logoColor=white)
 - ![http](https://img.shields.io/badge/http-FFA500?style=plastic&logo=http&logoColor=white)
 
-### 🔌 Plugin Sources: `(Require: LavaSrc and Skybot Plugin)`
+### 🔌 Plugin Sources
 
 **Note: You need to install the plugins to use these sources**
 
