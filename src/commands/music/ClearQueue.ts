@@ -36,13 +36,13 @@ export default class ClearQueue extends Command {
 
         if (!player) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.no_player"))],
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_player"))],
             });
         }
 
         if (player.queue.length === 0) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.no_songs"))],
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
             });
         }
 

@@ -36,7 +36,7 @@ export default class Autoplay extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.player.errors.no_player"),
+                        description: ctx.locale("player.errors.no_player"),
                         color: this.client.color.red,
                     },
                 ],

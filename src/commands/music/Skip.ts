@@ -35,7 +35,7 @@ export default class Skip extends Command {
         const embed = this.client.embed();
         if (player.queue.length === 0) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.no_songs"))],
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
             });
         }
         const currentTrack = player.current.info;
