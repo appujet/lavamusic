@@ -240,7 +240,7 @@
 		},
 		"grab": {
 			"description": "現在再生中の曲をDMに送信します",
-			"content": "**再生時間:** {length}\n**リクエスト者:** {requester}\n**リンク:** [ここをクリック]({uri})",
+			"content": "**再生時間:** {length}\n**リクエスト者:** <@{requester}>\n**リンク:** [ここをクリック]({uri})",
 			"check_dm": "DMを確認してください。",
 			"dm_failed": "DMを送信できませんでした。"
 		},
@@ -264,7 +264,7 @@
 		"nowplaying": {
 			"description": "現在再生中の曲を表示します",
 			"now_playing": "再生中",
-			"track_info": "[{title}]({uri}) - リクエスト者: {requester}\n\n`{bar}`"
+			"track_info": "[{title}]({uri}) - リクエスト者: <@{requester}>\n\n`{bar}`"
 		},
 		"pause": {
 			"description": "現在の曲を一時停止します",
@@ -536,7 +536,7 @@
 		},
 		"setupStart": {
 			"now_playing": "再生中",
-			"description": "[{title}]({uri}) by {author} • `[${length}]` - <@{requester}> によってリクエストされました",
+			"description": "[{title}]({uri}) by {author} • `[{length}]` - <@{requester}> によってリクエストされました",
 			"error_searching": "検索中にエラーが発生しました。",
 			"no_results": "結果が見つかりませんでした。",
 			"nothing_playing": "現在再生中の曲はありません。",
@@ -593,7 +593,7 @@
 			"different_voice_channel_button": "これらのボタンを使用するために {channel} に接続されていません。",
 			"now_playing": "再生中",
 			"live": "ライブ",
-			"requested_by": "{requester} によってリクエストされました",
+			"requested_by": "<@{requester}> によってリクエストされました",
 			"no_dj_permission": "このコマンドを使用するにはDJロールが必要です。",
 			"volume_set": "音量を {vol}% に設定しました。",
 			"volume_footer": "音量: {vol}%",
@@ -619,7 +619,8 @@
 			"forward_limit": "曲の長さ以上に早送りすることはできません。",
 			"forwarded": "音楽を早送りしました。",
 			"forward_footer": "{displayName} によって早送りされました",
-			"button_not_available": "このボタンは使用できません。"
+			"button_not_available": "このボタンは使用できません。",
+			"no_music_playing": "現在、何も再生されていません。"
 		}
 	},
 	"Evaluate code": "コードを評価",

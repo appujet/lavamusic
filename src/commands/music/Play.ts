@@ -176,15 +176,17 @@ export default class Play extends Command {
             if (res?.loadType) {
                 if (res.loadType === LoadType.SEARCH && res.data.length) {
                     res.data.slice(0, 10).forEach((track) => {
+                        const name = `${track.info.title} by ${track.info.author}`;
                         songs.push({
-                            name: `${track.info.title} by ${track.info.author}`,
+                            name: name.length > 100 ? `${name.substring(0, 97)}...` : name,
                             value: track.info.uri,
                         });
                     });
                 } else if (res.loadType === LoadType.PLAYLIST && res.data.tracks.length) {
                     res.data.tracks.slice(0, 10).forEach((track) => {
+                        const name = `${track.info.title} by ${track.info.author}`;
                         songs.push({
-                            name: `${track.info.title} by ${track.info.author}`,
+                            name: name.length > 100 ? `${name.substring(0, 97)}...` : name,
                             value: track.info.uri,
                         });
                     });

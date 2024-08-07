@@ -30,8 +30,13 @@ export default class GuildList extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const guilds = client.guilds.cache.map((guild) => `- **${guild.name}** - (${guild.id})`);
-        const chunks = client.utils.chunk(guilds, 10) || [[]];
+        // Fetch guilds from all shards
+        const guilds = await client.shard.broadcastEval((c) => c.guilds.cache.map((guild) => ({ name: guild.name, id: guild.id })));
+        // Flatten the array of arrays
+        const allGuilds = guilds.reduce((acc, val) => acc.concat(val), []);
+
+        const guildList = allGuilds.map((guild) => `- **${guild.name}** - (${guild.id})`);
+        const chunks = client.utils.chunk(guildList, 10) || [[]];
         const pages = chunks.map((chunk, index) => {
             return this.client
                 .embed()

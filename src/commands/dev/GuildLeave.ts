@@ -1,4 +1,5 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { ChannelType, type TextChannel } from "discord.js";
 
 export default class GuildLeave extends Command {
     constructor(client: Lavamusic) {
@@ -31,13 +32,45 @@ export default class GuildLeave extends Command {
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const guildId = args[0];
-        const guild = client.guilds.cache.get(guildId);
-        if (!guild) return await ctx.sendMessage("Guild not found.");
+
+        // Broadcast to all shards to find the guild
+        const guild = await client.shard
+            .broadcastEval(
+                (c, { guildId }) => {
+                    const guild = c.guilds.cache.get(guildId);
+                    return guild ? { id: guild.id, name: guild.name } : null;
+                },
+                { context: { guildId } },
+            )
+            .then((results) => results.find((g) => g !== null));
+
+        if (!guild) {
+            return await ctx.sendMessage("Guild not found.");
+        }
+
         try {
-            await guild.leave();
+            // Broadcast to the correct shard to leave the guild
+            await client.shard.broadcastEval(
+                async (c, { guildId }) => {
+                    const guild = c.guilds.cache.get(guildId);
+                    if (guild) {
+                        await guild.leave();
+                    }
+                },
+                { context: { guildId } },
+            );
             await ctx.sendMessage(`Left guild ${guild.name}`);
         } catch {
             await ctx.sendMessage(`Failed to leave guild ${guild.name}`);
+        }
+
+        // Logging
+        const logChannelId = process.env.LOG_CHANNEL_ID;
+        if (logChannelId) {
+            const logChannel = client.channels.cache.get(logChannelId) as TextChannel;
+            if (logChannel && logChannel.type === ChannelType.GuildText) {
+                await logChannel.send(`Bot has left guild: ${guild.name} (ID: ${guild.id})`);
+            }
         }
     }
 }

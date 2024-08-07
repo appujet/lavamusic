@@ -536,7 +536,7 @@
 		},
 		"setupStart": {
 			"now_playing": "재생 중",
-			"description": "[{title}]({uri}), 제작자 {author} • `[${length}]` - 요청자: <@{requester}>",
+			"description": "[{title}]({uri}), 제작자 {author} • `[{length}]` - 요청자: <@{requester}>",
 			"error_searching": "노래를 검색하는 도중 오류가 발생했어요.",
 			"no_results": "검색결과가 없어요.",
 			"nothing_playing": "현재 재생 중인 노래가 없어요.",
@@ -619,7 +619,8 @@
 			"forward_limit": "현재 노래 길이보다 더 빨리감기할 수 없어요.",
 			"forwarded": "노래를 빨리감기했어요.",
 			"forward_footer": "{displayName}에 의해 빨리감기됨",
-			"button_not_available": "이 버튼은 사용할 수 없어요."
+			"button_not_available": "이 버튼은 사용할 수 없어요.",
+			"no_music_playing": "현재 재생 중인 노래가 없어요."
 		}
 	},
 	"Evaluate code": "코드를 실행해요",
