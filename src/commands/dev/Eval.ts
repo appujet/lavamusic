@@ -1,3 +1,4 @@
+// biome-ignore lint/correctness/noNodejsModules: <explanation>
 import util from "node:util";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { fetch } from "undici";
