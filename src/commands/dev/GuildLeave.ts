@@ -1,5 +1,5 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 import { ChannelType, type TextChannel } from "discord.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class GuildLeave extends Command {
     constructor(client: Lavamusic) {
