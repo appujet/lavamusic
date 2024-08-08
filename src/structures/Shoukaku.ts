@@ -6,7 +6,7 @@ export default class ShoukakuClient extends Shoukaku {
     constructor(client: Lavamusic, nodes: NodeOption[]) {
         super(new Connectors.DiscordJS(client), nodes, {
             moveOnDisconnect: false,
-            resume: true,
+            resume: false,
             reconnectInterval: 30,
             reconnectTries: 2,
             restTimeout: 10000,
