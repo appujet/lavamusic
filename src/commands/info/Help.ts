@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Help extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Help extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -37,10 +46,16 @@ export default class Help extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const embed = this.client.embed();
         const guild = await client.db.get(ctx.guild.id);
-        const commands = this.client.commands.filter((cmd) => cmd.category !== "dev");
+        const commands = this.client.commands.filter(
+            (cmd) => cmd.category !== "dev",
+        );
         const categories = [...new Set(commands.map((cmd) => cmd.category))];
 
         if (args[0]) {
@@ -63,19 +78,31 @@ export default class Help extends Command {
                     ctx.locale("cmd.help.help_cmd", {
                         description: ctx.locale(command.description.content),
                         usage: `${guild.prefix}${command.description.usage}`,
-                        examples: command.description.examples.map((example) => `${guild.prefix}${example}`).join(", "),
-                        aliases: command.aliases.map((alias) => `\`${alias}\``).join(", "),
+                        examples: command.description.examples
+                            .map((example) => `${guild.prefix}${example}`)
+                            .join(", "),
+                        aliases: command.aliases
+                            .map((alias) => `\`${alias}\``)
+                            .join(", "),
                         category: command.category,
                         cooldown: command.cooldown,
                         premUser:
-                            command.permissions.user.length > 0 ? command.permissions.user.map((perm) => `\`${perm}\``).join(", ") : "None",
-                        premBot: command.permissions.client.map((perm) => `\`${perm}\``).join(", "),
+                            command.permissions.user.length > 0
+                                ? command.permissions.user
+                                      .map((perm) => `\`${perm}\``)
+                                      .join(", ")
+                                : "None",
+                        premBot: command.permissions.client
+                            .map((perm) => `\`${perm}\``)
+                            .join(", "),
                         dev: command.permissions.dev ? "Yes" : "No",
                         slash: command.slashCommand ? "Yes" : "No",
                         args: command.args ? "Yes" : "No",
                         player: command.player.active ? "Yes" : "No",
                         dj: command.player.dj ? "Yes" : "No",
-                        djPerm: command.player.djPerm ? command.player.djPerm : "None",
+                        djPerm: command.player.djPerm
+                            ? command.player.djPerm
+                            : "None",
                         voice: command.player.voice ? "Yes" : "No",
                     }),
                 );

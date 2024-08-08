@@ -6,7 +6,15 @@ import Lavamusic from "./Lavamusic.js";
 import { Queue } from "./Queue.js";
 import ShoukakuClient from "./Shoukaku.js";
 
-export { Event, Queue, Command, Lavamusic, Context, ShoukakuClient, Dispatcher };
+export {
+    Event,
+    Queue,
+    Command,
+    Lavamusic,
+    Context,
+    ShoukakuClient,
+    Dispatcher,
+};
 
 /**
  * Project: lavamusic

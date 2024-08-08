@@ -49,7 +49,9 @@ export default class Lavamusic extends Client {
 
     public async start(token: string): Promise<void> {
         initI18n();
-        const nodes = this.config.autoNode ? await this.getNodes() : this.config.lavalink;
+        const nodes = this.config.autoNode
+            ? await this.getNodes()
+            : this.config.lavalink;
         this.shoukaku = new ShoukakuClient(this, nodes);
         this.topGG = new Api(this.config.topGG);
         await this.loadCommands();
@@ -62,7 +64,11 @@ export default class Lavamusic extends Client {
         this.on(Events.InteractionCreate, async (interaction: Interaction) => {
             if (interaction.isButton() && interaction.guildId) {
                 const setup = await this.db.getSetup(interaction.guildId);
-                if (setup && interaction.channelId === setup.textId && interaction.message.id === setup.messageId) {
+                if (
+                    setup &&
+                    interaction.channelId === setup.textId &&
+                    interaction.message.id === setup.messageId
+                ) {
                     this.emit("setupButtons", interaction);
                 }
             }
@@ -74,7 +80,9 @@ export default class Lavamusic extends Client {
         const commandDirs = fs.readdirSync(commandsPath);
 
         for (const dir of commandDirs) {
-            const commandFiles = fs.readdirSync(path.join(commandsPath, dir)).filter((file) => file.endsWith(".js"));
+            const commandFiles = fs
+                .readdirSync(path.join(commandsPath, dir))
+                .filter((file) => file.endsWith(".js"));
 
             for (const file of commandFiles) {
                 const cmdModule = await import(`../commands/${dir}/${file}`);
@@ -87,27 +95,41 @@ export default class Lavamusic extends Client {
                 });
 
                 if (command.slashCommand) {
-                    const data: RESTPostAPIChatInputApplicationCommandsJSONBody = {
-                        name: command.name,
-                        description: T(Locale.EnglishUS, command.description.content),
-                        type: ApplicationCommandType.ChatInput,
-                        options: command.options || [],
-                        default_member_permissions:
-                            Array.isArray(command.permissions.user) && command.permissions.user.length > 0
-                                ? PermissionsBitField.resolve(command.permissions.user as any).toString()
-                                : null,
-                        name_localizations: null,
-                        description_localizations: null,
-                    };
+                    const data: RESTPostAPIChatInputApplicationCommandsJSONBody =
+                        {
+                            name: command.name,
+                            description: T(
+                                Locale.EnglishUS,
+                                command.description.content,
+                            ),
+                            type: ApplicationCommandType.ChatInput,
+                            options: command.options || [],
+                            default_member_permissions:
+                                Array.isArray(command.permissions.user) &&
+                                command.permissions.user.length > 0
+                                    ? PermissionsBitField.resolve(
+                                          command.permissions.user as any,
+                                      ).toString()
+                                    : null,
+                            name_localizations: null,
+                            description_localizations: null,
+                        };
 
                     const localizations = [];
                     i18n.getLocales().map((locale) => {
-                        localizations.push(localization(locale, command.name, command.description.content));
+                        localizations.push(
+                            localization(
+                                locale,
+                                command.name,
+                                command.description.content,
+                            ),
+                        );
                     });
 
                     for (const localization of localizations) {
                         const [language, name] = localization.name;
-                        const [language2, description] = localization.description;
+                        const [language2, description] =
+                            localization.description;
                         data.name_localizations = {
                             ...data.name_localizations,
                             [language]: name,
@@ -122,12 +144,19 @@ export default class Lavamusic extends Client {
                         command.options.map((option) => {
                             const optionsLocalizations = [];
                             i18n.getLocales().map((locale) => {
-                                optionsLocalizations.push(localization(locale, option.name, option.description));
+                                optionsLocalizations.push(
+                                    localization(
+                                        locale,
+                                        option.name,
+                                        option.description,
+                                    ),
+                                );
                             });
 
                             for (const localization of optionsLocalizations) {
                                 const [language, name] = localization.name;
-                                const [language2, description] = localization.description;
+                                const [language2, description] =
+                                    localization.description;
                                 option.name_localizations = {
                                     ...option.name_localizations,
                                     [language]: name,
@@ -137,20 +166,34 @@ export default class Lavamusic extends Client {
                                     [language2]: description,
                                 };
                             }
-                            option.description = T(Locale.EnglishUS, option.description);
+                            option.description = T(
+                                Locale.EnglishUS,
+                                option.description,
+                            );
                         });
 
                         data.options.map((option) => {
-                            if ("options" in option && option.options.length > 0) {
+                            if (
+                                "options" in option &&
+                                option.options.length > 0
+                            ) {
                                 option.options.map((subOption) => {
                                     const subOptionsLocalizations = [];
                                     i18n.getLocales().map((locale) => {
-                                        subOptionsLocalizations.push(localization(locale, subOption.name, subOption.description));
+                                        subOptionsLocalizations.push(
+                                            localization(
+                                                locale,
+                                                subOption.name,
+                                                subOption.description,
+                                            ),
+                                        );
                                     });
 
                                     for (const localization of subOptionsLocalizations) {
-                                        const [language, name] = localization.name;
-                                        const [language2, description] = localization.description;
+                                        const [language, name] =
+                                            localization.name;
+                                        const [language2, description] =
+                                            localization.description;
                                         subOption.name_localizations = {
                                             ...subOption.name_localizations,
                                             [language]: name,
@@ -160,7 +203,10 @@ export default class Lavamusic extends Client {
                                             [language2]: description,
                                         };
                                     }
-                                    subOption.description = T(Locale.EnglishUS, subOption.description);
+                                    subOption.description = T(
+                                        Locale.EnglishUS,
+                                        subOption.description,
+                                    );
                                 });
                             }
                         });
@@ -177,7 +223,9 @@ export default class Lavamusic extends Client {
             : Routes.applicationCommands(this.user?.id ?? "");
 
         try {
-            const rest = new REST({ version: "10" }).setToken(this.config.token ?? "");
+            const rest = new REST({ version: "10" }).setToken(
+                this.config.token ?? "",
+            );
             await rest.put(route, { body: this.body });
             this.logger.info("Successfully deployed slash commands!");
         } catch (error) {
@@ -191,11 +239,14 @@ export default class Lavamusic extends Client {
             version: "v4",
             format: "shoukaku",
         });
-        const res = await fetch(`https://lavainfo-api.deno.dev/nodes?${params.toString()}`, {
-            headers: {
-                "Content-Type": "application/json",
+        const res = await fetch(
+            `https://lavainfo-api.deno.dev/nodes?${params.toString()}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
             },
-        });
+        );
         return await res.json();
     }
 
@@ -204,14 +255,18 @@ export default class Lavamusic extends Client {
         const eventDirs = fs.readdirSync(eventsPath);
 
         for (const dir of eventDirs) {
-            const eventFiles = fs.readdirSync(path.join(eventsPath, dir)).filter((file) => file.endsWith(".js"));
+            const eventFiles = fs
+                .readdirSync(path.join(eventsPath, dir))
+                .filter((file) => file.endsWith(".js"));
 
             for (const file of eventFiles) {
                 const eventModule = await import(`../events/${dir}/${file}`);
                 const event = new eventModule.default(this, file);
 
                 if (dir === "player") {
-                    this.shoukaku.on(event.name, (...args) => event.run(...args));
+                    this.shoukaku.on(event.name, (...args) =>
+                        event.run(...args),
+                    );
                 } else {
                     this.on(event.name, (...args) => event.run(...args));
                 }

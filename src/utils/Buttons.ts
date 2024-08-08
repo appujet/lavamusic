@@ -1,7 +1,15 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, type EmojiIdentifierResolvable } from "discord.js";
+import {
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
+    type EmojiIdentifierResolvable,
+} from "discord.js";
 import type { Dispatcher, Lavamusic } from "../structures/index.js";
 
-function getButtons(player: Dispatcher, client: Lavamusic): ActionRowBuilder<ButtonBuilder>[] {
+function getButtons(
+    player: Dispatcher,
+    client: Lavamusic,
+): ActionRowBuilder<ButtonBuilder>[] {
     const buttonData = [
         {
             customId: "REWIND_BUT",
@@ -66,7 +74,10 @@ function getButtons(player: Dispatcher, client: Lavamusic): ActionRowBuilder<But
             emojiFormat = emoji;
         }
 
-        const button = new ButtonBuilder().setCustomId(customId).setEmoji(emojiFormat).setStyle(style);
+        const button = new ButtonBuilder()
+            .setCustomId(customId)
+            .setEmoji(emojiFormat)
+            .setStyle(style);
         rows[rows.length - 1].addComponents(button);
         return rows;
     }, [] as ActionRowBuilder<ButtonBuilder>[]);

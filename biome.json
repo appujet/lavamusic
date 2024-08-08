@@ -51,7 +51,7 @@
     "indentWidth": 4,
     "indentStyle": "space",
     "lineEnding": "crlf",
-    "lineWidth": 140,
+    "lineWidth": 80,
     "formatWithErrors": true
   },
   "json": {

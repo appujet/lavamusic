@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Skipto extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Skipto extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -37,14 +46,29 @@ export default class Skipto extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
         const num = Number(args[0]);
 
-        if (!player.queue.length || isNaN(num) || num > player.queue.length || num < 1) {
+        if (
+            !player.queue.length ||
+            isNaN(num) ||
+            num > player.queue.length ||
+            num < 1
+        ) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.skipto.errors.invalid_number"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(
+                            ctx.locale("cmd.skipto.errors.invalid_number"),
+                        ),
+                ],
             });
         }
 

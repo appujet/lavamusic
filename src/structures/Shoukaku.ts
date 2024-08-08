@@ -19,7 +19,10 @@ export default class ShoukakuClient extends Shoukaku {
         });
         this.client = client;
         this.on("ready", (name, reconnected) => {
-            this.client.shoukaku.emit(reconnected ? "nodeReconnect" : "nodeConnect", name);
+            this.client.shoukaku.emit(
+                reconnected ? "nodeReconnect" : "nodeConnect",
+                name,
+            );
         });
         this.on("error", (name, error) => {
             this.client.shoukaku.emit("nodeError", name, error);

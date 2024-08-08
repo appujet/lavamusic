@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Queue extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Queue extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -43,7 +52,9 @@ export default class Queue extends Command {
                             requester: player.current?.info.requester,
                             duration: player.current.info.isStream
                                 ? ctx.locale("cmd.queue.live")
-                                : client.utils.formatTime(player.current.info.length),
+                                : client.utils.formatTime(
+                                      player.current.info.length,
+                                  ),
                         }),
                     ),
                 ],
@@ -58,7 +69,9 @@ export default class Queue extends Command {
                     title: track.info.title,
                     uri: track.info.uri,
                     requester: track?.info.requester,
-                    duration: track.info.isStream ? ctx.locale("cmd.queue.live") : client.utils.formatTime(track.info.length),
+                    duration: track.info.isStream
+                        ? ctx.locale("cmd.queue.live")
+                        : client.utils.formatTime(track.info.length),
                 }),
             );
         }

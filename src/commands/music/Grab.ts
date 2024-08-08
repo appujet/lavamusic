@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Grab extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Grab extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -35,7 +44,12 @@ export default class Grab extends Command {
 
         if (!player?.current) {
             return await ctx.sendMessage({
-                embeds: [this.client.embed().setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
+                embeds: [
+                    this.client
+                        .embed()
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("player.errors.no_song")),
+                ],
             });
         }
 
@@ -45,7 +59,9 @@ export default class Grab extends Command {
             title: song.info.title,
             uri: song.info.uri,
             artworkUrl: song.info.artworkUrl,
-            length: song.info.isStream ? "LIVE" : client.utils.formatTime(song.info.length),
+            length: song.info.isStream
+                ? "LIVE"
+                : client.utils.formatTime(song.info.length),
             requester: song.info.requester,
         });
 
@@ -63,11 +79,21 @@ export default class Grab extends Command {
             });
 
             return await ctx.sendMessage({
-                embeds: [this.client.embed().setDescription(ctx.locale("cmd.grab.check_dm")).setColor(this.client.color.green)],
+                embeds: [
+                    this.client
+                        .embed()
+                        .setDescription(ctx.locale("cmd.grab.check_dm"))
+                        .setColor(this.client.color.green),
+                ],
             });
         } catch (_e) {
             return await ctx.sendMessage({
-                embeds: [this.client.embed().setDescription(ctx.locale("cmd.grab.dm_failed")).setColor(this.client.color.red)],
+                embeds: [
+                    this.client
+                        .embed()
+                        .setDescription(ctx.locale("cmd.grab.dm_failed"))
+                        .setColor(this.client.color.red),
+                ],
             });
         }
     }

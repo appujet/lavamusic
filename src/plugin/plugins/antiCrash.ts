@@ -10,12 +10,19 @@ const antiCrash: BotPlugin = {
             if (client) {
                 client.logger.star("Disconnecting from Discord...");
                 await client.destroy();
-                client.logger.success("Successfully disconnected from Discord!");
+                client.logger.success(
+                    "Successfully disconnected from Discord!",
+                );
                 process.exit();
             }
         };
         process.on("unhandledRejection", (reason, promise) => {
-            client.logger.error("Unhandled Rejection at:", promise, "reason:", reason);
+            client.logger.error(
+                "Unhandled Rejection at:",
+                promise,
+                "reason:",
+                reason,
+            );
         });
         process.on("uncaughtException", (err) => {
             client.logger.error("Uncaught Exception thrown:", err);

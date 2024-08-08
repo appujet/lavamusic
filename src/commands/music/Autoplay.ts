@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Autoplay extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Autoplay extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -48,9 +57,13 @@ export default class Autoplay extends Command {
         player.setAutoplay(!autoplay);
 
         if (autoplay) {
-            embed.setDescription(ctx.locale("cmd.autoplay.messages.disabled")).setColor(this.client.color.main);
+            embed
+                .setDescription(ctx.locale("cmd.autoplay.messages.disabled"))
+                .setColor(this.client.color.main);
         } else {
-            embed.setDescription(ctx.locale("cmd.autoplay.messages.enabled")).setColor(this.client.color.main);
+            embed
+                .setDescription(ctx.locale("cmd.autoplay.messages.enabled"))
+                .setColor(this.client.color.main);
         }
 
         await ctx.sendMessage({ embeds: [embed] });

@@ -26,7 +26,12 @@ export class Queue extends Map<string, Dispatcher> {
         super.clear();
     }
 
-    public async create(guild: Guild, voice: any, channel: any, givenNode?: Node): Promise<Dispatcher> {
+    public async create(
+        guild: Guild,
+        voice: any,
+        channel: any,
+        givenNode?: Node,
+    ): Promise<Dispatcher> {
         if (!voice) throw new Error("No voice channel was provided");
         if (!channel) throw new Error("No text channel was provided");
         if (!guild) throw new Error("No guild was provided");
@@ -38,7 +43,11 @@ export class Queue extends Map<string, Dispatcher> {
                 this.client.shoukaku.leaveVoiceChannel(guild.id);
                 player.destroy();
             }
-            const node = givenNode ?? this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
+            const node =
+                givenNode ??
+                this.client.shoukaku.options.nodeResolver(
+                    this.client.shoukaku.nodes,
+                );
             player = await this.client.shoukaku.joinVoiceChannel({
                 guildId: guild.id,
                 channelId: voice.id,
@@ -61,8 +70,12 @@ export class Queue extends Map<string, Dispatcher> {
     }
 
     public async search(query: string): Promise<LavalinkResponse | null> {
-        const node = this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
-        const searchQuery = /^https?:\/\//.test(query) ? query : `${this.client.config.searchEngine}:${query}`;
+        const node = this.client.shoukaku.options.nodeResolver(
+            this.client.shoukaku.nodes,
+        );
+        const searchQuery = /^https?:\/\//.test(query)
+            ? query
+            : `${this.client.config.searchEngine}:${query}`;
         try {
             return await node.rest.resolve(searchQuery);
         } catch (err) {

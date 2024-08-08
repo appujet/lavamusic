@@ -1,6 +1,10 @@
 import type { AutocompleteInteraction } from "discord.js";
 import { LoadType } from "shoukaku";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Play extends Command {
     constructor(client: Lavamusic) {
@@ -29,7 +33,14 @@ export default class Play extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks", "Connect", "Speak"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                    "Connect",
+                    "Speak",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -45,12 +56,21 @@ export default class Play extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const query = args.join(" ");
         await ctx.sendDeferMessage(ctx.locale("cmd.play.loading"));
         let player = client.queue.get(ctx.guild!.id);
         const vc = ctx.member as any;
-        if (!player) player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel);
+        if (!player)
+            player = await client.queue.create(
+                ctx.guild,
+                vc.voice.channel,
+                ctx.channel,
+            );
         const res = await this.client.queue.search(query);
         const embed = this.client.embed();
 
@@ -58,13 +78,25 @@ export default class Play extends Command {
             case LoadType.ERROR:
                 ctx.editMessage({
                     content: "",
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.play.errors.search_error"))],
+                    embeds: [
+                        embed
+                            .setColor(this.client.color.red)
+                            .setDescription(
+                                ctx.locale("cmd.play.errors.search_error"),
+                            ),
+                    ],
                 });
                 break;
             case LoadType.EMPTY:
                 ctx.editMessage({
                     content: "",
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.play.errors.no_results"))],
+                    embeds: [
+                        embed
+                            .setColor(this.client.color.red)
+                            .setDescription(
+                                ctx.locale("cmd.play.errors.no_results"),
+                            ),
+                    ],
                 });
                 break;
             case LoadType.TRACK: {
@@ -73,11 +105,17 @@ export default class Play extends Command {
                     return await ctx.editMessage({
                         content: "",
                         embeds: [
-                            embed.setColor(this.client.color.red).setDescription(
-                                ctx.locale("cmd.play.errors.queue_too_long", {
-                                    maxQueueSize: client.config.maxQueueSize,
-                                }),
-                            ),
+                            embed
+                                .setColor(this.client.color.red)
+                                .setDescription(
+                                    ctx.locale(
+                                        "cmd.play.errors.queue_too_long",
+                                        {
+                                            maxQueueSize:
+                                                client.config.maxQueueSize,
+                                        },
+                                    ),
+                                ),
                         ],
                     });
                 player.queue.push(track);
@@ -100,11 +138,17 @@ export default class Play extends Command {
                     return await ctx.editMessage({
                         content: "",
                         embeds: [
-                            embed.setColor(this.client.color.red).setDescription(
-                                ctx.locale("cmd.play.errors.playlist_too_long", {
-                                    maxPlaylistSize: client.config.maxPlaylistSize,
-                                }),
-                            ),
+                            embed
+                                .setColor(this.client.color.red)
+                                .setDescription(
+                                    ctx.locale(
+                                        "cmd.play.errors.playlist_too_long",
+                                        {
+                                            maxPlaylistSize:
+                                                client.config.maxPlaylistSize,
+                                        },
+                                    ),
+                                ),
                         ],
                     });
                 for (const track of res.data.tracks) {
@@ -113,11 +157,17 @@ export default class Play extends Command {
                         return await ctx.editMessage({
                             content: "",
                             embeds: [
-                                embed.setColor(this.client.color.red).setDescription(
-                                    ctx.locale("cmd.play.errors.queue_too_long", {
-                                        maxQueueSize: client.config.maxQueueSize,
-                                    }),
-                                ),
+                                embed
+                                    .setColor(this.client.color.red)
+                                    .setDescription(
+                                        ctx.locale(
+                                            "cmd.play.errors.queue_too_long",
+                                            {
+                                                maxQueueSize:
+                                                    client.config.maxQueueSize,
+                                            },
+                                        ),
+                                    ),
                             ],
                         });
                     player.queue.push(pl);
@@ -141,11 +191,17 @@ export default class Play extends Command {
                     return await ctx.editMessage({
                         content: "",
                         embeds: [
-                            embed.setColor(this.client.color.red).setDescription(
-                                ctx.locale("cmd.play.errors.queue_too_long", {
-                                    maxQueueSize: client.config.maxQueueSize,
-                                }),
-                            ),
+                            embed
+                                .setColor(this.client.color.red)
+                                .setDescription(
+                                    ctx.locale(
+                                        "cmd.play.errors.queue_too_long",
+                                        {
+                                            maxQueueSize:
+                                                client.config.maxQueueSize,
+                                        },
+                                    ),
+                                ),
                         ],
                     });
                 player.queue.push(track1);
@@ -166,7 +222,9 @@ export default class Play extends Command {
         }
     }
 
-    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
+    public async autocomplete(
+        interaction: AutocompleteInteraction,
+    ): Promise<void> {
         const focusedValue = interaction.options.getFocused();
 
         try {
@@ -178,15 +236,24 @@ export default class Play extends Command {
                     res.data.slice(0, 10).forEach((track) => {
                         const name = `${track.info.title} by ${track.info.author}`;
                         songs.push({
-                            name: name.length > 100 ? `${name.substring(0, 97)}...` : name,
+                            name:
+                                name.length > 100
+                                    ? `${name.substring(0, 97)}...`
+                                    : name,
                             value: track.info.uri,
                         });
                     });
-                } else if (res.loadType === LoadType.PLAYLIST && res.data.tracks.length) {
+                } else if (
+                    res.loadType === LoadType.PLAYLIST &&
+                    res.data.tracks.length
+                ) {
                     res.data.tracks.slice(0, 10).forEach((track) => {
                         const name = `${track.info.title} by ${track.info.author}`;
                         songs.push({
-                            name: name.length > 100 ? `${name.substring(0, 97)}...` : name,
+                            name:
+                                name.length > 100
+                                    ? `${name.substring(0, 97)}...`
+                                    : name,
                             value: track.info.uri,
                         });
                     });

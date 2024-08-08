@@ -28,7 +28,9 @@ export default class Ready extends Event {
                 autoPoster.on("posted", (_stats) => {});
             }, 86400000); // 24 hours in milliseconds
         } else {
-            this.client.logger.warn("Top.gg token not found. Skipping auto poster.");
+            this.client.logger.warn(
+                "Top.gg token not found. Skipping auto poster.",
+            );
         }
     }
 }

@@ -1,5 +1,9 @@
 import type { AutocompleteInteraction } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 import { Language, LocaleFlags } from "../../types.js";
 
 export default class LanguageCommand extends Command {
@@ -24,7 +28,12 @@ export default class LanguageCommand extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: ["ManageGuild"],
             },
             slashCommand: true,
@@ -52,7 +61,11 @@ export default class LanguageCommand extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         let subCommand: string;
 
         if (ctx.isInteraction) {
@@ -68,7 +81,8 @@ export default class LanguageCommand extends Command {
             let lang: string;
 
             if (ctx.isInteraction) {
-                lang = ctx.interaction.options.data[0].options[0].value as string;
+                lang = ctx.interaction.options.data[0].options[0]
+                    .value as string;
             } else {
                 lang = args[0];
             }
@@ -78,7 +92,14 @@ export default class LanguageCommand extends Command {
                     .map(([key, value]) => `${value}:\`${key}\``)
                     .reduce((acc, curr, index) => {
                         if (index % 2 === 0) {
-                            return acc + curr + (index === Object.entries(LocaleFlags).length - 1 ? "" : " ");
+                            return (
+                                acc +
+                                curr +
+                                (index ===
+                                Object.entries(LocaleFlags).length - 1
+                                    ? ""
+                                    : " ")
+                            );
                         }
                         return `${acc + curr}\n`;
                     }, "");
@@ -109,7 +130,11 @@ export default class LanguageCommand extends Command {
             ctx.guildLocale = lang;
 
             return ctx.sendMessage({
-                embeds: [embed.setDescription(ctx.locale("cmd.language.set", { language: lang }))],
+                embeds: [
+                    embed.setDescription(
+                        ctx.locale("cmd.language.set", { language: lang }),
+                    ),
+                ],
             });
         }
         if (subCommand === "reset") {
@@ -119,7 +144,11 @@ export default class LanguageCommand extends Command {
 
             if (!locale) {
                 return ctx.sendMessage({
-                    embeds: [embed.setDescription(ctx.locale("cmd.language.not_set"))],
+                    embeds: [
+                        embed.setDescription(
+                            ctx.locale("cmd.language.not_set"),
+                        ),
+                    ],
                 });
             }
 
@@ -127,12 +156,16 @@ export default class LanguageCommand extends Command {
             ctx.guildLocale = Language.EnglishUS;
 
             return ctx.sendMessage({
-                embeds: [embed.setDescription(ctx.locale("cmd.language.reset"))],
+                embeds: [
+                    embed.setDescription(ctx.locale("cmd.language.reset")),
+                ],
             });
         }
     }
 
-    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
+    public async autocomplete(
+        interaction: AutocompleteInteraction,
+    ): Promise<void> {
         const focusedValue = interaction.options.getFocused();
 
         const languages = Object.values(Language).map((language) => ({
@@ -140,7 +173,9 @@ export default class LanguageCommand extends Command {
             value: language,
         }));
 
-        const filtered = languages.filter((language) => language.name.toLowerCase().includes(focusedValue.toLowerCase()));
+        const filtered = languages.filter((language) =>
+            language.name.toLowerCase().includes(focusedValue.toLowerCase()),
+        );
 
         await interaction.respond(filtered.slice(0, 25)).catch(console.error);
     }

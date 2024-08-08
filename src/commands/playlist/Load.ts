@@ -1,5 +1,9 @@
 import type { AutocompleteInteraction } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class LoadPlaylist extends Command {
     constructor(client: Lavamusic) {
@@ -23,7 +27,12 @@ export default class LoadPlaylist extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -39,15 +48,24 @@ export default class LoadPlaylist extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         let player = client.queue.get(ctx.guild!.id);
         const playlistName = args.join(" ").trim();
-        const playlistData = await client.db.getPlaylist(ctx.author.id, playlistName);
+        const playlistData = await client.db.getPlaylist(
+            ctx.author.id,
+            playlistName,
+        );
         if (!playlistData) {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.load.messages.playlist_not_exist"),
+                        description: ctx.locale(
+                            "cmd.load.messages.playlist_not_exist",
+                        ),
                         color: this.client.color.red,
                     },
                 ],
@@ -59,7 +77,9 @@ export default class LoadPlaylist extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.load.messages.playlist_empty"),
+                        description: ctx.locale(
+                            "cmd.load.messages.playlist_empty",
+                        ),
                         color: client.color.red,
                     },
                 ],
@@ -88,20 +108,27 @@ export default class LoadPlaylist extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: ctx.locale("cmd.load.messages.playlist_loaded", { name: playlistData.name, count: songs.length }),
+                    description: ctx.locale(
+                        "cmd.load.messages.playlist_loaded",
+                        { name: playlistData.name, count: songs.length },
+                    ),
                     color: this.client.color.main,
                 },
             ],
         });
     }
 
-    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
+    public async autocomplete(
+        interaction: AutocompleteInteraction,
+    ): Promise<void> {
         const focusedValue = interaction.options.getFocused();
         const userId = interaction.user.id;
 
         const playlists = await this.client.db.getUserPlaylists(userId);
 
-        const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
+        const filtered = playlists.filter((playlist) =>
+            playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()),
+        );
 
         await interaction.respond(
             filtered.map((playlist) => ({

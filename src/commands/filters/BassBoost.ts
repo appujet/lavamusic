@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class BassBoost extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class BassBoost extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -36,11 +45,15 @@ export default class BassBoost extends Command {
 
         if (filterEnabled) {
             await player.player.setEqualizer([]);
-            player.filters = player.filters.filter((filter) => filter !== "bassboost");
+            player.filters = player.filters.filter(
+                (filter) => filter !== "bassboost",
+            );
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.bassboost.messages.filter_disabled"),
+                        description: ctx.locale(
+                            "cmd.bassboost.messages.filter_disabled",
+                        ),
                         color: this.client.color.main,
                     },
                 ],
@@ -56,7 +69,9 @@ export default class BassBoost extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.bassboost.messages.filter_enabled"),
+                        description: ctx.locale(
+                            "cmd.bassboost.messages.filter_enabled",
+                        ),
                         color: this.client.color.main,
                     },
                 ],

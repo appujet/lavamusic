@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Seek extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Seek extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -37,19 +46,35 @@ export default class Seek extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const player = client.queue.get(ctx.guild!.id);
         const current = player.current.info;
         const embed = this.client.embed();
         const duration = client.utils.parseTime(args.join(" "));
         if (!duration) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.seek.errors.invalid_format"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(
+                            ctx.locale("cmd.seek.errors.invalid_format"),
+                        ),
+                ],
             });
         }
         if (!current.isSeekable) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.seek.errors.not_seekable"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(
+                            ctx.locale("cmd.seek.errors.not_seekable"),
+                        ),
+                ],
             });
         }
         if (duration > current.length) {

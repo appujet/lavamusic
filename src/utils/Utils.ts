@@ -1,4 +1,11 @@
-import { ActionRowBuilder, ActivityType, ButtonBuilder, ButtonStyle, CommandInteraction, type TextChannel } from "discord.js";
+import {
+    ActionRowBuilder,
+    ActivityType,
+    ButtonBuilder,
+    ButtonStyle,
+    CommandInteraction,
+    type TextChannel,
+} from "discord.js";
 import config from "../config.js";
 import type { Context, Lavamusic } from "../structures/index.js";
 
@@ -9,8 +16,10 @@ export class Utils {
         const hourMs = 60 * minuteMs;
         const dayMs = 24 * hourMs;
         if (ms < minuteMs) return `${ms / 1000}s`;
-        if (ms < hourMs) return `${Math.floor(ms / minuteMs)}m ${Math.floor((ms % minuteMs) / 1000)}s`;
-        if (ms < dayMs) return `${Math.floor(ms / hourMs)}h ${Math.floor((ms % hourMs) / minuteMs)}m`;
+        if (ms < hourMs)
+            return `${Math.floor(ms / minuteMs)}m ${Math.floor((ms % minuteMs) / 1000)}s`;
+        if (ms < dayMs)
+            return `${Math.floor(ms / hourMs)}h ${Math.floor((ms % hourMs) / minuteMs)}m`;
         return `${Math.floor(ms / dayMs)}d ${Math.floor((ms % dayMs) / hourMs)}h`;
     }
 
@@ -21,8 +30,12 @@ export class Utils {
             user.setPresence({
                 activities: [
                     {
-                        name: player?.current ? `🎶 | ${player.current.info.title}` : config.botActivity,
-                        type: player?.current ? ActivityType.Listening : config.botActivityType,
+                        name: player?.current
+                            ? `🎶 | ${player.current.info.title}`
+                            : config.botActivity,
+                        type: player?.current
+                            ? ActivityType.Listening
+                            : config.botActivityType,
                     },
                 ],
                 status: config.botStatus as any,
@@ -66,7 +79,11 @@ export class Utils {
         return ms;
     }
 
-    public static progressBar(current: number, total: number, size = 20): string {
+    public static progressBar(
+        current: number,
+        total: number,
+        size = 20,
+    ): string {
         const percent = Math.round((current / total) * 100);
         const filledSize = Math.round((size * current) / total);
         const filledBar = "▓".repeat(filledSize);
@@ -74,10 +91,16 @@ export class Utils {
         return `${filledBar}${emptyBar} ${percent}%`;
     }
 
-    public static async paginate(client: Lavamusic, ctx: Context, embed: any[]): Promise<void> {
+    public static async paginate(
+        client: Lavamusic,
+        ctx: Context,
+        embed: any[],
+    ): Promise<void> {
         if (embed.length < 2) {
             if (ctx.isInteraction) {
-                ctx.deferred ? ctx.interaction.followUp({ embeds: embed }) : ctx.interaction.reply({ embeds: embed });
+                ctx.deferred
+                    ? ctx.interaction.followUp({ embeds: embed })
+                    : ctx.interaction.reply({ embeds: embed });
                 return;
             }
 
@@ -110,8 +133,17 @@ export class Utils {
                 .setEmoji(client.emoji.page.last)
                 .setStyle(ButtonStyle.Primary)
                 .setDisabled(lastEmbed);
-            const stop = new ButtonBuilder().setCustomId("stop").setEmoji(client.emoji.page.cancel).setStyle(ButtonStyle.Danger);
-            const row = new ActionRowBuilder().addComponents(first, back, stop, next, last);
+            const stop = new ButtonBuilder()
+                .setCustomId("stop")
+                .setEmoji(client.emoji.page.cancel)
+                .setStyle(ButtonStyle.Danger);
+            const row = new ActionRowBuilder().addComponents(
+                first,
+                back,
+                stop,
+                next,
+                last,
+            );
             return { embeds: [pageEmbed], components: [row] };
         };
 
@@ -128,7 +160,8 @@ export class Utils {
                   fetchReply: true,
               });
 
-        const author = ctx instanceof CommandInteraction ? ctx.user : ctx.author;
+        const author =
+            ctx instanceof CommandInteraction ? ctx.user : ctx.author;
 
         const filter = (int: any): any => int.user.id === author.id;
         const collector = msg.createMessageComponentCollector({
@@ -145,9 +178,15 @@ export class Utils {
                     page--;
                 } else if (interaction.customId === "stop") {
                     collector.stop();
-                } else if (interaction.customId === "next" && page !== embed.length - 1) {
+                } else if (
+                    interaction.customId === "next" &&
+                    page !== embed.length - 1
+                ) {
                     page++;
-                } else if (interaction.customId === "last" && page !== embed.length - 1) {
+                } else if (
+                    interaction.customId === "last" &&
+                    page !== embed.length - 1
+                ) {
                     page = embed.length - 1;
                 }
                 await interaction.editReply(getButton(page));

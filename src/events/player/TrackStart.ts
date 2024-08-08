@@ -15,7 +15,11 @@ import {
 import type { Player } from "shoukaku";
 import type { Song } from "../../structures/Dispatcher.js";
 import { T } from "../../structures/I18n.js";
-import { type Dispatcher, Event, type Lavamusic } from "../../structures/index.js";
+import {
+    type Dispatcher,
+    Event,
+    type Lavamusic,
+} from "../../structures/index.js";
 import { trackStart } from "../../utils/SetupSystem.js";
 
 export default class TrackStart extends Event {
@@ -25,13 +29,19 @@ export default class TrackStart extends Event {
         });
     }
 
-    public async run(player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
+    public async run(
+        player: Player,
+        track: Song,
+        dispatcher: Dispatcher,
+    ): Promise<void> {
         if (!track?.info) return;
 
         const guild = this.client.guilds.cache.get(player.guildId);
         if (!guild) return;
 
-        const channel = guild.channels.cache.get(dispatcher.channelId) as TextChannel;
+        const channel = guild.channels.cache.get(
+            dispatcher.channelId,
+        ) as TextChannel;
         if (!channel) return;
 
         this.client.utils.updateStatus(this.client, guild.id);
@@ -42,7 +52,9 @@ export default class TrackStart extends Event {
             .embed()
             .setAuthor({
                 name: T(locale, "player.trackStart.now_playing"),
-                iconURL: this.client.config.icons[track.info.sourceName] ?? this.client.user.displayAvatarURL({ extension: "png" }),
+                iconURL:
+                    this.client.config.icons[track.info.sourceName] ??
+                    this.client.user.displayAvatarURL({ extension: "png" }),
             })
             .setColor(this.client.color.main)
             .setDescription(`**[${track.info.title}](${track.info.uri})**`)
@@ -56,7 +68,9 @@ export default class TrackStart extends Event {
             .addFields(
                 {
                     name: T(locale, "player.trackStart.duration"),
-                    value: track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.length),
+                    value: track.info.isStream
+                        ? "LIVE"
+                        : this.client.utils.formatTime(track.info.length),
                     inline: true,
                 },
                 {
@@ -70,11 +84,20 @@ export default class TrackStart extends Event {
         const setup = await this.client.db.getSetup(guild.id);
 
         if (setup?.textId) {
-            const textChannel = guild.channels.cache.get(setup.textId) as TextChannel;
+            const textChannel = guild.channels.cache.get(
+                setup.textId,
+            ) as TextChannel;
             const id = setup.messageId;
 
             if (textChannel) {
-                await trackStart(id, textChannel, dispatcher, track, this.client, locale);
+                await trackStart(
+                    id,
+                    textChannel,
+                    dispatcher,
+                    track,
+                    this.client,
+                    locale,
+                );
             }
         } else {
             const message = await channel.send({
@@ -83,12 +106,22 @@ export default class TrackStart extends Event {
             });
 
             dispatcher.nowPlayingMessage = message;
-            createCollector(message, dispatcher, track, embed, this.client, locale);
+            createCollector(
+                message,
+                dispatcher,
+                track,
+                embed,
+                this.client,
+                locale,
+            );
         }
     }
 }
 
-function createButtonRow(dispatcher: Dispatcher, client: Lavamusic): ActionRowBuilder<ButtonBuilder> {
+function createButtonRow(
+    dispatcher: Dispatcher,
+    client: Lavamusic,
+): ActionRowBuilder<ButtonBuilder> {
     const previousButton = new ButtonBuilder()
 
         .setCustomId("previous")
@@ -99,31 +132,66 @@ function createButtonRow(dispatcher: Dispatcher, client: Lavamusic): ActionRowBu
     const resumeButton = new ButtonBuilder()
         .setCustomId("resume")
         .setEmoji(dispatcher.paused ? client.emoji.resume : client.emoji.pause)
-        .setStyle(dispatcher.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
+        .setStyle(
+            dispatcher.paused ? ButtonStyle.Success : ButtonStyle.Secondary,
+        );
 
-    const stopButton = new ButtonBuilder().setCustomId("stop").setEmoji(client.emoji.stop).setStyle(ButtonStyle.Danger);
+    const stopButton = new ButtonBuilder()
+        .setCustomId("stop")
+        .setEmoji(client.emoji.stop)
+        .setStyle(ButtonStyle.Danger);
 
-    const skipButton = new ButtonBuilder().setCustomId("skip").setEmoji(client.emoji.skip).setStyle(ButtonStyle.Secondary);
+    const skipButton = new ButtonBuilder()
+        .setCustomId("skip")
+        .setEmoji(client.emoji.skip)
+        .setStyle(ButtonStyle.Secondary);
 
     const loopButton = new ButtonBuilder()
         .setCustomId("loop")
-        .setEmoji(dispatcher.loop === "repeat" ? client.emoji.loop.track : client.emoji.loop.none)
-        .setStyle(dispatcher.loop !== "off" ? ButtonStyle.Success : ButtonStyle.Secondary);
+        .setEmoji(
+            dispatcher.loop === "repeat"
+                ? client.emoji.loop.track
+                : client.emoji.loop.none,
+        )
+        .setStyle(
+            dispatcher.loop !== "off"
+                ? ButtonStyle.Success
+                : ButtonStyle.Secondary,
+        );
 
-    return new ActionRowBuilder<ButtonBuilder>().addComponents(resumeButton, previousButton, stopButton, skipButton, loopButton);
+    return new ActionRowBuilder<ButtonBuilder>().addComponents(
+        resumeButton,
+        previousButton,
+        stopButton,
+        skipButton,
+        loopButton,
+    );
 }
 
-function createCollector(message: any, dispatcher: Dispatcher, _track: Song, embed: any, client: Lavamusic, locale: string): void {
+function createCollector(
+    message: any,
+    dispatcher: Dispatcher,
+    _track: Song,
+    embed: any,
+    client: Lavamusic,
+    locale: string,
+): void {
     const collector = message.createMessageComponentCollector({
         filter: async (b: ButtonInteraction) => {
             if (b.member instanceof GuildMember) {
-                const isSameVoiceChannel = b.guild.members.me?.voice.channelId === b.member.voice.channelId;
+                const isSameVoiceChannel =
+                    b.guild.members.me?.voice.channelId ===
+                    b.member.voice.channelId;
                 if (isSameVoiceChannel) return true;
             }
             await b.reply({
-                content: T(locale, "player.trackStart.not_connected_to_voice_channel", {
-                    channel: b.guild.members.me?.voice.channelId ?? "None",
-                }),
+                content: T(
+                    locale,
+                    "player.trackStart.not_connected_to_voice_channel",
+                    {
+                        channel: b.guild.members.me?.voice.channelId ?? "None",
+                    },
+                ),
                 ephemeral: true,
             });
             return false;
@@ -164,7 +232,10 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                     );
                 } else {
                     await interaction.reply({
-                        content: T(locale, "player.trackStart.no_previous_song"),
+                        content: T(
+                            locale,
+                            "player.trackStart.no_previous_song",
+                        ),
                         ephemeral: true,
                     });
                 }
@@ -197,7 +268,10 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                     );
                 } else {
                     await interaction.reply({
-                        content: T(locale, "player.trackStart.no_more_songs_in_queue"),
+                        content: T(
+                            locale,
+                            "player.trackStart.no_more_songs_in_queue",
+                        ),
                         ephemeral: true,
                     });
                 }
@@ -249,8 +323,17 @@ export async function checkDj(
     if (dj?.mode) {
         const djRole = await client.db.getRoles(interaction.guildId);
         if (!djRole) return false;
-        const hasDjRole = interaction.member.roles.cache.some((role) => djRole.map((r) => r.roleId).includes(role.id));
-        if (!(hasDjRole || interaction.member.permissions.has(PermissionFlagsBits.ManageGuild))) {
+        const hasDjRole = interaction.member.roles.cache.some((role) =>
+            djRole.map((r) => r.roleId).includes(role.id),
+        );
+        if (
+            !(
+                hasDjRole ||
+                interaction.member.permissions.has(
+                    PermissionFlagsBits.ManageGuild,
+                )
+            )
+        ) {
             return false;
         }
     }

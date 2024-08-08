@@ -1,7 +1,11 @@
 // biome-ignore lint/correctness/noNodejsModules: <explanation>
 import { exec } from "node:child_process";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Restart extends Command {
     constructor(client: Lavamusic) {
@@ -24,7 +28,12 @@ export default class Restart extends Command {
             },
             permissions: {
                 dev: true,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: false,
@@ -34,11 +43,16 @@ export default class Restart extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<void> {
         const embed = this.client.embed();
-        const button = new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Confirm Restart").setCustomId("confirm-restart");
+        const button = new ButtonBuilder()
+            .setStyle(ButtonStyle.Danger)
+            .setLabel("Confirm Restart")
+            .setCustomId("confirm-restart");
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
         const restartembed = embed
             .setColor(this.client.color.red)
-            .setDescription(`**Are you sure you want to restart **\`${client.user.username}\`?`)
+            .setDescription(
+                `**Are you sure you want to restart **\`${client.user.username}\`?`,
+            )
             .setTimestamp();
 
         const msg = await ctx.sendMessage({
@@ -46,7 +60,8 @@ export default class Restart extends Command {
             components: [row],
         });
 
-        const filter = (i: any) => i.customId === "confirm-restart" && i.user.id === ctx.author.id;
+        const filter = (i: any) =>
+            i.customId === "confirm-restart" && i.user.id === ctx.author.id;
         const collector = msg.createMessageComponentCollector({
             time: 30000,
             filter,

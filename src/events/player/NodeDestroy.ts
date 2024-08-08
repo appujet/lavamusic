@@ -10,7 +10,11 @@ export default class NodeDestroy extends Event {
     }
 
     // biome-ignore lint/suspicious/useAwait: <explanation>
-    public async run(node: string, code: number, reason: string): Promise<void> {
+    public async run(
+        node: string,
+        code: number,
+        reason: string,
+    ): Promise<void> {
         const message = `Node ${node} destroyed with code ${code} and reason ${reason}.`;
         this.client.logger.error(message);
         BotLog.send(this.client, message, "error");

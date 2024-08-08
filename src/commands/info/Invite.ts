@@ -1,5 +1,9 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Invite extends Command {
     constructor(client: Lavamusic) {
@@ -23,7 +27,12 @@ export default class Invite extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -40,10 +49,17 @@ export default class Invite extends Command {
                 .setURL(
                     `https://discord.com/api/oauth2/authorize?client_id=${client.config.clientId}&permissions=8&scope=bot%20applications.commands`,
                 ),
-            new ButtonBuilder().setLabel(ctx.locale("buttons.support")).setStyle(ButtonStyle.Link).setURL("https://discord.gg/STXurwnZD5"),
+            new ButtonBuilder()
+                .setLabel(ctx.locale("buttons.support"))
+                .setStyle(ButtonStyle.Link)
+                .setURL("https://discord.gg/STXurwnZD5"),
         );
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.invite.content"))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(ctx.locale("cmd.invite.content")),
+            ],
             components: [row],
         });
     }

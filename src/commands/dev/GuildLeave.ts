@@ -1,5 +1,9 @@
 import { ChannelType, type TextChannel } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class GuildLeave extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class GuildLeave extends Command {
             },
             permissions: {
                 dev: true,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: false,
@@ -30,7 +39,11 @@ export default class GuildLeave extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const guildId = args[0];
 
         // Broadcast to all shards to find the guild
@@ -67,9 +80,13 @@ export default class GuildLeave extends Command {
         // Logging
         const logChannelId = process.env.LOG_CHANNEL_ID;
         if (logChannelId) {
-            const logChannel = client.channels.cache.get(logChannelId) as TextChannel;
+            const logChannel = client.channels.cache.get(
+                logChannelId,
+            ) as TextChannel;
             if (logChannel && logChannel.type === ChannelType.GuildText) {
-                await logChannel.send(`Bot has left guild: ${guild.name} (ID: ${guild.id})`);
+                await logChannel.send(
+                    `Bot has left guild: ${guild.name} (ID: ${guild.id})`,
+                );
             }
         }
     }

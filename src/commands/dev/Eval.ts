@@ -2,7 +2,11 @@
 import util from "node:util";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { fetch } from "undici";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Eval extends Command {
     constructor(client: Lavamusic) {
@@ -25,7 +29,12 @@ export default class Eval extends Command {
             },
             permissions: {
                 dev: true,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: false,
@@ -33,7 +42,11 @@ export default class Eval extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const code = args.join(" ");
         try {
             let evaled = eval(code);
@@ -55,15 +68,21 @@ export default class Eval extends Command {
                 });
             }
 
-            const button = new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Delete").setCustomId("eval-delete");
-            const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
+            const button = new ButtonBuilder()
+                .setStyle(ButtonStyle.Danger)
+                .setLabel("Delete")
+                .setCustomId("eval-delete");
+            const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+                button,
+            );
 
             const msg = await ctx.sendMessage({
                 content: `\`\`\`js\n${evaled}\n\`\`\``,
                 components: [row],
             });
 
-            const filter = (i: any) => i.customId === "eval-delete" && i.user.id === ctx.author.id;
+            const filter = (i: any) =>
+                i.customId === "eval-delete" && i.user.id === ctx.author.id;
             const collector = msg.createMessageComponentCollector({
                 time: 60000,
                 filter: filter,

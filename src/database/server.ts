@@ -40,7 +40,11 @@ export default class ServerData {
         });
     }
 
-    public async set_247(guildId: string, textId: string, voiceId: string): Promise<void> {
+    public async set_247(
+        guildId: string,
+        textId: string,
+        voiceId: string,
+    ): Promise<void> {
         await this.prisma.stay.upsert({
             where: { guildId },
             update: { textId, voiceId },
@@ -103,7 +107,11 @@ export default class ServerData {
         return await this.prisma.setup.findUnique({ where: { guildId } });
     }
 
-    public async setSetup(guildId: string, textId: string, messageId: string): Promise<void> {
+    public async setSetup(
+        guildId: string,
+        textId: string,
+        messageId: string,
+    ): Promise<void> {
         await this.prisma.setup.upsert({
             where: { guildId },
             update: { textId, messageId },
@@ -115,7 +123,10 @@ export default class ServerData {
         await this.prisma.setup.delete({ where: { guildId } });
     }
 
-    public async getPlaylist(userId: string, name: string): Promise<Playlist | null> {
+    public async getPlaylist(
+        userId: string,
+        name: string,
+    ): Promise<Playlist | null> {
         return await this.prisma.playlist.findUnique({
             where: { userId_name: { userId, name } },
         });
@@ -129,7 +140,11 @@ export default class ServerData {
         });
     }
 
-    public async createPlaylistWithSongs(userId: string, name: string, songs: any[]): Promise<void> {
+    public async createPlaylistWithSongs(
+        userId: string,
+        name: string,
+        songs: any[],
+    ): Promise<void> {
         await this.prisma.playlist.create({
             data: {
                 userId,
@@ -151,7 +166,10 @@ export default class ServerData {
         });
     }
 
-    public async deleteSongsFromPlaylist(userId: string, playlistName: string): Promise<void> {
+    public async deleteSongsFromPlaylist(
+        userId: string,
+        playlistName: string,
+    ): Promise<void> {
         const playlist = await this.getPlaylist(userId, playlistName);
         if (playlist) {
             await this.prisma.song.deleteMany({
@@ -162,7 +180,11 @@ export default class ServerData {
         }
     }
 
-    public async addSong(userId: string, name: string, song: string): Promise<void> {
+    public async addSong(
+        userId: string,
+        name: string,
+        song: string,
+    ): Promise<void> {
         const playlist = await this.getPlaylist(userId, name);
         if (playlist) {
             await this.prisma.song.create({
@@ -177,7 +199,11 @@ export default class ServerData {
         }
     }
 
-    public async removeSong(userId: string, playlistName: string, encodedSong: string): Promise<void> {
+    public async removeSong(
+        userId: string,
+        playlistName: string,
+        encodedSong: string,
+    ): Promise<void> {
         const playlist = await this.getPlaylist(userId, playlistName);
         if (playlist) {
             await this.prisma.song.deleteMany({
@@ -222,7 +248,10 @@ export default class ServerData {
         await this.prisma.song.deleteMany();
     }
 
-    public async updateLanguage(guildId: string, language: string): Promise<void> {
+    public async updateLanguage(
+        guildId: string,
+        language: string,
+    ): Promise<void> {
         const guild = await this.get(guildId);
         if (guild) {
             await this.prisma.guild.update({

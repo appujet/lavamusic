@@ -1,5 +1,9 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class About extends Command {
     constructor(client: Lavamusic) {
@@ -23,7 +27,12 @@ export default class About extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -42,14 +51,20 @@ export default class About extends Command {
             .setLabel(ctx.locale("buttons.support"))
             .setStyle(ButtonStyle.Link)
             .setURL("https://discord.gg/ns8CTk9J3e");
-        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(inviteButton, supportButton);
+        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+            inviteButton,
+            supportButton,
+        );
         const embed = this.client
             .embed()
             .setAuthor({
                 name: "Lavamusic",
-                iconURL: "https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png",
+                iconURL:
+                    "https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png",
             })
-            .setThumbnail("https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png")
+            .setThumbnail(
+                "https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png",
+            )
             .setColor(this.client.color.main)
             .addFields(
                 {

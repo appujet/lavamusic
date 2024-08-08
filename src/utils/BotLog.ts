@@ -3,10 +3,16 @@ import type { Lavamusic } from "../structures/index.js";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export default class BotLog {
-    public static send(client: Lavamusic, message: string, type: "error" | "warn" | "info" | "success" = "info"): void {
+    public static send(
+        client: Lavamusic,
+        message: string,
+        type: "error" | "warn" | "info" | "success" = "info",
+    ): void {
         if (!client?.channels.cache && client.config.logChannelId) return;
 
-        const channel = client.channels.cache.get(client.config.logChannelId!) as TextChannel;
+        const channel = client.channels.cache.get(
+            client.config.logChannelId!,
+        ) as TextChannel;
         if (!channel) return;
 
         const colors = {
@@ -17,7 +23,11 @@ export default class BotLog {
         } as const;
 
         const color = colors[type];
-        const embed = client.embed().setColor(color).setDescription(message).setTimestamp();
+        const embed = client
+            .embed()
+            .setColor(color)
+            .setDescription(message)
+            .setTimestamp();
 
         channel.send({ embeds: [embed] }).catch(() => {});
     }

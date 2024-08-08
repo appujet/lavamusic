@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class ClearQueue extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class ClearQueue extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -36,19 +45,33 @@ export default class ClearQueue extends Command {
 
         if (!player) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_player"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("player.errors.no_player")),
+                ],
             });
         }
 
         if (player.queue.length === 0) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("player.errors.no_song")),
+                ],
             });
         }
 
         player.queue = [];
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.clearqueue.messages.cleared"))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(
+                        ctx.locale("cmd.clearqueue.messages.cleared"),
+                    ),
+            ],
         });
     }
 }

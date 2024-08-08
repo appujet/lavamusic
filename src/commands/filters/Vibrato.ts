@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Vibrato extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Vibrato extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -40,7 +49,9 @@ export default class Vibrato extends Command {
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.vibrato.messages.disabled"),
+                        description: ctx.locale(
+                            "cmd.vibrato.messages.disabled",
+                        ),
                         color: this.client.color.main,
                     },
                 ],

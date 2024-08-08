@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Pause extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Pause extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -36,14 +45,26 @@ export default class Pause extends Command {
 
         if (player?.paused) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.already_paused"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(
+                            ctx.locale("player.errors.already_paused"),
+                        ),
+                ],
             });
         }
 
         player?.pause();
 
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.pause.successfully_paused"))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(
+                        ctx.locale("cmd.pause.successfully_paused"),
+                    ),
+            ],
         });
     }
 }

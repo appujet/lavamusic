@@ -1,5 +1,15 @@
-import { ActionRowBuilder, ButtonBuilder, type ButtonInteraction, ButtonStyle, ComponentType } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    ActionRowBuilder,
+    ButtonBuilder,
+    type ButtonInteraction,
+    ButtonStyle,
+    ComponentType,
+} from "discord.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Deploy extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +32,12 @@ export default class Deploy extends Command {
             },
             permissions: {
                 dev: true,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: false,
@@ -30,10 +45,20 @@ export default class Deploy extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, _args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        _args: string[],
+    ): Promise<any> {
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-            new ButtonBuilder().setCustomId("deploy-global").setLabel("Global").setStyle(ButtonStyle.Secondary),
-            new ButtonBuilder().setCustomId("deploy-guild").setLabel("Guild").setStyle(ButtonStyle.Secondary),
+            new ButtonBuilder()
+                .setCustomId("deploy-global")
+                .setLabel("Global")
+                .setStyle(ButtonStyle.Secondary),
+            new ButtonBuilder()
+                .setCustomId("deploy-guild")
+                .setLabel("Guild")
+                .setStyle(ButtonStyle.Secondary),
         );
 
         const msg = await ctx.sendMessage({

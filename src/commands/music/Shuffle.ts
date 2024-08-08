@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Shuffle extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Shuffle extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: [],
             },
             slashCommand: true,
@@ -35,12 +44,22 @@ export default class Shuffle extends Command {
         const embed = this.client.embed();
         if (!player.queue.length) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
+                embeds: [
+                    embed
+                        .setColor(this.client.color.red)
+                        .setDescription(ctx.locale("player.errors.no_song")),
+                ],
             });
         }
         player.setShuffle();
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.shuffle.messages.shuffled"))],
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription(
+                        ctx.locale("cmd.shuffle.messages.shuffled"),
+                    ),
+            ],
         });
     }
 }

@@ -1,4 +1,8 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import {
+    Command,
+    type Context,
+    type Lavamusic,
+} from "../../structures/index.js";
 
 export default class Prefix extends Command {
     constructor(client: Lavamusic) {
@@ -22,7 +26,12 @@ export default class Prefix extends Command {
             },
             permissions: {
                 dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+                client: [
+                    "SendMessages",
+                    "ReadMessageHistory",
+                    "ViewChannel",
+                    "EmbedLinks",
+                ],
                 user: ["ManageGuild"],
             },
             slashCommand: true,
@@ -49,7 +58,11 @@ export default class Prefix extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    public async run(
+        client: Lavamusic,
+        ctx: Context,
+        args: string[],
+    ): Promise<any> {
         const embed = client.embed().setColor(this.client.color.main);
         const guildId = ctx.guild!.id;
         const guildData = await client.db.get(guildId);
@@ -59,7 +72,8 @@ export default class Prefix extends Command {
 
         if (isInteraction) {
             subCommand = ctx.interaction.options.data[0].name;
-            prefix = ctx.interaction.options.data[0].options[0]?.value.toString();
+            prefix =
+                ctx.interaction.options.data[0].options[0]?.value.toString();
         } else {
             subCommand = args[0] || "";
             prefix = args[1] || "";
@@ -68,7 +82,9 @@ export default class Prefix extends Command {
         switch (subCommand) {
             case "set": {
                 if (!prefix) {
-                    const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
+                    const currentPrefix = guildData
+                        ? guildData.prefix
+                        : client.config.prefix;
                     embed.setDescription(
                         ctx.locale("cmd.prefix.messages.current_prefix", {
                             prefix: currentPrefix,
@@ -77,11 +93,15 @@ export default class Prefix extends Command {
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
                 if (prefix.length > 3) {
-                    embed.setDescription(ctx.locale("cmd.prefix.errors.prefix_too_long"));
+                    embed.setDescription(
+                        ctx.locale("cmd.prefix.errors.prefix_too_long"),
+                    );
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
                 await client.db.setPrefix(guildId, prefix);
-                embed.setDescription(ctx.locale("cmd.prefix.messages.prefix_set", { prefix }));
+                embed.setDescription(
+                    ctx.locale("cmd.prefix.messages.prefix_set", { prefix }),
+                );
                 return await ctx.sendMessage({ embeds: [embed] });
             }
             case "reset": {
@@ -95,7 +115,9 @@ export default class Prefix extends Command {
                 return await ctx.sendMessage({ embeds: [embed] });
             }
             default: {
-                const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
+                const currentPrefix = guildData
+                    ? guildData.prefix
+                    : client.config.prefix;
                 embed.setDescription(
                     ctx.locale("cmd.prefix.messages.current_prefix", {
                         prefix: currentPrefix,

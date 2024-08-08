@@ -41,7 +41,9 @@ async function main(): Promise<void> {
 
         manager.on("shardCreate", (shard) => {
             shard.on("ready", () => {
-                logger.start(`[CLIENT] Shard ${shard.id} connected to Discord's Gateway.`);
+                logger.start(
+                    `[CLIENT] Shard ${shard.id} connected to Discord's Gateway.`,
+                );
             });
         });
 
