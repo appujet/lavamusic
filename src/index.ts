@@ -1,4 +1,5 @@
 // biome-ignore lint/style/noNamespaceImport: <explanation>
+// biome-ignore lint/correctness/noNodejsModules: <explanation>
 import * as fs from "node:fs";
 import { ShardingManager } from "discord.js";
 
