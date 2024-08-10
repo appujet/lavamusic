@@ -1,630 +1,630 @@
 {
 	"cmd": {
 		"247": {
-			"description": "Set the bot to stay in the voice channel",
+			"description": "Atur bot untuk tetap berada di voice channel",
 			"errors": {
-				"not_in_voice": "You need to be in a voice channel to use this command.",
-				"generic": "An error occurred while trying to execute this command."
+				"not_in_voice": "Anda perlu berada di voice channel untuk menggunakan command ini.",
+				"generic": "Terjadi kesalahan saat mencoba menjalankan command ini."
 			},
 			"messages": {
-				"disabled": "`✅` | 24/7 mode has been `DISABLED`",
-				"enabled": "`✅` | 24/7 mode has been `ENABLED`. \n**The bot will not leave the voice channel even if there are no people in the voice channel.**"
+				"disabled": "`✅` | Mode 24/7 telah `DINONAKTIFKAN`",
+				"enabled": "`✅` | Mode 24/7 telah `DIAKTIFKAN`. \n**Bot tidak akan meninggalkan voice channel meskipun tidak ada orang di voice channel.**"
 			}
 		},
 		"ping": {
-			"description": "Shows the bot's ping.",
-			"content": "Pinging...",
-			"bot_latency": "Bot Latency",
-			"api_latency": "API Latency",
-			"requested_by": "Requested by {author}"
+			"description": "Menampilkan ping bot.",
+			"content": "Mengukur ping...",
+			"bot_latency": "Latensi Bot",
+			"api_latency": "Latensi API",
+			"requested_by": "Direquest oleh {author}"
 		},
 		"lavalink": {
-			"description": "Shows the current Lavalink stats.",
-			"title": "Lavalink Stats",
-			"content": "Player: {players}\nPlaying Players: {playingPlayers}\nUptime: {uptime}\nCores: {cores} Core(s)\nMemory Usage: {used} / {reservable}\nSystem Load: {systemLoad}%\nLavalink Load: {lavalinkLoad}%"
+			"description": "Menampilkan statistik Lavalink saat ini.",
+			"title": "Statistik Lavalink",
+			"content": "Player: {players}\nPlayer Aktif: {playingPlayers}\nUptime: {uptime}\nCore: {cores} Core\nMemory Usage: {used} / {reservable}\nSystem Load: {systemLoad}%\nLavalink Load: {lavalinkLoad}%"
 		},
 		"invite": {
-			"description": "Get the bot invite link.",
-			"content": "You can invite me by clicking the button below. Any bugs or outages? Join the support server!"
+			"description": "Dapatkan tautan undangan bot.",
+			"content": "Anda dapat mengundang saya dengan mengklik tombol di bawah. Ada bug atau gangguan? Bergabunglah dengan server support!"
 		},
 		"help": {
-			"description": "Shows the help menu.",
+			"description": "Menampilkan menu bantuan.",
 			"options": {
-				"command": "The command you want to get info on"
+				"command": "command yang ingin Anda dapatkan informasinya"
 			},
-			"content": "Hey there! I'm {bot}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord. You can use `{prefix}help <command>` to get more info on a command.",
-			"title": "Help Menu",
-			"not_found": "This `{cmdName}` command does not exist.",
-			"help_cmd": "**Description:** {description}\n**Usage:** {usage}\n**Examples:** {examples}\n**Aliases:** {aliases}\n**Category:** {category}\n**Cooldown:** {cooldown} seconds\n**Permissions:** {premUser}\n**Bot Permissions:** {premBot}\n**Developer Only:** {dev}\n**Slash Command:** {slash}\n**Args:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**DJ Permissions:** {djPerm}\n**Voice:** {voice}",
-			"footer": "Use {prefix}help <command> for more info on a command"
+			"content": "Halo! Saya {bot}, bot musik yang dibuat dengan [Lavamusic](https://github.com/appujet/lavamusic) dan Discord. Anda dapat menggunakan `{prefix}help <command>` untuk mendapatkan informasi lebih lanjut tentang command.",
+			"title": "Menu Bantuan",
+			"not_found": "command `{cmdName}` ini tidak ada.",
+			"help_cmd": "**Deskripsi:** {description}\n**Penggunaan:** {usage}\n**Contoh:** {examples}\n**Alias:** {aliases}\n**Kategori:** {category}\n**Cooldown:** {cooldown} detik\n**Izin:** {premUser}\n**Izin Bot:** {premBot}\n**Hanya Pengembang:** {dev}\n**command Slash:** {slash}\n**Argumen:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**Izin DJ:** {djPerm}\n**Suara:** {voice}",
+			"footer": "Gunakan {prefix}help <command> untuk informasi lebih lanjut tentang command"
 		},
 		"botinfo": {
-			"description": "Information about the bot",
-			"content": "Bot Information:\n- **Operating System**: {osInfo}\n- **Uptime**: {osUptime}\n- **Hostname**: {osHostname}\n- **CPU Architecture**: {cpuInfo}\n- **CPU Usage**: {cpuUsed}%\n- **Memory Usage**: {memUsed}MB / {memTotal}GB\n- **Node Version**: {nodeVersion}\n- **Discord Version**: {discordJsVersion}\n- **Connected to** {guilds} guilds, {channels} channels, and {users} users\n- **Total Commands**: {commands}"
+			"description": "Informasi tentang bot",
+			"content": "Informasi Bot:\n- **Sistem Operasi**: {osInfo}\n- **Uptime**: {osUptime}\n- **Nama Host**: {osHostname}\n- **Arsitektur CPU**: {cpuInfo}\n- **Penggunaan CPU**: {cpuUsed}%\n- **Penggunaan Memori**: {memUsed}MB / {memTotal}GB\n- **Versi Node**: {nodeVersion}\n- **Versi Discord**: {discordJsVersion}\n- **Terhubung ke** {guilds} guild, {channels} saluran, dan {users} pengguna\n- **Total command**: {commands}"
 		},
 		"about": {
-			"description": "Shows information about the bot",
+			"description": "Menampilkan informasi tentang bot",
 			"fields": {
-				"creator": "Creator",
-				"repository": "Repository",
-				"support": "Support",
-				"description": "He really wanted to make his first open source project ever for more coding experience. In this project, he was challenged to make a project with fewer bugs. Hope you enjoy using LavaMusic!"
+				"creator": "Pembuat",
+				"repository": "Repositori",
+				"support": "Dukungan",
+				"description": "Dia sangat ingin membuat proyek open source pertamanya untuk pengalaman coding yang lebih banyak. Dalam proyek ini, dia ditantang untuk membuat proyek dengan lebih sedikit bug. Semoga Anda menikmati menggunakan LavaMusic!"
 			}
 		},
 		"dj": {
-			"description": "Manage the DJ mode and associated roles",
+			"description": "Mengelola mode DJ dan peran terkait",
 			"errors": {
-				"provide_role": "Please provide a role.",
-				"no_roles": "The DJ role is empty.",
-				"invalid_subcommand": "Please provide a valid subcommand."
+				"provide_role": "Harap berikan peran.",
+				"no_roles": "Peran DJ kosong.",
+				"invalid_subcommand": "Harap berikan subcommand yang valid."
 			},
 			"messages": {
-				"role_exists": "The DJ role <@&{roleId}> is already added.",
-				"role_added": "The DJ role <@&{roleId}> has been added.",
-				"role_not_found": "The DJ role <@&{roleId}> is not added.",
-				"role_removed": "The DJ role <@&{roleId}> has been removed.",
-				"all_roles_cleared": "All DJ roles have been removed.",
-				"toggle": "The DJ mode has been toggled to {status}."
+				"role_exists": "Peran DJ <@&{roleId}> sudah ditambahkan.",
+				"role_added": "Peran DJ <@&{roleId}> telah ditambahkan.",
+				"role_not_found": "Peran DJ <@&{roleId}> tidak ditambahkan.",
+				"role_removed": "Peran DJ <@&{roleId}> telah dihapus.",
+				"all_roles_cleared": "Semua peran DJ telah dihapus.",
+				"toggle": "Mode DJ telah diubah menjadi {status}."
 			},
 			"options": {
-				"add": "The DJ role you want to add",
-				"remove": "The DJ role you want to remove",
-				"clear": "Clears all DJ roles",
-				"toggle": "Toggles the DJ role",
-				"role": "The DJ role"
+				"add": "Peran DJ yang ingin Anda tambahkan",
+				"remove": "Peran DJ yang ingin Anda hapus",
+				"clear": "Menghapus semua peran DJ",
+				"toggle": "Mengaktifkan/menonaktifkan peran DJ",
+				"role": "Peran DJ"
 			},
-			"subcommands": "Subcommands"
+			"subcommands": "Subcommand"
 		},
 		"language": {
-			"description": "Set the language for the bot",
-			"invalid_language": "Please provide a valid language. Example: `EnglishUS` for English (United States)\n\nYou can find the list of supported languages [here](https://discord.com/developers/docs/reference#locales)\n\n**Available Languages:**\n{languages}",
-			"already_set": "The language is already set to `{language}`",
-			"not_set": "The language is not set.",
-			"set": "`✅` | The language has been set to `{language}`",
-			"reset": "`✅` | The language has been reset to the default language.",
+			"description": "Mengatur bahasa untuk bot",
+			"invalid_language": "Harap berikan bahasa yang valid. Contoh: `EnglishUS` untuk Bahasa Inggris (Amerika Serikat)\n\nAnda dapat menemukan list bahasa yang disupport [di sini](https://discord.com/developers/docs/reference#locales)\n\n**Bahasa yang Tersedia:**\n{languages}",
+			"already_set": "Bahasa sudah diatur ke `{language}`",
+			"not_set": "Bahasa belum diatur.",
+			"set": "`✅` | Bahasa telah diatur ke `{language}`",
+			"reset": "`✅` | Bahasa telah direset ke bahasa default.",
 			"options": {
-				"set": "Set the language for the bot",
-				"language": "The language you want to set",
-				"reset": "Change the language back to the default language"
+				"set": "Mengatur bahasa untuk bot",
+				"language": "Bahasa yang ingin Anda atur",
+				"reset": "Mengubah bahasa kembali ke bahasa default"
 			}
 		},
 		"prefix": {
-			"description": "Shows or sets the bot's prefix",
+			"description": "Menampilkan atau mengatur prefix bot",
 			"errors": {
-				"prefix_too_long": "The prefix cannot be longer than 3 characters."
+				"prefix_too_long": "prefix tidak boleh lebih dari 3 karakter."
 			},
 			"messages": {
-				"current_prefix": "The prefix for this server is `{prefix}`",
-				"prefix_set": "The prefix for this server is now `{prefix}`",
-				"prefix_reset": "The prefix for this server is now `{prefix}`"
+				"current_prefix": "prefix untuk server ini adalah `{prefix}`",
+				"prefix_set": "prefix untuk server ini sekarang adalah `{prefix}`",
+				"prefix_reset": "prefix untuk server ini sekarang adalah `{prefix}`"
 			},
 			"options": {
-				"set": "Sets the prefix",
-				"prefix": "The prefix you want to set",
-				"reset": "Resets the prefix to the default one"
+				"set": "Mengatur prefix",
+				"prefix": "prefix yang ingin Anda atur",
+				"reset": "Mengatur ulang prefix ke default"
 			}
 		},
 		"setup": {
-			"description": "Sets up the bot",
+			"description": "Mengatur bot",
 			"errors": {
-				"channel_exists": "The song request channel already exists.",
-				"channel_not_exists": "The song request channel doesn't exist.",
-				"channel_delete_fail": "The song request channel has been deleted. If the channel is not deleted normally, please delete it yourself."
+				"channel_exists": "Channel Song Request sudah ada.",
+				"channel_not_exists": "Channel Song Request tidak ada.",
+				"channel_delete_fail": "Channel Song Request telah dihapus. Jika channel tidak terhapus secara normal, mohon untuk menghapus sendiri."
 			},
 			"messages": {
-				"channel_created": "The song request channel has been created in <#{channelId}>.",
-				"channel_deleted": "The song request channel has been deleted.",
-				"channel_info": "The song request channel is <#{channelId}>."
+				"channel_created": "Channel Song Request telah dibuat di <#{channelId}>.",
+				"channel_deleted": "Channel Song Request telah dihapus.",
+				"channel_info": "Channel Song Request adalah <#{channelId}>."
 			},
 			"options": {
-				"create": "Creates the song request channel",
-				"delete": "Deletes the song request channel",
-				"info": "Shows the song request channel"
+				"create": "Membuat Channel Song Request",
+				"delete": "Menghapus Channel Song Request",
+				"info": "Menampilkan Channel Song Request"
 			}
 		},
 		"8d": {
-			"description": "on/off 8d filter",
+			"description": "Mengaktifkan/menonaktifkan filter 8d",
 			"messages": {
-				"filter_enabled": "`✅` | 8D filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | 8D filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Filter 8D telah `DIAKTIFKAN`.",
+				"filter_disabled": "`✅` | Filter 8D telah `DINONAKTIFKAN`."
 			}
 		},
 		"bassboost": {
-			"description": "on/off bassboost filter",
+			"description": "Mengaktifkan/menonaktifkan filter bassboost",
 			"messages": {
-				"filter_enabled": "`✅` | Bassboost filter has been `ENABLED`. \n**Be careful, listening too loudly can damage your hearing!**",
-				"filter_disabled": "`✅` | Bassboost filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Filter bassboost telah `DIAKTIFKAN`. \n**Hati-hati, mendengarkan terlalu keras dapat merusak pendengaran Anda!**",
+				"filter_disabled": "`✅` | Filter bassboost telah `DINONAKTIFKAN`."
 			}
 		},
 		"distorsion": {
-			"description": "Toggle the distorsion filter on/off",
+			"description": "Mengaktifkan/menonaktifkan filter distorsi",
 			"messages": {
-				"filter_enabled": "`✅` | Distorsion filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Distorsion filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Filter distorsi telah `DIAKTIFKAN`.",
+				"filter_disabled": "`✅` | Filter distorsi telah `DINONAKTIFKAN`."
 			}
 		},
 		"karaoke": {
-			"description": "Toggle the karaoke filter on/off",
+			"description": "Mengaktifkan/menonaktifkan filter karaoke",
 			"messages": {
-				"filter_enabled": "`✅` | Karaoke filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Karaoke filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Filter karaoke telah `DIAKTIFKAN`.",
+				"filter_disabled": "`✅` | Filter karaoke telah `DINONAKTIFKAN`."
 			}
 		},
 		"lowpass": {
-			"description": "Toggle the lowpass filter on/off",
+			"description": "Mengaktifkan/menonaktifkan filter lowpass",
 			"messages": {
-				"filter_enabled": "`✅` | Lowpass filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Lowpass filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Filter lowpass telah `DIAKTIFKAN`.",
+				"filter_disabled": "`✅` | Filter lowpass telah `DINONAKTIFKAN`."
 			}
 		},
 		"nightcore": {
-			"description": "Toggle the nightcore filter on/off",
+			"description": "Mengaktifkan/menonaktifkan filter nightcore",
 			"messages": {
-				"filter_enabled": "`✅` | Nightcore filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Nightcore filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Filter nightcore telah `DIAKTIFKAN`.",
+				"filter_disabled": "`✅` | Filter nightcore telah `DINONAKTIFKAN`."
 			}
 		},
 		"pitch": {
-			"description": "Toggle the pitch filter on/off",
+			"description": "Mengaktifkan/menonaktifkan filter pitch",
 			"options": {
-				"pitch": "The number you want to set the pitch to (between 0.5 and 5)"
+				"pitch": "Angka yang ingin Anda atur untuk pitch (antara 0,5 dan 5)"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5."
+				"invalid_number": "Harap berikan angka yang valid antara 0,5 dan 5."
 			},
 			"messages": {
-				"pitch_set": "`✅` | Pitch has been set to **{pitch}**."
+				"pitch_set": "`✅` | Pitch telah diatur ke **{pitch}**."
 			}
 		},
 		"rate": {
-			"description": "Change the rate of the song",
+			"description": "Mengubah kecepatan lagu",
 			"options": {
-				"rate": "The number you want to set the rate to (between 0.5 and 5)"
+				"rate": "Angka yang ingin Anda atur untuk kecepatan (antara 0,5 dan 5)"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5."
+				"invalid_number": "Harap berikan angka yang valid antara 0,5 dan 5."
 			},
 			"messages": {
-				"rate_set": "`✅` | Rate has been set to **{rate}**."
+				"rate_set": "`✅` | Kecepatan telah diatur ke **{rate}**."
 			}
 		},
 		"reset": {
-			"description": "Resets the active filters",
+			"description": "Mengatur ulang filter aktif",
 			"messages": {
-				"filters_reset": "`✅` | Filters have been reset."
+				"filters_reset": "`✅` | Filter telah direset."
 			}
 		},
 		"rotation": {
-			"description": "Toggle the rotation filter on/off",
+			"description": "Mengaktifkan/menonaktifkan filter rotasi",
 			"messages": {
-				"enabled": "`✅` | Rotation filter has been `ENABLED`.",
-				"disabled": "`✅` | Rotation filter has been `DISABLED`."
+				"enabled": "`✅` | Filter rotasi telah `DIAKTIFKAN`.",
+				"disabled": "`✅` | Filter rotasi telah `DINONAKTIFKAN`."
 			}
 		},
 		"speed": {
-			"description": "Change the speed of the song",
+			"description": "Mengubah kecepatan lagu",
 			"options": {
-				"speed": "The speed you want to set"
+				"speed": "Kecepatan yang ingin Anda atur"
 			},
 			"messages": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5.",
-				"set_speed": "`✅` | Speed has been set to **{speed}**."
+				"invalid_number": "Harap berikan angka yang valid antara 0,5 dan 5.",
+				"set_speed": "`✅` | Kecepatan telah diatur ke **{speed}**."
 			}
 		},
 		"tremolo": {
-			"description": "Toggle the tremolo filter on/off",
+			"description": "Mengaktifkan/menonaktifkan filter tremolo",
 			"messages": {
-				"enabled": "`✅` | Tremolo filter has been `ENABLED`.",
-				"disabled": "`✅` | Tremolo filter has been `DISABLED`."
+				"enabled": "`✅` | Filter tremolo telah `DIAKTIFKAN`.",
+				"disabled": "`✅` | Filter tremolo telah `DINONAKTIFKAN`."
 			}
 		},
 		"vibrato": {
-			"description": "Toggle the vibrato filter on/off",
+			"description": "Mengaktifkan/menonaktifkan filter vibrato",
 			"messages": {
-				"enabled": "`✅` | Vibrato filter has been `ENABLED`.",
-				"disabled": "`✅` | Vibrato filter has been `DISABLED`."
+				"enabled": "`✅` | Filter vibrato telah `DIAKTIFKAN`.",
+				"disabled": "`✅` | Filter vibrato telah `DINONAKTIFKAN`."
 			}
 		},
 		"autoplay": {
-			"description": "Toggles autoplay",
+			"description": "Mengaktifkan/menonaktifkan pemutaran otomatis",
 			"messages": {
-				"enabled": "`✅` | Autoplay has been `ENABLED`.",
-				"disabled": "`✅` | Autoplay has been `DISABLED`."
+				"enabled": "`✅` | Pemutaran otomatis telah `DIAKTIFKAN`.",
+				"disabled": "`✅` | Pemutaran otomatis telah `DINONAKTIFKAN`."
 			}
 		},
 		"clearqueue": {
-			"description": "Clears the queue",
+			"description": "Membersihkan antrean",
 			"messages": {
-				"cleared": "The queue has been cleared."
+				"cleared": "Antrean telah dibersihkan."
 			}
 		},
 		"grab": {
-			"description": "Grabs the current playing song on your DM",
-			"content": "**Duration:** {length}\n**Requested by:** <@{requester}>\n**Link:** [Click here]({uri})",
-			"check_dm": "Please check your DM.",
-			"dm_failed": "I couldn't send you a DM. Please make sure allow direct messages is turned on."
+			"description": "Mengambil lagu yang sedang diputar ke DM Anda",
+			"content": "**Durasi:** {length}\n**Direquest oleh:** <@{requester}>\n**Link:** [Klik di sini]({uri})",
+			"check_dm": "Silakan periksa DM Anda.",
+			"dm_failed": "Saya tidak bisa mengirim DM kepada Anda. Pastikan allow direct messages diaktifkan."
 		},
 		"join": {
-			"description": "Joins the voice channel",
-			"already_connected": "I'm already connected to <#{channelId}>.",
-			"no_voice_channel": "You need to be in a voice channel to use this command.",
-			"joined": "Successfully joined <#{channelId}>."
+			"description": "Join ke voice channel",
+			"already_connected": "Saya sudah terhubung ke <#{channelId}>.",
+			"no_voice_channel": "Anda perlu berada di voice channel untuk menggunakan command ini.",
+			"joined": "Berhasil join ke <#{channelId}>."
 		},
 		"leave": {
-			"description": "Leaves the voice channel",
-			"left": "Successfully left <#{channelId}>.",
-			"not_in_channel": "I'm not in a voice channel."
+			"description": "Meninggalkan voice channel",
+			"left": "Berhasil meninggalkan <#{channelId}>.",
+			"not_in_channel": "Saya tidak berada di voice channel."
 		},
 		"loop": {
-			"description": "Loop the current song or the queue",
-			"looping_song": "**Looping the song.**",
-			"looping_queue": "**Looping the queue.**",
-			"looping_off": "**Looping is now off.**"
+			"description": "Mengulang lagu saat ini atau antrean",
+			"looping_song": "**Mengulang lagu.**",
+			"looping_queue": "**Mengulang antrean.**",
+			"looping_off": "**Pengulangan sekarang dimatikan.**"
 		},
 		"nowplaying": {
-			"description": "Shows the currently playing song",
-			"now_playing": "Now Playing",
-			"track_info": "[{title}]({uri}) - Requested By: <@{requester}>\n\n`{bar}`"
+			"description": "Menampilkan lagu yang sedang diputar",
+			"now_playing": "Sedang Diputar",
+			"track_info": "[{title}]({uri}) - Direquest Oleh: <@{requester}>\n\n`{bar}`"
 		},
 		"pause": {
-			"description": "Pauses the current song",
-			"successfully_paused": "Successfully paused the song."
+			"description": "Menjeda lagu saat ini",
+			"successfully_paused": "Berhasil menjeda lagu."
 		},
 		"play": {
-			"description": "Plays a song from YouTube, Spotify or http",
+			"description": "Memutar lagu dari YouTube, Spotify atau http",
 			"options": {
-				"song": "The song you want to play"
+				"song": "Lagu yang ingin Anda putar"
 			},
-			"loading": "Loading...",
+			"loading": "Memuat...",
 			"errors": {
-				"search_error": "There was an error while searching.",
-				"no_results": "There were no results found.",
-				"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
-				"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs."
+				"search_error": "Terjadi kesalahan saat mencari.",
+				"no_results": "Tidak ditemukan hasil.",
+				"queue_too_long": "Antrean terlalu panjang. Panjang maksimum adalah {maxQueueSize} lagu.",
+				"playlist_too_long": "Playlist terlalu panjang. Panjang maksimum adalah {maxPlaylistSize} lagu."
 			},
-			"added_to_queue": "Added [{title}]({uri}) to the queue.",
-			"added_playlist_to_queue": "Added {length} songs to the queue."
+			"added_to_queue": "Menambahkan [{title}]({uri}) ke antrean.",
+			"added_playlist_to_queue": "Menambahkan {length} lagu ke antrean."
 		},
 		"playnext": {
-			"description": "Add the song to play next in queue",
+			"description": "Menambahkan lagu untuk diputar selanjutnya dalam antrean",
 			"options": {
-				"song": "The song you want to play"
+				"song": "Lagu yang ingin Anda putar"
 			},
-			"loading": "Loading...",
+			"loading": "Memuat...",
 			"errors": {
-				"search_error": "There was an error while searching.",
-				"no_results": "There were no results found.",
-				"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
-				"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs."
+				"search_error": "Terjadi kesalahan saat mencari.",
+				"no_results": "Tidak ditemukan hasil.",
+				"queue_too_long": "Antrean terlalu panjang. Maksimum {maxQueueSize} lagu.",
+				"playlist_too_long": "Playlist terlalu panjang. Maksimum {maxPlaylistSize} lagu."
 			},
-			"added_to_play_next": "Added [{title}]({uri}) to play next in the queue.",
-			"added_playlist_to_play_next": "Added {length} songs to play next in the queue."
+			"added_to_play_next": "Menambahkan [{title}]({uri}) untuk diputar selanjutnya dalam antrean.",
+			"added_playlist_to_play_next": "Menambahkan {length} lagu untuk diputar selanjutnya dalam antrean."
 		},
 		"queue": {
-			"description": "Shows the current queue",
-			"now_playing": "Now playing: [{title}]({uri}) - Requested By: <@{requester}> - Duration: `{duration}`",
-			"live": "LIVE",
-			"track_info": "{index}. [{title}]({uri}) - Requested By: <@{requester}> - Duration: `{duration}`",
-			"title": "Queue",
-			"page_info": "Page {index} of {total}"
+			"description": "Menampilkan antrean saat ini",
+			"now_playing": "Sedang diputar: [{title}]({uri}) - Direquest oleh: <@{requester}> - Durasi: `{duration}`",
+			"live": "LANGSUNG",
+			"track_info": "{index}. [{title}]({uri}) - Direquest oleh: <@{requester}> - Durasi: `{duration}`",
+			"title": "Antrean",
+			"page_info": "Halaman {index} dari {total}"
 		},
 		"remove": {
-			"description": "Removes a song from the queue",
+			"description": "Menghapus lagu dari antrean",
 			"options": {
-				"song": "The song number you want to remove"
+				"song": "Nomor lagu yang ingin Anda hapus"
 			},
 			"errors": {
-				"no_songs": "There are no songs in the queue.",
-				"invalid_number": "Please provide a valid song number."
+				"no_songs": "Tidak ada lagu dalam antrean.",
+				"invalid_number": "Harap berikan nomor lagu yang valid."
 			},
 			"messages": {
-				"removed": "Removed song number {songNumber} from the queue."
+				"removed": "Menghapus lagu nomor {songNumber} dari antrean."
 			}
 		},
 		"replay": {
-			"description": "Replays the current track",
+			"description": "Memutar ulang lagu saat ini",
 			"errors": {
-				"not_seekable": "Cannot replay this track as it is not seekable."
+				"not_seekable": "Tidak dapat memutar ulang lagu ini karena tidak dapat dicari."
 			},
 			"messages": {
-				"replaying": "Replaying the current track."
+				"replaying": "Memutar ulang lagu saat ini."
 			}
 		},
 		"resume": {
-			"description": "Resumes the current song",
+			"description": "Melanjutkan lagu saat ini",
 			"errors": {
-				"not_paused": "The player is not paused."
+				"not_paused": "Player tidak sedang dijeda."
 			},
 			"messages": {
-				"resumed": "Resumed the player."
+				"resumed": "Melanjutkan lagu."
 			}
 		},
 		"search": {
-			"description": "Searches for a song",
+			"description": "Mencari lagu",
 			"options": {
-				"song": "The song you want to search"
+				"song": "Lagu yang ingin Anda cari"
 			},
 			"errors": {
-				"no_results": "No results found.",
-				"search_error": "There was an error while searching."
+				"no_results": "Tidak ditemukan hasil.",
+				"search_error": "Terjadi kesalahan saat mencari."
 			},
 			"messages": {
-				"added_to_queue": "Added [{title}]({uri}) to the queue."
+				"added_to_queue": "Menambahkan [{title}]({uri}) ke antrean."
 			}
 		},
 		"seek": {
-			"description": "Seeks to a certain time in the song",
+			"description": "Mencari ke waktu tertentu dalam lagu",
 			"options": {
-				"duration": "The duration to seek to"
+				"duration": "Durasi yang ingin dicari"
 			},
 			"errors": {
-				"invalid_format": "Invalid time format. Examples: seek 1m, seek 1h 30m",
-				"not_seekable": "This track is not seekable.",
-				"beyond_duration": "Cannot seek beyond the song duration of {length}."
+				"invalid_format": "Format waktu tidak valid. Contoh: seek 1m, seek 1h 30m",
+				"not_seekable": "Lagu ini tidak dapat dicari.",
+				"beyond_duration": "Tidak dapat mencari melewati durasi lagu {length}."
 			},
 			"messages": {
-				"seeked_to": "Seeked to {duration}"
+				"seeked_to": "Mencari ke {duration}"
 			}
 		},
 		"shuffle": {
-			"description": "Shuffles the queue",
+			"description": "Mengacak antrean",
 			"messages": {
-				"shuffled": "Shuffled the queue."
+				"shuffled": "Mengacak antrean."
 			}
 		},
 		"skip": {
-			"description": "Skips the current song",
+			"description": "Melewati lagu saat ini",
 			"messages": {
-				"skipped": "Skipped [{title}]({uri})."
+				"skipped": "Melewati [{title}]({uri})."
 			}
 		},
 		"skipto": {
-			"description": "Skips to a specific song in the queue",
+			"description": "Melewati ke lagu tertentu dalam antrean",
 			"options": {
-				"number": "The number of the song you want to skip to"
+				"number": "Nomor lagu yang ingin Anda lewati"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number."
+				"invalid_number": "Harap berikan nomor yang valid."
 			},
 			"messages": {
-				"skipped_to": "Skipped to song number {number}."
+				"skipped_to": "Melewati ke lagu nomor {number}."
 			}
 		},
 		"stop": {
-			"description": "Stops the music and clears the queue",
+			"description": "Menghentikan musik dan membersihkan antrean",
 			"messages": {
-				"stopped": "Stopped the music and cleared the queue."
+				"stopped": "Menghentikan musik dan membersihkan antrean."
 			}
 		},
 		"volume": {
-			"description": "Sets the volume of the player",
+			"description": "Mengatur volume musik",
 			"options": {
-				"number": "The volume you want to set"
+				"number": "Volume yang ingin Anda atur"
 			},
 			"messages": {
-				"invalid_number": "Please provide a valid number.",
-				"too_low": "The volume can't be lower than 0.",
-				"too_high": "The volume can't be higher than 200. Do you want to damage your hearing or speakers? Hmmm, I don't think that's such a good idea.",
-				"set": "Set the volume to {volume}"
+				"invalid_number": "Harap berikan nomor yang valid.",
+				"too_low": "Volume tidak boleh lebih rendah dari 0.",
+				"too_high": "Volume tidak boleh lebih tinggi dari 200. Apakah Anda ingin merusak pendengaran atau speaker Anda? Hmm, saya rasa itu bukan ide yang bagus.",
+				"set": "Mengatur volume ke {volume}"
 			}
 		},
 		"addsong": {
-			"description": "Adds a song to the playlist",
+			"description": "Menambahkan lagu ke playlist",
 			"options": {
-				"playlist": "The playlist you want to add",
-				"song": "The song you want to add"
+				"playlist": "Playlist yang ingin Anda tambahkan",
+				"song": "Lagu yang ingin Anda tambahkan"
 			},
 			"messages": {
-				"no_playlist": "Please provide a playlist",
-				"no_song": "Please provide a song",
-				"playlist_not_found": "That playlist doesn't exist",
-				"no_songs_found": "No songs found",
-				"added": "Added {count} song(s) to {playlist}"
+				"no_playlist": "Harap berikan playlist",
+				"no_song": "Harap berikan lagu",
+				"playlist_not_found": "Playlist itu tidak ada",
+				"no_songs_found": "Tidak ditemukan lagu",
+				"added": "Menambahkan {count} lagu ke {playlist}"
 			}
 		},
 		"create": {
-			"description": "Creates a playlist",
+			"description": "Membuat playlist",
 			"options": {
-				"name": "The name of the playlist"
+				"name": "Nama Playlist"
 			},
 			"messages": {
-				"name_too_long": "Playlist names can only be 50 characters long.",
-				"playlist_exists": "A playlist with that name already exists. Please use a different name.",
-				"playlist_created": "Playlist **{name}** has been created."
+				"name_too_long": "Nama playlist hanya boleh 50 karakter.",
+				"playlist_exists": "Playlist dengan nama itu sudah ada. Harap gunakan nama yang berbeda.",
+				"playlist_created": "Playlist **{name}** telah dibuat."
 			}
 		},
 		"delete": {
-			"description": "Deletes a playlist",
+			"description": "Menghapus playlist",
 			"options": {
-				"playlist": "The playlist you want to delete"
+				"playlist": "Playlist yang ingin Anda hapus"
 			},
 			"messages": {
-				"playlist_not_found": "That playlist doesn't exist.",
-				"playlist_deleted": "Deleted playlist **{playlistName}**."
+				"playlist_not_found": "Playlist itu tidak ada.",
+				"playlist_deleted": "Menghapus playlist **{playlistName}**."
 			}
 		},
 		"list": {
-			"description": "Retrieves all playlists for the user",
+			"description": "Mengambil semua playlist untuk user",
 			"options": {
-				"user": "The user whose playlists you want to retrieve"
+				"user": "User yang playlistnya ingin Anda ambil"
 			},
 			"messages": {
-				"no_playlists": "This user has no playlists.",
-				"your": "Your",
-				"playlists_title": "{username}'s Playlists",
-				"error": "An error occurred while retrieving the playlists."
+				"no_playlists": "User ini tidak memiliki Playlist.",
+				"your": "Anda",
+				"playlists_title": "Playlist {username}",
+				"error": "Terjadi kesalahan saat mengambil Playlist."
 			}
 		},
 		"load": {
-			"description": "Loads a playlist",
+			"description": "Memuat playlist",
 			"options": {
-				"playlist": "The playlist you want to load"
+				"playlist": "Playlist yang ingin Anda muat"
 			},
 			"messages": {
-				"playlist_not_exist": "That playlist doesn't exist.",
-				"playlist_empty": "That playlist is empty.",
-				"playlist_loaded": "Loaded `{name}` with `{count}` songs."
+				"playlist_not_exist": "Playlist itu tidak ada.",
+				"playlist_empty": "Playlist itu kosong.",
+				"playlist_loaded": "Memuat `{name}` dengan `{count}` lagu."
 			}
 		},
 		"removesong": {
-			"description": "Removes a song from the playlist",
+			"description": "Menghapus lagu dari playlist",
 			"options": {
-				"playlist": "The playlist you want to remove from",
-				"song": "The song you want to remove"
+				"playlist": "Playlist yang ingin Anda hapus dari",
+				"song": "Lagu yang ingin Anda hapus"
 			},
 			"messages": {
-				"provide_playlist": "Please provide a playlist.",
-				"provide_song": "Please provide a song.",
-				"playlist_not_exist": "That playlist doesn't exist.",
-				"song_not_found": "No matching song found.",
-				"song_removed": "Removed {song} from {playlist}.",
-				"error_occurred": "An error occurred while removing the song."
+				"provide_playlist": "Harap berikan playlist.",
+				"provide_song": "Harap berikan lagu.",
+				"playlist_not_exist": "Playlist itu tidak ada.",
+				"song_not_found": "Tidak ditemukan lagu yang cocok.",
+				"song_removed": "Menghapus {song} dari {playlist}.",
+				"error_occurred": "Terjadi kesalahan saat menghapus lagu."
 			}
 		},
 		"steal": {
-			"description": "Steals a playlist from another user and adds it to your playlists",
+			"description": "Mencuri playlist dari user lain dan menambahkannya ke playlist Anda",
 			"options": {
-				"playlist": "The playlist you want to steal",
-				"user": "The user from whom you want to steal the playlist"
+				"playlist": "Playlist yang ingin Anda curi",
+				"user": "User yang ingin Anda curi Playlistnya"
 			},
 			"messages": {
-				"provide_playlist": "Please provide a playlist name.",
-				"provide_user": "Please mention a user.",
-				"playlist_not_exist": "That playlist doesn't exist for the mentioned user.",
-				"playlist_stolen": "Successfully stole the playlist `{playlist}` from {user}.",
-				"error_occurred": "An error occurred while stealing the playlist."
+				"provide_playlist": "Harap berikan nama playlist.",
+				"provide_user": "Harap sebutkan user.",
+				"playlist_not_exist": "Playlist itu tidak ada untuk user yang disebutkan.",
+				"playlist_stolen": "Berhasil mencuri playlist `{playlist}` dari {user}.",
+				"error_occurred": "Terjadi kesalahan saat mencuri Playlist."
 			}
 		}
 	},
 	"buttons": {
 		"invite": "Invite",
-		"support": "Support Server",
-		"previous": "Previous",
-		"resume": "Resume",
+		"support": "Server Support",
+		"previous": "Sebelumnya",
+		"resume": "Lanjutkan",
 		"stop": "Stop",
 		"skip": "Skip",
 		"loop": "Loop",
 		"errors": {
-			"not_author": "You can't use this button."
+			"not_author": "Anda tidak dapat menggunakan tombol ini."
 		}
 	},
 	"player": {
 		"errors": {
-			"no_player": "There is no active player in this guild.",
-			"no_channel": "You need to be in a voice channel to use this command.",
-			"queue_empty": "The queue is empty.",
-			"no_previous": "There are no previous songs in the queue.",
-			"no_song": "There are no songs in the queue.",
-			"already_paused": "The song is already paused."
+			"no_player": "Tidak ada player yang aktif di server ini.",
+			"no_channel": "Anda perlu berada di voice channel untuk menggunakan command ini.",
+			"queue_empty": "Antrean kosong.",
+			"no_previous": "Tidak ada lagu sebelumnya dalam antrean.",
+			"no_song": "Tidak ada lagu dalam antrean.",
+			"already_paused": "Lagu sudah dijeda."
 		},
 		"trackStart": {
-			"now_playing": "Now Playing",
-			"requested_by": "Requested by {user}",
-			"duration": "Duration",
+			"now_playing": "Sedang diputar",
+			"requested_by": "Direquest oleh {user}",
+			"duration": "Durasi",
 			"author": "Author",
-			"not_connected_to_voice_channel": "You are not connected to <#{channel}> to use these buttons.",
-			"need_dj_role": "You need to have the DJ role to use this command.",
-			"previous_by": "Previous by {user}",
-			"no_previous_song": "There is no previous song.",
-			"paused_by": "Paused by {user}",
-			"resumed_by": "Resumed by {user}",
-			"skipped_by": "Skipped by {user}",
-			"no_more_songs_in_queue": "There is no more song in the queue.",
-			"looping_by": "Looping by {user}",
-			"looping_queue_by": "Looping Queue by {user}",
-			"looping_off_by": "Looping Off by {user}"
+			"not_connected_to_voice_channel": "Anda tidak terhubung ke <#{channel}> untuk menggunakan tombol-tombol ini.",
+			"need_dj_role": "Anda perlu memiliki role DJ untuk menggunakan command ini.",
+			"previous_by": "Sebelumnya oleh {user}",
+			"no_previous_song": "Tidak ada lagu sebelumnya.",
+			"paused_by": "Dijeda oleh {user}",
+			"resumed_by": "Dilanjutkan oleh {user}",
+			"skipped_by": "Dilewati oleh {user}",
+			"no_more_songs_in_queue": "Tidak ada lagi lagu dalam antrean.",
+			"looping_by": "Loop oleh {user}",
+			"looping_queue_by": "Loop antrean oleh {user}",
+			"looping_off_by": "Loop mati oleh {user}"
 		},
 		"setupStart": {
-			"now_playing": "Now Playing",
-			"description": "[{title}]({uri}) by {author} • `[{length}]` - Requested by <@{requester}>",
-			"error_searching": "There was an error while searching.",
-			"no_results": "There were no results found.",
-			"nothing_playing": "Nothing playing right now.",
-			"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
-			"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs.",
-			"added_to_queue": "Added [{title}]({uri}) to the queue.",
-			"added_playlist_to_queue": "Added [{length}] songs from the playlist to the queue."
+			"now_playing": "Sedang diputar",
+			"description": "[{title}]({uri}) oleh {author} • `[{length}]` - Direquest oleh <@{requester}>",
+			"error_searching": "Terjadi kesalahan saat mencari.",
+			"no_results": "Tidak ditemukan hasil.",
+			"nothing_playing": "Tidak ada yang diputar saat ini.",
+			"queue_too_long": "Antrean terlalu panjang. Maksimum {maxQueueSize} lagu.",
+			"playlist_too_long": "Playlist terlalu panjang. Maksimum {maxPlaylistSize} lagu.",
+			"added_to_queue": "Menambahkan [{title}]({uri}) ke antrean.",
+			"added_playlist_to_queue": "Menambahkan [{length}] lagu dari playlist ke antrean."
 		}
 	},
 	"event": {
 		"interaction": {
-			"setup_channel": "You can't use this command in the setup channel.",
-			"no_send_message": "I don't have **`SendMessage`** permission in `{guild}`\nchannel: {channel}.",
-			"no_embed_links": "I don't have **`EmbedLinks`** permission.",
-			"no_permission": "I don't have enough permissions to execute this command.",
-			"no_user_permission": "You don't have enough permissions to use this command.",
-			"no_voice_channel": "You must be connected to a voice channel to use this `{command}` command.",
-			"no_connect_permission": "I don't have `CONNECT` permissions to execute this `{command}` command.",
-			"no_speak_permission": "I don't have `SPEAK` permissions to execute this `{command}` command.",
-			"no_request_to_speak": "I don't have `REQUEST TO SPEAK` permission to execute this `{command}` command.",
-			"different_voice_channel": "You are not connected to {channel} to use this `{command}` command.",
-			"no_music_playing": "Nothing is playing right now.",
-			"no_dj_role": "DJ role is not set.",
-			"no_dj_permission": "You need to have the DJ role to use this command.",
-			"cooldown": "Please wait {time} more second(s) before reusing the `{command}` command.",
-			"error": "An error occurred: `{error}`"
+			"setup_channel": "Anda tidak dapat menggunakan command ini di setup channel.",
+			"no_send_message": "Saya tidak memiliki izin **`SendMessage`** di `{guild}`\nChannel: {channel}.",
+			"no_embed_links": "Saya tidak memiliki izin **`EmbedLinks`**.",
+			"no_permission": "Saya tidak memiliki cukup izin untuk menjalankan command ini.",
+			"no_user_permission": "Anda tidak memiliki cukup izin untuk menggunakan command ini.",
+			"no_voice_channel": "Anda harus terhubung ke voice channel untuk menggunakan command `{command}` ini.",
+			"no_connect_permission": "Saya tidak memiliki izin `CONNECT` untuk menjalankan command `{command}` ini.",
+			"no_speak_permission": "Saya tidak memiliki izin `SPEAK` untuk menjalankan command `{command}` ini.",
+			"no_request_to_speak": "Saya tidak memiliki izin `REQUEST TO SPEAK` untuk menjalankan command `{command}` ini.",
+			"different_voice_channel": "Anda tidak terhubung ke {channel} untuk menggunakan command `{command}` ini.",
+			"no_music_playing": "Tidak ada lagu yang sedang diputar saat ini.",
+			"no_dj_role": "Role DJ belum diatur.",
+			"no_dj_permission": "Anda perlu memiliki role DJ untuk menggunakan command ini.",
+			"cooldown": "Harap tunggu {time} detik lagi sebelum menggunakan kembali command `{command}`.",
+			"error": "Terjadi kesalahan: `{error}`"
 		},
 		"message": {
-			"prefix_mention": "Hey, my prefix for this server is `{prefix}`. Want more info? then do `{prefix}help`\nStay Safe, Stay Awesome!",
-			"no_send_message": "I don't have **`SendMessage`** permission in `{guild}`\nchannel: {channel}.",
-			"no_embed_links": "I don't have **`EmbedLinks`** permission.",
-			"no_permission": "I don't have enough permissions to execute this command.",
-			"no_user_permission": "You don't have enough permissions to use this command.",
-			"no_voice_channel": "You must be connected to a voice channel to use this `{command}` command.",
-			"no_connect_permission": "I don't have `CONNECT` permissions to execute this `{command}` command.",
-			"no_speak_permission": "I don't have `SPEAK` permissions to execute this `{command}` command.",
-			"no_request_to_speak": "I don't have `REQUEST TO SPEAK` permission to execute this `{command}` command.",
-			"different_voice_channel": "You are not connected to {channel} to use this `{command}` command.",
-			"no_music_playing": "Nothing is playing right now.",
-			"no_dj_role": "DJ role is not set.",
-			"no_dj_permission": "You need to have the DJ role to use this command.",
-			"missing_arguments": "Missing Arguments",
-			"missing_arguments_description": "Please provide the required arguments for the `{command}` command.\n\nExamples:\n{examples}",
-			"syntax_footer": "Syntax: [] = optional, <> = required",
-			"cooldown": "Please wait {time} more second(s) before reusing the `{command}` command.",
-			"no_mention_everyone": "You can't use this command with everyone or here. Please use slash command.",
-			"error": "An error occurred: `{error}`",
-			"no_voice_channel_queue": "You are not connected to a voice channel to queue songs.",
-			"no_permission_connect_speak": "I don't have enough permission to connect/speak in <#{channel}>.",
-			"different_voice_channel_queue": "You are not connected to <#{channel}> to queue songs."
+			"prefix_mention": "Hai, prefix saya untuk server ini adalah `{prefix}`. Ingin informasi lebih lanjut? Lakukan `{prefix}help`\nTetap Aman, Tetap Luar Biasa!",
+			"no_send_message": "Saya tidak memiliki izin **`SendMessage`** di `{guild}`\nChannel: {channel}.",
+			"no_embed_links": "Saya tidak memiliki izin **`EmbedLinks`**.",
+			"no_permission": "Saya tidak memiliki cukup izin untuk menjalankan command ini.",
+			"no_user_permission": "Anda tidak memiliki cukup izin untuk menggunakan command ini.",
+			"no_voice_channel": "Anda harus terhubung ke voice channel untuk menggunakan command `{command}` ini.",
+			"no_connect_permission": "Saya tidak memiliki izin `CONNECT` untuk menjalankan command `{command}` ini.",
+			"no_speak_permission": "Saya tidak memiliki izin `SPEAK` untuk menjalankan command `{command}` ini.",
+			"no_request_to_speak": "Saya tidak memiliki izin `REQUEST TO SPEAK` untuk menjalankan command `{command}` ini.",
+			"different_voice_channel": "Anda tidak terhubung ke {channel} untuk menggunakan command `{command}` ini.",
+			"no_music_playing": "Tidak ada lagu yang sedang diputar saat ini.",
+			"no_dj_role": "Role DJ belum diatur.",
+			"no_dj_permission": "Anda perlu memiliki role DJ untuk menggunakan command ini.",
+			"missing_arguments": "Argumen tidak lengkap",
+			"missing_arguments_description": "Harap berikan argumen yang diperlukan untuk command `{command}`.\n\nContoh:\n{examples}",
+			"syntax_footer": "Sintaks: [] = opsional, <> = wajib",
+			"cooldown": "Harap tunggu {time} detik lagi sebelum menggunakan kembali command `{command}`.",
+			"no_mention_everyone": "Anda tidak dapat menggunakan command ini dengan everyone atau here. Silakan gunakan slash command.",
+			"error": "Terjadi kesalahan: `{error}`",
+			"no_voice_channel_queue": "Anda tidak terhubung ke voice channel untuk menambahkan lagu ke antrean.",
+			"no_permission_connect_speak": "Saya tidak memiliki cukup izin untuk terhubung/berbicara di <#{channel}>.",
+			"different_voice_channel_queue": "Anda tidak terhubung ke <#{channel}> untuk menambahkan lagu ke antrean."
 		},
 		"setupButton": {
-			"no_voice_channel_button": "You are not connected to a voice channel to use this button.",
-			"different_voice_channel_button": "You are not connected to {channel} to use these buttons.",
-			"now_playing": "Now Playing",
+			"no_voice_channel_button": "Anda tidak terhubung ke voice channel untuk menggunakan tombol ini.",
+			"different_voice_channel_button": "Anda tidak terhubung ke {channel} untuk menggunakan tombol-tombol ini.",
+			"now_playing": "Sedang diputar",
 			"live": "LIVE",
-			"requested_by": "Requested by <@{requester}>",
-			"no_dj_permission": "You need to have the DJ role to use this button.",
-			"volume_set": "Volume set to {vol}%",
+			"requested_by": "Direquest oleh <@{requester}>",
+			"no_dj_permission": "Anda perlu memiliki role DJ untuk menggunakan tombol ini.",
+			"volume_set": "Volume diatur ke {vol}%",
 			"volume_footer": "Volume: {vol}%",
-			"paused": "Paused",
-			"resumed": "Resumed",
-			"pause_resume": "{name} the music.",
-			"pause_resume_footer": "{name} by {displayName}",
-			"no_music_to_skip": "There is no music to skip.",
-			"skipped": "Skipped the music.",
-			"skipped_footer": "Skipped by {displayName}",
-			"stopped": "Stopped the music.",
-			"stopped_footer": "Stopped by {displayName}",
-			"nothing_playing": "Nothing playing right now.",
-			"loop_set": "Loop set to {loop}.",
-			"loop_footer": "Loop set to {loop} by {displayName}",
-			"shuffled": "Shuffled the queue.",
-			"no_previous_track": "There is no previous track.",
-			"playing_previous": "Playing the previous track.",
-			"previous_footer": "Playing the previous track by {displayName}",
-			"rewind_limit": "You cannot rewind the music more than the length of the song.",
-			"rewinded": "Rewinded the music.",
-			"rewind_footer": "Rewinded by {displayName}",
-			"forward_limit": "You cannot forward the music more than the length of the song.",
-			"forwarded": "Forwarded the music.",
-			"forward_footer": "Forwarded by {displayName}",
-			"button_not_available": "This button is not available.",
-			"no_music_playing": "There is no music playing in this server."
+			"paused": "Dipause",
+			"resumed": "Diresume",
+			"pause_resume": "{name} lagu.",
+			"pause_resume_footer": "{name} oleh {displayName}",
+			"no_music_to_skip": "Tidak ada lagu untuk dilewati.",
+			"skipped": "Melewati lagu.",
+			"skipped_footer": "Dilewati oleh {displayName}",
+			"stopped": "Menghentikan lagu.",
+			"stopped_footer": "Dihentikan oleh {displayName}",
+			"nothing_playing": "Tidak ada yang diputar saat ini.",
+			"loop_set": "Loop diatur ke {loop}.",
+			"loop_footer": "Loop diatur ke {loop} oleh {displayName}",
+			"shuffled": "Mengacak antrean.",
+			"no_previous_track": "Tidak ada lagu sebelumnya.",
+			"playing_previous": "Memutar lagu sebelumnya.",
+			"previous_footer": "Memutar lagu sebelumnya oleh {displayName}",
+			"rewind_limit": "Anda tidak dapat memutar mundur lagu lebih dari panjang lagu.",
+			"rewinded": "Memutar mundur lagu.",
+			"rewind_footer": "Diputar mundur oleh {displayName}",
+			"forward_limit": "Anda tidak dapat memajukan lagu lebih dari panjang lagu.",
+			"forwarded": "Memajukan lagu.",
+			"forward_footer": "Dimajukan oleh {displayName}",
+			"button_not_available": "Tombol ini tidak tersedia.",
+			"no_music_playing": "Tidak ada lagu yang diputar di server ini."
 		}
 	},
-	"Evaluate code": "Evaluate code",
-	"Leave a guild": "Leave a guild",
-	"List all guilds the bot is in": "List all guilds the bot is in",
-	"Restart the bot": "Restart the bot"
+	"Evaluate code": "Evaluasi kode",
+	"Leave a guild": "Tinggalkan server",
+	"List all guilds the bot is in": "Daftar semua server tempat bot berada",
+	"Restart the bot": "Restart bot"
 }
