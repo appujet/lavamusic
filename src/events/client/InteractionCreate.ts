@@ -12,10 +12,8 @@ import {
     PermissionFlagsBits,
     type TextChannel,
 } from "discord.js";
-import { LoadType } from "shoukaku";
 import { T } from "../../structures/I18n.js";
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
-import { Language } from "../../types.js";
 
 export default class InteractionCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -196,7 +194,10 @@ export default class InteractionCreate extends Event {
                 const timeLeft = (expirationTime - now) / 1000;
                 if (now < expirationTime && timeLeft > 0.9) {
                     return await interaction.reply({
-                        content: T(locale, "event.interaction.cooldown", { time: timeLeft.toFixed(1), command: commandName }),
+                        content: T(locale, "event.interaction.cooldown", {
+                            time: timeLeft.toFixed(1),
+                            command: commandName,
+                        }),
                     });
                 }
                 timestamps.set(interaction.user.id, now);
@@ -217,7 +218,9 @@ export default class InteractionCreate extends Event {
                     const embed = new EmbedBuilder()
                         .setAuthor({
                             name: "Slash - Command Logs",
-                            iconURL: this.client.user?.avatarURL({ size: 2048 }),
+                            iconURL: this.client.user?.avatarURL({
+                                size: 2048,
+                            }),
                         })
                         .setColor(this.client.config.color.blue)
                         .setDescription(

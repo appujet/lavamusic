@@ -336,7 +336,7 @@
 				"search_error": "Se ha producido un error durante la búsqueda."
 			},
 			"messages": {
-				"added_to_queue": "Se ha añadido [{{title}}]({{uri}}) a la cola."
+				"added_to_queue": "Se ha añadido [{title}]({uri}) a la cola."
 			}
 		},
 		"seek": {

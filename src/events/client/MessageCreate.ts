@@ -32,7 +32,9 @@ export default class MessageCreate extends Event {
         const mention = new RegExp(`^<@!?${this.client.user.id}>( |)$`);
         if (mention.test(message.content)) {
             await message.reply({
-                content: T(locale, "event.message.prefix_mention", { prefix: guild.prefix }),
+                content: T(locale, "event.message.prefix_mention", {
+                    prefix: guild.prefix,
+                }),
             });
             return;
         }
@@ -114,7 +116,9 @@ export default class MessageCreate extends Event {
             if (command.player.voice) {
                 if (!message.member.voice.channel) {
                     await message.reply({
-                        content: T(locale, "event.message.no_voice_channel", { command: command.name }),
+                        content: T(locale, "event.message.no_voice_channel", {
+                            command: command.name,
+                        }),
                     });
                     return;
                 }
@@ -218,7 +222,10 @@ export default class MessageCreate extends Event {
             const timeLeft = (expirationTime - now) / 1000;
             if (now < expirationTime && timeLeft > 0.9) {
                 await message.reply({
-                    content: T(locale, "event.message.cooldown", { time: timeLeft.toFixed(1), command: cmd }),
+                    content: T(locale, "event.message.cooldown", {
+                        time: timeLeft.toFixed(1),
+                        command: cmd,
+                    }),
                 });
                 return;
             }
@@ -240,7 +247,9 @@ export default class MessageCreate extends Event {
             return command.run(this.client, ctx, ctx.args);
         } catch (error) {
             this.client.logger.error(error);
-            await message.reply({ content: T(locale, "event.message.error", { error }) });
+            await message.reply({
+                content: T(locale, "event.message.error", { error }),
+            });
         } finally {
             if (logs) {
                 const embed = new EmbedBuilder()

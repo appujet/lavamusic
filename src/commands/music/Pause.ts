@@ -36,7 +36,7 @@ export default class Pause extends Command {
 
         if (player?.paused) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.already_paused"))],
+                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.already_paused"))],
             });
         }
 

@@ -46,24 +46,24 @@
       }
     }
   },
-  "files": {
-    "ignoreUnknown": true,
-    "ignore": [".vscode", "dist", "locales", "node_modules"]
-  },
-  "json": {
-    "formatter": {
-      "enabled": true,
-      "indentWidth": 2,
-      "lineWidth": 100
-    }
-  },
   "formatter": {
     "enabled": true,
     "indentWidth": 4,
     "indentStyle": "space",
-    "lineWidth": 140,
     "lineEnding": "crlf",
+    "lineWidth": 140,
     "formatWithErrors": true
+  },
+  "json": {
+    "linter": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": true,
+      "indentWidth": 2,
+      "lineEnding": "crlf",
+      "lineWidth": 80
+    }
   },
   "javascript": {
     "formatter": {
@@ -72,5 +72,9 @@
       "bracketSameLine": true,
       "semicolons": "always"
     }
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "ignore": [".vscode", "dist", "locales", "node_modules"]
   }
 }

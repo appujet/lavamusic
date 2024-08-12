@@ -1,3 +1,4 @@
+import type { AutocompleteInteraction } from "discord.js";
 import { LoadType } from "shoukaku";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
@@ -68,22 +69,23 @@ export default class PlayNext extends Command {
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.editMessage({
                         embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(
-                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                ),
+                            embed.setColor(this.client.color.red).setDescription(
+                                ctx.locale("cmd.playnext.errors.queue_too_long", {
+                                    maxQueueSize: client.config.maxQueueSize,
+                                }),
+                            ),
                         ],
                     });
                 player.queue.splice(0, 0, track);
                 await player.isPlaying();
                 ctx.editMessage({
                     embeds: [
-                        embed
-                            .setColor(this.client.color.main)
-                            .setDescription(
-                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data.info.title, uri: res.data.info.uri }),
-                            ),
+                        embed.setColor(this.client.color.main).setDescription(
+                            ctx.locale("cmd.playnext.added_to_play_next", {
+                                title: res.data.info.title,
+                                uri: res.data.info.uri,
+                            }),
+                        ),
                     ],
                 });
                 break;
@@ -92,11 +94,11 @@ export default class PlayNext extends Command {
                 if (res.data.tracks.length > client.config.maxPlaylistSize)
                     return await ctx.editMessage({
                         embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(
-                                    ctx.locale("cmd.playnext.errors.playlist_too_long", { maxPlaylistSize: client.config.maxPlaylistSize }),
-                                ),
+                            embed.setColor(this.client.color.red).setDescription(
+                                ctx.locale("cmd.playnext.errors.playlist_too_long", {
+                                    maxPlaylistSize: client.config.maxPlaylistSize,
+                                }),
+                            ),
                         ],
                     });
                 for (const track of res.data.tracks) {
@@ -104,11 +106,11 @@ export default class PlayNext extends Command {
                     if (player.queue.length > client.config.maxQueueSize)
                         return await ctx.editMessage({
                             embeds: [
-                                embed
-                                    .setColor(this.client.color.red)
-                                    .setDescription(
-                                        ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                    ),
+                                embed.setColor(this.client.color.red).setDescription(
+                                    ctx.locale("cmd.playnext.errors.queue_too_long", {
+                                        maxQueueSize: client.config.maxQueueSize,
+                                    }),
+                                ),
                             ],
                         });
                     player.queue.splice(0, 0, pl);
@@ -128,22 +130,23 @@ export default class PlayNext extends Command {
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.editMessage({
                         embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(
-                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                ),
+                            embed.setColor(this.client.color.red).setDescription(
+                                ctx.locale("cmd.playnext.errors.queue_too_long", {
+                                    maxQueueSize: client.config.maxQueueSize,
+                                }),
+                            ),
                         ],
                     });
                 player.queue.splice(0, 0, track1);
                 await player.isPlaying();
                 ctx.editMessage({
                     embeds: [
-                        embed
-                            .setColor(this.client.color.main)
-                            .setDescription(
-                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data[0].info.title, uri: res.data[0].info.uri }),
-                            ),
+                        embed.setColor(this.client.color.main).setDescription(
+                            ctx.locale("cmd.playnext.added_to_play_next", {
+                                title: res.data[0].info.title,
+                                uri: res.data[0].info.uri,
+                            }),
+                        ),
                     ],
                 });
                 break;
@@ -151,26 +154,27 @@ export default class PlayNext extends Command {
         }
     }
 
-    public async autocomplete(interaction) {
+    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
         const focusedValue = interaction.options.getFocused();
 
-        // Search for songs based on the focused value
         const res = await this.client.queue.search(focusedValue);
         const songs = [];
 
         if (res.loadType === LoadType.SEARCH && res.data.length) {
             res.data.slice(0, 10).forEach((x) => {
+                let name = `${x.info.title} by ${x.info.author}`;
+                if (name.length > 100) {
+                    name = `${name.substring(0, 97)}...`;
+                }
                 songs.push({
-                    name: `${x.info.title} by ${x.info.author}`,
+                    name: name,
                     value: x.info.uri,
                 });
             });
         }
 
-        // Respond with the song suggestions
         await interaction.respond(songs).catch(console.error);
     }
-
 }
 
 /**

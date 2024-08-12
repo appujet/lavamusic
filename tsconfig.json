@@ -5,8 +5,8 @@
     "lib": ["es2023"],
     "declaration": true,
     "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "outDir": "dist",
+    "rootDir": "src",
     "strict": false,
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -15,6 +15,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["src/"],
+  "exclude": ["dist/", "node_modules/"]
 }

@@ -1,3 +1,4 @@
+import type { AutocompleteInteraction } from "discord.js";
 import { LoadType } from "shoukaku";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
@@ -72,9 +73,11 @@ export default class Play extends Command {
                     return await ctx.editMessage({
                         content: "",
                         embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(ctx.locale("cmd.play.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize })),
+                            embed.setColor(this.client.color.red).setDescription(
+                                ctx.locale("cmd.play.errors.queue_too_long", {
+                                    maxQueueSize: client.config.maxQueueSize,
+                                }),
+                            ),
                         ],
                     });
                 player.queue.push(track);
@@ -82,9 +85,12 @@ export default class Play extends Command {
                 ctx.editMessage({
                     content: "",
                     embeds: [
-                        embed
-                            .setColor(this.client.color.main)
-                            .setDescription(ctx.locale("cmd.play.added_to_queue", { title: res.data.info.title, uri: res.data.info.uri })),
+                        embed.setColor(this.client.color.main).setDescription(
+                            ctx.locale("cmd.play.added_to_queue", {
+                                title: res.data.info.title,
+                                uri: res.data.info.uri,
+                            }),
+                        ),
                     ],
                 });
                 break;
@@ -94,11 +100,11 @@ export default class Play extends Command {
                     return await ctx.editMessage({
                         content: "",
                         embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(
-                                    ctx.locale("cmd.play.errors.playlist_too_long", { maxPlaylistSize: client.config.maxPlaylistSize }),
-                                ),
+                            embed.setColor(this.client.color.red).setDescription(
+                                ctx.locale("cmd.play.errors.playlist_too_long", {
+                                    maxPlaylistSize: client.config.maxPlaylistSize,
+                                }),
+                            ),
                         ],
                     });
                 for (const track of res.data.tracks) {
@@ -107,11 +113,11 @@ export default class Play extends Command {
                         return await ctx.editMessage({
                             content: "",
                             embeds: [
-                                embed
-                                    .setColor(this.client.color.red)
-                                    .setDescription(
-                                        ctx.locale("cmd.play.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                    ),
+                                embed.setColor(this.client.color.red).setDescription(
+                                    ctx.locale("cmd.play.errors.queue_too_long", {
+                                        maxQueueSize: client.config.maxQueueSize,
+                                    }),
+                                ),
                             ],
                         });
                     player.queue.push(pl);
@@ -120,9 +126,11 @@ export default class Play extends Command {
                 ctx.editMessage({
                     content: "",
                     embeds: [
-                        embed
-                            .setColor(this.client.color.main)
-                            .setDescription(ctx.locale("cmd.play.added_playlist_to_queue", { length: res.data.tracks.length })),
+                        embed.setColor(this.client.color.main).setDescription(
+                            ctx.locale("cmd.play.added_playlist_to_queue", {
+                                length: res.data.tracks.length,
+                            }),
+                        ),
                     ],
                 });
                 break;
@@ -133,9 +141,11 @@ export default class Play extends Command {
                     return await ctx.editMessage({
                         content: "",
                         embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(ctx.locale("cmd.play.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize })),
+                            embed.setColor(this.client.color.red).setDescription(
+                                ctx.locale("cmd.play.errors.queue_too_long", {
+                                    maxQueueSize: client.config.maxQueueSize,
+                                }),
+                            ),
                         ],
                     });
                 player.queue.push(track1);
@@ -143,11 +153,12 @@ export default class Play extends Command {
                 ctx.editMessage({
                     content: "",
                     embeds: [
-                        embed
-                            .setColor(this.client.color.main)
-                            .setDescription(
-                                ctx.locale("cmd.play.added_to_queue", { title: res.data[0].info.title, uri: res.data[0].info.uri }),
-                            ),
+                        embed.setColor(this.client.color.main).setDescription(
+                            ctx.locale("cmd.play.added_to_queue", {
+                                title: res.data[0].info.title,
+                                uri: res.data[0].info.uri,
+                            }),
+                        ),
                     ],
                 });
                 break;
@@ -155,25 +166,27 @@ export default class Play extends Command {
         }
     }
 
-    public async autocomplete(interaction) {
+    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
         const focusedValue = interaction.options.getFocused();
 
         try {
             const res = await this.client.queue.search(focusedValue);
             const songs = [];
 
-            if(res?.loadType) {
+            if (res?.loadType) {
                 if (res.loadType === LoadType.SEARCH && res.data.length) {
                     res.data.slice(0, 10).forEach((track) => {
+                        const name = `${track.info.title} by ${track.info.author}`;
                         songs.push({
-                            name: `${track.info.title} by ${track.info.author}`,
+                            name: name.length > 100 ? `${name.substring(0, 97)}...` : name,
                             value: track.info.uri,
                         });
                     });
                 } else if (res.loadType === LoadType.PLAYLIST && res.data.tracks.length) {
                     res.data.tracks.slice(0, 10).forEach((track) => {
+                        const name = `${track.info.title} by ${track.info.author}`;
                         songs.push({
-                            name: `${track.info.title} by ${track.info.author}`,
+                            name: name.length > 100 ? `${name.substring(0, 97)}...` : name,
                             value: track.info.uri,
                         });
                     });
@@ -186,7 +199,6 @@ export default class Play extends Command {
             await interaction.respond([]).catch(console.error);
         }
     }
-
 }
 
 /**

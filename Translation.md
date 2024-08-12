@@ -18,7 +18,7 @@
 - [x] German - `German.json` [by @LucasB25](https://github.com/LucasB25)
 - [x] Russian - `Russian.json` [by @LucasB25](https://github.com/LucasB25)
 - [x] Korean - `Korean.json` [by @hwangsihu](https://github.com/hwangsihu)
-- [ ] Indonesian - `Indonesian.json` (Not Started)
+- [x] Indonesian - `Indonesian.json` [by @iaMJ](https://github.com/idMJA)
 - [ ] English (GB) - `EnglishGB.json` (Not Started)
 - [ ] Bulgarian - `Bulgarian.json` (Not Started)
 - [x] Chinese (CN) - `ChineseCN.json` [by @appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)

@@ -70,9 +70,17 @@ export default class Queue extends Command {
             return this.client
                 .embed()
                 .setColor(this.client.color.main)
-                .setAuthor({ name: ctx.locale("cmd.queue.title"), iconURL: ctx.guild.iconURL({}) })
+                .setAuthor({
+                    name: ctx.locale("cmd.queue.title"),
+                    iconURL: ctx.guild.iconURL({}),
+                })
                 .setDescription(chunk.join("\n"))
-                .setFooter({ text: ctx.locale("cmd.queue.page_info", { index: index + 1, total: chunks.length }) });
+                .setFooter({
+                    text: ctx.locale("cmd.queue.page_info", {
+                        index: index + 1,
+                        total: chunks.length,
+                    }),
+                });
         });
         return await client.utils.paginate(client, ctx, pages);
     }

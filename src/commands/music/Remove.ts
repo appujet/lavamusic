@@ -54,7 +54,13 @@ export default class Remove extends Command {
 
         player.remove(songNumber - 1);
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.remove.messages.removed", { songNumber }))],
+            embeds: [
+                embed.setColor(this.client.color.main).setDescription(
+                    ctx.locale("cmd.remove.messages.removed", {
+                        songNumber,
+                    }),
+                ),
+            ],
         });
     }
 }

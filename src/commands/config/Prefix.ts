@@ -69,7 +69,11 @@ export default class Prefix extends Command {
             case "set": {
                 if (!prefix) {
                     const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
-                    embed.setDescription(ctx.locale("cmd.prefix.messages.current_prefix", { prefix: currentPrefix }));
+                    embed.setDescription(
+                        ctx.locale("cmd.prefix.messages.current_prefix", {
+                            prefix: currentPrefix,
+                        }),
+                    );
                     return await ctx.sendMessage({ embeds: [embed] });
                 }
                 if (prefix.length > 3) {
@@ -83,12 +87,20 @@ export default class Prefix extends Command {
             case "reset": {
                 const defaultPrefix = client.config.prefix;
                 await client.db.setPrefix(guildId, defaultPrefix);
-                embed.setDescription(ctx.locale("cmd.prefix.messages.prefix_reset", { prefix: defaultPrefix }));
+                embed.setDescription(
+                    ctx.locale("cmd.prefix.messages.prefix_reset", {
+                        prefix: defaultPrefix,
+                    }),
+                );
                 return await ctx.sendMessage({ embeds: [embed] });
             }
             default: {
                 const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
-                embed.setDescription(ctx.locale("cmd.prefix.messages.current_prefix", { prefix: currentPrefix }));
+                embed.setDescription(
+                    ctx.locale("cmd.prefix.messages.current_prefix", {
+                        prefix: currentPrefix,
+                    }),
+                );
                 return await ctx.sendMessage({ embeds: [embed] });
             }
         }

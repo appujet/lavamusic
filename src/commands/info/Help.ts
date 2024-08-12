@@ -47,7 +47,13 @@ export default class Help extends Command {
             const command = this.client.commands.get(args[0].toLowerCase());
             if (!command) {
                 return await ctx.sendMessage({
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.help.not_found", { cmdName: args[0] }))],
+                    embeds: [
+                        embed.setColor(this.client.color.red).setDescription(
+                            ctx.locale("cmd.help.not_found", {
+                                cmdName: args[0],
+                            }),
+                        ),
+                    ],
                 });
             }
             const helpEmbed = embed
@@ -88,8 +94,15 @@ export default class Help extends Command {
         const helpEmbed = embed
             .setColor(client.color.main)
             .setTitle(ctx.locale("cmd.help.title"))
-            .setDescription(ctx.locale("cmd.help.content", { bot: client.user.username, prefix: guild.prefix }))
-            .setFooter({ text: ctx.locale("cmd.help.footer", { prefix: guild.prefix }) })
+            .setDescription(
+                ctx.locale("cmd.help.content", {
+                    bot: client.user.username,
+                    prefix: guild.prefix,
+                }),
+            )
+            .setFooter({
+                text: ctx.locale("cmd.help.footer", { prefix: guild.prefix }),
+            })
             .addFields(...fields);
 
         return await ctx.sendMessage({ embeds: [helpEmbed] });

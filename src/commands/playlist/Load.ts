@@ -1,3 +1,4 @@
+import type { AutocompleteInteraction } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class LoadPlaylist extends Command {
@@ -94,21 +95,19 @@ export default class LoadPlaylist extends Command {
         });
     }
 
-    // Add autocomplete handler
-    public async autocomplete(interaction) {
+    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
         const focusedValue = interaction.options.getFocused();
         const userId = interaction.user.id;
 
-        // Fetch user playlists from the database
         const playlists = await this.client.db.getUserPlaylists(userId);
 
-        // Filter playlists based on the focused value and respond
-        const filtered = playlists.filter(playlist =>
-            playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase())
-        );
+        const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
 
         await interaction.respond(
-            filtered.map(playlist => ({ name: playlist.name, value: playlist.name }))
+            filtered.map((playlist) => ({
+                name: playlist.name,
+                value: playlist.name,
+            })),
         );
     }
 }

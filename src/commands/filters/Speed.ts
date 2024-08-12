@@ -59,7 +59,9 @@ export default class Speed extends Command {
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: ctx.locale("cmd.speed.messages.set_speed", { speed }),
+                    description: ctx.locale("cmd.speed.messages.set_speed", {
+                        speed,
+                    }),
                     color: this.client.color.main,
                 },
             ],

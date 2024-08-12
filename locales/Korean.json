@@ -314,7 +314,7 @@
 				"song": "삭제할 노래의 대기열 번호"
 			},
 			"errors": {
-				"no_songs": "대기열에 노래가 없어요.",
+				"no_songs": "그 대기열 번호에 등록된 노래가 없어요.",
 				"invalid_number": "올바른 노래 번호를 지정해주세요."
 			},
 			"messages": {
@@ -513,8 +513,8 @@
 			"no_player": "이 서버에 활성 플레이어가 없어요.",
 			"no_channel": "이 명령어를 사용하려면 먼저 음성 채널에 접속해주세요.",
 			"queue_empty": "대기열이 비어있어요.",
-			"no_previous": "대기열에 이전 노래가 없어요.",
-			"no_song": "대기열에 노래가 없어요.",
+			"no_previous": "이전 노래가 없어요.",
+			"no_song": "스킵할 노래가 없어요.",
 			"already_paused": "노래가 이미 일시정지되어있어요."
 		},
 		"trackStart": {
@@ -536,7 +536,7 @@
 		},
 		"setupStart": {
 			"now_playing": "재생 중",
-			"description": "[{title}]({uri}), 제작자 {author} • `[${length}]` - 요청자: <@{requester}>",
+			"description": "[{title}]({uri}), 제작자 {author} • `[{length}]` - 요청자: <@{requester}>",
 			"error_searching": "노래를 검색하는 도중 오류가 발생했어요.",
 			"no_results": "검색결과가 없어요.",
 			"nothing_playing": "현재 재생 중인 노래가 없어요.",
@@ -619,7 +619,8 @@
 			"forward_limit": "현재 노래 길이보다 더 빨리감기할 수 없어요.",
 			"forwarded": "노래를 빨리감기했어요.",
 			"forward_footer": "{displayName}에 의해 빨리감기됨",
-			"button_not_available": "이 버튼은 사용할 수 없어요."
+			"button_not_available": "이 버튼은 사용할 수 없어요.",
+			"no_music_playing": "현재 재생 중인 노래가 없어요."
 		}
 	},
 	"Evaluate code": "코드를 실행해요",

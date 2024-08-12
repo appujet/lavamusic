@@ -59,7 +59,9 @@ export default class Pitch extends Command {
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: ctx.locale("cmd.pitch.messages.pitch_set", { pitch }),
+                    description: ctx.locale("cmd.pitch.messages.pitch_set", {
+                        pitch,
+                    }),
                     color: this.client.color.main,
                 },
             ],

@@ -59,7 +59,9 @@ export default class Rate extends Command {
         await ctx.sendMessage({
             embeds: [
                 {
-                    description: ctx.locale("cmd.rate.messages.rate_set", { rate }),
+                    description: ctx.locale("cmd.rate.messages.rate_set", {
+                        rate,
+                    }),
                     color: this.client.color.main,
                 },
             ],

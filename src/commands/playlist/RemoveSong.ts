@@ -1,3 +1,4 @@
+import type { AutocompleteInteraction } from "discord.js";
 import { LoadType } from "shoukaku";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
@@ -93,7 +94,10 @@ export default class RemoveSong extends Command {
             const successMessage = this.client
                 .embed()
                 .setDescription(
-                    ctx.locale("cmd.removesong.messages.song_removed", { song: trackToRemove.info.title, playlist: playlistData.name }),
+                    ctx.locale("cmd.removesong.messages.song_removed", {
+                        song: trackToRemove.info.title,
+                        playlist: playlistData.name,
+                    }),
                 )
                 .setColor(this.client.color.green);
             await ctx.sendMessage({ embeds: [successMessage] });
@@ -106,21 +110,19 @@ export default class RemoveSong extends Command {
             return await ctx.sendMessage({ embeds: [genericError] });
         }
     }
-    // Add autocomplete handler
-    public async autocomplete(interaction) {
+    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
         const focusedValue = interaction.options.getFocused();
         const userId = interaction.user.id;
 
-        // Fetch user playlists from the database
         const playlists = await this.client.db.getUserPlaylists(userId);
 
-        // Filter playlists based on the focused value and respond
-        const filtered = playlists.filter(playlist =>
-            playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase())
-        );
+        const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
 
         await interaction.respond(
-            filtered.map(playlist => ({ name: playlist.name, value: playlist.name }))
+            filtered.map((playlist) => ({
+                name: playlist.name,
+                value: playlist.name,
+            })),
         );
     }
 }

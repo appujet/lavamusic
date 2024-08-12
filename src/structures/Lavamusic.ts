@@ -1,5 +1,8 @@
+// biome-ignore lint/correctness/noNodejsModules: <explanation>
 import fs from "node:fs";
+// biome-ignore lint/correctness/noNodejsModules: <explanation>
 import path from "node:path";
+// biome-ignore lint/correctness/noNodejsModules: <explanation>
 import { fileURLToPath } from "node:url";
 import { Api } from "@top-gg/sdk";
 import {
@@ -35,8 +38,8 @@ export default class Lavamusic extends Client {
     public readonly emoji = config.emoji;
     public readonly color = config.color;
     private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
-    public shoukaku: ShoukakuClient;
-    public topGG: Api;
+    public shoukaku!: ShoukakuClient;
+    public topGG!: Api;
     public utils = Utils;
     public queue = new Queue(this);
 
@@ -56,8 +59,8 @@ export default class Lavamusic extends Client {
         loadPlugins(this);
         await this.login(token);
 
-        this.on(Events.InteractionCreate, async (interaction: Interaction<"cached">) => {
-            if (interaction.isButton()) {
+        this.on(Events.InteractionCreate, async (interaction: Interaction) => {
+            if (interaction.isButton() && interaction.guildId) {
                 const setup = await this.db.getSetup(interaction.guildId);
                 if (setup && interaction.channelId === setup.textId && interaction.message.id === setup.messageId) {
                     this.emit("setupButtons", interaction);
@@ -96,55 +99,67 @@ export default class Lavamusic extends Client {
                         name_localizations: null,
                         description_localizations: null,
                     };
-                    // command description and name localizations
+
                     const localizations = [];
                     i18n.getLocales().map((locale) => {
                         localizations.push(localization(locale, command.name, command.description.content));
                     });
+
                     for (const localization of localizations) {
                         const [language, name] = localization.name;
                         const [language2, description] = localization.description;
-                        data.name_localizations = { ...data.name_localizations, [language]: name };
-                        data.description_localizations = { ...data.description_localizations, [language2]: description };
+                        data.name_localizations = {
+                            ...data.name_localizations,
+                            [language]: name,
+                        };
+                        data.description_localizations = {
+                            ...data.description_localizations,
+                            [language2]: description,
+                        };
                     }
 
-                    // command options localizations
                     if (command.options.length > 0) {
                         command.options.map((option) => {
-                            // command options name and description localizations
                             const optionsLocalizations = [];
                             i18n.getLocales().map((locale) => {
                                 optionsLocalizations.push(localization(locale, option.name, option.description));
                             });
+
                             for (const localization of optionsLocalizations) {
                                 const [language, name] = localization.name;
                                 const [language2, description] = localization.description;
-                                option.name_localizations = { ...option.name_localizations, [language]: name };
-                                option.description_localizations = { ...option.description_localizations, [language2]: description };
+                                option.name_localizations = {
+                                    ...option.name_localizations,
+                                    [language]: name,
+                                };
+                                option.description_localizations = {
+                                    ...option.description_localizations,
+                                    [language2]: description,
+                                };
                             }
-                            // command options description localization
                             option.description = T(Locale.EnglishUS, option.description);
                         });
 
-                        // subcommand options localizations
                         data.options.map((option) => {
                             if ("options" in option && option.options.length > 0) {
                                 option.options.map((subOption) => {
-                                    // subcommand options name and description localizations
                                     const subOptionsLocalizations = [];
                                     i18n.getLocales().map((locale) => {
                                         subOptionsLocalizations.push(localization(locale, subOption.name, subOption.description));
                                     });
+
                                     for (const localization of subOptionsLocalizations) {
                                         const [language, name] = localization.name;
                                         const [language2, description] = localization.description;
-                                        subOption.name_localizations = { ...subOption.name_localizations, [language]: name };
+                                        subOption.name_localizations = {
+                                            ...subOption.name_localizations,
+                                            [language]: name,
+                                        };
                                         subOption.description_localizations = {
                                             ...subOption.description_localizations,
                                             [language2]: description,
                                         };
                                     }
-                                    // subcommand options description localization
                                     subOption.description = T(Locale.EnglishUS, subOption.description);
                                 });
                             }

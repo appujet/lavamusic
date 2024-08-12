@@ -55,18 +55,22 @@ export default class Seek extends Command {
         if (duration > current.length) {
             return await ctx.sendMessage({
                 embeds: [
-                    embed
-                        .setColor(this.client.color.red)
-                        .setDescription(ctx.locale("cmd.seek.errors.beyond_duration", { length: client.utils.formatTime(current.length) })),
+                    embed.setColor(this.client.color.red).setDescription(
+                        ctx.locale("cmd.seek.errors.beyond_duration", {
+                            length: client.utils.formatTime(current.length),
+                        }),
+                    ),
                 ],
             });
         }
         player.seek(duration);
         return await ctx.sendMessage({
             embeds: [
-                embed
-                    .setColor(this.client.color.main)
-                    .setDescription(ctx.locale("cmd.seek.messages.seeked_to", { duration: client.utils.formatTime(duration) })),
+                embed.setColor(this.client.color.main).setDescription(
+                    ctx.locale("cmd.seek.messages.seeked_to", {
+                        duration: client.utils.formatTime(duration),
+                    }),
+                ),
             ],
         });
     }

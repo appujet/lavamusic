@@ -35,7 +35,7 @@ export default class Grab extends Command {
 
         if (!player?.current) {
             return await ctx.sendMessage({
-                embeds: [this.client.embed().setColor(this.client.color.red).setDescription(ctx.locale("cmd.player.errors.no_song"))],
+                embeds: [this.client.embed().setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
             });
         }
 

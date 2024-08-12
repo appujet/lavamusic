@@ -18,7 +18,10 @@ function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic, locale:
         requester: player.current.info.requester,
     });
     return embed
-        .setAuthor({ name: T(locale, "player.setupStart.now_playing"), iconURL: iconUrl })
+        .setAuthor({
+            name: T(locale, "player.setupStart.now_playing"),
+            iconURL: iconUrl,
+        })
         .setDescription(description)
         .setImage(icon)
         .setColor(client.color.main);
@@ -31,7 +34,11 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
     const data = await client.db.getSetup(message.guild.id);
     const locale = await client.db.getLanguage(message.guildId);
     try {
-        if (data) m = await message.channel.messages.fetch({ message: data.messageId, cache: true });
+        if (data)
+            m = await message.channel.messages.fetch({
+                message: data.messageId,
+                cache: true,
+            });
     } catch (error) {
         client.logger.error(error);
     }
@@ -59,11 +66,11 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
                         await message.channel
                             .send({
                                 embeds: [
-                                    embed
-                                        .setColor(client.color.red)
-                                        .setDescription(
-                                            T(locale, "player.setupStart.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                        ),
+                                    embed.setColor(client.color.red).setDescription(
+                                        T(locale, "player.setupStart.queue_too_long", {
+                                            maxQueueSize: client.config.maxQueueSize,
+                                        }),
+                                    ),
                                 ],
                             })
                             .then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -141,11 +148,11 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
                         await message.channel
                             .send({
                                 embeds: [
-                                    embed
-                                        .setColor(client.color.red)
-                                        .setDescription(
-                                            T(locale, "player.setupStart.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                        ),
+                                    embed.setColor(client.color.red).setDescription(
+                                        T(locale, "player.setupStart.queue_too_long", {
+                                            maxQueueSize: client.config.maxQueueSize,
+                                        }),
+                                    ),
                                 ],
                             })
                             .then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -204,7 +211,10 @@ async function trackStart(
 
     const embed = client
         .embed()
-        .setAuthor({ name: T(locale, "player.setupStart.now_playing"), iconURL: iconUrl })
+        .setAuthor({
+            name: T(locale, "player.setupStart.now_playing"),
+            iconURL: iconUrl,
+        })
         .setColor(client.color.main)
         .setDescription(description)
         .setImage(icon);
@@ -242,7 +252,10 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
         const textChannel = guild.channels.cache.get(setup.textId) as TextChannel;
         if (!textChannel) return;
         try {
-            m = await textChannel.messages.fetch({ message: setup.messageId, cache: true });
+            m = await textChannel.messages.fetch({
+                message: setup.messageId,
+                cache: true,
+            });
         } catch (error) {
             client.logger.error(error);
         }
@@ -261,7 +274,10 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
 
             const embed = client
                 .embed()
-                .setAuthor({ name: T(locale, "player.setupStart.now_playing"), iconURL: iconUrl })
+                .setAuthor({
+                    name: T(locale, "player.setupStart.now_playing"),
+                    iconURL: iconUrl,
+                })
                 .setColor(client.color.main)
                 .setDescription(description)
                 .setImage(player.current.info.artworkUrl);
