@@ -13,9 +13,9 @@ jobs:
     name: Run biome checking
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       security-events: write
-      actions: read
+      actions: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
