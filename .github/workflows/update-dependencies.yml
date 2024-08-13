@@ -23,9 +23,6 @@ jobs:
     - name: Run update dependencies
       run: ncu -u
 
-    - name: Install updated dependencies
-      run: npm install
-
     - name: Commit and push changes
       run: |
         git config --local user.name "GitHub Actions"
