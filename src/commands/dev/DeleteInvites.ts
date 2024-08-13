@@ -6,7 +6,7 @@ export default class DestroyInvites extends Command {
             name: "destroyinvites",
             description: {
                 content: "Destroy all invite links created by the bot in a guild",
-                examples: ["destroyinvites <guildId>"],
+                examples: ["destroyinvites 0000000000000000000"],
                 usage: "destroyinvites <guildId>",
             },
             category: "dev",
