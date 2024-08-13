@@ -7,7 +7,7 @@ export default class CreateInvite extends Command {
             name: "createinvite",
             description: {
                 content: "Create a one-time use, unlimited duration invite link for a guild",
-                examples: ["createinvite <guildId>"],
+                examples: ["createinvite 0000000000000000000"],
                 usage: "createinvite <guildId>",
             },
             category: "dev",
