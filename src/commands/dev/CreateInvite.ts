@@ -1,5 +1,5 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 import { ChannelType } from "discord.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class CreateInvite extends Command {
     constructor(client: Lavamusic) {
@@ -40,20 +40,20 @@ export default class CreateInvite extends Command {
         }
 
         try {
-            const textChannel = guild.channels.cache.find(channel => channel.type === ChannelType.GuildText);
-            
+            const textChannel = guild.channels.cache.find((channel) => channel.type === ChannelType.GuildText);
+
             if (!textChannel) {
                 return await ctx.sendMessage("No text channel found in the guild.");
             }
 
             const invite = await textChannel.createInvite({
                 maxUses: 1,
-                maxAge: 0
+                maxAge: 0,
             });
 
             await ctx.author.send(`Guild: ${guild.name}\nInvite Link: ${invite.url}`);
             await ctx.sendMessage("Invite link has been sent to your DM.");
-        } catch (error) {
+        } catch (_error) {
             await ctx.sendMessage("Failed to create invite link.");
         }
     }

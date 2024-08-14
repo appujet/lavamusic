@@ -41,13 +41,13 @@ export default class DestroyInvites extends Command {
         try {
             const invites = await guild.invites.fetch();
 
-            const botInvites = invites.filter(invite => invite.inviter?.id === client.user?.id);
+            const botInvites = invites.filter((invite) => invite.inviter?.id === client.user?.id);
             for (const invite of botInvites.values()) {
                 await invite.delete();
             }
 
             await ctx.sendMessage(`Destroyed ${botInvites.size} invite(s) created by the bot.`);
-        } catch (error) {
+        } catch (_error) {
             await ctx.sendMessage("Failed to destroy invites.");
         }
     }
