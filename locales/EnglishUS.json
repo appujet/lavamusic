@@ -239,6 +239,7 @@
 			}
 		},
 		"grab": {
+			"loading": "Loading...",
 			"description": "Grabs the current playing song on your DM",
 			"content": "**Duration:** {length}\n**Requested by:** <@{requester}>\n**Link:** [Click here]({uri})",
 			"check_dm": "Please check your DM.",
