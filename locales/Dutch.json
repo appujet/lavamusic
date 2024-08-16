@@ -240,6 +240,7 @@
 		},
 		"grab": {
 			"description": "Grabs the current playing song on your DM",
+			"loading": "Loading...",
 			"content": "**Duration:** {length}\n**Requested by:** <@{requester}>\n**Link:** [Click here]({uri})",
 			"check_dm": "Please check your DM.",
 			"dm_failed": "I couldn't send you a DM. Please make sure allow direct messages is turned on."
@@ -549,10 +550,8 @@
 	"event": {
 		"interaction": {
 			"setup_channel": "You can't use this command in the setup channel.",
-			"no_send_message": "I don't have **`SendMessage`** permission in `{guild}`\nchannel: {channel}.",
-			"no_embed_links": "I don't have **`EmbedLinks`** permission.",
-			"no_read_message_history": "I don't have **`ReadMessageHistory`** permission.",
-			"no_permission": "I don't have enough permissions to execute this command.",
+			"no_send_message": "I don't have **`SendMessage`**, **`ViewChannel`**, **`EmbedLinks`** or **`ReadMessageHistory`**  permission in `{guild}`\nchannel: {channel}.",
+			"no_permission": "I don't have {permissions} permission.",
 			"no_user_permission": "You don't have enough permissions to use this command.",
 			"no_voice_channel": "You must be connected to a voice channel to use this `{command}` command.",
 			"no_connect_permission": "I don't have `CONNECT` permissions to execute this `{command}` command.",
@@ -567,10 +566,8 @@
 		},
 		"message": {
 			"prefix_mention": "Hey, my prefix for this server is `{prefix}`. Want more info? then do `{prefix}help`\nStay Safe, Stay Awesome!",
-			"no_send_message": "I don't have **`SendMessage`** permission in `{guild}`\nchannel: {channel}.",
-			"no_embed_links": "I don't have **`EmbedLinks`** permission.",
-			"no_read_message_history": "I don't have **`ReadMessageHistory`** permission.",
-			"no_permission": "I don't have enough permissions to execute this command.",
+			"no_send_message": "I don't have **`SendMessage`**, **`ViewChannel`**, **`EmbedLinks`** or **`ReadMessageHistory`**  permission in `{guild}`\nchannel: {channel}.",
+			"no_permission": "I don't have {permissions} permission.",
 			"no_user_permission": "You don't have enough permissions to use this command.",
 			"no_voice_channel": "You must be connected to a voice channel to use this `{command}` command.",
 			"no_connect_permission": "I don't have `CONNECT` permissions to execute this `{command}` command.",

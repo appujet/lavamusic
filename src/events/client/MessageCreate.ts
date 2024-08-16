@@ -59,7 +59,14 @@ export default class MessageCreate extends Event {
             if (!message.guild.members.resolve(this.client.user)?.permissions.has(PermissionFlagsBits.ViewChannel)) return;
 
             const clientMember = message.guild.members.resolve(this.client.user);
-            if (!clientMember.permissions.has(PermissionFlagsBits.SendMessages)) {
+            if (
+                !(
+                    clientMember.permissions.has(PermissionFlagsBits.ViewChannel) &&
+                    clientMember.permissions.has(PermissionFlagsBits.SendMessages) &&
+                    clientMember.permissions.has(PermissionFlagsBits.EmbedLinks) &&
+                    clientMember.permissions.has(PermissionFlagsBits.ReadMessageHistory)
+                )
+            ) {
                 await message.author
                     .send({
                         content: T(locale, "event.message.no_send_message", {
@@ -71,26 +78,18 @@ export default class MessageCreate extends Event {
                 return;
             }
 
-            if (!clientMember.permissions.has(PermissionFlagsBits.EmbedLinks)) {
-                await message.reply({
-                    content: T(locale, "event.message.no_embed_links"),
-                });
-                return;
-            }
-
-            if (!clientMember.permissions.has(PermissionFlagsBits.ReadMessageHistory)) {
-                await message.reply({
-                    content: T(locale, "event.interaction.no_read_message_history"),
-                });
-                return;
-            }
-
             if (command.permissions) {
-                if (command.permissions.client && !clientMember.permissions.has(command.permissions.client)) {
-                    await message.reply({
-                        content: T(locale, "event.message.no_permission"),
-                    });
-                    return;
+                if (command.permissions.client) {
+                    const missingClientPermissions = command.permissions.client.filter((perm) => !clientMember.permissions.has(perm));
+
+                    if (missingClientPermissions.length > 0) {
+                        await message.reply({
+                            content: T(locale, "event.interaction.no_permission", {
+                                permissions: missingClientPermissions.map((perm) => `\`${perm}\``).join(", "),
+                            }),
+                        });
+                        return;
+                    }
                 }
 
                 if (command.permissions.user && !message.member.permissions.has(command.permissions.user)) {
