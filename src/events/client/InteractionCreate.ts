@@ -68,6 +68,13 @@ export default class InteractionCreate extends Event {
                     content: T(locale, "event.interaction.no_embed_links"),
                 });
             }
+
+            if (!clientMember.permissions.has(PermissionFlagsBits.ReadMessageHistory)) {
+                return await interaction.reply({
+                    content: T(locale, "event.interaction.no_read_message_history"),
+                });
+            }
+
             const logs = this.client.channels.cache.get(this.client.config.commandLogs);
 
             if (command.permissions) {

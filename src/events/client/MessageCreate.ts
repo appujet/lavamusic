@@ -78,6 +78,13 @@ export default class MessageCreate extends Event {
                 return;
             }
 
+            if (!clientMember.permissions.has(PermissionFlagsBits.ReadMessageHistory)) {
+                await message.reply({
+                    content: T(locale, "event.interaction.no_read_message_history"),
+                });
+                return;
+            }
+
             if (command.permissions) {
                 if (command.permissions.client && !clientMember.permissions.has(command.permissions.client)) {
                     await message.reply({
