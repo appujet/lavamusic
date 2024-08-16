@@ -239,8 +239,8 @@
 			}
 		},
 		"grab": {
-			"loading": "Loading...",
 			"description": "Grabs the current playing song on your DM",
+			"loading": "Loading...",
 			"content": "**Duration:** {length}\n**Requested by:** <@{requester}>\n**Link:** [Click here]({uri})",
 			"check_dm": "Please check your DM.",
 			"dm_failed": "I couldn't send you a DM. Please make sure allow direct messages is turned on."
