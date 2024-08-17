@@ -4,13 +4,14 @@ import {
     ButtonStyle,
     ChannelType,
     Collection,
-    EmbedBuilder,
     type Message,
+    EmbedBuilder,
+    type GuildMember,
     PermissionFlagsBits,
     type TextChannel,
 } from "discord.js";
-import { T } from "../../structures/I18n.js";
 import { Context, Event, type Lavamusic } from "../../structures/index.js";
+import { T } from "../../structures/I18n.js";
 
 export default class MessageCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -56,9 +57,9 @@ export default class MessageCreate extends Event {
         const isDev = this.client.config.owners?.includes(message.author.id);
 
         if (!isDev) {
-            if (!message.guild.members.resolve(this.client.user)?.permissions.has(PermissionFlagsBits.ViewChannel)) return;
-
             const clientMember = message.guild.members.resolve(this.client.user);
+            if (!(message.inGuild() && message.channel.permissionsFor(clientMember)?.has(PermissionFlagsBits.ViewChannel))) return;
+
             if (
                 !(
                     clientMember.permissions.has(PermissionFlagsBits.ViewChannel) &&
@@ -67,7 +68,7 @@ export default class MessageCreate extends Event {
                     clientMember.permissions.has(PermissionFlagsBits.ReadMessageHistory)
                 )
             ) {
-                await message.author
+                return await message.author
                     .send({
                         content: T(locale, "event.message.no_send_message", {
                             guild: message.guild.name,
@@ -75,7 +76,6 @@ export default class MessageCreate extends Event {
                         }),
                     })
                     .catch(() => {});
-                return;
             }
 
             if (command.permissions) {
@@ -83,20 +83,23 @@ export default class MessageCreate extends Event {
                     const missingClientPermissions = command.permissions.client.filter((perm) => !clientMember.permissions.has(perm));
 
                     if (missingClientPermissions.length > 0) {
-                        await message.reply({
-                            content: T(locale, "event.interaction.no_permission", {
+                        return await message.reply({
+                            content: T(locale, "event.message.no_permission", {
                                 permissions: missingClientPermissions.map((perm) => `\`${perm}\``).join(", "),
                             }),
                         });
-                        return;
                     }
                 }
 
-                if (command.permissions.user && !message.member.permissions.has(command.permissions.user)) {
-                    await message.reply({
+                if (command.permissions.user && !(message.member as GuildMember).permissions.has(command.permissions.user)) {
+                    return await message.reply({
                         content: T(locale, "event.message.no_user_permission"),
                     });
-                    return;
+                }
+
+                if (command.permissions.dev && this.client.config.owners) {
+                    const isDev = this.client.config.owners.includes(message.author.id);
+                    if (!isDev) return;
                 }
             }
 
@@ -110,67 +113,58 @@ export default class MessageCreate extends Event {
                             .setStyle(ButtonStyle.Link),
                     );
 
-                    await message.reply({
+                    return await message.reply({
                         content: "Wait! Before using this command, you must vote on top.gg. Thank you.",
                         components: [voteBtn],
                     });
-                    return;
                 }
             }
 
             if (command.player) {
                 if (command.player.voice) {
-                    if (!message.member.voice.channel) {
-                        await message.reply({
-                            content: T(locale, "event.message.no_voice_channel", {
-                                command: command.name,
-                            }),
+                    if (!(message.member as GuildMember).voice.channel) {
+                        return await message.reply({
+                            content: T(locale, "event.message.no_voice_channel", { command: command.name }),
                         });
-                        return;
                     }
 
                     if (!clientMember.permissions.has(PermissionFlagsBits.Connect)) {
-                        await message.reply({
+                        return await message.reply({
                             content: T(locale, "event.message.no_connect_permission", { command: command.name }),
                         });
-                        return;
                     }
 
                     if (!clientMember.permissions.has(PermissionFlagsBits.Speak)) {
-                        await message.reply({
+                        return await message.reply({
                             content: T(locale, "event.message.no_speak_permission", { command: command.name }),
                         });
-                        return;
                     }
 
                     if (
-                        message.member.voice.channel.type === ChannelType.GuildStageVoice &&
+                        (message.member as GuildMember).voice.channel.type === ChannelType.GuildStageVoice &&
                         !clientMember.permissions.has(PermissionFlagsBits.RequestToSpeak)
                     ) {
-                        await message.reply({
+                        return await message.reply({
                             content: T(locale, "event.message.no_request_to_speak", { command: command.name }),
                         });
-                        return;
                     }
 
-                    if (clientMember.voice.channel && clientMember.voice.channelId !== message.member.voice.channelId) {
-                        await message.reply({
+                    if (clientMember.voice.channel && clientMember.voice.channelId !== (message.member as GuildMember).voice.channelId) {
+                        return await message.reply({
                             content: T(locale, "event.message.different_voice_channel", {
                                 channel: `<#${clientMember.voice.channelId}>`,
                                 command: command.name,
                             }),
                         });
-                        return;
                     }
                 }
 
                 if (command.player.active) {
                     const queue = this.client.queue.get(message.guildId);
-                    if (!queue?.queue && queue.current) {
-                        await message.reply({
+                    if (!(queue?.queue && queue.current)) {
+                        return await message.reply({
                             content: T(locale, "event.message.no_music_playing"),
                         });
-                        return;
                     }
                 }
 
@@ -179,21 +173,18 @@ export default class MessageCreate extends Event {
                     if (dj?.mode) {
                         const djRole = await this.client.db.getRoles(message.guildId);
                         if (!djRole) {
-                            await message.reply({
+                            return await message.reply({
                                 content: T(locale, "event.message.no_dj_role"),
                             });
-                            return;
                         }
-                        const findDJRole = message.member.roles.cache.find((x: any) => djRole.map((y: any) => y.roleId).includes(x.id));
-                        if (!findDJRole) {
-                            if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
-                                await message
-                                    .reply({
-                                        content: T(locale, "event.message.no_dj_permission"),
-                                    })
-                                    .then((msg) => setTimeout(() => msg.delete(), 5000));
-                                return;
-                            }
+
+                        const hasDJRole = (message.member as GuildMember).roles.cache.some((role) =>
+                            djRole.map((r) => r.roleId).includes(role.id),
+                        );
+                        if (!(hasDJRole && !(message.member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild))) {
+                            return await message.reply({
+                                content: T(locale, "event.message.no_dj_permission"),
+                            });
                         }
                     }
                 }
@@ -218,7 +209,6 @@ export default class MessageCreate extends Event {
             if (!this.client.cooldown.has(cmd)) {
                 this.client.cooldown.set(cmd, new Collection());
             }
-
             const now = Date.now();
             const timestamps = this.client.cooldown.get(cmd)!;
             const cooldownAmount = (command.cooldown || 5) * 1000;
@@ -227,13 +217,9 @@ export default class MessageCreate extends Event {
                 const expirationTime = timestamps.get(message.author.id)! + cooldownAmount;
                 const timeLeft = (expirationTime - now) / 1000;
                 if (now < expirationTime && timeLeft > 0.9) {
-                    await message.reply({
-                        content: T(locale, "event.message.cooldown", {
-                            time: timeLeft.toFixed(1),
-                            command: cmd,
-                        }),
+                    return await message.reply({
+                        content: T(locale, "event.message.cooldown", { time: timeLeft.toFixed(1), command: cmd }),
                     });
-                    return;
                 }
                 timestamps.set(message.author.id, now);
                 setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
@@ -243,10 +229,9 @@ export default class MessageCreate extends Event {
             }
 
             if (args.includes("@everyone") || args.includes("@here")) {
-                await message.reply({
+                return await message.reply({
                     content: T(locale, "event.message.no_mention_everyone"),
                 });
-                return;
             }
         }
 
@@ -255,7 +240,7 @@ export default class MessageCreate extends Event {
         } catch (error) {
             this.client.logger.error(error);
             await message.reply({
-                content: T(locale, "event.message.error", { error }),
+                content: T(locale, "event.message.error", { error: error.message || "Unknown error" }),
             });
         } finally {
             const logs = this.client.channels.cache.get(this.client.config.commandLogs);
