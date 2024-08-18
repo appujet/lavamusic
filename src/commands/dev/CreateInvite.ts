@@ -6,7 +6,7 @@ export default class CreateInvite extends Command {
         super(client, {
             name: "createinvite",
             description: {
-                content: "Create a one-time use, unlimited duration invite link for a guild",
+                content: "Create a invite link for a guild",
                 examples: ["createinvite 0000000000000000000"],
                 usage: "createinvite <guildId>",
             },
@@ -47,7 +47,7 @@ export default class CreateInvite extends Command {
             }
 
             const invite = await textChannel.createInvite({
-                maxUses: 1,
+                maxUses: 0,
                 maxAge: 0,
             });
 
