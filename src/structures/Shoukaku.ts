@@ -17,71 +17,90 @@ export default class ShoukakuClient extends Shoukaku {
                     .sort((a, b) => a.penalties - b.penalties)
                     .shift(),
         });
+// <<<<<<< main
 
-    this.client = client;
-    this.setupEventListeners();
-  }
+//     this.client = client;
+//     this.setupEventListeners();
+//   }
 
-  private setupEventListeners() {
-    this.on("ready", (name, reconnected) => {
-      if (!reconnected) {
-        logger.info(`Node ${name} is ready`);
-      }
-      this.reconnect247Players().catch((error) => {
-        logger.error(`Failed to reconnect 24/7 players: ${error.message}`);
-      });
-    });
+//   private setupEventListeners() {
+//     this.on("ready", (name, reconnected) => {
+//       if (!reconnected) {
+//         logger.info(`Node ${name} is ready`);
+//       }
+//       this.reconnect247Players().catch((error) => {
+//         logger.error(`Failed to reconnect 24/7 players: ${error.message}`);
+//       });
+//     });
 
-    this.on("error", (name, error) => {
-      logger.error(`Node ${name} encountered an error: ${error.message}`);
-    });
+//     this.on("error", (name, error) => {
+//       logger.error(`Node ${name} encountered an error: ${error.message}`);
+//     });
 
-    this.on("close", async (name, code, reason) => {
-      logger.warn(`Node ${name} closed. Code: ${code}, Reason: ${reason}`);
-      await this.disconnectPlayersOnNodeFailure(name).catch((error) => {
-        logger.error(`Failed to disconnect players: ${error.message}`);
-      });
-    });
+//     this.on("close", async (name, code, reason) => {
+//       logger.warn(`Node ${name} closed. Code: ${code}, Reason: ${reason}`);
+//       await this.disconnectPlayersOnNodeFailure(name).catch((error) => {
+//         logger.error(`Failed to disconnect players: ${error.message}`);
+//       });
+//     });
 
-    this.on("disconnect", async (name, count) => {
-      logger.warn(`Node ${name} disconnected. Attempt count: ${count}`);
-      await this.disconnectPlayersOnNodeFailure(name).catch((error) => {
-        logger.error(`Failed to disconnect players: ${error.message}`);
-      });
-    });
-  }
+//     this.on("disconnect", async (name, count) => {
+//       logger.warn(`Node ${name} disconnected. Attempt count: ${count}`);
+//       await this.disconnectPlayersOnNodeFailure(name).catch((error) => {
+//         logger.error(`Failed to disconnect players: ${error.message}`);
+//       });
+//     });
+//   }
 
-  private static getBestNode(nodes: Map<string, any>) {
-    const bestNode = [...nodes.values()]
-      .filter((node) => node.state === 2)
-      .sort((a, b) => {
-        if (a.penalties !== b.penalties) return a.penalties - b.penalties;
-        if (a.stats.playingPlayers !== b.stats.playingPlayers)
-          return a.stats.playingPlayers - b.stats.playingPlayers;
-        return a.stats.ping - b.stats.ping;
-      })
-      .shift();
+//   private static getBestNode(nodes: Map<string, any>) {
+//     const bestNode = [...nodes.values()]
+//       .filter((node) => node.state === 2)
+//       .sort((a, b) => {
+//         if (a.penalties !== b.penalties) return a.penalties - b.penalties;
+//         if (a.stats.playingPlayers !== b.stats.playingPlayers)
+//           return a.stats.playingPlayers - b.stats.playingPlayers;
+//         return a.stats.ping - b.stats.ping;
+//       })
+//       .shift();
 
-    return bestNode;
-  }
+//     return bestNode;
+//   }
 
-  private async disconnectPlayersOnNodeFailure(nodeName: string) {
-    for (const [guildId, player] of this.client.queue.entries()) {
-      if (player.node.name === nodeName) {
-        try {
-          await player.destroy();
-          this.client.queue.delete(guildId);
-          logger.info(
-            `Disconnected player in guild ${guildId} due to node failure`
-          );
-        } catch (error) {
-          logger.error(
-            `Failed to disconnect player in guild ${guildId}: ${error.message}`
-          );
-        }
-      }
-    }
-  }
+//   private async disconnectPlayersOnNodeFailure(nodeName: string) {
+//     for (const [guildId, player] of this.client.queue.entries()) {
+//       if (player.node.name === nodeName) {
+//         try {
+//           await player.destroy();
+//           this.client.queue.delete(guildId);
+//           logger.info(
+//             `Disconnected player in guild ${guildId} due to node failure`
+//           );
+//         } catch (error) {
+//           logger.error(
+//             `Failed to disconnect player in guild ${guildId}: ${error.message}`
+//           );
+//         }
+//       }
+// =======
+//         this.client = client;
+//         this.on("ready", (name, reconnected) => {
+//             this.client.shoukaku.emit(reconnected ? "nodeReconnect" : ("nodeConnect" as any), name);
+//         });
+//         this.on("error", (name, error) => {
+//             this.client.shoukaku.emit("nodeError" as any, name, error);
+//         });
+//         this.on("close", (name, code, reason) => {
+//             this.client.shoukaku.emit("nodeDestroy" as any, name, code, reason);
+//         });
+//         this.on("disconnect", (name, count) => {
+//             this.client.shoukaku.emit("nodeDisconnect" as any, name, count);
+//         });
+//         this.on("debug", (name, reason) => {
+//             this.client.shoukaku.emit("nodeRaw" as any, name, reason);
+//         });
+// >>>>>>> main
+//     }
+//   }
 
   private async reconnect247Players() {
     const data = await this.client.db.get_247();

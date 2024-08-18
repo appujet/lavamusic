@@ -71,16 +71,23 @@ export class Queue extends Map<string, Dispatcher> {
         deaf: true,
       });
 
-      dispatcher = new Dispatcher({
-        client: this.client,
-        guildId: guild.id,
-        channelId: channel.id,
-        player,
-        node,
-      });
+// <<<<<<< main
+//       dispatcher = new Dispatcher({
+//         client: this.client,
+//         guildId: guild.id,
+//         channelId: channel.id,
+//         player,
+//         node,
+//       });
 
-      this.set(guild.id, dispatcher);
-      this.client.shoukaku.emit("playerCreate" as any, dispatcher.player);
+//       this.set(guild.id, dispatcher);
+//       this.client.shoukaku.emit("playerCreate" as any, dispatcher.player);
+// =======
+//             this.set(guild.id, dispatcher);
+//             this.client.shoukaku.emit("playerCreate" as any, dispatcher.player);
+//         }
+//         return dispatcher;
+// >>>>>>> main
     }
     return dispatcher;
   }
