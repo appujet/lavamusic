@@ -76,15 +76,15 @@ export default class Dispatcher {
         this.nowPlayingMessage = null;
         this.history = [];
         this.player
-            .on("start", () => this.client.shoukaku.emit("trackStart", this.player, this.current, this))
+            .on("start", () => this.client.shoukaku.emit("trackStart" as any, this.player, this.current, this))
             .on("end", () => {
                 if (!this.queue.length) {
-                    this.client.shoukaku.emit("queueEnd", this.player, this.current, this);
+                    this.client.shoukaku.emit("queueEnd" as any, this.player, this.current, this);
                 }
-                this.client.shoukaku.emit("trackEnd", this.player, this.current, this);
+                this.client.shoukaku.emit("trackEnd" as any, this.player, this.current, this);
             })
-            .on("stuck", () => this.client.shoukaku.emit("trackStuck", this.player, this.current))
-            .on("closed", (...args) => this.client.shoukaku.emit("socketClosed", this.player, ...args));
+            .on("stuck", () => this.client.shoukaku.emit("trackStuck" as any, this.player, this.current))
+            .on("closed", (...args) => this.client.shoukaku.emit("socketClosed" as any, this.player, ...args));
     }
 
     get exists(): boolean {
@@ -132,7 +132,7 @@ export default class Dispatcher {
         this.player.destroy();
         this.client.queue.delete(this.guildId);
         if (!this.stopped) {
-            this.client.shoukaku.emit("playerDestroy", this.player);
+            this.client.shoukaku.emit("playerDestroy" as any, this.player);
         }
     }
 

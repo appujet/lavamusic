@@ -40,7 +40,7 @@
 		},
 		"botinfo": {
 			"description": "봇에 대한 정보를 표시해요",
-			"content": "봇 정보:\n- **운영체제**: {osInfo}\n- **가동시간**: {osUptime}\n- **컴퓨터 이름**: {osHostname}\n- **CPU 및 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord 버전**: {discordJsVersion}\n- {guilds} 서버, {channels} 채널, {users} 유저 캐시됨\n- **명령어 수**: {commands}개"
+			"content": "봇 정보:\n- **운영 체제**: {osInfo}\n- **업타임**: {osUptime}\n- **호스트 이름**: {osHostname}\n- **CPU 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord 버전**: {discordJsVersion}\n- 서버 {guilds}개, 채널 {channels}개, 멤버 {users}명\n- **명령어 수**: {commands}개"
 		},
 		"about": {
 			"description": "봇에 대해 알려줘요",
@@ -582,10 +582,10 @@
 			"missing_arguments_description": "`{command}` 명령어에 필요한 인수를 지정해주세요.\n\n예시:\n{examples}",
 			"syntax_footer": "구문: [] = 선택, <> = 필수",
 			"cooldown": "`{command}` 명령어를 사용하려면 {time}초동안 기다려야 해요.",
-			"no_mention_everyone": "이 명령어는 everyone나 here 멘션으로 사용할 수 없어요. 빗금 명령으로 사용해주세요.",
+			"no_mention_everyone": "이 명령어는 everyone나 here 멘션으로 사용할 수 없어요. 빗금 명령어로 사용해주세요.",
 			"error": "오류: `{error}`",
 			"no_voice_channel_queue": "대기열에 노래를 추가하려면 음성 채널에 접속해주세요.",
-			"no_permission_connect_speak": "<#{channel}>에서 연결/말하기 권한이 봇에게 없어요.",
+			"no_permission_connect_speak": "<#{channel}>에서 연결/말하기 권한이 없어요.",
 			"different_voice_channel_queue": "노래를 대기열에 추가하려면 <#{channel}> 채널에 접속해주세요."
 		},
 		"setupButton": {

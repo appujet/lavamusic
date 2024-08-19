@@ -52,7 +52,14 @@ export default class InteractionCreate extends Event {
             const clientMember = interaction.guild.members.resolve(this.client.user);
             if (!(interaction.inGuild() && interaction.channel.permissionsFor(clientMember)?.has(PermissionFlagsBits.ViewChannel))) return;
 
-            if (!clientMember.permissions.has(PermissionFlagsBits.SendMessages)) {
+            if (
+                !(
+                    clientMember.permissions.has(PermissionFlagsBits.ViewChannel) &&
+                    clientMember.permissions.has(PermissionFlagsBits.SendMessages) &&
+                    clientMember.permissions.has(PermissionFlagsBits.EmbedLinks) &&
+                    clientMember.permissions.has(PermissionFlagsBits.ReadMessageHistory)
+                )
+            ) {
                 return await (interaction.member as GuildMember)
                     .send({
                         content: T(locale, "event.interaction.no_send_message", {
@@ -63,18 +70,20 @@ export default class InteractionCreate extends Event {
                     .catch(() => {});
             }
 
-            if (!clientMember.permissions.has(PermissionFlagsBits.EmbedLinks)) {
-                return await interaction.reply({
-                    content: T(locale, "event.interaction.no_embed_links"),
-                });
-            }
             const logs = this.client.channels.cache.get(this.client.config.commandLogs);
 
             if (command.permissions) {
-                if (command.permissions.client && !clientMember.permissions.has(command.permissions.client)) {
-                    return await interaction.reply({
-                        content: T(locale, "event.interaction.no_permission"),
-                    });
+                if (command.permissions.client) {
+                    const missingClientPermissions = command.permissions.client.filter((perm) => !clientMember.permissions.has(perm));
+
+                    if (missingClientPermissions.length > 0) {
+                        return await interaction.reply({
+                            content: T(locale, "event.interaction.no_permission", {
+                                permissions: missingClientPermissions.map((perm) => `\`${perm}\``).join(", "),
+                            }),
+                            ephemeral: true,
+                        });
+                    }
                 }
 
                 if (command.permissions.user && !(interaction.member as GuildMember).permissions.has(command.permissions.user)) {
