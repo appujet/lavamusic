@@ -240,6 +240,7 @@
 		},
 		"grab": {
 			"description": "DM으로 현재 재생 중인 노래를 보내줘요",
+			"loading": "로드 중...",
 			"content": "**길이:** {length}\n**요청자:** <@{requester}>\n**링크:** [클릭]({uri})",
 			"check_dm": "DM을 확인해주세요.",
 			"dm_failed": "DM을 보내지 못했어요. 다이렉트 메시지 허용이 켜져 있는지 확인해주세요."
@@ -549,8 +550,7 @@
 	"event": {
 		"interaction": {
 			"setup_channel": "음악 채널에서는 이 명령어를 사용할 수 없어요.",
-			"no_send_message": "봇에게 **`메시지 보내기`** 권한이 `{guild}`에 없어요.\n채널: {channel}.",
-			"no_embed_links": "**`링크 첨부`** 권한이 봇에게 없어요.",
+			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 `{guild}`에 없어요.\n채널: {channel}.",
 			"no_permission": "이 명령어를 실행하기 위한 봇의 권한이 부족해요.",
 			"no_user_permission": "이 명령어를 실행하기 위한 권한이 부족해요.",
 			"no_voice_channel": "`{command}` 명령어를 사용하려면 음성 채널에 접속해주세요.",
@@ -566,8 +566,7 @@
 		},
 		"message": {
 			"prefix_mention": "이 서버의 접두사는 `{prefix}`예요. 더 많은 정보를 원하시나요? `{prefix}help`를 사용하세요.\n안전하게 지내시고, 멋진 하루 보내세요!",
-			"no_send_message": "봇에게 **`메시지 보내기`** 권한이 `{guild}`에 없어요.\n채널: {channel}.",
-			"no_embed_links": "**`링크 첨부`** 권한이 봇에게 없어요.",
+			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 `{guild}`에 없어요.\n채널: {channel}.",
 			"no_permission": "이 명령어를 실행하기 위한 봇의 권한이 부족해요.",
 			"no_user_permission": "이 명령어를 실행하기 위한 권한이 부족해요.",
 			"no_voice_channel": "{command} 명령어를 사용하려면 음성 채널에 접속해주세요.",
