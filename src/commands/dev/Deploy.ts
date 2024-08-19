@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, type ButtonInteraction, ButtonStyle, ComponentType } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, type ButtonInteraction, ButtonStyle, ComponentType, type Message } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Deploy extends Command {
@@ -36,7 +36,7 @@ export default class Deploy extends Command {
             new ButtonBuilder().setCustomId("deploy-guild").setLabel("Guild").setStyle(ButtonStyle.Secondary),
         );
 
-        let msg;
+        let msg: Message | undefined;
         try {
             msg = await ctx.sendMessage({
                 content: "Where do you want to deploy the commands?",
@@ -87,7 +87,7 @@ export default class Deploy extends Command {
         });
 
         collector.on("end", async (_collected, reason) => {
-            if (reason === "time") {
+            if (reason === "time" && msg) {
                 try {
                     await msg.delete();
                 } catch (error) {
