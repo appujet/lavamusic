@@ -1,7 +1,10 @@
 import "dotenv/config";
 import { SearchEngine } from "./types.js";
 
-const parseBoolean = (value?: string): boolean => value?.trim().toLowerCase() === "true";
+const parseBoolean = (value) => {
+    if (typeof value !== "string") return false;
+    return value.trim().toLowerCase() === "true";
+};
 
 export default {
     token: process.env.TOKEN,
@@ -41,7 +44,7 @@ export default {
     topGG: process.env.TOPGG,
     keepAlive: parseBoolean(process.env.KEEP_ALIVE),
     autoNode: parseBoolean(process.env.AUTO_NODE),
-    searchEngine: SearchEngine.YouTube, // YouTube (YouTube Search), YouTubeMusic (YouTube Music Search), Spotify (Spotify Search), SoundCloud (SoundCloud Search), Apple (Apple Search) or Yandex (Yandex Search).
+    searchEngine: SearchEngine.YouTubeMusic, // YouTube (YouTube Search), YouTubeMusic (YouTube Music Search), Spotify (Spotify Search), SoundCloud (SoundCloud Search), Apple (Apple Search) or Yandex (Yandex Search).
     maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE || "100"),
     botStatus: process.env.BOT_STATUS || "online",
     botActivity: process.env.BOT_ACTIVITY || "Lavamusic",
@@ -64,14 +67,16 @@ export default {
         jiosaavn: "https://i.imgur.com/N9Nt80h.png",
     },
     production: parseBoolean(process.env.PRODUCTION) ?? true,
-    lavalink: [
-        {
-            url: process.env.LAVALINK_URL,
-            auth: process.env.LAVALINK_AUTH,
-            name: process.env.LAVALINK_NAME,
-            secure: parseBoolean(process.env.LAVALINK_SECURE),
-        },
-    ],
+    lavalink: process.env.LAVALINK_SERVERS
+        ? JSON.parse(process.env.LAVALINK_SERVERS).map((server) => {
+              return {
+                  url: server.url,
+                  auth: server.auth,
+                  name: server.name,
+                  secure: parseBoolean(server.secure),
+              };
+          })
+        : [],
 };
 
 /**
