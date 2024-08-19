@@ -8,7 +8,7 @@ export default class ShoukakuClient extends Shoukaku {
             resume: true, // Whether to resume a connection on disconnect to Lavalink (Server Side) (Note: DOES NOT RESUME WHEN THE LAVALINK SERVER DIES)
             resumeTimeout: 30,
             resumeByLibrary: true, // Whether to resume the players by doing it in the library side (Client Side) (Note: TRIES TO RESUME REGARDLESS OF WHAT HAPPENED ON A LAVALINK SERVER)
-            reconnectTries: 25,
+            reconnectTries: 5,
             reconnectInterval: 5,
             restTimeout: 60,
             moveOnDisconnect: false, // Whether to move players to a different Lavalink node when a node disconnects

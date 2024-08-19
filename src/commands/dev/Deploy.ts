@@ -36,17 +36,25 @@ export default class Deploy extends Command {
             new ButtonBuilder().setCustomId("deploy-guild").setLabel("Guild").setStyle(ButtonStyle.Secondary),
         );
 
-        const msg = await ctx.sendMessage({
-            content: "Where do you want to deploy the commands?",
-            components: [row],
-        });
+        let msg;
+        try {
+            msg = await ctx.sendMessage({
+                content: "Where do you want to deploy the commands?",
+                components: [row],
+            });
+        } catch (error) {
+            console.error("Failed to send the initial message:", error);
+            return;
+        }
 
         const filter = (interaction: ButtonInteraction<"cached">) => {
             if (interaction.user.id !== ctx.author.id) {
-                interaction.reply({
-                    content: "You can't interact with this message",
-                    ephemeral: true,
-                });
+                interaction
+                    .reply({
+                        content: "You can't interact with this message",
+                        ephemeral: true,
+                    })
+                    .catch(console.error);
                 return false;
             }
             return true;
@@ -59,23 +67,33 @@ export default class Deploy extends Command {
         });
 
         collector.on("collect", async (interaction) => {
-            if (interaction.customId === "deploy-global") {
-                await client.deployCommands();
-                await interaction.update({
-                    content: "Commands deployed globally.",
-                    components: [],
-                });
-            } else if (interaction.customId === "deploy-guild") {
-                await client.deployCommands(interaction.guild.id);
-                await interaction.update({
-                    content: "Commands deployed in this guild.",
-                    components: [],
-                });
+            try {
+                if (interaction.customId === "deploy-global") {
+                    await client.deployCommands();
+                    await interaction.update({
+                        content: "Commands deployed globally.",
+                        components: [],
+                    });
+                } else if (interaction.customId === "deploy-guild") {
+                    await client.deployCommands(interaction.guild.id);
+                    await interaction.update({
+                        content: "Commands deployed in this guild.",
+                        components: [],
+                    });
+                }
+            } catch (error) {
+                console.error("Failed to handle interaction:", error);
             }
         });
 
-        collector.on("end", async () => {
-            await msg.delete().catch(() => {});
+        collector.on("end", async (_collected, reason) => {
+            if (reason === "time") {
+                try {
+                    await msg.delete();
+                } catch (error) {
+                    console.error("Failed to delete the message:", error);
+                }
+            }
         });
     }
 }
