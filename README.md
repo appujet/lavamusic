@@ -157,7 +157,6 @@ DEFAULT_LANGUAGE= "EnglishUS" # Default language for bot
 PREFIX="!" # Your prefix
 OWNER_IDS=["859640640640640640","859640640640640640"] # Your discord id, you can add multiple ids
 GUILD_ID="859640640640640640" # Your server ID (if you want to use it for a single server)
-PRODUCTION="true" # "true" for production
 ```
 
 For more information how to fill all the variables go to this page.

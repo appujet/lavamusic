@@ -66,7 +66,6 @@ export default {
         deezer: "https://i.imgur.com/xyZ43FG.png",
         jiosaavn: "https://i.imgur.com/N9Nt80h.png",
     },
-    production: parseBoolean(process.env.PRODUCTION) ?? true,
     lavalink: process.env.LAVALINK_SERVERS
         ? JSON.parse(process.env.LAVALINK_SERVERS).map((server) => {
               return {
