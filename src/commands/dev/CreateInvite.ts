@@ -30,7 +30,7 @@ export default class CreateInvite extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
+    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const guildId = args[0];
         const guild = client.guilds.cache.get(guildId);
 
