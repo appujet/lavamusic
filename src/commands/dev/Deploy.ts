@@ -70,13 +70,13 @@ export default class Deploy extends Command {
             try {
                 if (interaction.customId === "deploy-global") {
                     await client.deployCommands();
-                    await interaction.update({
+                    await ctx.editMessage({
                         content: "Commands deployed globally.",
                         components: [],
                     });
                 } else if (interaction.customId === "deploy-guild") {
-                    await client.deployCommands(interaction.guild.id);
-                    await interaction.update({
+                    await client.deployCommands(interaction.guild!.id);
+                    await ctx.editMessage({
                         content: "Commands deployed in this guild.",
                         components: [],
                     });

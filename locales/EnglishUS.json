@@ -21,7 +21,8 @@
 		"lavalink": {
 			"description": "Shows the current Lavalink stats.",
 			"title": "Lavalink Stats",
-			"content": "Player: {players}\nPlaying Players: {playingPlayers}\nUptime: {uptime}\nCores: {cores} Core(s)\nMemory Usage: {used} / {reservable}\nSystem Load: {systemLoad}%\nLavalink Load: {lavalinkLoad}%"
+			"content": "Player: {players}\nPlaying Players: {playingPlayers}\nUptime: {uptime}\nCores: {cores} Core(s)\nMemory Usage: {used} / {reservable}\nSystem Load: {systemLoad}%\nLavalink Load: {lavalinkLoad}%",
+			"page_info": "Page {index} of {total}"
 		},
 		"invite": {
 			"description": "Get the bot invite link.",

@@ -36,13 +36,13 @@ export default class Restart extends Command {
         const embed = this.client.embed();
         const button = new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Confirm Restart").setCustomId("confirm-restart");
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
-        const restartembed = embed
+        const restartEmbed = embed
             .setColor(this.client.color.red)
             .setDescription(`**Are you sure you want to restart **\`${client.user.username}\`?`)
             .setTimestamp();
 
         const msg = await ctx.sendMessage({
-            embeds: [restartembed],
+            embeds: [restartEmbed],
             components: [row],
         });
 
@@ -54,11 +54,13 @@ export default class Restart extends Command {
 
         collector.on("collect", async (i) => {
             await i.deferUpdate();
+
             await msg.edit({
                 content: "Restarting the bot...",
                 embeds: [],
                 components: [],
             });
+
             await client.destroy();
             exec("node scripts/restart.ts");
             process.exit(0);

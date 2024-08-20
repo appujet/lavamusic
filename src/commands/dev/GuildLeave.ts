@@ -33,7 +33,6 @@ export default class GuildLeave extends Command {
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const guildId = args[0];
 
-        // Broadcast to all shards to find the guild
         const guild = await client.shard
             .broadcastEval(
                 (c, { guildId }) => {
@@ -49,7 +48,6 @@ export default class GuildLeave extends Command {
         }
 
         try {
-            // Broadcast to the correct shard to leave the guild
             await client.shard.broadcastEval(
                 async (c, { guildId }) => {
                     const guild = c.guilds.cache.get(guildId);
@@ -64,7 +62,6 @@ export default class GuildLeave extends Command {
             await ctx.sendMessage(`Failed to leave guild ${guild.name}`);
         }
 
-        // Logging
         const logChannelId = process.env.LOG_CHANNEL_ID;
         if (logChannelId) {
             const logChannel = client.channels.cache.get(logChannelId) as TextChannel;

@@ -31,8 +31,7 @@ export default class CreateInvite extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const guildId = args[0];
-        const guild = client.guilds.cache.get(guildId);
+        const guild = client.guilds.cache.get(args[0]);
 
         if (!guild) {
             return await ctx.sendMessage({
@@ -45,8 +44,8 @@ export default class CreateInvite extends Command {
                 c.type === ChannelType.GuildText &&
                 c
                     .permissionsFor(guild.members.me!)
-                    ?.has([PermissionFlagsBits.CreateInstantInvite, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel]),
-        ) as TextChannel;
+                    ?.has(PermissionFlagsBits.CreateInstantInvite | PermissionFlagsBits.SendMessages | PermissionFlagsBits.ViewChannel),
+        ) as TextChannel | undefined;
 
         if (!textChannel) {
             return await ctx.sendMessage({
@@ -55,9 +54,9 @@ export default class CreateInvite extends Command {
         }
 
         const invite = await textChannel.createInvite({
-            maxAge: 3600, // 1 hour
+            maxAge: 3600,
             maxUses: 1,
-            reason: `Requested by my admin: ${ctx.author.username}`,
+            reason: `Requested by admin: ${ctx.author.username}`,
         });
 
         return await ctx.sendMessage({
