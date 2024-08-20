@@ -1,5 +1,5 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
-import { ChannelType, PermissionFlagsBits } from "discord.js";
+import { ChannelType, PermissionFlagsBits, type TextChannel } from "discord.js";
 
 export default class CreateInvite extends Command {
     constructor(client: Lavamusic) {
@@ -7,7 +7,7 @@ export default class CreateInvite extends Command {
             name: "createinvite",
             description: {
                 content: "Create an invite link for a guild",
-                examples: ["createinvite 0123456789"],
+                examples: ["createinvite 0000000000000000000"],
                 usage: "createinvite <guildId>",
             },
             category: "dev",
@@ -36,31 +36,21 @@ export default class CreateInvite extends Command {
 
         if (!guild) {
             return await ctx.sendMessage({
-                embeds: [
-                    this.client.embed()
-                        .setColor(client.color.red)
-                        .setDescription("Guild not found"),
-                ],
+                embeds: [this.client.embed().setColor(this.client.color.red).setDescription("Guild not found")],
             });
         }
 
         const textChannel = guild.channels.cache.find(
             (c) =>
                 c.type === ChannelType.GuildText &&
-                c.permissionsFor(guild.members.me!)?.has([
-                    PermissionFlagsBits.CreateInstantInvite,
-                    PermissionFlagsBits.SendMessages,
-                    PermissionFlagsBits.ViewChannel,
-                ])
-        );
+                c
+                    .permissionsFor(guild.members.me!)
+                    ?.has([PermissionFlagsBits.CreateInstantInvite, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel]),
+        ) as TextChannel;
 
         if (!textChannel) {
             return await ctx.sendMessage({
-                embeds: [
-                    this.client.embed()
-                        .setColor(client.color.red)
-                        .setDescription("No suitable channel found"),
-                ],
+                embeds: [this.client.embed().setColor(this.client.color.red).setDescription("No suitable channel found")],
             });
         }
 
@@ -72,9 +62,7 @@ export default class CreateInvite extends Command {
 
         return await ctx.sendMessage({
             embeds: [
-                this.client.embed()
-                    .setColor(client.color.main)
-                    .setDescription(`Invite link for ${guild.name}: [Link](${invite.url})`),
+                this.client.embed().setColor(this.client.color.main).setDescription(`Invite link for ${guild.name}: [Link](${invite.url})`),
             ],
         });
     }
