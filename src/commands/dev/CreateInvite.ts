@@ -1,17 +1,17 @@
-import { ChannelType } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { ChannelType, PermissionFlagsBits } from "discord.js";
 
 export default class CreateInvite extends Command {
     constructor(client: Lavamusic) {
         super(client, {
             name: "createinvite",
             description: {
-                content: "Create a invite link for a guild",
-                examples: ["createinvite 0000000000000000000"],
+                content: "Create an invite link for a guild",
+                examples: ["createinvite 0123456789"],
                 usage: "createinvite <guildId>",
             },
             category: "dev",
-            aliases: ["ci"],
+            aliases: ["ci", "gi", "ginvite", "guildinvite"],
             cooldown: 3,
             args: true,
             player: {
@@ -22,7 +22,7 @@ export default class CreateInvite extends Command {
             },
             permissions: {
                 dev: true,
-                client: ["SendMessages", "CreateInstantInvite", "ReadMessageHistory", "ViewChannel"],
+                client: ["SendMessages", "CreateInstantInvite", "ReadMessageHistory", "EmbedLinks", "ViewChannel"],
                 user: [],
             },
             slashCommand: false,
@@ -30,32 +30,53 @@ export default class CreateInvite extends Command {
         });
     }
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+    async run(client: Lavamusic, ctx: Context, args: string[]): Promise<void> {
         const guildId = args[0];
-
         const guild = client.guilds.cache.get(guildId);
 
         if (!guild) {
-            return await ctx.sendMessage("Guild not found.");
-        }
-
-        try {
-            const textChannel = guild.channels.cache.find((channel) => channel.type === ChannelType.GuildText);
-
-            if (!textChannel) {
-                return await ctx.sendMessage("No text channel found in the guild.");
-            }
-
-            const invite = await textChannel.createInvite({
-                maxUses: 0,
-                maxAge: 0,
+            return await ctx.sendMessage({
+                embeds: [
+                    this.client.embed()
+                        .setColor(client.color.red)
+                        .setDescription("Guild not found"),
+                ],
             });
-
-            await ctx.author.send(`Guild: ${guild.name}\nInvite Link: ${invite.url}`);
-            await ctx.sendMessage("Invite link has been sent to your DM.");
-        } catch (_error) {
-            await ctx.sendMessage("Failed to create invite link.");
         }
+
+        const textChannel = guild.channels.cache.find(
+            (c) =>
+                c.type === ChannelType.GuildText &&
+                c.permissionsFor(guild.members.me!)?.has([
+                    PermissionFlagsBits.CreateInstantInvite,
+                    PermissionFlagsBits.SendMessages,
+                    PermissionFlagsBits.ViewChannel,
+                ])
+        );
+
+        if (!textChannel) {
+            return await ctx.sendMessage({
+                embeds: [
+                    this.client.embed()
+                        .setColor(client.color.red)
+                        .setDescription("No suitable channel found"),
+                ],
+            });
+        }
+
+        const invite = await textChannel.createInvite({
+            maxAge: 3600, // 1 hour
+            maxUses: 1,
+            reason: `Requested by my admin: ${ctx.author.username}`,
+        });
+
+        return await ctx.sendMessage({
+            embeds: [
+                this.client.embed()
+                    .setColor(client.color.main)
+                    .setDescription(`Invite link for ${guild.name}: [Link](${invite.url})`),
+            ],
+        });
     }
 }
 
