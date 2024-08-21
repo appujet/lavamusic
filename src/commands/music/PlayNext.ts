@@ -1,6 +1,6 @@
-import type { AutocompleteInteraction } from "discord.js";
 import { LoadType } from "shoukaku";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import type { AutocompleteInteraction } from "discord.js";
 
 export default class PlayNext extends Command {
     constructor(client: Lavamusic) {
@@ -50,17 +50,20 @@ export default class PlayNext extends Command {
         let player = client.queue.get(ctx.guild!.id);
         const vc = ctx.member as any;
         if (!player) player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel);
+
         await ctx.sendDeferMessage(ctx.locale("cmd.playnext.loading"));
         const res = await this.client.queue.search(query);
         const embed = this.client.embed();
         switch (res.loadType) {
             case LoadType.ERROR:
-                ctx.editMessage({
+                await ctx.editMessage({
+                    content: "",
                     embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.playnext.errors.search_error"))],
                 });
                 break;
             case LoadType.EMPTY:
-                ctx.editMessage({
+                await ctx.editMessage({
+                    content: "",
                     embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.playnext.errors.no_results"))],
                 });
                 break;
@@ -68,24 +71,25 @@ export default class PlayNext extends Command {
                 const track = player.buildTrack(res.data, ctx.author);
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.editMessage({
+                        content: "",
                         embeds: [
-                            embed.setColor(this.client.color.red).setDescription(
-                                ctx.locale("cmd.playnext.errors.queue_too_long", {
-                                    maxQueueSize: client.config.maxQueueSize,
-                                }),
-                            ),
+                            embed
+                                .setColor(this.client.color.red)
+                                .setDescription(
+                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                ),
                         ],
                     });
                 player.queue.splice(0, 0, track);
                 await player.isPlaying();
-                ctx.editMessage({
+                await ctx.editMessage({
+                    content: "",
                     embeds: [
-                        embed.setColor(this.client.color.main).setDescription(
-                            ctx.locale("cmd.playnext.added_to_play_next", {
-                                title: res.data.info.title,
-                                uri: res.data.info.uri,
-                            }),
-                        ),
+                        embed
+                            .setColor(this.client.color.main)
+                            .setDescription(
+                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data.info.title, uri: res.data.info.uri }),
+                            ),
                     ],
                 });
                 break;
@@ -93,30 +97,33 @@ export default class PlayNext extends Command {
             case LoadType.PLAYLIST: {
                 if (res.data.tracks.length > client.config.maxPlaylistSize)
                     return await ctx.editMessage({
+                        content: "",
                         embeds: [
-                            embed.setColor(this.client.color.red).setDescription(
-                                ctx.locale("cmd.playnext.errors.playlist_too_long", {
-                                    maxPlaylistSize: client.config.maxPlaylistSize,
-                                }),
-                            ),
+                            embed
+                                .setColor(this.client.color.red)
+                                .setDescription(
+                                    ctx.locale("cmd.playnext.errors.playlist_too_long", { maxPlaylistSize: client.config.maxPlaylistSize }),
+                                ),
                         ],
                     });
                 for (const track of res.data.tracks) {
                     const pl = player.buildTrack(track, ctx.author);
                     if (player.queue.length > client.config.maxQueueSize)
                         return await ctx.editMessage({
+                            content: "",
                             embeds: [
-                                embed.setColor(this.client.color.red).setDescription(
-                                    ctx.locale("cmd.playnext.errors.queue_too_long", {
-                                        maxQueueSize: client.config.maxQueueSize,
-                                    }),
-                                ),
+                                embed
+                                    .setColor(this.client.color.red)
+                                    .setDescription(
+                                        ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                    ),
                             ],
                         });
                     player.queue.splice(0, 0, pl);
                 }
                 await player.isPlaying();
-                ctx.editMessage({
+                await ctx.editMessage({
+                    content: "",
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
@@ -129,31 +136,31 @@ export default class PlayNext extends Command {
                 const track1 = player.buildTrack(res.data[0], ctx.author);
                 if (player.queue.length > client.config.maxQueueSize)
                     return await ctx.editMessage({
+                        content: "",
                         embeds: [
-                            embed.setColor(this.client.color.red).setDescription(
-                                ctx.locale("cmd.playnext.errors.queue_too_long", {
-                                    maxQueueSize: client.config.maxQueueSize,
-                                }),
-                            ),
+                            embed
+                                .setColor(this.client.color.red)
+                                .setDescription(
+                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
+                                ),
                         ],
                     });
                 player.queue.splice(0, 0, track1);
                 await player.isPlaying();
-                ctx.editMessage({
+                await ctx.editMessage({
+                    content: "",
                     embeds: [
-                        embed.setColor(this.client.color.main).setDescription(
-                            ctx.locale("cmd.playnext.added_to_play_next", {
-                                title: res.data[0].info.title,
-                                uri: res.data[0].info.uri,
-                            }),
-                        ),
+                        embed
+                            .setColor(this.client.color.main)
+                            .setDescription(
+                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data[0].info.title, uri: res.data[0].info.uri }),
+                            ),
                     ],
                 });
                 break;
             }
         }
     }
-
     public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
         const focusedValue = interaction.options.getFocused();
 
@@ -173,7 +180,7 @@ export default class PlayNext extends Command {
             });
         }
 
-        await interaction.respond(songs).catch(console.error);
+        return await interaction.respond(songs).catch(console.error);
     }
 }
 
