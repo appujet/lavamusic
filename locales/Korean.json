@@ -21,7 +21,8 @@
 		"lavalink": {
 			"description": "Lavalink 노드의 통계를 보여줘요",
 			"title": "Lavalink 통계",
-			"content": "플레이어: {players}\n재생 중: {playingPlayers}\n업타임: {uptime}\n코어 수: {cores}개\n메모리 사용량: {used} / {reservable}\n시스템 부하: {systemLoad}%\nLavalink 부하: {lavalinkLoad}%"
+			"content": "플레이어: {players}\n재생 중: {playingPlayers}\n업타임: {uptime}\n코어 수: {cores}개\n메모리 사용량: {used} / {reservable}\n시스템 부하: {systemLoad}%\nLavalink 부하: {lavalinkLoad}%",
+			"page_info": "Page {index} of {total}"
 		},
 		"invite": {
 			"description": "봇의 초대 링크를 표시해요",
