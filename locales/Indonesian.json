@@ -24,11 +24,11 @@
 			"content": "Player: {players}\nPlayer Aktif: {playingPlayers}\nUptime: {uptime}\nCore: {cores} Core\nMemory Usage: {used} / {reservable}\nSystem Load: {systemLoad}%\nLavalink Load: {lavalinkLoad}%"
 		},
 		"invite": {
-			"description": "Dapatkan tautan undangan bot.",
-			"content": "Anda dapat mengundang saya dengan mengklik tombol di bawah. Ada bug atau gangguan? Bergabunglah dengan server support!"
+			"description": "Dapatkan link invite bot.",
+			"content": "Anda dapat menginvite saya dengan mengklik tombol di bawah. Ada bug atau error? Bergabunglah ke server support!"
 		},
 		"help": {
-			"description": "Menampilkan menu bantuan.",
+			"description": "Menampilkan menu help.",
 			"options": {
 				"command": "command yang ingin Anda dapatkan informasinya"
 			},
