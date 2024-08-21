@@ -87,7 +87,6 @@ plugins:
       - MUSIC
       - WEB
       - WEBEMBEDDED
-      - ANDROID
       - ANDROID_TESTSUITE
       - ANDROID_LITE
       - ANDROID_MUSIC
