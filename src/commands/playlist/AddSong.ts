@@ -8,7 +8,7 @@ export default class AddSong extends Command {
             name: "addsong",
             description: {
                 content: "cmd.addsong.description",
-                examples: ["addsong <playlist> <song>"],
+                examples: ["addsong test exemple", "addsong exemple https://www.youtube.com/watch?v=example"],
                 usage: "addsong <playlist> <song>",
             },
             category: "playlist",
@@ -51,62 +51,79 @@ export default class AddSong extends Command {
         const song = args.join(" ");
 
         if (!playlist) {
-            const errorMessage = this.client
-                .embed()
-                .setDescription(ctx.locale("cmd.addsong.messages.no_playlist"))
-                .setColor(this.client.color.red);
-            return await ctx.sendMessage({ embeds: [errorMessage] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: ctx.locale("cmd.addsong.messages.no_playlist"),
+                        color: this.client.color.red,
+                    },
+                ],
+            });
         }
 
         if (!song) {
-            const errorMessage = this.client
-                .embed()
-                .setDescription(ctx.locale("cmd.addsong.messages.no_song"))
-                .setColor(this.client.color.red);
-            return await ctx.sendMessage({ embeds: [errorMessage] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: ctx.locale("cmd.addsong.messages.no_song"),
+                        color: this.client.color.red,
+                    },
+                ],
+            });
+        }
+        const res = await client.queue.search(song);
+
+        if (!res || res.loadType === LoadType.EMPTY) {
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: ctx.locale("cmd.addsong.messages.no_songs_found"),
+                        color: this.client.color.red,
+                    },
+                ],
+            });
         }
 
         const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
 
         if (!playlistData) {
-            const playlistNotFoundError = this.client
-                .embed()
-                .setDescription(ctx.locale("cmd.addsong.messages.playlist_not_found"))
-                .setColor(this.client.color.red);
-            return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
-        }
-
-        const res = await client.queue.search(song);
-        if (!res) {
-            const noSongsFoundError = this.client
-                .embed()
-                .setDescription(ctx.locale("cmd.addsong.messages.no_songs_found"))
-                .setColor(this.client.color.red);
-            return await ctx.sendMessage({ embeds: [noSongsFoundError] });
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: ctx.locale("cmd.addsong.messages.playlist_not_found"),
+                        color: this.client.color.red,
+                    },
+                ],
+            });
         }
 
         let trackStrings: any;
         let count: number;
+
         if (res.loadType === LoadType.PLAYLIST) {
             trackStrings = res.data.tracks;
             count = res.data.tracks.length;
         } else if (res.loadType === LoadType.TRACK) {
             trackStrings = [res.data];
             count = 1;
+        } else if (res.loadType === LoadType.SEARCH) {
+            trackStrings = [res.data[0]];
+            count = 1;
         }
 
-        client.db.addSong(ctx.author.id, playlist, trackStrings);
+        await client.db.addSong(ctx.author.id, playlist, trackStrings);
 
-        const successMessage = this.client
-            .embed()
-            .setDescription(
-                ctx.locale("cmd.addsong.messages.added", {
-                    count,
-                    playlist: playlistData.name,
-                }),
-            )
-            .setColor(this.client.color.green);
-        await ctx.sendMessage({ embeds: [successMessage] });
+        await ctx.sendMessage({
+            embeds: [
+                {
+                    description: ctx.locale("cmd.addsong.messages.added", {
+                        count,
+                        playlist: playlistData.name,
+                    }),
+                    color: this.client.color.main,
+                },
+            ],
+        });
     }
 
     public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
@@ -117,7 +134,7 @@ export default class AddSong extends Command {
 
         const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
 
-        await interaction.respond(
+        return await interaction.respond(
             filtered.map((playlist) => ({
                 name: playlist.name,
                 value: playlist.name,
