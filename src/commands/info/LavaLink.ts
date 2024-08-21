@@ -60,15 +60,15 @@ export default class LavaLink extends Command {
                 embed.addFields({
                     name: `${node.name} (${statusEmoji})`,
                     value: `\`\`\`yaml\n${ctx.locale("cmd.lavalink.content", {
-                    players: stats.players,
-                    playingPlayers: stats.playingPlayers,
-                    uptime: client.utils.formatTime(stats.uptime),
-                    cores: stats.cpu.cores,
-                    used: client.utils.formatBytes(stats.memory.used),
-                    reservable: client.utils.formatBytes(stats.memory.reservable),
-                    systemLoad: (stats.cpu.systemLoad * 100).toFixed(2),
-                    lavalinkLoad: (stats.cpu.lavalinkLoad * 100).toFixed(2),
-                })}\n\`\`\``,
+                        players: stats.players,
+                        playingPlayers: stats.playingPlayers,
+                        uptime: client.utils.formatTime(stats.uptime),
+                        cores: stats.cpu.cores,
+                        used: client.utils.formatBytes(stats.memory.used),
+                        reservable: client.utils.formatBytes(stats.memory.reservable),
+                        systemLoad: (stats.cpu.systemLoad * 100).toFixed(2),
+                        lavalinkLoad: (stats.cpu.lavalinkLoad * 100).toFixed(2),
+                    })}\n\`\`\``,
                 });
             });
 
