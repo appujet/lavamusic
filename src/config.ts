@@ -1,5 +1,4 @@
 import "dotenv/config";
-import { SearchEngine } from "./types.js";
 
 const parseBoolean = (value) => {
     if (typeof value !== "string") return false;
