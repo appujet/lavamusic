@@ -19,7 +19,6 @@ plugins:
       soundgasm: true # soundgasm.net
   jiosaavn:
     apiURL: "https://saavn.dev/api" # The API URL for JioSaavn
-plugins:
   lavasrc:
     providers: # Custom providers for track loading. This is the default
       # - "dzisrc:%ISRC%" # Deezer ISRC provider
