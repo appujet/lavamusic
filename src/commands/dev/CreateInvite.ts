@@ -22,7 +22,7 @@ export default class CreateInvite extends Command {
             },
             permissions: {
                 dev: true,
-                client: ["SendMessages", "CreateInstantInvite", "ReadMessageHistory", "EmbedLinks", "ViewChannel"],
+                client: ["SendMessages", "ReadMessageHistory", "EmbedLinks", "ViewChannel"],
                 user: [],
             },
             slashCommand: false,
@@ -55,13 +55,13 @@ export default class CreateInvite extends Command {
 
         const invite = await textChannel.createInvite({
             maxAge: 3600,
-            maxUses: 1,
-            reason: `Requested by admin: ${ctx.author.username}`,
+            maxUses: 0,
+            reason: `Requested by owner: ${ctx.author.username}`,
         });
 
         return await ctx.sendMessage({
             embeds: [
-                this.client.embed().setColor(this.client.color.main).setDescription(`Invite link for ${guild.name}: [Link](${invite.url})`),
+                this.client.embed().setColor(this.client.color.main).setDescription(`Invite link for ${guild.name}: [Click here](${invite.url})`),
             ],
         });
     }
