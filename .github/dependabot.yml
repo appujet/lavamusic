@@ -7,7 +7,7 @@ updates:
     time: "00:00"
   open-pull-requests-limit: 10
   rebase-strategy: auto
-- package-ecosystem: "github-actions"
+- package-ecosystem: github-actions
   directory: "/"
   schedule:
     interval: "daily"
