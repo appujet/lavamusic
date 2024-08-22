@@ -14,5 +14,7 @@ updates:
   schedule:
     interval: "daily"
     time: "00:00"
+  allow:
+    - dependency-type: all
   open-pull-requests-limit: 10
   rebase-strategy: auto
