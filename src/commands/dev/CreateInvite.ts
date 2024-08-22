@@ -22,7 +22,7 @@ export default class CreateInvite extends Command {
             },
             permissions: {
                 dev: true,
-                client: ["SendMessages", "ReadMessageHistory", "EmbedLinks", "ViewChannel"],
+                client: ["SendMessages", "CreateInstantInvite", "ReadMessageHistory", "EmbedLinks", "ViewChannel"],
                 user: [],
             },
             slashCommand: false,
