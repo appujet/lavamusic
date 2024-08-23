@@ -61,7 +61,10 @@ export default class CreateInvite extends Command {
 
         return await ctx.sendMessage({
             embeds: [
-                this.client.embed().setColor(this.client.color.main).setDescription(`Invite link for ${guild.name}: [Click here](${invite.url})`),
+                this.client
+                    .embed()
+                    .setColor(this.client.color.main)
+                    .setDescription(`Invite link for ${guild.name}: [Click here](${invite.url})`),
             ],
         });
     }
