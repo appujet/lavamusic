@@ -597,7 +597,7 @@
 			"no_dj_permission": "이 버튼을 사용하려면 DJ 권한이 있어야 해요.",
 			"volume_set": "볼륨이 {vol}%로 변경되었어요.",
 			"volume_footer": "볼륨: {vol}%",
-			"paused": "일시 정지",
+			"paused": "일시정지",
 			"resumed": "재계",
 			"pause_resume": "음악이 {name}되었어요.",
 			"pause_resume_footer": "{displayName}에 의해 {name}됨",
