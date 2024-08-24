@@ -33,7 +33,7 @@ export default {
         },
         page: {
             last: "⏩",
-            fast: "⏪",
+            first: "⏪",
             back: "⬅️",
             next: "➡️",
             cancel: "⏹️",
