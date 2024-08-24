@@ -91,8 +91,8 @@ export class Utils {
             const lastEmbed = page === embed.length - 1;
             const pageEmbed = embed[page];
             const first = new ButtonBuilder()
-                .setCustomId("fast")
-                .setEmoji(client.emoji.page.fast)
+                .setCustomId("first")
+                .setEmoji(client.emoji.page.first)
                 .setStyle(ButtonStyle.Primary)
                 .setDisabled(firstEmbed);
             const back = new ButtonBuilder()
@@ -139,7 +139,7 @@ export class Utils {
         collector.on("collect", async (interaction) => {
             if (interaction.user.id === author.id) {
                 await interaction.deferUpdate();
-                if (interaction.customId === "fast" && page !== 0) {
+                if (interaction.customId === "first" && page !== 0) {
                     page = 0;
                 } else if (interaction.customId === "back" && page !== 0) {
                     page--;
