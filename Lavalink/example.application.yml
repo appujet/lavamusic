@@ -105,7 +105,7 @@ lavalink:
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.1"
       snapshot: false # set to true if you want to use snapshot builds.
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.7.1"
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.7.2"
       snapshot: false # set to true if you want to use snapshot builds.
   pluginsDir: './plugins'
   #defaultPluginRepository: "https://maven.lavalink.dev/releases" # optional, defaults to the Lavalink release repository
