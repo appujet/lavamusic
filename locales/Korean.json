@@ -19,10 +19,10 @@
 			"requested_by": "요청자: {author}"
 		},
 		"lavalink": {
-			"description": "Lavalink 노드의 통계를 보여줘요",
+			"description": "Lavalink 노드의 상태를 보여줘요",
 			"title": "Lavalink 통계",
-			"content": "플레이어: {players}\n재생 중: {playingPlayers}\n업타임: {uptime}\n코어 수: {cores}개\n메모리 사용량: {used} / {reservable}\n시스템 부하: {systemLoad}%\nLavalink 부하: {lavalinkLoad}%",
-			"page_info": "Page {index} of {total}"
+			"content": "플레이어: {players}\n재생 중: {playingPlayers}\n업타임: {uptime}\n코어 수: {cores}개\n메모리 사용량: {used} / {reservable}\n시스템 로드: {systemLoad}%\nLavalink 로드: {lavalinkLoad}%",
+			"page_info": "{index} 페이지 중 {total} 페이지"
 		},
 		"invite": {
 			"description": "봇의 초대 링크를 표시해요",
@@ -240,7 +240,7 @@
 			}
 		},
 		"grab": {
-			"description": "DM으로 현재 재생 중인 노래를 보내줘요",
+			"description": "현재 재생 중인 노래를 DM으로 보내요",
 			"loading": "로드 중...",
 			"content": "**길이:** {length}\n**요청자:** <@{requester}>\n**링크:** [클릭]({uri})",
 			"check_dm": "DM을 확인해주세요.",
@@ -249,13 +249,13 @@
 		"join": {
 			"description": "봇이 음성 채널에 들어와요",
 			"already_connected": "<#{channelId}>에 이미 들어와있어요.",
-			"no_voice_channel": "음성 채널에 먼저 접속해주세요.",
+			"no_voice_channel": "이 명령어를 사용하려면 음성 채널에 있어야 해요.",
 			"joined": "<#{channelId}>에 들어왔어요."
 		},
 		"leave": {
 			"description": "봇을 음성 채널에서 퇴장시켜요",
 			"left": "<#{channelId}>에서 나갔어요.",
-			"not_in_channel": "봇이 음성 채널에 들어와 있지 않네요."
+			"not_in_channel": "봇이 음성 채널에 들어와 있지 않아요."
 		},
 		"loop": {
 			"description": "현재 노래, 또는 대기열을 반복해요",
@@ -288,7 +288,7 @@
 			"added_playlist_to_queue": "{length}개의 노래가 추가되었어요."
 		},
 		"playnext": {
-			"description": "노래가 현재 노래 다음으로 재생되도록 예약해요",
+			"description": "노래를 바로 다음 대기열에 추가해요",
 			"options": {
 				"song": "재생할 노래 제목 또는 URL "
 			},
@@ -507,7 +507,7 @@
 		"skip": "스킵",
 		"loop": "반복",
 		"errors": {
-			"not_author": "이 버튼을 사용할 수 없어요."
+			"not_author": "지금은 이 버튼을 사용할 수 없어요."
 		}
 	},
 	"player": {
@@ -523,7 +523,7 @@
 			"now_playing": "재생 중",
 			"requested_by": "요청자: {user}",
 			"duration": "길이",
-			"author": "제작자",
+			"author": "게시자",
 			"not_connected_to_voice_channel": "이 버튼을 사용하려면 먼저 <#{channel}>에 접속해주세요.",
 			"need_dj_role": "이 명령어를 사용하려면 DJ 권한이 있어야 해요.",
 			"previous_by": "{user}에 의해 이전 노래 재생 중",
@@ -554,7 +554,7 @@
 			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 `{guild}`에 없어요.\n채널: {channel}.",
 			"no_permission": "이 명령어를 실행하기 위한 봇의 권한이 부족해요.",
 			"no_user_permission": "이 명령어를 실행하기 위한 권한이 부족해요.",
-			"no_voice_channel": "`{command}` 명령어를 사용하려면 음성 채널에 접속해주세요.",
+			"no_voice_channel": "`{command}` 명령어를 사용하려면 음성 채널에 있어야 해요요.",
 			"no_connect_permission": "`{command}` 명령어를 사용하려면 봇에게 `연결` 권한이 필요해요.",
 			"no_speak_permission": "`{command}` 명령어를 사용하려면 봇에게 `말하기` 권한이 필요해요.",
 			"no_request_to_speak": "`{command}` 명령어를 사용하려면 봇에게 `발언권 요청하기` 권한이 필요해요.",
@@ -570,7 +570,7 @@
 			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 `{guild}`에 없어요.\n채널: {channel}.",
 			"no_permission": "이 명령어를 실행하기 위한 봇의 권한이 부족해요.",
 			"no_user_permission": "이 명령어를 실행하기 위한 권한이 부족해요.",
-			"no_voice_channel": "{command} 명령어를 사용하려면 음성 채널에 접속해주세요.",
+			"no_voice_channel": "{command} 명령어를 사용하려면 음성 채널에 있어야 해요.",
 			"no_connect_permission": "`{command}` 명령어를 사용하려면 봇에게 `연결` 권한이 필요해요.",
 			"no_speak_permission": "`{command}` 명령어를 사용하려면 봇에게 `말하기` 권한이 필요해요.",
 			"no_request_to_speak": "`{command}` 명령어를 사용하려면 봇에게 `발언권 요청하기` 권한이 필요해요.",
