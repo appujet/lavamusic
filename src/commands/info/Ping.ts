@@ -36,7 +36,7 @@ export default class Ping extends Command {
         const botLatency = msg.createdTimestamp - ctx.createdTimestamp;
         const apiLatency = Math.round(ctx.client.ws.ping);
 
-        const botLatencySign = botLatency < 500 ? "+" : "-";
+        const botLatencySign = botLatency < 600 ? "+" : "-";
         const apiLatencySign = apiLatency < 500 ? "+" : "-";
 
         const embed = this.client
