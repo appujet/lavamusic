@@ -40,7 +40,8 @@
       },
       "correctness": {
         "noVoidTypeReturn": "off"
-      },
+        "noNodejsModules": "off"
+            },
       "performance": {
         "noBarrelFile": "off"
       }
