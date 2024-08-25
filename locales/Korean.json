@@ -3,7 +3,7 @@
 		"247": {
 			"description": "봇이 음성 채널에서 나가지 않도록 설정해요",
 			"errors": {
-				"not_in_voice": "이 명령어를 사용하려면 음성 채널에 접속해주세요.",
+				"not_in_voice": "이 명령어를 사용하려면 음성 채널에 있어야 해요.",
 				"generic": "이 명령어를 실행하는 도중 오류가 발생했어요."
 			},
 			"messages": {
@@ -41,7 +41,7 @@
 		},
 		"botinfo": {
 			"description": "봇에 대한 정보를 표시해요",
-			"content": "봇 정보:\n- **운영 체제**: {osInfo}\n- **업타임**: {osUptime}\n- **호스트 이름**: {osHostname}\n- **CPU 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord 버전**: {discordJsVersion}\n- 서버 {guilds}개, 채널 {channels}개, 멤버 {users}명\n- **명령어 수**: {commands}개"
+			"content": "봇 정보:\n- **운영 체제**: {osInfo}\n- **업타임**: {osUptime}\n- **호스트 이름**: {osHostname}\n- **CPU 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord 버전**: {discordJsVersion}\n- 서버 {guilds}개, 채널 {channels}개, 유저 {users}명\n- **명령어 수**: {commands}개"
 		},
 		"about": {
 			"description": "봇에 대해 알려줘요",
