@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { SearchEngine } from "./types.js";
 
 const parseBoolean = (value) => {
     if (typeof value !== "string") return false;
@@ -43,7 +44,7 @@ export default {
     topGG: process.env.TOPGG,
     keepAlive: parseBoolean(process.env.KEEP_ALIVE),
     autoNode: parseBoolean(process.env.AUTO_NODE),
-    searchEngine: process.env.SEARCH_ENGINE,
+    searchEngine: SearchEngine.YouTubeMusic, // YouTube (YouTube Search), YouTubeMusic (YouTube Music Search), Spotify (Spotify Search), Deezer (Deezer Search), Apple (Apple Search), SoundCloud (SoundCloud Search), Yandex (Yandex Search) or JioSaavn (JioSaavn Search)
     maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE || "100"),
     botStatus: process.env.BOT_STATUS || "online",
     botActivity: process.env.BOT_ACTIVITY || "Lavamusic",
