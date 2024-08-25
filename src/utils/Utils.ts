@@ -2,7 +2,6 @@ import { ActionRowBuilder, ActivityType, ButtonBuilder, ButtonStyle, CommandInte
 import config from "../config.js";
 import type { Context, Lavamusic } from "../structures/index.js";
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class Utils {
     public static formatTime(ms: number): string {
         const minuteMs = 60 * 1000;

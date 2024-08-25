@@ -1,5 +1,5 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 import { ChannelType, PermissionFlagsBits, type TextChannel } from "discord.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class CreateInvite extends Command {
     constructor(client: Lavamusic) {

@@ -1,7 +1,6 @@
 import type { TextChannel } from "discord.js";
 import type { Lavamusic } from "../structures/index.js";
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export default class BotLog {
     public static send(client: Lavamusic, message: string, type: "error" | "warn" | "info" | "success" = "info"): void {
         if (!client?.channels.cache && client.config.logChannelId) return;
