@@ -1,4 +1,6 @@
-biome-ignore lint/correctness/noNodejsModules: <explanation>
+biome - ignore;
+lint / correctness / noNodejsModules;
+: <explanation>
 import os from "node:os";
 import { version } from "discord.js";
 import { showTotalMemory, usagePercent } from "node-system-stats";
@@ -56,7 +58,8 @@ export default class Botinfo extends Command {
             const users = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
             const channels = results[2].reduce((acc, channelCount) => acc + channelCount, 0);
 
-            const embed = this.client.embed()
+            const embed = this.client
+                .embed()
                 .setColor(this.client.color.main)
                 .setTitle("Bot Information")
                 .addFields(
@@ -72,7 +75,7 @@ export default class Botinfo extends Command {
                     { name: "Guilds", value: guilds.toString(), inline: true },
                     { name: "Users", value: users.toString(), inline: true },
                     { name: "Channels", value: channels.toString(), inline: true },
-                    { name: "Commands", value: commands.toString(), inline: true }
+                    { name: "Commands", value: commands.toString(), inline: true },
                 );
 
             return await ctx.sendMessage({

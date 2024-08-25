@@ -39,8 +39,8 @@
         "noGlobalEval": "off"
       },
       "correctness": {
+        "noNodejsModules": "off",
         "noVoidTypeReturn": "off"
-        "noNodejsModules": "off"
       },
       "performance": {
         "noBarrelFile": "off"
