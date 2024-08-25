@@ -1,4 +1,3 @@
-// biome-ignore lint/correctness/noNodejsModules: <explanation>
 import http from "node:http";
 import type { Lavamusic } from "../../structures/index.js";
 import type { BotPlugin } from "../index.js";

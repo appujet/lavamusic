@@ -1,4 +1,3 @@
-// biome-ignore lint/correctness/noNodejsModules: <explanation>
 import { exec } from "node:child_process";
 
 async function startLavamusic(): Promise<void> {

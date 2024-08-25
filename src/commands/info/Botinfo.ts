@@ -1,6 +1,3 @@
-biome - ignore;
-lint / correctness / noNodejsModules;
-: <explanation>
 import os from "node:os";
 import { version } from "discord.js";
 import { showTotalMemory, usagePercent } from "node-system-stats";

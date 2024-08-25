@@ -75,7 +75,7 @@
     }
   },
   "files": {
-    "ignoreUnknown": true,
+    "ignoreUnknown": false,
     "ignore": [".vscode", "dist", "locales", "node_modules"]
   }
 }
