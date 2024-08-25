@@ -1,4 +1,3 @@
-// biome-ignore lint/correctness/noNodejsModules: <explanation>
 import os from "node:os";
 import { version } from "discord.js";
 import { showTotalMemory, usagePercent } from "node-system-stats";
@@ -56,23 +55,24 @@ export default class Botinfo extends Command {
             const users = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
             const channels = results[2].reduce((acc, channelCount) => acc + channelCount, 0);
 
-            const botInfo = ctx.locale("cmd.botinfo.content", {
-                osInfo,
-                osUptime,
-                osHostname,
-                cpuInfo,
-                cpuUsed,
-                memUsed,
-                memTotal,
-                nodeVersion,
-                discordJsVersion,
-                guilds,
-                channels,
-                users,
-                commands,
-            });
-
-            const embed = this.client.embed().setColor(this.client.color.main).setDescription(botInfo);
+            const embed = this.client.embed()
+                .setColor(this.client.color.main)
+                .setTitle("Bot Information")
+                .addFields(
+                    { name: "OS Info", value: osInfo, inline: true },
+                    { name: "OS Uptime", value: osUptime, inline: true },
+                    { name: "Hostname", value: osHostname, inline: true },
+                    { name: "CPU Info", value: cpuInfo, inline: true },
+                    { name: "CPU Used", value: `${cpuUsed}%`, inline: true },
+                    { name: "Memory Used", value: `${memUsed} MB`, inline: true },
+                    { name: "Memory Total", value: `${memTotal} MB`, inline: true },
+                    { name: "Node.js Version", value: nodeVersion, inline: true },
+                    { name: "Discord.js Version", value: discordJsVersion, inline: true },
+                    { name: "Guilds", value: guilds.toString(), inline: true },
+                    { name: "Users", value: users.toString(), inline: true },
+                    { name: "Channels", value: channels.toString(), inline: true },
+                    { name: "Commands", value: commands.toString(), inline: true }
+                );
 
             return await ctx.sendMessage({
                 embeds: [embed],
