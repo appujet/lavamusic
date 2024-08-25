@@ -4,6 +4,8 @@ server: # REST and WS server
   http2:
     enabled: false # Whether to enable HTTP/2 support
 plugins:
+  jiosaavn:
+    apiURL: "https://saavn.dev/api" # The API URL for JioSaavn
   dunctebot:
     ttsLanguage: 'en-US' # language of the TTS engine
     sources:
@@ -17,8 +19,7 @@ plugins:
       tiktok: true # tiktok.com
       mixcloud: true # mixcloud.com
       soundgasm: true # soundgasm.net
-  jiosaavn:
-    apiURL: "https://saavn.dev/api" # The API URL for JioSaavn
+      pixeldrain: true # pixeldrain.com
   lavasrc:
     providers: # Custom providers for track loading. This is the default
       # - "dzisrc:%ISRC%" # Deezer ISRC provider
@@ -95,10 +96,10 @@ plugins:
       - TVHTML5EMBEDDED
 lavalink:
   plugins:
-    - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
-      snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.github.appujet:jiosaavn-plugin:0.1.7"
       repository: "https://jitpack.io"
+    - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
+      snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
       snapshot: false # set to true if you want to use snapshot builds.
     - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.2.0"
