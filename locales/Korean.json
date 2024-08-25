@@ -46,7 +46,7 @@
 		"about": {
 			"description": "봇에 대해 알려줘요",
 			"fields": {
-				"creator": "게시자",
+				"creator": "제작",
 				"repository": "GitHub 저장소",
 				"support": "지원",
 				"description": "그는 더 많은 코딩 경험을 위해 자신의 첫 번째 오픈 소스 프로젝트를 만들고 싶어했어요. 이 프로젝트에서 그는 버그가 적은 프로젝트를 만들려고 노력했어요. 여러분이 LavaMusic를 즐겁게 즐기고 계시길 바라요!"
