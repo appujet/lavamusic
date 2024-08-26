@@ -27,7 +27,15 @@ export default class NodeConnect extends Event {
                 const vc = guild.channels.cache.get(main.voiceId);
 
                 if (channel && vc) {
-                    await this.client.queue.create(guild, vc, channel);
+                    try {
+                        await this.client.queue.create(guild, vc, channel);
+                    } catch (error) {
+                        this.client.logger.error(`Failed to create queue for guild ${guild.id}: ${error.message}`);
+                    }
+                } else {
+                    this.client.logger.warn(
+                        `Missing channels for guild ${guild.id}. Text channel: ${main.textId}, Voice channel: ${main.voiceId}`,
+                    );
                 }
             }, index * 1000);
         });
@@ -35,14 +43,3 @@ export default class NodeConnect extends Event {
         BotLog.send(this.client, `Node ${node} is ready!`, "success");
     }
 }
-
-/**
- * Project: lavamusic
- * Author: Appu
- * Main Contributor: LucasB25
- * Company: Coders
- * Copyright (c) 2024. All rights reserved.
- * This code is the property of Coder and may not be reproduced or
- * modified without permission. For more information, contact us at
- * https://discord.gg/ns8CTk9J3e
- */
