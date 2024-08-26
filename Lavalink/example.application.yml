@@ -86,13 +86,8 @@ plugins:
     # Clients are queried in the order they are given (so the first client is queried first and so on...)
     clients:
       - MUSIC
-      - WEB
-      - WEBEMBEDDED
       - ANDROID_TESTSUITE
-      - ANDROID_LITE
-      - ANDROID_MUSIC
-      - MEDIA_CONNECT
-      - IOS
+      - WEB
       - TVHTML5EMBEDDED
 lavalink:
   plugins:
@@ -193,3 +188,4 @@ logging:
     rollingpolicy:
       max-file-size: 1GB
       max-history: 30
+
