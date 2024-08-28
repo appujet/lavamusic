@@ -75,6 +75,8 @@ export default class MessageCreate extends Event {
                 .catch(() => {});
         }
 
+        const isDev = this.client.config.owners?.includes(message.author.id);
+
         if (command.permissions) {
             if (command.permissions?.client) {
                 const missingClientPermissions = command.permissions.client.filter((perm) => !clientMember.permissions.has(perm));
@@ -88,171 +90,172 @@ export default class MessageCreate extends Event {
                 }
             }
 
-            if (command.permissions?.user && !(message.member as GuildMember).permissions.has(command.permissions.user)) {
-                return await message.reply({
-                    content: T(locale, "event.message.no_user_permission"),
-                });
-            }
-
-            if (command.permissions.dev && this.client.config.owners) {
-                const isDev = this.client.config.owners.includes(message.author.id);
-                if (!isDev) return;
-            }
-        }
-
-        if (command.vote && this.client.config.topGG) {
-            const voted = await this.client.topGG.hasVoted(message.author.id);
-            if (!voted) {
-                const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
-                    new ButtonBuilder()
-                        .setLabel("Vote for Me!")
-                        .setURL(`https://top.gg/bot/${this.client.config.clientId}/vote`)
-                        .setStyle(ButtonStyle.Link),
-                );
-
-                return await message.reply({
-                    content: "Wait! Before using this command, you must vote on top.gg. Thank you.",
-                    components: [voteBtn],
-                });
-            }
-        }
-
-        if (command.player) {
-            if (command.player.voice) {
-                if (!(message.member as GuildMember).voice.channel) {
+            if (command.permissions?.user && !isDev) {
+                if (!(message.member as GuildMember).permissions.has(command.permissions.user)) {
                     return await message.reply({
-                        content: T(locale, "event.message.no_voice_channel", { command: command.name }),
+                        content: T(locale, "event.message.no_user_permission"),
                     });
                 }
 
-                if (!clientMember.permissions.has(PermissionFlagsBits.Connect)) {
-                    return await message.reply({
-                        content: T(locale, "event.message.no_connect_permission", { command: command.name }),
-                    });
-                }
-
-                if (!clientMember.permissions.has(PermissionFlagsBits.Speak)) {
-                    return await message.reply({
-                        content: T(locale, "event.message.no_speak_permission", { command: command.name }),
-                    });
-                }
-
-                if (
-                    (message.member as GuildMember).voice.channel.type === ChannelType.GuildStageVoice &&
-                    !clientMember.permissions.has(PermissionFlagsBits.RequestToSpeak)
-                ) {
-                    return await message.reply({
-                        content: T(locale, "event.message.no_request_to_speak", { command: command.name }),
-                    });
-                }
-
-                if (clientMember.voice.channel && clientMember.voice.channelId !== (message.member as GuildMember).voice.channelId) {
-                    return await message.reply({
-                        content: T(locale, "event.message.different_voice_channel", {
-                            channel: `<#${clientMember.voice.channelId}>`,
-                            command: command.name,
-                        }),
-                    });
+                if (command.permissions.dev && !isDev) {
+                    return;
                 }
             }
 
-            if (command.player.active) {
-                const queue = this.client.queue.get(message.guildId);
-                if (!(queue?.queue && queue.current)) {
-                    return await message.reply({
-                        content: T(locale, "event.message.no_music_playing"),
-                    });
-                }
-            }
-
-            if (command.player.dj) {
-                const dj = await this.client.db.getDj(message.guildId);
-                if (dj?.mode) {
-                    const djRole = await this.client.db.getRoles(message.guildId);
-                    if (!djRole) {
-                        return await message.reply({
-                            content: T(locale, "event.message.no_dj_role"),
-                        });
-                    }
-
-                    const hasDJRole = (message.member as GuildMember).roles.cache.some((role) =>
-                        djRole.map((r) => r.roleId).includes(role.id),
+            if (command.vote && this.client.config.topGG) {
+                const voted = await this.client.topGG.hasVoted(message.author.id);
+                if (!voted) {
+                    const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
+                        new ButtonBuilder()
+                            .setLabel("Vote for Me!")
+                            .setURL(`https://top.gg/bot/${this.client.config.clientId}/vote`)
+                            .setStyle(ButtonStyle.Link),
                     );
-                    if (!(hasDJRole && !(message.member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild))) {
+
+                    return await message.reply({
+                        content: "Wait! Before using this command, you must vote on top.gg. Thank you.",
+                        components: [voteBtn],
+                    });
+                }
+            }
+
+            if (command.player) {
+                if (command.player.voice) {
+                    if (!(message.member as GuildMember).voice.channel) {
                         return await message.reply({
-                            content: T(locale, "event.message.no_dj_permission"),
+                            content: T(locale, "event.message.no_voice_channel", { command: command.name }),
+                        });
+                    }
+
+                    if (!clientMember.permissions.has(PermissionFlagsBits.Connect)) {
+                        return await message.reply({
+                            content: T(locale, "event.message.no_connect_permission", { command: command.name }),
+                        });
+                    }
+
+                    if (!clientMember.permissions.has(PermissionFlagsBits.Speak)) {
+                        return await message.reply({
+                            content: T(locale, "event.message.no_speak_permission", { command: command.name }),
+                        });
+                    }
+
+                    if (
+                        (message.member as GuildMember).voice.channel.type === ChannelType.GuildStageVoice &&
+                        !clientMember.permissions.has(PermissionFlagsBits.RequestToSpeak)
+                    ) {
+                        return await message.reply({
+                            content: T(locale, "event.message.no_request_to_speak", { command: command.name }),
+                        });
+                    }
+
+                    if (clientMember.voice.channel && clientMember.voice.channelId !== (message.member as GuildMember).voice.channelId) {
+                        return await message.reply({
+                            content: T(locale, "event.message.different_voice_channel", {
+                                channel: `<#${clientMember.voice.channelId}>`,
+                                command: command.name,
+                            }),
                         });
                     }
                 }
+
+                if (command.player.active) {
+                    const queue = this.client.queue.get(message.guildId);
+                    if (!(queue?.queue && queue.current)) {
+                        return await message.reply({
+                            content: T(locale, "event.message.no_music_playing"),
+                        });
+                    }
+                }
+
+                if (command.player.dj) {
+                    const dj = await this.client.db.getDj(message.guildId);
+                    if (dj?.mode) {
+                        const djRole = await this.client.db.getRoles(message.guildId);
+                        if (!djRole) {
+                            return await message.reply({
+                                content: T(locale, "event.message.no_dj_role"),
+                            });
+                        }
+
+                        const hasDJRole = (message.member as GuildMember).roles.cache.some((role) =>
+                            djRole.map((r) => r.roleId).includes(role.id),
+                        );
+                        if (!((hasDJRole && !(message.member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)) || !isDev)) {
+                            return await message.reply({
+                                content: T(locale, "event.message.no_dj_permission"),
+                            });
+                        }
+                    }
+                }
             }
-        }
 
-        if (command.args && !args.length) {
-            const embed = this.client
-                .embed()
-                .setColor(this.client.color.red)
-                .setTitle(T(locale, "event.message.missing_arguments"))
-                .setDescription(
-                    T(locale, "event.message.missing_arguments_description", {
-                        command: command.name,
-                        examples: command.description.examples ? command.description.examples.join("\n") : "None",
-                    }),
-                )
-                .setFooter({ text: T(locale, "event.message.syntax_footer") });
-            await message.reply({ embeds: [embed] });
-            return;
-        }
+            if (command.args && !args.length) {
+                const embed = this.client
+                    .embed()
+                    .setColor(this.client.color.red)
+                    .setTitle(T(locale, "event.message.missing_arguments"))
+                    .setDescription(
+                        T(locale, "event.message.missing_arguments_description", {
+                            command: command.name,
+                            examples: command.description.examples ? command.description.examples.join("\n") : "None",
+                        }),
+                    )
+                    .setFooter({ text: T(locale, "event.message.syntax_footer") });
+                await message.reply({ embeds: [embed] });
+                return;
+            }
 
-        if (!this.client.cooldown.has(cmd)) {
-            this.client.cooldown.set(cmd, new Collection());
-        }
-        const now = Date.now();
-        const timestamps = this.client.cooldown.get(cmd)!;
-        const cooldownAmount = (command.cooldown || 5) * 1000;
+            if (!this.client.cooldown.has(cmd)) {
+                this.client.cooldown.set(cmd, new Collection());
+            }
+            const now = Date.now();
+            const timestamps = this.client.cooldown.get(cmd)!;
+            const cooldownAmount = (command.cooldown || 5) * 1000;
 
-        if (timestamps.has(message.author.id)) {
-            const expirationTime = timestamps.get(message.author.id)! + cooldownAmount;
-            const timeLeft = (expirationTime - now) / 1000;
-            if (now < expirationTime && timeLeft > 0.9) {
+            if (timestamps.has(message.author.id)) {
+                const expirationTime = timestamps.get(message.author.id)! + cooldownAmount;
+                const timeLeft = (expirationTime - now) / 1000;
+                if (now < expirationTime && timeLeft > 0.9) {
+                    return await message.reply({
+                        content: T(locale, "event.message.cooldown", { time: timeLeft.toFixed(1), command: cmd }),
+                    });
+                }
+                timestamps.set(message.author.id, now);
+                setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+            } else {
+                timestamps.set(message.author.id, now);
+                setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+            }
+
+            if (args.includes("@everyone") || args.includes("@here")) {
                 return await message.reply({
-                    content: T(locale, "event.message.cooldown", { time: timeLeft.toFixed(1), command: cmd }),
+                    content: T(locale, "event.message.no_mention_everyone"),
                 });
             }
-            timestamps.set(message.author.id, now);
-            setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-        } else {
-            timestamps.set(message.author.id, now);
-            setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-        }
 
-        if (args.includes("@everyone") || args.includes("@here")) {
-            return await message.reply({
-                content: T(locale, "event.message.no_mention_everyone"),
-            });
-        }
+            try {
+                return command.run(this.client, ctx, ctx.args);
+            } catch (error) {
+                this.client.logger.error(error);
+                await message.reply({
+                    content: T(locale, "event.message.error", { error: error.message || "Unknown error" }),
+                });
+            } finally {
+                const logs = this.client.channels.cache.get(this.client.config.commandLogs);
+                if (logs) {
+                    const embed = new EmbedBuilder()
+                        .setAuthor({
+                            name: "Prefix - Command Logs",
+                            iconURL: this.client.user?.avatarURL({ size: 2048 }),
+                        })
+                        .setColor(this.client.config.color.green)
+                        .setDescription(
+                            `**\`${command.name}\`** | Used By **${message.author.tag} \`${message.author.id}\`** From **${message.guild.name} \`${message.guild.id}\`**`,
+                        )
+                        .setTimestamp();
 
-        try {
-            return command.run(this.client, ctx, ctx.args);
-        } catch (error) {
-            this.client.logger.error(error);
-            await message.reply({
-                content: T(locale, "event.message.error", { error: error.message || "Unknown error" }),
-            });
-        } finally {
-            const logs = this.client.channels.cache.get(this.client.config.commandLogs);
-            if (logs) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({
-                        name: "Prefix - Command Logs",
-                        iconURL: this.client.user?.avatarURL({ size: 2048 }),
-                    })
-                    .setColor(this.client.config.color.green)
-                    .setDescription(
-                        `**\`${command.name}\`** | Used By **${message.author.tag} \`${message.author.id}\`** From **${message.guild.name} \`${message.guild.id}\`**`,
-                    )
-                    .setTimestamp();
-
-                await (logs as TextChannel).send({ embeds: [embed] });
+                    await (logs as TextChannel).send({ embeds: [embed] });
+                }
             }
         }
     }

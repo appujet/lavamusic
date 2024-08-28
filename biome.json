@@ -8,26 +8,30 @@
     "rules": {
       "all": true,
       "suspicious": {
-        "noExplicitAny": "off",
         "noConfusingVoidType": "off",
+        "noConsoleLog": "off",
+        "noEmptyBlockStatements": "off",
+        "noExplicitAny": "off",
         "noGlobalIsFinite": "off",
         "noGlobalIsNan": "off",
-        "noEmptyBlockStatements": "off"
+        "useAwait": "off"
       },
       "style": {
+        "noDefaultExport": "off",
+        "noInferrableTypes": "off",
+        "noNamespaceImport": "off",
         "noNonNullAssertion": "off",
         "noParameterAssign": "off",
-        "noInferrableTypes": "off",
-        "useNumberNamespace": "off",
-        "noDefaultExport": "off",
         "useBlockStatements": "off",
         "useFilenamingConvention": "off",
         "useNamingConvention": "off",
+        "useNumberNamespace": "off",
         "useSingleCaseStatement": "off"
       },
       "complexity": {
         "noBannedTypes": "off",
         "noForEach": "off",
+        "noStaticOnlyClass": "off",
         "noExcessiveCognitiveComplexity": {
           "level": "warn",
           "options": {
@@ -39,6 +43,7 @@
         "noGlobalEval": "off"
       },
       "correctness": {
+        "noNodejsModules": "off",
         "noVoidTypeReturn": "off"
       },
       "performance": {
@@ -74,7 +79,7 @@
     }
   },
   "files": {
-    "ignoreUnknown": true,
+    "ignoreUnknown": false,
     "ignore": [".vscode", "dist", "locales", "node_modules"]
   }
 }

@@ -1,5 +1,3 @@
-// biome-ignore lint/style/noNamespaceImport: <explanation>
-// biome-ignore lint/correctness/noNodejsModules: <explanation>
 import * as fs from "node:fs";
 import { ShardingManager } from "discord.js";
 
@@ -30,7 +28,6 @@ async function main(): Promise<void> {
         // Set a custom title for the console window
         setConsoleTitle("Lavamusic");
         const logFile = fs.readFileSync("./src/utils/LavaLogo.txt", "utf-8");
-        // biome-ignore lint/suspicious/noConsoleLog: <explanation>
         console.log(theme.purpleNeon(logFile));
         const manager = new ShardingManager("./dist/LavaClient.js", {
             respawn: true,

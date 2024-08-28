@@ -8,7 +8,6 @@ export default class NodeError extends Event {
         });
     }
 
-    // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(node: string, error: any): Promise<void> {
         const errorMessage = JSON.stringify(error, null, 2);
         const message = `Node ${node} Error: ${errorMessage}`;
