@@ -4,6 +4,8 @@ server: # REST and WS server
   http2:
     enabled: false # Whether to enable HTTP/2 support
 plugins:
+  jiosaavn:
+    apiURL: "https://saavn.dev/api" # The API URL for JioSaavn
   dunctebot:
     ttsLanguage: 'en-US' # language of the TTS engine
     sources:
@@ -18,8 +20,6 @@ plugins:
       mixcloud: true # mixcloud.com
       soundgasm: true # soundgasm.net
       pixeldrain: true # pixeldrain.com
-  jiosaavn:
-    apiURL: "https://saavn.dev/api" # The API URL for JioSaavn
   lavasrc:
     providers: # Custom providers for track loading. This is the default
       # - "dzisrc:%ISRC%" # Deezer ISRC provider
@@ -42,10 +42,11 @@ plugins:
     spotify:
       clientId: "your client id"
       clientSecret: "your client secret"
-      spDc: "your sp dc cookie" # the sp dc cookie used for accessing the spotify lyrics api
+      # spDc: "your sp dc cookie" # the sp dc cookie used for accessing the spotify lyrics api
       countryCode: "US" # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
       playlistLoadLimit: 6 # The number of pages at 100 tracks each
       albumLoadLimit: 6 # The number of pages at 50 tracks each
+      resolveArtistsInSearch: true # Whether to resolve artists in track search results (can be slow)
       localFiles: false # Enable local files support with Spotify playlists. Please note `uri` & `isrc` will be `null` & `identifier` will be `"local"`
     applemusic:
       countryCode: "US" # the country code you want to use for filtering the artists top tracks and language. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -61,6 +62,8 @@ plugins:
       albumLoadLimit: 6 # The number of pages at 300 tracks each
     deezer:
       masterDecryptionKey: "your master decryption key" # the master key used for decrypting the deezer tracks. (yes this is not here you need to get it from somewhere else)
+      # arl: "your deezer arl" # the arl cookie used for accessing the deezer api this is optional but required for formats above MP3_128
+      formats: [ "FLAC", "MP3_320", "MP3_256", "MP3_128", "MP3_64", "AAC_64" ] # the formats you want to use for the deezer tracks. "FLAC", "MP3_320", "MP3_256" & "AAC_64" are only available for premium users and require a valid arl
     yandexmusic:
       accessToken: "your access token" # the token used for accessing the yandex music api. See https://github.com/TopiSenpai/LavaSrc#yandex-music
       playlistLoadLimit: 1 # The number of pages at 100 tracks each
@@ -83,9 +86,9 @@ plugins:
     # Clients are queried in the order they are given (so the first client is queried first and so on...)
     clients:
       - MUSIC
-      - WEB
       - ANDROID_TESTSUITE
       - ANDROID_MUSIC
+      - WEB
       - TVHTML5EMBEDDED
       - ANDROID_LITE
       - MEDIA_CONNECT
