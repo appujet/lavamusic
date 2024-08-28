@@ -1,4 +1,3 @@
-// biome-ignore lint/correctness/noNodejsModules: <explanation>
 import { exec } from "node:child_process";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
