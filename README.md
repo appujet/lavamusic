@@ -14,7 +14,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/appujet/lavamusic">
-    <img src="https://cdn.discordapp.com/avatars/875635121770889257/d427591ca92c868114fbdd9dca436086.png?size=512" alt="lavamusic" width="200" height="200">
+    <img src="https://cdn.discordapp.com/avatars/875635121770889257/adc4fd956872a72814b70448d1fddd40.webp?size=512" alt="lavamusic" width="200" height="200">
   </a>
 
   <h1 align="center">Lavamusic</h1>
@@ -160,7 +160,7 @@ GUILD_ID="859640640640640640" # Your server ID (if you want to use it for a sing
 ```
 
 For more information how to fill all the variables go to this page.
-You do not need to edit anything like the LAVA_LINK_URL, LAVA_LINK_AUTH, LAVA_LINK_NAME, LAVA_LINK_SECURE, DATABASE_URL, and the ports unless you know what you're doing.
+You do not need to edit anything like the LAVALINK_SERVERS, DATABASE_URL and the ports unless you know what you're doing.
 After saving your changes you can open a terminal and go to the same location as the docker-compose.yml file. Then run the following:
 
 ```bash
