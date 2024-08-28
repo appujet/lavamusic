@@ -21,7 +21,6 @@ model Guild {
     stay       Stay?
     dj         Dj?
     roles      Role[]
-    botchannel Botchannel?
     setup      Setup?
 }
 
@@ -62,12 +61,6 @@ model Song {
     playlist   Playlist @relation(fields: [playlistId], references: [id])
 
     @@unique([track, playlistId])
-}
-
-model Botchannel {
-    guildId String @id
-    textId  String
-    Guild   Guild  @relation(fields: [guildId], references: [guildId])
 }
 
 model Setup {

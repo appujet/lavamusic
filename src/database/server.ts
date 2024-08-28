@@ -1,14 +1,4 @@
-import {
-    type Botchannel,
-    type Dj,
-    type Guild,
-    type Playlist,
-    PrismaClient,
-    type Role,
-    type Setup,
-    type Song,
-    type Stay,
-} from "@prisma/client";
+import { type Dj, type Guild, type Playlist, PrismaClient, type Role, type Setup, type Song, type Stay } from "@prisma/client";
 import config from "../config.js";
 
 export default class ServerData {
@@ -85,18 +75,6 @@ export default class ServerData {
 
     public async clearRoles(guildId: string): Promise<void> {
         await this.prisma.role.deleteMany({ where: { guildId } });
-    }
-
-    public async getBotChannel(guildId: string): Promise<Botchannel | null> {
-        return await this.prisma.botchannel.findUnique({ where: { guildId } });
-    }
-
-    public async setBotChannel(guildId: string, textId: string): Promise<void> {
-        await this.prisma.botchannel.upsert({
-            where: { guildId },
-            update: { textId },
-            create: { guildId, textId },
-        });
     }
 
     public async getSetup(guildId: string): Promise<Setup | null> {
