@@ -32,6 +32,13 @@ export default class Ping extends Command {
 
     public async run(_client: Lavamusic, ctx: Context): Promise<any> {
         const msg = await ctx.sendDeferMessage(ctx.locale("cmd.ping.content"));
+
+        const botLatency = msg.createdTimestamp - ctx.createdTimestamp;
+        const apiLatency = Math.round(ctx.client.ws.ping);
+
+        const botLatencySign = botLatency < 600 ? "+" : "-";
+        const apiLatencySign = apiLatency < 500 ? "+" : "-";
+
         const embed = this.client
             .embed()
             .setAuthor({
@@ -42,12 +49,12 @@ export default class Ping extends Command {
             .addFields([
                 {
                     name: ctx.locale("cmd.ping.bot_latency"),
-                    value: `\`\`\`ini\n[ ${msg.createdTimestamp - ctx.createdTimestamp}ms ]\n\`\`\``,
+                    value: `\`\`\`diff\n${botLatencySign} ${botLatency}ms\n\`\`\``,
                     inline: true,
                 },
                 {
                     name: ctx.locale("cmd.ping.api_latency"),
-                    value: `\`\`\`ini\n[ ${Math.round(ctx.client.ws.ping)}ms ]\n\`\`\``,
+                    value: `\`\`\`diff\n${apiLatencySign} ${apiLatency}ms\n\`\`\``,
                     inline: true,
                 },
             ])
@@ -58,6 +65,7 @@ export default class Ping extends Command {
                 iconURL: ctx.author.avatarURL({}),
             })
             .setTimestamp();
+
         return await ctx.editMessage({ content: "", embeds: [embed] });
     }
 }

@@ -8,7 +8,6 @@ export default class NodeReconnect extends Event {
         });
     }
 
-    // biome-ignore lint/suspicious/useAwait: <explanation>
     public async run(node: string): Promise<void> {
         const message = `Node ${node} reconnected`;
         this.client.logger.warn(message);
