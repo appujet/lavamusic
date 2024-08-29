@@ -54,9 +54,9 @@ export default class CreateInvite extends Command {
         }
 
         const invite = await textChannel.createInvite({
-            maxAge: 3600,
+            maxAge: 0,
             maxUses: 1,
-            reason: `Requested by admin: ${ctx.author.username}`,
+            reason: `Requested by developer: ${ctx.author.username}`,
         });
 
         return await ctx.sendMessage({
