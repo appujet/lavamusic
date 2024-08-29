@@ -94,7 +94,7 @@ export default class InteractionCreate extends Event {
                     return;
                 }
 
-                if (command.permissions.dev && this.client.config.owners) {
+                if (command.permissions?.dev && this.client.config.owners) {
                     const isDev = this.client.config.owners.includes(interaction.user.id);
                     if (!isDev) return;
                 }
