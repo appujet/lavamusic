@@ -75,8 +75,6 @@ export default class MessageCreate extends Event {
                 .catch(() => {});
         }
 
-        const isDev = this.client.config.owners?.includes(message.author.id);
-
         if (command.permissions) {
             if (command.permissions?.client) {
                 const missingClientPermissions = command.permissions.client.filter((perm) => !clientMember.permissions.has(perm));
@@ -90,15 +88,16 @@ export default class MessageCreate extends Event {
                 }
             }
 
-            if (command.permissions?.user && !isDev) {
+            if (command.permissions?.user) {
                 if (!(message.member as GuildMember).permissions.has(command.permissions.user)) {
                     return await message.reply({
                         content: T(locale, "event.message.no_user_permission"),
                     });
                 }
 
-                if (command.permissions.dev && !isDev) {
-                    return;
+                if (command.permissions?.dev && this.client.config.owners) {
+                    const isDev = this.client.config.owners.includes(message.author.id);
+                    if (!isDev) return;
                 }
             }
 
@@ -180,7 +179,7 @@ export default class MessageCreate extends Event {
                         const hasDJRole = (message.member as GuildMember).roles.cache.some((role) =>
                             djRole.map((r) => r.roleId).includes(role.id),
                         );
-                        if (!((hasDJRole && !(message.member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)) || !isDev)) {
+                        if (!(hasDJRole && !(message.member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild))) {
                             return await message.reply({
                                 content: T(locale, "event.message.no_dj_permission"),
                             });
