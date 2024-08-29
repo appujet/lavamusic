@@ -1,5 +1,5 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 import { ChannelType, PermissionFlagsBits, type TextChannel } from "discord.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class CreateInvite extends Command {
     constructor(client: Lavamusic) {
@@ -55,8 +55,8 @@ export default class CreateInvite extends Command {
 
         const invite = await textChannel.createInvite({
             maxAge: 3600,
-            maxUses: 1,
-            reason: `Requested by admin: ${ctx.author.username}`,
+            maxUses: 0,
+            reason: `Requested by developer: ${ctx.author.username}`,
         });
 
         return await ctx.sendMessage({
