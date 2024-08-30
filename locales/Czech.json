@@ -320,7 +320,7 @@
 				"invalid_number": "Prosím, poskytni platné číslo skladby."
 			},
 			"messages": {
-				"removed": "Odstraněna skladba číslo {skladbuNumber} z fronty."
+				"removed": "Odstraněna skladba číslo {songNumber} z fronty."
 			}
 		},
 		"replay": {
@@ -479,7 +479,7 @@
 				"provide_skladbu": "Prosím, poskytni skladbu.",
 				"playlist_not_exist": "Tento playlist neexistuje.",
 				"skladbu_not_found": "Nenalezena žádná odpovídající skladba.",
-				"skladbu_removed": "Skladba {skladbu} byla odstraněna z {playlist}.",
+				"skladbu_removed": "Skladba {song} byla odstraněna z {playlist}.",
 				"error_occurred": "Při odstraňování skladby došlo k chybě."
 			}
 		},
