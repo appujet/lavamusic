@@ -36,7 +36,7 @@
 			"content": "Ahoj! Jsem {bot}, hudební bot vytvořený pomocí [Lavamusic](https://github.com/appujet/lavamusic) a Discordu. Můžeš použít `{prefix}help <command>`, aby sis získal/a více informací o příkazech.",
 			"title": "Nabídka nápovědy",
 			"not_found": "Příkaz `{cmdName}` neexistuje.",
-			"help_cmd": "**Popis:** {description}\n**Použití:** {usage}\n**Příklady:** {examples}\n**Alias:** {aliases}\n**Kategorie:** {category}\n**Limit:** {cooldown} sekund\n**Oprávnění uživatele:** {premUser}\n**Oprávnění bota:** {premBot}\n**Pouze pro vývojáře:** {dev}\n**Slash Command:** {slash}\n**Argumenty:** {args}\n**Přehrávač:** {player}\n**DJ:** {dj}\n**DJ Oprávnění:** {djPerm}\n**Hlasový kanál:** {voice}",
+			"help_cmd": "**Popis:** {description}\n**Použití:** {usage}\n**Příklady:** {examples}\n**Alias:** {aliases}\n**Kategorie:** {category}\n**Limit:** {cooldown} sekund\n**Oprávnění uživatele:** {premUser}\n**Oprávnění bota:** {premBot}\n**Pouze pro vývojáře:** {dev}\n**Lomítkových příkazů:** {slash}\n**Argumenty:** {args}\n**Přehrávač:** {player}\n**DJ:** {dj}\n**DJ Oprávnění:** {djPerm}\n**Hlasový kanál:** {voice}",
 			"footer": "Použij `{prefix}help <command>` pro více informací o příkazu"
 		},
 		"botinfo": {
