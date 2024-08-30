@@ -586,7 +586,9 @@
 			"error": "오류: `{error}`",
 			"no_voice_channel_queue": "대기열에 노래를 추가하려면 음성 채널에 접속해주세요.",
 			"no_permission_connect_speak": "<#{channel}>에서 연결/말하기 권한이 없어요.",
-			"different_voice_channel_queue": "노래를 대기열에 추가하려면 <#{channel}> 채널에 접속해주세요."
+			"different_voice_channel_queue": "노래를 대기열에 추가하려면 <#{channel}> 채널에 있어야 해요.",
+			"vote_button": "투표하기",
+			"vote_message": "잠깐! 이 명령어를 사용하려면 top.gg에서 투표해야 해요."
 		},
 		"setupButton": {
 			"no_voice_channel_button": "이 버튼을 사용하려면 음성 채널에 접속해주세요.",
