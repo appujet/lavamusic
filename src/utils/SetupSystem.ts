@@ -44,73 +44,25 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
     }
     if (m) {
         try {
-            const res = await client.queue.search(query);
-            switch (res.loadType) {
-                case LoadType.ERROR:
-                    await message.channel
-                        .send({
-                            embeds: [embed.setColor(client.color.red).setDescription(T(locale, "player.setupStart.error_searching"))],
-                        })
-                        .then((msg) => setTimeout(() => msg.delete(), 5000));
-                    break;
-                case LoadType.EMPTY:
-                    await message.channel
-                        .send({
-                            embeds: [embed.setColor(client.color.red).setDescription(T(locale, "player.setupStart.no_results"))],
-                        })
-                        .then((msg) => setTimeout(() => msg.delete(), 5000));
-                    break;
-                case LoadType.TRACK: {
-                    const track = player.buildTrack(res.data, message.author);
-                    if (player.queue.length > client.config.maxQueueSize) {
+            if (message.inGuild()) {
+                const res = await client.queue.search(query);
+                switch (res.loadType) {
+                    case LoadType.ERROR:
                         await message.channel
                             .send({
-                                embeds: [
-                                    embed.setColor(client.color.red).setDescription(
-                                        T(locale, "player.setupStart.queue_too_long", {
-                                            maxQueueSize: client.config.maxQueueSize,
-                                        }),
-                                    ),
-                                ],
+                                embeds: [embed.setColor(client.color.red).setDescription(T(locale, "player.setupStart.error_searching"))],
                             })
                             .then((msg) => setTimeout(() => msg.delete(), 5000));
-                        return;
-                    }
-                    player.queue.push(track);
-                    await player.isPlaying();
-                    await message.channel
-                        .send({
-                            embeds: [
-                                embed.setColor(client.color.main).setDescription(
-                                    T(locale, "player.setupStart.added_to_queue", {
-                                        title: res.data.info.title,
-                                        uri: res.data.info.uri,
-                                    }),
-                                ),
-                            ],
-                        })
-                        .then((msg) => setTimeout(() => msg.delete(), 5000));
-                    neb(n, player, client, locale);
-                    await m.edit({ embeds: [n] }).catch(() => {});
-                    break;
-                }
-                case LoadType.PLAYLIST:
-                    if (res.data.tracks.length > client.config.maxPlaylistSize) {
+                        break;
+                    case LoadType.EMPTY:
                         await message.channel
                             .send({
-                                embeds: [
-                                    embed.setColor(client.color.red).setDescription(
-                                        T(locale, "player.setupStart.playlist_too_long", {
-                                            maxPlaylistSize: client.config.maxPlaylistSize,
-                                        }),
-                                    ),
-                                ],
+                                embeds: [embed.setColor(client.color.red).setDescription(T(locale, "player.setupStart.no_results"))],
                             })
                             .then((msg) => setTimeout(() => msg.delete(), 5000));
-                        return;
-                    }
-                    for (const track of res.data.tracks) {
-                        const pl = player.buildTrack(track, message.author);
+                        break;
+                    case LoadType.TRACK: {
+                        const track = player.buildTrack(res.data, message.author);
                         if (player.queue.length > client.config.maxQueueSize) {
                             await message.channel
                                 .send({
@@ -125,56 +77,106 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
                                 .then((msg) => setTimeout(() => msg.delete(), 5000));
                             return;
                         }
-                        player.queue.push(pl);
-                    }
-                    await player.isPlaying();
-                    await message.channel
-                        .send({
-                            embeds: [
-                                embed
-                                    .setColor(client.color.main)
-                                    .setDescription(
-                                        T(locale, "player.setupStart.added_playlist_to_queue", { length: res.data.tracks.length }),
-                                    ),
-                            ],
-                        })
-                        .then((msg) => setTimeout(() => msg.delete(), 5000));
-                    neb(n, player, client, locale);
-                    await m.edit({ embeds: [n] }).catch(() => {});
-                    break;
-                case LoadType.SEARCH: {
-                    const track = player.buildTrack(res.data[0], message.author);
-                    if (player.queue.length > client.config.maxQueueSize) {
+                        player.queue.push(track);
+                        await player.isPlaying();
                         await message.channel
                             .send({
                                 embeds: [
-                                    embed.setColor(client.color.red).setDescription(
-                                        T(locale, "player.setupStart.queue_too_long", {
-                                            maxQueueSize: client.config.maxQueueSize,
+                                    embed.setColor(client.color.main).setDescription(
+                                        T(locale, "player.setupStart.added_to_queue", {
+                                            title: res.data.info.title,
+                                            uri: res.data.info.uri,
                                         }),
                                     ),
                                 ],
                             })
                             .then((msg) => setTimeout(() => msg.delete(), 5000));
-                        return;
+                        neb(n, player, client, locale);
+                        await m.edit({ embeds: [n] }).catch(() => {});
+                        break;
                     }
-                    player.queue.push(track);
-                    await player.isPlaying();
-                    await message.channel
-                        .send({
-                            embeds: [
-                                embed.setColor(client.color.main).setDescription(
-                                    T(locale, "player.setupStart.added_to_queue", {
-                                        title: res.data[0].info.title,
-                                        uri: res.data[0].info.uri,
-                                    }),
-                                ),
-                            ],
-                        })
-                        .then((msg) => setTimeout(() => msg.delete(), 5000));
-                    neb(n, player, client, locale);
-                    await m.edit({ embeds: [n] }).catch(() => {});
-                    break;
+                    case LoadType.PLAYLIST:
+                        if (res.data.tracks.length > client.config.maxPlaylistSize) {
+                            await message.channel
+                                .send({
+                                    embeds: [
+                                        embed.setColor(client.color.red).setDescription(
+                                            T(locale, "player.setupStart.playlist_too_long", {
+                                                maxPlaylistSize: client.config.maxPlaylistSize,
+                                            }),
+                                        ),
+                                    ],
+                                })
+                                .then((msg) => setTimeout(() => msg.delete(), 5000));
+                            return;
+                        }
+                        for (const track of res.data.tracks) {
+                            const pl = player.buildTrack(track, message.author);
+                            if (player.queue.length > client.config.maxQueueSize) {
+                                await message.channel
+                                    .send({
+                                        embeds: [
+                                            embed.setColor(client.color.red).setDescription(
+                                                T(locale, "player.setupStart.queue_too_long", {
+                                                    maxQueueSize: client.config.maxQueueSize,
+                                                }),
+                                            ),
+                                        ],
+                                    })
+                                    .then((msg) => setTimeout(() => msg.delete(), 5000));
+                                return;
+                            }
+                            player.queue.push(pl);
+                        }
+                        await player.isPlaying();
+                        await message.channel
+                            .send({
+                                embeds: [
+                                    embed
+                                        .setColor(client.color.main)
+                                        .setDescription(
+                                            T(locale, "player.setupStart.added_playlist_to_queue", { length: res.data.tracks.length }),
+                                        ),
+                                ],
+                            })
+                            .then((msg) => setTimeout(() => msg.delete(), 5000));
+                        neb(n, player, client, locale);
+                        await m.edit({ embeds: [n] }).catch(() => {});
+                        break;
+                    case LoadType.SEARCH: {
+                        const track = player.buildTrack(res.data[0], message.author);
+                        if (player.queue.length > client.config.maxQueueSize) {
+                            await message.channel
+                                .send({
+                                    embeds: [
+                                        embed.setColor(client.color.red).setDescription(
+                                            T(locale, "player.setupStart.queue_too_long", {
+                                                maxQueueSize: client.config.maxQueueSize,
+                                            }),
+                                        ),
+                                    ],
+                                })
+                                .then((msg) => setTimeout(() => msg.delete(), 5000));
+                            return;
+                        }
+                        player.queue.push(track);
+                        await player.isPlaying();
+                        await message.channel
+                            .send({
+                                embeds: [
+                                    embed.setColor(client.color.main).setDescription(
+                                        T(locale, "player.setupStart.added_to_queue", {
+                                            title: res.data[0].info.title,
+                                            uri: res.data[0].info.uri,
+                                        }),
+                                    ),
+                                ],
+                            })
+                            .then((msg) => setTimeout(() => msg.delete(), 5000));
+                        neb(n, player, client, locale);
+                        await m.edit({ embeds: [n] }).catch(() => {});
+                        break;
+                    }
                 }
             }
         } catch (error) {
