@@ -21,7 +21,8 @@
 		"lavalink": {
 			"description": "Shows the current Lavalink stats.",
 			"title": "Lavalink Stats",
-			"content": "Player: {players}\nPlaying Players: {playingPlayers}\nUptime: {uptime}\nCores: {cores} Core(s)\nMemory Usage: {used} / {reservable}\nSystem Load: {systemLoad}%\nLavalink Load: {lavalinkLoad}%"
+			"content": "Player: {players}\nPlaying Players: {playingPlayers}\nUptime: {uptime}\nCores: {cores} Core(s)\nMemory Usage: {used} / {reservable}\nSystem Load: {systemLoad}%\nLavalink Load: {lavalinkLoad}%",
+			"page_info": "Page {index} of {total}"
 		},
 		"invite": {
 			"description": "Get the bot invite link.",
@@ -585,7 +586,9 @@
 			"error": "An error occurred: `{error}`",
 			"no_voice_channel_queue": "You are not connected to a voice channel to queue songs.",
 			"no_permission_connect_speak": "I don't have enough permission to connect/speak in <#{channel}>.",
-			"different_voice_channel_queue": "You are not connected to <#{channel}> to queue songs."
+			"different_voice_channel_queue": "You are not connected to <#{channel}> to queue songs.",
+			"vote_button": "Vote for me!",
+			"vote_message": "Wait! You need to vote on top.gg to use this command. Thanks."
 		},
 		"setupButton": {
 			"no_voice_channel_button": "You are not connected to a voice channel to use this button.",

@@ -3,7 +3,7 @@
 		"247": {
 			"description": "봇이 음성 채널에서 나가지 않도록 설정해요",
 			"errors": {
-				"not_in_voice": "이 명령어를 사용하려면 음성 채널에 접속해주세요.",
+				"not_in_voice": "이 명령어를 사용하려면 음성 채널에 있어야 해요.",
 				"generic": "이 명령어를 실행하는 도중 오류가 발생했어요."
 			},
 			"messages": {
@@ -19,9 +19,10 @@
 			"requested_by": "요청자: {author}"
 		},
 		"lavalink": {
-			"description": "Lavalink 노드의 통계를 보여줘요",
-			"title": "Lavalink 통계",
-			"content": "플레이어: {players}\n활성 플레이어: {playingPlayers}\n가동시간: {uptime}\n코어: {cores} 코어\n메모리 사용량: {used} / {reservable}\n시스템 부하: {systemLoad}%\nLavalink 부하: {lavalinkLoad}%"
+			"description": "Lavalink 노드의 상태를 보여줘요",
+			"title": "Lavalink 상태",
+			"content": "플레이어: {players}\n재생 중: {playingPlayers}\n업타임: {uptime}\n코어 수: {cores}개\n메모리 사용량: {used} / {reservable}\n시스템 로드: {systemLoad}%\nLavalink 로드: {lavalinkLoad}%",
+			"page_info": "{index} 페이지 중 {total} 페이지"
 		},
 		"invite": {
 			"description": "봇의 초대 링크를 표시해요",
@@ -30,7 +31,7 @@
 		"help": {
 			"description": "도움말 메뉴를 출력해요",
 			"options": {
-				"command": "특정 명령어의 정보를 얻고 싶다면 여기에 명령어를 입력해주세요"
+				"command": "특정 명령어의 정보를 얻고 싶다면 여기에 입력해주세요"
 			},
 			"content": "안녕하세요! 저는 [Lavamusic](https://github.com/appujet/lavamusic)과 Discord로 만들어진 음악 봇이에요. `{prefix}help <명령어>`를 사용하여 그 명령어의 자세한 정보를 얻을 수 있어요.",
 			"title": "도움말 메뉴",
@@ -40,12 +41,12 @@
 		},
 		"botinfo": {
 			"description": "봇에 대한 정보를 표시해요",
-			"content": "봇 정보:\n- **운영 체제**: {osInfo}\n- **업타임**: {osUptime}\n- **호스트 이름**: {osHostname}\n- **CPU 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord 버전**: {discordJsVersion}\n- 서버 {guilds}개, 채널 {channels}개, 멤버 {users}명\n- **명령어 수**: {commands}개"
+			"content": "봇 정보:\n- **운영 체제**: {osInfo}\n- **업타임**: {osUptime}\n- **호스트 이름**: {osHostname}\n- **CPU 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord 버전**: {discordJsVersion}\n- 서버 {guilds}개, 채널 {channels}개, 유저 {users}명\n- **명령어 수**: {commands}개"
 		},
 		"about": {
 			"description": "봇에 대해 알려줘요",
 			"fields": {
-				"creator": "제작자",
+				"creator": "제작",
 				"repository": "GitHub 저장소",
 				"support": "지원",
 				"description": "그는 더 많은 코딩 경험을 위해 자신의 첫 번째 오픈 소스 프로젝트를 만들고 싶어했어요. 이 프로젝트에서 그는 버그가 적은 프로젝트를 만들려고 노력했어요. 여러분이 LavaMusic를 즐겁게 즐기고 계시길 바라요!"
@@ -78,7 +79,7 @@
 		"language": {
 			"description": "언어를 설정해요",
 			"invalid_language": "올바른 언어를 지정해주세요. 예시: `EnglishUS` = 영어 (미국)\n\n[여기](https://discord.com/developers/docs/reference#locales)에서 지원되는 언어 목록을 확인할 수 있어요.\n\n**현재 사용 가능한 언어:**\n{languages}",
-			"already_set": "`{language}`로 언어가 이미 설정되어 있어요.",
+			"already_set": "`{language}`로 이미 설정되어 있어요.",
 			"not_set": "언어가 설정되지 않았어요.",
 			"set": "`✅` | 언어가 `{language}`로 변경되었어요.",
 			"reset": "`✅` | 언어가 기본 언어로 초기화되었어요.",
@@ -109,7 +110,7 @@
 			"errors": {
 				"channel_exists": "음악채널이 이미 설정되어 있어요.",
 				"channel_not_exists": "음악채널이 존재하지 않아요.",
-				"channel_delete_fail": "음악 채널이 삭제되었어요. 만약 삭제되지 않았다면 직접 삭제하세요."
+				"channel_delete_fail": "음악 채널이 데이터베이스에서 삭제되었어요. 채널은 직접 삭제해주세요."
 			},
 			"messages": {
 				"channel_created": "<#{channelId}>로 음악 채널이 만들어졌어요.",
@@ -239,7 +240,7 @@
 			}
 		},
 		"grab": {
-			"description": "DM으로 현재 재생 중인 노래를 보내줘요",
+			"description": "현재 재생 중인 노래를 DM으로 보내요",
 			"loading": "로드 중...",
 			"content": "**길이:** {length}\n**요청자:** <@{requester}>\n**링크:** [클릭]({uri})",
 			"check_dm": "DM을 확인해주세요.",
@@ -248,13 +249,13 @@
 		"join": {
 			"description": "봇이 음성 채널에 들어와요",
 			"already_connected": "<#{channelId}>에 이미 들어와있어요.",
-			"no_voice_channel": "음성 채널에 먼저 접속해주세요.",
+			"no_voice_channel": "이 명령어를 사용하려면 음성 채널에 있어야 해요.",
 			"joined": "<#{channelId}>에 들어왔어요."
 		},
 		"leave": {
 			"description": "봇을 음성 채널에서 퇴장시켜요",
 			"left": "<#{channelId}>에서 나갔어요.",
-			"not_in_channel": "봇이 음성 채널에 들어와 있지 않네요."
+			"not_in_channel": "봇이 음성 채널에 들어와 있지 않아요."
 		},
 		"loop": {
 			"description": "현재 노래, 또는 대기열을 반복해요",
@@ -280,14 +281,14 @@
 			"errors": {
 				"search_error": "노래를 검색하던 도중 문제가 발생했어요.",
 				"no_results": "검색 결과가 없어요.",
-				"queue_too_long": "대기열 한도를 초과했어요. 최대 한도은 {maxQueueSize}개예요.",
-				"playlist_too_long": "플레이리스트 한도를 초과했어요. 최대 한도는 {maxPlaylistSize}개예요."
+				"queue_too_long": "대기열 한도를 초과했어요. 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
+				"playlist_too_long": "플레이리스트 한도를 초과했어요. 최대 {maxPlaylistSize}개까지만 추가할 수 있어요."
 			},
 			"added_to_queue": "대기열에 추가되었어요: [{title}]({uri})",
 			"added_playlist_to_queue": "{length}개의 노래가 추가되었어요."
 		},
 		"playnext": {
-			"description": "노래가 현재 노래 다음으로 재생되도록 예약해요",
+			"description": "노래를 바로 다음 대기열에 추가해요",
 			"options": {
 				"song": "재생할 노래 제목 또는 URL "
 			},
@@ -295,11 +296,11 @@
 			"errors": {
 				"search_error": "노래를 검색하던 도중 문제가 발생했어요.",
 				"no_results": "검색 결과가 없어요.",
-				"queue_too_long": "대기열 한도를 초과했어요. 최대 한도은 {maxQueueSize}개예요.",
-				"playlist_too_long": "플레이리스트 한도를 초과했어요. 최대 한도는 {maxPlaylistSize}개예요."
+				"queue_too_long": "대기열 한도를 초과했어요. 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
+				"playlist_too_long": "플레이리스트 한도를 초과했어요. 최대 {maxPlaylistSize}개까지만 추가할 수 있어요."
 			},
-			"added_to_play_next": "이 노래가 바로 다음에 재생되도록 예약되었어요: [{title}]({uri}).",
-			"added_playlist_to_play_next": "{length}개의 노래가 바로 다음에 재생되도록 예약되었어요."
+			"added_to_play_next": "이 노래가 바로 다음 대기열에 추가되었어요: [{title}]({uri}).",
+			"added_playlist_to_play_next": "{length}개의 노래가 바로 다음 대기열에 추가되었어요."
 		},
 		"queue": {
 			"description": "현재의 대기열을 알려줘요",
@@ -380,7 +381,7 @@
 			}
 		},
 		"skipto": {
-			"description": "노래를 특정 대기열로 스킵해요",
+			"description": "노래를 대기열 번호로 스킵해요",
 			"options": {
 				"number": "스킵할 노래의 번호"
 			},
@@ -506,7 +507,7 @@
 		"skip": "스킵",
 		"loop": "반복",
 		"errors": {
-			"not_author": "이 버튼을 사용할 수 없어요."
+			"not_author": "지금은 이 버튼을 사용할 수 없어요."
 		}
 	},
 	"player": {
@@ -522,7 +523,7 @@
 			"now_playing": "재생 중",
 			"requested_by": "요청자: {user}",
 			"duration": "길이",
-			"author": "제작자",
+			"author": "게시자",
 			"not_connected_to_voice_channel": "이 버튼을 사용하려면 먼저 <#{channel}>에 접속해주세요.",
 			"need_dj_role": "이 명령어를 사용하려면 DJ 권한이 있어야 해요.",
 			"previous_by": "{user}에 의해 이전 노래 재생 중",
@@ -537,12 +538,12 @@
 		},
 		"setupStart": {
 			"now_playing": "재생 중",
-			"description": "[{title}]({uri}), 제작자 {author} • `[{length}]` - 요청자: <@{requester}>",
+			"description": "[{title}]({uri}), 게시자 {author} • `[{length}]` - 요청자: <@{requester}>",
 			"error_searching": "노래를 검색하는 도중 오류가 발생했어요.",
 			"no_results": "검색결과가 없어요.",
 			"nothing_playing": "현재 재생 중인 노래가 없어요.",
-			"queue_too_long": "대기열 한도를 초과했어요. 최대 한도는 {maxQueueSize}개예요.",
-			"playlist_too_long": "플레이리스트 한도를 초과했어요. 최대 한도는 {maxPlaylistSize}개예요.",
+				"queue_too_long": "대기열 한도를 초과했어요. 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
+				"playlist_too_long": "플레이리스트 한도를 초과했어요. 최대 {maxPlaylistSize}개까지만 추가할 수 있어요.",
 			"added_to_queue": "대기열에 추가되었어요: [{title}]({uri})",
 			"added_playlist_to_queue": "[{length}]개의 노래가 추가되었어요."
 		}
@@ -553,7 +554,7 @@
 			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 `{guild}`에 없어요.\n채널: {channel}.",
 			"no_permission": "이 명령어를 실행하기 위한 봇의 권한이 부족해요.",
 			"no_user_permission": "이 명령어를 실행하기 위한 권한이 부족해요.",
-			"no_voice_channel": "`{command}` 명령어를 사용하려면 음성 채널에 접속해주세요.",
+			"no_voice_channel": "`{command}` 명령어를 사용하려면 음성 채널에 있어야 해요요.",
 			"no_connect_permission": "`{command}` 명령어를 사용하려면 봇에게 `연결` 권한이 필요해요.",
 			"no_speak_permission": "`{command}` 명령어를 사용하려면 봇에게 `말하기` 권한이 필요해요.",
 			"no_request_to_speak": "`{command}` 명령어를 사용하려면 봇에게 `발언권 요청하기` 권한이 필요해요.",
@@ -569,7 +570,7 @@
 			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 `{guild}`에 없어요.\n채널: {channel}.",
 			"no_permission": "이 명령어를 실행하기 위한 봇의 권한이 부족해요.",
 			"no_user_permission": "이 명령어를 실행하기 위한 권한이 부족해요.",
-			"no_voice_channel": "{command} 명령어를 사용하려면 음성 채널에 접속해주세요.",
+			"no_voice_channel": "{command} 명령어를 사용하려면 음성 채널에 있어야 해요.",
 			"no_connect_permission": "`{command}` 명령어를 사용하려면 봇에게 `연결` 권한이 필요해요.",
 			"no_speak_permission": "`{command}` 명령어를 사용하려면 봇에게 `말하기` 권한이 필요해요.",
 			"no_request_to_speak": "`{command}` 명령어를 사용하려면 봇에게 `발언권 요청하기` 권한이 필요해요.",
@@ -585,7 +586,9 @@
 			"error": "오류: `{error}`",
 			"no_voice_channel_queue": "대기열에 노래를 추가하려면 음성 채널에 접속해주세요.",
 			"no_permission_connect_speak": "<#{channel}>에서 연결/말하기 권한이 없어요.",
-			"different_voice_channel_queue": "노래를 대기열에 추가하려면 <#{channel}> 채널에 접속해주세요."
+			"different_voice_channel_queue": "노래를 대기열에 추가하려면 <#{channel}> 채널에 있어야 해요.",
+			"vote_button": "투표하기",
+			"vote_message": "잠깐! 이 명령어를 사용하려면 top.gg에서 투표해야 해요."
 		},
 		"setupButton": {
 			"no_voice_channel_button": "이 버튼을 사용하려면 음성 채널에 접속해주세요.",
@@ -596,7 +599,7 @@
 			"no_dj_permission": "이 버튼을 사용하려면 DJ 권한이 있어야 해요.",
 			"volume_set": "볼륨이 {vol}%로 변경되었어요.",
 			"volume_footer": "볼륨: {vol}%",
-			"paused": "일시 정지",
+			"paused": "일시정지",
 			"resumed": "재계",
 			"pause_resume": "음악이 {name}되었어요.",
 			"pause_resume_footer": "{displayName}에 의해 {name}됨",

@@ -32,12 +32,20 @@ export class Queue extends Map<string, Dispatcher> {
         if (!guild) throw new Error("No guild was provided");
 
         let dispatcher = this.get(guild.id);
-        if (!dispatcher) {
-            let player = this.client.shoukaku.players.get(guild.id);
-            if (player) {
-                this.client.shoukaku.leaveVoiceChannel(guild.id);
-                player.destroy();
+        const connection = this.client.shoukaku.connections.get(guild.id);
+        let player = this.client.shoukaku.players.get(guild.id);
+        if (player && connection) {
+            if (!dispatcher) {
+                dispatcher = new Dispatcher({
+                    client: this.client,
+                    guildId: guild.id,
+                    channelId: channel.id,
+                    player,
+                    node: player.node,
+                });
+                this.set(guild.id, dispatcher);
             }
+        } else {
             const node = givenNode ?? this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
             player = await this.client.shoukaku.joinVoiceChannel({
                 guildId: guild.id,

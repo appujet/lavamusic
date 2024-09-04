@@ -44,7 +44,7 @@ export default {
     topGG: process.env.TOPGG,
     keepAlive: parseBoolean(process.env.KEEP_ALIVE),
     autoNode: parseBoolean(process.env.AUTO_NODE),
-    searchEngine: SearchEngine.YouTubeMusic, // YouTube (YouTube Search), YouTubeMusic (YouTube Music Search), Spotify (Spotify Search), Deezer (Deezer Search), Apple (Apple Search), SoundCloud (SoundCloud Search), Yandex (Yandex Search) or JioSaavn (JioSaavn Search)
+    searchEngine: SearchEngine[process.env.SEARCH_ENGINE] || SearchEngine.YouTubeMusic,
     maxPlaylistSize: parseInt(process.env.MAX_PLAYLIST_SIZE || "100"),
     botStatus: process.env.BOT_STATUS || "online",
     botActivity: process.env.BOT_ACTIVITY || "Lavamusic",

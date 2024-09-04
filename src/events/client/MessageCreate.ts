@@ -106,13 +106,13 @@ export default class MessageCreate extends Event {
                 if (!voted) {
                     const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
                         new ButtonBuilder()
-                            .setLabel("Vote for Me!")
+                            .setLabel(T(locale, "event.message.vote_button"))
                             .setURL(`https://top.gg/bot/${this.client.config.clientId}/vote`)
                             .setStyle(ButtonStyle.Link),
                     );
 
                     return await message.reply({
-                        content: "Wait! Before using this command, you must vote on top.gg. Thank you.",
+                        content: T(locale, "event.message.vote_message"),
                         components: [voteBtn],
                     });
                 }
