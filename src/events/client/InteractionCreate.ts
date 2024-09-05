@@ -104,13 +104,13 @@ export default class InteractionCreate extends Event {
                 if (!voted) {
                     const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
                         new ButtonBuilder()
-                            .setLabel("Vote for Me!")
+                            .setLabel(T(locale, "event.interaction.vote_button"))
                             .setURL(`https://top.gg/bot/${this.client.config.clientId}/vote`)
                             .setStyle(ButtonStyle.Link),
                     );
 
                     return await interaction.reply({
-                        content: "Wait! Before using this command, you must vote on top.gg. Thank you.",
+                        content: T(locale, "event.interaction.vote_message"),
                         components: [voteBtn],
                         ephemeral: true,
                     });
