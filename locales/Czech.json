@@ -563,7 +563,9 @@
 			"no_dj_role": "DJ role is not set.",
 			"no_dj_permission": "You need to have the DJ role to use this command.",
 			"cooldown": "Please wait {time} more second(s) before reusing the `{command}` command.",
-			"error": "An error occurred: `{error}`"
+			"error": "An error occurred: `{error}`",
+			"vote_button": "Vote for me!",
+			"vote_message": "Wait! You need to vote on top.gg to use this command. Thanks."
 		},
 		"message": {
 			"prefix_mention": "Hey, my prefix for this server is `{prefix}`. Want more info? then do `{prefix}help`\nStay Safe, Stay Awesome!",
