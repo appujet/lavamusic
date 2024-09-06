@@ -41,20 +41,19 @@ export default class VoiceStateUpdate extends Event {
             }
         }
 
-        if (newState.id === this.client.user.id) return;
-
-        if (
-            newState.id === this.client.user.id &&
-            !newState.serverDeaf &&
-            vc.permissionsFor(newState.guild.members.me).has("DeafenMembers")
-        ) {
-            await newState.setDeaf(true);
+        if (newState.id === this.client.user.id && !newState.serverDeaf) {
+            const permissions = vc.permissionsFor(newState.guild.members.me);
+            if (permissions?.has("DeafenMembers")) {
+                await newState.setDeaf(true);
+            }
         }
 
-        if (newState.id === this.client.user.id && newState.serverMute && !player.paused) {
-            player.pause();
-        } else if (newState.id === this.client.user.id && !newState.serverMute && player.paused) {
-            player.pause();
+        if (newState.id === this.client.user.id) {
+            if (newState.serverMute && !player.paused) {
+                player.pause();
+            } else if (!newState.serverMute && player.paused) {
+                player.pause();
+            }
         }
 
         if (vc.members instanceof Map && [...vc.members.values()].filter((x: GuildMember) => !x.user.bot).length <= 0) {
