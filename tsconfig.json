@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2023",
-    "module": "es2022",
-    "lib": ["es2023"],
+    "target": "EsNext",
+    "module": "EsNext",
+    "lib": ["EsNext"],
     "declaration": true,
     "sourceMap": true,
     "outDir": "dist",
