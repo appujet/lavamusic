@@ -63,8 +63,6 @@ export default class InteractionCreate extends Event {
                 return await (interaction.member as GuildMember)
                     .send({
                         content: T(locale, "event.interaction.no_send_message", {
-                            guild: interaction.guild.name,
-                            channel: `<#${interaction.channelId}>`,
                         }),
                     })
                     .catch(() => {});

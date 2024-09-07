@@ -8,11 +8,11 @@
 			},
 			"messages": {
 				"disabled": "`✅` | 24/7 모드가 `비활성화되었어요.`",
-				"enabled": "`✅` | 24/7 모드가 `활성화되었어요`. \n**봇은 이제부터 음성 채널에서 나가지 않아요. 사람이 아무도 없더라도 말이죠.**"
+				"enabled": "`✅` | 24/7 모드가 `활성화되었어요`."
 			}
 		},
 		"ping": {
-			"description": "봇의 핑을 알려줘요",
+			"description": "봇의 핑을 확인해요",
 			"content": "핑...",
 			"bot_latency": "봇 지연시간",
 			"api_latency": "API 지연시간",
@@ -44,12 +44,12 @@
 			"content": "봇 정보:\n- **운영 체제**: {osInfo}\n- **업타임**: {osUptime}\n- **호스트 이름**: {osHostname}\n- **CPU 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord 버전**: {discordJsVersion}\n- 서버 {guilds}개, 채널 {channels}개, 유저 {users}명\n- **명령어 수**: {commands}개"
 		},
 		"about": {
-			"description": "봇에 대해 알려줘요",
+			"description": "봇에 대한 정보를 확인해요",
 			"fields": {
 				"creator": "제작",
 				"repository": "GitHub 저장소",
 				"support": "지원",
-				"description": "그는 더 많은 코딩 경험을 위해 자신의 첫 번째 오픈 소스 프로젝트를 만들고 싶어했어요. 이 프로젝트에서 그는 버그가 적은 프로젝트를 만들려고 노력했어요. 여러분이 LavaMusic를 즐겁게 즐기고 계시길 바라요!"
+				"description": "그는 더 많은 코딩 경험을 쌓기 위해 처음으로 오픈 소스 프로젝트를 만들고 싶어했어요. 이 프로젝트에서 그는 버그를 줄이는 도전을 했어요. LavaMusic을 즐겁게 사용해 주시길 바랄게요!"
 			}
 		},
 		"dj": {
@@ -90,7 +90,7 @@
 			}
 		},
 		"prefix": {
-			"description": "봇의 접두사를 보거나 수정해요",
+			"description": "봇의 접두사를 설정해요",
 			"errors": {
 				"prefix_too_long": "접두사는 3자를 넘을 수 없어요."
 			},
@@ -106,7 +106,7 @@
 			}
 		},
 		"setup": {
-			"description": "음악 채널을 확인하거나 수정해요",
+			"description": "음악 채널을 설정해요",
 			"errors": {
 				"channel_exists": "음악채널이 이미 설정되어 있어요.",
 				"channel_not_exists": "음악채널이 존재하지 않아요.",
@@ -138,7 +138,7 @@
 			}
 		},
 		"distorsion": {
-			"description": "외곡 필터를 토글해요",
+			"description": "왜곡 필터를 토글해요",
 			"messages": {
 				"filter_enabled": "`✅` | 외곡 필터가 `활성화되었어요`.",
 				"filter_disabled": "`✅` | 외곡 필터가 `비활성화되었어요`."
@@ -168,7 +168,7 @@
 		"pitch": {
 			"description": "노래의 음높이를 변경해요",
 			"options": {
-				"pitch": "설정할 음높이를 0.5에서 5 사이로 입력하세요"
+				"pitch": "설정할 음높이(0.5 - 5)"
 			},
 			"errors": {
 				"invalid_number": "0.5에서 5 사이의 올바른 숫자를 입력해주세요."
@@ -180,7 +180,7 @@
 		"rate": {
 			"description": "노래의 비율을 설정해요",
 			"options": {
-				"rate": "설정할 비율을 0.5에서 5 사이로 입력하세요"
+				"rate": "설정할 비율(0.5 - 5)"
 			},
 			"errors": {
 				"invalid_number": "0.5에서 5 사이의 올바른 숫자를 입력해주세요."
@@ -190,7 +190,7 @@
 			}
 		},
 		"reset": {
-			"description": "활성화된 필터를 모두 비활성화해요",
+			"description": "모든 필터를 초기화해요",
 			"messages": {
 				"filters_reset": "`✅` | 필터가 초기화되었어요."
 			}
@@ -253,18 +253,18 @@
 			"joined": "<#{channelId}>에 들어왔어요."
 		},
 		"leave": {
-			"description": "봇을 음성 채널에서 퇴장시켜요",
+			"description": "봇이 음성 채널을 나가요",
 			"left": "<#{channelId}>에서 나갔어요.",
 			"not_in_channel": "봇이 음성 채널에 들어와 있지 않아요."
 		},
 		"loop": {
-			"description": "현재 노래, 또는 대기열을 반복해요",
+			"description": "현재 노래 또는 대기열을 반복해요",
 			"looping_song": "**한곡 반복이 켜졌어요.**",
 			"looping_queue": "**대기열 반복이 켜졌어요.**",
 			"looping_off": "**반복이 꺼졌어요.**"
 		},
 		"nowplaying": {
-			"description": "현재 재생중인 노래를 알려줘요",
+			"description": "현재 재생중인 노래를 확인해요",
 			"now_playing": "재생 중",
 			"track_info": "[{title}]({uri}) - 요청자: <@{requester}>\n\n`{bar}`"
 		},
@@ -279,31 +279,31 @@
 			},
 			"loading": "로드 중...",
 			"errors": {
-				"search_error": "노래를 검색하던 도중 문제가 발생했어요.",
+				"search_error": "노래를 검색하는 도중 오류가 발생했어요.",
 				"no_results": "검색 결과가 없어요.",
-				"queue_too_long": "대기열 한도를 초과했어요. 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
-				"playlist_too_long": "플레이리스트 한도를 초과했어요. 최대 {maxPlaylistSize}개까지만 추가할 수 있어요."
+				"queue_too_long": "대기열에 노래가 너무 많아요. 노래는 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
+				"playlist_too_long": "플레이리스트 또는 대기열에 노래가 너무 많아요. 노래는 최대 {maxPlaylistSize}개까지만 추가할 수 있어요."
 			},
 			"added_to_queue": "대기열에 추가되었어요: [{title}]({uri})",
-			"added_playlist_to_queue": "{length}개의 노래가 추가되었어요."
+			"added_playlist_to_queue": "{length}개의 노래가 대기열에 추가되었어요."
 		},
 		"playnext": {
-			"description": "노래를 바로 다음 대기열에 추가해요",
+			"description": "노래를 바로 다음에 재생해요",
 			"options": {
 				"song": "재생할 노래 제목 또는 URL "
 			},
 			"loading": "로드 중...",
 			"errors": {
-				"search_error": "노래를 검색하던 도중 문제가 발생했어요.",
+				"search_error": "노래를 검색하는 도중 오류가 발생했어요.",
 				"no_results": "검색 결과가 없어요.",
-				"queue_too_long": "대기열 한도를 초과했어요. 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
-				"playlist_too_long": "플레이리스트 한도를 초과했어요. 최대 {maxPlaylistSize}개까지만 추가할 수 있어요."
+				"queue_too_long": "대기열에 노래가 너무 많아요. 노래는 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
+				"playlist_too_long": "플레이리스트 또는 대기열에 노래가 너무 많아요. 노래는 최대 {maxPlaylistSize}개까지만 추가할 수 있어요."
 			},
-			"added_to_play_next": "이 노래가 바로 다음 대기열에 추가되었어요: [{title}]({uri}).",
-			"added_playlist_to_play_next": "{length}개의 노래가 바로 다음 대기열에 추가되었어요."
+			"added_to_play_next": "이 노래를 바로 다음에 재생할게요: [{title}]({uri})",
+			"added_playlist_to_play_next": "{length}개의 노래를 바로 다음에 재생할게요."
 		},
 		"queue": {
-			"description": "현재의 대기열을 알려줘요",
+			"description": "대기열을 확인해요",
 			"now_playing": "재생 중: [{title}]({uri}) - 요청자: <@{requester}> - 길이: `{duration}`",
 			"live": "라이브",
 			"track_info": "{index}번: [{title}]({uri}) - 요청자: <@{requester}> - 길이: `{duration}`",
@@ -316,8 +316,8 @@
 				"song": "삭제할 노래의 대기열 번호"
 			},
 			"errors": {
-				"no_songs": "그 대기열 번호에 등록된 노래가 없어요.",
-				"invalid_number": "올바른 노래 번호를 지정해주세요."
+				"no_songs": "그 번호에 노래가 존재하지 않아요.",
+				"invalid_number": "올바른 노래의 번호를 지정해주세요."
 			},
 			"messages": {
 				"removed": "{songNumber}번 노래가 제거되었어요."
@@ -326,7 +326,7 @@
 		"replay": {
 			"description": "현재 재생 중인 노래를 다시 재생해요",
 			"errors": {
-				"not_seekable": "노래의 길이를 이동할 수 없어 다시 재생할 수 없어요."
+				"not_seekable": "이 노래에서는 다시 재생을 지원하지 않는 것 같네요."
 			},
 			"messages": {
 				"replaying": "노래를 다시 재생할게요."
@@ -355,14 +355,14 @@
 			}
 		},
 		"seek": {
-			"description": "노래의 길이를 이동해요",
+			"description": "노래의 구간을 이동해요",
 			"options": {
-				"duration": "이동할 길이"
+				"duration": "이동할 구간"
 			},
 			"errors": {
-				"invalid_format": "시간 형식이 잘못되었어요. 예시: seek 1m, seek 1h 30m",
-				"not_seekable": "이 노래의 길이를 변경할 수 없어요.",
-				"beyond_duration": "{length}보다 넘을 수 없어요."
+				"invalid_format": "시간 형식이 잘못되었어요. 예시: 30s(30초로 이동), 1m(1분으로 이동), 1h 30m(1시간 30분으로 이동)",
+				"not_seekable": "이 노래에서는 구간 이동을 지원하지 않는 것 같네요.",
+				"beyond_duration": "{length}을 넘을 수 없어요."
 			},
 			"messages": {
 				"seeked_to": "{duration}로 이동했어요."
@@ -381,7 +381,7 @@
 			}
 		},
 		"skipto": {
-			"description": "노래를 대기열 번호로 스킵해요",
+			"description": "노래를 특정 대기열로 스킵해요",
 			"options": {
 				"number": "스킵할 노래의 번호"
 			},
@@ -406,8 +406,8 @@
 			"messages": {
 				"invalid_number": "올바른 값을 지정하세요.",
 				"too_low": "볼륨은 0보다 작을 수 없어요.",
-				"too_high": "볼륨은 200보다 클 수 없어요. 혹시 스피커나 귀를 손상시키려 하시나요? 흠, 그렇게 좋은 생각 같진 않네요.",
-				"set": "볼륨을 {volume}로 설정했어요."
+				"too_high": "볼륨은 200보다 클 수 없어요. 혹시 당신의 청력이나 스피커를 손상시키고 싶나요? 음... 그건 그렇게 좋은 생각이 아닌 것 같다만요.",
+				"set": "볼륨을 {volume}으로 설정했어요."
 			}
 		},
 		"addsong": {
@@ -420,7 +420,7 @@
 				"no_playlist": "플레이리스트를 지정해주세요",
 				"no_song": "추가하려는 노래를 지정해주세요.",
 				"playlist_not_found": "그 플레이리스트는 존재하지 않아요.",
-				"no_songs_found": "그 노래가 없어요.",
+				"no_songs_found": "그 노래는 존재하지 않아요.",
 				"added": "{count}개의 노래가 {playlist}에 추가되었어요"
 			}
 		},
@@ -446,7 +446,7 @@
 			}
 		},
 		"list": {
-			"description": "특정 사용자 또는 자신의 모든 플레이리스트를 알려줘요",
+			"description": "사용자의 모든 플레이리스트를 알려줘요",
 			"options": {
 				"user": "플레이리스트 목록을 가져올 사용자"
 			},
@@ -513,18 +513,18 @@
 	"player": {
 		"errors": {
 			"no_player": "이 서버에 활성 플레이어가 없어요.",
-			"no_channel": "이 명령어를 사용하려면 먼저 음성 채널에 접속해주세요.",
+			"no_channel": "이 명령어를 사용하려면 음성 채널에 있어야 해요.",
 			"queue_empty": "대기열이 비어있어요.",
 			"no_previous": "이전 노래가 없어요.",
-			"no_song": "스킵할 노래가 없어요.",
-			"already_paused": "노래가 이미 일시정지되어있어요."
+			"no_song": "대기열에 노래가 없어요.",
+			"already_paused": "노래가 이미 일시정지되어 있어요."
 		},
 		"trackStart": {
 			"now_playing": "재생 중",
 			"requested_by": "요청자: {user}",
 			"duration": "길이",
 			"author": "게시자",
-			"not_connected_to_voice_channel": "이 버튼을 사용하려면 먼저 <#{channel}>에 접속해주세요.",
+			"not_connected_to_voice_channel": "이 버튼을 사용하려면 먼저 <#{channel}>에 있어야 해요.",
 			"need_dj_role": "이 명령어를 사용하려면 DJ 권한이 있어야 해요.",
 			"previous_by": "{user}에 의해 이전 노래 재생 중",
 			"no_previous_song": "이전 노래가 없어요.",
@@ -541,9 +541,9 @@
 			"description": "[{title}]({uri}), 게시자 {author} • `[{length}]` - 요청자: <@{requester}>",
 			"error_searching": "노래를 검색하는 도중 오류가 발생했어요.",
 			"no_results": "검색결과가 없어요.",
-			"nothing_playing": "현재 재생 중인 노래가 없어요.",
-				"queue_too_long": "대기열 한도를 초과했어요. 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
-				"playlist_too_long": "플레이리스트 한도를 초과했어요. 최대 {maxPlaylistSize}개까지만 추가할 수 있어요.",
+			"nothing_playing": "재생 중인 노래 없음",
+				"queue_too_long": "대기열에 노래가 너무 많아요. 노래는 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
+				"playlist_too_long": "플레이리스트 또는 대기열에 노래가 너무 많아요. 노래는 최대 {maxPlaylistSize}개까지만 추가할 수 있어요.",
 			"added_to_queue": "대기열에 추가되었어요: [{title}]({uri})",
 			"added_playlist_to_queue": "[{length}]개의 노래가 추가되었어요."
 		}
@@ -551,14 +551,14 @@
 	"event": {
 		"interaction": {
 			"setup_channel": "음악 채널에서는 이 명령어를 사용할 수 없어요.",
-			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 `{guild}`에 없어요.\n채널: {channel}.",
+			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 없어요.",
 			"no_permission": "이 명령어를 실행하기 위한 봇의 권한이 부족해요.",
 			"no_user_permission": "이 명령어를 실행하기 위한 권한이 부족해요.",
-			"no_voice_channel": "`{command}` 명령어를 사용하려면 음성 채널에 있어야 해요요.",
+			"no_voice_channel": "`{command}` 명령어를 사용하려면 음성 채널에 있어야 해요.",
 			"no_connect_permission": "`{command}` 명령어를 사용하려면 봇에게 `연결` 권한이 필요해요.",
 			"no_speak_permission": "`{command}` 명령어를 사용하려면 봇에게 `말하기` 권한이 필요해요.",
 			"no_request_to_speak": "`{command}` 명령어를 사용하려면 봇에게 `발언권 요청하기` 권한이 필요해요.",
-			"different_voice_channel": "`{command}` 명령어를 사용하려면 {channel} 채널로 접속해주세요.",
+			"different_voice_channel": "`{command}` 명령어를 사용하려면 {channel} 채널에 있어야 해요.",
 			"no_music_playing": "현재 재생 중인 노래가 없어요.",
 			"no_dj_role": "DJ 역할이 설정되지 않았어요.",
 			"no_dj_permission": "이 명령어를 사용하려면 DJ 권한이 있어야 해요.",
@@ -569,14 +569,14 @@
 		},
 		"message": {
 			"prefix_mention": "이 서버의 접두사는 `{prefix}`예요. 더 많은 정보를 원하시나요? `{prefix}help`를 사용하세요.\n안전하게 지내시고, 멋진 하루 보내세요!",
-			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 `{guild}`에 없어요.\n채널: {channel}.",
+			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 없어요.",
 			"no_permission": "이 명령어를 실행하기 위한 봇의 권한이 부족해요.",
 			"no_user_permission": "이 명령어를 실행하기 위한 권한이 부족해요.",
 			"no_voice_channel": "{command} 명령어를 사용하려면 음성 채널에 있어야 해요.",
 			"no_connect_permission": "`{command}` 명령어를 사용하려면 봇에게 `연결` 권한이 필요해요.",
 			"no_speak_permission": "`{command}` 명령어를 사용하려면 봇에게 `말하기` 권한이 필요해요.",
 			"no_request_to_speak": "`{command}` 명령어를 사용하려면 봇에게 `발언권 요청하기` 권한이 필요해요.",
-			"different_voice_channel": "`{command}` 명령어를 사용하려면 {channel} 채널로 접속해주세요.",
+			"different_voice_channel": "`{command}` 명령어를 사용하려면 {channel} 채널에 있어야 해요.",
 			"no_music_playing": "현재 재생 중인 노래가 없어요.",
 			"no_dj_role": "DJ 역할이 설정되지 않았어요.",
 			"no_dj_permission": "이 명령어를 사용하려면 DJ 권한이 있어야 해요.",
