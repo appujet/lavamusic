@@ -263,6 +263,15 @@
 			"looping_queue": "**Looping the queue.**",
 			"looping_off": "**Looping is now off.**"
 		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track.",
+			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n`${lyrics}`",
+			"errors": {
+				"no_results": "No lyrics found for the current track.",
+				"no_playing": "No track is currently playing.",
+				"lyrics_error": "An error occurred while getting the lyrics."
+			}
+		},
 		"nowplaying": {
 			"description": "Shows the currently playing song",
 			"now_playing": "Now Playing",
