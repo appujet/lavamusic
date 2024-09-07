@@ -35,7 +35,7 @@ export default class Lyrics extends Command {
         const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
         
-        if (!player || !player.isPlaying) {
+        if (!player && !player.isPlaying) {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.lyrics.errors.no_playing"))],
             });
