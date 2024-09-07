@@ -1,5 +1,6 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 import { getLyrics } from 'genius-lyrics-api';
+import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } from 'discord.js';
 
 export default class Lyrics extends Command {
     constructor(client: Lavamusic) {
@@ -33,22 +34,22 @@ export default class Lyrics extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild!.id);
-        const embed = this.client.embed();
+        const embed = new EmbedBuilder();
         
-        if (!player && !player.isPlaying) {
+        if (!player || !player.isPlaying) {
             return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.lyrics.errors.no_playing"))],
+                embeds: [embed.setColor(client.color.red).setDescription(ctx.locale("cmd.lyrics.errors.no_playing"))],
             });
         }
     
         const currentTrack = player.current;
-        const trackTitle = currentTrack.info.title;
-        const artistName = currentTrack.info.author;
-        const trackUrl = currentTrack.info.uri
+        const trackTitle = currentTrack.info.title.replace(/\[.*?\]/g, '').trim();
+        const artistName = currentTrack.info.author.replace(/\[.*?\]/g, '').trim();
+        const trackUrl = currentTrack.info.uri;
         const artworkUrl = currentTrack.info.artworkUrl;
     
         const options = {
-            apiKey: this.client.config.lyricsApi,
+            apiKey: client.config.lyricsApi,
             title: trackTitle,
             artist: artistName,
             optimizeQuery: true
@@ -57,19 +58,99 @@ export default class Lyrics extends Command {
         try {
             const lyrics = await getLyrics(options);
             if (lyrics) {
-                await ctx.sendMessage({
-                    embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.lyrics.lyrics_track", { trackTitle, trackUrl, lyrics})).setThumbnail(artworkUrl).setTimestamp()],
+                const lyricsPages = this.paginateLyrics(lyrics);
+                let currentPage = 0;
+
+                const row = new ActionRowBuilder<ButtonBuilder>()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('prev')
+                            .setEmoji(this.client.emoji.page.back)
+                            .setStyle(ButtonStyle.Secondary)
+                            .setDisabled(true),
+                        new ButtonBuilder()
+                            .setCustomId('stop')
+                            .setEmoji(this.client.emoji.page.cancel)
+                            .setStyle(ButtonStyle.Danger),
+                        new ButtonBuilder()
+                            .setCustomId('next')
+                            .setEmoji(this.client.emoji.page.next)
+                            .setStyle(ButtonStyle.Secondary)
+                            .setDisabled(lyricsPages.length <= 1)
+                    );
+
+                const message = await ctx.sendMessage({
+                    embeds: [embed.setColor(client.color.main).setDescription(ctx.locale("cmd.lyrics.lyrics_track", { trackTitle, trackUrl, lyrics: lyricsPages[currentPage] })).setThumbnail(artworkUrl).setTimestamp()],
+                    components: [row]
+                });
+
+                const filter = (interaction) => interaction.user.id === ctx.author.id;
+                const collector = message.createMessageComponentCollector({ filter, componentType: ComponentType.Button, time: 60000 });
+
+                collector.on('collect', async (interaction) => {
+                    if (interaction.customId === 'prev') {
+                        currentPage--;
+                    } else if (interaction.customId === 'next') {
+                        currentPage++;
+                    } else if (interaction.customId === 'stop') {
+                        collector.stop();
+                        return interaction.update({ components: [] });
+                    }
+
+                    await interaction.update({
+                        embeds: [embed.setDescription(ctx.locale("cmd.lyrics.lyrics_track", { trackTitle, trackUrl, lyrics: lyricsPages[currentPage] })).setThumbnail(artworkUrl).setTimestamp()],
+                        components: [
+                            new ActionRowBuilder<ButtonBuilder>()
+                                .addComponents(
+                                    new ButtonBuilder()
+                                        .setCustomId('prev')
+                                        .setEmoji(this.client.emoji.page.back)
+                                        .setStyle(ButtonStyle.Secondary)
+                                        .setDisabled(currentPage === 0),
+                                    new ButtonBuilder()
+                                        .setCustomId('stop')
+                                        .setEmoji(this.client.emoji.page.cancel)
+                                        .setStyle(ButtonStyle.Danger),
+                                    new ButtonBuilder()
+                                        .setCustomId('next')
+                                        .setEmoji(this.client.emoji.page.next)
+                                        .setStyle(ButtonStyle.Secondary)
+                                        .setDisabled(currentPage === lyricsPages.length - 1)
+                                )
+                        ]
+                    });
+                });
+
+                collector.on('end', () => {
+                    message.edit({ components: [] });
                 });
             } else {
                 await ctx.sendMessage({
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.lyrics.errors.no_results"))],
+                    embeds: [embed.setColor(client.color.red).setDescription(ctx.locale("cmd.lyrics.errors.no_results"))],
                 });
             }
         } catch (error) {
             console.error(error);
             await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.lyrics.errors.lyrics_error"))],
+                embeds: [embed.setColor(client.color.red).setDescription(ctx.locale("cmd.lyrics.errors.lyrics_error"))],
             });
         }
+    }
+
+    paginateLyrics(lyrics) {
+        const lines = lyrics.split('\n');
+        const pages = [];
+        let page = '';
+
+        for (const line of lines) {
+            if (page.length + line.length > 2048) {
+                pages.push(page);
+                page = '';
+            }
+            page += `${line}\n`;
+        }
+
+        if (page) pages.push(page);
+        return pages;
     }
 }
