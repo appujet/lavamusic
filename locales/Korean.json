@@ -140,8 +140,8 @@
 		"distorsion": {
 			"description": "왜곡 필터를 토글해요",
 			"messages": {
-				"filter_enabled": "`✅` | 외곡 필터가 `활성화되었어요`.",
-				"filter_disabled": "`✅` | 외곡 필터가 `비활성화되었어요`."
+				"filter_enabled": "`✅` | 왜곡 필터가 `활성화되었어요`.",
+				"filter_disabled": "`✅` | 왜곡 필터가 `비활성화되었어요`."
 			}
 		},
 		"karaoke": {
