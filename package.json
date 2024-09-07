@@ -52,7 +52,8 @@
     "signale": "^1.4.0",
     "topgg-autoposter": "^2.0.2",
     "tslib": "^2.7.0",
-    "undici": "^6.19.8"
+    "undici": "^6.19.8",
+    "genius-lyrics-api": "^3.2.1"
   },
   "signale": {
     "displayScope": true,
