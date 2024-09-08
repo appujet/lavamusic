@@ -610,7 +610,7 @@
 			"skipped_footer": "{displayName}에 의해 스킵됨",
 			"stopped": "노래를 정지했어요.",
 			"stopped_footer": "{displayName}에 의해 정지됨",
-			"nothing_playing": "재생 중인 노래가 없어요.",
+			"nothing_playing": "재생 중인 노래 없음",
 			"loop_set": "{loop} 반복으로 설정했어요.",
 			"loop_footer": "{displayName}에 의해 {loop} 반복으로 설정됨",
 			"shuffled": "노래를 섞었어요.",

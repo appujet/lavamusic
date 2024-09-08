@@ -610,7 +610,7 @@
 			"skipped_footer": "Skipped by {displayName}",
 			"stopped": "Stopped the music.",
 			"stopped_footer": "Stopped by {displayName}",
-			"nothing_playing": "Nothing is playing right now.",
+			"nothing_playing": "Nothing is playing right now",
 			"loop_set": "Loop set to {loop}.",
 			"loop_footer": "Loop set to {loop} by {displayName}",
 			"shuffled": "Shuffled the queue.",
