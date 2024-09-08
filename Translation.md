@@ -10,32 +10,32 @@
 ### 📚 Available Translations
 
 - [x] English (US) - `EnglishUS.json` (Default)
-- [x] Hindi - `Hindi.json` [by @Appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
-- [x] Spanish (ES) - `SpanishES.json` [by @LucasB25](https://github.com/LucasB25)
-- [x] Portuguese (PT) - `PortuguesePT.json` [by @LucasB25](https://github.com/LucasB25)
-- [x] Polish - `Polish.json` [by @InfNibor](https://github.com/infnibor) and [by @LucasB25](https://github.com/LucasB25)
-- [x] French - `French.json` [by @LucasB25](https://github.com/LucasB25)
-- [x] German - `German.json` [by @LucasB25](https://github.com/LucasB25)
-- [x] Russian - `Russian.json` [by @LucasB25](https://github.com/LucasB25)
-- [x] Korean - `Korean.json` [by @hwangsihu](https://github.com/hwangsihu)
-- [x] Indonesian - `Indonesian.json` [by @iaMJ](https://github.com/idMJA)
-- [ ] English (GB) - `EnglishGB.json` (Not Started)
 - [ ] Bulgarian - `Bulgarian.json` (Not Started)
 - [x] Chinese (CN) - `ChineseCN.json` [by @appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
-- [ ] Chinese (TW) - `ChineseTW.json` (Not Started)
+- [x] Chinese (TW) - `ChineseTW.json` [by @apple050620312](https://github.com/apple050620312)
 - [ ] Croatian - `Croatian.json` (Not Started)
 - [ ] Czech - `Czech.json` (Not Started)
 - [ ] Danish - `Danish.json` (Not Started)
 - [ ] Dutch - `Dutch.json` (Not Started)
+- [ ] English (GB) - `EnglishGB.json` (Not Started)
 - [ ] Finnish - `Finnish.json` (Not Started)
+- [x] French - `French.json` [by @LucasB25](https://github.com/LucasB25)
+- [x] German - `German.json` [by @LucasB25](https://github.com/LucasB25)
 - [ ] Greek - `Greek.json` (Not Started)
+- [x] Hindi - `Hindi.json` [by @Appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
 - [ ] Hungarian - `Hungarian.json` (Not Started)
+- [x] Indonesian - `Indonesian.json` [by @iaMJ](https://github.com/idMJA)
 - [ ] Italian - `Italian.json` (Not Started)
 - [x] Japanese - `Japanese.json` [by @hatry4](https://github.com/hatry4)
+- [x] Korean - `Korean.json` [by @hwangsihu](https://github.com/hwangsihu)
 - [ ] Lithuanian - `Lithuanian.json` (Not Started)
 - [x] Norwegian - `Norwegian.json` [by @appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
+- [x] Polish - `Polish.json` [by @InfNibor](https://github.com/infnibor) and [by @LucasB25](https://github.com/LucasB25)
 - [ ] Portuguese (BR) - `PortugueseBR.json` (Not Started)
+- [x] Portuguese (PT) - `PortuguesePT.json` [by @LucasB25](https://github.com/LucasB25)
 - [ ] Romanian - `Romanian.json` (Not Started)
+- [x] Russian - `Russian.json` [by @LucasB25](https://github.com/LucasB25)
+- [x] Spanish (ES) - `SpanishES.json` [by @LucasB25](https://github.com/LucasB25)
 - [ ] Swedish - `Swedish.json` (Not Started)
 - [ ] Thai - `Thai.json` (Not Started)
 - [ ] Turkish - `Turkish.json` (Not Started)
@@ -82,6 +82,7 @@ The translation JSON file should be structured as follows:
 	}
 }
 ```
+
 ### Example Translation JSON
 
 **EnglishUS:**

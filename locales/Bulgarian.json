@@ -7,8 +7,8 @@
 				"generic": "An error occurred while trying to execute this command."
 			},
 			"messages": {
-				"disabled": "`✅` | 24/7 mode has been `DISABLED`",
-				"enabled": "`✅` | 24/7 mode has been `ENABLED`. \n**The bot will not leave the voice channel even if there are no people in the voice channel.**"
+				"disabled": "`✅` | 24/7 mode has been `DISABLED`.",
+				"enabled": "`✅` | 24/7 mode has been `ENABLED`."
 			}
 		},
 		"ping": {
@@ -541,7 +541,7 @@
 			"description": "[{title}]({uri}) by {author} • `[{length}]` - Requested by <@{requester}>",
 			"error_searching": "There was an error while searching.",
 			"no_results": "There were no results found.",
-			"nothing_playing": "Nothing playing right now.",
+			"nothing_playing": "Nothing is playing right now",
 			"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
 			"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs.",
 			"added_to_queue": "Added [{title}]({uri}) to the queue.",
@@ -551,7 +551,7 @@
 	"event": {
 		"interaction": {
 			"setup_channel": "You can't use this command in the setup channel.",
-			"no_send_message": "I don't have **`SendMessage`**, **`ViewChannel`**, **`EmbedLinks`** or **`ReadMessageHistory`**  permission in `{guild}`\nchannel: {channel}.",
+			"no_send_message": "I don't have **`SendMessage`**, **`ViewChannel`**, **`EmbedLinks`** or **`ReadMessageHistory`**  permission.",
 			"no_permission": "I don't have {permissions} permission.",
 			"no_user_permission": "You don't have enough permissions to use this command.",
 			"no_voice_channel": "You must be connected to a voice channel to use this `{command}` command.",
@@ -563,11 +563,13 @@
 			"no_dj_role": "DJ role is not set.",
 			"no_dj_permission": "You need to have the DJ role to use this command.",
 			"cooldown": "Please wait {time} more second(s) before reusing the `{command}` command.",
-			"error": "An error occurred: `{error}`"
+			"error": "An error occurred: `{error}`",
+			"vote_button": "Vote for me!",
+			"vote_message": "Wait! You need to vote on top.gg to use this command. Thanks."
 		},
 		"message": {
 			"prefix_mention": "Hey, my prefix for this server is `{prefix}`. Want more info? then do `{prefix}help`\nStay Safe, Stay Awesome!",
-			"no_send_message": "I don't have **`SendMessage`**, **`ViewChannel`**, **`EmbedLinks`** or **`ReadMessageHistory`**  permission in `{guild}`\nchannel: {channel}.",
+			"no_send_message": "I don't have **`SendMessage`**, **`ViewChannel`**, **`EmbedLinks`** or **`ReadMessageHistory`**  permission.",
 			"no_permission": "I don't have {permissions} permission.",
 			"no_user_permission": "You don't have enough permissions to use this command.",
 			"no_voice_channel": "You must be connected to a voice channel to use this `{command}` command.",
@@ -608,7 +610,7 @@
 			"skipped_footer": "Skipped by {displayName}",
 			"stopped": "Stopped the music.",
 			"stopped_footer": "Stopped by {displayName}",
-			"nothing_playing": "Nothing playing right now.",
+			"nothing_playing": "Nothing is playing right now.",
 			"loop_set": "Loop set to {loop}.",
 			"loop_footer": "Loop set to {loop} by {displayName}",
 			"shuffled": "Shuffled the queue.",

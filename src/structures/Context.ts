@@ -1,5 +1,6 @@
 import {
     type APIInteractionGuildMember,
+    ChannelType,
     ChatInputCommandInteraction,
     type CommandInteraction,
     type DMChannel,
@@ -16,7 +17,6 @@ import {
     type PartialDMChannel,
     type TextChannel,
     type User,
-    ChannelType,
 } from "discord.js";
 import { T } from "./I18n.js";
 import type { Lavamusic } from "./index.js";
@@ -44,7 +44,7 @@ export default class Context {
         this.message = ctx instanceof Message ? ctx : null;
 
         if (ctx.channel && ctx.channel.type !== ChannelType.GroupDM) {
-            this.channel = ctx.channel
+            this.channel = ctx.channel;
         } else {
             this.channel = null;
         }

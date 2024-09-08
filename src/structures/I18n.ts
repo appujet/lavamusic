@@ -1,6 +1,7 @@
 import i18n from "i18n";
 
 import { Locale } from "discord.js";
+import defaultLanguage from "../config.js";
 import { Language } from "../types.js";
 import Logger from "./Logger.js";
 
@@ -9,7 +10,7 @@ const logger = new Logger();
 export function initI18n() {
     i18n.configure({
         locales: Object.keys(Language),
-        defaultLocale: "EnglishUS",
+        defaultLocale: typeof defaultLanguage === "string" ? defaultLanguage : "EnglishUS",
         directory: `${process.cwd()}/locales`,
         retryInDefaultLocale: true,
         objectNotation: true,
