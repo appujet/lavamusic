@@ -67,8 +67,7 @@ export default class MessageCreate extends Event {
         ) {
             return await message.author
                 .send({
-                    content: T(locale, "event.message.no_send_message", {
-                    }),
+                    content: T(locale, "event.message.no_send_message"),
                 })
                 .catch(() => {});
         }
