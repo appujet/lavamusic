@@ -2,17 +2,17 @@ import { Event, type Lavamusic } from "../../structures/index.js";
 import BotLog from "../../utils/BotLog.js";
 
 export default class NodeDisconnect extends Event {
-    constructor(client: Lavamusic, file: string) {
-        super(client, file, {
-            name: "nodeDisconnect",
-        });
-    }
+  constructor(client: Lavamusic, file: string) {
+    super(client, file, {
+      name: "nodeDisconnect",
+    });
+  }
 
-    public async run(node: string, count: number): Promise<void> {
-        const message = `Node ${node} disconnected ${count} times`;
-        this.client.logger.warn(message);
-        BotLog.send(this.client, message, "warn");
-    }
+  public async run(node: string, count: number): Promise<void> {
+    const message = `Node ${node} disconnected ${count} times`;
+    this.client.logger.warn(message);
+    BotLog.send(this.client, message, "warn");
+  }
 }
 
 /**
