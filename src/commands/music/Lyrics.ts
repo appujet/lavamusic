@@ -47,14 +47,17 @@ export default class Lyrics extends Command {
         const artistName = currentTrack.info.author.replace(/\[.*?\]/g, '').trim();
         const trackUrl = currentTrack.info.uri;
         const artworkUrl = currentTrack.info.artworkUrl;
-    
+
+        // Send initial "Searching for lyrics" message
+        const searchMessage = await ctx.sendDeferMessage(ctx.locale("cmd.lyrics.searching", { trackTitle }))
+
         const options = {
             apiKey: client.config.lyricsApi,
             title: trackTitle,
             artist: artistName,
             optimizeQuery: true
         };
-    
+
         try {
             const lyrics = await getLyrics(options);
             if (lyrics) {
@@ -79,13 +82,14 @@ export default class Lyrics extends Command {
                             .setDisabled(lyricsPages.length <= 1)
                     );
 
-                const message = await ctx.sendMessage({
+                // Edit the initial message to include lyrics
+                await searchMessage.edit({
                     embeds: [embed.setColor(client.color.main).setDescription(ctx.locale("cmd.lyrics.lyrics_track", { trackTitle, trackUrl, lyrics: lyricsPages[currentPage] })).setThumbnail(artworkUrl).setTimestamp()],
                     components: [row]
                 });
 
                 const filter = (interaction) => interaction.user.id === ctx.author.id;
-                const collector = message.createMessageComponentCollector({ filter, componentType: ComponentType.Button, time: 60000 });
+                const collector = searchMessage.createMessageComponentCollector({ filter, componentType: ComponentType.Button, time: 60000 });
 
                 collector.on('collect', async (interaction) => {
                     if (interaction.customId === 'prev') {
@@ -122,16 +126,16 @@ export default class Lyrics extends Command {
                 });
 
                 collector.on('end', () => {
-                    message.edit({ components: [] });
+                    searchMessage.edit({ components: [] });
                 });
             } else {
-                await ctx.sendMessage({
+                await searchMessage.edit({
                     embeds: [embed.setColor(client.color.red).setDescription(ctx.locale("cmd.lyrics.errors.no_results"))],
                 });
             }
         } catch (error) {
             console.error(error);
-            await ctx.sendMessage({
+            await searchMessage.edit({
                 embeds: [embed.setColor(client.color.red).setDescription(ctx.locale("cmd.lyrics.errors.lyrics_error"))],
             });
         }
