@@ -265,7 +265,8 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track.",
-			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n${lyrics}",
+			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
+			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
 			"errors": {
 				"no_results": "No lyrics found for the current track.",
 				"no_playing": "No track is currently playing.",
