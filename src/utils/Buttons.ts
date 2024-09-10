@@ -4,39 +4,14 @@ import type { Dispatcher, Lavamusic } from "../structures/index.js";
 function getButtons(player: Dispatcher, client: Lavamusic): ActionRowBuilder<ButtonBuilder>[] {
     const buttonData = [
         {
-            customId: "REWIND_BUT",
-            emoji: client.emoji.replay,
-            style: ButtonStyle.Secondary,
-        },
-        {
-            customId: "LOW_VOL_BUT",
-            emoji: client.emoji.voldown,
+            customId: "PREV_BUT",
+            emoji: client.emoji.previous,
             style: ButtonStyle.Secondary,
         },
         {
             customId: "STOP_BUT",
             emoji: client.emoji.stop,
             style: ButtonStyle.Danger,
-        },
-        {
-            customId: "HIGH_VOL_BUT",
-            emoji: client.emoji.volup,
-            style: ButtonStyle.Secondary,
-        },
-        {
-            customId: "FORWARD_BUT",
-            emoji: client.emoji.forward,
-            style: ButtonStyle.Secondary,
-        },
-        {
-            customId: "PREV_BUT",
-            emoji: client.emoji.previous,
-            style: ButtonStyle.Secondary,
-        },
-        {
-            customId: "LOOP_BUT",
-            emoji: client.emoji.loop.none,
-            style: ButtonStyle.Secondary,
         },
         {
             customId: "PAUSE_BUT",
@@ -51,6 +26,31 @@ function getButtons(player: Dispatcher, client: Lavamusic): ActionRowBuilder<But
         {
             customId: "SKIP_BUT",
             emoji: client.emoji.skip,
+            style: ButtonStyle.Secondary,
+        },
+        {
+            customId: "REWIND_BUT",
+            emoji: client.emoji.rewind,
+            style: ButtonStyle.Secondary,
+        },
+        {
+            customId: "LOW_VOL_BUT",
+            emoji: client.emoji.voldown,
+            style: ButtonStyle.Secondary,
+        },
+        {
+            customId: "HIGH_VOL_BUT",
+            emoji: client.emoji.volup,
+            style: ButtonStyle.Secondary,
+        },
+        {
+            customId: "LOOP_BUT",
+            emoji: client.emoji.loop.none,
+            style: ButtonStyle.Secondary,
+        },
+        {
+            customId: "FORWARD_BUT",
+            emoji: client.emoji.forward,
             style: ButtonStyle.Secondary,
         },
     ];
