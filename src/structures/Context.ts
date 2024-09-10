@@ -44,7 +44,7 @@ export default class Context {
         this.message = ctx instanceof Message ? ctx : null;
 
         if (ctx.channel && ctx.channel.type !== ChannelType.GroupDM) {
-            this.channel = ctx.channel
+            this.channel = ctx.channel;
         } else {
             this.channel = null;
         }
