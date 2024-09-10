@@ -24,7 +24,7 @@ export default {
         skip: "⏭️",
         previous: "⏮️",
         forward: "⏩",
-        replay: "🔄",
+        rewind: "⏪",
         voldown: "🔉",
         volup: "🔊",
         shuffle: "🔀",
