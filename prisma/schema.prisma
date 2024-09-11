@@ -5,67 +5,72 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-3.0.x"]
+    provider      = "prisma-client-js"
+    binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./lavamusic.db"
+    provider = "sqlite"
+    url      = "file:./lavamusic.db"
+}
+
+model Bot {
+    botId         String     @unique
+    totalPlaySong Int 
 }
 
 model Guild {
-  guildId    String      @id
-  prefix     String
-  language   String?
-  stay       Stay?
-  dj         Dj?
-  roles      Role[]
-  setup      Setup?
+    guildId         String      @id
+    prefix          String
+    language        String?     @default("EnglishUS")
+    stay            Stay?
+    dj              Dj?
+    roles           Role[]
+    setup           Setup?
 }
 
 model Stay {
-  guildId String @id
-  textId  String
-  voiceId String
-  Guild   Guild  @relation(fields: [guildId], references: [guildId])
+    guildId String @id
+    textId  String
+    voiceId String
+    Guild   Guild  @relation(fields: [guildId], references: [guildId])
 }
 
 model Dj {
-  guildId String  @id
-  mode    Boolean
-  Guild   Guild   @relation(fields: [guildId], references: [guildId])
+    guildId String  @id
+    mode    Boolean
+    Guild   Guild   @relation(fields: [guildId], references: [guildId])
 }
 
 model Role {
-  guildId String
-  roleId  String
-  Guild   Guild  @relation(fields: [guildId], references: [guildId])
+    guildId String
+    roleId  String
+    Guild   Guild  @relation(fields: [guildId], references: [guildId])
 
-  @@unique([guildId, roleId])
+    @@unique([guildId, roleId])
 }
 
 model Playlist {
-  id     String @id @default(uuid())
-  userId String
-  name   String
-  songs  Song[]
+    id     String @id @default(uuid())
+    userId String
+    name   String
+    songs  Song[]
 
-  @@unique([userId, name])
+    @@unique([userId, name])
 }
 
 model Song {
-  id         String   @id @default(uuid())
-  track      String
-  playlistId String
-  playlist   Playlist @relation(fields: [playlistId], references: [id])
+    id         String   @id @default(uuid())
+    track      String
+    playlistId String
+    playlist   Playlist @relation(fields: [playlistId], references: [id])
 
-  @@unique([track, playlistId])
+    @@unique([track, playlistId])
 }
 
 model Setup {
-  guildId   String @id
-  textId    String
-  messageId String
-  Guild     Guild  @relation(fields: [guildId], references: [guildId])
+    guildId   String @id
+    textId    String
+    messageId String
+    Guild     Guild  @relation(fields: [guildId], references: [guildId])
 }

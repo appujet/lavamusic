@@ -1,4 +1,4 @@
-import { type Dj, type Guild, type Playlist, PrismaClient, type Role, type Setup, type Song, type Stay } from "@prisma/client";
+import { type Dj, type Guild, type Playlist, PrismaClient, type Role, type Song, type Setup, type Stay } from "@prisma/client";
 import config from "../config.js";
 
 export default class ServerData {
@@ -9,16 +9,15 @@ export default class ServerData {
     }
 
     public async get(guildId: string): Promise<Guild | null> {
-        return (
-            (await this.prisma.guild.findUnique({
-                where: { guildId },
-            })) ?? this.createGuild(guildId)
-        );
+        return (await this.prisma.guild.findUnique({ where: { guildId } })) ?? this.createGuild(guildId);
     }
 
     private async createGuild(guildId: string): Promise<Guild> {
         return await this.prisma.guild.create({
-            data: { guildId, prefix: config.prefix },
+            data: {
+                guildId,
+                prefix: config.prefix,
+            },
         });
     }
 
@@ -28,6 +27,39 @@ export default class ServerData {
             update: { prefix },
             create: { guildId, prefix },
         });
+    }
+
+    public async getPrefix(guildId: string): Promise<string> {
+        const guild = await this.get(guildId);
+        return guild?.prefix ?? config.prefix;
+    }
+
+    public async updateLanguage(guildId: string, language: string): Promise<void> {
+        await this.prisma.guild.update({
+            where: { guildId },
+            data: { language },
+        });
+    }
+
+    public async getLanguage(guildId: string): Promise<string> {
+        const guild = await this.get(guildId);
+        return guild?.language ?? config.defaultLanguage;
+    }
+
+    public async getSetup(guildId: string): Promise<Setup | null> {
+        return await this.prisma.setup.findUnique({ where: { guildId } });
+    }
+
+    public async setSetup(guildId: string, textId: string, messageId: string): Promise<void> {
+        await this.prisma.setup.upsert({
+            where: { guildId },
+            update: { textId, messageId },
+            create: { guildId, textId, messageId },
+        });
+    }
+
+    public async deleteSetup(guildId: string): Promise<void> {
+        await this.prisma.setup.delete({ where: { guildId } });
     }
 
     public async set_247(guildId: string, textId: string, voiceId: string): Promise<void> {
@@ -42,19 +74,19 @@ export default class ServerData {
         await this.prisma.stay.delete({ where: { guildId } });
     }
 
+    public async get_247(guildId?: string): Promise<Stay | Stay[]> {
+        if (guildId) {
+            return await this.prisma.stay.findUnique({ where: { guildId } });
+        }
+        return this.prisma.stay.findMany();
+    }
+
     public async setDj(guildId: string, mode: boolean): Promise<void> {
         await this.prisma.dj.upsert({
             where: { guildId },
             update: { mode },
             create: { guildId, mode },
         });
-    }
-
-    public async get_247(guildId?: string): Promise<Stay | Stay[]> {
-        if (guildId) {
-            return await this.prisma.stay.findUnique({ where: { guildId } });
-        }
-        return this.prisma.stay.findMany();
     }
 
     public async getDj(guildId: string): Promise<Dj | null> {
@@ -77,34 +109,20 @@ export default class ServerData {
         await this.prisma.role.deleteMany({ where: { guildId } });
     }
 
-    public async getSetup(guildId: string): Promise<Setup | null> {
-        return await this.prisma.setup.findUnique({ where: { guildId } });
-    }
-
-    public async setSetup(guildId: string, textId: string, messageId: string): Promise<void> {
-        await this.prisma.setup.upsert({
-            where: { guildId },
-            update: { textId, messageId },
-            create: { guildId, textId, messageId },
-        });
-    }
-
-    public async deleteSetup(guildId: string): Promise<void> {
-        await this.prisma.setup.delete({ where: { guildId } });
-    }
-
     public async getPlaylist(userId: string, name: string): Promise<Playlist | null> {
         return await this.prisma.playlist.findUnique({
             where: { userId_name: { userId, name } },
         });
     }
 
-    public async getUserPlaylists(userId: string) {
+    public async getUserPlaylists(userId: string): Promise<Playlist[]> {
         return await this.prisma.playlist.findMany({
-            where: {
-                userId: userId,
-            },
+            where: { userId },
         });
+    }
+
+    public async createPlaylist(userId: string, name: string): Promise<void> {
+        await this.prisma.playlist.create({ data: { userId, name } });
     }
 
     public async createPlaylistWithSongs(userId: string, name: string, songs: any[]): Promise<void> {
@@ -117,10 +135,6 @@ export default class ServerData {
                 },
             },
         });
-    }
-
-    public async createPlaylist(userId: string, name: string): Promise<void> {
-        await this.prisma.playlist.create({ data: { userId, name } });
     }
 
     public async deletePlaylist(userId: string, name: string): Promise<void> {
@@ -161,9 +175,7 @@ export default class ServerData {
             await this.prisma.song.deleteMany({
                 where: {
                     playlistId: playlist.id,
-                    track: {
-                        contains: encodedSong,
-                    },
+                    track: { contains: encodedSong },
                 },
             });
         }
@@ -172,9 +184,7 @@ export default class ServerData {
     public async getSongs(userId: string, name: string): Promise<Song[]> {
         const playlist = await this.getPlaylist(userId, name);
         if (playlist) {
-            return this.prisma.song.findMany({
-                where: { playlistId: playlist.id },
-            });
+            return this.prisma.song.findMany({ where: { playlistId: playlist.id } });
         }
         return [];
     }
@@ -182,9 +192,7 @@ export default class ServerData {
     public async clearPlaylist(userId: string, name: string): Promise<void> {
         const playlist = await this.getPlaylist(userId, name);
         if (playlist) {
-            await this.prisma.song.deleteMany({
-                where: { playlistId: playlist.id },
-            });
+            await this.prisma.song.deleteMany({ where: { playlistId: playlist.id } });
         }
     }
 
@@ -198,24 +206,6 @@ export default class ServerData {
 
     public async clearAllSongs(): Promise<void> {
         await this.prisma.song.deleteMany();
-    }
-
-    public async updateLanguage(guildId: string, language: string): Promise<void> {
-        const guild = await this.get(guildId);
-        if (guild) {
-            await this.prisma.guild.update({
-                where: { guildId },
-                data: { language },
-            });
-        } else {
-            await this.createGuild(guildId);
-            await this.updateLanguage(guildId, language);
-        }
-    }
-
-    public async getLanguage(guildId: string): Promise<string> {
-        const guild = await this.get(guildId);
-        return guild?.language ?? config.defaultLanguage;
     }
 }
 
