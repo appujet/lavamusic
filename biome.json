@@ -53,22 +53,11 @@
   },
   "formatter": {
     "enabled": true,
-    "indentWidth": 4,
+    "indentWidth": 2,
     "indentStyle": "space",
     "lineEnding": "crlf",
     "lineWidth": 140,
     "formatWithErrors": true
-  },
-  "json": {
-    "linter": {
-      "enabled": true
-    },
-    "formatter": {
-      "enabled": true,
-      "indentWidth": 2,
-      "lineEnding": "crlf",
-      "lineWidth": 80
-    }
   },
   "javascript": {
     "formatter": {

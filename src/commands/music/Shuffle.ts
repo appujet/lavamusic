@@ -1,48 +1,48 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Shuffle extends Command {
-    constructor(client: Lavamusic) {
-        super(client, {
-            name: "shuffle",
-            description: {
-                content: "cmd.shuffle.description",
-                examples: ["shuffle"],
-                usage: "shuffle",
-            },
-            category: "music",
-            aliases: ["sh"],
-            cooldown: 3,
-            args: false,
-            vote: false,
-            player: {
-                voice: true,
-                dj: true,
-                active: true,
-                djPerm: null,
-            },
-            permissions: {
-                dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
-                user: [],
-            },
-            slashCommand: true,
-            options: [],
-        });
-    }
+  constructor(client: Lavamusic) {
+    super(client, {
+      name: "shuffle",
+      description: {
+        content: "cmd.shuffle.description",
+        examples: ["shuffle"],
+        usage: "shuffle",
+      },
+      category: "music",
+      aliases: ["sh"],
+      cooldown: 3,
+      args: false,
+      vote: false,
+      player: {
+        voice: true,
+        dj: true,
+        active: true,
+        djPerm: null,
+      },
+      permissions: {
+        dev: false,
+        client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+        user: [],
+      },
+      slashCommand: true,
+      options: [],
+    });
+  }
 
-    public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild!.id);
-        const embed = this.client.embed();
-        if (!player.queue.length) {
-            return await ctx.sendMessage({
-                embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
-            });
-        }
-        player.setShuffle();
-        return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.shuffle.messages.shuffled"))],
-        });
+  public async run(client: Lavamusic, ctx: Context): Promise<any> {
+    const player = client.queue.get(ctx.guild!.id);
+    const embed = this.client.embed();
+    if (!player.queue.length) {
+      return await ctx.sendMessage({
+        embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
+      });
     }
+    player.setShuffle();
+    return await ctx.sendMessage({
+      embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.shuffle.messages.shuffled"))],
+    });
+  }
 }
 
 /**
