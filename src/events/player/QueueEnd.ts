@@ -4,38 +4,38 @@ import { type Dispatcher, Event, type Lavamusic } from "../../structures/index.j
 import { updateSetup } from "../../utils/SetupSystem.js";
 
 export default class QueueEnd extends Event {
-  constructor(client: Lavamusic, file: string) {
-    super(client, file, {
-      name: "queueEnd",
-    });
-  }
-
-  public async run(_player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
-    const guild = this.client.guilds.cache.get(dispatcher.guildId);
-    if (!guild) return;
-    const locale = await this.client.db.getLanguage(guild.id);
-    switch (dispatcher.loop) {
-      case "repeat":
-        dispatcher.queue.unshift(track);
-        break;
-      case "queue":
-        dispatcher.queue.push(track);
-        break;
-      case "off":
-        dispatcher.previous = dispatcher.current;
-        dispatcher.current = null;
-        break;
+    constructor(client: Lavamusic, file: string) {
+        super(client, file, {
+            name: "queueEnd",
+        });
     }
 
-    if (dispatcher.autoplay) {
-      await dispatcher.Autoplay(track);
-    } else {
-      dispatcher.autoplay = false;
-    }
+    public async run(_player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
+        const guild = this.client.guilds.cache.get(dispatcher.guildId);
+        if (!guild) return;
+        const locale = await this.client.db.getLanguage(guild.id);
+        switch (dispatcher.loop) {
+            case "repeat":
+                dispatcher.queue.unshift(track);
+                break;
+            case "queue":
+                dispatcher.queue.push(track);
+                break;
+            case "off":
+                dispatcher.previous = dispatcher.current;
+                dispatcher.current = null;
+                break;
+        }
 
-    await updateSetup(this.client, guild, locale);
-    this.client.utils.updateStatus(this.client, guild.id);
-  }
+        if (dispatcher.autoplay) {
+            await dispatcher.Autoplay(track);
+        } else {
+            dispatcher.autoplay = false;
+        }
+
+        await updateSetup(this.client, guild, locale);
+        this.client.utils.updateStatus(this.client, guild.id);
+    }
 }
 
 /**

@@ -1,16 +1,16 @@
 import { Event, type Lavamusic } from "../../structures/index.js";
 
 export default class NodeRaw extends Event {
-  constructor(client: Lavamusic, file: string) {
-    super(client, file, {
-      name: "nodeRaw",
-    });
-  }
+    constructor(client: Lavamusic, file: string) {
+        super(client, file, {
+            name: "nodeRaw",
+        });
+    }
 
-  public async run(_payload: any): Promise<void> {
-    // Uncomment the following line for debugging purposes
-    // this.client.logger.debug(`Node raw event: ${JSON.stringify(payload)}`);
-  }
+    public async run(_payload: any): Promise<void> {
+        // Uncomment the following line for debugging purposes
+        // this.client.logger.debug(`Node raw event: ${JSON.stringify(payload)}`);
+    }
 }
 
 /**
