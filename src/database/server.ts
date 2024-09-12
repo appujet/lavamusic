@@ -1,4 +1,4 @@
-import { type Dj, type Guild, type Playlist, PrismaClient, type Role, type Setup, type Song, type Stay } from "@prisma/client";
+import { type Dj, type Guild, type Playlist, PrismaClient, type Role, type Song, type Setup, type Stay } from "@prisma/client";
 import config from "../config.js";
 
 export default class ServerData {
