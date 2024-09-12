@@ -1,74 +1,74 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "all": true,
-      "suspicious": {
-        "noConfusingVoidType": "off",
-        "noConsoleLog": "off",
-        "noEmptyBlockStatements": "off",
-        "noExplicitAny": "off",
-        "noGlobalIsFinite": "off",
-        "noGlobalIsNan": "off",
-        "useAwait": "off"
-      },
-      "style": {
-        "noDefaultExport": "off",
-        "noInferrableTypes": "off",
-        "noNamespaceImport": "off",
-        "noNonNullAssertion": "off",
-        "noParameterAssign": "off",
-        "useBlockStatements": "off",
-        "useFilenamingConvention": "off",
-        "useNamingConvention": "off",
-        "useNumberNamespace": "off",
-        "useSingleCaseStatement": "off"
-      },
-      "complexity": {
-        "noBannedTypes": "off",
-        "noForEach": "off",
-        "noStaticOnlyClass": "off",
-        "noExcessiveCognitiveComplexity": {
-          "level": "warn",
-          "options": {
-            "maxAllowedComplexity": 255
-          }
+    "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+    "organizeImports": {
+        "enabled": true
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "all": true,
+            "suspicious": {
+                "noConfusingVoidType": "off",
+                "noConsoleLog": "off",
+                "noEmptyBlockStatements": "off",
+                "noExplicitAny": "off",
+                "noGlobalIsFinite": "off",
+                "noGlobalIsNan": "off",
+                "useAwait": "off"
+            },
+            "style": {
+                "noDefaultExport": "off",
+                "noInferrableTypes": "off",
+                "noNamespaceImport": "off",
+                "noNonNullAssertion": "off",
+                "noParameterAssign": "off",
+                "useBlockStatements": "off",
+                "useFilenamingConvention": "off",
+                "useNamingConvention": "off",
+                "useNumberNamespace": "off",
+                "useSingleCaseStatement": "off"
+            },
+            "complexity": {
+                "noBannedTypes": "off",
+                "noForEach": "off",
+                "noStaticOnlyClass": "off",
+                "noExcessiveCognitiveComplexity": {
+                    "level": "warn",
+                    "options": {
+                        "maxAllowedComplexity": 255
+                    }
+                }
+            },
+            "security": {
+                "noGlobalEval": "off"
+            },
+            "correctness": {
+                "noNodejsModules": "off",
+                "noVoidTypeReturn": "off"
+            },
+            "performance": {
+                "noBarrelFile": "off"
+            }
         }
-      },
-      "security": {
-        "noGlobalEval": "off"
-      },
-      "correctness": {
-        "noNodejsModules": "off",
-        "noVoidTypeReturn": "off"
-      },
-      "performance": {
-        "noBarrelFile": "off"
-      }
-    }
-  },
-  "formatter": {
-    "enabled": true,
-    "indentWidth": 2,
-    "indentStyle": "space",
-    "lineEnding": "crlf",
-    "lineWidth": 140,
-    "formatWithErrors": true
-  },
-  "javascript": {
+    },
     "formatter": {
-      "quoteStyle": "double",
-      "arrowParentheses": "always",
-      "bracketSameLine": true,
-      "semicolons": "always"
+        "enabled": true,
+        "indentWidth": 4,
+        "indentStyle": "space",
+        "lineEnding": "crlf",
+        "lineWidth": 140,
+        "formatWithErrors": true
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "double",
+            "arrowParentheses": "always",
+            "bracketSameLine": true,
+            "semicolons": "always"
+        }
+    },
+    "files": {
+        "ignoreUnknown": false,
+        "ignore": [".vscode", "dist", "locales", "node_modules"]
     }
-  },
-  "files": {
-    "ignoreUnknown": false,
-    "ignore": [".vscode", "dist", "locales", "node_modules"]
-  }
 }
