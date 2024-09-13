@@ -36,12 +36,6 @@ export default class Lyrics extends Command {
         const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
 
-        if (!(player && !player.isPlaying)) {
-            return await ctx.sendMessage({
-                embeds: [embed.setColor(client.color.red).setDescription(ctx.locale("cmd.lyrics.errors.no_playing"))],
-            });
-        }
-
         const currentTrack = player.current;
         const trackTitle = currentTrack.info.title.replace(/\[.*?\]/g, "").trim();
         const artistName = currentTrack.info.author.replace(/\[.*?\]/g, "").trim();

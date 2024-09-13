@@ -494,9 +494,6 @@
 				"playlist_stolen": "Berhasil mencuri playlist `{playlist}` dari {user}.",
 				"error_occurred": "Terjadi kesalahan saat mencuri Playlist."
 			}
-		},
-		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track."
 		}
 	},
 	"buttons": {

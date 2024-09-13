@@ -494,9 +494,6 @@
 				"playlist_stolen": "已成功從 {user} 竊取播放清單 `{playlist}`。",
 				"error_occurred": "竊取播放清單時出錯。"
 			}
-		},
-		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track."
 		}
 	},
 	"buttons": {

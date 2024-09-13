@@ -494,9 +494,6 @@
 				"playlist_stolen": "Stjal spillelisten `{playlist}` fra {user}.",
 				"error_occurred": "En feil oppstod under stjeling av spillelisten."
 			}
-		},
-		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track."
 		}
 	},
 	"buttons": {

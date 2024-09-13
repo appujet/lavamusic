@@ -269,7 +269,6 @@
 			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
 			"errors": {
 				"no_results": "No lyrics found for the current track.",
-				"no_playing": "No track is currently playing.",
 				"lyrics_error": "An error occurred while getting the lyrics."
 			}
 		},

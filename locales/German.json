@@ -494,9 +494,6 @@
 				"language": "Die Sprache, die du einstellen möchtest",
 				"reset": "Ändere die Sprache zurück zur Standardsprache"
 			}
-		},
-		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track."
 		}
 	},
 	"buttons": {
