@@ -494,6 +494,9 @@
 				"playlist_stolen": "{user} からプレイリスト `{playlist}` を正常に盗みました。",
 				"error_occurred": "プレイリストの盗難中にエラーが発生しました。"
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track."
 		}
 	},
 	"buttons": {

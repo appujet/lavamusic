@@ -494,6 +494,9 @@
 				"playlist_stolen": "Đã đánh cắp danh sách phát `{playlist}` từ {user} thành công.",
 				"error_occurred": "Đã xảy ra lỗi khi đánh cắp danh sách phát."
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track."
 		}
 	},
 	"buttons": {

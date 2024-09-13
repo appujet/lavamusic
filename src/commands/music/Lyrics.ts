@@ -1,6 +1,6 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
-import { getLyrics } from "genius-lyrics-api";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } from "discord.js";
+import { getLyrics } from "genius-lyrics-api";
+import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
 export default class Lyrics extends Command {
     constructor(client: Lavamusic) {

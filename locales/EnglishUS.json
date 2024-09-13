@@ -264,7 +264,7 @@
 			"looping_off": "**Looping is now off.**"
 		},
 		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track.",
+			"description": "Get's the lyrics of the currently playing track",
 			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
 			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
 			"errors": {

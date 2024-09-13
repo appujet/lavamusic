@@ -494,6 +494,9 @@
 				"playlist_stolen": "Pomyślnie skradziono playlistę `{playlist}` od {user}.",
 				"error_occurred": "Wystąpił błąd podczas kradzieży playlisty."
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track."
 		}
 	},
 	"buttons": {
