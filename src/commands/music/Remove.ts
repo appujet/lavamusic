@@ -41,7 +41,7 @@ export default class Remove extends Command {
         const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
 
-        if (!player.queue.length)
+        if (player.queue.length === 0)
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.remove.errors.no_songs"))],
             });

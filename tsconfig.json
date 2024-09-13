@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "target": "EsNext",
-    "module": "EsNext",
-    "lib": ["EsNext"],
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["esnext"],
     "declaration": true,
     "sourceMap": true,
+    "newLine": "crlf",
     "outDir": "dist",
     "rootDir": "src",
     "strict": false,

@@ -104,7 +104,7 @@ export default class SetupButtons extends Event {
                     break;
                 }
                 case "SKIP_BUT":
-                    if (!player.queue.length) {
+                    if (player.queue.length === 0) {
                         return await buttonReply(interaction, T(locale, "event.setupButton.no_music_to_skip"), this.client.color.main);
                     }
                     player.skip();

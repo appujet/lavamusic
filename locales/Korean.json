@@ -263,6 +263,15 @@
 			"looping_queue": "**대기열 반복이 켜졌어요.**",
 			"looping_off": "**반복이 꺼졌어요.**"
 		},
+		"lyrics": {
+			"description": "현재 재생중인 노래의 가사를 가져와요",
+			"lyrics_track": "### [{trackTitle}]({trackUrl})의 노래 가사\n**`{lyrics}`**",
+			"searching": "`🔍` **{trackTitle}**의 가사 검색 중...",
+			"errors": {
+				"no_results": "가사를 찾지 못했어요.",
+				"lyrics_error": "가사를 검색하는 도중 오류가 발생했어요."
+			}
+		},
 		"nowplaying": {
 			"description": "현재 재생중인 노래를 확인해요",
 			"now_playing": "재생 중",
@@ -526,15 +535,15 @@
 			"author": "게시자",
 			"not_connected_to_voice_channel": "이 버튼을 사용하려면 먼저 <#{channel}>에 있어야 해요.",
 			"need_dj_role": "이 명령어를 사용하려면 DJ 권한이 있어야 해요.",
-			"previous_by": "{user}에 의해 이전 노래 재생 중",
+			"previous_by": "{user}님에 의해 이전 노래 재생 중",
 			"no_previous_song": "이전 노래가 없어요.",
-			"paused_by": "{user}에 의해 일시정지됨",
-			"resumed_by": "{user}에 의해 재계됨",
-			"skipped_by": "{user}에 의해 스킵됨",
+			"paused_by": "{user}님에 의해 일시정지됨",
+			"resumed_by": "{user}님에 의해 재계됨",
+			"skipped_by": "{user}님에 의해 스킵됨",
 			"no_more_songs_in_queue": "대기열에 더 이상 노래가 없어요.",
-			"looping_by": "{user}에 의해 한곡 반복 중",
-			"looping_queue_by": "{user}에 의해 대기열 반복 중",
-			"looping_off_by": "{user}에 의해 반복 꺼짐"
+			"looping_by": "{user}님에 의해 한곡 반복 중",
+			"looping_queue_by": "{user}님에 의해 대기열 반복 중",
+			"looping_off_by": "{user}님에 의해 반복 꺼짐"
 		},
 		"setupStart": {
 			"now_playing": "재생 중",
@@ -604,25 +613,25 @@
 			"paused": "일시정지",
 			"resumed": "재계",
 			"pause_resume": "음악이 {name}되었어요.",
-			"pause_resume_footer": "{displayName}에 의해 {name}됨",
+			"pause_resume_footer": "{displayName}님에 의해 {name}됨",
 			"no_music_to_skip": "스킵할 노래가 없어요.",
 			"skipped": "노래를 스킵했어요.",
-			"skipped_footer": "{displayName}에 의해 스킵됨",
+			"skipped_footer": "{displayName}님에 의해 스킵됨",
 			"stopped": "노래를 정지했어요.",
-			"stopped_footer": "{displayName}에 의해 정지됨",
-			"nothing_playing": "재생 중인 노래가 없어요.",
+			"stopped_footer": "{displayName}님에 의해 정지됨",
+			"nothing_playing": "재생 중인 노래 없음",
 			"loop_set": "{loop} 반복으로 설정했어요.",
-			"loop_footer": "{displayName}에 의해 {loop} 반복으로 설정됨",
+			"loop_footer": "{displayName}님에 의해 {loop} 반복으로 설정됨",
 			"shuffled": "노래를 섞었어요.",
 			"no_previous_track": "이전 노래가 없어요.",
 			"playing_previous": "이전 노래를 재생할게요.",
-			"previous_footer": "{displayName}에 의해 이전 노래 재생 중",
+			"previous_footer": "{displayName}님에 의해 이전 노래 재생 중",
 			"rewind_limit": "현재 노래 길이보다 더 되감기할 수 없어요.",
 			"rewinded": "노래를 되감기했어요.",
-			"rewind_footer": "{displayName}에 의해 노래 되감기됨",
+			"rewind_footer": "{displayName}님에 의해 노래 되감기됨",
 			"forward_limit": "현재 노래 길이보다 더 빨리감기할 수 없어요.",
 			"forwarded": "노래를 빨리감기했어요.",
-			"forward_footer": "{displayName}에 의해 빨리감기됨",
+			"forward_footer": "{displayName}님에 의해 빨리감기됨",
 			"button_not_available": "이 버튼은 사용할 수 없어요.",
 			"no_music_playing": "현재 재생 중인 노래가 없어요."
 		}

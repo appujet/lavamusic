@@ -187,7 +187,7 @@ function createCollector(message: any, dispatcher: Dispatcher, _track: Song, emb
                 await interaction.deferUpdate();
                 break;
             case "skip":
-                if (dispatcher.queue.length) {
+                if (dispatcher.queue.length > 0) {
                     await interaction.deferUpdate();
                     dispatcher.skip();
                     await editMessage(

@@ -185,7 +185,7 @@ export default class MessageCreate extends Event {
                 }
             }
 
-            if (command.args && !args.length) {
+            if (command.args && args.length === 0) {
                 const embed = this.client
                     .embed()
                     .setColor(this.client.color.red)

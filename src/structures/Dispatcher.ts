@@ -78,7 +78,7 @@ export default class Dispatcher {
         this.player
             .on("start", () => this.client.shoukaku.emit("trackStart" as any, this.player, this.current, this))
             .on("end", () => {
-                if (!this.queue.length) {
+                if (this.queue.length === 0) {
                     this.client.shoukaku.emit("queueEnd" as any, this.player, this.current, this);
                 }
                 this.client.shoukaku.emit("trackEnd" as any, this.player, this.current, this);
@@ -96,8 +96,8 @@ export default class Dispatcher {
     }
 
     public play(): Promise<void> {
-        if (!(this.exists && (this.queue.length || this.current))) return;
-        this.current = this.queue.length ? this.queue.shift() : this.queue[0];
+        if (!(this.exists && (this.queue.length > 0 || this.current))) return;
+        this.current = this.queue.length > 0 ? this.queue.shift() : this.queue[0];
         if (this.current) {
             this.player.playTrack({ track: { encoded: this.current.encoded } });
             this.history.push(this.current);
@@ -184,7 +184,7 @@ export default class Dispatcher {
     }
 
     public async isPlaying(): Promise<void> {
-        if (this.queue.length && !this.current && !this.player.paused) {
+        if (this.queue.length > 0 && !this.current && !this.player.paused) {
             await this.play();
         }
     }

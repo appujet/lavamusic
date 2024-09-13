@@ -264,12 +264,11 @@
 			"looping_off": "**Looping is now off.**"
 		},
 		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track.",
+			"description": "Get's the lyrics of the currently playing track",
 			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
 			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
 			"errors": {
 				"no_results": "No lyrics found for the current track.",
-				"no_playing": "No track is currently playing.",
 				"lyrics_error": "An error occurred while getting the lyrics."
 			}
 		},
@@ -620,7 +619,7 @@
 			"skipped_footer": "Skipped by {displayName}",
 			"stopped": "Stopped the music.",
 			"stopped_footer": "Stopped by {displayName}",
-			"nothing_playing": "Nothing is playing right now.",
+			"nothing_playing": "Nothing is playing right now",
 			"loop_set": "Loop set to {loop}.",
 			"loop_footer": "Loop set to {loop} by {displayName}",
 			"shuffled": "Shuffled the queue.",
