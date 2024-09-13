@@ -55,6 +55,7 @@ export default {
     guildId: process.env.GUILD_ID,
     logChannelId: process.env.LOG_CHANNEL_ID,
     commandLogs: process.env.LOG_COMMANDS_ID,
+    lyricsApi: process.env.GENIUS_API,
     links: {
         img: process.env.IMG_LINK || "https://i.imgur.com/ud3EWNh.jpg",
     },
