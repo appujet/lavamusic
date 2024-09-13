@@ -10,7 +10,9 @@
       "suspicious": {
         "noConfusingVoidType": "off",
         "noConsole": "off",
+        "noConsoleLog": "off",
         "noEmptyBlockStatements": "off",
+        "noEvolvingTypes": "off",
         "noExplicitAny": "off",
         "noGlobalIsFinite": "off",
         "noGlobalIsNan": "off",
@@ -23,6 +25,7 @@
         "noNonNullAssertion": "off",
         "noParameterAssign": "off",
         "useBlockStatements": "off",
+        "useDefaultSwitchClause": "off",
         "useFilenamingConvention": "off",
         "useNamingConvention": "off",
         "useNumberNamespace": "off",
@@ -47,7 +50,8 @@
         "noVoidTypeReturn": "off"
       },
       "performance": {
-        "noBarrelFile": "off"
+        "noBarrelFile": "off",
+        "useTopLevelRegex": "off"
       }
     }
   },
