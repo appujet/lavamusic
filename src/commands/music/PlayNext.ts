@@ -167,7 +167,7 @@ export default class PlayNext extends Command {
         const res = await this.client.queue.search(focusedValue);
         const songs = [];
 
-        if (res.loadType === LoadType.SEARCH && res.data.length) {
+        if (res.loadType === LoadType.SEARCH && res.data.length > 0) {
             res.data.slice(0, 10).forEach((x) => {
                 let name = `${x.info.title} by ${x.info.author}`;
                 if (name.length > 100) {

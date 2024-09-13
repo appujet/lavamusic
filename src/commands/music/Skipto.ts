@@ -42,7 +42,7 @@ export default class Skipto extends Command {
         const embed = this.client.embed();
         const num = Number(args[0]);
 
-        if (!player.queue.length || isNaN(num) || num > player.queue.length || num < 1) {
+        if (player.queue.length === 0 || isNaN(num) || num > player.queue.length || num < 1) {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.skipto.errors.invalid_number"))],
             });

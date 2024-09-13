@@ -55,7 +55,7 @@ export default class LoadPlaylist extends Command {
         }
 
         const songs = await client.db.getSongs(ctx.author.id, playlistName);
-        if (!songs.length) {
+        if (songs.length === 0) {
             return await ctx.sendMessage({
                 embeds: [
                     {

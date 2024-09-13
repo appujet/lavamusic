@@ -163,7 +163,7 @@ export default class Play extends Command {
         const songs = [];
 
         if (res?.loadType) {
-            if (res.loadType === LoadType.SEARCH && res.data.length) {
+            if (res.loadType === LoadType.SEARCH && res.data.length > 0) {
                 res.data.slice(0, 10).forEach((track) => {
                     const name = `${track.info.title} by ${track.info.author}`;
                     songs.push({
@@ -171,7 +171,7 @@ export default class Play extends Command {
                         value: track.info.uri,
                     });
                 });
-            } else if (res.loadType === LoadType.PLAYLIST && res.data.tracks.length) {
+            } else if (res.loadType === LoadType.PLAYLIST && res.data.tracks.length > 0) {
                 res.data.tracks.slice(0, 10).forEach((track) => {
                     const name = `${track.info.title} by ${track.info.author}`;
                     songs.push({

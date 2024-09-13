@@ -33,7 +33,7 @@ export default class Shuffle extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild!.id);
         const embed = this.client.embed();
-        if (!player.queue.length) {
+        if (player.queue.length === 0) {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
             });

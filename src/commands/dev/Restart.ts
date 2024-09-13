@@ -66,7 +66,7 @@ export default class Restart extends Command {
         });
 
         collector.on("end", async () => {
-            if (!collector.collected.size) {
+            if (collector.collected.size === 0) {
                 await msg.edit({
                     content: "Restart cancelled.",
                     components: [],
