@@ -18,8 +18,8 @@ import {
     type TextChannel,
     type User,
 } from "discord.js";
-import { T } from "./I18n.js";
-import type { Lavamusic } from "./index.js";
+import { T } from "./I18n";
+import type { Lavamusic } from "./index";
 
 export default class Context {
     public ctx: CommandInteraction | Message;

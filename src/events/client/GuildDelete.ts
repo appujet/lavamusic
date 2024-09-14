@@ -1,5 +1,5 @@
 import { EmbedBuilder, type Guild, type GuildMember, type TextChannel } from "discord.js";
-import { Event, type Lavamusic } from "../../structures/index.js";
+import { Event, type Lavamusic } from "../../structures/index";
 
 export default class GuildDelete extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -49,7 +49,7 @@ export default class GuildDelete extends Event {
             )
             .setTimestamp();
 
-        const logChannelId = this.client.config.logChannelId;
+        const logChannelId = this.client.env.LOG_CHANNEL_ID;
         if (!logChannelId) {
             this.client.logger.error("Log channel ID not found in configuration.");
             return;

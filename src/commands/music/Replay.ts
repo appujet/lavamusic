@@ -1,4 +1,4 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Replay extends Command {
     constructor(client: Lavamusic) {
@@ -31,10 +31,10 @@ export default class Replay extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild!.id);
+        const player = client.manager.getPlayer(ctx.guild!.id);
         const embed = this.client.embed();
 
-        if (!player.current?.info.isSeekable) {
+        if (!player.queue.current?.info.isSeekable) {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.replay.errors.not_seekable"))],
             });

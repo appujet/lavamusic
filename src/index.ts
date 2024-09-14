@@ -1,9 +1,7 @@
 import * as fs from "node:fs";
-import { ShardingManager } from "discord.js";
-
-import config from "./config.js";
-import Logger from "./structures/Logger.js";
-import { ThemeSelector } from "./utils/ThemeSelector.js";
+import Logger from "./structures/Logger";
+import { ThemeSelector } from "./utils/ThemeSelector";
+import { shardStart } from "./shard";
 
 const logger = new Logger();
 
@@ -18,39 +16,20 @@ function setConsoleTitle(title: string): void {
     process.stdout.write(`\x1b]0;${title}\x07`);
 }
 
-async function main(): Promise<void> {
-    try {
-        if (!fs.existsSync("./src/utils/LavaLogo.txt")) {
-            logger.error("LavaLogo.txt file is missing");
-            process.exit(1);
-        }
-        console.clear();
-        // Set a custom title for the console window
-        setConsoleTitle("Lavamusic");
-        const logFile = fs.readFileSync("./src/utils/LavaLogo.txt", "utf-8");
-        console.log(theme.purpleNeon(logFile));
-        const manager = new ShardingManager("./dist/LavaClient.js", {
-            respawn: true,
-            token: config.token,
-            totalShards: "auto",
-            shardList: "auto",
-        });
-
-        manager.on("shardCreate", (shard) => {
-            shard.on("ready", () => {
-                logger.start(`[CLIENT] Shard ${shard.id} connected to Discord's Gateway.`);
-            });
-        });
-
-        await manager.spawn();
-
-        logger.start(`[CLIENT] ${manager.totalShards} shard(s) spawned.`);
-    } catch (err) {
-        logger.error("[CLIENT] An error has occurred:", err);
+try {
+    if (!fs.existsSync("./src/utils/LavaLogo.txt")) {
+        logger.error("LavaLogo.txt file is missing");
+        process.exit(1);
     }
+    console.clear();
+    // Set a custom title for the console window
+    setConsoleTitle("Lavamusic");
+    const logFile = fs.readFileSync("./src/utils/LavaLogo.txt", "utf-8");
+    console.log(theme.purpleNeon(logFile));
+    shardStart(logger);
+} catch (err) {
+    logger.error("[CLIENT] An error has occurred:", err);
 }
-
-main();
 
 /**
  * Project: lavamusic

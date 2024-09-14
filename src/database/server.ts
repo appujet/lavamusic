@@ -1,5 +1,5 @@
-import { type Dj, type Guild, type Playlist, PrismaClient, type Role, type Setup, type Song, type Stay } from "@prisma/client";
-import config from "../config.js";
+import { type Dj, type Guild, type Playlist, PrismaClient, type Role, type Setup, type Stay } from "@prisma/client";
+import { env } from "../env";
 
 export default class ServerData {
     private prisma: PrismaClient;
@@ -16,7 +16,7 @@ export default class ServerData {
         return await this.prisma.guild.create({
             data: {
                 guildId,
-                prefix: config.prefix,
+                prefix: env.PREFIX,
             },
         });
     }
@@ -31,7 +31,7 @@ export default class ServerData {
 
     public async getPrefix(guildId: string): Promise<string> {
         const guild = await this.get(guildId);
-        return guild?.prefix ?? config.prefix;
+        return guild?.prefix ?? env.PREFIX;
     }
 
     public async updateLanguage(guildId: string, language: string): Promise<void> {
@@ -43,7 +43,7 @@ export default class ServerData {
 
     public async getLanguage(guildId: string): Promise<string> {
         const guild = await this.get(guildId);
-        return guild?.language ?? config.defaultLanguage;
+        return guild?.language ?? env.DEFAULT_LANGUAGE;
     }
 
     public async getSetup(guildId: string): Promise<Setup | null> {
@@ -125,18 +125,22 @@ export default class ServerData {
         await this.prisma.playlist.create({ data: { userId, name } });
     }
 
-    public async createPlaylistWithSongs(userId: string, name: string, songs: any[]): Promise<void> {
+    // createPlaylist with tracks
+    public async createPlaylistWithTracks(userId: string, name: string, tracks: string[]): Promise<void> {
         await this.prisma.playlist.create({
             data: {
                 userId,
                 name,
-                songs: {
-                    create: songs.map((song) => ({ track: song.track })),
-                },
+                tracks: JSON.stringify(tracks),
             },
         });
     }
-
+    /**
+     * Deletes a playlist from the database
+     *
+     * @param userId The ID of the user that owns the playlist
+     * @param name The name of the playlist to delete
+     */
     public async deletePlaylist(userId: string, name: string): Promise<void> {
         await this.prisma.playlist.delete({
             where: { userId_name: { userId, name } },
@@ -144,68 +148,119 @@ export default class ServerData {
     }
 
     public async deleteSongsFromPlaylist(userId: string, playlistName: string): Promise<void> {
+        // Fetch the playlist
         const playlist = await this.getPlaylist(userId, playlistName);
+
         if (playlist) {
-            await this.prisma.song.deleteMany({
+            // Update the playlist and reset the tracks to an empty array
+            await this.prisma.playlist.update({
                 where: {
-                    playlistId: playlist.id,
+                    userId_name: {
+                        userId,
+                        name: playlistName,
+                    },
+                },
+                data: {
+                    tracks: JSON.stringify([]), // Set tracks to an empty array
                 },
             });
         }
     }
 
-    public async addSong(userId: string, name: string, song: string): Promise<void> {
-        const playlist = await this.getPlaylist(userId, name);
+    public async addTracksToPlaylist(userId: string, playlistName: string, tracks: string[]) {
+        // Serialize the tracks array into a JSON string
+        const tracksJson = JSON.stringify(tracks);
+
+        // Check if the playlist already exists for the user
+        const playlist = await this.prisma.playlist.findUnique({
+            where: {
+                userId_name: {
+                    userId,
+                    name: playlistName,
+                },
+            },
+        });
+
         if (playlist) {
-            await this.prisma.song.create({
+            // If the playlist exists, handle existing tracks
+            const existingTracks = playlist.tracks ? JSON.parse(playlist.tracks) : []; // Initialize as an empty array if null
+
+            if (Array.isArray(existingTracks)) {
+                // Merge new and existing tracks
+                const updatedTracks = [...existingTracks, ...tracks];
+
+                // Update the playlist with the new tracks
+                await this.prisma.playlist.update({
+                    where: {
+                        userId_name: {
+                            userId,
+                            name: playlistName,
+                        },
+                    },
+                    data: {
+                        tracks: JSON.stringify(updatedTracks), // Store the updated tracks as a serialized JSON string
+                    },
+                });
+            } else {
+                throw new Error('Existing tracks are not in an array format.');
+            }
+        } else {
+            // If no playlist exists, create a new one with the provided tracks
+            await this.prisma.playlist.create({
                 data: {
-                    track: JSON.stringify(song),
-                    playlistId: playlist.id,
+                    userId,
+                    name: playlistName,
+                    tracks: tracksJson, // Store the serialized JSON string
                 },
             });
-        } else {
-            await this.createPlaylist(userId, name);
-            await this.addSong(userId, name, song);
         }
     }
 
     public async removeSong(userId: string, playlistName: string, encodedSong: string): Promise<void> {
         const playlist = await this.getPlaylist(userId, playlistName);
         if (playlist) {
-            await this.prisma.song.deleteMany({
-                where: {
-                    playlistId: playlist.id,
-                    track: { contains: encodedSong },
+            const tracks: string[] = JSON.parse(playlist.tracks);
+
+            // Find the index of the song to remove
+            const songIndex = tracks.indexOf(encodedSong);
+
+            if (songIndex !== -1) {
+                // Remove the song from the array
+                tracks.splice(songIndex, 1);
+
+                // Update the playlist with the new list of tracks
+                await this.prisma.playlist.update({
+                    where: {
+                        userId_name: {
+                            userId,
+                            name: playlistName,
+                        },
+                    },
+                    data: {
+                        tracks: JSON.stringify(tracks), // Re-serialize the updated array back to a string
+                    },
+                });
+            }
+        }
+    }
+
+    public async getTracksFromPlaylist(userId: string, playlistName: string) {
+        const playlist = await this.prisma.playlist.findUnique({
+            where: {
+                userId_name: {
+                    userId,
+                    name: playlistName,
                 },
-            });
+            },
+        });
+
+        if (!playlist) {
+            return null;
         }
-    }
 
-    public async getSongs(userId: string, name: string): Promise<Song[]> {
-        const playlist = await this.getPlaylist(userId, name);
-        if (playlist) {
-            return this.prisma.song.findMany({ where: { playlistId: playlist.id } });
-        }
-        return [];
-    }
-
-    public async clearPlaylist(userId: string, name: string): Promise<void> {
-        const playlist = await this.getPlaylist(userId, name);
-        if (playlist) {
-            await this.prisma.song.deleteMany({ where: { playlistId: playlist.id } });
-        }
-    }
-
-    public async clearPlaylists(userId: string): Promise<void> {
-        await this.prisma.playlist.deleteMany({ where: { userId } });
-    }
-
-    public async clearAllPlaylists(): Promise<void> {
-        await this.prisma.playlist.deleteMany();
-    }
-
-    public async clearAllSongs(): Promise<void> {
-        await this.prisma.song.deleteMany();
+        // Deserialize the tracks JSON string back into an array
+        const tracks = JSON.parse(playlist.tracks);
+        return tracks;
     }
 }
 

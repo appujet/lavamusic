@@ -1,12 +1,9 @@
-import Command from "./Command.js";
-import Context from "./Context.js";
-import Dispatcher from "./Dispatcher.js";
-import Event from "./Event.js";
-import Lavamusic from "./Lavamusic.js";
-import { Queue } from "./Queue.js";
-import ShoukakuClient from "./Shoukaku.js";
+import Command from "./Command";
+import Context from "./Context";
+import Event from "./Event";
+import Lavamusic from "./Lavamusic";
 
-export { Event, Queue, Command, Lavamusic, Context, ShoukakuClient, Dispatcher };
+export { Event, Command, Lavamusic, Context };
 
 /**
  * Project: lavamusic

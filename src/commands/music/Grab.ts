@@ -1,4 +1,5 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
+import type { Requester } from "../../types";
 
 export default class Grab extends Command {
     constructor(client: Lavamusic) {
@@ -31,24 +32,24 @@ export default class Grab extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild!.id);
+        const player = client.manager.getPlayer(ctx.guild!.id);
 
         await ctx.sendDeferMessage(ctx.locale("cmd.grab.loading"));
 
-        if (!player?.current) {
+        if (!player?.queue.current) {
             return await ctx.sendMessage({
                 embeds: [this.client.embed().setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
             });
         }
 
-        const song = player.current;
+        const song = player.queue.current;
 
         const songInfo = ctx.locale("cmd.grab.content", {
             title: song.info.title,
             uri: song.info.uri,
             artworkUrl: song.info.artworkUrl,
-            length: song.info.isStream ? "LIVE" : client.utils.formatTime(song.info.length),
-            requester: song.info.requester,
+            length: song.info.isStream ? "LIVE" : client.utils.formatTime(song.info.duration),
+            requester: `<@${(song.requester as Requester).id}>`,
         });
 
         try {

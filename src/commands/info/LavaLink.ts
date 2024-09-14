@@ -1,4 +1,4 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class LavaLink extends Command {
     constructor(client: Lavamusic) {
@@ -31,7 +31,7 @@ export default class LavaLink extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const nodes = client.shoukaku.nodes;
+        const nodes = client.manager.nodeManager.nodes;
         const nodesPerPage = 2;
 
         const nodeArray = Array.from(nodes.values());

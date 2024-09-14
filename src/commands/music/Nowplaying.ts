@@ -1,4 +1,4 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Nowplaying extends Command {
     constructor(client: Lavamusic) {
@@ -31,10 +31,10 @@ export default class Nowplaying extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild!.id)!;
-        const track = player.current!;
-        const position = player.player.position;
-        const duration = track.info.length;
+        const player = client.manager.getPlayer(ctx.guild!.id);
+        const track = player.queue.current!;
+        const position = player.position;
+        const duration = track.info.duration;
         const bar = client.utils.progressBar(position, duration, 20);
 
         const embed = this.client
@@ -49,7 +49,7 @@ export default class Nowplaying extends Command {
                 ctx.locale("cmd.nowplaying.track_info", {
                     title: track.info.title,
                     uri: track.info.uri,
-                    requester: track.info.requester,
+                    requester: `<@${(track.requester as any).id}>`,
                     bar: bar,
                 }),
             )

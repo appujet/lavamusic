@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { Api } from "@top-gg/sdk";
 import {
     ApplicationCommandType,
@@ -15,15 +14,15 @@ import {
     Routes,
 } from "discord.js";
 import { Locale } from "discord.js";
-import config from "../config.js";
-import ServerData from "../database/server.js";
-import loadPlugins from "../plugin/index.js";
-import { Utils } from "../utils/Utils.js";
-import { T, i18n, initI18n, localization } from "./I18n.js";
-import Logger from "./Logger.js";
-import { type Command, Queue, ShoukakuClient } from "./index.js";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import config from "../config";
+import ServerData from "../database/server";
+import loadPlugins from "../plugin/index";
+import { Utils } from "../utils/Utils";
+import { T, i18n, initI18n, localization } from "./I18n";
+import Logger from "./Logger";
+import type { Command } from "./index";
+import { env } from "../env";
+import LavalinkClient from "./LavalinkClient";
 
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
@@ -35,20 +34,22 @@ export default class Lavamusic extends Client {
     public readonly emoji = config.emoji;
     public readonly color = config.color;
     private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
-    public shoukaku!: ShoukakuClient;
     public topGG!: Api;
-    public utils = Utils;
-    public queue = new Queue(this);
-
+    public utils = Utils;;
+    public env: typeof env = env;
+    public manager: LavalinkClient;
     public embed(): EmbedBuilder {
         return new EmbedBuilder();
     }
 
     public async start(token: string): Promise<void> {
         initI18n();
-        const nodes = this.config.autoNode ? await this.getNodes() : this.config.lavalink;
-        this.shoukaku = new ShoukakuClient(this, nodes);
-        this.topGG = new Api(this.config.topGG);
+        if (env.TOPGG) {
+            this.topGG = new Api(env.TOPGG);
+        } else {
+            this.logger.warn("Top.gg token not found!");
+        }
+        this.manager = new LavalinkClient(this);
         await this.loadCommands();
         this.logger.info("Successfully loaded commands!");
         await this.loadEvents();
@@ -67,15 +68,14 @@ export default class Lavamusic extends Client {
     }
 
     private async loadCommands(): Promise<void> {
-        const commandsPath = path.join(__dirname, "../commands");
-        const commandDirs = fs.readdirSync(commandsPath);
+        const commandsPath = fs.readdirSync(path.join(__dirname, "../commands"));
 
-        for (const dir of commandDirs) {
-            const commandFiles = fs.readdirSync(path.join(commandsPath, dir)).filter((file) => file.endsWith(".js"));
+        for (const dir of commandsPath) {
+            const commandFiles = fs.readdirSync(path.join(__dirname, "../commands", dir)).filter((file) => file.endsWith(".js"));
 
             for (const file of commandFiles) {
-                const cmdModule = await import(`../commands/${dir}/${file}`);
-                const command: Command = new cmdModule.default(this);
+                const cmdModule = require(`../commands/${dir}/${file}`);
+                const command: Command = new cmdModule.default(this, file);
                 command.category = dir;
 
                 this.commands.set(command.name, command);
@@ -174,7 +174,7 @@ export default class Lavamusic extends Client {
             : Routes.applicationCommands(this.user?.id ?? "");
 
         try {
-            const rest = new REST({ version: "10" }).setToken(this.config.token ?? "");
+            const rest = new REST({ version: "10" }).setToken(env.TOKEN ?? "");
             await rest.put(route, { body: this.body });
             this.logger.info("Successfully deployed slash commands!");
         } catch (error) {
@@ -197,18 +197,19 @@ export default class Lavamusic extends Client {
     }
 
     private async loadEvents(): Promise<void> {
-        const eventsPath = path.join(__dirname, "../events");
-        const eventDirs = fs.readdirSync(eventsPath);
+        const eventsPath = fs.readdirSync(path.join(__dirname, "..", "events"));
 
-        for (const dir of eventDirs) {
-            const eventFiles = fs.readdirSync(path.join(eventsPath, dir)).filter((file) => file.endsWith(".js"));
+        for (const dir of eventsPath) {
+            const eventFiles = fs.readdirSync(path.join(__dirname, "..", "events", dir)).filter((file) => file.endsWith(".js"));
 
             for (const file of eventFiles) {
-                const eventModule = await import(`../events/${dir}/${file}`);
+                const eventModule = require(`../events/${dir}/${file}`);
                 const event = new eventModule.default(this, file);
 
                 if (dir === "player") {
-                    this.shoukaku.on(event.name, (...args) => event.run(...args));
+                    this.manager.on(event.name, (...args) => event.run(...args));
+                } else if (dir === "node") {
+                    this.manager.nodeManager.on(event.name, (...args) => event.run(...args));
                 } else {
                     this.on(event.name, (...args) => event.run(...args));
                 }

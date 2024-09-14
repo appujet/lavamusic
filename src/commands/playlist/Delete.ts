@@ -1,5 +1,5 @@
 import type { AutocompleteInteraction } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class DeletePlaylist extends Command {
     constructor(client: Lavamusic) {

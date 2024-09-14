@@ -1,7 +1,7 @@
 import util from "node:util";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { fetch } from "undici";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Eval extends Command {
     constructor(client: Lavamusic) {

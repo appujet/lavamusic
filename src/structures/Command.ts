@@ -1,5 +1,5 @@
 import type { APIApplicationCommandOption, PermissionResolvable } from "discord.js";
-import type Lavamusic from "./Lavamusic.js";
+import type Lavamusic from "./Lavamusic";
 
 interface CommandDescription {
     content: string;

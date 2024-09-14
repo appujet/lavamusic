@@ -1,6 +1,6 @@
 import { AutoPoster } from "topgg-autoposter";
-import config from "../../config.js";
 import { Event, type Lavamusic } from "../../structures/index.js";
+import { env } from "../../env.js";
 
 export default class Ready extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -15,21 +15,22 @@ export default class Ready extends Event {
         this.client.user?.setPresence({
             activities: [
                 {
-                    name: config.botActivity,
-                    type: config.botActivityType,
+                    name: env.BOT_ACTIVITY,
+                    type: env.BOT_ACTIVITY_TYPE,
                 },
             ],
-            status: config.botStatus as any,
+            status: env.BOT_STATUS as any,
         });
 
-        if (config.topGG) {
-            const autoPoster = AutoPoster(config.topGG, this.client);
+        if (env.TOPGG) {
+            const autoPoster = AutoPoster(env.TOPGG, this.client);
             setInterval(() => {
                 autoPoster.on("posted", (_stats) => {});
             }, 86400000); // 24 hours in milliseconds
         } else {
             this.client.logger.warn("Top.gg token not found. Skipping auto poster.");
         }
+        await this.client.manager.init({ ...this.client.user!, shards: "auto" });
     }
 }
 

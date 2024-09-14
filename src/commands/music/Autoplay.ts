@@ -1,4 +1,4 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Autoplay extends Command {
     constructor(client: Lavamusic) {
@@ -31,7 +31,7 @@ export default class Autoplay extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild!.id);
+        const player = client.manager.getPlayer(ctx.guild!.id);
         if (!player) {
             return await ctx.sendMessage({
                 embeds: [
@@ -44,8 +44,9 @@ export default class Autoplay extends Command {
         }
 
         const embed = this.client.embed();
-        const autoplay = player.autoplay;
-        player.setAutoplay(!autoplay);
+        const autoplay = player.get<boolean>("autoplay");
+
+        player.set("autoplay", !autoplay);
 
         if (autoplay) {
             embed.setDescription(ctx.locale("cmd.autoplay.messages.disabled")).setColor(this.client.color.main);

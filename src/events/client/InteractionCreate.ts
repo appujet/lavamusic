@@ -12,8 +12,8 @@ import {
     PermissionFlagsBits,
     type TextChannel,
 } from "discord.js";
-import { T } from "../../structures/I18n.js";
-import { Context, Event, type Lavamusic } from "../../structures/index.js";
+import { T } from "../../structures/I18n";
+import { Context, Event, type Lavamusic } from "../../structures/index";
 
 export default class InteractionCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -67,7 +67,7 @@ export default class InteractionCreate extends Event {
                     .catch(() => {});
             }
 
-            const logs = this.client.channels.cache.get(this.client.config.commandLogs);
+            const logs = this.client.channels.cache.get(this.client.env.LOG_COMMANDS_ID);
 
             if (command.permissions) {
                 if (command.permissions?.client) {
@@ -91,18 +91,18 @@ export default class InteractionCreate extends Event {
                     return;
                 }
 
-                if (command.permissions?.dev && this.client.config.owners) {
-                    const isDev = this.client.config.owners.includes(interaction.user.id);
+                if (command.permissions?.dev && this.client.env.OWNER_IDS) {
+                    const isDev = this.client.env.OWNER_IDS.includes(interaction.user.id);
                     if (!isDev) return;
                 }
             }
-            if (command.vote && this.client.config.topGG) {
+            if (command.vote && this.client.env.TOPGG) {
                 const voted = await this.client.topGG.hasVoted(interaction.user.id);
                 if (!voted) {
                     const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
                         new ButtonBuilder()
                             .setLabel(T(locale, "event.interaction.vote_button"))
-                            .setURL(`https://top.gg/bot/${this.client.config.clientId}/vote`)
+                            .setURL(`https://top.gg/bot/${this.client.user.id}/vote`)
                             .setStyle(ButtonStyle.Link),
                     );
 
@@ -156,8 +156,8 @@ export default class InteractionCreate extends Event {
                 }
 
                 if (command.player.active) {
-                    const queue = this.client.queue.get(interaction.guildId);
-                    if (!(queue?.queue && queue.current)) {
+                    const queue = this.client.manager.getPlayer(interaction.guildId);
+                    if (!queue.queue.current) {
                         return await interaction.reply({
                             content: T(locale, "event.interaction.no_music_playing"),
                         });

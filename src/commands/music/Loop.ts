@@ -1,4 +1,4 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Loop extends Command {
     constructor(client: Lavamusic) {
@@ -32,20 +32,20 @@ export default class Loop extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed().setColor(this.client.color.main);
-        const player = client.queue.get(ctx.guild!.id);
+        const player = client.manager.getPlayer(ctx.guild!.id);
         let loopMessage = "";
 
-        switch (player?.loop) {
+        switch (player?.repeatMode) {
             case "off":
-                player.loop = "repeat";
+                player.setRepeatMode("track")
                 loopMessage = ctx.locale("cmd.loop.looping_song");
                 break;
-            case "repeat":
-                player.loop = "queue";
+            case "track":
+                player.setRepeatMode("queue");
                 loopMessage = ctx.locale("cmd.loop.looping_queue");
                 break;
             case "queue":
-                player.loop = "off";
+                player.setRepeatMode("off");
                 loopMessage = ctx.locale("cmd.loop.looping_off");
                 break;
         }

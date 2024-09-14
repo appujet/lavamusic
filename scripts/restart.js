@@ -1,13 +1,13 @@
-import { exec } from "node:child_process";
+const { exec } = require("node:child_process");
 
-async function startLavamusic(): Promise<void> {
-    exec("npm start", (error, stderr) => {
+async function startLavamusic() {
+    exec("npm start", (error, stdout, stderr) => {
         if (error) {
             console.error(`Error starting Lavamusic: ${error.message}`);
             return;
         }
         if (stderr) {
-            console.error(`Error output: ${stderr}`);
+            console.error(`Error starting Lavamusic: ${stderr}`);
         }
     });
 }

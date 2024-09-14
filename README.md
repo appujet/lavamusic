@@ -32,7 +32,7 @@
 - User-friendly and Easy to Use
 - Highly Configurable
 - Customizable Prefix
-- Multilingual support
+- Multilingual support [Here](/Translation.md)
 - Hybrid Command Handling (Slash and Normal Commands)
 - Developed using TypeScript and Discord.js v14
 - Advanced Music System

@@ -1,6 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } from "discord.js";
 import { getLyrics } from "genius-lyrics-api";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Lyrics extends Command {
     constructor(client: Lavamusic) {
@@ -33,10 +33,10 @@ export default class Lyrics extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const player = client.queue.get(ctx.guild!.id);
+        const player = client.manager.getPlayer(ctx.guild!.id);
         const embed = this.client.embed();
 
-        const currentTrack = player.current;
+        const currentTrack = player.queue.current;
         const trackTitle = currentTrack.info.title.replace(/\[.*?\]/g, "").trim();
         const artistName = currentTrack.info.author.replace(/\[.*?\]/g, "").trim();
         const trackUrl = currentTrack.info.uri;
@@ -45,7 +45,7 @@ export default class Lyrics extends Command {
         await ctx.sendDeferMessage(ctx.locale("cmd.lyrics.searching", { trackTitle }));
 
         const options = {
-            apiKey: client.config.lyricsApi,
+            apiKey: "client.config.lyricsApi",
             title: trackTitle,
             artist: artistName,
             optimizeQuery: true,

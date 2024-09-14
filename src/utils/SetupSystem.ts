@@ -1,21 +1,30 @@
 import { type ColorResolvable, EmbedBuilder, type Message, type TextChannel } from "discord.js";
-import { LoadType } from "shoukaku";
-import type { Song } from "../structures/Dispatcher.js";
-import { T } from "../structures/I18n.js";
-import type { Dispatcher, Lavamusic } from "../structures/index.js";
-import { getButtons } from "./Buttons.js";
 
-function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic, locale: string): EmbedBuilder {
-    if (!player?.current?.info) return embed;
-    const iconUrl = client.config.icons[player.current.info.sourceName] || client.user.displayAvatarURL({ extension: "png" });
-    const icon = player.current.info.artworkUrl || client.config.links.img;
+import { T } from "../structures/I18n";
+import type { Lavamusic } from "../structures/index";
+import { getButtons } from "./Buttons";
+import type { Player, Track } from "lavalink-client";
+import type { Requester } from "../types";
+
+/**
+ * A function that will generate an embed based on the player's current track.
+ * @param embed The embed that will be modified.
+ * @param player The player to get the current track from.
+ * @param client The client to get the config from.
+ * @param locale The locale to translate the strings.
+ * @returns The modified embed.
+ */
+function neb(embed: EmbedBuilder, player: Player, client: Lavamusic, locale: string): EmbedBuilder {
+    if (!player?.queue.current?.info) return embed;
+    const iconUrl = client.config.icons[player.queue.current.info.sourceName] || client.user.displayAvatarURL({ extension: "png" });
+    const icon = player.queue.current.info.artworkUrl || client.config.links.img;
 
     const description = T(locale, "player.setupStart.description", {
-        title: player.current.info.title,
-        uri: player.current.info.uri,
-        author: player.current.info.author,
-        length: client.utils.formatTime(player.current.info.length),
-        requester: player.current.info.requester,
+        title: player.queue.current.info.title,
+        uri: player.queue.current.info.uri,
+        author: player.queue.current.info.author,
+        length: client.utils.formatTime(player.queue.current.info.duration),
+        requester: `<@${(player.queue.current.requester as Requester).id}>`,
     });
     return embed
         .setAuthor({
@@ -27,7 +36,16 @@ function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic, locale:
         .setColor(client.color.main);
 }
 
-async function setupStart(client: Lavamusic, query: string, player: Dispatcher, message: Message): Promise<void> {
+/**
+ * A function that will generate a setup message or edit an existing one
+ * with the current song playing.
+ * @param client The client to get the config from.
+ * @param query The query to search for.
+ * @param player The player to get the current track from.
+ * @param message The message to edit or send the setup message.
+ * @returns A promise that resolves when the function is done.
+ */
+async function setupStart(client: Lavamusic, query: string, player: Player, message: Message): Promise<void> {
     let m: Message;
     const embed = client.embed();
     const n = client.embed().setColor(client.color.main);
@@ -45,7 +63,7 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
     if (m) {
         try {
             if (message.inGuild()) {
-                const res = await client.queue.search(query);
+                /* const res = await client.queue.search(query);
                 switch (res.loadType) {
                     case LoadType.ERROR:
                         await message.channel
@@ -177,7 +195,7 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
                         await m.edit({ embeds: [n] }).catch(() => {});
                         break;
                     }
-                }
+                } */
             }
         } catch (error) {
             client.logger.error(error);
@@ -185,15 +203,25 @@ async function setupStart(client: Lavamusic, query: string, player: Dispatcher, 
     }
 }
 
+/**
+ * A function that will generate an embed based on the player's current track.
+ * @param msgId The message ID of the setup message.
+ * @param channel The channel to send the message in.
+ * @param player The player to get the current track from.
+ * @param track The track to generate the embed for.
+ * @param client The client to get the config from.
+ * @param locale The locale to translate the strings.
+ * @returns A promise that resolves when the function is done.
+ */
 async function trackStart(
     msgId: any,
     channel: TextChannel,
-    player: Dispatcher,
-    track: Song,
+    player: Player,
+    track: Track,
     client: Lavamusic,
     locale: string,
 ): Promise<void> {
-    const icon = player.current ? player.current.info.artworkUrl : client.config.links.img;
+    const icon = player.queue.current ? player.queue.current.info.artworkUrl : client.config.links.img;
     let m: Message;
 
     try {
@@ -202,13 +230,13 @@ async function trackStart(
         client.logger.error(error);
     }
 
-    const iconUrl = client.config.icons[player.current.info.sourceName] || client.user.displayAvatarURL({ extension: "png" });
+    const iconUrl = client.config.icons[player.queue.current.info.sourceName] || client.user.displayAvatarURL({ extension: "png" });
     const description = T(locale, "player.setupStart.description", {
         title: track.info.title,
         uri: track.info.uri,
         author: track.info.author,
-        length: client.utils.formatTime(track.info.length),
-        requester: track.info.requester,
+        length: client.utils.formatTime(track.info.duration),
+        requester: `<@${(track.requester as Requester).id}>`,
     });
 
     const embed = client
@@ -226,24 +254,24 @@ async function trackStart(
             .edit({
                 embeds: [embed],
                 components: getButtons(player, client).map((b) => {
-                    b.components.forEach((c) => c.setDisabled(!player?.current));
+                    b.components.forEach((c) => c.setDisabled(!player?.queue.current));
                     return b;
                 }),
             })
-            .catch(() => {});
+            .catch(() => { });
     } else {
         await channel
             .send({
                 embeds: [embed],
                 components: getButtons(player, client).map((b) => {
-                    b.components.forEach((c) => c.setDisabled(!player?.current));
+                    b.components.forEach((c) => c.setDisabled(!player?.queue.current));
                     return b;
                 }),
             })
             .then((msg) => {
                 client.db.setSetup(msg.guild.id, msg.id, msg.channel.id);
             })
-            .catch(() => {});
+            .catch(() => { });
     }
 }
 
@@ -263,15 +291,15 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
         }
     }
     if (m) {
-        const player = client.queue.get(guild.id);
-        if (player?.current) {
-            const iconUrl = client.config.icons[player.current.info.sourceName] || client.user.displayAvatarURL({ extension: "png" });
+        const player = client.manager.getPlayer(guild.id);
+        if (player?.queue.current) {
+            const iconUrl = client.config.icons[player.queue.current.info.sourceName] || client.user.displayAvatarURL({ extension: "png" });
             const description = T(locale, "player.setupStart.description", {
-                title: player.current.info.title,
-                uri: player.current.info.uri,
-                author: player.current.info.author,
-                length: client.utils.formatTime(player.current.info.length),
-                requester: player.current.info.requester,
+                title: player.queue.current.info.title,
+                uri: player.queue.current.info.uri,
+                author: player.queue.current.info.author,
+                length: client.utils.formatTime(player.queue.current.info.duration),
+                requester: `<@${(player.queue.current.requester as Requester).id}>`,
             });
 
             const embed = client
@@ -282,16 +310,16 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
                 })
                 .setColor(client.color.main)
                 .setDescription(description)
-                .setImage(player.current.info.artworkUrl);
+                .setImage(player.queue.current.info.artworkUrl);
             await m
                 .edit({
                     embeds: [embed],
                     components: getButtons(player, client).map((b) => {
-                        b.components.forEach((c) => c.setDisabled(!player?.current));
+                        b.components.forEach((c) => c.setDisabled(!player?.queue.current));
                         return b;
                     }),
                 })
-                .catch(() => {});
+                .catch(() => { });
         } else {
             const embed = client
                 .embed()
@@ -310,7 +338,7 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
                         return b;
                     }),
                 })
-                .catch(() => {});
+                .catch(() => { });
         }
     }
 }
@@ -319,13 +347,13 @@ async function buttonReply(int: any, args: string, color: ColorResolvable): Prom
     const embed = new EmbedBuilder();
     let m: Message;
     if (int.replied) {
-        m = await int.editReply({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => {});
+        m = await int.editReply({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => { });
     } else {
-        m = await int.followUp({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => {});
+        m = await int.followUp({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => { });
     }
     setTimeout(async () => {
         if (int && !int.ephemeral) {
-            await m.delete().catch(() => {});
+            await m.delete().catch(() => { });
         }
     }, 2000);
 }
@@ -336,7 +364,7 @@ async function oops(channel: TextChannel, args: string): Promise<void> {
         const m = await channel.send({
             embeds: [embed1],
         });
-        setTimeout(async () => await m.delete().catch(() => {}), 12000);
+        setTimeout(async () => await m.delete().catch(() => { }), 12000);
     } catch (e) {
         return console.error(e);
     }

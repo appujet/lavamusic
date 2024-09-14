@@ -76,6 +76,13 @@ export const LocaleFlags = {
     [Language.Vietnamese]: "🇻🇳",
 };
 
+export interface Requester {
+    id: string;
+    username: string;
+    discriminator?: string;
+    avatarURL?: string;
+}
+
 /**
  * Project: lavamusic
  * Author: Appu

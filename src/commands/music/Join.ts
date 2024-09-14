@@ -1,4 +1,5 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import type { VoiceChannel } from "discord.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Join extends Command {
     constructor(client: Lavamusic) {
@@ -32,41 +33,42 @@ export default class Join extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed();
-        let player = client.queue.get(ctx.guild!.id);
+        let player = client.manager.getPlayer(ctx.guild!.id);
 
         if (player) {
-            const channelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
             return await ctx.sendMessage({
                 embeds: [
                     embed.setColor(this.client.color.main).setDescription(
                         ctx.locale("cmd.join.already_connected", {
-                            channelId,
+                            channelId: player.voiceChannelId,
                         }),
                     ),
                 ],
             });
         }
 
-        const memberVoiceChannel = (ctx.member as any).voice.channel;
+        const memberVoiceChannel = (ctx.member as any).voice.channel as VoiceChannel
         if (!memberVoiceChannel) {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.join.no_voice_channel"))],
             });
         }
 
-        player = await client.queue.create(
-            ctx.guild!,
-            memberVoiceChannel,
-            ctx.channel,
-            client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
-        );
-
-        const joinedChannelId = player.node.manager.connections.get(ctx.guild!.id)!.channelId;
+        player = client.manager.createPlayer({
+            guildId: ctx.guild!.id,
+            voiceChannelId: memberVoiceChannel.id,
+            textChannelId: ctx.channel.id,
+            selfMute: false,
+            selfDeaf: true,
+            instaUpdateFiltersFix: true,
+            vcRegion: memberVoiceChannel.rtcRegion,
+        })
+        if (!player.connected) await player.connect();
         return await ctx.sendMessage({
             embeds: [
                 embed.setColor(this.client.color.main).setDescription(
                     ctx.locale("cmd.join.joined", {
-                        channelId: joinedChannelId,
+                        channelId: player.voiceChannelId,
                     }),
                 ),
             ],

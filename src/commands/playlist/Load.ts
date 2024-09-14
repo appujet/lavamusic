@@ -1,5 +1,5 @@
-import type { AutocompleteInteraction } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import type { AutocompleteInteraction, GuildMember } from "discord.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class LoadPlaylist extends Command {
     constructor(client: Lavamusic) {
@@ -40,7 +40,7 @@ export default class LoadPlaylist extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        let player = client.queue.get(ctx.guild!.id);
+        let player = client.manager.getPlayer(ctx.guild!.id);
         const playlistName = args.join(" ").trim();
         const playlistData = await client.db.getPlaylist(ctx.author.id, playlistName);
         if (!playlistData) {
@@ -54,7 +54,7 @@ export default class LoadPlaylist extends Command {
             });
         }
 
-        const songs = await client.db.getSongs(ctx.author.id, playlistName);
+        const songs = await client.db.getTracksFromPlaylist(ctx.author.id, playlistName);
         if (songs.length === 0) {
             return await ctx.sendMessage({
                 embeds: [
@@ -66,25 +66,37 @@ export default class LoadPlaylist extends Command {
             });
         }
 
-        const vc = ctx.member as any;
+        const member = ctx.member as GuildMember;
         if (!player) {
-            player = await client.queue.create(
-                ctx.guild,
-                vc.voice.channel,
-                ctx.channel,
-                client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
-            );
+            player = client.manager.createPlayer({
+                guildId: ctx.guild!.id,
+                voiceChannelId: member.voice.channelId,
+                textChannelId: ctx.channel.id,
+                selfMute: false,
+                selfDeaf: true,
+                instaUpdateFiltersFix: true,
+                vcRegion: member.voice.channel.rtcRegion,
+            })
+            if (!player.connected) await player.connect();
         }
 
-        for (const song of songs) {
-            const trackData = JSON.parse(song.track);
-            for (const track of trackData) {
-                const builtTrack = player.buildTrack(track, ctx.author as any);
-                player.queue.push(builtTrack);
-            }
+        const nodes = client.manager.nodeManager.leastUsedNodes();
+        const node = nodes[Math.floor(Math.random() * nodes.length)];
+        const tracks = await node.decode.multipleTracks(songs as any, ctx.author);
+        if (tracks.length === 0) {
+            return await ctx.sendMessage({
+                embeds: [
+                    {
+                        description: ctx.locale("cmd.load.messages.playlist_empty"),
+                        color: client.color.red,
+                    },
+                ],
+            });
         }
+        player.queue.add(tracks);
 
-        await player.isPlaying();
+        if (!player.playing) await player.play({ paused: false });
+
         return await ctx.sendMessage({
             embeds: [
                 {

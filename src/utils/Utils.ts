@@ -1,6 +1,5 @@
 import { ActionRowBuilder, ActivityType, ButtonBuilder, ButtonStyle, CommandInteraction, type TextChannel } from "discord.js";
-import config from "../config.js";
-import type { Context, Lavamusic } from "../structures/index.js";
+import type { Context, Lavamusic } from "../structures/index";
 
 export class Utils {
     public static formatTime(ms: number): string {
@@ -15,21 +14,21 @@ export class Utils {
 
     public static updateStatus(client: Lavamusic, guildId?: string): void {
         const { user } = client;
-        if (user && guildId === config.guildId) {
-            const player = client.queue.get(config.guildId!);
+        if (user && guildId === client.env.GUILD_ID) {
+            const player = client.manager.getPlayer(client.env.GUILD_ID);
             user.setPresence({
                 activities: [
                     {
-                        name: player?.current ? `🎶 | ${player.current.info.title}` : config.botActivity,
-                        type: player?.current ? ActivityType.Listening : config.botActivityType,
+                        name: player && player.queue?.current ? `🎶 | ${player.queue?.current.info.title}` : client.env.BOT_ACTIVITY,
+                        type: player && player?.queue?.current ? ActivityType.Listening : client.env.BOT_ACTIVITY_TYPE,
                     },
                 ],
-                status: config.botStatus as any,
+                status: client.env.BOT_STATUS as any,
             });
         }
     }
 
-    public static chunk(array: any[], size: number): any[] {
+    public static chunk(array: any[], size: number) {
         const chunked_arr = [];
         for (let index = 0; index < array.length; index += size) {
             chunked_arr.push(array.slice(index, size + index));

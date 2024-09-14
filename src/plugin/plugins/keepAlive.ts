@@ -1,13 +1,14 @@
 import http from "node:http";
-import type { Lavamusic } from "../../structures/index.js";
-import type { BotPlugin } from "../index.js";
+import type { Lavamusic } from "../../structures/index";
+import type { BotPlugin } from "../index";
+import { env } from "../../env";
 
 const keepAlive: BotPlugin = {
     name: "KeepAlive Plugin",
     version: "1.0.0",
     author: "Appu",
     initialize: (client: Lavamusic) => {
-        if (client.config.keepAlive) {
+        if (env.KEEP_ALIVE) {
             const server = http.createServer((_req, res) => {
                 res.writeHead(200, { "Content-Type": "text/plain" });
                 res.end(`I'm alive! Currently serving ${client.guilds.cache.size} guilds.`);

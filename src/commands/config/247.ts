@@ -1,5 +1,5 @@
 import type { GuildMember } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class _247 extends Command {
     constructor(client: Lavamusic) {
@@ -33,7 +33,7 @@ export default class _247 extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed();
-        let player = client.shoukaku.players.get(ctx.guild!.id) as any;
+        let player = client.manager.getPlayer(ctx.guild.id)
         try {
             const data = await client.db.get_247(ctx.guild!.id);
             const member = ctx.member as GuildMember;
@@ -50,13 +50,17 @@ export default class _247 extends Command {
             }
             await client.db.set_247(ctx.guild!.id, ctx.channel.id, member.voice.channel.id);
             if (!player) {
-                player = await client.queue.create(
-                    ctx.guild,
-                    member.voice.channel,
-                    ctx.channel,
-                    client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
-                );
+                player = client.manager.createPlayer({
+                    guildId: ctx.guild!.id,
+                    voiceChannelId: member.voice.channel.id,
+                    textChannelId: ctx.channel.id,
+                    selfMute: false,
+                    selfDeaf: true,
+                    instaUpdateFiltersFix: true,
+                    vcRegion: member.voice.channel.rtcRegion,
+                })
             }
+            if (!player.connected) await player.connect();
             return await ctx.sendMessage({
                 embeds: [embed.setDescription(ctx.locale("cmd.247.messages.enabled")).setColor(this.client.color.main)],
             });

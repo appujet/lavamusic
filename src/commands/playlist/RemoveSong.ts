@@ -1,6 +1,5 @@
 import type { AutocompleteInteraction } from "discord.js";
-import { LoadType } from "shoukaku";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class RemoveSong extends Command {
     constructor(client: Lavamusic) {
@@ -76,7 +75,7 @@ export default class RemoveSong extends Command {
             return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
         }
 
-        const res = await client.queue.search(song);
+        /* const res = await client.queue.search(song);
 
         if (!res || res.loadType !== LoadType.TRACK) {
             const noSongsFoundError = this.client
@@ -108,7 +107,7 @@ export default class RemoveSong extends Command {
                 .setDescription(ctx.locale("cmd.removesong.messages.error_occurred"))
                 .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [genericError] });
-        }
+        } */
     }
     public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
         const focusedValue = interaction.options.getFocused();

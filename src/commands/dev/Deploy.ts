@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, type ButtonInteraction, ButtonStyle, ComponentType, type Message } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Deploy extends Command {
     constructor(client: Lavamusic) {

@@ -10,8 +10,8 @@ import {
     PermissionFlagsBits,
     type TextChannel,
 } from "discord.js";
-import { T } from "../../structures/I18n.js";
-import { Context, Event, type Lavamusic } from "../../structures/index.js";
+import { T } from "../../structures/I18n";
+import { Context, Event, type Lavamusic } from "../../structures/index";
 
 export default class MessageCreate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -92,19 +92,19 @@ export default class MessageCreate extends Event {
                     });
                 }
 
-                if (command.permissions?.dev && this.client.config.owners) {
-                    const isDev = this.client.config.owners.includes(message.author.id);
+                if (command.permissions?.dev && this.client.env.OWNER_IDS) {
+                    const isDev = this.client.env.OWNER_IDS.includes(message.author.id);
                     if (!isDev) return;
                 }
             }
 
-            if (command.vote && this.client.config.topGG) {
+            if (command.vote && this.client.env.TOPGG) {
                 const voted = await this.client.topGG.hasVoted(message.author.id);
                 if (!voted) {
                     const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
                         new ButtonBuilder()
                             .setLabel(T(locale, "event.message.vote_button"))
-                            .setURL(`https://top.gg/bot/${this.client.config.clientId}/vote`)
+                            .setURL(`https://top.gg/bot/${this.client.user.id}/vote`)
                             .setStyle(ButtonStyle.Link),
                     );
 
@@ -155,8 +155,8 @@ export default class MessageCreate extends Event {
                 }
 
                 if (command.player.active) {
-                    const queue = this.client.queue.get(message.guildId);
-                    if (!(queue?.queue && queue.current)) {
+                    const queue = this.client.manager.getPlayer(message.guildId);
+                    if (!queue?.queue.current) {
                         return await message.reply({
                             content: T(locale, "event.message.no_music_playing"),
                         });
@@ -237,7 +237,7 @@ export default class MessageCreate extends Event {
                     content: T(locale, "event.message.error", { error: error.message || "Unknown error" }),
                 });
             } finally {
-                const logs = this.client.channels.cache.get(this.client.config.commandLogs);
+                const logs = this.client.channels.cache.get(this.client.env.LOG_COMMANDS_ID);
                 if (logs) {
                     const embed = new EmbedBuilder()
                         .setAuthor({

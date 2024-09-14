@@ -1,4 +1,4 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Seek extends Command {
     constructor(client: Lavamusic) {
@@ -38,8 +38,8 @@ export default class Seek extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const player = client.queue.get(ctx.guild!.id);
-        const current = player.current.info;
+        const player = client.manager.getPlayer(ctx.guild!.id);
+        const current = player.queue.current.info;
         const embed = this.client.embed();
         const duration = client.utils.parseTime(args.join(" "));
         if (!duration) {
@@ -52,12 +52,12 @@ export default class Seek extends Command {
                 embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.seek.errors.not_seekable"))],
             });
         }
-        if (duration > current.length) {
+        if (duration > current.duration) {
             return await ctx.sendMessage({
                 embeds: [
                     embed.setColor(this.client.color.red).setDescription(
                         ctx.locale("cmd.seek.errors.beyond_duration", {
-                            length: client.utils.formatTime(current.length),
+                            length: client.utils.formatTime(current.duration),
                         }),
                     ),
                 ],

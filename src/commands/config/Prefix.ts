@@ -1,4 +1,4 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Prefix extends Command {
     constructor(client: Lavamusic) {
@@ -68,7 +68,7 @@ export default class Prefix extends Command {
         switch (subCommand) {
             case "set": {
                 if (!prefix) {
-                    const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
+                    const currentPrefix = guildData ? guildData.prefix : client.env.PREFIX;
                     embed.setDescription(
                         ctx.locale("cmd.prefix.messages.current_prefix", {
                             prefix: currentPrefix,
@@ -85,7 +85,7 @@ export default class Prefix extends Command {
                 return await ctx.sendMessage({ embeds: [embed] });
             }
             case "reset": {
-                const defaultPrefix = client.config.prefix;
+                const defaultPrefix = client.env.PREFIX;
                 await client.db.setPrefix(guildId, defaultPrefix);
                 embed.setDescription(
                     ctx.locale("cmd.prefix.messages.prefix_reset", {
@@ -95,7 +95,7 @@ export default class Prefix extends Command {
                 return await ctx.sendMessage({ embeds: [embed] });
             }
             default: {
-                const currentPrefix = guildData ? guildData.prefix : client.config.prefix;
+                const currentPrefix = guildData ? guildData.prefix : client.env.PREFIX;
                 embed.setDescription(
                     ctx.locale("cmd.prefix.messages.current_prefix", {
                         prefix: currentPrefix,

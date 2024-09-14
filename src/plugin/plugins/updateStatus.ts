@@ -1,5 +1,5 @@
-import type { Lavamusic } from "../../structures/index.js";
-import type { BotPlugin } from "../index.js";
+import type { Lavamusic } from "../../structures/index";
+import type { BotPlugin } from "../index";
 
 const updateStatusPlugin: BotPlugin = {
     name: "Update Status Plugin",

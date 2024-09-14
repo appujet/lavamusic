@@ -1,7 +1,11 @@
-import type Lavamusic from "./Lavamusic.js";
+import type { ClientEvents } from "discord.js";
+import type Lavamusic from "./Lavamusic";
+import type { LavalinkManagerEvents, NodeManagerEvents } from "lavalink-client";
+
+export type AllEvents = LavalinkManagerEvents & NodeManagerEvents & ClientEvents;
 
 interface EventOptions {
-    name: string;
+    name: keyof AllEvents;
     one?: boolean;
 }
 
@@ -9,7 +13,7 @@ export default class Event {
     public client: Lavamusic;
     public one: boolean;
     public file: string;
-    public name: string;
+    public name: keyof AllEvents;
     public fileName: string;
 
     constructor(client: Lavamusic, file: string, options: EventOptions) {
@@ -20,7 +24,7 @@ export default class Event {
         this.fileName = file.split(".")[0];
     }
 
-    public async run(..._args: any[]): Promise<void> {
+    public async run(..._args: any): Promise<void> {
         return await Promise.resolve();
     }
 }

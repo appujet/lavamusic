@@ -494,6 +494,9 @@
 				"playlist_stolen": "{user} se playlist `{playlist}` ko safaltapoorvak chura लिया गया है.",
 				"error_occurred": "Playlist ko churaate समय एक error aaya."
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track"
 		}
 	},
 	"buttons": {

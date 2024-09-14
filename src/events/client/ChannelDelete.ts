@@ -1,4 +1,4 @@
-import { Event, type Lavamusic } from "../../structures/index.js";
+import { Event, type Lavamusic } from "../../structures/index";
 
 export default class ChannelDelete extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -29,14 +29,9 @@ export default class ChannelDelete extends Event {
             await this.client.db.deleteSetup(guild.id);
         }
 
-        const queue = this.client.queue.get(guild.id);
-        if (queue) {
-            if (
-                queue.channelId === channel.id ||
-                (queue.player && queue.node.manager.connections.get(guild.id)!.channelId === channel.id)
-            ) {
-                queue.stop();
-            }
+        const player = this.client.manager.getPlayer(guild.id);
+        if (player && player.voiceChannelId === channel.id) {
+            player.destroy();
         }
     }
 }

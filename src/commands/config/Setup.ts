@@ -1,6 +1,6 @@
 import { ChannelType, OverwriteType, PermissionFlagsBits } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
-import { getButtons } from "../../utils/Buttons.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
+import { getButtons } from "../../utils/Buttons";
 
 export default class Setup extends Command {
     constructor(client: Lavamusic) {
@@ -90,11 +90,11 @@ export default class Setup extends Command {
                         },
                     ],
                 });
-                const player = this.client.queue.get(ctx.guild!.id);
+                const player = this.client.manager.getPlayer(ctx.guild!.id);
                 const image = this.client.config.links.img;
                 const desc =
-                    player?.queue && player.current
-                        ? `[${player.current.info.title}](${player.current.info.uri})`
+                    player.queue.current
+                        ? `[${player.queue.current.info.title}](${player.queue.current.info.uri})`
                         : ctx.locale("player.setupStart.nothing_playing");
                 embed.setDescription(desc).setImage(image);
                 await textChannel
@@ -129,7 +129,7 @@ export default class Setup extends Command {
                 }
                 client.db.deleteSetup(ctx.guild!.id);
                 const textChannel = ctx.guild.channels.cache.get(data2.textId);
-                if (textChannel) await textChannel.delete().catch(() => {});
+                if (textChannel) await textChannel.delete().catch(() => { });
                 await ctx.sendMessage({
                     embeds: [
                         {

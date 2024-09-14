@@ -1,4 +1,4 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Volume extends Command {
     constructor(client: Lavamusic) {
@@ -38,7 +38,7 @@ export default class Volume extends Command {
     }
 
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const player = client.queue.get(ctx.guild!.id);
+        const player = client.manager.getPlayer(ctx.guild!.id);
         const embed = this.client.embed();
         const number = Number(args[0]);
 
@@ -53,8 +53,8 @@ export default class Volume extends Command {
             });
         }
 
-        await player.player.setGlobalVolume(number);
-        const currentVolume = player.player.volume;
+        await player.setVolume(number);
+        const currentVolume = player.volume;
 
         return await ctx.sendMessage({
             embeds: [

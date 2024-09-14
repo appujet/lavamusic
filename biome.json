@@ -29,11 +29,13 @@
         "useFilenamingConvention": "off",
         "useNamingConvention": "off",
         "useNumberNamespace": "off",
-        "useSingleCaseStatement": "off"
+        "useSingleCaseStatement": "off",
+        "useImportType": "warn"
       },
       "complexity": {
         "noBannedTypes": "off",
         "noForEach": "off",
+        "useOptionalChain": "off",
         "noStaticOnlyClass": "off",
         "noExcessiveCognitiveComplexity": {
           "level": "warn",
@@ -47,7 +49,8 @@
       },
       "correctness": {
         "noNodejsModules": "off",
-        "noVoidTypeReturn": "off"
+        "noVoidTypeReturn": "off",
+        "useImportExtensions": "off"
       },
       "performance": {
         "noBarrelFile": "off",

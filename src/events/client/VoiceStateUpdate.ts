@@ -1,5 +1,5 @@
 import { ChannelType, type GuildMember, type VoiceState } from "discord.js";
-import { Event, type Lavamusic } from "../../structures/index.js";
+import { Event, type Lavamusic } from "../../structures/index";
 
 export default class VoiceStateUpdate extends Event {
     constructor(client: Lavamusic, file: string) {
@@ -8,17 +8,16 @@ export default class VoiceStateUpdate extends Event {
         });
     }
 
-    public async run(_oldState: VoiceState, newState: VoiceState): Promise<void> {
+    public async run(_oldState: VoiceState, newState: VoiceState): Promise<any> {
         const guildId = newState.guild.id;
         if (!guildId) return;
 
-        const player = this.client.queue.get(guildId);
+        const player = this.client.manager.getPlayer(guildId);
         if (!player) return;
 
-        const vcConnection = player.node.manager.connections.get(guildId);
-        if (!vcConnection?.channelId) return;
+        if (!player?.voiceChannelId) return;
 
-        const vc = newState.guild.channels.cache.get(vcConnection.channelId);
+        const vc = newState.guild.channels.cache.get(player.voiceChannelId);
         if (!(vc && vc.members instanceof Map)) return;
 
         const is247 = await this.client.db.get_247(guildId);
@@ -58,10 +57,10 @@ export default class VoiceStateUpdate extends Event {
 
         if (vc.members instanceof Map && [...vc.members.values()].filter((x: GuildMember) => !x.user.bot).length <= 0) {
             setTimeout(async () => {
-                const vcConnection = player.node.manager.connections.get(guildId);
-                if (!vcConnection?.channelId) return;
+                
+                if (!player?.voiceChannelId) return;
 
-                const playerVoiceChannel = newState.guild.channels.cache.get(vcConnection.channelId);
+                const playerVoiceChannel = newState.guild.channels.cache.get(player?.voiceChannelId);
                 if (
                     player &&
                     playerVoiceChannel &&

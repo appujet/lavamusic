@@ -494,6 +494,9 @@
 				"playlist_stolen": "Успешно украден плейлист `{playlist}` у {user}.",
 				"error_occurred": "Произошла ошибка при краже плейлиста."
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track"
 		}
 	},
 	"buttons": {

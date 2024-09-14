@@ -1,7 +1,7 @@
 import os from "node:os";
 import { version } from "discord.js";
 import { showTotalMemory, usagePercent } from "node-system-stats";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Botinfo extends Command {
     constructor(client: Lavamusic) {

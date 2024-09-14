@@ -1,4 +1,4 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class StealPlaylist extends Command {
     constructor(client: Lavamusic) {
@@ -115,7 +115,7 @@ export default class StealPlaylist extends Command {
                 });
             }
 
-            const targetSongs = await client.db.getSongs(targetUserId, playlistName);
+            const targetSongs = await client.db.getTracksFromPlaylist(targetUserId, playlistName);
 
             const existingPlaylist = await client.db.getPlaylist(ctx.author.id, playlistName);
             if (existingPlaylist) {
@@ -129,7 +129,7 @@ export default class StealPlaylist extends Command {
                 });
             }
 
-            await client.db.createPlaylistWithSongs(ctx.author.id, playlistName, targetSongs);
+            await client.db.createPlaylistWithTracks(ctx.author.id, playlistName, targetSongs);
 
             return await ctx.sendMessage({
                 embeds: [

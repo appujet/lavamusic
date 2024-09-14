@@ -1,6 +1,5 @@
 import type { AutocompleteInteraction } from "discord.js";
-import { LoadType } from "shoukaku";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class AddSong extends Command {
     constructor(client: Lavamusic) {
@@ -71,9 +70,8 @@ export default class AddSong extends Command {
                 ],
             });
         }
-        const res = await client.queue.search(song);
-
-        if (!res || res.loadType === LoadType.EMPTY) {
+        const res = await client.manager.search(song, ctx.author);
+        if (!res) {
             return await ctx.sendMessage({
                 embeds: [
                     {
@@ -85,7 +83,6 @@ export default class AddSong extends Command {
         }
 
         const playlistData = await client.db.getPlaylist(ctx.author.id, playlist);
-
         if (!playlistData) {
             return await ctx.sendMessage({
                 embeds: [
@@ -99,28 +96,24 @@ export default class AddSong extends Command {
 
         let trackStrings: any;
         let count: number;
-
-        if (res.loadType === LoadType.PLAYLIST) {
-            trackStrings = res.data.tracks;
-            count = res.data.tracks.length;
-        } else if (res.loadType === LoadType.TRACK) {
-            trackStrings = [res.data];
+        if (res.loadType === "playlist") {
+            trackStrings = res.tracks.map((track) => track.encoded);
+            count = res.tracks.length;
+        } else if (res.loadType === "track") {
+            trackStrings = [res.tracks[0].encoded];
             count = 1;
-        } else if (res.loadType === LoadType.SEARCH) {
-            trackStrings = [res.data[0]];
+        } else if (res.loadType === "search") {
+            trackStrings = [res.tracks[0].encoded];
             count = 1;
         }
 
-        await client.db.addSong(ctx.author.id, playlist, trackStrings);
+        await client.db.addTracksToPlaylist(ctx.author.id, playlist, trackStrings);
 
-        await ctx.sendMessage({
+        return await ctx.sendMessage({
             embeds: [
                 {
-                    description: ctx.locale("cmd.addsong.messages.added", {
-                        count,
-                        playlist: playlistData.name,
-                    }),
-                    color: this.client.color.main,
+                    description: ctx.locale("cmd.addsong.messages.added", { playlist: playlistData.name, count }),
+                    color: this.client.color.green,
                 },
             ],
         });
