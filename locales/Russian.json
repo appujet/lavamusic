@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Фильтр усиления басов был `ВКЛЮЧЕН`. \n**Будьте осторожны, слишком громкое прослушивание может повредить слух!**",
 				"filter_disabled": "`✅` | Фильтр усиления басов был `ОТКЛЮЧЕН`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

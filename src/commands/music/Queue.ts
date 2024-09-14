@@ -51,14 +51,14 @@ export default class Queue extends Command {
         }
         const songStrings = [];
         for (let i = 0; i < player.queue.tracks.length; i++) {
-            const track = player.queue[i];
+            const track = player.queue.tracks[i];
             songStrings.push(
                 ctx.locale("cmd.queue.track_info", {
                     index: i + 1,
                     title: track.info.title,
                     uri: track.info.uri,
-                    requester: track?.info.requester,
-                    duration: track.info.isStream ? ctx.locale("cmd.queue.live") : client.utils.formatTime(track.info.length),
+                    requester: `<@${(track.requester as any).id}>`,
+                    duration: track.info.isStream ? ctx.locale("cmd.queue.live") : client.utils.formatTime(track.info.duration),
                 }),
             );
         }

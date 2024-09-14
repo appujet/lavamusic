@@ -121,6 +121,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Le filtre de basses a été `ACTIVÉ`. \n**Attention, écouter trop fort peut endommager votre audition !**",
 				"filter_disabled": "`✅` | Le filtre de basses a été `DÉSACTIVÉ`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

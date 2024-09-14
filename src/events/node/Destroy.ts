@@ -11,6 +11,6 @@ export default class Destroy extends Event {
 
     public async run(node: LavalinkNode, destroyReason?: DestroyReasonsType): Promise<void> {
         this.client.logger.success(`Node ${node.id} is destroyed!`);
-        BotLog.send(this.client, `Node ${node} is destroyed: ${destroyReason}`, "warn");
+        BotLog.send(this.client, `Node ${node.id} is destroyed: ${destroyReason}`, "warn");
     }
 }

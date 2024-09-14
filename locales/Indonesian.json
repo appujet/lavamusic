@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Filter bassboost telah `DIAKTIFKAN`. \n**Hati-hati, mendengarkan terlalu keras dapat merusak pendengaran Anda!**",
 				"filter_disabled": "`✅` | Filter bassboost telah `DINONAKTIFKAN`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

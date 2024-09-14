@@ -121,6 +121,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Bassboost-Filter wurde `AKTIVIERT`. \n**Vorsicht, zu lautes Hören kann deine Ohren schädigen!**",
 				"filter_disabled": "`✅` | Bassboost-Filter wurde `DEAKTIVIERT`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

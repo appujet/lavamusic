@@ -1,8 +1,13 @@
-import type { ClientEvents } from "discord.js";
-import type Lavamusic from "./Lavamusic";
+import type { ButtonInteraction, ClientEvents, Message } from "discord.js";
 import type { LavalinkManagerEvents, NodeManagerEvents } from "lavalink-client";
+import type Lavamusic from "./Lavamusic";
 
-export type AllEvents = LavalinkManagerEvents & NodeManagerEvents & ClientEvents;
+// custom client events setupSystem and setupButtons
+interface CustomClientEvents {
+    setupSystem: (message: Message) => void;
+    setupButtons: (interaction: ButtonInteraction) => void;
+}
+export type AllEvents = LavalinkManagerEvents & NodeManagerEvents & ClientEvents & CustomClientEvents;
 
 interface EventOptions {
     name: keyof AllEvents;

@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | 低音增強等化器已`啟用`。\n**請注意，音量過大會損害您的聽力！**",
 				"filter_disabled": "`✅` | 低音增強等化器已`停用`。"
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

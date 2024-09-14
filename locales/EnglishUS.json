@@ -132,9 +132,14 @@
 		},
 		"bassboost": {
 			"description": "on/off bassboost filter",
+			"options": {
+				"level": "The bassboost level you want to set"
+			},
 			"messages": {
-				"filter_enabled": "`✅` | Bassboost filter has been `ENABLED`. \n**Be careful, listening too loudly can damage your hearing!**",
-				"filter_disabled": "`✅` | Bassboost filter has been `DISABLED`."
+				"high": "`✅` | High bassboost filter has been `ENABLED`.",
+				"low": "`✅` | Low bassboost filter has been `ENABLED`.",
+				"medium": "`✅` | Medium bassboost filter has been `ENABLED`.",
+				"off": "`✅` | Bassboost filter has been `DISABLED`."
 			}
 		},
 		"distorsion": {

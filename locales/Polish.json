@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Filtr wzmocnienia basów został `WŁĄCZONY`. \n**Uwaga, zbyt głośne słuchanie może uszkodzić słuch!**",
 				"filter_disabled": "`✅` | Filtr wzmocnienia basów został `WYŁĄCZONY`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

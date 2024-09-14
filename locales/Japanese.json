@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | ベースブーストフィルターが`有効`になりました。\n**音量を上げすぎると聴覚に悪影響を与える可能性があるので注意してください！**",
 				"filter_disabled": "`✅` | ベースブーストフィルターが`無効`になりました。"
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

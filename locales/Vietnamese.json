@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Bộ lọc Bassboost đã được `BẬT`. \n**Cẩn thận, nghe quá to có thể gây hại cho thính giác của bạn!**",
 				"filter_disabled": "`✅` | Bộ lọc Bassboost đã được `TẮT`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

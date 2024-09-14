@@ -49,6 +49,6 @@ export default class Connect extends Event {
             }, index * 1000);
         });
 
-        BotLog.send(this.client, `Node ${node} is ready!`, "success");
+        BotLog.send(this.client, `Node ${node.id} is ready!`, "success");
     }
 }

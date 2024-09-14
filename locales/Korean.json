@@ -135,6 +135,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | 베이스부스트 필터가 `활성화되었어요`. \n**조심하세요, 너무 크게 들으면 귀가 나갈 수도 있어요!**",
 				"filter_disabled": "`✅` | 베이스부스트 필터가 `비활성화되었어요`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {
@@ -551,8 +554,8 @@
 			"error_searching": "노래를 검색하는 도중 오류가 발생했어요.",
 			"no_results": "검색결과가 없어요.",
 			"nothing_playing": "재생 중인 노래 없음",
-				"queue_too_long": "대기열에 노래가 너무 많아요. 노래는 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
-				"playlist_too_long": "플레이리스트 또는 대기열에 노래가 너무 많아요. 노래는 최대 {maxPlaylistSize}개까지만 추가할 수 있어요.",
+			"queue_too_long": "대기열에 노래가 너무 많아요. 노래는 최대 {maxQueueSize}개까지만 추가할 수 있어요.",
+			"playlist_too_long": "플레이리스트 또는 대기열에 노래가 너무 많아요. 노래는 최대 {maxPlaylistSize}개까지만 추가할 수 있어요.",
 			"added_to_queue": "대기열에 추가되었어요: [{title}]({uri})",
 			"added_playlist_to_queue": "[{length}]개의 노래가 추가되었어요."
 		}

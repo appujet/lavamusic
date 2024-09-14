@@ -1,5 +1,5 @@
 import { LavalinkManager, type LavalinkNodeOptions, type SearchPlatform, type SearchResult } from "lavalink-client";
-import { requesterTransformer } from "../utils/functions/player";
+import { autoPlayFunction, requesterTransformer } from "../utils/functions/player";
 import type Lavamusic from "./Lavamusic";
 
 export default class LavalinkClient extends LavalinkManager {
@@ -18,7 +18,7 @@ export default class LavalinkClient extends LavalinkManager {
                 },
                 requesterTransformer: requesterTransformer,
                 onEmptyQueue: {
-                    //autoPlayFunction,
+                    autoPlayFunction,
                 },
             },
         });

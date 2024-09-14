@@ -121,6 +121,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | El filtro de refuerzo de graves se ha `ACTIVADO`. \n**¡Ten cuidado, escuchar demasiado alto puede dañar tu oído!**",
 				"filter_disabled": "`✅` | El filtro de refuerzo de graves se ha `DESACTIVADO`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

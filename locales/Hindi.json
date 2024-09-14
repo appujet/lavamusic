@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Bassboost filter `SAKRIYA` kar diya gaya hai. \n**Savdhan rahein, tej awaz mein sunne se aapke kaano ko nuksan pahunch sakta hai!**",
 				"filter_disabled": "`✅` | Bassboost filter `NIRAKRIYA` kar diya gaya hai."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

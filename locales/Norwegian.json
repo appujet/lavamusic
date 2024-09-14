@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Bassboost-filteret er `AKTIVERT`. \n**Vær forsiktig, å lytte for høyt kan skade hørselen!**",
 				"filter_disabled": "`✅` | Bassboost-filteret er `DEAKTIVERT`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {

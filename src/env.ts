@@ -74,9 +74,17 @@ const envSchema = z.object({
     LOG_COMMANDS_ID: z.string().optional(),
 
     /**
-     * The bot status
+     * The bot status online | idle | dnd | invisible
      */
-    BOT_STATUS: z.string().default("online"),
+    BOT_STATUS: z.preprocess(
+        (val) => {
+            if (typeof val === "string") {
+                return val.toLowerCase();
+            }
+            return val;
+        },
+        z.enum(["online", "idle", "dnd", "invisible"]).default("online"),
+    ),
 
     /**
      * The bot activity

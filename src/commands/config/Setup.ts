@@ -93,7 +93,7 @@ export default class Setup extends Command {
                 const player = this.client.manager.getPlayer(ctx.guild!.id);
                 const image = this.client.config.links.img;
                 const desc =
-                    player.queue.current
+                    player && player.queue.current
                         ? `[${player.queue.current.info.title}](${player.queue.current.info.uri})`
                         : ctx.locale("player.setupStart.nothing_playing");
                 embed.setDescription(desc).setImage(image);
@@ -129,7 +129,7 @@ export default class Setup extends Command {
                 }
                 client.db.deleteSetup(ctx.guild!.id);
                 const textChannel = ctx.guild.channels.cache.get(data2.textId);
-                if (textChannel) await textChannel.delete().catch(() => { });
+                if (textChannel) await textChannel.delete().catch(() => {});
                 await ctx.sendMessage({
                     embeds: [
                         {
