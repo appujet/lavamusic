@@ -40,7 +40,7 @@ export default class Queue extends Command {
                         ctx.locale("cmd.queue.now_playing", {
                             title: player.queue.current.info.title,
                             uri: player.queue.current.info.uri,
-                            requester: `<@${(player.queue.current.requester as any).id}>`,
+                            requester: (player.queue.current.requester as any).id,
                             duration: player.queue.current.info.isStream
                                 ? ctx.locale("cmd.queue.live")
                                 : client.utils.formatTime(player.queue.current.info.duration),
@@ -57,7 +57,7 @@ export default class Queue extends Command {
                     index: i + 1,
                     title: track.info.title,
                     uri: track.info.uri,
-                    requester: `<@${(track.requester as any).id}>`,
+                    requester: (track.requester as any).id,
                     duration: track.info.isStream ? ctx.locale("cmd.queue.live") : client.utils.formatTime(track.info.duration),
                 }),
             );

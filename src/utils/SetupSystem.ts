@@ -24,7 +24,7 @@ function neb(embed: EmbedBuilder, player: Player, client: Lavamusic, locale: str
         uri: player.queue.current.info.uri,
         author: player.queue.current.info.author,
         length: client.utils.formatTime(player.queue.current.info.duration),
-        requester: `<@${(player.queue.current.requester as Requester).id}>`,
+        requester: (player.queue.current.requester as Requester).id,
     });
     return embed
         .setAuthor({
@@ -80,14 +80,12 @@ async function setupStart(client: Lavamusic, query: string, player: Player, mess
                         await message.channel
                             .send({
                                 embeds: [
-                                    embed
-                                        .setColor(client.color.main)
-                                        .setDescription(
-                                            T(locale, "player.setupStart.added_to_queue", {
-                                                title: res.tracks[0].info.title,
-                                                uri: res.tracks[0].info.uri,
-                                            }),
-                                        ),
+                                    embed.setColor(client.color.main).setDescription(
+                                        T(locale, "player.setupStart.added_to_queue", {
+                                            title: res.tracks[0].info.title,
+                                            uri: res.tracks[0].info.uri,
+                                        }),
+                                    ),
                                 ],
                             })
                             .then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -152,7 +150,7 @@ async function trackStart(
         uri: track.info.uri,
         author: track.info.author,
         length: client.utils.formatTime(track.info.duration),
-        requester: `<@${(track.requester as Requester).id}>`,
+        requester: (player.queue.current.requester as Requester).id,
     });
 
     const embed = client
@@ -215,7 +213,7 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
                 uri: player.queue.current.info.uri,
                 author: player.queue.current.info.author,
                 length: client.utils.formatTime(player.queue.current.info.duration),
-                requester: `<@${(player.queue.current.requester as Requester).id}>`,
+                requester: (player.queue.current.requester as Requester).id,
             });
 
             const embed = client

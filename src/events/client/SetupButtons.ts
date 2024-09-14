@@ -55,7 +55,7 @@ export default class SetupButtons extends Event {
             })
             .setColor(this.client.color.main)
             .setDescription(
-                `[${title}](${uri}) - ${isStream ? T(locale, "event.setupButton.live") : this.client.utils.formatTime(duration)} - ${T(locale, "event.setupButton.requested_by", { requester: `<@${(player.queue.current.requester as Requester).id}>` })}`,
+                `[${title}](${uri}) - ${isStream ? T(locale, "event.setupButton.live") : this.client.utils.formatTime(duration)} - ${T(locale, "event.setupButton.requested_by", { requester: (player.queue.current.requester as Requester).id })}`,
             )
             .setImage(artworkUrl || this.client.user.displayAvatarURL({ extension: "png" }));
 

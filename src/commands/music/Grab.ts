@@ -49,7 +49,7 @@ export default class Grab extends Command {
             uri: song.info.uri,
             artworkUrl: song.info.artworkUrl,
             length: song.info.isStream ? "LIVE" : client.utils.formatTime(song.info.duration),
-            requester: `<@${(song.requester as Requester).id}>`,
+            requester: (song.requester as Requester).id,
         });
 
         try {
