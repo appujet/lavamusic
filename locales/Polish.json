@@ -261,6 +261,15 @@
 			"looping_queue": "**Zapętl kolejkę.**",
 			"looping_off": "**Zapętlenie jest teraz wyłączone.**"
 		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track",
+			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
+			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
+			"errors": {
+				"no_results": "No lyrics found for the current track.",
+				"lyrics_error": "An error occurred while getting the lyrics."
+			}
+		},
 		"nowplaying": {
 			"description": "Pokazuje aktualnie odtwarzany utwór",
 			"now_playing": "Teraz odtwarzane",

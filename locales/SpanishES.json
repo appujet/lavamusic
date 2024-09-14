@@ -248,6 +248,15 @@
 			"looping_queue": "**Poniendo en bucle la cola.**",
 			"looping_off": "**El bucle ahora está desactivado.**"
 		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track",
+			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
+			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
+			"errors": {
+				"no_results": "No lyrics found for the current track.",
+				"lyrics_error": "An error occurred while getting the lyrics."
+			}
+		},
 		"nowplaying": {
 			"description": "Muestra la canción que se está reproduciendo actualmente",
 			"now_playing": "Ahora se está reproduciendo",

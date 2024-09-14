@@ -261,6 +261,15 @@
 			"looping_queue": "**Queue ko loop kar रहा हूँ.**",
 			"looping_off": "**Looping ab band hai.**"
 		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track",
+			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
+			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
+			"errors": {
+				"no_results": "No lyrics found for the current track.",
+				"lyrics_error": "An error occurred while getting the lyrics."
+			}
+		},
 		"nowplaying": {
 			"description": "Abhi chal rahe song ko dhakeye",
 			"now_playing": "Abhi Chal Raha Hai",

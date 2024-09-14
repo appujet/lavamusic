@@ -261,6 +261,15 @@
 			"looping_queue": "**正在循环播放队列。**",
 			"looping_off": "**循环播放已关闭。**"
 		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track",
+			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
+			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
+			"errors": {
+				"no_results": "No lyrics found for the current track.",
+				"lyrics_error": "An error occurred while getting the lyrics."
+			}
+		},
 		"nowplaying": {
 			"description": "显示当前播放的歌曲",
 			"now_playing": "正在播放",

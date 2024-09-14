@@ -248,6 +248,15 @@
 			"looping_queue": "**Criando loop da fila.**",
 			"looping_off": "**O loop agora está desativado.**"
 		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track",
+			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
+			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
+			"errors": {
+				"no_results": "No lyrics found for the current track.",
+				"lyrics_error": "An error occurred while getting the lyrics."
+			}
+		},
 		"nowplaying": {
 			"description": "Mostra a música que está a ser tocada atualmente",
 			"now_playing": "A tocar agora",

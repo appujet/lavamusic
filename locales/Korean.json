@@ -264,9 +264,9 @@
 			"looping_off": "**반복이 꺼졌어요.**"
 		},
 		"lyrics": {
-			"description": "현재 재생중인 노래의 가사를 가져와요",
-			"lyrics_track": "### [{trackTitle}]({trackUrl})의 노래 가사\n**`{lyrics}`**",
-			"searching": "`🔍` **{trackTitle}**의 가사 검색 중...",
+			"description": "현재 재생중인 노래의 가사를 확인해요",
+			"lyrics_track": "### [{trackTitle}]({trackUrl}) 노래의 가사\n**`{lyrics}`**",
+			"searching": "`🔍` **{trackTitle}** 노래의 가사 검색 중...",
 			"errors": {
 				"no_results": "가사를 찾지 못했어요.",
 				"lyrics_error": "가사를 검색하는 도중 오류가 발생했어요."
