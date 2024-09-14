@@ -10,7 +10,7 @@
     "build": "tsc --project tsconfig.json",
     "clean": "node scripts/clean.js && npm run build",
     "lint": "biome lint --write",
-    "prepare": "npm run build && husky",
+    "prepare": "npm run clean && husky",
     "format": "biome format --write"
   },
   "repository": {
