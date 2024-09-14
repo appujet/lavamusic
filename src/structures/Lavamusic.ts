@@ -182,20 +182,6 @@ export default class Lavamusic extends Client {
         }
     }
 
-    private async getNodes(): Promise<any> {
-        const params = new URLSearchParams({
-            ssl: "false",
-            version: "v4",
-            format: "shoukaku",
-        });
-        const res = await fetch(`https://lavainfo-api.deno.dev/nodes?${params.toString()}`, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        return await res.json();
-    }
-
     private async loadEvents(): Promise<void> {
         const eventsPath = fs.readdirSync(path.join(__dirname, "..", "events"));
 
