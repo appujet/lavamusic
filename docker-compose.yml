@@ -63,14 +63,8 @@ services:
         container_name: lavamusic
         image: ghcr.io/appujet/lavamusic:main
         environment:
-            # Your lavalink url
-            - LAVALINK_URL=lavalink:2333
-            # Your lavalink password
-            - LAVALINK_AUTH=youshallnotpass
-            # Your lavalink name
-            - LAVALINK_NAME=LavaMusic
-            # Your lavalink secure (true or false)
-            - LAVALINK_SECURE=false
+            # lavalink nodes
+            - NODES=[{"id":"LavaMusic","host":"lavalink","port":2333,"authorization":"youshallnotpass"}]
             # database url
         #    - DATABASE_URL= put your database url here (mongodb or postgres)
         #   - DATABASE_URL=postgresql://lavamusic:lavamusic@postgres:5432/lavamusic (for postgres)

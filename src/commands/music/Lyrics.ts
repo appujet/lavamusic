@@ -45,7 +45,7 @@ export default class Lyrics extends Command {
         await ctx.sendDeferMessage(ctx.locale("cmd.lyrics.searching", { trackTitle }));
 
         const options = {
-            apiKey: "client.config.lyricsApi",
+            apiKey: client.env.GENIUS_API,
             title: trackTitle,
             artist: artistName,
             optimizeQuery: true,

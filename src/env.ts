@@ -6,6 +6,22 @@ config({
     path: path.join(__dirname, "../.env"),
 });
 
+const LavalinkNodeSchema = z.object({
+    id: z.string(),
+    host: z.string(),
+    port: z.number(),
+    authorization: z.string(),
+    secure: z.boolean().optional(),
+    sessionId: z.string().optional(),
+    regions: z.string().array().optional(),
+    retryAmount: z.number().optional(),
+    retryDelay: z.number().optional(),
+    requestSignalTimeoutMS: z.number().optional(),
+    closeOnError: z.boolean().optional(),
+    heartBeatInterval: z.number().optional(),
+    enablePingOnStatsCheck: z.boolean().optional(),
+});
+
 const envSchema = z.object({
     /**
      * The discord app token
@@ -30,7 +46,7 @@ const envSchema = z.object({
     /**
      * The owner ids
      */
-    OWNER_IDS: z.string().array().optional(),
+    OWNER_IDS: z.preprocess((val) => (typeof val === "string" ? JSON.parse(val) : val), z.string().array().optional()),
 
     /**
      * The guild id for devlopment purposes
@@ -45,7 +61,7 @@ const envSchema = z.object({
     /**
      * The keep alive boolean
      */
-    KEEP_ALIVE: z.boolean().default(false),
+    KEEP_ALIVE: z.preprocess((val) => val === "true", z.boolean().default(false)),
 
     /**
      * The log channel id
@@ -70,7 +86,12 @@ const envSchema = z.object({
     /**
      * The bot activity type
      */
-    BOT_ACTIVITY_TYPE: z.number().default(0),
+    BOT_ACTIVITY_TYPE: z.preprocess((val) => {
+        if (typeof val === "string") {
+            return parseInt(val, 10);
+        }
+        return val;
+    }, z.number().default(0)),
     /**
      * The database url
      */
@@ -79,12 +100,23 @@ const envSchema = z.object({
     /**
      * Search engine
      */
-    SEARCH_ENGINE: z.enum(["youtube", "youtubemusic", "soundcloud", "spotify", "apple", "deezer", "yandex", "jiosaavn"]).default("youtube"),
-
+    SEARCH_ENGINE: z.preprocess(
+        (val) => {
+            if (typeof val === "string") {
+                return val.toLowerCase();
+            }
+            return val;
+        },
+        z.enum(["youtube", "youtubemusic", "soundcloud", "spotify", "apple", "deezer", "yandex", "jiosaavn"]).default("youtube"),
+    ),
     /**
      * Node in json
      */
-    NODES: z.string(),
+    NODES: z.preprocess((val) => (typeof val === "string" ? JSON.parse(val) : val), z.array(LavalinkNodeSchema)),
+    /**
+     * Genius api
+     */
+    GENIUS_API: z.string().optional(),
 });
 
 type Env = z.infer<typeof envSchema>;

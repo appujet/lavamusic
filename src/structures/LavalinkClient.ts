@@ -1,12 +1,12 @@
-import { LavalinkManager, type SearchResult, type SearchPlatform } from "lavalink-client";
-import type Lavamusic from "./Lavamusic";
+import { LavalinkManager, type LavalinkNodeOptions, type SearchPlatform, type SearchResult } from "lavalink-client";
 import { requesterTransformer } from "../utils/functions/player";
+import type Lavamusic from "./Lavamusic";
 
 export default class LavalinkClient extends LavalinkManager {
     public client: Lavamusic;
     constructor(client: Lavamusic) {
         super({
-            nodes: JSON.parse(client.env.NODES),
+            nodes: client.env.NODES as LavalinkNodeOptions[],
             sendToShard: (guildId, payload) => client.guilds.cache.get(guildId)?.shard?.send(payload),
             queueOptions: {
                 maxPreviousTracks: 25,
