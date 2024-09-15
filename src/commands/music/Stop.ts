@@ -34,7 +34,7 @@ export default class Stop extends Command {
         const player = client.manager.getPlayer(ctx.guild!.id);
         const embed = this.client.embed();
 
-        player.stopPlaying(true, false)
+        player.stopPlaying(true, false);
 
         return await ctx.sendMessage({
             embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.stop.messages.stopped"))],

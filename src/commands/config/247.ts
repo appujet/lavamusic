@@ -33,7 +33,7 @@ export default class _247 extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed();
-        let player = client.manager.getPlayer(ctx.guild.id)
+        let player = client.manager.getPlayer(ctx.guild.id);
         try {
             const data = await client.db.get_247(ctx.guild!.id);
             const member = ctx.member as GuildMember;
@@ -58,7 +58,7 @@ export default class _247 extends Command {
                     selfDeaf: true,
                     instaUpdateFiltersFix: true,
                     vcRegion: member.voice.channel.rtcRegion,
-                })
+                });
             }
             if (!player.connected) await player.connect();
             return await ctx.sendMessage({

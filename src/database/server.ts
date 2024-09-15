@@ -202,7 +202,7 @@ export default class ServerData {
                     },
                 });
             } else {
-                throw new Error('Existing tracks are not in an array format.');
+                throw new Error("Existing tracks are not in an array format.");
             }
         } else {
             // If no playlist exists, create a new one with the provided tracks

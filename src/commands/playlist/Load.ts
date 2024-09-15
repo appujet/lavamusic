@@ -76,7 +76,7 @@ export default class LoadPlaylist extends Command {
                 selfDeaf: true,
                 instaUpdateFiltersFix: true,
                 vcRegion: member.voice.channel.rtcRegion,
-            })
+            });
             if (!player.connected) await player.connect();
         }
 

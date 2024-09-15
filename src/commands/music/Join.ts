@@ -47,7 +47,7 @@ export default class Join extends Command {
             });
         }
 
-        const memberVoiceChannel = (ctx.member as any).voice.channel as VoiceChannel
+        const memberVoiceChannel = (ctx.member as any).voice.channel as VoiceChannel;
         if (!memberVoiceChannel) {
             return await ctx.sendMessage({
                 embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.join.no_voice_channel"))],
@@ -62,7 +62,7 @@ export default class Join extends Command {
             selfDeaf: true,
             instaUpdateFiltersFix: true,
             vcRegion: memberVoiceChannel.rtcRegion,
-        })
+        });
         if (!player.connected) await player.connect();
         return await ctx.sendMessage({
             embeds: [

@@ -57,7 +57,6 @@ export default class VoiceStateUpdate extends Event {
 
         if (vc.members instanceof Map && [...vc.members.values()].filter((x: GuildMember) => !x.user.bot).length <= 0) {
             setTimeout(async () => {
-                
                 if (!player?.voiceChannelId) return;
 
                 const playerVoiceChannel = newState.guild.channels.cache.get(player?.voiceChannelId);

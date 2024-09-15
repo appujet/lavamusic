@@ -16,13 +16,13 @@ import {
 import { Locale } from "discord.js";
 import config from "../config";
 import ServerData from "../database/server";
+import { env } from "../env";
 import loadPlugins from "../plugin/index";
 import { Utils } from "../utils/Utils";
 import { T, i18n, initI18n, localization } from "./I18n";
+import LavalinkClient from "./LavalinkClient";
 import Logger from "./Logger";
 import type { Command } from "./index";
-import { env } from "../env";
-import LavalinkClient from "./LavalinkClient";
 
 export default class Lavamusic extends Client {
     public commands: Collection<string, any> = new Collection();
@@ -35,7 +35,7 @@ export default class Lavamusic extends Client {
     public readonly color = config.color;
     private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
     public topGG!: Api;
-    public utils = Utils;;
+    public utils = Utils;
     public env: typeof env = env;
     public manager: LavalinkClient;
     public embed(): EmbedBuilder {

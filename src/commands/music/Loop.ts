@@ -37,7 +37,7 @@ export default class Loop extends Command {
 
         switch (player?.repeatMode) {
             case "off":
-                player.setRepeatMode("track")
+                player.setRepeatMode("track");
                 loopMessage = ctx.locale("cmd.loop.looping_song");
                 break;
             case "track":

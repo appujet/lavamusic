@@ -38,7 +38,7 @@ export default class Shuffle extends Command {
                 embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("player.errors.no_song"))],
             });
         }
-        player.queue.shuffle()
+        player.queue.shuffle();
         return await ctx.sendMessage({
             embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale("cmd.shuffle.messages.shuffled"))],
         });

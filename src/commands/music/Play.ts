@@ -1,6 +1,6 @@
 import type { AutocompleteInteraction, VoiceChannel } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index";
 import type { SearchResult } from "lavalink-client/dist/types";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Play extends Command {
     constructor(client: Lavamusic) {
@@ -49,20 +49,21 @@ export default class Play extends Command {
         const query = args.join(" ");
         await ctx.sendDeferMessage(ctx.locale("cmd.play.loading"));
         let player = client.manager.getPlayer(ctx.guild!.id);
-        const memberVoiceChannel = (ctx.member as any).voice.channel as VoiceChannel
+        const memberVoiceChannel = (ctx.member as any).voice.channel as VoiceChannel;
 
-        if (!player) player = client.manager.createPlayer({
-            guildId: ctx.guild!.id,
-            voiceChannelId: memberVoiceChannel.id,
-            textChannelId: ctx.channel.id,
-            selfMute: false,
-            selfDeaf: true,
-            instaUpdateFiltersFix: true,
-            vcRegion: memberVoiceChannel.rtcRegion,
-        })
+        if (!player)
+            player = client.manager.createPlayer({
+                guildId: ctx.guild!.id,
+                voiceChannelId: memberVoiceChannel.id,
+                textChannelId: ctx.channel.id,
+                selfMute: false,
+                selfDeaf: true,
+                instaUpdateFiltersFix: true,
+                vcRegion: memberVoiceChannel.rtcRegion,
+            });
         if (!player.connected) await player.connect();
 
-        const response = await player.search({ query: query }, ctx.author) as SearchResult;
+        const response = (await player.search({ query: query }, ctx.author)) as SearchResult;
         const embed = this.client.embed();
 
         if (!response || response.tracks?.length === 0) {
@@ -73,7 +74,7 @@ export default class Play extends Command {
         }
 
         await player.queue.add(response.loadType === "playlist" ? response.tracks : response.tracks[0]);
-        
+
         if (response.loadType === "playlist") {
             await ctx.editMessage({
                 content: "",
@@ -87,9 +88,12 @@ export default class Play extends Command {
             await ctx.editMessage({
                 content: "",
                 embeds: [
-                    embed
-                        .setColor(this.client.color.main)
-                        .setDescription(ctx.locale("cmd.play.added_to_queue", { title: response.tracks[0].info.title, uri: response.tracks[0].info.uri })),
+                    embed.setColor(this.client.color.main).setDescription(
+                        ctx.locale("cmd.play.added_to_queue", {
+                            title: response.tracks[0].info.title,
+                            uri: response.tracks[0].info.uri,
+                        }),
+                    ),
                 ],
             });
         }
@@ -97,6 +101,10 @@ export default class Play extends Command {
     }
     public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
         const focusedValue = interaction.options.getFocused();
+
+        if (!focusedValue) {
+            return;
+        }
 
         const res = await this.client.manager.search(focusedValue, interaction.user);
         const songs = [];
@@ -108,7 +116,7 @@ export default class Play extends Command {
                     name: name.length > 100 ? `${name.substring(0, 97)}...` : name,
                     value: track.info.uri,
                 });
-            })
+            });
         }
 
         return await interaction.respond(songs).catch(console.error);
