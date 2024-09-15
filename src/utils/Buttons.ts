@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, type EmojiIdentifierResolvable } from "discord.js";
-import type { Player } from "lavalink-client/dist/types";
+import type { Player } from "lavalink-client";
 import type { Lavamusic } from "../structures/index";
 
 function getButtons(player: Player, client: Lavamusic): ActionRowBuilder<ButtonBuilder>[] {

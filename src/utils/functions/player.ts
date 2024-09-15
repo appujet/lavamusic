@@ -1,4 +1,4 @@
-import type { Player, Track } from "lavalink-client/dist/types";
+import type { Player, Track } from "lavalink-client";
 import type { Requester } from "../../types";
 
 /**

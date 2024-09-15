@@ -1,5 +1,5 @@
 import type { AutocompleteInteraction, VoiceChannel } from "discord.js";
-import type { SearchResult } from "lavalink-client/dist/types";
+import type { SearchResult } from "lavalink-client";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Play extends Command {

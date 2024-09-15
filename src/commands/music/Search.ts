@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, type VoiceChannel } from "discord.js";
-import type { SearchResult, Track } from "lavalink-client/dist/types";
+import type { SearchResult, Track } from "lavalink-client";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Search extends Command {
