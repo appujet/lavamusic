@@ -35,7 +35,7 @@ export default class NightCore extends Command {
         const filterEnabled = player.filterManager.filters.nightcore;
 
         if (filterEnabled) {
-            await player.filterManager.toggleTremolo();
+            await player.filterManager.toggleNightcore();
             await ctx.sendMessage({
                 embeds: [
                     {
