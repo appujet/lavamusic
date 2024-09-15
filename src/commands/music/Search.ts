@@ -52,7 +52,7 @@ export default class Search extends Command {
                 textChannelId: ctx.channel.id,
                 selfMute: false,
                 selfDeaf: true,
-                instaUpdateFiltersFix: true,
+
                 vcRegion: memberVoiceChannel.rtcRegion,
             });
         if (!player.connected) await player.connect();

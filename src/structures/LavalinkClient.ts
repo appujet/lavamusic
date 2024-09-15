@@ -14,7 +14,8 @@ export default class LavalinkClient extends LavalinkManager {
             playerOptions: {
                 defaultSearchPlatform: client.env.SEARCH_ENGINE,
                 onDisconnect: {
-                    destroyPlayer: true,
+                    autoReconnect: true,
+                    destroyPlayer: false
                 },
                 requesterTransformer: requesterTransformer,
                 onEmptyQueue: {

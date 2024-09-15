@@ -1,23 +1,23 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-export default class NightCore extends Command {
+export default class Reset extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "nightcore",
+            name: "reset",
             description: {
-                content: "cmd.nightcore.description",
-                examples: ["nightcore"],
-                usage: "nightcore",
+                content: "cmd.reset.description",
+                examples: ["reset"],
+                usage: "reset",
             },
             category: "filters",
-            aliases: ["nc"],
+            aliases: ["rs"],
             cooldown: 3,
             args: false,
             vote: false,
             player: {
                 voice: true,
                 dj: true,
-                active: true,
+                active: false,
                 djPerm: null,
             },
             permissions: {
@@ -32,29 +32,16 @@ export default class NightCore extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.manager.getPlayer(ctx.guild!.id);
-        const filterEnabled = player.filterManager.filters.nightcore;
-
-        if (filterEnabled) {
-            await player.filterManager.toggleTremolo();
-            await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: ctx.locale("cmd.nightcore.messages.filter_disabled"),
-                        color: this.client.color.main,
-                    },
-                ],
-            });
-        } else {
-            await player.filterManager.toggleNightcore();
-            await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: ctx.locale("cmd.nightcore.messages.filter_enabled"),
-                        color: this.client.color.main,
-                    },
-                ],
-            });
-        }
+        player.filterManager.resetFilters();
+        player.filterManager.clearEQ();
+        await ctx.sendMessage({
+            embeds: [
+                {
+                    description: ctx.locale("cmd.reset.messages.filters_reset"),
+                    color: this.client.color.main,
+                },
+            ],
+        });
     }
 }
 

@@ -35,7 +35,7 @@ export default class Connect extends Event {
                             textChannelId: channel.id,
                             selfDeaf: true,
                             selfMute: false,
-                            instaUpdateFiltersFix: true,
+
                         });
                         if (!player.connected) await player.connect();
                     } catch (error) {

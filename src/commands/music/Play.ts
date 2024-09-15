@@ -58,7 +58,6 @@ export default class Play extends Command {
                 textChannelId: ctx.channel.id,
                 selfMute: false,
                 selfDeaf: true,
-                instaUpdateFiltersFix: true,
                 vcRegion: memberVoiceChannel.rtcRegion,
             });
         if (!player.connected) await player.connect();
@@ -103,7 +102,7 @@ export default class Play extends Command {
         const focusedValue = interaction.options.getFocused();
 
         if (!focusedValue) {
-            return;
+            return interaction.respond([]).catch(() => { null });
         }
 
         const res = await this.client.manager.search(focusedValue, interaction.user);
@@ -119,7 +118,7 @@ export default class Play extends Command {
             });
         }
 
-        return await interaction.respond(songs).catch(console.error);
+        return await interaction.respond(songs).catch(() => { null });
     }
 }
 

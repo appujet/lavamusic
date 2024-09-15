@@ -34,13 +34,9 @@
   "homepage": "https://github.com/appujet/lavamusic#readme",
   "devDependencies": {
     "@biomejs/biome": "^1.9.0",
-    "@commitlint/cli": "^19.5.0",
-    "@commitlint/config-conventional": "^19.5.0",
     "@types/i18n": "^0.13.12",
     "@types/node": "^22.5.5",
     "@types/signale": "^1.4.7",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
     "prisma": "^5.19.1",
     "tslib": "^2.7.0",
     "typescript": "^5.6.2"
@@ -58,11 +54,6 @@
     "topgg-autoposter": "^2.0.2",
     "undici": "^6.19.8",
     "zod": "^3.23.8"
-  },
-  "lint-staged": {
-    "*.ts": [
-      "biome check --write"
-    ]
   },
   "signale": {
     "displayScope": true,

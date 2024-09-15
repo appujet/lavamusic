@@ -56,7 +56,7 @@ export default class _247 extends Command {
                     textChannelId: ctx.channel.id,
                     selfMute: false,
                     selfDeaf: true,
-                    instaUpdateFiltersFix: true,
+
                     vcRegion: member.voice.channel.rtcRegion,
                 });
             }

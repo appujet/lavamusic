@@ -1,16 +1,16 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-export default class NightCore extends Command {
+export default class Vibrato extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "nightcore",
+            name: "vibrato",
             description: {
-                content: "cmd.nightcore.description",
-                examples: ["nightcore"],
-                usage: "nightcore",
+                content: "cmd.vibrato.description",
+                examples: ["vibrato"],
+                usage: "vibrato",
             },
             category: "filters",
-            aliases: ["nc"],
+            aliases: ["vb"],
             cooldown: 3,
             args: false,
             vote: false,
@@ -32,24 +32,24 @@ export default class NightCore extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.manager.getPlayer(ctx.guild!.id);
-        const filterEnabled = player.filterManager.filters.nightcore;
+        const vibratoEnabled = player.filterManager.filters.vibrato
 
-        if (filterEnabled) {
-            await player.filterManager.toggleTremolo();
+        if (vibratoEnabled) {
+            player.filterManager.toggleVibrato();
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.nightcore.messages.filter_disabled"),
+                        description: ctx.locale("cmd.vibrato.messages.disabled"),
                         color: this.client.color.main,
                     },
                 ],
             });
         } else {
-            await player.filterManager.toggleNightcore();
+            player.filterManager.toggleVibrato();
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.nightcore.messages.filter_enabled"),
+                        description: ctx.locale("cmd.vibrato.messages.enabled"),
                         color: this.client.color.main,
                     },
                 ],

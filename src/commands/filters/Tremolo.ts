@@ -1,16 +1,16 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-export default class NightCore extends Command {
+export default class Tremolo extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "nightcore",
+            name: "tremolo",
             description: {
-                content: "cmd.nightcore.description",
-                examples: ["nightcore"],
-                usage: "nightcore",
+                content: "cmd.tremolo.description",
+                examples: ["tremolo"],
+                usage: "tremolo",
             },
             category: "filters",
-            aliases: ["nc"],
+            aliases: ["tr"],
             cooldown: 3,
             args: false,
             vote: false,
@@ -32,24 +32,24 @@ export default class NightCore extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.manager.getPlayer(ctx.guild!.id);
-        const filterEnabled = player.filterManager.filters.nightcore;
+        const tremoloEnabled = player.filterManager.filters.tremolo
 
-        if (filterEnabled) {
-            await player.filterManager.toggleTremolo();
+        if (tremoloEnabled) {
+            player.filterManager.toggleTremolo();
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.nightcore.messages.filter_disabled"),
+                        description: ctx.locale("cmd.tremolo.messages.disabled"),
                         color: this.client.color.main,
                     },
                 ],
             });
         } else {
-            await player.filterManager.toggleNightcore();
+            player.filterManager.toggleTremolo();
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.nightcore.messages.filter_enabled"),
+                        description: ctx.locale("cmd.tremolo.messages.enabled"),
                         color: this.client.color.main,
                     },
                 ],

@@ -1,16 +1,16 @@
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 
-export default class NightCore extends Command {
+export default class Rotation extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: "nightcore",
+            name: "rotation",
             description: {
-                content: "cmd.nightcore.description",
-                examples: ["nightcore"],
-                usage: "nightcore",
+                content: "cmd.rotation.description",
+                examples: ["rotation"],
+                usage: "rotation",
             },
             category: "filters",
-            aliases: ["nc"],
+            aliases: ["rt"],
             cooldown: 3,
             args: false,
             vote: false,
@@ -32,24 +32,22 @@ export default class NightCore extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.manager.getPlayer(ctx.guild!.id);
-        const filterEnabled = player.filterManager.filters.nightcore;
-
-        if (filterEnabled) {
-            await player.filterManager.toggleTremolo();
+        if (player.filterManager.filters.rotation) {
+           player.filterManager.toggleRotation();
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.nightcore.messages.filter_disabled"),
+                        description: ctx.locale("cmd.rotation.messages.disabled"),
                         color: this.client.color.main,
                     },
                 ],
             });
         } else {
-            await player.filterManager.toggleNightcore();
+            player.filterManager.toggleRotation();
             await ctx.sendMessage({
                 embeds: [
                     {
-                        description: ctx.locale("cmd.nightcore.messages.filter_enabled"),
+                        description: ctx.locale("cmd.rotation.messages.enabled"),
                         color: this.client.color.main,
                     },
                 ],
