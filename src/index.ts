@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
+import { shardStart } from "./shard";
 import Logger from "./structures/Logger";
 import { ThemeSelector } from "./utils/ThemeSelector";
-import { shardStart } from "./shard";
 
 const logger = new Logger();
 

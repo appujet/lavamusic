@@ -1,6 +1,3 @@
-import type { Player, Track, TrackStartEvent } from "lavalink-client";
-import { Event, type Lavamusic } from "../../structures/index";
-import { T } from "../../structures/I18n";
 import {
     ActionRowBuilder,
     ButtonBuilder,
@@ -15,6 +12,9 @@ import {
     type TextChannel,
     type UserSelectMenuInteraction,
 } from "discord.js";
+import type { Player, Track, TrackStartEvent } from "lavalink-client";
+import { T } from "../../structures/I18n";
+import { Event, type Lavamusic } from "../../structures/index";
 import type { Requester } from "../../types";
 import { trackStart } from "../../utils/SetupSystem";
 

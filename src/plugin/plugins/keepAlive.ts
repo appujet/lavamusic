@@ -1,7 +1,7 @@
 import http from "node:http";
+import { env } from "../../env";
 import type { Lavamusic } from "../../structures/index";
 import type { BotPlugin } from "../index";
-import { env } from "../../env";
 
 const keepAlive: BotPlugin = {
     name: "KeepAlive Plugin",

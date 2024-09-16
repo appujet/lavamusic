@@ -619,7 +619,6 @@
 			"no_previous_track": "没有上一首曲目。",
 			"playing_previous": "正在播放上一首曲目。",
 			"previous_footer": "由 {displayName} 播放上一首曲目",
-			"rewind_limit": "您不能将音乐倒回到超过歌曲长度的位置。",
 			"rewinded": "已倒回音乐。",
 			"rewind_footer": "由 {displayName} 倒回",
 			"forward_limit": "您不能将音乐快进到超过歌曲长度的位置。",
