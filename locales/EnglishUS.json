@@ -33,7 +33,7 @@
 			"options": {
 				"command": "The command you want to get info on"
 			},
-			"content": "Hey there! I'm {bot}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord. You can use `{prefix}help <command>` to get more info on a command.",
+			"content": "Hey there! I'm {bot}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord.js. You can use `{prefix}help <command>` to get more info on a command.",
 			"title": "Help Menu",
 			"not_found": "This `{cmdName}` command does not exist.",
 			"help_cmd": "**Description:** {description}\n**Usage:** {usage}\n**Examples:** {examples}\n**Aliases:** {aliases}\n**Category:** {category}\n**Cooldown:** {cooldown} seconds\n**Permissions:** {premUser}\n**Bot Permissions:** {premBot}\n**Developer Only:** {dev}\n**Slash Command:** {slash}\n**Args:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**DJ Permissions:** {djPerm}\n**Voice:** {voice}",
@@ -41,7 +41,7 @@
 		},
 		"botinfo": {
 			"description": "Information about the bot",
-			"content": "Bot Information:\n- **Operating System**: {osInfo}\n- **Uptime**: {osUptime}\n- **Hostname**: {osHostname}\n- **CPU Architecture**: {cpuInfo}\n- **CPU Usage**: {cpuUsed}%\n- **Memory Usage**: {memUsed}MB / {memTotal}GB\n- **Node Version**: {nodeVersion}\n- **Discord Version**: {discordJsVersion}\n- **Connected to** {guilds} guilds, {channels} channels, and {users} users\n- **Total Commands**: {commands}"
+			"content": "Bot Information:\n- **Operating System**: {osInfo}\n- **Uptime**: {osUptime}\n- **Hostname**: {osHostname}\n- **CPU Architecture**: {cpuInfo}\n- **CPU Usage**: {cpuUsed}%\n- **Memory Usage**: {memUsed}MB / {memTotal}GB\n- **Node Version**: {nodeVersion}\n- **Discord.js Version**: {discordJsVersion}\n- **Connected to** {guilds} guilds, {channels} channels, and {users} users\n- **Total Commands**: {commands}"
 		},
 		"about": {
 			"description": "Shows information about the bot",
@@ -110,7 +110,7 @@
 			"errors": {
 				"channel_exists": "The song request channel already exists.",
 				"channel_not_exists": "The song request channel doesn't exist.",
-				"channel_delete_fail": "The song request channel has been deleted. If the channel is not deleted normally, please delete it yourself."
+				"channel_delete_fail": "The setup channel has been deleted from the database. Please delete the channel yourself."
 			},
 			"messages": {
 				"channel_created": "The song request channel has been created in <#{channelId}>.",
@@ -631,7 +631,6 @@
 			"no_previous_track": "There is no previous track.",
 			"playing_previous": "Playing the previous track.",
 			"previous_footer": "Playing the previous track by {displayName}",
-			"rewind_limit": "You cannot rewind the music more than the length of the song.",
 			"rewinded": "Rewinded the music.",
 			"rewind_footer": "Rewinded by {displayName}",
 			"forward_limit": "You cannot forward the music more than the length of the song.",

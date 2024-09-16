@@ -619,7 +619,6 @@
 			"no_previous_track": "Không có bài hát trước.",
 			"playing_previous": "Đang phát bài hát trước.",
 			"previous_footer": "Đang phát bài hát trước bởi {displayName}",
-			"rewind_limit": "Bạn không thể quay lại nhạc nhiều hơn độ dài của bài hát.",
 			"rewinded": "Đã quay lại nhạc.",
 			"rewind_footer": "Quay lại bởi {displayName}",
 			"forward_limit": "Bạn không thể tiến tới nhạc nhiều hơn độ dài của bài hát.",

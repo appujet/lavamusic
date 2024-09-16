@@ -619,7 +619,6 @@
 			"no_previous_track": "Det er ingen forrige spor.",
 			"playing_previous": "Spiller av forrige spor.",
 			"previous_footer": "Spiller av forrige spor av {displayName}",
-			"rewind_limit": "Du kan ikke spole musikken tilbake mer enn lengden på sangen.",
 			"rewinded": "Spolet musikken tilbake.",
 			"rewind_footer": "Spolet tilbake av {displayName}",
 			"forward_limit": "Du kan ikke spole musikken fremover mer enn lengden på sangen.",

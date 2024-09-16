@@ -92,10 +92,9 @@ export default class Setup extends Command {
                 });
                 const player = this.client.manager.getPlayer(ctx.guild!.id);
                 const image = this.client.config.links.img;
-                const desc =
-                    player && player.queue.current
-                        ? `[${player.queue.current.info.title}](${player.queue.current.info.uri})`
-                        : ctx.locale("player.setupStart.nothing_playing");
+                const desc = player?.queue.current
+                    ? `[${player.queue.current.info.title}](${player.queue.current.info.uri})`
+                    : ctx.locale("player.setupStart.nothing_playing");
                 embed.setDescription(desc).setImage(image);
                 await textChannel
                     .send({

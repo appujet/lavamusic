@@ -619,7 +619,6 @@
 			"no_previous_track": "Il n'y a pas de piste précédente.",
 			"playing_previous": "Lecture de la piste précédente.",
 			"previous_footer": "Lecture de la piste précédente par {displayName}",
-			"rewind_limit": "Vous ne pouvez pas rembobiner la musique plus que la longueur de la chanson.",
 			"rewinded": "Rembobinage de la musique.",
 			"rewind_footer": "Rembobiné par {displayName}",
 			"forward_limit": "Vous ne pouvez pas avancer la musique plus que la longueur de la chanson.",

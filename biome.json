@@ -7,16 +7,25 @@
     "enabled": true,
     "rules": {
       "all": true,
-      "suspicious": {
-        "noConfusingVoidType": "off",
-        "noConsole": "off",
-        "noConsoleLog": "off",
-        "noEmptyBlockStatements": "off",
-        "noEvolvingTypes": "off",
-        "noExplicitAny": "off",
-        "noGlobalIsFinite": "off",
-        "noGlobalIsNan": "off",
-        "useAwait": "off"
+      "complexity": {
+        "noBannedTypes": "off",
+        "noExcessiveCognitiveComplexity": "off",
+        "noForEach": "off",
+        "noStaticOnlyClass": "off"
+      },
+      "correctness": {
+        "noNodejsModules": "off",
+        "noUnusedFunctionParameters": "off",
+        "noUnusedVariables": "off",
+        "noVoidTypeReturn": "off",
+        "useImportExtensions": "off"
+      },
+      "performance": {
+        "noBarrelFile": "off",
+        "useTopLevelRegex": "off"
+      },
+      "security": {
+        "noGlobalEval": "off"
       },
       "style": {
         "noDefaultExport": "off",
@@ -27,34 +36,21 @@
         "useBlockStatements": "off",
         "useDefaultSwitchClause": "off",
         "useFilenamingConvention": "off",
+        "useImportType": "warn",
         "useNamingConvention": "off",
         "useNumberNamespace": "off",
-        "useSingleCaseStatement": "off",
-        "useImportType": "warn"
+        "useSingleCaseStatement": "off"
       },
-      "complexity": {
-        "noBannedTypes": "off",
-        "noForEach": "off",
-        "useOptionalChain": "off",
-        "noStaticOnlyClass": "off",
-        "noExcessiveCognitiveComplexity": {
-          "level": "warn",
-          "options": {
-            "maxAllowedComplexity": 255
-          }
-        }
-      },
-      "security": {
-        "noGlobalEval": "off"
-      },
-      "correctness": {
-        "noNodejsModules": "off",
-        "noVoidTypeReturn": "off",
-        "useImportExtensions": "off"
-      },
-      "performance": {
-        "noBarrelFile": "off",
-        "useTopLevelRegex": "off"
+      "suspicious": {
+        "noConfusingVoidType": "off",
+        "noConsole": "off",
+        "noConsoleLog": "off",
+        "noEmptyBlockStatements": "off",
+        "noEvolvingTypes": "off",
+        "noExplicitAny": "off",
+        "noGlobalIsFinite": "off",
+        "noGlobalIsNan": "off",
+        "useAwait": "off"
       }
     }
   },

@@ -619,7 +619,6 @@
 			"no_previous_track": "Tidak ada lagu sebelumnya.",
 			"playing_previous": "Memutar lagu sebelumnya.",
 			"previous_footer": "Memutar lagu sebelumnya oleh {displayName}",
-			"rewind_limit": "Anda tidak dapat memutar mundur lagu lebih dari panjang lagu.",
 			"rewinded": "Memutar mundur lagu.",
 			"rewind_footer": "Diputar mundur oleh {displayName}",
 			"forward_limit": "Anda tidak dapat memajukan lagu lebih dari panjang lagu.",

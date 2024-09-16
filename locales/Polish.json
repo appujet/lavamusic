@@ -619,7 +619,6 @@
 			"no_previous_track": "Nie ma żadnego poprzedniego utworu.",
 			"playing_previous": "Odtwarzanie poprzedniego utworu",
 			"previous_footer": "Utwór ostatnio odtwarzany przez {displayName}",
-			"rewind_limit": "Nie można cofnąć muzyki o więcej niż długość utworu.",
 			"rewinded": "Cofnięto muzykę.",
 			"rewind_footer": "Cofnięty przez {displayName}",
 			"forward_limit": "Nie można przesunąć muzyki do przodu o więcej niż długość utworu.",
