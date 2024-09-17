@@ -20,11 +20,11 @@ export default class QueueEnd extends Event {
         const channel = guild.channels.cache.get(player.textChannelId) as TextChannel;
         if (!channel) return;
 
-        const message = await channel.messages.fetch(messageId).catch(() => { });
+        const message = await channel.messages.fetch(messageId).catch(() => {});
         if (!message) return;
 
         if (message.editable) {
-            await message.edit({ components: [] }).catch(() => { });
+            await message.edit({ components: [] }).catch(() => {});
         }
     }
 }

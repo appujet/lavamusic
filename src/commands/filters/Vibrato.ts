@@ -32,7 +32,7 @@ export default class Vibrato extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.manager.getPlayer(ctx.guild!.id);
-        const vibratoEnabled = player.filterManager.filters.vibrato
+        const vibratoEnabled = player.filterManager.filters.vibrato;
 
         if (vibratoEnabled) {
             player.filterManager.toggleVibrato();

@@ -32,7 +32,7 @@ export default class Tremolo extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.manager.getPlayer(ctx.guild!.id);
-        const tremoloEnabled = player.filterManager.filters.tremolo
+        const tremoloEnabled = player.filterManager.filters.tremolo;
 
         if (tremoloEnabled) {
             player.filterManager.toggleTremolo();

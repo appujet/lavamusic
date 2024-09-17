@@ -102,7 +102,9 @@ export default class Play extends Command {
         const focusedValue = interaction.options.getFocused();
 
         if (!focusedValue) {
-            return interaction.respond([]).catch(() => { null });
+            return interaction.respond([]).catch(() => {
+                null;
+            });
         }
 
         const res = await this.client.manager.search(focusedValue, interaction.user);
@@ -118,7 +120,9 @@ export default class Play extends Command {
             });
         }
 
-        return await interaction.respond(songs).catch(() => { null });
+        return await interaction.respond(songs).catch(() => {
+            null;
+        });
     }
 }
 
