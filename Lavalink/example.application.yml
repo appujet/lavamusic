@@ -20,13 +20,6 @@ plugins:
       pixeldrain: true # pixeldrain.com
             jiosaavn:
     apiURL: "https://saavn.dev/api" # The API URL for JioSaavn
-  lavalyrics:
-    # sources is used to sort the different lyrics sources by priority (from highest to lowest)
-    sources:
-      - spotify
-      - youtube
-      - deezer
-      - yandexMusic
   lavasrc:
     providers: # Custom providers for track loading. This is the default
       # - "dzisrc:%ISRC%" # Deezer ISRC provider
@@ -43,11 +36,11 @@ plugins:
       youtube: true # Enable YouTube search source (https://github.com/topi314/LavaSearch)
       vkmusic: false # Enable Vk Music source
     lyrics-sources:
-      spotify: true # Enable Spotify lyrics source
-      deezer: true # Enable Deezer lyrics source
-      youtube: true # Enable YouTube lyrics source
-      yandexmusic: true # Enable Yandex Music lyrics source
-      vkmusic: true # Enable Vk Music lyrics source
+      spotify: false # Enable Spotify lyrics source
+      deezer: false # Enable Deezer lyrics source
+      youtube: false # Enable YouTube lyrics source
+      yandexmusic: false # Enable Yandex Music lyrics source
+      vkmusic: false # Enable Vk Music lyrics source
     spotify:
       clientId: "your client id"
       clientSecret: "your client secret"
@@ -115,8 +108,6 @@ lavalink:
       repository: "https://jitpack.io"
     - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
       snapshot: false # set to true if you want to use snapshot builds
-    - dependency: "com.github.topi314.lavalyrics:lavalyrics-plugin:1.0.0"
-      snapshot: false # set to true if you want to use snapshot builds (see below)
     - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
       snapshot: false # set to true if you want to use snapshot builds
     - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.2.0"
