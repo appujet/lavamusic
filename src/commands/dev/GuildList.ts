@@ -33,7 +33,7 @@ export default class GuildList extends Command {
         const guilds = await client.shard.broadcastEval((c) => c.guilds.cache.map((guild) => ({ name: guild.name, id: guild.id })));
         const allGuilds = guilds.reduce((acc, val) => acc.concat(val), []);
 
-        const guildList = allGuilds.map((guild) => `- **${guild.name}** - (${guild.id})`);
+        const guildList = allGuilds.map((guild) => `- **${guild.name}** - ${guild.id}`);
         const chunks = client.utils.chunk(guildList, 10) || [[]];
         const pages = chunks.map((chunk, index) => {
             return this.client

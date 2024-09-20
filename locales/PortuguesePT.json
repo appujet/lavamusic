@@ -613,7 +613,6 @@
 			"no_previous_track": "Não há nenhuma faixa anterior.",
 			"playing_previous": "A tocar a faixa anterior.",
 			"previous_footer": "A tocar a faixa anterior por {displayName}",
-			"rewind_limit": "Não pode retroceder a música mais do que o comprimento da música.",
 			"rewinded": "A música foi retrocedida.",
 			"rewind_footer": "Retrocedido por {displayName}",
 			"forward_limit": "Não pode avançar a música mais do que o comprimento da música.",

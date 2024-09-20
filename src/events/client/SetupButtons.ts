@@ -42,9 +42,7 @@ export default class SetupButtons extends Event {
             message = await interaction.channel.messages.fetch(data.messageId, {
                 cache: true,
             });
-        } catch (_e) {
-            /* empty */
-        }
+        } catch (_e) {}
 
         const iconUrl = this.client.config.icons[sourceName] || this.client.user.displayAvatarURL({ extension: "png" });
         const embed = this.client
@@ -81,15 +79,52 @@ export default class SetupButtons extends Event {
                 });
             };
             switch (interaction.customId) {
-                case "LOW_VOL_BUT":
-                    await handleVolumeChange(-10);
+                case "PREV_BUT":
+                    if (!player.queue.previous) {
+                        return await buttonReply(interaction, T(locale, "event.setupButton.no_previous_track"), this.client.color.main);
+                    }
+                    player.play({
+                        track: player.queue.previous[0],
+                    });
+                    await buttonReply(interaction, T(locale, "event.setupButton.playing_previous"), this.client.color.main);
+                    await message.edit({
+                        embeds: [
+                            embed.setFooter({
+                                text: T(locale, "event.setupButton.previous_footer", {
+                                    displayName: interaction.member.displayName,
+                                }),
+                                iconURL: interaction.member.displayAvatarURL({}),
+                            }),
+                        ],
+                    });
                     break;
-                case "HIGH_VOL_BUT":
-                    await handleVolumeChange(10);
+                case "REWIND_BUT": {
+                    const time = player.position - 10000;
+                    if (time < 0) {
+                        player.seek(0);
+                    } else {
+                        player.seek(time);
+                    }
+                    await buttonReply(interaction, T(locale, "event.setupButton.rewinded"), this.client.color.main);
+                    await message.edit({
+                        embeds: [
+                            embed.setFooter({
+                                text: T(locale, "event.setupButton.rewind_footer", {
+                                    displayName: interaction.member.displayName,
+                                }),
+                                iconURL: interaction.member.displayAvatarURL({}),
+                            }),
+                        ],
+                    });
                     break;
+                }
                 case "PAUSE_BUT": {
                     const name = player.paused ? T(locale, "event.setupButton.resumed") : T(locale, "event.setupButton.paused");
-                    player.pause();
+                    if (player.paused) {
+                        player.resume();
+                    } else {
+                        player.pause();
+                    }
                     await buttonReply(interaction, T(locale, "event.setupButton.pause_resume", { name }), this.client.color.main);
                     await message.edit({
                         embeds: [
@@ -102,6 +137,25 @@ export default class SetupButtons extends Event {
                             }),
                         ],
                         components: getButtons(player, this.client),
+                    });
+                    break;
+                }
+                case "FORWARD_BUT": {
+                    const time = player.position + 10000;
+                    if (time > player.queue.current.info.duration) {
+                        return await buttonReply(interaction, T(locale, "event.setupButton.forward_limit"), this.client.color.main);
+                    }
+                    player.seek(time);
+                    await buttonReply(interaction, T(locale, "event.setupButton.forwarded"), this.client.color.main);
+                    await message.edit({
+                        embeds: [
+                            embed.setFooter({
+                                text: T(locale, "event.setupButton.forward_footer", {
+                                    displayName: interaction.member.displayName,
+                                }),
+                                iconURL: interaction.member.displayAvatarURL({}),
+                            }),
+                        ],
                     });
                     break;
                 }
@@ -122,28 +176,8 @@ export default class SetupButtons extends Event {
                         ],
                     });
                     break;
-                case "STOP_BUT":
-                    player.stopPlaying(true, false);
-                    await buttonReply(interaction, T(locale, "event.setupButton.stopped"), this.client.color.main);
-                    await message.edit({
-                        embeds: [
-                            embed
-                                .setFooter({
-                                    text: T(locale, "event.setupButton.stopped_footer", {
-                                        displayName: interaction.member.displayName,
-                                    }),
-                                    iconURL: interaction.member.displayAvatarURL({}),
-                                })
-                                .setDescription(T(locale, "event.setupButton.nothing_playing"))
-                                .setImage(this.client.config.links.img)
-                                .setAuthor({
-                                    name: this.client.user.username,
-                                    iconURL: this.client.user.displayAvatarURL({
-                                        extension: "png",
-                                    }),
-                                }),
-                        ],
-                    });
+                case "LOW_VOL_BUT":
+                    await handleVolumeChange(-10);
                     break;
                 case "LOOP_BUT": {
                     const loopOptions: Array<"off" | "queue" | "track"> = ["off", "queue", "track"];
@@ -169,69 +203,35 @@ export default class SetupButtons extends Event {
                     });
                     break;
                 }
+                case "STOP_BUT":
+                    player.stopPlaying(true, false);
+                    await buttonReply(interaction, T(locale, "event.setupButton.stopped"), this.client.color.main);
+                    await message.edit({
+                        embeds: [
+                            embed
+                                .setFooter({
+                                    text: T(locale, "event.setupButton.stopped_footer", {
+                                        displayName: interaction.member.displayName,
+                                    }),
+                                    iconURL: interaction.member.displayAvatarURL({}),
+                                })
+                                .setDescription(T(locale, "event.setupButton.nothing_playing"))
+                                .setImage(this.client.config.links.img)
+                                .setAuthor({
+                                    name: this.client.user.username,
+                                    iconURL: this.client.user.displayAvatarURL({
+                                        extension: "png",
+                                    }),
+                                }),
+                        ],
+                    });
+                    break;
                 case "SHUFFLE_BUT":
                     player.queue.shuffle();
                     await buttonReply(interaction, T(locale, "event.setupButton.shuffled"), this.client.color.main);
                     break;
-                case "PREV_BUT":
-                    if (!player.queue.previous) {
-                        return await buttonReply(interaction, T(locale, "event.setupButton.no_previous_track"), this.client.color.main);
-                    }
-                    player.play({
-                        track: player.queue.previous[0],
-                    });
-                    await buttonReply(interaction, T(locale, "event.setupButton.playing_previous"), this.client.color.main);
-                    await message.edit({
-                        embeds: [
-                            embed.setFooter({
-                                text: T(locale, "event.setupButton.previous_footer", {
-                                    displayName: interaction.member.displayName,
-                                }),
-                                iconURL: interaction.member.displayAvatarURL({}),
-                            }),
-                        ],
-                    });
-                    break;
-                case "REWIND_BUT": {
-                    const time = player.position - 10000;
-                    if (time < 0) {
-                        return await buttonReply(interaction, T(locale, "event.setupButton.rewind_limit"), this.client.color.main);
-                    }
-                    player.seek(time);
-                    await buttonReply(interaction, T(locale, "event.setupButton.rewinded"), this.client.color.main);
-                    await message.edit({
-                        embeds: [
-                            embed.setFooter({
-                                text: T(locale, "event.setupButton.rewind_footer", {
-                                    displayName: interaction.member.displayName,
-                                }),
-                                iconURL: interaction.member.displayAvatarURL({}),
-                            }),
-                        ],
-                    });
-                    break;
-                }
-                case "FORWARD_BUT": {
-                    const time = player.position + 10000;
-                    if (time > player.queue.current.info.duration) {
-                        return await buttonReply(interaction, T(locale, "event.setupButton.forward_limit"), this.client.color.main);
-                    }
-                    player.seek(time);
-                    await buttonReply(interaction, T(locale, "event.setupButton.forwarded"), this.client.color.main);
-                    await message.edit({
-                        embeds: [
-                            embed.setFooter({
-                                text: T(locale, "event.setupButton.forward_footer", {
-                                    displayName: interaction.member.displayName,
-                                }),
-                                iconURL: interaction.member.displayAvatarURL({}),
-                            }),
-                        ],
-                    });
-                    break;
-                }
-                default:
-                    await buttonReply(interaction, T(locale, "event.setupButton.button_not_available"), this.client.color.main);
+                case "HIGH_VOL_BUT":
+                    await handleVolumeChange(10);
                     break;
             }
         }

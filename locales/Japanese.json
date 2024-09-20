@@ -619,7 +619,6 @@
 			"no_previous_track": "前のトラックがありません。",
 			"playing_previous": "前のトラックを再生中です。",
 			"previous_footer": "{displayName} によって前のトラックを再生中です",
-			"rewind_limit": "曲の長さ以上に巻き戻すことはできません。",
 			"rewinded": "音楽を巻き戻しました。",
 			"rewind_footer": "{displayName} によって巻き戻されました",
 			"forward_limit": "曲の長さ以上に早送りすることはできません。",

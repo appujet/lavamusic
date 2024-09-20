@@ -33,7 +33,7 @@
 			"options": {
 				"command": "특정 명령어의 정보를 얻고 싶다면 여기에 입력해주세요"
 			},
-			"content": "안녕하세요! 저는 [Lavamusic](https://github.com/appujet/lavamusic)과 Discord로 만들어진 음악 봇이에요. `{prefix}help <명령어>`를 사용하여 그 명령어의 자세한 정보를 얻을 수 있어요.",
+			"content": "안녕하세요! 저는 [Lavamusic](https://github.com/appujet/lavamusic)와 Discord.js로 만들어진 음악 봇, {bot}이에요. 명령어에 대한 자세한 정보를 얻고 싶다면 `{prefix}help <명령어>`를 사용해보세요.",
 			"title": "도움말 메뉴",
 			"not_found": "`{cmdName}` 명령어는 존재하지 않아요.",
 			"help_cmd": "**설명:** {description}\n**사용 방법:** {usage}\n**예시:** {examples}\n**줄인 명령어:** {aliases}\n**카테고리:** {category}\n**쿨다운:** {cooldown}초\n**필요한 권한:** {premUser}\n**봇에게 필요한 권한:** {premBot}\n**개발자 전용:** {dev}\n**빗금 명령어 사용 가능:** {slash}\n**인수 필요:** {args}\n**노래 재생 중에만 사용 가능:** {player}\n**DJ만 사용 가능:** {dj}\n**DJ에게 필요한 권한:** {djPerm}\n**음성 채널 접속 중에만 사용 가능:** {voice}",
@@ -41,7 +41,7 @@
 		},
 		"botinfo": {
 			"description": "봇에 대한 정보를 표시해요",
-			"content": "봇 정보:\n- **운영 체제**: {osInfo}\n- **업타임**: {osUptime}\n- **호스트 이름**: {osHostname}\n- **CPU 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord 버전**: {discordJsVersion}\n- 서버 {guilds}개, 채널 {channels}개, 유저 {users}명\n- **명령어 수**: {commands}개"
+			"content": "봇 정보:\n- **운영 체제**: {osInfo}\n- **업타임**: {osUptime}\n- **호스트 이름**: {osHostname}\n- **CPU 아키텍처**: {cpuInfo}\n- **CPU 사용량**: {cpuUsed}%\n- **메모리 사용량**: {memUsed}MB / {memTotal}GB\n- **Node 버전**: {nodeVersion}\n- **Discord.js 버전**: {discordJsVersion}\n- 서버 {guilds}개, 채널 {channels}개, 유저 {users}명\n- **명령어 수**: {commands}개"
 		},
 		"about": {
 			"description": "봇에 대한 정보를 확인해요",
@@ -132,12 +132,14 @@
 		},
 		"bassboost": {
 			"description": "베이스부스트 필터를 토글해요",
-			"messages": {
-				"filter_enabled": "`✅` | 베이스부스트 필터가 `활성화되었어요`. \n**조심하세요, 너무 크게 들으면 귀가 나갈 수도 있어요!**",
-				"filter_disabled": "`✅` | 베이스부스트 필터가 `비활성화되었어요`."
-			},
 			"options": {
-				"level": "The bassboost level you want to set"
+				"level": "설정할 베이스부스트 레벨"
+			},
+			"messages": {
+				"high": "`✅` | High 베이스부스트 필터가 `활성화되었어요`.",
+				"low": "`✅` | Low 베이스부스트 필터가 `활성화되었어요`.",
+				"medium": "`✅` | Medium 베이스부스트 필터가 `활성화되었어요`.",
+				"off": "`✅` | 베이스부스트 필터가 `비활성화되었어요`."
 			}
 		},
 		"distorsion": {
@@ -267,9 +269,9 @@
 			"looping_off": "**반복이 꺼졌어요.**"
 		},
 		"lyrics": {
-			"description": "현재 재생중인 노래의 가사를 가져와요",
-			"lyrics_track": "### [{trackTitle}]({trackUrl})의 노래 가사\n**`{lyrics}`**",
-			"searching": "`🔍` **{trackTitle}**의 가사 검색 중...",
+			"description": "현재 재생중인 노래의 가사를 확인해요",
+			"lyrics_track": "### [{trackTitle}]({trackUrl}) 노래 가사\n**`{lyrics}`**",
+			"searching": "`🔍` **{trackTitle}** 노래 가사 검색 중...",
 			"errors": {
 				"no_results": "가사를 찾지 못했어요.",
 				"lyrics_error": "가사를 검색하는 도중 오류가 발생했어요."
@@ -598,15 +600,15 @@
 			"cooldown": "`{command}` 명령어를 사용하려면 {time}초동안 기다려야 해요.",
 			"no_mention_everyone": "이 명령어는 everyone나 here 멘션으로 사용할 수 없어요. 빗금 명령어로 사용해주세요.",
 			"error": "오류: `{error}`",
-			"no_voice_channel_queue": "대기열에 노래를 추가하려면 음성 채널에 접속해주세요.",
+			"no_voice_channel_queue": "대기열에 노래를 추가하려면 음성 채널에 있어야 해요.",
 			"no_permission_connect_speak": "<#{channel}>에서 연결/말하기 권한이 없어요.",
 			"different_voice_channel_queue": "노래를 대기열에 추가하려면 <#{channel}> 채널에 있어야 해요.",
 			"vote_button": "투표하기",
 			"vote_message": "잠깐! 이 명령어를 사용하려면 top.gg에서 투표해야 해요."
 		},
 		"setupButton": {
-			"no_voice_channel_button": "이 버튼을 사용하려면 음성 채널에 접속해주세요.",
-			"different_voice_channel_button": "이 버튼을 사용하려면 {channel} 채널에 접속해주세요.",
+			"no_voice_channel_button": "이 버튼을 사용하려면 음성 채널에 있어야 해요.",
+			"different_voice_channel_button": "이 버튼을 사용하려면 {channel} 채널에 있어야 해요.",
 			"now_playing": "재생 중",
 			"live": "라이브",
 			"requested_by": "요청자: <@{requester}>",
@@ -623,16 +625,15 @@
 			"stopped": "노래를 정지했어요.",
 			"stopped_footer": "{displayName}님에 의해 정지됨",
 			"nothing_playing": "재생 중인 노래 없음",
-			"loop_set": "{loop} 반복으로 설정했어요.",
-			"loop_footer": "{displayName}님에 의해 {loop} 반복으로 설정됨",
+			"loop_set": "반복 모드가 {loop}로 변경되었어요.",
+			"loop_footer": "{displayName}님에 의해 반복 모드가 {loop}로 설정됨",
 			"shuffled": "노래를 섞었어요.",
 			"no_previous_track": "이전 노래가 없어요.",
 			"playing_previous": "이전 노래를 재생할게요.",
 			"previous_footer": "{displayName}님에 의해 이전 노래 재생 중",
-			"rewind_limit": "현재 노래 길이보다 더 되감기할 수 없어요.",
 			"rewinded": "노래를 되감기했어요.",
 			"rewind_footer": "{displayName}님에 의해 노래 되감기됨",
-			"forward_limit": "현재 노래 길이보다 더 빨리감기할 수 없어요.",
+			"forward_limit": "더 이상 빨리감기할 수 없어요.",
 			"forwarded": "노래를 빨리감기했어요.",
 			"forward_footer": "{displayName}님에 의해 빨리감기됨",
 			"button_not_available": "이 버튼은 사용할 수 없어요.",

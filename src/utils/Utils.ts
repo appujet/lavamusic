@@ -19,8 +19,8 @@ export class Utils {
             user.setPresence({
                 activities: [
                     {
-                        name: player && player.queue?.current ? `🎶 | ${player.queue?.current.info.title}` : client.env.BOT_ACTIVITY,
-                        type: player && player?.queue?.current ? ActivityType.Listening : client.env.BOT_ACTIVITY_TYPE,
+                        name: player?.queue?.current ? `🎶 | ${player.queue?.current.info.title}` : client.env.BOT_ACTIVITY,
+                        type: player?.queue?.current ? ActivityType.Listening : client.env.BOT_ACTIVITY_TYPE,
                     },
                 ],
                 status: client.env.BOT_STATUS as any,

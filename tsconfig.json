@@ -1,11 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "lib": ["ESNext", "DOM"],
+    "lib": ["dom", "esnext"],
     "rootDir": "./src",
     "outDir": "./dist",
-    "target": "ESNext",
-    "module": "CommonJS",
+    "target": "esnext",
+    "module": "commonjs",
     "declaration": true,
     "sourceMap": true,
     "newLine": "crlf",

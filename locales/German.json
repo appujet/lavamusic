@@ -619,7 +619,6 @@
 			"no_previous_track": "Es gibt keinen vorherigen Track.",
 			"playing_previous": "Spiele den vorherigen Track ab.",
 			"previous_footer": "Spiele den vorherigen Track ab von {displayName}",
-			"rewind_limit": "Du kannst die Musik nicht mehr als die Länge des Songs zurückspulen.",
 			"rewinded": "Musik zurückgespult.",
 			"rewind_footer": "Zurückgespult von {displayName}",
 			"forward_limit": "Du kannst die Musik nicht mehr als die Länge des Songs vorspulen.",

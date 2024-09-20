@@ -1,6 +1,6 @@
 import { AutoPoster } from "topgg-autoposter";
-import { Event, type Lavamusic } from "../../structures/index.js";
 import { env } from "../../env.js";
+import { Event, type Lavamusic } from "../../structures/index.js";
 
 export default class Ready extends Event {
     constructor(client: Lavamusic, file: string) {
