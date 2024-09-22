@@ -1,0 +1,64 @@
+name: "Feature Request"
+description: "Propose a new idea or improvement for this repository"
+title: "[Feature Request]: "
+labels: ["enhancement", "feature-request"]
+assignees:
+  - appujet
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+
+        Please provide a detailed description of the feature you're suggesting. If applicable, describe any related problem and the potential benefits of implementing this feature.
+  - type: input
+    id: title
+    attributes:
+      label: "Feature Title"
+      description: "Provide a brief title for your feature request"
+      placeholder: "Enter a concise title"
+    validations:
+      required: true
+  - type: textarea
+    id: problem_description
+    attributes:
+      label: "Is your feature request related to a problem?"
+      description: "Describe the problem you're trying to solve, if applicable"
+      placeholder: "Describe the problem"
+    validations:
+      required: false
+  - type: textarea
+    id: suggestion_description
+    attributes:
+      label: "Feature Description"
+      description: "Provide a detailed description of your idea. Include examples, screenshots, or mockups if possible."
+      placeholder: "Explain your idea in detail"
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority Level"
+      description: "Indicate how important this feature is"
+      options:
+        - "Low"
+        - "Medium"
+        - "High"
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives Considered"
+      description: "Have you considered any alternative solutions? Please describe them here."
+      placeholder: "Mention any alternative approaches"
+    validations:
+      required: false
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: "Add any other context or screenshots that could help explain your feature request."
+      placeholder: "Additional context, links, or references"
+    validations:
+      required: false

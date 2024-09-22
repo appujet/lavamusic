@@ -74,7 +74,6 @@ export default class LoadPlaylist extends Command {
                 textChannelId: ctx.channel.id,
                 selfMute: false,
                 selfDeaf: true,
-
                 vcRegion: member.voice.channel.rtcRegion,
             });
             if (!player.connected) await player.connect();
