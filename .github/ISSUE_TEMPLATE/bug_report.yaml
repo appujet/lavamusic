@@ -1,0 +1,78 @@
+name: Bug Report
+description: Report incorrect or unexpected behavior.
+title: "[Bug]: "
+labels: ["bug"]
+assignees:
+  - appujet
+body:
+  - type: markdown
+    attributes:
+      value: "## 🐞 Bug Report\n\nPlease fill out the information below to help us resolve the issue as quickly as possible."
+      
+  - type: textarea
+    id: description
+    attributes:
+      label: "Bug description"
+      description: "Provide a clear and concise description of the bug."
+      placeholder: "Describe the issue..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce-step
+    attributes:
+      label: "Steps to reproduce"
+      description: "Detail the steps to reproduce the bug. Include any specific setup information that might be important."
+      placeholder: "Step 1: ...\nStep 2: ...\nStep 3: ..."
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: "Operating System"
+      description: "Which operating system and version are you using?"
+      placeholder: "e.g., Windows 10, macOS 13, Ubuntu 20.04"
+    validations:
+      required: true
+
+  - type: input
+    id: nodejs-version
+    attributes:
+      label: "Node.js version"
+      description: "Specify the version of Node.js that you are using."
+      placeholder: "e.g., 14.17.0"
+    validations:
+      required: false
+
+  - type: input
+    id: java-version
+    attributes:
+      label: "java version"
+      description: "Specify the version of Java that you are using."
+      placeholder: "e.g., 17"
+    validations:
+      required: false
+
+  - type: input
+    id: app-version
+    attributes:
+      label: "Application/Library version"
+      description: "Specify the version of the application or library where the bug occurred."
+      placeholder: "e.g., v1.2.3"
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-logs
+    attributes:
+      label: "Error logs or screenshots"
+      description: "Include relevant error logs or screenshots that might help in diagnosing the issue."
+      placeholder: "<!-- Paste your logs here -->"
+      
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: "Additional context"
+      description: "Provide any other context or information that might be helpful."
+      placeholder: "Any additional details..."
