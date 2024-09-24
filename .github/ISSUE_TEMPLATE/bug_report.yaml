@@ -44,7 +44,6 @@ body:
       placeholder: "e.g., 14.17.0"
     validations:
       required: true
-
   - type: input
     id: java-version
     attributes:
