@@ -8,7 +8,7 @@ export default class ServerData {
 		this.prisma = new PrismaClient();
 	}
 
-	public async get(guildId: string): Promise<Guild | null> {
+	public async get(guildId: string): Promise<Guild> {
 		return (await this.prisma.guild.findUnique({ where: { guildId } })) ?? this.createGuild(guildId);
 	}
 
@@ -74,9 +74,12 @@ export default class ServerData {
 		await this.prisma.stay.delete({ where: { guildId } });
 	}
 
-	public async get_247(guildId?: string): Promise<Stay | Stay[]> {
+	public async get_247(guildId?: string): Promise<Stay | Stay[] | null> {
 		if (guildId) {
-			return await this.prisma.stay.findUnique({ where: { guildId } });
+			//return await this.prisma.stay.findUnique({ where: { guildId } });
+			const stay = await this.prisma.stay.findUnique({ where: { guildId } });
+			if (stay) return stay;
+			return null;
 		}
 		return this.prisma.stay.findMany();
 	}
@@ -219,7 +222,7 @@ export default class ServerData {
 	public async removeSong(userId: string, playlistName: string, encodedSong: string): Promise<void> {
 		const playlist = await this.getPlaylist(userId, playlistName);
 		if (playlist) {
-			const tracks: string[] = JSON.parse(playlist.tracks);
+			const tracks: string[] = JSON.parse(playlist?.tracks!);
 
 			// Find the index of the song to remove
 			const songIndex = tracks.indexOf(encodedSong);
@@ -259,7 +262,7 @@ export default class ServerData {
 		}
 
 		// Deserialize the tracks JSON string back into an array
-		const tracks = JSON.parse(playlist.tracks);
+		const tracks = JSON.parse(playlist.tracks!);
 		return tracks;
 	}
 }

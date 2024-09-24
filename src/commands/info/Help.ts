@@ -62,7 +62,7 @@ export default class Help extends Command {
 				.setDescription(
 					ctx.locale('cmd.help.help_cmd', {
 						description: ctx.locale(command.description.content),
-						usage: `${guild.prefix}${command.description.usage}`,
+						usage: `${guild?.prefix}${command.description.usage}`,
 						examples: command.description.examples.map((example: string) => `${guild.prefix}${example}`).join(', '),
 						aliases: command.aliases.map((alias: string) => `\`${alias}\``).join(', '),
 						category: command.category,

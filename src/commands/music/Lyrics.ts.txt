@@ -1,4 +1,4 @@
-import {
+/* import {
 	ActionRowBuilder,
 	ButtonBuilder,
 	type ButtonInteraction,
@@ -173,6 +173,7 @@ export default class Lyrics extends Command {
 		return pages;
 	}
 }
+*/
 
 /**
  * Project: lavamusic

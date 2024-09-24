@@ -1,4 +1,4 @@
-import { type Message, PermissionsBitField, TextChannel } from 'discord.js';
+import { type Message, TextChannel } from 'discord.js';
 import { T } from '../../structures/I18n';
 import { Event, type Lavamusic } from '../../structures/index';
 import { oops, setupStart } from '../../utils/SetupSystem';

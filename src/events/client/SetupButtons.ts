@@ -48,7 +48,7 @@ export default class SetupButtons extends Event {
 		const { title, uri, duration, artworkUrl, sourceName, isStream } = player.queue.current.info;
 		let message: Message | undefined;
 		try {
-			message = await interaction.channel.messages.fetch(data.messageId, {
+			message = await interaction.channel.messages.fetch(data?.messageId, {
 				cache: true,
 			});
 		} catch (_e) {

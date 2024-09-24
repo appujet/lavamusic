@@ -34,7 +34,7 @@ export default class MessageCreate extends Event {
 		if (mention.test(message.content)) {
 			await message.reply({
 				content: T(locale, 'event.message.prefix_mention', {
-					prefix: guild.prefix,
+					prefix: guild?.prefix,
 				}),
 			});
 			return;
