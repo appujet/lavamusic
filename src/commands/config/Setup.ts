@@ -128,7 +128,10 @@ export default class Setup extends Command {
 				}
 				client.db.deleteSetup(ctx.guild!.id);
 				const textChannel = ctx.guild.channels.cache.get(data2.textId);
-				if (textChannel) await textChannel.delete().catch(() => {});
+				if (textChannel)
+					await textChannel.delete().catch(() => {
+						null;
+					});
 				await ctx.sendMessage({
 					embeds: [
 						{

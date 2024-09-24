@@ -19,10 +19,14 @@ export default class TrackEnd extends Event {
 		const channel = guild.channels.cache.get(player.textChannelId!) as TextChannel;
 		if (!channel) return;
 
-		const message = await channel.messages.fetch(messageId).catch(() => {});
+		const message = await channel.messages.fetch(messageId).catch(() => {
+			null;
+		});
 		if (!message) return;
 
-		message.delete().catch(() => {});
+		message.delete().catch(() => {
+			null;
+		});
 	}
 }
 

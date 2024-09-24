@@ -36,18 +36,21 @@ export default class Loop extends Command {
 		let loopMessage = '';
 
 		switch (player?.repeatMode) {
-			case 'off':
+			case 'off': {
 				player.setRepeatMode('track');
 				loopMessage = ctx.locale('cmd.loop.looping_song');
 				break;
-			case 'track':
+			}
+			case 'track': {
 				player.setRepeatMode('queue');
 				loopMessage = ctx.locale('cmd.loop.looping_queue');
 				break;
-			case 'queue':
+			}
+			case 'queue': {
 				player.setRepeatMode('off');
 				loopMessage = ctx.locale('cmd.loop.looping_off');
 				break;
+			}
 		}
 
 		return await ctx.sendMessage({

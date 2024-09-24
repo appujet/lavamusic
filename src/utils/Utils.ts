@@ -37,7 +37,7 @@ export class Utils {
 	}
 
 	public static chunk(array: any[], size: number) {
-		const chunked_arr = [];
+		const chunked_arr: any[][] = [];
 		for (let index = 0; index < array.length; index += size) {
 			chunked_arr.push(array.slice(index, size + index));
 		}

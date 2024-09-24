@@ -93,7 +93,9 @@ async function setupStart(client: Lavamusic, query: string, player: Player, mess
 							})
 							.then(msg => setTimeout(() => msg.delete(), 5000));
 						neb(n, player, client, locale);
-						await m.edit({ embeds: [n] }).catch(() => {});
+						await m.edit({ embeds: [n] }).catch(() => {
+							null;
+						});
 						break;
 					}
 					case 'playlist': {
@@ -110,7 +112,9 @@ async function setupStart(client: Lavamusic, query: string, player: Player, mess
 							})
 							.then(msg => setTimeout(() => msg.delete(), 5000));
 						neb(n, player, client, locale);
-						await m.edit({ embeds: [n] }).catch(() => {});
+						await m.edit({ embeds: [n] }).catch(() => {
+							null;
+						});
 						break;
 					}
 				}
@@ -178,7 +182,9 @@ async function trackStart(
 					return b;
 				}),
 			})
-			.catch(() => {});
+			.catch(() => {
+				null;
+			});
 	} else {
 		await channel
 			.send({
@@ -191,7 +197,9 @@ async function trackStart(
 			.then(msg => {
 				client.db.setSetup(msg.guild.id, msg.id, msg.channel.id);
 			})
-			.catch(() => {});
+			.catch(() => {
+				null;
+			});
 	}
 }
 
@@ -241,7 +249,9 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
 						return b;
 					}),
 				})
-				.catch(() => {});
+				.catch(() => {
+					null;
+				});
 		} else {
 			const embed = client
 				.embed()
@@ -260,7 +270,9 @@ async function updateSetup(client: Lavamusic, guild: any, locale: string): Promi
 						return b;
 					}),
 				})
-				.catch(() => {});
+				.catch(() => {
+					null;
+				});
 		}
 	}
 }
@@ -269,13 +281,19 @@ async function buttonReply(int: any, args: string, color: ColorResolvable): Prom
 	const embed = new EmbedBuilder();
 	let m: Message;
 	if (int.replied) {
-		m = await int.editReply({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => {});
+		m = await int.editReply({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => {
+			null;
+		});
 	} else {
-		m = await int.followUp({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => {});
+		m = await int.followUp({ embeds: [embed.setColor(color).setDescription(args)] }).catch(() => {
+			null;
+		});
 	}
 	setTimeout(async () => {
 		if (int && !int.ephemeral) {
-			await m.delete().catch(() => {});
+			await m.delete().catch(() => {
+				null;
+			});
 		}
 	}, 2000);
 }
@@ -286,7 +304,13 @@ async function oops(channel: TextChannel, args: string): Promise<void> {
 		const m = await channel.send({
 			embeds: [embed1],
 		});
-		setTimeout(async () => await m.delete().catch(() => {}), 12000);
+		setTimeout(
+			async () =>
+				await m.delete().catch(() => {
+					null;
+				}),
+			12000,
+		);
 	} catch (e) {
 		return console.error(e);
 	}

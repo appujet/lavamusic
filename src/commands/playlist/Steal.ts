@@ -189,7 +189,6 @@ export default class StealPlaylist extends Command {
 				.respond(filtered.map(playlist => ({ name: playlist.name, value: playlist.name })))
 				.catch(console.error);
 		} catch (error) {
-			console.error('Error in autocomplete interaction:', error);
 			return await interaction
 				.respond([{ name: 'An error occurred while fetching playlists.', value: 'Error' }])
 				.catch(console.error);

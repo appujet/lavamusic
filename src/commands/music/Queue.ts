@@ -49,7 +49,7 @@ export default class Queue extends Command {
 				],
 			});
 		}
-		const songStrings = [];
+		const songStrings: string[] = [];
 		for (let i = 0; i < player.queue.tracks.length; i++) {
 			const track = player.queue.tracks[i];
 			songStrings.push(

@@ -16,7 +16,9 @@ export default class SetupSystem extends Event {
 		if (!(channel instanceof TextChannel)) return;
 		if (!message.member?.voice.channel) {
 			await oops(channel, T(locale, 'event.message.no_voice_channel_queue'));
-			await message.delete().catch(() => {});
+			await message.delete().catch(() => {
+				null;
+			});
 			return;
 		}
 
@@ -42,7 +44,9 @@ export default class SetupSystem extends Event {
 					channel: clientMember.voice.channelId,
 				}),
 			);
-			await message.delete().catch(() => {});
+			await message.delete().catch(() => {
+				null;
+			});
 			return;
 		}
 
@@ -60,7 +64,9 @@ export default class SetupSystem extends Event {
 		}
 
 		await setupStart(this.client, message.content, player, message);
-		await message.delete().catch(() => {});
+		await message.delete().catch(() => {
+			null;
+		});
 	}
 }
 

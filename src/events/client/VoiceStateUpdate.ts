@@ -36,7 +36,9 @@ export default class VoiceStateUpdate extends Event {
 				newState.guild.members.me.permissions.has(['Connect', 'Speak']) ||
 				newState.channel.permissionsFor(newState.guild.members.me).has('MuteMembers')
 			) {
-				await newState.guild.members.me.voice.setSuppressed(false).catch(() => {});
+				await newState.guild.members.me.voice.setSuppressed(false).catch(() => {
+					null;
+				});
 			}
 		}
 

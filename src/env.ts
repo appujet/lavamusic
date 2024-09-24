@@ -96,7 +96,7 @@ const envSchema = z.object({
 	 */
 	BOT_ACTIVITY_TYPE: z.preprocess(val => {
 		if (typeof val === 'string') {
-			return parseInt(val, 10);
+			return Number.parseInt(val, 10);
 		}
 		return val;
 	}, z.number().default(0)),

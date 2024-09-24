@@ -3,7 +3,7 @@ const { exec } = require('node:child_process');
 async function startLavamusic() {
 	exec('npm start', (error, stdout, stderr) => {
 		if (error) {
-			console.error(`Error starting Lavamusic: ${error.message}`);
+			console.error(`Error starting Lavamusic: ${error}`);
 			return;
 		}
 		if (stderr) {

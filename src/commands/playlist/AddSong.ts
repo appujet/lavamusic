@@ -95,7 +95,7 @@ export default class AddSong extends Command {
 		}
 
 		let trackStrings: any;
-		let count: number = 0;
+		let count = 0;
 		if (res.loadType === 'playlist') {
 			trackStrings = res.tracks.map(track => track.encoded);
 			count = res.tracks.length;
