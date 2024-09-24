@@ -1,7 +1,7 @@
-import Command from "./Command";
-import Context from "./Context";
-import Event from "./Event";
-import Lavamusic from "./Lavamusic";
+import Command from './Command';
+import Context from './Context';
+import Event from './Event';
+import Lavamusic from './Lavamusic';
 
 export { Event, Command, Lavamusic, Context };
 

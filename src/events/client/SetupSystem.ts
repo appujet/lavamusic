@@ -1,30 +1,30 @@
-import { type Message, PermissionsBitField, TextChannel } from "discord.js";
-import { T } from "../../structures/I18n";
-import { Event, type Lavamusic } from "../../structures/index";
-import { oops, setupStart } from "../../utils/SetupSystem";
+import { type Message, PermissionsBitField, TextChannel } from 'discord.js';
+import { T } from '../../structures/I18n';
+import { Event, type Lavamusic } from '../../structures/index';
+import { oops, setupStart } from '../../utils/SetupSystem';
 
 export default class SetupSystem extends Event {
-    constructor(client: Lavamusic, file: string) {
-        super(client, file, {
-            name: "setupSystem",
-        });
-    }
+	constructor(client: Lavamusic, file: string) {
+		super(client, file, {
+			name: 'setupSystem',
+		});
+	}
 
-    public async run(message: Message): Promise<void> {
-        const locale = await this.client.db.getLanguage(message.guildId);
-        const channel = message.channel as TextChannel;
-        if (!(channel instanceof TextChannel)) return;
-        if (!message.member?.voice.channel) {
-            await oops(channel, T(locale, "event.message.no_voice_channel_queue"));
-            await message.delete().catch(() => {});
-            return;
-        }
+	public async run(message: Message): Promise<any> {
+		const locale = await this.client.db.getLanguage(message.guildId!);
+		const channel = message.channel as TextChannel;
+		if (!(channel instanceof TextChannel)) return;
+		if (!message.member?.voice.channel) {
+			await oops(channel, T(locale, 'event.message.no_voice_channel_queue'));
+			await message.delete().catch(() => {});
+			return;
+		}
 
-        const voiceChannel = message.member.voice.channel;
-        const clientUser = this.client.user;
-        const clientMember = message.guild.members.cache.get(clientUser.id);
+		const voiceChannel = message.member.voice.channel;
+		const clientUser = this.client.user;
+		const clientMember = message.guild?.members.cache.get(clientUser!.id);
 
-        if (!voiceChannel.permissionsFor(clientUser).has(PermissionsBitField.Flags.Connect | PermissionsBitField.Flags.Speak)) {
+		/*  if (voiceChannel && clientUser && !voiceChannel?.permissionsFor(clientUser!).has(PermissionsBitField.Flags.Connect | PermissionsBitField.Flags.Speak)) {
             await oops(
                 channel,
                 T(locale, "event.message.no_permission_connect_speak", {
@@ -33,36 +33,35 @@ export default class SetupSystem extends Event {
             );
             await message.delete().catch(() => {});
             return;
-        }
+        } */
 
-        if (clientMember?.voice.channel && clientMember.voice.channelId !== voiceChannel.id) {
-            await oops(
-                channel,
-                T(locale, "event.message.different_voice_channel_queue", {
-                    channel: clientMember.voice.channelId,
-                }),
-            );
-            await message.delete().catch(() => {});
-            return;
-        }
+		if (clientMember?.voice.channel && clientMember.voice.channelId !== voiceChannel.id) {
+			await oops(
+				channel,
+				T(locale, 'event.message.different_voice_channel_queue', {
+					channel: clientMember.voice.channelId,
+				}),
+			);
+			await message.delete().catch(() => {});
+			return;
+		}
 
-        let player = this.client.manager.getPlayer(message.guildId);
-        if (!player) {
-            player = this.client.manager.createPlayer({
-                guildId: message.guildId,
-                voiceChannelId: voiceChannel.id,
-                textChannelId: message.channelId,
-                selfMute: false,
-                selfDeaf: true,
+		let player = this.client.manager.getPlayer(message.guildId!);
+		if (!player) {
+			player = this.client.manager.createPlayer({
+				guildId: message.guildId!,
+				voiceChannelId: voiceChannel.id,
+				textChannelId: message.channelId,
+				selfMute: false,
+				selfDeaf: true,
+				vcRegion: voiceChannel.rtcRegion!,
+			});
+			if (!player.connected) await player.connect();
+		}
 
-                vcRegion: voiceChannel.rtcRegion,
-            });
-            if (!player.connected) await player.connect();
-        }
-
-        await setupStart(this.client, message.content, player, message);
-        await message.delete().catch(() => {});
-    }
+		await setupStart(this.client, message.content, player, message);
+		await message.delete().catch(() => {});
+	}
 }
 
 /**

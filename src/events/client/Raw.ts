@@ -1,15 +1,15 @@
-import { Event, type Lavamusic } from "../../structures/index.js";
+import { Event, type Lavamusic } from '../../structures/index.js';
 
 export default class Raw extends Event {
-    constructor(client: Lavamusic, file: string) {
-        super(client, file, {
-            name: "raw",
-        });
-    }
+	constructor(client: Lavamusic, file: string) {
+		super(client, file, {
+			name: 'raw',
+		});
+	}
 
-    public async run(d): Promise<void> {
-        this.client.manager.sendRawData(d);
-    }
+	public async run(d: any): Promise<void> {
+		this.client.manager.sendRawData(d);
+	}
 }
 
 /**
