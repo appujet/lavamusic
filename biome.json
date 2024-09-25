@@ -1,89 +1,85 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "all": true,
-      "suspicious": {
-        "noConfusingVoidType": "off",
-        "noConsole": "off",
-        "noConsoleLog": "off",
-        "noEmptyBlockStatements": "off",
-        "noEvolvingTypes": "off",
-        "noExplicitAny": "off",
-        "noGlobalIsFinite": "off",
-        "noGlobalIsNan": "off",
-        "useAwait": "off"
-      },
-      "style": {
-        "noDefaultExport": "off",
-        "noInferrableTypes": "off",
-        "noNamespaceImport": "off",
-        "noNonNullAssertion": "off",
-        "noParameterAssign": "off",
-        "useBlockStatements": "off",
-        "useDefaultSwitchClause": "off",
-        "useFilenamingConvention": "off",
-        "useNamingConvention": "off",
-        "useNumberNamespace": "off",
-        "useSingleCaseStatement": "off"
-      },
-      "complexity": {
-        "noBannedTypes": "off",
-        "noForEach": "off",
-        "noStaticOnlyClass": "off",
-        "noExcessiveCognitiveComplexity": {
-          "level": "warn",
-          "options": {
-            "maxAllowedComplexity": 255
-          }
-        }
-      },
-      "security": {
-        "noGlobalEval": "off"
-      },
-      "correctness": {
-        "noNodejsModules": "off",
-        "noVoidTypeReturn": "off"
-      },
-      "performance": {
-        "noBarrelFile": "off",
-        "useTopLevelRegex": "off"
-      }
-    }
-  },
-  "formatter": {
-    "enabled": true,
-    "indentWidth": 4,
-    "indentStyle": "space",
-    "lineEnding": "crlf",
-    "lineWidth": 140,
-    "formatWithErrors": true
-  },
-  "json": {
-    "linter": {
-      "enabled": true
-    },
-    "formatter": {
-      "enabled": true,
-      "indentWidth": 2,
-      "lineEnding": "crlf",
-      "lineWidth": 80
-    }
-  },
-  "javascript": {
-    "formatter": {
-      "quoteStyle": "double",
-      "arrowParentheses": "always",
-      "bracketSameLine": true,
-      "semicolons": "always"
-    }
-  },
-  "files": {
-    "ignoreUnknown": false,
-    "ignore": [".vscode", "dist", "locales", "node_modules"]
-  }
+	"$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true,
+		"defaultBranch": "main"
+	},
+	"files": {
+		"ignoreUnknown": true,
+		"ignore": ["node_modules/", "dist", "package.json", "tsconfig.json", ".vscode"]
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineWidth": 120,
+		"lineEnding": "crlf",
+		"formatWithErrors": true
+	},
+	"organizeImports": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": false,
+			"all": true,
+			"security": {
+				"noGlobalEval": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noAssignInExpressions": "off",
+				"useAwait": "off",
+				"noConfusingVoidType": "off",
+				"noAsyncPromiseExecutor": "off",
+				"noUnsafeDeclarationMerging": "off",
+				"noEmptyInterface": "off",
+				"noThenProperty": "off"
+			},
+			"correctness": {
+				"noNodejsModules": "off",
+				"useImportExtensions": "off",
+				"noUnusedFunctionParameters": "off",
+				"noUnusedVariables": "off"
+			},
+			"style": {
+				"noDefaultExport": "off",
+				"useBlockStatements": "off",
+				"noParameterProperties": "off",
+				"useNamingConvention": "off",
+				"noNonNullAssertion": "off",
+				"useForOf": "off",
+				"useDefaultSwitchClause": "off",
+				"noParameterAssign": "off",
+				"useFilenamingConvention": "off",
+				"useEnumInitializers": "off",
+				"useExplicitLengthCheck": "off",
+				"noNamespaceImport": "off",
+				"noInferrableTypes": "info"
+			},
+			"complexity": {
+				"noForEach": "off",
+				"noExcessiveCognitiveComplexity": "off",
+				"noUselessConstructor": "off",
+				"noBannedTypes": "off"
+			},
+			"performance": {
+				"noBarrelFile": "off",
+				"noDelete": "off",
+				"noReExportAll": "off",
+				"useTopLevelRegex": "off"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"semicolons": "always",
+			"arrowParentheses": "asNeeded",
+			"bracketSameLine": true
+		}
+	}
 }

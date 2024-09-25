@@ -51,21 +51,12 @@ model Role {
 }
 
 model Playlist {
-    id     String @id @default(uuid())
-    userId String
-    name   String
-    songs  Song[]
+    id      String   @id @default(uuid())
+    userId  String
+    name    String
+    tracks  String?   // Store the array of encoded tracks as a JSON string
 
     @@unique([userId, name])
-}
-
-model Song {
-    id         String   @id @default(uuid())
-    track      String
-    playlistId String
-    playlist   Playlist @relation(fields: [playlistId], references: [id])
-
-    @@unique([track, playlistId])
 }
 
 model Setup {

@@ -1,41 +1,35 @@
-import type { Player } from "shoukaku";
-import type { Song } from "../../structures/Dispatcher.js";
-import { type Dispatcher, Event, type Lavamusic } from "../../structures/index.js";
-import { updateSetup } from "../../utils/SetupSystem.js";
+import type { TextChannel } from 'discord.js';
+import type { Player, Track, TrackStartEvent } from 'lavalink-client';
+import { Event, type Lavamusic } from '../../structures/index';
 
 export default class QueueEnd extends Event {
-    constructor(client: Lavamusic, file: string) {
-        super(client, file, {
-            name: "queueEnd",
-        });
-    }
+	constructor(client: Lavamusic, file: string) {
+		super(client, file, {
+			name: 'queueEnd',
+		});
+	}
 
-    public async run(_player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
-        const guild = this.client.guilds.cache.get(dispatcher.guildId);
-        if (!guild) return;
-        const locale = await this.client.db.getLanguage(guild.id);
-        switch (dispatcher.loop) {
-            case "repeat":
-                dispatcher.queue.unshift(track);
-                break;
-            case "queue":
-                dispatcher.queue.push(track);
-                break;
-            case "off":
-                dispatcher.previous = dispatcher.current;
-                dispatcher.current = null;
-                break;
-        }
+	public async run(player: Player, _track: Track | null, _payload: TrackStartEvent): Promise<void> {
+		const guild = this.client.guilds.cache.get(player.guildId);
+		if (!guild) return;
 
-        if (dispatcher.autoplay) {
-            await dispatcher.Autoplay(track);
-        } else {
-            dispatcher.autoplay = false;
-        }
+		const messageId = player.get<string | undefined>('messageId');
+		if (!messageId) return;
 
-        await updateSetup(this.client, guild, locale);
-        this.client.utils.updateStatus(this.client, guild.id);
-    }
+		const channel = guild.channels.cache.get(player.textChannelId!) as TextChannel;
+		if (!channel) return;
+
+		const message = await channel.messages.fetch(messageId).catch(() => {
+			null;
+		});
+		if (!message) return;
+
+		if (message.editable) {
+			await message.edit({ components: [] }).catch(() => {
+				null;
+			});
+		}
+	}
 }
 
 /**

@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Фильтр усиления басов был `ВКЛЮЧЕН`. \n**Будьте осторожны, слишком громкое прослушивание может повредить слух!**",
 				"filter_disabled": "`✅` | Фильтр усиления басов был `ОТКЛЮЧЕН`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {
@@ -494,6 +497,9 @@
 				"playlist_stolen": "Успешно украден плейлист `{playlist}` у {user}.",
 				"error_occurred": "Произошла ошибка при краже плейлиста."
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track"
 		}
 	},
 	"buttons": {
@@ -613,7 +619,6 @@
 			"no_previous_track": "Нет предыдущей дорожки.",
 			"playing_previous": "Проигрывается предыдущая дорожка.",
 			"previous_footer": "Проигрывается предыдущая дорожка {displayName}",
-			"rewind_limit": "Вы не можете перемотать музыку больше, чем длина песни.",
 			"rewinded": "Музыка перемотана назад.",
 			"rewind_footer": "Перемотано назад {displayName}",
 			"forward_limit": "Вы не можете перемотать музыку вперед больше, чем длина песни.",

@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Bassboost filter `SAKRIYA` kar diya gaya hai. \n**Savdhan rahein, tej awaz mein sunne se aapke kaano ko nuksan pahunch sakta hai!**",
 				"filter_disabled": "`✅` | Bassboost filter `NIRAKRIYA` kar diya gaya hai."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {
@@ -494,6 +497,9 @@
 				"playlist_stolen": "{user} se playlist `{playlist}` ko safaltapoorvak chura लिया गया है.",
 				"error_occurred": "Playlist ko churaate समय एक error aaya."
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track"
 		}
 	},
 	"buttons": {
@@ -613,7 +619,6 @@
 			"no_previous_track": "Koi pichhla track nahin hai.",
 			"playing_previous": "Pichhla track play कर रहा हूँ.",
 			"previous_footer": "{displayName} dwara pichhla track play kiya जा रहा है",
-			"rewind_limit": "Aap music ko song ki lambai se zyada rewind nahin kar sakte.",
 			"rewinded": "Music ko rewind कर diya गया है.",
 			"rewind_footer": "{displayName} dwara rewind kiya गया",
 			"forward_limit": "Aap music ko song ki lambai se zyada forward nahin kar sakte.",

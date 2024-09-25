@@ -1,39 +1,33 @@
-import type { Player } from "shoukaku";
-import type { Song } from "../../structures/Dispatcher.js";
-import { type Dispatcher, Event, type Lavamusic } from "../../structures/index.js";
+import type { TextChannel } from 'discord.js';
+import type { Player, Track, TrackStartEvent } from 'lavalink-client';
+import { Event, type Lavamusic } from '../../structures/index';
 
 export default class TrackEnd extends Event {
-    constructor(client: Lavamusic, file: string) {
-        super(client, file, {
-            name: "trackEnd",
-        });
-    }
+	constructor(client: Lavamusic, file: string) {
+		super(client, file, {
+			name: 'trackEnd',
+		});
+	}
 
-    public async run(_player: Player, track: Song, dispatcher: Dispatcher): Promise<void> {
-        dispatcher.previous = dispatcher.current;
-        dispatcher.current = null;
+	public async run(player: Player, _track: Track | null, _payload: TrackStartEvent): Promise<void> {
+		const guild = this.client.guilds.cache.get(player.guildId);
+		if (!guild) return;
 
-        const nowPlayingMessage = await dispatcher.nowPlayingMessage?.fetch().catch(() => null);
+		const messageId = player.get<string | undefined>('messageId');
+		if (!messageId) return;
 
-        switch (dispatcher.loop) {
-            case "repeat":
-                dispatcher.queue.unshift(track);
-                break;
-            case "queue":
-                dispatcher.queue.push(track);
-                break;
-        }
+		const channel = guild.channels.cache.get(player.textChannelId!) as TextChannel;
+		if (!channel) return;
 
-        await dispatcher.play();
+		const message = await channel.messages.fetch(messageId).catch(() => {
+			null;
+		});
+		if (!message) return;
 
-        if (dispatcher.autoplay) {
-            await dispatcher.Autoplay(track);
-        }
-
-        if (nowPlayingMessage?.deletable) {
-            await nowPlayingMessage.delete().catch(() => {});
-        }
-    }
+		message.delete().catch(() => {
+			null;
+		});
+	}
 }
 
 /**

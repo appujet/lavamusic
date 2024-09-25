@@ -1,115 +1,129 @@
-import type { AutocompleteInteraction } from "discord.js";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import type { AutocompleteInteraction, GuildMember } from 'discord.js';
+import { Command, type Context, type Lavamusic } from '../../structures/index';
 
 export default class LoadPlaylist extends Command {
-    constructor(client: Lavamusic) {
-        super(client, {
-            name: "load",
-            description: {
-                content: "cmd.load.description",
-                examples: ["load <playlist>"],
-                usage: "load <playlist>",
-            },
-            category: "playlist",
-            aliases: ["lo"],
-            cooldown: 3,
-            args: true,
-            vote: true,
-            player: {
-                voice: true,
-                dj: false,
-                active: false,
-                djPerm: null,
-            },
-            permissions: {
-                dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
-                user: [],
-            },
-            slashCommand: true,
-            options: [
-                {
-                    name: "playlist",
-                    description: "cmd.load.options.playlist",
-                    type: 3,
-                    required: true,
-                    autocomplete: true,
-                },
-            ],
-        });
-    }
+	constructor(client: Lavamusic) {
+		super(client, {
+			name: 'load',
+			description: {
+				content: 'cmd.load.description',
+				examples: ['load <playlist>'],
+				usage: 'load <playlist>',
+			},
+			category: 'playlist',
+			aliases: ['lo'],
+			cooldown: 3,
+			args: true,
+			vote: true,
+			player: {
+				voice: true,
+				dj: false,
+				active: false,
+				djPerm: null,
+			},
+			permissions: {
+				dev: false,
+				client: ['SendMessages', 'ReadMessageHistory', 'ViewChannel', 'EmbedLinks'],
+				user: [],
+			},
+			slashCommand: true,
+			options: [
+				{
+					name: 'playlist',
+					description: 'cmd.load.options.playlist',
+					type: 3,
+					required: true,
+					autocomplete: true,
+				},
+			],
+		});
+	}
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        let player = client.queue.get(ctx.guild!.id);
-        const playlistName = args.join(" ").trim();
-        const playlistData = await client.db.getPlaylist(ctx.author.id, playlistName);
-        if (!playlistData) {
-            return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: ctx.locale("cmd.load.messages.playlist_not_exist"),
-                        color: this.client.color.red,
-                    },
-                ],
-            });
-        }
+	public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+		let player = client.manager.getPlayer(ctx.guild!.id);
+		const playlistName = args.join(' ').trim();
+		const playlistData = await client.db.getPlaylist(ctx.author?.id!, playlistName);
+		if (!playlistData) {
+			return await ctx.sendMessage({
+				embeds: [
+					{
+						description: ctx.locale('cmd.load.messages.playlist_not_exist'),
+						color: this.client.color.red,
+					},
+				],
+			});
+		}
 
-        const songs = await client.db.getSongs(ctx.author.id, playlistName);
-        if (songs.length === 0) {
-            return await ctx.sendMessage({
-                embeds: [
-                    {
-                        description: ctx.locale("cmd.load.messages.playlist_empty"),
-                        color: client.color.red,
-                    },
-                ],
-            });
-        }
+		const songs = await client.db.getTracksFromPlaylist(ctx.author?.id!, playlistName);
+		if (songs.length === 0) {
+			return await ctx.sendMessage({
+				embeds: [
+					{
+						description: ctx.locale('cmd.load.messages.playlist_empty'),
+						color: client.color.red,
+					},
+				],
+			});
+		}
 
-        const vc = ctx.member as any;
-        if (!player) {
-            player = await client.queue.create(
-                ctx.guild,
-                vc.voice.channel,
-                ctx.channel,
-                client.shoukaku.options.nodeResolver(client.shoukaku.nodes),
-            );
-        }
+		const member = ctx.member as GuildMember;
+		if (!player) {
+			player = client.manager.createPlayer({
+				guildId: ctx.guild!.id,
+				voiceChannelId: member.voice.channelId!,
+				textChannelId: ctx.channel.id,
+				selfMute: false,
+				selfDeaf: true,
+				vcRegion: member.voice.channel?.rtcRegion!,
+			});
+			if (!player.connected) await player.connect();
+		}
 
-        for (const song of songs) {
-            const trackData = JSON.parse(song.track);
-            for (const track of trackData) {
-                const builtTrack = player.buildTrack(track, ctx.author as any);
-                player.queue.push(builtTrack);
-            }
-        }
+		const nodes = client.manager.nodeManager.leastUsedNodes();
+		const node = nodes[Math.floor(Math.random() * nodes.length)];
+		const tracks = await node.decode.multipleTracks(songs as any, ctx.author);
+		if (tracks.length === 0) {
+			return await ctx.sendMessage({
+				embeds: [
+					{
+						description: ctx.locale('cmd.load.messages.playlist_empty'),
+						color: client.color.red,
+					},
+				],
+			});
+		}
+		player.queue.add(tracks);
 
-        await player.isPlaying();
-        return await ctx.sendMessage({
-            embeds: [
-                {
-                    description: ctx.locale("cmd.load.messages.playlist_loaded", { name: playlistData.name, count: songs.length }),
-                    color: this.client.color.main,
-                },
-            ],
-        });
-    }
+		if (!player.playing) await player.play({ paused: false });
 
-    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
-        const focusedValue = interaction.options.getFocused();
-        const userId = interaction.user.id;
+		return await ctx.sendMessage({
+			embeds: [
+				{
+					description: ctx.locale('cmd.load.messages.playlist_loaded', {
+						name: playlistData.name,
+						count: songs.length,
+					}),
+					color: this.client.color.main,
+				},
+			],
+		});
+	}
 
-        const playlists = await this.client.db.getUserPlaylists(userId);
+	public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
+		const focusedValue = interaction.options.getFocused();
+		const userId = interaction.user.id;
 
-        const filtered = playlists.filter((playlist) => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
+		const playlists = await this.client.db.getUserPlaylists(userId);
 
-        await interaction.respond(
-            filtered.map((playlist) => ({
-                name: playlist.name,
-                value: playlist.name,
-            })),
-        );
-    }
+		const filtered = playlists.filter(playlist => playlist.name.toLowerCase().startsWith(focusedValue.toLowerCase()));
+
+		await interaction.respond(
+			filtered.map(playlist => ({
+				name: playlist.name,
+				value: playlist.name,
+			})),
+		);
+	}
 }
 
 /**

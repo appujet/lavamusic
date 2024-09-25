@@ -121,6 +121,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Le filtre de basses a été `ACTIVÉ`. \n**Attention, écouter trop fort peut endommager votre audition !**",
 				"filter_disabled": "`✅` | Le filtre de basses a été `DÉSACTIVÉ`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {
@@ -494,6 +497,9 @@
 				"language": "La langue que vous souhaitez définir",
 				"reset": "Change la langue par défaut"
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track"
 		}
 	},
 	"buttons": {
@@ -613,7 +619,6 @@
 			"no_previous_track": "Il n'y a pas de piste précédente.",
 			"playing_previous": "Lecture de la piste précédente.",
 			"previous_footer": "Lecture de la piste précédente par {displayName}",
-			"rewind_limit": "Vous ne pouvez pas rembobiner la musique plus que la longueur de la chanson.",
 			"rewinded": "Rembobinage de la musique.",
 			"rewind_footer": "Rembobiné par {displayName}",
 			"forward_limit": "Vous ne pouvez pas avancer la musique plus que la longueur de la chanson.",

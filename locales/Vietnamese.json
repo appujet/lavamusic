@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | Bộ lọc Bassboost đã được `BẬT`. \n**Cẩn thận, nghe quá to có thể gây hại cho thính giác của bạn!**",
 				"filter_disabled": "`✅` | Bộ lọc Bassboost đã được `TẮT`."
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {
@@ -494,6 +497,9 @@
 				"playlist_stolen": "Đã đánh cắp danh sách phát `{playlist}` từ {user} thành công.",
 				"error_occurred": "Đã xảy ra lỗi khi đánh cắp danh sách phát."
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track"
 		}
 	},
 	"buttons": {
@@ -613,7 +619,6 @@
 			"no_previous_track": "Không có bài hát trước.",
 			"playing_previous": "Đang phát bài hát trước.",
 			"previous_footer": "Đang phát bài hát trước bởi {displayName}",
-			"rewind_limit": "Bạn không thể quay lại nhạc nhiều hơn độ dài của bài hát.",
 			"rewinded": "Đã quay lại nhạc.",
 			"rewind_footer": "Quay lại bởi {displayName}",
 			"forward_limit": "Bạn không thể tiến tới nhạc nhiều hơn độ dài của bài hát.",

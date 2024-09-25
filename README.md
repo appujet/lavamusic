@@ -18,7 +18,7 @@
   </a>
 
   <h1 align="center">Lavamusic</h1>
-  <p align="center">Lavamusic is a Discord music bot that uses Discord.js, Shoukaku, and TypeScript.
+  <p align="center">Lavamusic is a Discord music bot that uses Discord.js, lavalink-client, and TypeScript.
     <br />
     <br />
     <a href="https://discord.com/oauth2/authorize?client_id=875635121770889257&scope=bot+applications.commands&permissions=8">Invite Lavamusic</a>
@@ -32,7 +32,7 @@
 - User-friendly and Easy to Use
 - Highly Configurable
 - Customizable Prefix
-- Multilingual support
+- Multilingual support [Here](/Translation.md)
 - Hybrid Command Handling (Slash and Normal Commands)
 - Developed using TypeScript and Discord.js v14
 - Advanced Music System

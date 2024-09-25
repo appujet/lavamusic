@@ -1,21 +1,30 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "lib": ["esnext"],
-    "declaration": true,
-    "sourceMap": true,
-    "newLine": "crlf",
-    "outDir": "dist",
-    "rootDir": "src",
-    "strict": false,
+    "module": "CommonJS",
+    "target": "ESNext",
+    "lib": ["ESNext", "WebWorker"],
     "moduleResolution": "node",
+    "declaration": true,
+    "sourceMap": false,
+    "strict": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "preserveConstEnums": true,
+    /* Type Checking */
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "noErrorTruncation": true,
+    "outDir": "./dist",
+    "stripInternal": true
   },
-  "include": ["src/"],
-  "exclude": ["dist/", "node_modules/"]
+  "exclude": ["dist/", "node_modules/"],
+  "include": ["src/**/*"]
 }

@@ -1,187 +1,125 @@
-import type { AutocompleteInteraction } from "discord.js";
-import { LoadType } from "shoukaku";
-import { Command, type Context, type Lavamusic } from "../../structures/index.js";
+import type { ApplicationCommandOptionChoiceData, AutocompleteInteraction, VoiceChannel } from 'discord.js';
+import type { SearchResult } from 'lavalink-client';
+import { Command, type Context, type Lavamusic } from '../../structures/index';
 
 export default class PlayNext extends Command {
-    constructor(client: Lavamusic) {
-        super(client, {
-            name: "playnext",
-            description: {
-                content: "cmd.playnext.description",
-                examples: [
-                    "playnext example",
-                    "playnext https://www.youtube.com/watch?v=example",
-                    "playnext https://open.spotify.com/track/example",
-                    "playnext http://www.example.com/example.mp3",
-                ],
-                usage: "playnext <song>",
-            },
-            category: "music",
-            aliases: ["pn"],
-            cooldown: 3,
-            args: true,
-            vote: false,
-            player: {
-                voice: true,
-                dj: false,
-                active: false,
-                djPerm: null,
-            },
-            permissions: {
-                dev: false,
-                client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks", "Connect", "Speak"],
-                user: [],
-            },
-            slashCommand: true,
-            options: [
-                {
-                    name: "song",
-                    description: "cmd.playnext.options.song",
-                    type: 3,
-                    required: true,
-                    autocomplete: true,
-                },
-            ],
-        });
-    }
+	constructor(client: Lavamusic) {
+		super(client, {
+			name: 'playnext',
+			description: {
+				content: 'cmd.playnext.description',
+				examples: [
+					'playnext example',
+					'playnext https://www.youtube.com/watch?v=example',
+					'playnext https://open.spotify.com/track/example',
+					'playnext http://www.example.com/example.mp3',
+				],
+				usage: 'playnext <song>',
+			},
+			category: 'music',
+			aliases: ['pn'],
+			cooldown: 3,
+			args: true,
+			vote: false,
+			player: {
+				voice: true,
+				dj: false,
+				active: false,
+				djPerm: null,
+			},
+			permissions: {
+				dev: false,
+				client: ['SendMessages', 'ReadMessageHistory', 'ViewChannel', 'EmbedLinks', 'Connect', 'Speak'],
+				user: [],
+			},
+			slashCommand: true,
+			options: [
+				{
+					name: 'song',
+					description: 'cmd.playnext.options.song',
+					type: 3,
+					required: true,
+					autocomplete: true,
+				},
+			],
+		});
+	}
 
-    public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
-        const query = args.join(" ");
-        let player = client.queue.get(ctx.guild!.id);
-        const vc = ctx.member as any;
-        if (!player) player = await client.queue.create(ctx.guild, vc.voice.channel, ctx.channel);
+	public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
+		const query = args.join(' ');
+		let player = client.manager.getPlayer(ctx.guild!.id);
+		const memberVoiceChannel = (ctx.member as any).voice.channel as VoiceChannel;
 
-        await ctx.sendDeferMessage(ctx.locale("cmd.playnext.loading"));
-        const res = await this.client.queue.search(query);
-        const embed = this.client.embed();
-        switch (res.loadType) {
-            case LoadType.ERROR:
-                await ctx.editMessage({
-                    content: "",
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.playnext.errors.search_error"))],
-                });
-                break;
-            case LoadType.EMPTY:
-                await ctx.editMessage({
-                    content: "",
-                    embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale("cmd.playnext.errors.no_results"))],
-                });
-                break;
-            case LoadType.TRACK: {
-                const track = player.buildTrack(res.data, ctx.author);
-                if (player.queue.length > client.config.maxQueueSize)
-                    return await ctx.editMessage({
-                        content: "",
-                        embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(
-                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                ),
-                        ],
-                    });
-                player.queue.splice(0, 0, track);
-                await player.isPlaying();
-                await ctx.editMessage({
-                    content: "",
-                    embeds: [
-                        embed
-                            .setColor(this.client.color.main)
-                            .setDescription(
-                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data.info.title, uri: res.data.info.uri }),
-                            ),
-                    ],
-                });
-                break;
-            }
-            case LoadType.PLAYLIST: {
-                if (res.data.tracks.length > client.config.maxPlaylistSize)
-                    return await ctx.editMessage({
-                        content: "",
-                        embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(
-                                    ctx.locale("cmd.playnext.errors.playlist_too_long", { maxPlaylistSize: client.config.maxPlaylistSize }),
-                                ),
-                        ],
-                    });
-                for (const track of res.data.tracks) {
-                    const pl = player.buildTrack(track, ctx.author);
-                    if (player.queue.length > client.config.maxQueueSize)
-                        return await ctx.editMessage({
-                            content: "",
-                            embeds: [
-                                embed
-                                    .setColor(this.client.color.red)
-                                    .setDescription(
-                                        ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                    ),
-                            ],
-                        });
-                    player.queue.splice(0, 0, pl);
-                }
-                await player.isPlaying();
-                await ctx.editMessage({
-                    content: "",
-                    embeds: [
-                        embed
-                            .setColor(this.client.color.main)
-                            .setDescription(ctx.locale("cmd.playnext.added_playlist_to_play_next", { length: res.data.tracks.length })),
-                    ],
-                });
-                break;
-            }
-            case LoadType.SEARCH: {
-                const track1 = player.buildTrack(res.data[0], ctx.author);
-                if (player.queue.length > client.config.maxQueueSize)
-                    return await ctx.editMessage({
-                        content: "",
-                        embeds: [
-                            embed
-                                .setColor(this.client.color.red)
-                                .setDescription(
-                                    ctx.locale("cmd.playnext.errors.queue_too_long", { maxQueueSize: client.config.maxQueueSize }),
-                                ),
-                        ],
-                    });
-                player.queue.splice(0, 0, track1);
-                await player.isPlaying();
-                await ctx.editMessage({
-                    content: "",
-                    embeds: [
-                        embed
-                            .setColor(this.client.color.main)
-                            .setDescription(
-                                ctx.locale("cmd.playnext.added_to_play_next", { title: res.data[0].info.title, uri: res.data[0].info.uri }),
-                            ),
-                    ],
-                });
-                break;
-            }
-        }
-    }
-    public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
-        const focusedValue = interaction.options.getFocused();
+		if (!player)
+			player = client.manager.createPlayer({
+				guildId: ctx.guild!.id,
+				voiceChannelId: memberVoiceChannel.id,
+				textChannelId: ctx.channel.id,
+				selfMute: false,
+				selfDeaf: true,
+				vcRegion: memberVoiceChannel.rtcRegion!,
+			});
+		if (!player.connected) await player.connect();
 
-        const res = await this.client.queue.search(focusedValue);
-        const songs = [];
+		await ctx.sendDeferMessage(ctx.locale('cmd.playnext.loading'));
 
-        if (res.loadType === LoadType.SEARCH && res.data.length > 0) {
-            res.data.slice(0, 10).forEach((x) => {
-                let name = `${x.info.title} by ${x.info.author}`;
-                if (name.length > 100) {
-                    name = `${name.substring(0, 97)}...`;
-                }
-                songs.push({
-                    name: name,
-                    value: x.info.uri,
-                });
-            });
-        }
+		const response = (await player.search({ query: query }, ctx.author)) as SearchResult;
+		const embed = this.client.embed();
 
-        return await interaction.respond(songs).catch(console.error);
-    }
+		if (!response || response.tracks?.length === 0) {
+			return await ctx.editMessage({
+				content: '',
+				embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale('cmd.play.errors.search_error'))],
+			});
+		}
+		await player.queue.splice(0, 0, response.loadType === 'playlist' ? response.tracks : response.tracks[0]);
+
+		if (response.loadType === 'playlist') {
+			await ctx.editMessage({
+				content: '',
+				embeds: [
+					embed
+						.setColor(this.client.color.main)
+						.setDescription(ctx.locale('cmd.playnext.added_playlist_to_play_next', { length: response.tracks.length })),
+				],
+			});
+		} else {
+			await ctx.editMessage({
+				content: '',
+				embeds: [
+					embed.setColor(this.client.color.main).setDescription(
+						ctx.locale('cmd.playnext.added_to_play_next', {
+							title: response.tracks[0].info.title,
+							uri: response.tracks[0].info.uri,
+						}),
+					),
+				],
+			});
+		}
+		if (!player.playing) await player.play({ paused: false });
+	}
+	public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
+		const focusedValue = interaction.options.getFocused();
+
+		if (!focusedValue) {
+			return;
+		}
+
+		const res = await this.client.manager.search(focusedValue, interaction.user);
+		const songs: ApplicationCommandOptionChoiceData[] = [];
+
+		if (res.loadType === 'search') {
+			res.tracks.slice(0, 10).forEach(track => {
+				const name = `${track.info.title} by ${track.info.author}`;
+				songs.push({
+					name: name.length > 100 ? `${name.substring(0, 97)}...` : name,
+					value: track.info.uri,
+				});
+			});
+		}
+
+		return await interaction.respond(songs).catch(console.error);
+	}
 }
 
 /**

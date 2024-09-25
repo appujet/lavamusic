@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | 低音增强滤镜已`启用`。\n**请注意，音量过大会损害您的听力！**",
 				"filter_disabled": "`✅` | 低音增强滤镜已`禁用`。"
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {
@@ -494,6 +497,9 @@
 				"playlist_stolen": "已成功从 {user} 窃取播放列表 `{playlist}`。",
 				"error_occurred": "窃取播放列表时出错。"
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track"
 		}
 	},
 	"buttons": {
@@ -613,7 +619,6 @@
 			"no_previous_track": "没有上一首曲目。",
 			"playing_previous": "正在播放上一首曲目。",
 			"previous_footer": "由 {displayName} 播放上一首曲目",
-			"rewind_limit": "您不能将音乐倒回到超过歌曲长度的位置。",
 			"rewinded": "已倒回音乐。",
 			"rewind_footer": "由 {displayName} 倒回",
 			"forward_limit": "您不能将音乐快进到超过歌曲长度的位置。",

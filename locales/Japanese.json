@@ -134,6 +134,9 @@
 			"messages": {
 				"filter_enabled": "`✅` | ベースブーストフィルターが`有効`になりました。\n**音量を上げすぎると聴覚に悪影響を与える可能性があるので注意してください！**",
 				"filter_disabled": "`✅` | ベースブーストフィルターが`無効`になりました。"
+			},
+			"options": {
+				"level": "The bassboost level you want to set"
 			}
 		},
 		"distorsion": {
@@ -494,6 +497,9 @@
 				"playlist_stolen": "{user} からプレイリスト `{playlist}` を正常に盗みました。",
 				"error_occurred": "プレイリストの盗難中にエラーが発生しました。"
 			}
+		},
+		"lyrics": {
+			"description": "Get's the lyrics of the currently playing track"
 		}
 	},
 	"buttons": {
@@ -613,7 +619,6 @@
 			"no_previous_track": "前のトラックがありません。",
 			"playing_previous": "前のトラックを再生中です。",
 			"previous_footer": "{displayName} によって前のトラックを再生中です",
-			"rewind_limit": "曲の長さ以上に巻き戻すことはできません。",
 			"rewinded": "音楽を巻き戻しました。",
 			"rewind_footer": "{displayName} によって巻き戻されました",
 			"forward_limit": "曲の長さ以上に早送りすることはできません。",
