@@ -35,14 +35,14 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.2",
     "@types/i18n": "^0.13.12",
-    "@types/node": "^22.5.5",
+    "@types/node": "^22.7.4",
     "@types/signale": "^1.4.7",
-    "prisma": "^5.19.1",
+    "prisma": "^5.20.0",
     "tslib": "^2.7.0",
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "@prisma/client": "^5.19.1",
+    "@prisma/client": "^5.20.0",
     "@top-gg/sdk": "^3.1.6",
     "discord.js": "^14.16.2",
     "dotenv": "^16.4.5",

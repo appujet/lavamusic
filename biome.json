@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
+	"$schema": "https://biomejs.dev/schemas/1.9.2/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -26,51 +26,51 @@
 		"rules": {
 			"recommended": false,
 			"all": true,
-			"security": {
-				"noGlobalEval": "off"
-			},
-			"suspicious": {
-				"noExplicitAny": "off",
-				"noAssignInExpressions": "off",
-				"useAwait": "off",
-				"noConfusingVoidType": "off",
-				"noAsyncPromiseExecutor": "off",
-				"noUnsafeDeclarationMerging": "off",
-				"noEmptyInterface": "off",
-				"noThenProperty": "off"
+			"complexity": {
+				"noBannedTypes": "off",
+				"noExcessiveCognitiveComplexity": "off",
+				"noForEach": "off",
+				"noUselessConstructor": "off"
 			},
 			"correctness": {
 				"noNodejsModules": "off",
-				"useImportExtensions": "off",
 				"noUnusedFunctionParameters": "off",
-				"noUnusedVariables": "off"
-			},
-			"style": {
-				"noDefaultExport": "off",
-				"useBlockStatements": "off",
-				"noParameterProperties": "off",
-				"useNamingConvention": "off",
-				"noNonNullAssertion": "off",
-				"useForOf": "off",
-				"useDefaultSwitchClause": "off",
-				"noParameterAssign": "off",
-				"useFilenamingConvention": "off",
-				"useEnumInitializers": "off",
-				"useExplicitLengthCheck": "off",
-				"noNamespaceImport": "off",
-				"noInferrableTypes": "info"
-			},
-			"complexity": {
-				"noForEach": "off",
-				"noExcessiveCognitiveComplexity": "off",
-				"noUselessConstructor": "off",
-				"noBannedTypes": "off"
+				"noUnusedVariables": "off",
+				"useImportExtensions": "off"
 			},
 			"performance": {
 				"noBarrelFile": "off",
 				"noDelete": "off",
 				"noReExportAll": "off",
 				"useTopLevelRegex": "off"
+			},
+			"security": {
+				"noGlobalEval": "off"
+			},
+			"suspicious": {
+				"noAssignInExpressions": "off",
+				"noAsyncPromiseExecutor": "off",
+				"noConfusingVoidType": "off",
+				"noEmptyInterface": "off",
+				"noExplicitAny": "off",
+				"noThenProperty": "off",
+				"noUnsafeDeclarationMerging": "off",
+				"useAwait": "off"
+			},
+			"style": {
+				"noDefaultExport": "off",
+				"noInferrableTypes": "info",
+				"noNamespaceImport": "off",
+				"noNonNullAssertion": "off",
+				"noParameterAssign": "off",
+				"noParameterProperties": "off",
+				"useBlockStatements": "off",
+				"useDefaultSwitchClause": "off",
+				"useEnumInitializers": "off",
+				"useExplicitLengthCheck": "off",
+				"useFilenamingConvention": "off",
+				"useForOf": "off",
+				"useNamingConvention": "off"
 			}
 		}
 	},
