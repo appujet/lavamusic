@@ -1,6 +1,6 @@
 {
-	"extends": ["development"],
-	"hints": {
-		"typescript-config/consistent-casing": "off"
-	}
+  "extends": ["development"],
+  "hints": {
+    "typescript-config/consistent-casing": "off"
+  }
 }

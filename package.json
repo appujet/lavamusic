@@ -16,16 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/appujet/lavamusic.git"
   },
-  "keywords": [
-    "discord",
-    "music",
-    "bot",
-    "lavalink",
-    "lavalink-client",
-    "lavamusic",
-    "typescript",
-    "prisma"
-  ],
+  "keywords": ["discord", "music", "bot", "lavalink", "lavalink-client", "lavamusic", "typescript", "prisma"],
   "author": "appujet",
   "license": "GPL-3.0",
   "bugs": {
