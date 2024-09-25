@@ -90,7 +90,7 @@
     }
   },
   "files": {
-    "ignoreUnknown": false,
+    "ignoreUnknown": true,
     "ignore": [".vscode", "dist", "locales", "node_modules"]
   }
 }
