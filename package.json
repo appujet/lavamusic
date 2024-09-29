@@ -34,6 +34,8 @@
   "homepage": "https://github.com/appujet/lavamusic#readme",
   "devDependencies": {
     "@biomejs/biome": "^1.9.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
     "@types/i18n": "^0.13.12",
     "@types/node": "^22.7.4",
     "@types/signale": "^1.4.7",
@@ -44,8 +46,10 @@
   "dependencies": {
     "@prisma/client": "^5.20.0",
     "@top-gg/sdk": "^3.1.6",
+    "cors": "^2.8.5",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.5",
+    "express": "^5.0.0",
     "genius-lyrics-api": "^3.2.1",
     "i18n": "^0.15.1",
     "lavalink-client": "https://pkg.pr.new/moe-music/lavalink-client@1c1f8f3",

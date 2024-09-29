@@ -127,6 +127,16 @@ const envSchema = z.object({
 	 * Genius api
 	 */
 	GENIUS_API: z.string().optional(),
+
+	/**
+	 * The api port
+	 */
+	API_PORT: z.preprocess(val => {
+		if (typeof val === 'string') {
+			return Number.parseInt(val, 10);
+		}
+		return val;
+	}, z.number().default(80)),
 });
 
 type Env = z.infer<typeof envSchema>;
