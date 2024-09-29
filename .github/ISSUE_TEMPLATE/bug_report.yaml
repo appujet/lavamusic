@@ -32,7 +32,7 @@ body:
     attributes:
       label: "Operating System"
       description: "Which operating system and version are you using?"
-      placeholder: "e.g., Windows 10, macOS 13, Ubuntu 20.04"
+      placeholder: "e.g., Windows 11 24H2, macOS 15.1, Ubuntu 20.04"
     validations:
       required: true
 
@@ -48,10 +48,10 @@ body:
     id: java-version
     attributes:
       label: "java version"
-      description: "Specify the version of Java that you are using."
+      description: "Specify the version of Java that you are using. If you are not self-hosting a Lavalink server, you can leave this blank."
       placeholder: "e.g., 17"
     validations:
-      required: true
+      required: false
 
   - type: input
     id: app-version

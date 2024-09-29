@@ -1,7 +1,8 @@
 import * as fs from 'node:fs';
-import { shardStart } from './shard';
 import Logger from './structures/Logger';
 import { ThemeSelector } from './utils/ThemeSelector';
+import Lavamusic from './structures/Lavamusic';
+import { env } from './env';
 
 const logger = new Logger();
 
@@ -26,7 +27,21 @@ try {
 	setConsoleTitle('Lavamusic');
 	const logFile = fs.readFileSync('./src/utils/LavaLogo.txt', 'utf-8');
 	console.log(theme.purpleNeon(logFile));
-	shardStart(logger);
+
+	const client = new Lavamusic({
+		intents: [
+			'Guilds',
+			'GuildMessages',
+			'MessageContent',
+			'GuildVoiceStates',
+			'GuildMembers',
+			'GuildMessageTyping',
+		],
+		allowedMentions: { parse: ['users', 'roles'], repliedUser: false },
+	});
+
+	client.start(env.TOKEN);
+
 } catch (err) {
 	logger.error('[CLIENT] An error has occurred:', err);
 }

@@ -10,7 +10,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "sqlite" // You can use postgresql, mongodb, etc.
+  // url      = env("DATABASE_URL") // If you want to use postgresql, mongodb, etc., uncomment and remove the next line
   url      = "file:./lavamusic.db"
 }
 
