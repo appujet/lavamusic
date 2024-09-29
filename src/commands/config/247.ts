@@ -64,7 +64,7 @@ export default class _247 extends Command {
 				embeds: [embed.setDescription(ctx.locale('cmd.247.messages.enabled')).setColor(this.client.color.main)],
 			});
 		} catch (error) {
-			console.error('Error in 247 command:', error);
+			client.logger.error('Error in 247 command:', error);
 			return await ctx.sendMessage({
 				embeds: [embed.setDescription(ctx.locale('cmd.247.errors.generic')).setColor(client.color.red)],
 			});
