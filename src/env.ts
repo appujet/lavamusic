@@ -11,7 +11,7 @@ const LavalinkNodeSchema = z.object({
 	host: z.string(),
 	port: z.number(),
 	authorization: z.string(),
-	secure: z.boolean().optional(),
+	secure: z.preprocess(val => (val === 'true' || val === 'false' ? val === 'true' : val), z.boolean().optional()),
 	sessionId: z.string().optional(),
 	regions: z.string().array().optional(),
 	retryAmount: z.number().optional(),
