@@ -8,7 +8,7 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"ignore": ["node_modules/", "dist", "package.json", "tsconfig.json", ".vscode"]
+		"ignore": [".vscode", "dist", "node_modules", "package.json", "tsconfig.json"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -24,11 +24,15 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": false,
 			"all": true,
 			"complexity": {
 				"noBannedTypes": "off",
-				"noExcessiveCognitiveComplexity": "off",
+				"noExcessiveCognitiveComplexity": {
+					"level": "warn",
+					"options": {
+						"maxAllowedComplexity": 30
+					}
+				},
 				"noForEach": "off",
 				"noUselessConstructor": "off"
 			},
@@ -51,6 +55,7 @@
 				"noAssignInExpressions": "off",
 				"noAsyncPromiseExecutor": "off",
 				"noConfusingVoidType": "off",
+				"noEmptyBlockStatements": "off",
 				"noEmptyInterface": "off",
 				"noExplicitAny": "off",
 				"noThenProperty": "off",

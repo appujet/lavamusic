@@ -5,7 +5,6 @@
     "lib": ["ESNext", "WebWorker"],
     "moduleResolution": "node",
     "declaration": true,
-    "sourceMap": false,
     "strict": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
