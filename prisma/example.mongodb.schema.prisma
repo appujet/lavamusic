@@ -15,12 +15,12 @@ datasource db {
 }
 
 model Bot {
-    botId         String     @unique
+    botId         String  @id @map("_id")
     totalPlaySong Int 
 }
 
 model Guild {
-    guildId         String      @id
+    guildId         String      @id @map("_id")
     prefix          String
     language        String?     @default("EnglishUS")
     stay            Stay?
@@ -30,20 +30,20 @@ model Guild {
 }
 
 model Stay {
-    guildId String @id
+    guildId String @id @map("_id")
     textId  String
     voiceId String
     Guild   Guild  @relation(fields: [guildId], references: [guildId])
 }
 
 model Dj {
-    guildId String  @id
+    guildId String  @id @map("_id")
     mode    Boolean
     Guild   Guild   @relation(fields: [guildId], references: [guildId])
 }
 
 model Role {
-    guildId String
+    guildId String @id @map("_id")
     roleId  String
     Guild   Guild  @relation(fields: [guildId], references: [guildId])
 
@@ -51,7 +51,7 @@ model Role {
 }
 
 model Playlist {
-    id      String   @id @default(uuid())
+    id      String   @id @default(uuid()) @map("_id")
     userId  String
     name    String
     tracks  String?   // Store the array of encoded tracks as a JSON string
@@ -60,7 +60,7 @@ model Playlist {
 }
 
 model Setup {
-    guildId   String @id
+    guildId   String @id @map("_id")
     textId    String
     messageId String
     Guild     Guild  @relation(fields: [guildId], references: [guildId])
