@@ -44,7 +44,7 @@
   "dependencies": {
     "@prisma/client": "^5.20.0",
     "@top-gg/sdk": "^3.1.6",
-    "discord.js": "^14.16.2",
+    "discord.js": "^14.16.3",
     "dotenv": "^16.4.5",
     "genius-lyrics-api": "^3.2.1",
     "i18n": "^0.15.1",
