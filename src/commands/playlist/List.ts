@@ -112,7 +112,7 @@ export default class GetPlaylists extends Command {
 				],
 			});
 		} catch (error) {
-			console.error(error);
+			client.logger.error(error);
 			return await ctx.sendMessage({
 				embeds: [
 					{

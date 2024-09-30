@@ -51,7 +51,7 @@ export default class Deploy extends Command {
 				components: [row],
 			});
 		} catch (error) {
-			console.error('Failed to send the initial message:', error);
+			client.logger.error('Failed to send the initial message:', error);
 			return;
 		}
 
@@ -62,7 +62,7 @@ export default class Deploy extends Command {
 						content: "You can't interact with this message",
 						ephemeral: true,
 					})
-					.catch(console.error);
+					.catch(client.logger.error);
 				return false;
 			}
 			return true;
@@ -90,7 +90,7 @@ export default class Deploy extends Command {
 					});
 				}
 			} catch (error) {
-				console.error('Failed to handle interaction:', error);
+				client.logger.error('Failed to handle interaction:', error);
 			}
 		});
 
@@ -99,7 +99,7 @@ export default class Deploy extends Command {
 				try {
 					await msg.delete();
 				} catch (error) {
-					console.error('Failed to delete the message:', error);
+					client.logger.error('Failed to delete the message:', error);
 				}
 			}
 		});

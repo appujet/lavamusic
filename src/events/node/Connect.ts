@@ -1,6 +1,6 @@
 import type { LavalinkNode } from 'lavalink-client';
 import { Event, type Lavamusic } from '../../structures/index';
-import BotLog from '../../utils/BotLog';
+import { sendLog } from '../../utils/BotLog';
 
 export default class Connect extends Event {
 	constructor(client: Lavamusic, file: string) {
@@ -48,7 +48,7 @@ export default class Connect extends Event {
 			}, index * 1000);
 		});
 
-		BotLog.send(this.client, `Node ${node.id} is ready!`, 'success');
+		sendLog(this.client, `Node ${node.id} is ready!`, 'success');
 	}
 }
 

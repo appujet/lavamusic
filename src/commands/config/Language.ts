@@ -1,4 +1,5 @@
 import type { AutocompleteInteraction } from 'discord.js';
+import { env } from '../../env';
 import { Command, type Context, type Lavamusic } from '../../structures/index';
 import { Language, LocaleFlags } from '../../types';
 
@@ -60,10 +61,13 @@ export default class LanguageCommand extends Command {
 		} else {
 			subCommand = args.shift();
 		}
+
+		const defaultLanguage = env.DEFAULT_LANGUAGE || Language.EnglishUS;
+
 		if (subCommand === 'set') {
 			const embed = client.embed().setColor(this.client.color.main);
 
-			const locale = await client.db.getLanguage(ctx.guild!.id);
+			const locale = (await client.db.getLanguage(ctx.guild!.id)) || defaultLanguage;
 
 			let lang: string;
 
@@ -123,8 +127,8 @@ export default class LanguageCommand extends Command {
 				});
 			}
 
-			await client.db.updateLanguage(ctx.guild!.id, Language.EnglishUS);
-			ctx.guildLocale = Language.EnglishUS;
+			await client.db.updateLanguage(ctx.guild!.id, defaultLanguage);
+			ctx.guildLocale = defaultLanguage;
 
 			return ctx.sendMessage({
 				embeds: [embed.setDescription(ctx.locale('cmd.language.reset'))],
