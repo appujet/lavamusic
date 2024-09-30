@@ -171,7 +171,7 @@ export default class InteractionCreate extends Event {
 
 				if (command.player.active) {
 					const queue = this.client.manager.getPlayer(interaction.guildId);
-					if (!queue.queue.current) {
+					if (!queue?.queue.current) {
 						return await interaction.reply({
 							content: T(locale, 'event.interaction.no_music_playing'),
 						});
