@@ -53,7 +53,7 @@ export default class VoiceStateUpdate extends Event {
 			if (newState.serverMute && !player.paused) {
 				player.pause();
 			} else if (!newState.serverMute && player.paused) {
-				player.pause();
+				player.resume();
 			}
 		}
 
