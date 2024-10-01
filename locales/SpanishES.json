@@ -126,7 +126,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Activar/desactivar filtro de distorsión",
 			"messages": {
 				"filter_enabled": "`✅` | El filtro de distorsión se ha `ACTIVADO`.",

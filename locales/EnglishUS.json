@@ -142,11 +142,11 @@
 				"off": "`✅` | Bassboost filter has been `DISABLED`."
 			}
 		},
-		"distorsion": {
-			"description": "Toggle the distorsion filter on/off",
+		"distortion": {
+			"description": "Toggle the distortion filter on/off",
 			"messages": {
-				"filter_enabled": "`✅` | Distorsion filter has been `ENABLED`.",
-				"filter_disabled": "`✅` | Distorsion filter has been `DISABLED`."
+				"filter_enabled": "`✅` | Distortion filter has been `ENABLED`.",
+				"filter_disabled": "`✅` | Distortion filter has been `DISABLED`."
 			}
 		},
 		"karaoke": {

@@ -126,7 +126,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Schalte den Verzerrungsfilter ein-/aus",
 			"messages": {
 				"filter_enabled": "`✅` | Verzerrungsfilter wurde `AKTIVIERT`.",

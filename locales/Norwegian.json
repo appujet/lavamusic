@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Slå på/av forvrengningsfilteret",
 			"messages": {
 				"filter_enabled": "`✅` | Forvrengningsfilteret er `AKTIVERT`.",

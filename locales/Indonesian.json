@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Mengaktifkan/menonaktifkan filter distorsi",
 			"messages": {
 				"filter_enabled": "`✅` | Filter distorsi telah `DIAKTIFKAN`.",
