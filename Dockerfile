@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends openssl && \
 
 # Copy compiled code and necessary files from the builder stage
 COPY --from=builder /opt/lavamusic/dist ./dist
+COPY --from=builder /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.txt
 COPY --from=builder /opt/lavamusic/prisma ./prisma
 COPY --from=builder /opt/lavamusic/scripts ./scripts
 COPY --from=builder /opt/lavamusic/locales ./locales
