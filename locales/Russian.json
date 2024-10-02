@@ -136,10 +136,10 @@
 				"filter_disabled": "`✅` | Фильтр усиления басов был `ОТКЛЮЧЕН`."
 			},
 			"options": {
-				"level": "The bassboost level you want to set"
+				"level": "Регулируемый уровень басов"
 			}
 		},
-		"distortion": {
+		"distorsion": {
 			"description": "Включает/отключает фильтр искажения",
 			"messages": {
 				"filter_enabled": "`✅` | Фильтр искажения был `ВКЛЮЧЕН`.",
@@ -499,7 +499,7 @@
 			}
 		},
 		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track"
+			"description": "Получить слова играющего трека"
 		}
 	},
 	"buttons": {
@@ -541,15 +541,15 @@
 			"looping_off_by": "Зацикливание отключено {user}"
 		},
 		"setupStart": {
-			"now_playing": "Now Playing",
-			"description": "[{title}]({uri}) by {author} • `[{length}]` - Requested by <@{requester}>",
-			"error_searching": "There was an error while searching.",
-			"no_results": "There were no results found.",
-			"nothing_playing": "Nothing playing right now.",
-			"queue_too_long": "The queue is too long. The maximum length is {maxQueueSize} songs.",
-			"playlist_too_long": "The playlist is too long. The maximum length is {maxPlaylistSize} songs.",
-			"added_to_queue": "Added [{title}]({uri}) to the queue.",
-			"added_playlist_to_queue": "Added [{length}] songs from the playlist to the queue."
+			"now_playing": "Играет",
+			"description": "[{title}]({uri}) от {author} • `[{length}]` - Запрошено <@{requester}>",
+			"error_searching": "При поиске возникла ошибка.",
+			"no_results": "Ничего не найдено.",
+			"nothing_playing": "Сейчас ничего не играет.",
+			"queue_too_long": "Очередь слишком длинная.  Максимальная длина - {maxQueueSize} песен.",
+			"playlist_too_long": "Список воспроизведения слишком длинный.  Максимальная длина - {maxPlaylistSize} песен.",
+			"added_to_queue": "Добавлена [{title}]({uri}) в очередь.",
+			"added_playlist_to_queue": "Добавлено [{length}] песен в очередь."
 		}
 	},
 	"event": {
@@ -628,8 +628,8 @@
 			"no_music_playing": "Сейчас ничего не играет."
 		}
 	},
-	"Evaluate code": "Evaluate code",
-	"Leave a guild": "Leave a guild",
-	"List all guilds the bot is in": "List all guilds the bot is in",
-	"Restart the bot": "Restart the bot"
+	"Evaluate code": "Выполнить код",
+	"Leave a guild": "Покинуть сервер",
+	"List all guilds the bot is in": "Список всех серверов, в которых состоит бот",
+	"Restart the bot": "Перезагрузить бота"
 }
