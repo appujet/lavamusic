@@ -1,6 +1,7 @@
 import { AutoPoster } from 'topgg-autoposter';
 import { env } from '../../env';
 import { Event, type Lavamusic } from '../../structures/index';
+import { transliterate as tr } from 'transliteration';
 
 export default class Ready extends Event {
 	constructor(client: Lavamusic, file: string) {
@@ -32,7 +33,7 @@ export default class Ready extends Event {
 		} else {
 			this.client.logger.warn('Top.gg token not found. Skipping auto poster.');
 		}
-		await this.client.manager.init({ ...this.client.user!, shards: 'auto' });
+		await this.client.manager.init({ ...this.client.user!, username: tr(this.client.user!.username), shards: 'auto' });
 	}
 }
 
