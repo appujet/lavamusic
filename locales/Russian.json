@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Включает/отключает фильтр искажения",
 			"messages": {
 				"filter_enabled": "`✅` | Фильтр искажения был `ВКЛЮЧЕН`.",
