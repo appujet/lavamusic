@@ -9,9 +9,9 @@ class HomeController {
 		this.client = client;
 	}
 
-	public getHome = (_req: Request, res: Response): void => {
+	public home = (_req: Request, res: Response): void => {
 		response.success(res, {
-			message: 'TSR Music Bot Backend REST API. Copyright © TheSkinnyRat 2024.',
+			message: 'Guild Route -> Home',
 		});
 	};
 

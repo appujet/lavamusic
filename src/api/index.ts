@@ -1,8 +1,8 @@
 import express from 'express';
-import type Lavamusic from '../structures/Lavamusic';
+import type Lavamusic from '@/structures/Lavamusic';
 import cors from 'cors';
-import setupRoutes from './routes';
-import { response } from './base';
+import setupRoutes from '@/api/routes';
+import { response } from '@/api/base';
 
 export default class Api {
 	private readonly client: Lavamusic;

@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import type Lavamusic from '../../structures/Lavamusic';
-import setupMiddlewares from '../middlewares';
-import setupControllers from '../controllers';
+import type Lavamusic from '@/structures/Lavamusic';
+import setupMiddlewares from '@/api/middlewares';
+import setupControllers from '@/api/controllers';
 
 export default function homeRoute(client: Lavamusic): Router {
 	const router = Router();

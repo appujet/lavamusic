@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "npm run clean && node .",
+    "dev": "nodemon --watch src/ --exec npm run start -e ts",
     "db:push": "npx prisma db push",
     "db:migrate": "npx prisma migrate dev --name init",
-    "build": "tsc --project tsconfig.json",
+    "build": "tsc --project tsconfig.json && tsc-alias",
     "clean": "node scripts/clean.js && npm run build",
     "lint": "biome lint --write",
     "format": "biome format --write"
@@ -40,6 +41,7 @@
     "@types/node": "^22.7.4",
     "@types/signale": "^1.4.7",
     "prisma": "^5.20.0",
+    "tsc-alias": "^1.8.10",
     "tslib": "^2.7.0",
     "typescript": "^5.6.2"
   },

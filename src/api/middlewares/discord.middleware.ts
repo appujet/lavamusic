@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import { response } from '../base';
+import { response } from '@/api/base';
 
 class DiscordMiddleware {
 	public isAccessTokenProvided = (req: Request, res: Response, next: NextFunction): void => {

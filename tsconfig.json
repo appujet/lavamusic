@@ -23,7 +23,11 @@
     "skipLibCheck": true,
     "noErrorTruncation": true,
     "outDir": "./dist",
-    "stripInternal": true
+    "stripInternal": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "exclude": ["dist/", "node_modules/"],
   "include": ["src/**/*"]
