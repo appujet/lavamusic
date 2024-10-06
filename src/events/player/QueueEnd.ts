@@ -14,7 +14,7 @@ export default class QueueEnd extends Event {
 		const guild = this.client.guilds.cache.get(player.guildId);
 		if (!guild) return;
 		const locale = await this.client.db.getLanguage(player.guildId);
-		await updateSetup(this.client, player.guildId, locale);
+		await updateSetup(this.client, guild, locale);
 
 		const messageId = player.get<string | undefined>('messageId');
 		if (!messageId) return;

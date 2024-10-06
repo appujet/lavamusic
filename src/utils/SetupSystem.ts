@@ -1,4 +1,4 @@
-import { type ColorResolvable, EmbedBuilder, type Message, type TextChannel } from 'discord.js';
+import { type ColorResolvable, EmbedBuilder, type Guild, type Message, type TextChannel } from 'discord.js';
 
 import type { Player, Track } from 'lavalink-client';
 import { T } from '../structures/I18n';
@@ -203,7 +203,7 @@ async function trackStart(
 	}
 }
 
-async function updateSetup(client: Lavamusic, guild: any, locale: string): Promise<void> {
+async function updateSetup(client: Lavamusic, guild: Guild, locale: string): Promise<void> {
 	const setup = await client.db.getSetup(guild.id);
 	let m: Message | undefined;
 	if (setup?.textId) {
