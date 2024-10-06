@@ -32,6 +32,7 @@ export default class Queue extends Command {
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild!.id);
+		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'));
 		const embed = this.client.embed();
 		if (player.queue.current && player.queue.tracks.length === 0) {
 			return await ctx.sendMessage({

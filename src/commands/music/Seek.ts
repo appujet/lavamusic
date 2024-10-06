@@ -39,7 +39,7 @@ export default class Seek extends Command {
 
 	public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild!.id);
-		const current = player.queue.current?.info;
+		const current = player?.queue.current?.info;
 		const embed = this.client.embed();
 		const duration = client.utils.parseTime(args.join(' '));
 		if (!duration) {
@@ -63,7 +63,7 @@ export default class Seek extends Command {
 				],
 			});
 		}
-		player.seek(duration);
+		player?.seek(duration);
 		return await ctx.sendMessage({
 			embeds: [
 				embed.setColor(this.client.color.main).setDescription(

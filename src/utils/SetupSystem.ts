@@ -265,7 +265,7 @@ async function updateSetup(client: Lavamusic, guild: Guild, locale: string): Pro
 			await m
 				.edit({
 					embeds: [embed],
-					components: getButtons(player, client).map(b => {
+					components: getButtons(player!, client).map(b => {
 						b.components.forEach(c => c.setDisabled(true));
 						return b;
 					}),

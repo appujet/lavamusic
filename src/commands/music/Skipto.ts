@@ -41,7 +41,7 @@ export default class Skipto extends Command {
 		const player = client.manager.getPlayer(ctx.guild!.id);
 		const embed = this.client.embed();
 		const num = Number(args[0]);
-
+		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'));
 		if (player.queue.tracks.length === 0 || Number.isNaN(num) || num > player.queue.tracks.length || num < 1) {
 			return await ctx.sendMessage({
 				embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale('cmd.skipto.errors.invalid_number'))],

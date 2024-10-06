@@ -33,7 +33,7 @@ export default class Resume extends Command {
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild!.id);
 		const embed = this.client.embed();
-
+		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'));
 		if (!player.paused) {
 			return await ctx.sendMessage({
 				embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale('cmd.resume.errors.not_paused'))],

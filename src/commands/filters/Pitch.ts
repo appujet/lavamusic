@@ -39,6 +39,7 @@ export default class Pitch extends Command {
 
 	public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild!.id);
+		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'));
 		const pitchString = args[0].replace(',', '.');
 		const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(pitchString);
 		const pitch = Number.parseFloat(pitchString);

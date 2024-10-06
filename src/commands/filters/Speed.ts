@@ -39,6 +39,7 @@ export default class Speed extends Command {
 
 	public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild!.id);
+		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'));
 		const speedString = args[0].replace(',', '.');
 		const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(speedString);
 		const speed = Number.parseFloat(speedString);
