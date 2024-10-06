@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/appujet/lavamusic#readme",
   "devDependencies": {
-    "@biomejs/biome": "^1.9.2",
+    "@biomejs/biome": "^1.9.3",
     "@types/i18n": "^0.13.12",
     "@types/node": "^22.7.4",
     "@types/signale": "^1.4.7",
