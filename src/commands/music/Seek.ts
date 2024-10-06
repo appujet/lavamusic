@@ -47,7 +47,7 @@ export default class Seek extends Command {
 				embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale('cmd.seek.errors.invalid_format'))],
 			});
 		}
-		if (!current?.isSeekable) {
+		if (!current?.isSeekable || current.isStream) {
 			return await ctx.sendMessage({
 				embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale('cmd.seek.errors.not_seekable'))],
 			});

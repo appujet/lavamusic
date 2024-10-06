@@ -96,10 +96,10 @@ export default class Play extends Command {
 				],
 			});
 		}
-		if (!player.playing) await player.play({ paused: false });
+		if (!player.playing && player.queue.tracks.length > 0) await player.play({ paused: false });
 	}
 	public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
-		const focusedValue = interaction.options.getFocused();
+		const focusedValue = interaction.options.getFocused(true);
 
 		if (!focusedValue) {
 			return interaction.respond([]).catch(() => {
@@ -107,7 +107,7 @@ export default class Play extends Command {
 			});
 		}
 
-		const res = await this.client.manager.search(focusedValue, interaction.user);
+		const res = await this.client.manager.search(focusedValue.value, interaction.user);
 		const songs: ApplicationCommandOptionChoiceData[] = [];
 
 		if (res.loadType === 'search') {
