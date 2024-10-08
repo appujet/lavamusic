@@ -35,7 +35,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.3",
     "@types/i18n": "^0.13.12",
-    "@types/node": "^22.7.4",
+    "@types/node": "^22.7.5",
     "@types/signale": "^1.4.7",
     "prisma": "^5.20.0",
     "tslib": "^2.7.0",
