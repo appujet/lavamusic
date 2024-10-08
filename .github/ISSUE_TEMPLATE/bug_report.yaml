@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: "## 🐞 Bug Report\n\nPlease fill out the information below to help us resolve the issue as quickly as possible."
-      
+
   - type: textarea
     id: description
     attributes:
@@ -44,6 +44,7 @@ body:
       placeholder: "e.g., 14.17.0"
     validations:
       required: true
+
   - type: input
     id: java-version
     attributes:
