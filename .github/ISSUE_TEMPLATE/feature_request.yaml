@@ -9,16 +9,8 @@ body:
     attributes:
       value: |
         ## Feature Request
-
         Please provide a detailed description of the feature you're suggesting. If applicable, describe any related problem and the potential benefits of implementing this feature.
-  - type: input
-    id: title
-    attributes:
-      label: "Feature Title"
-      description: "Provide a brief title for your feature request"
-      placeholder: "Enter a concise title"
-    validations:
-      required: true
+
   - type: textarea
     id: problem_description
     attributes:
@@ -27,6 +19,7 @@ body:
       placeholder: "Describe the problem"
     validations:
       required: false
+
   - type: textarea
     id: suggestion_description
     attributes:
@@ -35,6 +28,7 @@ body:
       placeholder: "Explain your idea in detail"
     validations:
       required: true
+
   - type: dropdown
     id: priority
     attributes:
@@ -46,6 +40,7 @@ body:
         - "High"
     validations:
       required: true
+
   - type: textarea
     id: alternatives
     attributes:
@@ -54,6 +49,7 @@ body:
       placeholder: "Mention any alternative approaches"
     validations:
       required: false
+
   - type: textarea
     id: additional_context
     attributes:
