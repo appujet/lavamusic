@@ -19,7 +19,9 @@ plugins:
       soundgasm: true # soundgasm.net
       pixeldrain: true # pixeldrain.com
   jiosaavn:
-    apiURL: "https://saavn.dev/api" # The API URL for JioSaavn
+    apiURL: "https://jiosaavn-plugin-api.deno.dev" # JioSaavn API URL
+    playlistTrackLimit: 50 # The maximum number of tracks to return from given playlist (default 50 tracks)
+    recommendationsTrackLimit: 10 # The maximum number of track to return from recommendations (default 10 tracks)
   lavasrc:
     providers: # Custom providers for track loading. This is the default
       # - "dzisrc:%ISRC%" # Deezer ISRC provider
@@ -92,14 +94,11 @@ plugins:
     # The clients to use for track loading. See below for a list of valid clients.
     # Clients are queried in the order they are given (so the first client is queried first and so on...)
     clients:
+      - ANDROID_MUSIC
       - MUSIC
       - WEB
-      - ANDROID_TESTSUITE
+      - WEBEMBEDDED
       - TVHTML5EMBEDDED
-      - ANDROID_MUSIC
-      - ANDROID_LITE
-      - MEDIA_CONNECT
-      - IOS
       # This secure your lavalink is working and playing music if you used this two things below.
     #oauth:
      # enabled: true # IF YOU RUN YOUR LAVALINK CHECK YOUR CONSOLE AND CLICK THE GOOGLE.COM/DEVICES LINK AND THERE IS A CODE THAT YOU NEED TO PUT IN TO THE GOOGLE AND USE A BURNER ACCOUNT OR ALT ACCOUNT THERE IS A POSSIBLE CHANGE YOU CAN GET BANNED FROM GOOGLE OR YOUTUBE SO JUST USE A BURNER ACCOUNT IN CASE.
@@ -108,7 +107,7 @@ plugins:
    #   visitorData: ""
 lavalink:
   plugins:
-    - dependency: "com.github.appujet:jiosaavn-plugin:0.1.7"
+    - dependency: "com.github.appujet:jiosaavn-plugin:1.0.2"
       repository: "https://jitpack.io"
     - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
       snapshot: false # set to true if you want to use snapshot builds
