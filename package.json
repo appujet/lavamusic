@@ -7,6 +7,7 @@
     "start": "npm run clean && node .",
     "dev": "nodemon --watch src/ --exec npm run start -e ts",
     "db:push": "npx prisma db push",
+    "db:push:new": "npx prisma db push --schema=./prisma/schema.new.prisma",
     "db:migrate": "npx prisma migrate dev --name init",
     "build": "tsc --project tsconfig.json && tsc-alias",
     "clean": "node scripts/clean.js && npm run build",
@@ -48,6 +49,7 @@
   "dependencies": {
     "@prisma/client": "^5.20.0",
     "@top-gg/sdk": "^3.1.6",
+    "axios": "^1.7.7",
     "cors": "^2.8.5",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.5",

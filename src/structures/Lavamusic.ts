@@ -16,6 +16,7 @@ import {
 import { Locale } from 'discord.js';
 import config from '../config';
 import ServerData from '../database/server';
+import ServerDataNew from '../database/serverNew';
 import { env } from '../env';
 import loadPlugins from '../plugin/index';
 import { Utils } from '../utils/Utils';
@@ -28,6 +29,7 @@ export default class Lavamusic extends Client {
 	public commands: Collection<string, any> = new Collection();
 	public aliases: Collection<string, any> = new Collection();
 	public db = new ServerData();
+	public dbNew = new ServerDataNew();
 	public cooldown: Collection<string, any> = new Collection();
 	public config = config;
 	public logger: Logger = new Logger();

@@ -18,6 +18,7 @@ export default class Api {
 	private setupMiddleware() {
 		this.app.use(cors({ origin: '*' }));
 		this.app.use(express.json());
+		this.app.use(express.urlencoded({ extended: true }));
 	}
 
 	private setupRoutes() {

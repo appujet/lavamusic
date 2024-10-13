@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+  output        = "./prisma.client.new"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Dj {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  Guild String  @unique
+  Roles Json?
+  Mode  Boolean @default(false)
+
+  @@map("djs")
+}
+
+model GuildConfig {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  GuildId String @unique
+  Config  Json
+
+  @@map("guildconfigs")
+}
+
+model GuildPlaylist {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  GuildId      String
+  PlaylistName String
+  Playlist     Json
+  CreatedOn    Int
+
+  @@map("guildplaylists")
+}
+
+model Histories {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  GuildId String
+  Tracks  Json
+
+  @@map("histories")
+}
+
+model Playlist {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  Username     String?
+  UserId       String
+  PlaylistName String
+  Playlist     Json
+  CreatedOn    Int
+
+  @@map("playlists")
+}
