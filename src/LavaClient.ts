@@ -1,7 +1,6 @@
 import { type ClientOptions, GatewayIntentBits } from 'discord.js';
 import { env } from './env';
 import Lavamusic from './structures/Lavamusic';
-import Api from './api';
 
 const { GuildMembers, MessageContent, GuildVoiceStates, GuildMessages, Guilds, GuildMessageTyping } = GatewayIntentBits;
 
@@ -12,9 +11,8 @@ const clientOptions: ClientOptions = {
 
 const client = new Lavamusic(clientOptions);
 client.start(env.TOKEN);
-
-const api = new Api(client);
-api.start(env.API_PORT);
+client.api.start(env.API_PORT);
+client.socket.start();
 
 /**
  * Project: lavamusic

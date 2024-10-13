@@ -24,6 +24,8 @@ import { T, i18n, initI18n, localization } from './I18n';
 import LavalinkClient from './LavalinkClient';
 import Logger from './Logger';
 import type { Command } from './index';
+import ClientApi from '@/api';
+import ClientSocket from '@/socket';
 
 export default class Lavamusic extends Client {
 	public commands: Collection<string, any> = new Collection();
@@ -43,6 +45,8 @@ export default class Lavamusic extends Client {
 	public embed(): EmbedBuilder {
 		return new EmbedBuilder();
 	}
+	public api = new ClientApi(this);
+	public socket = new ClientSocket(this);
 
 	public async start(token: string): Promise<void> {
 		initI18n();
