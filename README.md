@@ -219,7 +219,7 @@ Your contribution will be reviewed by the project maintainers, and any necessary
 
 ## 🔐 License
 
-Distributed under the GPL-3.0 license. See ![LICENSE](https://img.shields.io/github/license/appujet/lavamusic?style=social) for more information.
+Distributed under the GPL-3.0 license. See [![LICENSE](https://img.shields.io/github/license/appujet/lavamusic?style=social)](https://github.com/appujet/lavamusic/blob/main/LICENSE) for more information [READ](https://discord.com/channels/942117923001098260/942120006219624469/1278087961774129314).
 
 ## ☕ Donate
 
