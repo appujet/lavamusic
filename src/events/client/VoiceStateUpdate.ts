@@ -47,7 +47,7 @@ export default class VoiceStateUpdate extends Event {
 
 	handale = {
 		async join(newState: VoiceState, client: Lavamusic) {
-			await new Promise((resolve) => setTimeout(resolve, 3000));
+			await new Promise(resolve => setTimeout(resolve, 3000));
 			const bot = newState.guild.voiceStates.cache.get(client.user!.id);
 			if (!bot) return;
 
@@ -58,7 +58,7 @@ export default class VoiceStateUpdate extends Event {
 				bot.suppress
 			) {
 				if (bot.channel && bot.member && bot.channel.permissionsFor(bot.member!).has('MuteMembers')) {
-					await bot.setSuppressed(false)
+					await bot.setSuppressed(false);
 				}
 			}
 
@@ -114,7 +114,7 @@ export default class VoiceStateUpdate extends Event {
 
 		async move(newState: VoiceState, client: Lavamusic) {
 			// delay for 3 seconds
-			await new Promise((resolve) => setTimeout(resolve, 3000));
+			await new Promise(resolve => setTimeout(resolve, 3000));
 			const bot = newState.guild.voiceStates.cache.get(client.user!.id);
 			if (!bot) return;
 
@@ -125,7 +125,7 @@ export default class VoiceStateUpdate extends Event {
 				bot.suppress
 			) {
 				if (bot.channel && bot.member && bot.channel.permissionsFor(bot.member!).has('MuteMembers')) {
-					await bot.setSuppressed(false)
+					await bot.setSuppressed(false);
 				}
 			}
 		},
