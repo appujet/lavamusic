@@ -1,4 +1,11 @@
-import { ActionRowBuilder, ButtonBuilder, type ButtonInteraction, ButtonStyle, ComponentType, type TextChannel, } from 'discord.js';
+import {
+	ActionRowBuilder,
+	ButtonBuilder,
+	type ButtonInteraction,
+	ButtonStyle,
+	ComponentType,
+	type TextChannel,
+} from 'discord.js';
 import { getLyrics } from 'genius-lyrics-api';
 import { Command, type Context, type Lavamusic } from '../../structures/index';
 
@@ -7,9 +14,9 @@ export default class Lyrics extends Command {
 		super(client, {
 			name: 'lyrics',
 			description: {
-			content: 'cmd.lyrics.description',
-			examples: ['lyrics'],
-		        usage: 'lyrics',
+				content: 'cmd.lyrics.description',
+				examples: ['lyrics'],
+				usage: 'lyrics',
 			},
 			category: 'music',
 			aliases: ['ly'],
@@ -33,8 +40,8 @@ export default class Lyrics extends Command {
 	}
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
-		let player = client.manager.getPlayer(ctx.guild!.id);
-		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'))
+		const player = client.manager.getPlayer(ctx.guild!.id);
+		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'));
 		const embed = this.client.embed();
 
 		const track = player.queue.current!;
