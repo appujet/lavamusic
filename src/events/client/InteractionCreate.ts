@@ -240,13 +240,13 @@ export default class InteractionCreate extends Event {
 					const embed = new EmbedBuilder()
 						.setAuthor({
 							name: 'Slash - Command Logs',
-							iconURL: this.client.user?.avatarURL({
-								size: 2048,
-							})!,
+							iconURL: this.client.user?.avatarURL({ size: 2048 })!,
 						})
 						.setColor(this.client.config.color.blue)
-						.setDescription(
-							`**\`${command.name}\`** | Used By **${interaction.user.tag} \`${interaction.user.id}\`** From **${interaction.guild.name} \`${interaction.guild.id}\`**`,
+						.addFields(
+							{ name: 'Command', value: `\`${command.name}\``, inline: true },
+							{ name: 'User', value: `${interaction.user.tag} (\`${interaction.user.id}\`)`, inline: true },
+							{ name: 'Guild', value: `${interaction.guild.name} (\`${interaction.guild.id}\`)`, inline: true },
 						)
 						.setTimestamp();
 
