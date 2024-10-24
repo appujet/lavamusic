@@ -118,7 +118,7 @@ async function setupStart(client: Lavamusic, query: string, player: Player, mess
 						break;
 					}
 				}
-				if (!player.playing) await player.play();
+				if (!player.playing && player.queue.tracks.length > 0) await player.play();
 			}
 		} catch (error) {
 			client.logger.error(error);

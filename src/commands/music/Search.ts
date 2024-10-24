@@ -89,7 +89,7 @@ export default class Search extends Command {
 			await int.deferUpdate();
 			if (!track) return;
 			player.queue.add(track);
-			if (!player.playing) await player.play({ paused: false });
+			if (!player.playing && player.queue.tracks.length > 0) await player.play({ paused: false });
 			await ctx.editMessage({
 				embeds: [
 					embed.setDescription(
