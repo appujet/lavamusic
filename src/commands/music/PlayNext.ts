@@ -96,7 +96,7 @@ export default class PlayNext extends Command {
 				],
 			});
 		}
-		if (!player.playing) await player.play({ paused: false });
+		if (!player.playing && player.queue.tracks.length > 0) await player.play({ paused: false });
 	}
 	public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
 		const focusedValue = interaction.options.getFocused();
