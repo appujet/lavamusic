@@ -65,7 +65,7 @@ export default class Search extends Command {
 			.setCustomId('select-track')
 			.setPlaceholder(ctx.locale('cmd.search.select'))
 			.addOptions(
-				response.tracks.slice(0, 5).map((track: Track, index: number) => ({
+				response.tracks.slice(0, 10).map((track: Track, index: number) => ({
 					label: `${index + 1}. ${track.info.title}`,
 					description: track.info.author,
 					value: index.toString(),
