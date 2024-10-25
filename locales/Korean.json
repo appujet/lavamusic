@@ -360,6 +360,7 @@
 			"options": {
 				"song": "검색하려는 노래 제목 또는 URL"
 			},
+			"select": "재생하고자 하는 노래를 선택해주세요.",
 			"errors": {
 				"no_results": "검색 결과가 없어요",
 				"search_error": "노래를 검색하는 도중 문제가 발생했어요."
