@@ -69,7 +69,7 @@ export default class Search extends Command {
 					label: `${index + 1}. ${track.info.title}`,
 					description: track.info.author,
 					value: index.toString(),
-				}))
+				})),
 			);
 		const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(selectMenu);
 
