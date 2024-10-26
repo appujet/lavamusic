@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, type TextChannel, type VoiceChannel } from 'discord.js';
+import { ActionRowBuilder, StringSelectMenuBuilder, type TextChannel, type VoiceChannel } from 'discord.js';
 import type { SearchResult, Track } from 'lavalink-client';
 import { Command, type Context, type Lavamusic } from '../../structures/index';
 
@@ -61,13 +61,18 @@ export default class Search extends Command {
 				embeds: [embed.setDescription(ctx.locale('cmd.search.errors.no_results')).setColor(this.client.color.red)],
 			});
 		}
-		const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-			new ButtonBuilder().setCustomId('1').setLabel('1').setStyle(ButtonStyle.Primary),
-			new ButtonBuilder().setCustomId('2').setLabel('2').setStyle(ButtonStyle.Primary),
-			new ButtonBuilder().setCustomId('3').setLabel('3').setStyle(ButtonStyle.Primary),
-			new ButtonBuilder().setCustomId('4').setLabel('4').setStyle(ButtonStyle.Primary),
-			new ButtonBuilder().setCustomId('5').setLabel('5').setStyle(ButtonStyle.Primary),
-		);
+		const selectMenu = new StringSelectMenuBuilder()
+			.setCustomId('select-track')
+			.setPlaceholder(ctx.locale('cmd.search.select'))
+			.addOptions(
+				response.tracks.slice(0, 10).map((track: Track, index: number) => ({
+					label: `${index + 1}. ${track.info.title}`,
+					description: track.info.author,
+					value: index.toString(),
+				})),
+			);
+		const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(selectMenu);
+
 		if (response.loadType === 'search' && response.tracks.length > 5) {
 			const embeds = response.tracks.map(
 				(track: Track, index: number) =>
@@ -85,7 +90,7 @@ export default class Search extends Command {
 			idle: 60000 / 2,
 		});
 		collector.on('collect', async (int: any) => {
-			const track = response.tracks[Number.parseInt(int.customId) - 1];
+			const track = response.tracks[Number.parseInt(int.values[0])];
 			await int.deferUpdate();
 			if (!track) return;
 			player.queue.add(track);

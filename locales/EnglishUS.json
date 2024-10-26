@@ -360,6 +360,7 @@
 			"options": {
 				"song": "The song you want to search"
 			},
+			"select": "Please select the song you want to play",
 			"errors": {
 				"no_results": "No results found.",
 				"search_error": "There was an error while searching."
