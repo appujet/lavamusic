@@ -1,7 +1,7 @@
 import { Server } from 'socket.io';
 import type Lavamusic from '@/structures/Lavamusic';
 import type http from 'node:http';
-import guildHandler from './handlers/generalHandlers';
+import guildHandler from './handlers/guildHandler';
 
 export default class SocketServer {
 	private readonly client: Lavamusic;
