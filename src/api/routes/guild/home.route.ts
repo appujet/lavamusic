@@ -23,6 +23,13 @@ export default function homeRoute(client: Lavamusic): Router {
 	],
 		homeController.authMode,
 	);
+	router.patch('/:guildId/silentmode', [
+		guildMiddleware.optionalAuth,
+		guildMiddleware.dj,
+		guildMiddleware.guildExists,
+		guildMiddleware.playerExists,
+		guildMiddleware.channelExists,
+	], homeController.silentMode);
 
 	return router;
 }	

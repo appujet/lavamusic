@@ -4,6 +4,7 @@ import type Lavamusic from '@/structures/Lavamusic';
 import { type Guild, type User, PermissionsBitField, type SendableChannels } from 'discord.js';
 import type { Player } from 'lavalink-client';
 import { createDiscordApiService } from '@/services/api/discord';
+import type { JsonArray, JsonObject, JsonValue } from '@prisma/client/runtime/library';
 
 interface GuildRequest extends Request {
 	user?: User;
@@ -55,6 +56,53 @@ class GuildMiddleware {
 		}
 	};
 
+	public optionalAuth = async (req: GuildRequest, res: Response, next: NextFunction): Promise<void> => {
+		const accessToken = req.headers.authorization;
+		const guildId = req.params.guildId;
+		let user: User | undefined;
+
+		try {
+			const guildConfig = await this.client.dbNew.getGuildConfig(guildId);
+			const config = guildConfig?.Config as JsonObject;
+
+			if (config?.authMode) {
+				if (!accessToken) {
+					response.error(res, 400, 'Should contain Authorization Header');
+					return;
+				}
+			}
+
+			if (accessToken) {
+				const discordApi = this.discordApi(accessToken);
+				user = await discordApi.discordUsersMe();
+
+				if (!user) {
+					response.error(res, 401, 'Unauthorized');
+					return;
+				}
+
+				try {
+					const guild = this.client.guilds.cache.get(guildId);
+					const member = await guild?.members.fetch(user.id);
+
+					if (!member) {
+						response.error(res, 401, 'Unauthorized');
+						return;
+					}
+				} catch (error) {
+					response.error(res, 401, 'Unauthorized');
+					return;
+				}
+			}
+
+			req.user = user;
+			next();
+		} catch (error) {
+			response.error(res, 500, `Internal Server Error: ${error}`);
+			return;
+		}
+	};
+
 	public guildManager = async (req: GuildRequest, res: Response, next: NextFunction): Promise<void> => {
 		const guildId = req.params.guildId;
 
@@ -72,6 +120,48 @@ class GuildMiddleware {
 			}
 
 			req.guild = guild;
+			next();
+		} catch (error) {
+			response.error(res, 500, `Internal Server Error: ${error}`);
+			return;
+		}
+	};
+
+	public dj = async (req: GuildRequest, res: Response, next: NextFunction): Promise<void> => {
+		const guildId = req.params.guildId;
+
+		try {
+			const guildDj = await this.client.dbNew.getGuildDj(guildId);
+			if (!guildDj?.Mode) {
+				next();
+				return;
+			}
+
+			const guild = this.client.guilds.cache.get(guildId);
+			const member = await guild?.members.fetch(req.user?.id ?? '');
+			const roles = guildDj.Roles as JsonArray;
+
+			if (!member) {
+				response.error(res, 401, 'Unauthorized');
+				return;
+			}
+
+			if (member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
+				next();
+				return;
+			}
+
+			if (!roles.length) {
+				response.error(res, 403, 'Forbidden, not enough permissions');
+				return;
+			}
+
+			const isDj = roles.some((role: JsonValue) => member.roles.cache.has(role as string));
+			if (!isDj) {
+				response.error(res, 403, 'Forbidden, not enough permissions');
+				return;
+			}
+
 			next();
 		} catch (error) {
 			response.error(res, 500, `Internal Server Error: ${error}`);
@@ -112,7 +202,7 @@ class GuildMiddleware {
 
 		const guild = this.client.guilds.cache.get(guildId);
 		const player = this.client.manager.players.get(guildId);
-		const channel = guild?.channels.cache.get(player?.voiceChannelId ?? '');
+		const channel = guild?.channels.cache.get(player?.textChannelId ?? player?.voiceChannelId ?? '');
 
 		if (!(channel?.isSendable())) {
 			response.error(res, 404, 'Channel not found or not sendable');

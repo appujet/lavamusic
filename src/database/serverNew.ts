@@ -1,5 +1,5 @@
 import { PrismaClient } from '../../prisma/prisma.client.new';
-import type { GuildConfig } from '../../prisma/prisma.client.new';
+import type { Dj, GuildConfig } from '../../prisma/prisma.client.new';
 // import { env } from '../env';
 
 export default class ServerData {
@@ -19,6 +19,10 @@ export default class ServerData {
 
 	public async updateGuildConfig(guildId: string, config: GuildConfig['Config']): Promise<GuildConfig> {
 		return this.prisma.guildConfig.update({ where: { GuildId: guildId }, data: { Config: config as any } });
+	}
+
+	public async getGuildDj(guildId: string): Promise<Dj | null> {
+		return this.prisma.dj.findUnique({ where: { Guild: guildId } });
 	}
 }
 

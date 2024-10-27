@@ -1,10 +1,11 @@
 import { Server } from 'socket.io';
 import type Lavamusic from '@/structures/Lavamusic';
 import type http from 'node:http';
+import guildHandler from './handlers/generalHandlers';
 
 export default class SocketServer {
 	private readonly client: Lavamusic;
-	private io!: Server;
+	public io!: Server;
 
 	constructor(client: Lavamusic) {
 		this.client = client;
@@ -21,16 +22,7 @@ export default class SocketServer {
 
 	private setupSocketEvents() {
 		this.io.on('connection', (socket) => {
-			console.log('A user connected');
-
-			socket.on('disconnect', () => {
-				console.log('User disconnected');
-			});
-
-			// Add more socket event handlers here
-			socket.on('chat message', (msg) => {
-				this.io.emit('chat message', msg);
-			});
+			guildHandler(socket, this.client);
 		});
 	}
 
