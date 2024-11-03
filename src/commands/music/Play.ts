@@ -101,13 +101,11 @@ export default class Play extends Command {
 	public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
 		const focusedValue = interaction.options.getFocused(true);
 
-		if (!focusedValue) {
-			return interaction.respond([]).catch(() => {
-				null;
-			});
+		if (!focusedValue || !focusedValue.value.trim()) {
+			return interaction.respond([]).catch(() => {});
 		}
 
-		const res = await this.client.manager.search(focusedValue.value, interaction.user);
+		const res = await this.client.manager.search(focusedValue.value.trim(), interaction.user);
 		const songs: ApplicationCommandOptionChoiceData[] = [];
 
 		if (res.loadType === 'search') {
@@ -120,9 +118,7 @@ export default class Play extends Command {
 			});
 		}
 
-		return await interaction.respond(songs).catch(() => {
-			null;
-		});
+		return await interaction.respond(songs).catch(() => {});
 	}
 }
 

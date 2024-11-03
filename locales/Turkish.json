@@ -36,7 +36,7 @@
 			"content": "Merhaba! Ben {bot}, [Lavamusic](https://github.com/appujet/lavamusic) ve Discord.js ile yapılmış bir müzik botuyum. {prefix}help <command> yazarak bir komut hakkında daha fazla bilgi alabilirsiniz.",
 			"title": "Yardım Menüsü",
 			"not_found": "Bu {cmdName} komutu mevcut değil.",
-			"help_cmd": "**Açıklama**: {description}\n**Kullanım**: {usage}\n**Örnekler**: {examples}\n**Alternatifler**: {aliases}\n**Kategori**: {category}\n**Bekleme Süresi**: {cooldown} saniye\n**İzinler**: {premUser}\n**Bot İzinleri**: {premBot}\n**Sadece Geliştirici**: {dev}\n**Slash Komut**: {slash}\n**Argümanlar**: {args}\n**Oynatıcı**: {player}\n**DJ**: {dj}\n**DJ İzinleri**: {djPerm}\n**Ses**: {voice}",			
+			"help_cmd": "**Açıklama**: {description}\n**Kullanım**: {usage}\n**Örnekler**: {examples}\n**Alternatifler**: {aliases}\n**Kategori**: {category}\n**Bekleme Süresi**: {cooldown} saniye\n**İzinler**: {premUser}\n**Bot İzinleri**: {premBot}\n**Sadece Geliştirici**: {dev}\n**Slash Komut**: {slash}\n**Argümanlar**: {args}\n**Oynatıcı**: {player}\n**DJ**: {dj}\n**DJ İzinleri**: {djPerm}\n**Ses**: {voice}",
 			"footer": "Bir komut hakkında daha fazla bilgi almak için {prefix}help <command> kullanın."
 		},
 		"botinfo": {
@@ -247,7 +247,7 @@
 		"grab": {
 			"description": "Çalan şarkıyı özel mesaj yoluyla gönderir.",
 			"loading": "Yükleniyor...",
-			"content":"**Süre**: {length}\n**Talep Eden**: <@{requester}>\n**Bağlantı**: [Buraya tıklayın]({uri})",
+			"content": "**Süre**: {length}\n**Talep Eden**: <@{requester}>\n**Bağlantı**: [Buraya tıklayın]({uri})",
 			"check_dm": "Lütfen özel mesajlarınızı kontrol edin.",
 			"dm_failed": "Özel mesaj gönderemedim. Lütfen doğrudan mesajların açık olduğundan emin olun."
 		},

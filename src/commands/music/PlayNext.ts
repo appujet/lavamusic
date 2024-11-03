@@ -99,13 +99,13 @@ export default class PlayNext extends Command {
 		if (!player.playing && player.queue.tracks.length > 0) await player.play({ paused: false });
 	}
 	public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
-		const focusedValue = interaction.options.getFocused();
+		const focusedValue = interaction.options.getFocused(true);
 
-		if (!focusedValue) {
-			return;
+		if (!focusedValue || !focusedValue.value.trim()) {
+			return interaction.respond([]).catch(() => {});
 		}
 
-		const res = await this.client.manager.search(focusedValue, interaction.user);
+		const res = await this.client.manager.search(focusedValue.value.trim(), interaction.user);
 		const songs: ApplicationCommandOptionChoiceData[] = [];
 
 		if (res.loadType === 'search') {
@@ -118,7 +118,7 @@ export default class PlayNext extends Command {
 			});
 		}
 
-		return await interaction.respond(songs).catch(console.error);
+		return await interaction.respond(songs).catch(() => {});
 	}
 }
 
