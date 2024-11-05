@@ -149,8 +149,7 @@ export default class Lyrics extends Command {
 				});
 			}
 		} catch (error) {
-			// biome-ignore lint/suspicious/noConsole: <explanation>
-			console.error(error);
+			client.logger.error(error);
 			await ctx.editMessage({
 				embeds: [embed.setColor(client.color.red).setDescription(ctx.locale('cmd.lyrics.errors.lyrics_error'))],
 			});
