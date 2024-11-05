@@ -1,5 +1,4 @@
 import { type ColorResolvable, EmbedBuilder, type Guild, type Message, type TextChannel } from 'discord.js';
-
 import type { Player, Track } from 'lavalink-client';
 import { T } from '../structures/I18n';
 import type { Lavamusic } from '../structures/index';
