@@ -101,8 +101,8 @@ export default class PlayNext extends Command {
 	public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
 		const focusedValue = interaction.options.getFocused(true);
 
-		if (!focusedValue || !focusedValue.value.trim()) {
-			return interaction.respond([]).catch(() => {});
+		if (!focusedValue?.value.trim()) {
+			return interaction.respond([]);
 		}
 
 		const res = await this.client.manager.search(focusedValue.value.trim(), interaction.user);
@@ -118,7 +118,7 @@ export default class PlayNext extends Command {
 			});
 		}
 
-		return await interaction.respond(songs).catch(() => {});
+		return await interaction.respond(songs);
 	}
 }
 
