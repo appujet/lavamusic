@@ -24,5 +24,17 @@ export default class ServerData {
 	public async getGuildDj(guildId: string): Promise<Dj | null> {
 		return this.prisma.dj.findUnique({ where: { Guild: guildId } });
 	}
+
+	public async createGuildDj(guildId: string, dj: Pick<Dj, 'Mode' | 'Roles'>): Promise<Dj> {
+		return this.prisma.dj.create({ data: { Guild: guildId, ...dj } });
+	}
+
+	public async updateGuildDj(guildId: string, dj: Pick<Dj, 'Mode' | 'Roles'>): Promise<Dj> {
+		return this.prisma.dj.update({ where: { Guild: guildId }, data: dj });
+	}
+
+	public async deleteGuildDj(guildId: string): Promise<void> {
+		await this.prisma.dj.delete({ where: { Guild: guildId } });
+	}
 }
 

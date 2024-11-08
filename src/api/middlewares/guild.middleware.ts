@@ -41,7 +41,7 @@ class GuildMiddleware {
 				return;
 			}
 
-			const member = await guild?.members.fetch(user.id);
+			const member = guild?.members.cache.get(user.id);
 
 			if (!member) {
 				response.error(res, 401, 'Unauthorized');
@@ -83,7 +83,7 @@ class GuildMiddleware {
 
 				try {
 					const guild = this.client.guilds.cache.get(guildId);
-					const member = await guild?.members.fetch(user.id);
+					const member = guild?.members.cache.get(user.id);
 
 					if (!member) {
 						response.error(res, 401, 'Unauthorized');
@@ -108,7 +108,7 @@ class GuildMiddleware {
 
 		try {
 			const guild = this.client.guilds.cache.get(guildId);
-			const member = await guild?.members.fetch(req.user?.id ?? '');
+			const member = guild?.members.cache.get(req.user?.id ?? '');
 
 			if (!member) {
 				response.error(res, 401, 'Unauthorized');
@@ -138,7 +138,7 @@ class GuildMiddleware {
 			}
 
 			const guild = this.client.guilds.cache.get(guildId);
-			const member = await guild?.members.fetch(req.user?.id ?? '');
+			const member = guild?.members.cache.get(req.user?.id ?? '');
 			const roles = guildDj.Roles as JsonArray;
 
 			if (!member) {

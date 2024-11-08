@@ -2,6 +2,7 @@ import { Server } from 'socket.io';
 import type Lavamusic from '@/structures/Lavamusic';
 import type http from 'node:http';
 import guildHandler from './handlers/guildHandler';
+import userHandler from './handlers/userHandler';
 
 export default class SocketServer {
 	private readonly client: Lavamusic;
@@ -23,6 +24,7 @@ export default class SocketServer {
 	private setupSocketEvents() {
 		this.io.on('connection', (socket) => {
 			guildHandler(socket, this.client);
+			userHandler(socket, this.client);
 		});
 	}
 
