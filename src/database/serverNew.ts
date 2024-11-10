@@ -1,5 +1,5 @@
 import { PrismaClient } from '../../prisma/prisma.client.new';
-import type { Dj, GuildConfig } from '../../prisma/prisma.client.new';
+import type { Dj, GuildConfig, Histories } from '../../prisma/prisma.client.new';
 // import { env } from '../env';
 
 export default class ServerData {
@@ -35,6 +35,10 @@ export default class ServerData {
 
 	public async deleteGuildDj(guildId: string): Promise<void> {
 		await this.prisma.dj.delete({ where: { Guild: guildId } });
+	}
+
+	public async getGuildHistory(guildId: string): Promise<Histories | null> {
+		return this.prisma.histories.findUnique({ where: { GuildId: guildId } });
 	}
 }
 

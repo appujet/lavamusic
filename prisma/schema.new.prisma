@@ -44,7 +44,7 @@ model GuildPlaylist {
 
 model Histories {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
-  GuildId String
+  GuildId String @unique
   Tracks  Json
 
   @@map("histories")
