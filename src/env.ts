@@ -137,6 +137,11 @@ const envSchema = z.object({
 		}
 		return val;
 	}, z.number().default(80)),
+
+	/**
+	 * The discord oauth2 secret
+	 */
+	DISCORD_OAUTH2_SECRET: z.string(),
 });
 
 type Env = z.infer<typeof envSchema>;
