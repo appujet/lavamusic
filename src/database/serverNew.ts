@@ -40,5 +40,85 @@ export default class ServerData {
 	public async getGuildHistory(guildId: string): Promise<Histories | null> {
 		return this.prisma.histories.findUnique({ where: { GuildId: guildId } });
 	}
+
+	public async getGuildPlaylists(guildId: string) {
+		return this.prisma.guildPlaylist.findMany({
+			where: { GuildId: guildId }
+		});
+	}
+
+	public async createGuildPlaylist(guildId: string, name: string) {
+		return this.prisma.guildPlaylist.create({
+			data: {
+				GuildId: guildId,
+				PlaylistName: name,
+				Playlist: [],
+				CreatedOn: Math.floor(Date.now() / 1000)
+			}
+		});
+	}
+
+	public async getGuildPlaylist(guildId: string, playlistId: string) {
+		return this.prisma.guildPlaylist.findFirst({
+			where: {
+				id: playlistId,
+				GuildId: guildId
+			}
+		});
+	}
+
+	public async deleteGuildPlaylist(guildId: string, playlistId: string) {
+		return this.prisma.guildPlaylist.delete({
+			where: {
+				id: playlistId,
+				GuildId: guildId
+			}
+		});
+	}
+
+	public async addTrackToPlaylist(guildId: string, playlistId: string, track: any) {
+		const playlist = await this.getGuildPlaylist(guildId, playlistId);
+		const tracks = playlist?.Playlist as any[] || [];
+
+		return this.prisma.guildPlaylist.update({
+			where: {
+				id: playlistId,
+				GuildId: guildId
+			},
+			data: {
+				Playlist: [...tracks, track]
+			}
+		});
+	}
+
+	public async removeTrackFromPlaylist(guildId: string, playlistId: string, trackId: string) {
+		const playlist = await this.getGuildPlaylist(guildId, playlistId);
+		const tracks = (playlist?.Playlist as any[]).filter(track => track.id !== trackId);
+
+		return this.prisma.guildPlaylist.update({
+			where: {
+				id: playlistId,
+				GuildId: guildId
+			},
+			data: {
+				Playlist: tracks
+			}
+		});
+	}
+
+	public async addTracksToPlaylist(guildId: string, playlistId: string, newTracks: any[]) {
+		const playlist = await this.getGuildPlaylist(guildId, playlistId);
+		const existingTracks = playlist?.Playlist as any[] || [];
+
+		return this.prisma.guildPlaylist.update({
+			where: {
+				id: playlistId,
+				GuildId: guildId
+			},
+			data: {
+				Playlist: [...existingTracks, ...newTracks]
+			}
+		});
+	}
 }
 
