@@ -19,8 +19,12 @@ class PlaylistController {
 				response.error(res, 404, `No playlists found for guild id: ${req.guild!.id}`);
 				return;
 			}
+			const mappedPlaylists = playlists.map((playlist) => ({
+				_id: playlist.id.toString(),
+				...playlist
+			}));
 
-			response.success(res, { playlists });
+			response.success(res, { playlist: mappedPlaylists });
 		} catch (error) {
 			response.error(res, 500, `Internal Server Error: ${error}`);
 		}
@@ -106,7 +110,7 @@ class PlaylistController {
 				title: track.info.title,
 				identifier: track.info.identifier,
 				uri: track.info.uri,
-				thumbnail: track.info.artworkUrl,
+				thumbnail: `https://img.youtube.com/vi/${track.info.identifier}/default.jpg`,
 				author: track.info.author,
 				duration: track.info.duration
 			};
@@ -217,7 +221,7 @@ class PlaylistController {
 				title: track.info.title,
 				identifier: track.info.identifier,
 				uri: track.info.uri,
-				thumbnail: track.info.artworkUrl,
+				thumbnail: `https://img.youtube.com/vi/${track.info.identifier}/default.jpg`,
 				author: track.info.author,
 				duration: track.info.duration
 			}));

@@ -4,7 +4,8 @@ import type Lavamusic from '@/structures/Lavamusic';
 import type { GuildRequest } from '@/api/middlewares/guild.middleware';
 import { EmbedBuilder } from 'discord.js';
 import { z } from 'zod';
-import type { SearchResult, UnresolvedSearchResult } from 'lavalink-client';
+import type { SearchResult, Track, UnresolvedSearchResult } from 'lavalink-client';
+import { mapTrack, mapTracks } from '@/utils/track';
 
 class MusicController {
 	private client: Lavamusic;
@@ -141,7 +142,7 @@ class MusicController {
 			if (!player!.playing) await player!.play({ paused: false });
 
 			this.client.socket.io.to(player!.guildId).emit('player:queueUpdate:success', {
-				queue: player!.queue
+				queue: mapTracks(player!.queue.tracks as Track[] || [])
 			});
 
 			const message = new EmbedBuilder()
@@ -183,7 +184,7 @@ class MusicController {
 			player!.queue.remove(position);
 
 			this.client.socket.io.to(player!.guildId).emit('player:queueUpdate:success', {
-				queue: player!.queue
+				queue: mapTracks(player!.queue.tracks as Track[] || [])
 			});
 
 			const message = new EmbedBuilder()
@@ -208,9 +209,10 @@ class MusicController {
 
 			if (req.query.identifier) {
 				const uri = `https://music.youtube.com/watch?v=${req.query.identifier}&list=RD${req.query.identifier}`;
-				const search = await this.client.manager.search(uri, req.user || this.client.user, 'youtube');
+				const search = await this.client.manager.search(uri, undefined);
+				const mappedResult = mapTracks(search.tracks);
 
-				response.success(res, { search });
+				response.success(res, { search: { tracks: mappedResult } });
 				return;
 			}
 
@@ -221,9 +223,10 @@ class MusicController {
 			}
 
 			const uri = `https://youtube.com/watch?v=${identifier}&list=RD${identifier}`;
-			const search = await this.client.manager.search(uri, req.user || this.client.user, 'youtube');
+			const search = await this.client.manager.search(uri, undefined);
+			const mappedResult = mapTracks(search.tracks);
 
-			response.success(res, { search });
+			response.success(res, { search: { tracks: mappedResult } });
 		} catch (error) {
 			response.error(res, 500, `Internal Server Error: ${error}`);
 		}
@@ -248,12 +251,12 @@ class MusicController {
 				return;
 			}
 
-			await player!.seek(position);
+			await player!.seek(Number.parseInt(position.toString(), 10));
 
 			this.client.socket.io.to(player!.guildId).emit('player:playerUpdate:success', {
 				paused: player!.paused,
 				repeat: player!.repeatMode === 'track',
-				track: player!.queue.current,
+				track: mapTrack(player!.queue.current as Track),
 				position
 			});
 
@@ -296,7 +299,7 @@ class MusicController {
 			this.client.socket.io.to(player!.guildId).emit('player:playerUpdate:success', {
 				paused: true,
 				repeat: player!.repeatMode === 'track',
-				track: player!.queue.current
+				track: mapTrack(player!.queue.current as Track),
 			});
 
 			const message = new EmbedBuilder()
@@ -334,7 +337,7 @@ class MusicController {
 			this.client.socket.io.to(player!.guildId).emit('player:playerUpdate:success', {
 				paused: false,
 				repeat: player!.repeatMode === 'track',
-				track: player!.queue.current
+				track: mapTrack(player!.queue.current as Track),
 			});
 
 			const message = new EmbedBuilder()
@@ -372,10 +375,10 @@ class MusicController {
 			this.client.socket.io.to(player!.guildId).emit('player:playerUpdate:success', {
 				paused: player!.paused,
 				repeat: player!.repeatMode === 'track',
-				track: player!.queue.current,
+				track: mapTrack(player!.queue.current as Track),
 			});
 			this.client.socket.io.to(player!.guildId).emit('player:queueUpdate:success', {
-				queue: player!.queue
+				queue: mapTracks(player!.queue.tracks as Track[] || [])
 			});
 
 			const message = new EmbedBuilder()
@@ -408,7 +411,7 @@ class MusicController {
 			this.client.socket.io.to(player!.guildId).emit('player:playerUpdate:success', {
 				paused: player!.paused,
 				repeat: player!.repeatMode === 'track',
-				track: player!.queue.current,
+				track: mapTrack(player!.queue.current as Track),
 				position: 0
 			});
 
@@ -447,7 +450,7 @@ class MusicController {
 			this.client.socket.io.to(player!.guildId).emit('player:playerUpdate:success', {
 				paused: player!.paused,
 				repeat: true,
-				track: player!.queue.current
+				track: mapTrack(player!.queue.current as Track),
 			});
 
 			const message = new EmbedBuilder()
@@ -485,7 +488,7 @@ class MusicController {
 			this.client.socket.io.to(player!.guildId).emit('player:playerUpdate:success', {
 				paused: player!.paused,
 				repeat: false,
-				track: player!.queue.current
+				track: mapTrack(player!.queue.current as Track),
 			});
 
 			const message = new EmbedBuilder()
@@ -518,10 +521,10 @@ class MusicController {
 			this.client.socket.io.to(player!.guildId).emit('player:playerUpdate:success', {
 				paused: player!.paused,
 				repeat: player!.repeatMode === 'track',
-				track: player!.queue.current
+				track: mapTrack(player!.queue.current as Track),
 			});
 			this.client.socket.io.to(player!.guildId).emit('player:queueUpdate:success', {
-				queue: player!.queue
+				queue: mapTracks(player!.queue.tracks as Track[] || [])
 			});
 
 			const message = new EmbedBuilder()
@@ -556,10 +559,7 @@ class MusicController {
 				return;
 			}
 
-			response.success(res, {
-				title,
-				lyrics: lyrics
-			});
+			response.error(res, 500, 'This feature is under maintenance.');
 		} catch (error) {
 			response.error(res, 500, `Internal Server Error: ${error}`);
 		}

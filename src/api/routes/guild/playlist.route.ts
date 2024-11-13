@@ -14,10 +14,10 @@ export default function playlistRoute(client: Lavamusic): Router {
 	router.get('/:playlistId', [guildMiddleware.optionalAuth, guildMiddleware.guildExists], playlistController.playlist);
 	router.delete('/:playlistId', [guildMiddleware.optionalAuth, guildMiddleware.dj, guildMiddleware.guildExists], playlistController.playlistDelete);
 
-	router.post('/:playlistId/track', [guildMiddleware.optionalAuth, guildMiddleware.dj, guildMiddleware.guildExists], playlistController.playlistAddTrack);
-	router.delete('/:playlistId/track/:trackId', [guildMiddleware.optionalAuth, guildMiddleware.dj, guildMiddleware.guildExists], playlistController.playlistRemoveTrack);
+	router.post('/:playlistId', [guildMiddleware.optionalAuth, guildMiddleware.dj, guildMiddleware.guildExists], playlistController.playlistAddTrack);
+	router.delete('/:playlistId/:trackId', [guildMiddleware.optionalAuth, guildMiddleware.dj, guildMiddleware.guildExists], playlistController.playlistRemoveTrack);
 
-	router.post('/:playlistId/load', [
+	router.get('/:playlistId/load', [
 		guildMiddleware.optionalAuth,
 		guildMiddleware.dj,
 		guildMiddleware.guildExists,

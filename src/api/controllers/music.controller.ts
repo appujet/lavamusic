@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import { response, zod } from '@/api/base';
 import type Lavamusic from '@/structures/Lavamusic';
 import { z } from 'zod';
+import { mapTracks } from '@/utils/track';
 
 class MusicController {
 	private client: Lavamusic;
@@ -19,13 +20,14 @@ class MusicController {
 	public search = async (req: Request, res: Response): Promise<void> => {
 		const searchSchema = z.object({
 			query: z.string().min(1, 'Query must not be empty'),
-			source: z.enum(['ytsearch', 'ytmsearch', 'soundcloud']).optional(),
+			source: z.enum(['youtube', 'ytsearch', 'youtube music', 'ytmsearch', 'soundcloud']).optional(),
 		});
 
 		try {
 			const { query, source } = searchSchema.parse(req.query);
 			const result = await this.client.manager.search(query, null, source);
-			response.success(res, { result });
+			const mappedResult = mapTracks(result.tracks);
+			response.success(res, { search: { tracks: mappedResult } });
 
 		} catch (error) {
 			if (error instanceof z.ZodError) {

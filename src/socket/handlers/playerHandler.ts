@@ -1,5 +1,7 @@
 import type { Socket } from 'socket.io';
 import type Lavamusic from '@/structures/Lavamusic';
+import { mapTrack, mapTracks } from '@/utils/track';
+import type { Track } from 'lavalink-client/dist';
 
 export default function playerHandler(socket: Socket, client: Lavamusic) {
 	socket.on('player:playerUpdate', async (guildId: string) => {
@@ -14,8 +16,8 @@ export default function playerHandler(socket: Socket, client: Lavamusic) {
 		return socket.emit('player:playerUpdate:success', {
 			paused: player!.paused,
 			repeat: player!.repeatMode === 'track',
-			track: player!.queue.current,
 			position: player!.position,
+			track: mapTrack(player!.queue.current as Track),
 		});
 	});
 
@@ -42,8 +44,9 @@ export default function playerHandler(socket: Socket, client: Lavamusic) {
 		if (!player) {
 			return socket.emit('player:queueUpdate:error', `No player found for guild id: ${guildId}`);
 		}
+		const mappedTracks = mapTracks(player?.queue.tracks as Track[] || []);
 		return socket.emit('player:queueUpdate:success', {
-			queue: player!.queue,
+			queue: mappedTracks,
 		});
 	});
 }

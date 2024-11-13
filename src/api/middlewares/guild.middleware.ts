@@ -34,7 +34,8 @@ class GuildMiddleware {
 		try {
 			const discordApi = this.discordApi(accessToken);
 			const guild = this.client.guilds.cache.get(guildId);
-			const user = await discordApi.discordUsersMe();
+			const userApi = await discordApi.discordUsersMe();
+			const user = this.client.users.cache.get(userApi?.id);
 
 			if (!user) {
 				response.error(res, 401, 'Unauthorized');
@@ -74,7 +75,8 @@ class GuildMiddleware {
 
 			if (accessToken) {
 				const discordApi = this.discordApi(accessToken);
-				user = await discordApi.discordUsersMe();
+				const userApi = await discordApi.discordUsersMe();
+				user = this.client.users.cache.get(userApi?.id);
 
 				if (!user) {
 					response.error(res, 401, 'Unauthorized');
