@@ -14,10 +14,10 @@ export default function playerHandler(socket: Socket, client: Lavamusic) {
 			return socket.emit('player:playerUpdate:error', `No player found for guild id: ${guildId}`);
 		}
 		return socket.emit('player:playerUpdate:success', {
-			paused: player!.paused,
-			repeat: player!.repeatMode === 'track',
-			position: player!.position,
-			track: mapTrack(player!.queue.current as Track),
+			paused: player?.paused,
+			repeat: player?.repeatMode === 'track',
+			position: player?.position,
+			track: player?.queue?.current ? mapTrack(player?.queue?.current as Track) : null,
 		});
 	});
 
@@ -31,7 +31,7 @@ export default function playerHandler(socket: Socket, client: Lavamusic) {
 			return socket.emit('player:playerStateUpdate:error', `No player found for guild id: ${guildId}`);
 		}
 		return socket.emit('player:playerStateUpdate:success', {
-			isConnected: player!.connected,
+			isConnected: player?.connected,
 		});
 	});
 
