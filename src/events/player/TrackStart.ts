@@ -17,6 +17,8 @@ import { T } from '../../structures/I18n';
 import { Event, type Lavamusic } from '../../structures/index';
 import type { Requester } from '../../types';
 import { trackStart } from '../../utils/SetupSystem';
+import { mapTracks } from '@/utils/track';
+import { mapTrack } from '@/utils/track';
 
 export default class TrackStart extends Event {
 	constructor(client: Lavamusic, file: string) {
@@ -83,6 +85,17 @@ export default class TrackStart extends Event {
 			player.set('messageId', message.id);
 			createCollector(message, player, track, embed, this.client, locale);
 		}
+
+		this.client.socket.io.to(player?.guildId).emit('player:playerUpdate:success', {
+			paused: player?.paused,
+			repeat: player?.repeatMode === 'track',
+			track: mapTrack(player?.queue?.current as Track ?? {}),
+			position: player?.position,
+		});
+
+		this.client.socket.io.to(player?.guildId).emit('player:queueUpdate:success', {
+			queue: mapTracks(player?.queue?.tracks as Track[] ?? []),
+		});
 	}
 }
 

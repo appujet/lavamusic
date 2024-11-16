@@ -4,6 +4,8 @@ import type Lavamusic from '@/structures/Lavamusic';
 import type { GuildRequest } from '@/api/middlewares/guild.middleware';
 import { EmbedBuilder } from 'discord.js';
 import { z } from 'zod';
+import { mapTracks } from '@/utils/track';
+import type { Track } from 'lavalink-client';
 
 class PlaylistController {
 	private client: Lavamusic;
@@ -179,7 +181,7 @@ class PlaylistController {
 			if (!player!.playing) await player!.play();
 
 			this.client.socket.io.to(player!.guildId).emit('player:queueUpdate:success', {
-				queue: player!.queue
+				queue: mapTracks(player?.queue?.tracks as Track[] ?? []),
 			});
 
 			const message = new EmbedBuilder()

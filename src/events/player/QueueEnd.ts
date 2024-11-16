@@ -1,6 +1,7 @@
 import type { TextChannel } from 'discord.js';
 import type { Player, Track, TrackStartEvent } from 'lavalink-client';
 import { Event, type Lavamusic } from '../../structures/index';
+import { mapTrack, mapTracks } from '@/utils/track';
 
 export default class QueueEnd extends Event {
 	constructor(client: Lavamusic, file: string) {
@@ -29,6 +30,16 @@ export default class QueueEnd extends Event {
 				null;
 			});
 		}
+
+		this.client.socket.io.to(player?.guildId).emit('player:playerUpdate:success', {
+			paused: player?.paused,
+			repeat: player?.repeatMode === 'track',
+			track: player?.queue?.current ? mapTrack(player.queue.current as Track) : {},
+		});
+
+		this.client.socket.io.to(player?.guildId).emit('player:queueUpdate:success', {
+			queue: mapTracks(player?.queue?.tracks as Track[] ?? []),
+		});
 	}
 }
 
