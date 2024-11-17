@@ -142,6 +142,11 @@ const envSchema = z.object({
 	 * The discord oauth2 secret
 	 */
 	DISCORD_OAUTH2_SECRET: z.string(),
+
+	/**
+	 * The web player url
+	 */
+	WEB_PLAYER_URL: z.string(),
 });
 
 type Env = z.infer<typeof envSchema>;

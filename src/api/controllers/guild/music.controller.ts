@@ -139,7 +139,7 @@ class MusicController {
 			const track = searchResult.tracks[0];
 			await player!.queue.add(track, offset);
 
-			if (!player!.playing) await player!.play({ paused: false });
+			if (!player!.playing) player!.play({ paused: false });
 
 			this.client.socket.io.to(player!.guildId).emit('player:queueUpdate:success', {
 				queue: mapTracks(player!.queue.tracks as Track[] || [])

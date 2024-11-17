@@ -4,7 +4,7 @@ export default {
 		green: 0x00ff00,
 		blue: 0x0000ff,
 		yellow: 0xffff00,
-		main: 0x2f3136,
+		main: 0xcceaf3,
 	},
 	emoji: {
 		// You can add custom emoji with ID format (e.g., <:emojiName:123456789012345678>)

@@ -25,11 +25,11 @@ export default class QueueEnd extends Event {
 		});
 		if (!message) return;
 
-		if (message.editable) {
-			await message.edit({ components: [] }).catch(() => {
-				null;
-			});
-		}
+		// if (message.editable) {
+		// 	await message.edit({ components: [] }).catch(() => {
+		// 		null;
+		// 	});
+		// }
 
 		this.client.socket.io.to(player?.guildId).emit('player:playerUpdate:success', {
 			paused: player?.paused,
