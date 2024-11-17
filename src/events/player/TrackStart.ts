@@ -55,6 +55,17 @@ export default class TrackStart extends Event {
 		this.client.socket.io.to(player?.guildId).emit('player:queueUpdate:success', {
 			queue: mapTracks(player?.queue?.tracks as Track[] ?? []),
 		});
+
+		const history = await this.client.dbNew.getGuildHistory(player.guildId);
+		if (history) {
+			const tracks = history.Tracks as any[];
+			if (tracks.length >= 100) {
+				tracks.shift();
+			}
+			await this.client.dbNew.updateGuildHistory(player.guildId, { Tracks: [...tracks, mapTrack(player?.queue?.current as Track ?? {}) as any] });
+		} else {
+			await this.client.dbNew.createGuildHistory(player.guildId, { Tracks: [mapTrack(player?.queue?.current as Track ?? {}) as any] });
+		}
 	}
 }
 

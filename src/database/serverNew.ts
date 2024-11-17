@@ -41,6 +41,14 @@ export default class ServerData {
 		return this.prisma.histories.findUnique({ where: { GuildId: guildId } });
 	}
 
+	public async createGuildHistory(guildId: string, history: Pick<Histories, 'Tracks'>): Promise<Histories> {
+		return this.prisma.histories.create({ data: { GuildId: guildId, Tracks: history.Tracks as any } });
+	}
+
+	public async updateGuildHistory(guildId: string, history: Pick<Histories, 'Tracks'>): Promise<Histories> {
+		return this.prisma.histories.update({ where: { GuildId: guildId }, data: { Tracks: history.Tracks as any } });
+	}
+
 	public async getGuildPlaylists(guildId: string) {
 		return this.prisma.guildPlaylist.findMany({
 			where: { GuildId: guildId }
