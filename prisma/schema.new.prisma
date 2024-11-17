@@ -60,3 +60,11 @@ model Playlist {
 
   @@map("playlists")
 }
+
+model Announcement {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  Title       String?
+  Description String?
+
+  @@map("announcements")
+}

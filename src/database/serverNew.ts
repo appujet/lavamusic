@@ -128,5 +128,9 @@ export default class ServerData {
 			}
 		});
 	}
+
+	public async getAnnouncement() {
+		return this.prisma.announcement.findMany();
+	}
 }
 
