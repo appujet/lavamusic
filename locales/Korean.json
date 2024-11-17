@@ -510,6 +510,9 @@
 				"playlist_stolen": "`{playlist}`를 {user}에게서 가져왔어요.",
 				"error_occurred": "플레이리스트를 가져오는 도중 오류가 발생했어요."
 			}
+		},
+		"webplayer": {
+			"description": "서버의 웹 플레이어 링크를 표시합니다"
 		}
 	},
 	"buttons": {

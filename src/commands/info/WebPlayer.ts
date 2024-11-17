@@ -1,16 +1,17 @@
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 import { Command, type Context, type Lavamusic } from '../../structures/index';
 
-export default class Help extends Command {
+export default class Webplayer extends Command {
 	constructor(client: Lavamusic) {
 		super(client, {
-			name: 'help',
+			name: 'webplayer',
 			description: {
-				content: 'cmd.help.description',
-				examples: ['help'],
-				usage: 'help',
+				content: 'cmd.webplayer.description',
+				examples: ['webplayer'],
+				usage: 'webplayer',
 			},
 			category: 'info',
-			aliases: ['h'],
+			aliases: ['wp'],
 			cooldown: 3,
 			args: false,
 			vote: false,
@@ -31,16 +32,13 @@ export default class Help extends Command {
 	}
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
-		const embed = this.client
-			.embed()
-			.setColor(this.client.color.main)
-			.setTitle('TSR Discord Music Bot')
-			.setDescription(`
-				Hello, I'm TSR Discord Music Bot. 
-				To get started, visit the **[Web Player](${client.env.WEB_PLAYER_URL}/guild/${ctx.guild.id}/room)**
-				\n${client.env.WEB_PLAYER_URL}/guild/${ctx.guild.id}/room
-			`);
-		return await ctx.sendMessage({ embeds: [embed] });
+		const buttonWebPlayer = new ButtonBuilder()
+			.setLabel('Web Player')
+			.setStyle(ButtonStyle.Link)
+			.setURL(`${client.env.WEB_PLAYER_URL}/guild/${ctx.guild.id}/room`);
+		return await ctx.sendMessage({
+			components: [new ActionRowBuilder<ButtonBuilder>().addComponents(buttonWebPlayer)],
+		});
 	}
 }
 

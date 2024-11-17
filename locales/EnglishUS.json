@@ -510,6 +510,9 @@
 				"playlist_stolen": "Successfully stole the playlist `{playlist}` from {user}.",
 				"error_occurred": "An error occurred while stealing the playlist."
 			}
+		},
+		"webplayer": {
+			"description": "Show the server's webplayer link."
 		}
 	},
 	"buttons": {

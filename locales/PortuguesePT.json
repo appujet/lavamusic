@@ -494,6 +494,9 @@
 				"language": "A língua que deseja definir",
 				"reset": "Altera a língua de volta para a língua predefinida"
 			}
+		},
+		"webplayer": {
+			"description": "Mostra o link do reprodutor web do servidor"
 		}
 	},
 	"buttons": {

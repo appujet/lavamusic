@@ -500,6 +500,9 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"webplayer": {
+			"description": "顯示伺服器的網頁播放器連結"
 		}
 	},
 	"buttons": {

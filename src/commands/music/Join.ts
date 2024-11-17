@@ -1,5 +1,7 @@
 import type { VoiceChannel } from 'discord.js';
 import { Command, type Context, type Lavamusic } from '../../structures/index';
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js';
+import { ButtonStyle } from 'discord.js';
 
 export default class Join extends Command {
 	constructor(client: Lavamusic) {
@@ -69,6 +71,14 @@ export default class Join extends Command {
 					ctx.locale('cmd.join.joined', {
 						channelId: player.voiceChannelId,
 					}),
+				),
+			],
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().addComponents(
+					new ButtonBuilder()
+						.setLabel('Web Player')
+						.setStyle(ButtonStyle.Link)
+						.setURL(`${this.client.env.WEB_PLAYER_URL}/guild/${ctx.guild.id}/room`),
 				),
 			],
 		});

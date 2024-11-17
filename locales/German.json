@@ -500,6 +500,9 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"webplayer": {
+			"description": "Zeigt den Webplayer-Link des Servers an"
 		}
 	},
 	"buttons": {

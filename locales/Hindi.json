@@ -500,6 +500,9 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"webplayer": {
+			"description": "सर्वर का वेब प्लेयर लिंक दिखाएं"
 		}
 	},
 	"buttons": {
