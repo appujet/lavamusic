@@ -15,6 +15,7 @@ import {
 	type TextChannel,
 	type User,
 } from 'discord.js';
+import { env } from '../env';
 import { T } from './I18n';
 import type { Lavamusic } from './index';
 
@@ -54,7 +55,8 @@ export default class Context {
 	}
 
 	private async setUpLocale(): Promise<void> {
-		this.guildLocale = this.guild ? await this.client.db.getLanguage(this.guild.id) : 'en';
+		const defaultLanguage = env.DEFAULT_LANGUAGE || 'EnglishUS';
+		this.guildLocale = this.guild ? await this.client.db.getLanguage(this.guild.id) : defaultLanguage;
 	}
 
 	public get isInteraction(): boolean {
@@ -105,7 +107,7 @@ export default class Context {
 	}
 
 	public locale(key: string, ...args: any) {
-		if (!this.guildLocale) this.guildLocale = 'EnglishUs';
+		if (!this.guildLocale) this.guildLocale = env.DEFAULT_LANGUAGE || 'EnglishUS';
 		return T(this.guildLocale, key, ...args);
 	}
 
@@ -124,6 +126,7 @@ export default class Context {
 	public get deferred(): boolean | undefined {
 		return this.isInteraction ? this.interaction?.deferred : !!this.msg;
 	}
+
 	options = {
 		getRole: (name: string, required = true) => {
 			return this.interaction?.options.get(name, required)?.role;

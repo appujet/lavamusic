@@ -7,8 +7,8 @@
 				"generic": "이 명령어를 실행하는 도중 오류가 발생했어요."
 			},
 			"messages": {
-				"disabled": "`✅` | 24/7 모드가 `비활성화되었어요.`",
-				"enabled": "`✅` | 24/7 모드가 `활성화되었어요`."
+				"disabled": "`✅` | 24/7 모드가 `비활성화`되었어요.",
+				"enabled": "`✅` | 24/7 모드가 `활성화`되었어요."
 			}
 		},
 		"ping": {
@@ -36,7 +36,7 @@
 			"content": "안녕하세요! 저는 [Lavamusic](https://github.com/appujet/lavamusic)와 Discord.js로 만들어진 음악 봇, {bot}이에요. 명령어에 대한 자세한 정보를 얻고 싶다면 `{prefix}help <명령어>`를 사용해보세요.",
 			"title": "도움말 메뉴",
 			"not_found": "`{cmdName}` 명령어는 존재하지 않아요.",
-			"help_cmd": "**설명:** {description}\n**사용 방법:** {usage}\n**예시:** {examples}\n**줄인 명령어:** {aliases}\n**카테고리:** {category}\n**쿨다운:** {cooldown}초\n**필요한 권한:** {premUser}\n**봇에게 필요한 권한:** {premBot}\n**개발자 전용:** {dev}\n**빗금 명령어 사용 가능:** {slash}\n**인수 필요:** {args}\n**노래 재생 중에만 사용 가능:** {player}\n**DJ만 사용 가능:** {dj}\n**DJ에게 필요한 권한:** {djPerm}\n**음성 채널 접속 중에만 사용 가능:** {voice}",
+			"help_cmd": "**설명:** {description}\n**사용 방법:** {usage}\n**예시:** {examples}\n**별칭:** {aliases}\n**카테고리:** {category}\n**쿨다운:** {cooldown}초\n**필요한 권한:** {premUser}\n**봇에게 필요한 권한:** {premBot}\n**개발자 전용:** {dev}\n**빗금 명령어 사용 가능:** {slash}\n**인수 필요:** {args}\n**노래 재생 중에만 사용 가능:** {player}\n**DJ만 사용 가능:** {dj}\n**DJ에게 필요한 권한:** {djPerm}\n**음성 채널 접속 중에만 사용 가능:** {voice}",
 			"footer": "명령어에 대한 자세한 내용을 보려면 {prefix}help <command>를 사용하세요."
 		},
 		"botinfo": {
@@ -62,7 +62,7 @@
 			"messages": {
 				"role_exists": "<@&{roleId}>은 이미 DJ 역할에 등록되어 있네요.",
 				"role_added": "<@&{roleId}> 역할이 DJ로 등록되었어요.",
-				"role_not_found": "<@&{roleId}> 역할을 DJ로 등록하지 못했어요. 역할이 없는 것 같네요.",
+				"role_not_found": "<@&{roleId}> 역할을 DJ로 등록하지 못했어요.",
 				"role_removed": "<@&{roleId}> 역할이 DJ에서 삭제되었어요.",
 				"all_roles_cleared": "DJ 역할이 초기화되었어요.",
 				"toggle": "DJ 모드가 {status}로 변경되었어요."
@@ -126,8 +126,8 @@
 		"8d": {
 			"description": "8d 필터를 토글해요",
 			"messages": {
-				"filter_enabled": "`✅` | 8D 필터가 `활성화되었어요`.",
-				"filter_disabled": "`✅` | 8D 필터가 `비활성화되었어요`."
+				"filter_enabled": "`✅` | 8D 필터가 `활성화`되었어요.",
+				"filter_disabled": "`✅` | 8D 필터가 `비활성화`되었어요."
 			}
 		},
 		"bassboost": {
@@ -136,38 +136,38 @@
 				"level": "설정할 베이스부스트 레벨"
 			},
 			"messages": {
-				"high": "`✅` | High 베이스부스트 필터가 `활성화되었어요`.",
-				"low": "`✅` | Low 베이스부스트 필터가 `활성화되었어요`.",
-				"medium": "`✅` | Medium 베이스부스트 필터가 `활성화되었어요`.",
-				"off": "`✅` | 베이스부스트 필터가 `비활성화되었어요`."
+				"high": "`✅` | High 베이스부스트 필터가 `활성화`되었어요.",
+				"low": "`✅` | Low 베이스부스트 필터가 `활성화`되었어요.",
+				"medium": "`✅` | Medium 베이스부스트 필터가 `활성화`되었어요.",
+				"off": "`✅` | 베이스부스트 필터가 `비활성화`되었어요."
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "왜곡 필터를 토글해요",
 			"messages": {
-				"filter_enabled": "`✅` | 왜곡 필터가 `활성화되었어요`.",
-				"filter_disabled": "`✅` | 왜곡 필터가 `비활성화되었어요`."
+				"filter_enabled": "`✅` | 왜곡 필터가 `활성화`되었어요.",
+				"filter_disabled": "`✅` | 왜곡 필터가 `비활성화`되었어요."
 			}
 		},
 		"karaoke": {
 			"description": "노래방 필터를 토글해요",
 			"messages": {
-				"filter_enabled": "`✅` | 노래방 필터가 `활성화되었어요`.",
-				"filter_disabled": "`✅` | 노래방 필터가 `비활성화되었어요`."
+				"filter_enabled": "`✅` | 노래방 필터가 `활성화`되었어요.",
+				"filter_disabled": "`✅` | 노래방 필터가 `비활성화`되었어요."
 			}
 		},
 		"lowpass": {
 			"description": "저역 통과 필터를 토글해요",
 			"messages": {
-				"filter_enabled": "`✅` | 저역 통과 필터가 `활성화되었어요`.",
-				"filter_disabled": "`✅` | 저역 통과 필터가 `비활성화되었어요`."
+				"filter_enabled": "`✅` | 저역 통과 필터가 `활성화`되었어요.",
+				"filter_disabled": "`✅` | 저역 통과 필터가 `비활성화`되었어요."
 			}
 		},
 		"nightcore": {
 			"description": "나이트코어 필터를 토글해요",
 			"messages": {
-				"filter_enabled": "`✅` | 나이트코어 필터가 `활성화되었어요`.",
-				"filter_disabled": "`✅` | 나이트코어 필터가 `비활성화되었어요`."
+				"filter_enabled": "`✅` | 나이트코어 필터가 `활성화`되었어요.",
+				"filter_disabled": "`✅` | 나이트코어 필터가 `비활성화`되었어요."
 			}
 		},
 		"pitch": {
@@ -203,8 +203,8 @@
 		"rotation": {
 			"description": "회전 필터를 토글해요",
 			"messages": {
-				"enabled": "`✅` | 회전 필터가 `활성화되었어요`.",
-				"disabled": "`✅` | 회전 필터가 `비활성화되었어요`."
+				"enabled": "`✅` | 회전 필터가 `활성화`되었어요.",
+				"disabled": "`✅` | 회전 필터가 `비활성화`되었어요."
 			}
 		},
 		"speed": {
@@ -220,22 +220,22 @@
 		"tremolo": {
 			"description": "트레몰로 필터를 토글해요",
 			"messages": {
-				"enabled": "`✅` | 트레몰로 필터가 `활성화되었어요`.",
-				"disabled": "`✅` | 트레몰로 필터가 `비활성화되었어요`."
+				"enabled": "`✅` | 트레몰로 필터가 `활성화`되었어요.",
+				"disabled": "`✅` | 트레몰로 필터가 `비활성화`되었어요."
 			}
 		},
 		"vibrato": {
 			"description": "비브라토 필터를 토글해요",
 			"messages": {
-				"enabled": "`✅` | 비브라토 필터가 `활성화되었어요`.",
-				"disabled": "`✅` | 비브라토 필터가 `비활성화되었어요`."
+				"enabled": "`✅` | 비브라토 필터가 `활성화`되었어요.",
+				"disabled": "`✅` | 비브라토 필터가 `비활성화`되었어요."
 			}
 		},
 		"autoplay": {
 			"description": "자동재생을 토글해요",
 			"messages": {
-				"enabled": "`✅` | 자동재생이 `활성화되었어요`.",
-				"disabled": "`✅` | 자동재생이 `비활성화되었어요`."
+				"enabled": "`✅` | 자동재생이 `활성화`되었어요.",
+				"disabled": "`✅` | 자동재생이 `비활성화`되었어요."
 			}
 		},
 		"clearqueue": {
@@ -273,7 +273,7 @@
 			"lyrics_track": "### [{trackTitle}]({trackUrl}) 노래 가사\n**`{lyrics}`**",
 			"searching": "`🔍` **{trackTitle}** 노래 가사 검색 중...",
 			"errors": {
-				"no_results": "가사를 찾지 못했어요.",
+				"no_results": "현재 트랙의 가사를 찾지 못했어요.",
 				"lyrics_error": "가사를 검색하는 도중 오류가 발생했어요."
 			}
 		},
@@ -360,6 +360,7 @@
 			"options": {
 				"song": "검색하려는 노래 제목 또는 URL"
 			},
+			"select": "재생하고자 하는 노래를 선택해주세요.",
 			"errors": {
 				"no_results": "검색 결과가 없어요",
 				"search_error": "노래를 검색하는 도중 문제가 발생했어요."
@@ -460,9 +461,9 @@
 			}
 		},
 		"list": {
-			"description": "사용자의 모든 플레이리스트를 알려줘요",
+			"description": "사용자의 모든 플레이리스트를 확인해요",
 			"options": {
-				"user": "플레이리스트 목록을 가져올 사용자"
+				"user": "플레이리스트 목록을 확인할 사용자"
 			},
 			"messages": {
 				"no_playlists": "플레이리스트가 없어요.",
@@ -507,9 +508,12 @@
 				"provide_playlist": "플레이리스트를 지정해주세요.",
 				"provide_user": "유저를 지정해주세요.",
 				"playlist_not_exist": "그 플레이리스트는 존재하지 않아요.",
-				"playlist_stolen": "`{playlist}`를 {user}에게서 가져왔어요.",
+				"playlist_stolen": "`{playlist}` 플레이리스트를 {user}님에게서 가져왔어요.",
 				"error_occurred": "플레이리스트를 가져오는 도중 오류가 발생했어요."
 			}
+		},
+		"webplayer": {
+			"description": "서버의 웹 플레이어 링크를 표시합니다"
 		}
 	},
 	"buttons": {
@@ -636,12 +640,12 @@
 			"forward_limit": "더 이상 빨리감기할 수 없어요.",
 			"forwarded": "노래를 빨리감기했어요.",
 			"forward_footer": "{displayName}님에 의해 빨리감기됨",
-			"button_not_available": "이 버튼은 사용할 수 없어요.",
+			"button_not_available": "사용할 수 없는 버튼이에요.",
 			"no_music_playing": "현재 재생 중인 노래가 없어요."
 		}
 	},
 	"Evaluate code": "코드를 실행해요",
-	"Leave a guild": "서버를 떠나요",
-	"List all guilds the bot is in": "봇이 들어가 있는 서버를 알려줘요",
+	"Leave a guild": "봇을 서버에서 퇴장시켜요",
+	"List all guilds the bot is in": "봇이 들어가 있는 서버를 확인해요",
 	"Restart the bot": "봇을 재시작해요"
 }

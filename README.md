@@ -118,30 +118,33 @@ cd lavamusic
 npm i
 ```
 
-4. Copy the .env.example file to .env and fill in all required values.
-Note: Optional values ​​are noted as comments in the settings.
+4. Copy the `.env.example` file to `.env` and fill in all required values
 
-5. Generate the Prisma client:
+5. Copy the `example.<The data source you want to use>.schema.prisma` file to `schema.prisma` in `prisma` folder
+Note: If you want to use sqlite, skip this step.
+If you are using a different data source, don't forget to fill in the `DATABASE_URL` value in `.env`.
+
+6. Generate the Prisma client:
 
 ```bash
 npm run db:push
 ```
 
-6. Run the migrations (Only if you want to migrate your database):
+7. Run the migrations (Only if you want to migrate your database):
 
 ```bash
 npm run db:migrate
 ```
 
-7. Run the bot:
+8. Run the bot:
 
-If you are using Windows, click run.bat on Windows explorer.
+Note: You can also run `run.bat` to easily run the bot on Windows.
 
 ```bash
 npm start
 ```
 
-8. Invite the bot to your server:
+9. Invite the bot to your server:
 
 Generate an invite link for your bot and invite it to your server using the [Discord Developer Portal](https://discord.com/developers/applications) or [Permissions Calculator](https://discordapi.com/permissions.html).
 
@@ -216,7 +219,7 @@ Your contribution will be reviewed by the project maintainers, and any necessary
 
 ## 🔐 License
 
-Distributed under the GPL-3.0 license. See ![LICENSE](https://img.shields.io/github/license/appujet/lavamusic?style=social) for more information.
+Distributed under the GPL-3.0 license. See [![LICENSE](https://img.shields.io/github/license/appujet/lavamusic?style=social)](https://github.com/appujet/lavamusic/blob/main/LICENSE) for more information [READ](https://discord.com/channels/942117923001098260/942120006219624469/1278087961774129314).
 
 ## ☕ Donate
 

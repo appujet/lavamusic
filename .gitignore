@@ -534,6 +534,10 @@ Lavalink/plugins
 Lavalink/application.yml
 Lavalink/Lavalink.jar
 prisma/migrations
-prisma/lavamusic.db
+prisma/lavamusic.db*
 package-lock.json
 pnpm-lock.yaml
+prisma/prisma.client*
+
+# vscode
+.vscode

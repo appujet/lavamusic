@@ -144,7 +144,7 @@ export default class StealPlaylist extends Command {
 				],
 			});
 		} catch (error) {
-			console.error(error);
+			client.logger.error(error);
 			return await ctx.sendMessage({
 				embeds: [
 					{

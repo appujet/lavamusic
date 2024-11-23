@@ -32,6 +32,7 @@ export default class Rotation extends Command {
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild!.id);
+		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'));
 		if (player.filterManager.filters.rotation) {
 			player.filterManager.toggleRotation();
 			await ctx.sendMessage({

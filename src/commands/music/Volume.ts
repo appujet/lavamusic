@@ -41,7 +41,7 @@ export default class Volume extends Command {
 		const player = client.manager.getPlayer(ctx.guild!.id);
 		const embed = this.client.embed();
 		const number = Number(args[0]);
-
+		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'));
 		if (Number.isNaN(number) || number < 0 || number > 200) {
 			let description = '';
 			if (Number.isNaN(number)) description = ctx.locale('cmd.volume.messages.invalid_number');

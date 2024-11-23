@@ -19,7 +19,9 @@ plugins:
       soundgasm: true # soundgasm.net
       pixeldrain: true # pixeldrain.com
   jiosaavn:
-    apiURL: "https://saavn.dev/api" # The API URL for JioSaavn
+    apiURL: "https://jiosaavn-plugin-api.deno.dev" # JioSaavn API URL
+    playlistTrackLimit: 50 # The maximum number of tracks to return from given playlist (default 50 tracks)
+    recommendationsTrackLimit: 10 # The maximum number of track to return from recommendations (default 10 tracks)
   lavasrc:
     providers: # Custom providers for track loading. This is the default
       # - "dzisrc:%ISRC%" # Deezer ISRC provider
@@ -34,11 +36,13 @@ plugins:
       yandexmusic: false # Enable Yandex Music source
       flowerytts: false # Enable Flowery TTS source
       youtube: true # Enable YouTube search source (https://github.com/topi314/LavaSearch)
+      vkmusic: false # Enable Vk Music source
     lyrics-sources:
       spotify: false # Enable Spotify lyrics source
       deezer: false # Enable Deezer lyrics source
       youtube: false # Enable YouTube lyrics source
       yandexmusic: false # Enable Yandex Music lyrics source
+      vkmusic: false # Enable Vk Music lyrics source
     spotify:
       clientId: "your client id"
       clientSecret: "your client secret"
@@ -46,6 +50,7 @@ plugins:
       countryCode: "US" # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
       playlistLoadLimit: 6 # The number of pages at 100 tracks each
       albumLoadLimit: 6 # The number of pages at 50 tracks each
+      resolveArtistsInSearch: true # Whether to resolve artists in track search results (can be slow)
       localFiles: false # Enable local files support with Spotify playlists. Please note `uri` & `isrc` will be `null` & `identifier` will be `"local"`
     applemusic:
       countryCode: "US" # the country code you want to use for filtering the artists top tracks and language. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -61,6 +66,8 @@ plugins:
       albumLoadLimit: 6 # The number of pages at 300 tracks each
     deezer:
       masterDecryptionKey: "your master decryption key" # the master key used for decrypting the deezer tracks. (yes this is not here you need to get it from somewhere else)
+      # arl: "your deezer arl" # the arl cookie used for accessing the deezer api this is optional but required for formats above MP3_128
+      formats: [ "FLAC", "MP3_320", "MP3_256", "MP3_128", "MP3_64", "AAC_64" ] # the formats you want to use for the deezer tracks. "FLAC", "MP3_320", "MP3_256" & "AAC_64" are only available for premium users and require a valid arl
     yandexmusic:
       accessToken: "your access token" # the token used for accessing the yandex music api. See https://github.com/TopiSenpai/LavaSrc#yandex-music
       playlistLoadLimit: 1 # The number of pages at 100 tracks each
@@ -74,6 +81,11 @@ plugins:
       audioFormat: "mp3" # supported formats are: mp3, ogg_opus, ogg_vorbis, aac, wav, and flac. Default format is mp3
     youtube:
       countryCode: "US" # the country code you want to use for searching lyrics via ISRC. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+    vkmusic:
+      userToken: "your user token" # This token is needed for authorization in the api. Guide: https://github.com/topi314/LavaSrc#vk-music
+      playlistLoadLimit: 1 # The number of pages at 50 tracks each
+      artistLoadLimit: 1 # The number of pages at 10 tracks each
+      recommendationsLoadLimit: 10 # Number of tracks
   youtube:
     enabled: true # Whether this source can be used.
     allowSearch: true # Whether "ytsearch:" and "ytmsearch:" can be used.
@@ -82,14 +94,11 @@ plugins:
     # The clients to use for track loading. See below for a list of valid clients.
     # Clients are queried in the order they are given (so the first client is queried first and so on...)
     clients:
+      - ANDROID_MUSIC
       - MUSIC
       - WEB
-      - ANDROID_TESTSUITE
-      - ANDROID_MUSIC
+      - WEBEMBEDDED
       - TVHTML5EMBEDDED
-      - ANDROID_LITE
-      - MEDIA_CONNECT
-      - IOS
       # This secure your lavalink is working and playing music if you used this two things below.
     #oauth:
      # enabled: true # IF YOU RUN YOUR LAVALINK CHECK YOUR CONSOLE AND CLICK THE GOOGLE.COM/DEVICES LINK AND THERE IS A CODE THAT YOU NEED TO PUT IN TO THE GOOGLE AND USE A BURNER ACCOUNT OR ALT ACCOUNT THERE IS A POSSIBLE CHANGE YOU CAN GET BANNED FROM GOOGLE OR YOUTUBE SO JUST USE A BURNER ACCOUNT IN CASE.
@@ -98,17 +107,17 @@ plugins:
    #   visitorData: ""
 lavalink:
   plugins:
-    - dependency: "com.github.appujet:jiosaavn-plugin:0.1.7"
+    - dependency: "com.github.appujet:jiosaavn-plugin:1.0.2"
       repository: "https://jitpack.io"
     - dependency: "com.dunctebot:skybot-lavalink-plugin:1.7.0"
       snapshot: false # set to true if you want to use snapshot builds
     - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
       snapshot: false # set to true if you want to use snapshot builds
-    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.2.0"
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.3.0"
       snapshot: false # set to true if you want to use snapshot builds
     - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.1"
       snapshot: false # set to true if you want to use snapshot builds
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.8.0"
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.8.3"
       snapshot: false # set to true if you want to use snapshot builds
   pluginsDir: './plugins'
   server:

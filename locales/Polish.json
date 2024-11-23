@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Włącz/wyłącz filtr zniekształcenia",
 			"messages": {
 				"filter_enabled": "`✅` | Filtr zniekształcenia został `WŁĄCZONY`.",
@@ -500,6 +500,9 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"webplayer": {
+			"description": "Pokaż link do odtwarzacza internetowego serwera"
 		}
 	},
 	"buttons": {

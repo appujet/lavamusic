@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "启用/关闭失真滤镜",
 			"messages": {
 				"filter_enabled": "`✅` | 失真滤镜已`启用`。",
@@ -500,6 +500,9 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"webplayer": {
+			"description": "显示服务器的网页播放器链接"
 		}
 	},
 	"buttons": {

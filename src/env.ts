@@ -11,7 +11,7 @@ const LavalinkNodeSchema = z.object({
 	host: z.string(),
 	port: z.number(),
 	authorization: z.string(),
-	secure: z.boolean().optional(),
+	secure: z.preprocess(val => (val === 'true' || val === 'false' ? val === 'true' : val), z.boolean().optional()),
 	sessionId: z.string().optional(),
 	regions: z.string().array().optional(),
 	retryAmount: z.number().optional(),
@@ -23,59 +23,16 @@ const LavalinkNodeSchema = z.object({
 });
 
 const envSchema = z.object({
-	/**
-	 * The discord app token
-	 */
 	TOKEN: z.string(),
-
-	/**
-	 * The client id
-	 */
 	CLIENT_ID: z.string(),
-
-	/**
-	 * The default language
-	 */
 	DEFAULT_LANGUAGE: z.string().default('EnglishUS'),
-
-	/**
-	 * The bot prefix
-	 */
 	PREFIX: z.string().default('!'),
-
-	/**
-	 * The owner ids
-	 */
 	OWNER_IDS: z.preprocess(val => (typeof val === 'string' ? JSON.parse(val) : val), z.string().array().optional()),
-
-	/**
-	 * The guild id for devlopment purposes
-	 */
 	GUILD_ID: z.string().optional(),
-
-	/**
-	 * The Top.gg api key
-	 */
 	TOPGG: z.string().optional(),
-
-	/**
-	 * The keep alive boolean
-	 */
 	KEEP_ALIVE: z.preprocess(val => val === 'true', z.boolean().default(false)),
-
-	/**
-	 * The log channel id
-	 */
 	LOG_CHANNEL_ID: z.string().optional(),
-
-	/**
-	 * The log command id
-	 */
 	LOG_COMMANDS_ID: z.string().optional(),
-
-	/**
-	 * The bot status online | idle | dnd | invisible
-	 */
 	BOT_STATUS: z.preprocess(
 		val => {
 			if (typeof val === 'string') {
@@ -85,29 +42,14 @@ const envSchema = z.object({
 		},
 		z.enum(['online', 'idle', 'dnd', 'invisible']).default('online'),
 	),
-
-	/**
-	 * The bot activity
-	 */
 	BOT_ACTIVITY: z.string().default('Lavamusic'),
-
-	/**
-	 * The bot activity type
-	 */
 	BOT_ACTIVITY_TYPE: z.preprocess(val => {
 		if (typeof val === 'string') {
 			return Number.parseInt(val, 10);
 		}
 		return val;
 	}, z.number().default(0)),
-	/**
-	 * The database url
-	 */
 	DATABASE_URL: z.string().optional(),
-
-	/**
-	 * Search engine
-	 */
 	SEARCH_ENGINE: z.preprocess(
 		val => {
 			if (typeof val === 'string') {
@@ -119,26 +61,37 @@ const envSchema = z.object({
 			.enum(['youtube', 'youtubemusic', 'soundcloud', 'spotify', 'apple', 'deezer', 'yandex', 'jiosaavn'])
 			.default('youtube'),
 	),
-	/**
-	 * Node in json
-	 */
 	NODES: z.preprocess(val => (typeof val === 'string' ? JSON.parse(val) : val), z.array(LavalinkNodeSchema)),
-	/**
-	 * Genius api
-	 */
 	GENIUS_API: z.string().optional(),
+
+	/**
+	 * The api port
+	 */
+	API_PORT: z.preprocess(val => {
+		if (typeof val === 'string') {
+			return Number.parseInt(val, 10);
+		}
+		return val;
+	}, z.number().default(80)),
+
+	/**
+	 * The discord oauth2 secret
+	 */
+	DISCORD_OAUTH2_SECRET: z.string(),
+
+	/**
+	 * The web player url
+	 */
+	WEB_PLAYER_URL: z.string(),
 });
 
 type Env = z.infer<typeof envSchema>;
 
-/**
- * The environment variables
- */
 export const env: Env = envSchema.parse(process.env);
 
 for (const key in env) {
 	if (!(key in env)) {
-		throw new Error(`Missing env variable: ${key}`);
+		throw new Error(`Missing env variable: ${key}. Please check the .env file and try again.`);
 	}
 }
 

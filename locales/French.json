@@ -126,7 +126,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Active/désactive le filtre de distorsion",
 			"messages": {
 				"filter_enabled": "`✅` | Le filtre de distorsion a été `ACTIVÉ`.",
@@ -500,6 +500,9 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"webplayer": {
+			"description": "Affiche le lien du lecteur web du serveur"
 		}
 	},
 	"buttons": {

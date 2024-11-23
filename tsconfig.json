@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
     "target": "ESNext",
     "lib": ["ESNext", "WebWorker"],
+    "module": "CommonJS",
     "moduleResolution": "node",
     "declaration": true,
     "sourceMap": false,
@@ -23,7 +23,11 @@
     "skipLibCheck": true,
     "noErrorTruncation": true,
     "outDir": "./dist",
-    "stripInternal": true
+    "stripInternal": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "exclude": ["dist/", "node_modules/"],
   "include": ["src/**/*"]

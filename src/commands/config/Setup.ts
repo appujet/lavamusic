@@ -99,7 +99,7 @@ export default class Setup extends Command {
 				await textChannel
 					.send({
 						embeds: [embed],
-						components: getButtons(player, client),
+						components: getButtons(player!, client),
 					})
 					.then(msg => {
 						client.db.setSetup(ctx.guild!.id, textChannel.id, msg.id);

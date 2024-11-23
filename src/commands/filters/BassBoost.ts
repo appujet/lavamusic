@@ -47,7 +47,7 @@ export default class BassBoost extends Command {
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild!.id);
-
+		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'));
 		switch (ctx.args[0]?.toLowerCase()) {
 			case 'high': {
 				await player.filterManager.setEQ(EQList.BassboostHigh);

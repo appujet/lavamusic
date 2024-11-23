@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "啟用/關閉失真等化器",
 			"messages": {
 				"filter_enabled": "`✅` | 失真等化器已`啟用`。",
@@ -500,6 +500,9 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"webplayer": {
+			"description": "顯示伺服器的網頁播放器連結"
 		}
 	},
 	"buttons": {

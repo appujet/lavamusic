@@ -12,6 +12,7 @@ import {
 } from 'discord.js';
 import { T } from '../../structures/I18n';
 import { Context, Event, type Lavamusic } from '../../structures/index';
+import { env } from '@/env';
 
 export default class MessageCreate extends Event {
 	constructor(client: Lavamusic, file: string) {
@@ -32,10 +33,18 @@ export default class MessageCreate extends Event {
 		const guild = await this.client.db.get(message.guildId);
 		const mention = new RegExp(`^<@!?${this.client.user?.id}>( |)$`);
 		if (mention.test(message.content)) {
+			const embed = this.client
+				.embed()
+				.setColor(this.client.color.main)
+				.setTitle('TSR Discord Music Bot')
+				.setDescription(`
+					Hello, I'm TSR Discord Music Bot. 
+					To get started, visit the **[Web Player](${env.WEB_PLAYER_URL}/guild/${message.guildId}/room)**
+					\n${env.WEB_PLAYER_URL}/guild/${message.guildId}/room
+				`);
+
 			await message.reply({
-				content: T(locale, 'event.message.prefix_mention', {
-					prefix: guild?.prefix,
-				}),
+				embeds: [embed],
 			});
 			return;
 		}
@@ -51,6 +60,8 @@ export default class MessageCreate extends Event {
 		if (!cmd) return;
 		const command = this.client.commands.get(cmd) || this.client.commands.get(this.client.aliases.get(cmd) as string);
 		if (!command) return;
+		const allowedCommands = ['play', 'join', 'ping', 'help', 'webplayer'];
+		if (!(allowedCommands.includes(cmd) || command.permissions?.dev)) return;
 
 		const ctx = new Context(message, args);
 		ctx.setArgs(args);
@@ -259,8 +270,10 @@ export default class MessageCreate extends Event {
 						iconURL: this.client.user?.avatarURL({ size: 2048 })!,
 					})
 					.setColor(this.client.config.color.green)
-					.setDescription(
-						`**\`${command.name}\`** | Used By **${message.author.tag} \`${message.author.id}\`** From **${message.guild.name} \`${message.guild.id}\`**`,
+					.addFields(
+						{ name: 'Command', value: `\`${command.name}\``, inline: true },
+						{ name: 'User', value: `${message.author.tag} (\`${message.author.id}\`)`, inline: true },
+						{ name: 'Guild', value: `${message.guild.name} (\`${message.guild.id}\`)`, inline: true },
 					)
 					.setTimestamp();
 

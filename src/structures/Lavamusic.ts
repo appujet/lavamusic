@@ -16,6 +16,7 @@ import {
 import { Locale } from 'discord.js';
 import config from '../config';
 import ServerData from '../database/server';
+import ServerDataNew from '../database/serverNew';
 import { env } from '../env';
 import loadPlugins from '../plugin/index';
 import { Utils } from '../utils/Utils';
@@ -23,11 +24,14 @@ import { T, i18n, initI18n, localization } from './I18n';
 import LavalinkClient from './LavalinkClient';
 import Logger from './Logger';
 import type { Command } from './index';
+import ClientApi from '@/api';
+import ClientSocket from '@/socket';
 
 export default class Lavamusic extends Client {
 	public commands: Collection<string, any> = new Collection();
 	public aliases: Collection<string, any> = new Collection();
 	public db = new ServerData();
+	public dbNew = new ServerDataNew();
 	public cooldown: Collection<string, any> = new Collection();
 	public config = config;
 	public logger: Logger = new Logger();
@@ -41,6 +45,8 @@ export default class Lavamusic extends Client {
 	public embed(): EmbedBuilder {
 		return new EmbedBuilder();
 	}
+	public api = new ClientApi(this);
+	public socket = new ClientSocket(this);
 
 	public async start(token: string): Promise<void> {
 		initI18n();
@@ -177,7 +183,9 @@ export default class Lavamusic extends Client {
 
 		try {
 			const rest = new REST({ version: '10' }).setToken(env.TOKEN ?? '');
-			await rest.put(route, { body: this.body });
+			const allowedCommands = ['play', 'join', 'ping', 'help', 'webplayer'];
+			const filteredBody = this.body.filter(data => allowedCommands.includes(data.name));
+			await rest.put(route, { body: filteredBody });
 			this.logger.info('Successfully deployed slash commands!');
 		} catch (error) {
 			this.logger.error(error);
