@@ -2,6 +2,7 @@ import type { TextChannel } from 'discord.js';
 import type { Player, Track, TrackStartEvent } from 'lavalink-client';
 import { Event, type Lavamusic } from '../../structures/index';
 import { mapTrack, mapTracks } from '@/utils/track';
+import { updateSetup } from '@/utils/SetupSystem';
 
 export default class QueueEnd extends Event {
 	constructor(client: Lavamusic, file: string) {

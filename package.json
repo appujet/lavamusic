@@ -36,7 +36,6 @@
   "homepage": "https://github.com/appujet/lavamusic#readme",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@biomejs/biome": "^1.9.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/i18n": "^0.13.12",
