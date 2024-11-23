@@ -1,7 +1,7 @@
 import type { Socket } from 'socket.io';
 import type Lavamusic from '@/structures/Lavamusic';
 import { mapTrack, mapTracks } from '@/utils/track';
-import type { Track } from 'lavalink-client/dist';
+import type { Track } from 'lavalink-client';
 
 export default function playerHandler(socket: Socket, client: Lavamusic) {
 	socket.on('player:playerUpdate', async (guildId: string) => {
