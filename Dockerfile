@@ -12,8 +12,8 @@ COPY . .
 
 # Generate Prisma client and build TypeScript
 RUN npx prisma db push && \
+    npx prisma generate --schema=./prisma/schema.new.prisma && \
     npm run build
-RUN npx prisma generate --schema=./prisma/schema.new.prisma
 
 # Stage 2: Create production image
 FROM node:23-slim
