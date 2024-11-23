@@ -510,6 +510,9 @@
 				"playlist_stolen": "`{playlist}` adlı çalma listesi {user} adlı kullanıcıdan başarıyla alındı.",
 				"error_occurred": "Çalma listesi alınırken bir hata oluştu."
 			}
+		},
+		"webplayer": {
+			"description": "Sunucunun web oynatıcı bağlantısını gösterir."
 		}
 	},
 	"buttons": {
