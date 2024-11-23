@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Distorsion filter on/off karein",
 			"messages": {
 				"filter_enabled": "`✅` | Distorsion filter `SAKRIYA` kar diya gaya hai.",

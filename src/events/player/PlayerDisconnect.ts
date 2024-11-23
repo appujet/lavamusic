@@ -1,16 +1,16 @@
 import type { TextChannel } from 'discord.js';
-import type { Player, Track, TrackStartEvent } from 'lavalink-client';
+import type { Player } from 'lavalink-client';
 import { Event, type Lavamusic } from '../../structures/index';
-import { mapTrack, mapTracks } from '@/utils/track';
+import { updateSetup } from '../../utils/SetupSystem';
 
-export default class QueueEnd extends Event {
+export default class PlayerDisconnect extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
-			name: 'queueEnd',
+			name: 'playerDisconnect',
 		});
 	}
 
-	public async run(player: Player, _track: Track | null, _payload: TrackStartEvent): Promise<void> {
+	public async run(player: Player, _voiceChannelId: string): Promise<void> {
 		const guild = this.client.guilds.cache.get(player.guildId);
 		if (!guild) return;
 		const locale = await this.client.db.getLanguage(player.guildId);
@@ -27,21 +27,11 @@ export default class QueueEnd extends Event {
 		});
 		if (!message) return;
 
-		// if (message.editable) {
-		// 	await message.edit({ components: [] }).catch(() => {
-		// 		null;
-		// 	});
-		// }
-
-		this.client.socket.io.to(player?.guildId).emit('player:playerUpdate:success', {
-			paused: player?.paused,
-			repeat: player?.repeatMode === 'track',
-			track: player?.queue?.current ? mapTrack(player.queue.current as Track) : {},
-		});
-
-		this.client.socket.io.to(player?.guildId).emit('player:queueUpdate:success', {
-			queue: mapTracks(player?.queue?.tracks as Track[] ?? []),
-		});
+		if (message.editable) {
+			await message.edit({ components: [] }).catch(() => {
+				null;
+			});
+		}
 	}
 }
 

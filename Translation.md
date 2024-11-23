@@ -37,7 +37,7 @@
 - [x] Spanish (ES) - `SpanishES.json` [by @LucasB25](https://github.com/LucasB25)
 - [ ] Swedish - `Swedish.json` (Not Started)
 - [ ] Thai - `Thai.json` (Not Started)
-- [ ] Turkish - `Turkish.json` (Not Started)
+- [x] Turkish - `Turkish.json` [by @IlkayAksoy](https://github.com/IlkayAksoy)
 - [ ] Ukrainian - `Ukrainian.json` (Not Started)
 - [x] Vietnamese - `Vietnamese.json` [by @nhutlamm](https://github.com/nhutlamm) (Ai Translation - Not Accurate)
 

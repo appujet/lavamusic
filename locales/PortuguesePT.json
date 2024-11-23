@@ -123,7 +123,7 @@
 				"filter_disabled": "`✅` | O filtro de reforço de graves foi `DESATIVADO`."
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Ativar/desativar filtro de distorção",
 			"messages": {
 				"filter_enabled": "`✅` | O filtro de distorção foi `ATIVADO`.",

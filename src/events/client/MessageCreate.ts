@@ -270,8 +270,10 @@ export default class MessageCreate extends Event {
 						iconURL: this.client.user?.avatarURL({ size: 2048 })!,
 					})
 					.setColor(this.client.config.color.green)
-					.setDescription(
-						`**\`${command.name}\`** | Used By **${message.author.tag} \`${message.author.id}\`** From **${message.guild.name} \`${message.guild.id}\`**`,
+					.addFields(
+						{ name: 'Command', value: `\`${command.name}\``, inline: true },
+						{ name: 'User', value: `${message.author.tag} (\`${message.author.id}\`)`, inline: true },
+						{ name: 'Guild', value: `${message.guild.name} (\`${message.guild.id}\`)`, inline: true },
 					)
 					.setTimestamp();
 

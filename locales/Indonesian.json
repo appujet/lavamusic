@@ -28,11 +28,11 @@
 			"content": "Anda dapat menginvite saya dengan mengklik tombol di bawah. Ada bug atau error? Bergabunglah ke server support!"
 		},
 		"help": {
-			"description": "Menampilkan menu help.",
+			"description": "Menampilkan Help menu.",
 			"options": {
 				"command": "command yang ingin Anda dapatkan informasinya"
 			},
-			"content": "Halo! Saya {bot}, bot musik yang dibuat dengan [Lavamusic](https://github.com/appujet/lavamusic) dan Discord. Anda dapat menggunakan `{prefix}help <command>` untuk mendapatkan informasi lebih lanjut tentang command.",
+			"content": "Halo! Aku adalah {bot}, bot musik yang dibuat dengan [Lavamusic](https://github.com/appujet/lavamusic) dan Discord. Anda dapat menggunakan `{prefix}help <command>` untuk mendapatkan informasi lebih lanjut tentang command.",
 			"title": "Menu Bantuan",
 			"not_found": "command `{cmdName}` ini tidak ada.",
 			"help_cmd": "**Deskripsi:** {description}\n**Penggunaan:** {usage}\n**Contoh:** {examples}\n**Alias:** {aliases}\n**Kategori:** {category}\n**Cooldown:** {cooldown} detik\n**Izin:** {premUser}\n**Izin Bot:** {premBot}\n**Hanya Pengembang:** {dev}\n**command Slash:** {slash}\n**Argumen:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**Izin DJ:** {djPerm}\n**Suara:** {voice}",
@@ -45,9 +45,9 @@
 		"about": {
 			"description": "Menampilkan informasi tentang bot",
 			"fields": {
-				"creator": "Pembuat",
+				"creator": "Kreator",
 				"repository": "Repositori",
-				"support": "Dukungan",
+				"support": "Support",
 				"description": "Dia sangat ingin membuat proyek open source pertamanya untuk pengalaman coding yang lebih banyak. Dalam proyek ini, dia ditantang untuk membuat proyek dengan lebih sedikit bug. Semoga Anda menikmati menggunakan LavaMusic!"
 			}
 		},
@@ -59,25 +59,25 @@
 				"invalid_subcommand": "Harap berikan subcommand yang valid."
 			},
 			"messages": {
-				"role_exists": "Peran DJ <@&{roleId}> sudah ditambahkan.",
-				"role_added": "Peran DJ <@&{roleId}> telah ditambahkan.",
-				"role_not_found": "Peran DJ <@&{roleId}> tidak ditambahkan.",
-				"role_removed": "Peran DJ <@&{roleId}> telah dihapus.",
-				"all_roles_cleared": "Semua peran DJ telah dihapus.",
+				"role_exists": "Role DJ <@&{roleId}> sudah ditambahkan.",
+				"role_added": "Role DJ <@&{roleId}> telah ditambahkan.",
+				"role_not_found": "Role DJ <@&{roleId}> tidak ditambahkan.",
+				"role_removed": "Role DJ <@&{roleId}> telah dihapus.",
+				"all_roles_cleared": "Semua Role DJ telah dihapus.",
 				"toggle": "Mode DJ telah diubah menjadi {status}."
 			},
 			"options": {
-				"add": "Peran DJ yang ingin Anda tambahkan",
-				"remove": "Peran DJ yang ingin Anda hapus",
-				"clear": "Menghapus semua peran DJ",
-				"toggle": "Mengaktifkan/menonaktifkan peran DJ",
-				"role": "Peran DJ"
+				"add": "Role DJ yang ingin Anda tambahkan",
+				"remove": "Role DJ yang ingin Anda hapus",
+				"clear": "Menghapus semua role DJ",
+				"toggle": "Mengaktifkan/menonaktifkan role DJ",
+				"role": "Role DJ"
 			},
 			"subcommands": "Subcommand"
 		},
 		"language": {
 			"description": "Mengatur bahasa untuk bot",
-			"invalid_language": "Harap berikan bahasa yang valid. Contoh: `EnglishUS` untuk Bahasa Inggris (Amerika Serikat)\n\nAnda dapat menemukan list bahasa yang disupport [di sini](https://discord.com/developers/docs/reference#locales)\n\n**Bahasa yang Tersedia:**\n{languages}",
+			"invalid_language": "Harap berikan bahasa yang valid. Contoh: `EnglishUS` untuk Bahasa Inggris (Amerika Serikat)\n\nAnda dapat menemukan list bahasa yang di dukung [di sini](https://discord.com/developers/docs/reference#locales)\n\n**Bahasa yang Tersedia:**\n{languages}",
 			"already_set": "Bahasa sudah diatur ke `{language}`",
 			"not_set": "Bahasa belum diatur.",
 			"set": "`✅` | Bahasa telah diatur ke `{language}`",
@@ -91,17 +91,17 @@
 		"prefix": {
 			"description": "Menampilkan atau mengatur prefix bot",
 			"errors": {
-				"prefix_too_long": "prefix tidak boleh lebih dari 3 karakter."
+				"prefix_too_long": "Prefix tidak boleh lebih dari 3 karakter."
 			},
 			"messages": {
-				"current_prefix": "prefix untuk server ini adalah `{prefix}`",
-				"prefix_set": "prefix untuk server ini sekarang adalah `{prefix}`",
-				"prefix_reset": "prefix untuk server ini sekarang adalah `{prefix}`"
+				"current_prefix": "Prefix untuk server ini adalah `{prefix}`",
+				"prefix_set": "Prefix untuk server ini sekarang adalah `{prefix}`",
+				"prefix_reset": "Prefix untuk server ini sekarang adalah `{prefix}`"
 			},
 			"options": {
 				"set": "Mengatur prefix",
-				"prefix": "prefix yang ingin Anda atur",
-				"reset": "Mengatur ulang prefix ke default"
+				"prefix": "Prefix yang ingin Anda atur",
+				"reset": "Reset prefix ke default"
 			}
 		},
 		"setup": {
@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Mengaktifkan/menonaktifkan filter distorsi",
 			"messages": {
 				"filter_enabled": "`✅` | Filter distorsi telah `DIAKTIFKAN`.",
@@ -508,8 +508,8 @@
 	"buttons": {
 		"invite": "Invite",
 		"support": "Server Support",
-		"previous": "Sebelumnya",
-		"resume": "Lanjutkan",
+		"previous": "Previous",
+		"resume": "Resume",
 		"stop": "Stop",
 		"skip": "Skip",
 		"loop": "Loop",
@@ -530,14 +530,14 @@
 			"now_playing": "Sedang diputar",
 			"requested_by": "Direquest oleh {user}",
 			"duration": "Durasi",
-			"author": "Author",
+			"author": "Artis",
 			"not_connected_to_voice_channel": "Anda tidak terhubung ke <#{channel}> untuk menggunakan tombol-tombol ini.",
 			"need_dj_role": "Anda perlu memiliki role DJ untuk menggunakan command ini.",
 			"previous_by": "Sebelumnya oleh {user}",
 			"no_previous_song": "Tidak ada lagu sebelumnya.",
-			"paused_by": "Dijeda oleh {user}",
-			"resumed_by": "Dilanjutkan oleh {user}",
-			"skipped_by": "Dilewati oleh {user}",
+			"paused_by": "Di pause oleh {user}",
+			"resumed_by": "Di resume oleh {user}",
+			"skipped_by": "Di skip oleh {user}",
 			"no_more_songs_in_queue": "Tidak ada lagi lagu dalam antrean.",
 			"looping_by": "Loop oleh {user}",
 			"looping_queue_by": "Loop antrean oleh {user}",

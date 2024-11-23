@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "Bật/tắt bộ lọc distortion",
 			"messages": {
 				"filter_enabled": "`✅` | Bộ lọc Distortion đã được `BẬT`.",

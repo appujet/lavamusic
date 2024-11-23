@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "ディストーションフィルターのオン/オフを切り替えます",
 			"messages": {
 				"filter_enabled": "`✅` | ディストーションフィルターが`有効`になりました。",

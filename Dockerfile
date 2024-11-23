@@ -1,5 +1,5 @@
 # Stage 1: Build TypeScript
-FROM node:22 AS builder
+FROM node:23 AS builder
 
 WORKDIR /opt/lavamusic/
 
@@ -15,7 +15,7 @@ RUN npx prisma db push && \
     npm run build
 
 # Stage 2: Create production image
-FROM node:22-slim
+FROM node:23-slim
 
 ENV NODE_ENV=production
 
@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends openssl && \
 
 # Copy compiled code and necessary files from the builder stage
 COPY --from=builder /opt/lavamusic/dist ./dist
+COPY --from=builder /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.txt
 COPY --from=builder /opt/lavamusic/prisma ./prisma
 COPY --from=builder /opt/lavamusic/scripts ./scripts
 COPY --from=builder /opt/lavamusic/locales ./locales

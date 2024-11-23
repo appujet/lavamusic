@@ -1,4 +1,4 @@
-/* import {
+import {
 	ActionRowBuilder,
 	ButtonBuilder,
 	type ButtonInteraction,
@@ -41,13 +41,14 @@ export default class Lyrics extends Command {
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild!.id);
+		if (!player) return await ctx.sendMessage(ctx.locale('event.message.no_music_playing'));
 		const embed = this.client.embed();
 
-		const currentTrack = player.queue.current!;
-		const trackTitle = currentTrack.info.title.replace(/\[.*?\]/g, '').trim();
-		const artistName = currentTrack.info.author.replace(/\[.*?\]/g, '').trim();
-		const trackUrl = currentTrack.info.uri;
-		const artworkUrl = currentTrack.info.artworkUrl;
+		const track = player.queue.current!;
+		const trackTitle = track.info.title.replace(/\[.*?\]/g, '').trim();
+		const artistName = track.info.author.replace(/\[.*?\]/g, '').trim();
+		const trackUrl = track.info.uri;
+		const artworkUrl = track.info.artworkUrl;
 
 		await ctx.sendDeferMessage(ctx.locale('cmd.lyrics.searching', { trackTitle }));
 
@@ -148,8 +149,7 @@ export default class Lyrics extends Command {
 				});
 			}
 		} catch (error) {
-			// biome-ignore lint/suspicious/noConsole: <explanation>
-			console.error(error);
+			client.logger.error(error);
 			await ctx.editMessage({
 				embeds: [embed.setColor(client.color.red).setDescription(ctx.locale('cmd.lyrics.errors.lyrics_error'))],
 			});
@@ -173,7 +173,6 @@ export default class Lyrics extends Command {
 		return pages;
 	}
 }
-*/
 
 /**
  * Project: lavamusic

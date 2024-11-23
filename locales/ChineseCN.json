@@ -139,7 +139,7 @@
 				"level": "The bassboost level you want to set"
 			}
 		},
-		"distorsion": {
+		"distortion": {
 			"description": "启用/关闭失真滤镜",
 			"messages": {
 				"filter_enabled": "`✅` | 失真滤镜已`启用`。",
