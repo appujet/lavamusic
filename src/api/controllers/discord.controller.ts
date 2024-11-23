@@ -112,8 +112,12 @@ class DiscordController {
 			const userResponse = await discordApi.discordUsersMe();
 
 			response.success(res, userResponse);
-		} catch (error) {
-			response.error(res, 500, `Internal Server Error: ${error}`);
+		} catch (error: any) {
+			if (error?.response?.status === 401) {
+				response.error(res, 401, 'Unauthorized');
+			} else {
+				response.error(res, 500, `Internal Server Error: ${error}`);
+			}
 		}
 	};
 
@@ -134,8 +138,12 @@ class DiscordController {
 			}));
 
 			response.success(res, formattedGuilds);
-		} catch (error) {
-			response.error(res, 500, `Internal Server Error: ${error}`);
+		} catch (error: any) {
+			if (error?.response?.status === 401) {
+				response.error(res, 401, 'Unauthorized');
+			} else {
+				response.error(res, 500, `Internal Server Error: ${error}`);
+			}
 		}
 	};
 }
