@@ -6,6 +6,8 @@
     "moduleResolution": "node",
     "declaration": true,
     "sourceMap": false,
+    "removeComments": true,
+    "importHelpers": true,
     "strict": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
