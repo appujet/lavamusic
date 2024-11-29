@@ -41,7 +41,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.0.0",
     "@top-gg/sdk": "^3.1.6",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.5",
