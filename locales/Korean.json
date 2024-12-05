@@ -21,7 +21,7 @@
 		"lavalink": {
 			"description": "Lavalink 노드의 상태를 보여줘요",
 			"title": "Lavalink 상태",
-			"content": "플레이어: {players}\n재생 중: {playingPlayers}\n업타임: {uptime}\n코어 수: {cores}개\n메모리 사용량: {used} / {reservable}\n시스템 로드: {systemLoad}%\nLavalink 로드: {lavalinkLoad}%",
+			"content": "플레이어: {players}\n재생 중: {playingPlayers}\n업타임: {uptime}\n코어 수: {cores}개\n메모리 사용량: {used} / {reservable}\n시스템 부하: {systemLoad}%\nLavalink 부하: {lavalinkLoad}%",
 			"page_info": "{index} 페이지 중 {total} 페이지"
 		},
 		"invite": {
@@ -31,13 +31,13 @@
 		"help": {
 			"description": "도움말 메뉴를 출력해요",
 			"options": {
-				"command": "특정 명령어의 정보를 얻고 싶다면 여기에 입력해주세요"
+				"command": "특정 명령어의 정보를 얻고 싶다면 여기에 명령어를 입력하세요"
 			},
 			"content": "안녕하세요! 저는 [Lavamusic](https://github.com/appujet/lavamusic)와 Discord.js로 만들어진 음악 봇, {bot}이에요. 명령어에 대한 자세한 정보를 얻고 싶다면 `{prefix}help <명령어>`를 사용해보세요.",
 			"title": "도움말 메뉴",
 			"not_found": "`{cmdName}` 명령어는 존재하지 않아요.",
 			"help_cmd": "**설명:** {description}\n**사용 방법:** {usage}\n**예시:** {examples}\n**별칭:** {aliases}\n**카테고리:** {category}\n**쿨다운:** {cooldown}초\n**필요한 권한:** {premUser}\n**봇에게 필요한 권한:** {premBot}\n**개발자 전용:** {dev}\n**빗금 명령어 사용 가능:** {slash}\n**인수 필요:** {args}\n**노래 재생 중에만 사용 가능:** {player}\n**DJ만 사용 가능:** {dj}\n**DJ에게 필요한 권한:** {djPerm}\n**음성 채널 접속 중에만 사용 가능:** {voice}",
-			"footer": "명령어에 대한 자세한 내용을 보려면 {prefix}help <command>를 사용하세요."
+			"footer": "명령어에 대한 자세한 내용을 보려면 {prefix}help <명령어>를 사용하세요."
 		},
 		"botinfo": {
 			"description": "봇에 대한 정보를 표시해요",
@@ -47,7 +47,7 @@
 			"description": "봇에 대한 정보를 확인해요",
 			"fields": {
 				"creator": "제작",
-				"repository": "GitHub 저장소",
+				"repository": "GitHub",
 				"support": "지원",
 				"description": "그는 더 많은 코딩 경험을 쌓기 위해 처음으로 오픈 소스 프로젝트를 만들고 싶어했어요. 이 프로젝트에서 그는 버그를 줄이는 도전을 했어요. LavaMusic을 즐겁게 사용해 주시길 바랄게요!"
 			}
@@ -583,7 +583,7 @@
 			"vote_message": "잠깐! 이 명령어를 사용하려면 top.gg에서 투표해야 해요."
 		},
 		"message": {
-			"prefix_mention": "이 서버의 접두사는 `{prefix}`예요. 더 많은 정보를 원하시나요? `{prefix}help`를 사용하세요.\n안전하게 지내시고, 멋진 하루 보내세요!",
+			"prefix_mention": "이 서버의 접두사는 `{prefix}`예요. 더 많은 정보를 원하시나요? `{prefix}help`를 사용하세요.\n안전하고 멋진 하루 보내세요!",
 			"no_send_message": "봇에게 **`메시지 보내기`**, **`채널 보기`**, **`링크 첨부`** 또는 **`메시지 기록 보기`** 권한이 없어요.",
 			"no_permission": "이 명령어를 실행하기 위한 봇의 권한이 부족해요.",
 			"no_user_permission": "이 명령어를 실행하기 위한 권한이 부족해요.",
