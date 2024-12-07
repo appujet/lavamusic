@@ -42,6 +42,16 @@ class MusicController {
 				return;
 			}
 
+			if (voiceChannelObj?.members.filter((member) => !member.user.bot).size === 0) {
+				const emptyChannelEmbed = this.client
+					.embed()
+					.setColor(this.client.color.main)
+					.setDescription('Cannot join an empty voice channel, please join a voice channel first.');
+				await textChannelObj.send({ embeds: [emptyChannelEmbed] });
+				response.error(res, 400, 'Cannot join an empty voice channel, please join a voice channel first.');
+				return;
+			}
+
 			const newPlayer = this.client.manager.createPlayer({
 				guildId: guild!.id,
 				voiceChannelId: voiceChannel,
