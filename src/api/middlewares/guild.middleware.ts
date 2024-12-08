@@ -51,7 +51,11 @@ class GuildMiddleware {
 
 			req.user = user;
 			next();
-		} catch (error) {
+		} catch (error: any) {
+			if (error?.response?.status === 401) {
+				response.error(res, 401, 'Unauthorized');
+				return;
+			}
 			response.error(res, 500, `Internal Server Error: ${error}`);
 			return;
 		}
@@ -99,7 +103,11 @@ class GuildMiddleware {
 
 			req.user = user;
 			next();
-		} catch (error) {
+		} catch (error: any) {
+			if (error?.response?.status === 401) {
+				response.error(res, 401, 'Unauthorized');
+				return;
+			}
 			response.error(res, 500, `Internal Server Error: ${error}`);
 			return;
 		}
