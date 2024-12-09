@@ -4,6 +4,7 @@ import homeRoute from './home.route';
 import djRoute from './dj.route';
 import musicRoute from './music.route';
 import playlistRoute from './playlist.route';
+import lavalinkRoute from './lavalink.route';
 
 export default function guildRoute(client: Lavamusic): Router {
 	const router = Router();
@@ -12,6 +13,7 @@ export default function guildRoute(client: Lavamusic): Router {
 	router.use('/:guildId/dj', djRoute(client));
 	router.use('/:guildId', musicRoute(client));
 	router.use('/:guildId/playlist', playlistRoute(client));
+	router.use('/:guildId/lavalink', lavalinkRoute(client));
 
 	return router;
 }

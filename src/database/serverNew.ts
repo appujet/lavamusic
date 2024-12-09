@@ -1,5 +1,5 @@
 import { PrismaClient } from '../../prisma/prisma.client.new';
-import type { Dj, GuildConfig, Histories } from '../../prisma/prisma.client.new';
+import type { Dj, GuildConfig, GuildLavalink, Histories } from '../../prisma/prisma.client.new';
 // import { env } from '../env';
 
 export default class ServerData {
@@ -127,6 +127,26 @@ export default class ServerData {
 				Playlist: [...existingTracks, ...newTracks]
 			}
 		});
+	}
+
+	public async getOfficialLavalink() {
+		return this.prisma.guildLavalink.findMany({ where: { GuildId: { isSet: false } } });
+	}
+
+	public async getGuildLavalinks(guildId: string) {
+		return this.prisma.guildLavalink.findMany({ where: { GuildId: guildId } });
+	}
+
+	public async getGuildLavalink(guildId: string, nodeId: string) {
+		return this.prisma.guildLavalink.findFirst({ where: { NodeId: nodeId, GuildId: guildId } });
+	}
+
+	public async createGuildLavalink(guildId: string, lavalink: Pick<GuildLavalink, 'NodeId' | 'NodeName' | 'NodeHost' | 'NodePort' | 'NodeAuthorization' | 'NodeSecure' | 'NodeRetryAmount' | 'NodeRetryDelay'>) {
+		return this.prisma.guildLavalink.create({ data: { GuildId: guildId, ...lavalink } });
+	}
+
+	public async deleteGuildLavalink(guildId: string, lavalinkId: string) {
+		return this.prisma.guildLavalink.delete({ where: { id: lavalinkId, GuildId: guildId } });
 	}
 
 	public async getAnnouncement() {

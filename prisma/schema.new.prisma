@@ -42,6 +42,21 @@ model GuildPlaylist {
   @@map("guildplaylists")
 }
 
+model GuildLavalink {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  GuildId           String?
+  NodeId            String
+  NodeName          String
+  NodeHost          String
+  NodePort          Int
+  NodeAuthorization String
+  NodeSecure        Boolean
+  NodeRetryAmount   Int
+  NodeRetryDelay    Int
+
+  @@map("guildlavalinks")
+}
+
 model Histories {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   GuildId String @unique
