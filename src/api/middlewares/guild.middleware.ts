@@ -33,16 +33,16 @@ class GuildMiddleware {
 
 		try {
 			const discordApi = this.discordApi(accessToken);
-			const guild = this.client.guilds.cache.get(guildId);
+			const guild = await this.client.guilds.fetch(guildId);
 			const userApi = await discordApi.discordUsersMe();
-			const user = this.client.users.cache.get(userApi?.id);
+			const user = await this.client.users.fetch(userApi?.id);
 
 			if (!user) {
 				response.error(res, 401, 'Unauthorized');
 				return;
 			}
 
-			const member = guild?.members.cache.get(user.id);
+			const member = await guild?.members.fetch(user.id);
 
 			if (!member) {
 				response.error(res, 401, 'Unauthorized');
@@ -80,7 +80,7 @@ class GuildMiddleware {
 			if (accessToken) {
 				const discordApi = this.discordApi(accessToken);
 				const userApi = await discordApi.discordUsersMe();
-				user = this.client.users.cache.get(userApi?.id);
+				user = await this.client.users.fetch(userApi?.id);
 
 				if (!user) {
 					response.error(res, 401, 'Unauthorized');
@@ -88,8 +88,8 @@ class GuildMiddleware {
 				}
 
 				try {
-					const guild = this.client.guilds.cache.get(guildId);
-					const member = guild?.members.cache.get(user.id);
+					const guild = await this.client.guilds.fetch(guildId);
+					const member = await guild?.members.fetch(user.id);
 
 					if (!member) {
 						response.error(res, 401, 'Unauthorized');
@@ -117,8 +117,8 @@ class GuildMiddleware {
 		const guildId = req.params.guildId;
 
 		try {
-			const guild = this.client.guilds.cache.get(guildId);
-			const member = guild?.members.cache.get(req.user?.id ?? '');
+			const guild = await this.client.guilds.fetch(guildId);
+			const member = await guild?.members.fetch(req.user?.id ?? '');
 
 			if (!member) {
 				response.error(res, 401, 'Unauthorized');
@@ -147,8 +147,8 @@ class GuildMiddleware {
 				return;
 			}
 
-			const guild = this.client.guilds.cache.get(guildId);
-			const member = guild?.members.cache.get(req.user?.id ?? '');
+			const guild = await this.client.guilds.fetch(guildId);
+			const member = await guild?.members.fetch(req.user?.id ?? '');
 			const roles = guildDj.Roles as JsonArray;
 
 			if (!member) {
@@ -179,10 +179,10 @@ class GuildMiddleware {
 		}
 	};
 
-	public guildExists = (req: GuildRequest, res: Response, next: NextFunction): void => {
+	public guildExists = async (req: GuildRequest, res: Response, next: NextFunction): Promise<void> => {
 		const guildId = req.params.guildId;
 
-		const guild = this.client.guilds.cache.get(guildId);
+		const guild = await this.client.guilds.fetch(guildId);
 
 		if (!guild) {
 			response.error(res, 404, 'Guild not found');
@@ -193,7 +193,7 @@ class GuildMiddleware {
 		next();
 	};
 
-	public playerExists = (req: GuildRequest, res: Response, next: NextFunction): void => {
+	public playerExists = async (req: GuildRequest, res: Response, next: NextFunction): Promise<void> => {
 		const guildId = req.params.guildId;
 
 		const player = this.client.manager.players.get(guildId);
@@ -207,12 +207,12 @@ class GuildMiddleware {
 		next();
 	};
 
-	public channelExists = (req: GuildRequest, res: Response, next: NextFunction): void => {
+	public channelExists = async (req: GuildRequest, res: Response, next: NextFunction): Promise<void> => {
 		const guildId = req.params.guildId;
 
-		const guild = this.client.guilds.cache.get(guildId);
+		const guild = await this.client.guilds.fetch(guildId);
 		const player = this.client.manager.players.get(guildId);
-		const channel = guild?.channels.cache.get(player?.textChannelId ?? player?.voiceChannelId ?? '');
+		const channel = await guild?.channels.fetch(player?.textChannelId ?? player?.voiceChannelId ?? '');
 
 		if (!(channel?.isSendable())) {
 			response.error(res, 404, 'Channel not found or not sendable');
