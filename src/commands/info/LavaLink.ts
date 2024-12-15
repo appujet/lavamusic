@@ -21,7 +21,7 @@ export default class LavaLink extends Command {
 				djPerm: null,
 			},
 			permissions: {
-				dev: false,
+				dev: true,
 				client: ['SendMessages', 'ReadMessageHistory', 'ViewChannel', 'EmbedLinks'],
 				user: [],
 			},
