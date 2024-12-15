@@ -20,6 +20,15 @@ class HomeController {
 			uptime: process.uptime(),
 			serverCount: this.client.guilds.cache.size,
 			userCount: this.client.users.cache.size,
+			lavalinks: this.client.manager.nodeManager.nodes.map(node => ({
+				id: node.id,
+				connected: node.connected,
+				status: node.connectionStatus,
+				heartBeatPing: node.heartBeatPing,
+				calls: node.calls,
+				info: node.info,
+				stats: node.stats,
+			})),
 		});
 	};
 }

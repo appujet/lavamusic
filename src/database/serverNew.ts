@@ -129,8 +129,12 @@ export default class ServerData {
 		});
 	}
 
-	public async getOfficialLavalink() {
+	public async getOfficialLavalinks() {
 		return this.prisma.guildLavalink.findMany({ where: { GuildId: { isSet: false } } });
+	}
+
+	public async getOfficialLavalink(nodeId: string) {
+		return this.prisma.guildLavalink.findFirst({ where: { NodeId: nodeId, GuildId: { isSet: false } } });
 	}
 
 	public async getGuildLavalinks(guildId: string) {
