@@ -18,6 +18,7 @@ export const testConnection = async (nodeOptions: LavalinkNodeOptions, nodeManag
 	if (node.isAlive) {
 		return {
 			status_code: 'success',
+			node: node,
 			info: node?.info,
 			stats: node?.stats
 		};

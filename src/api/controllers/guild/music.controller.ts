@@ -4,8 +4,10 @@ import type Lavamusic from '@/structures/Lavamusic';
 import type { GuildRequest } from '@/api/middlewares/guild.middleware';
 import { EmbedBuilder } from 'discord.js';
 import { z } from 'zod';
-import type { SearchResult, Track, UnresolvedSearchResult } from 'lavalink-client';
+import type { LavalinkNodeOptions, SearchResult, Track, UnresolvedSearchResult } from 'lavalink-client';
+import type { LavalinkNode } from 'lavalink-client';
 import { mapTrack, mapTracks } from '@/utils/track';
+import { testConnection } from '@/utils/lavalink';
 
 class MusicController {
 	private client: Lavamusic;
@@ -17,11 +19,12 @@ class MusicController {
 	public playerCreate = async (req: GuildRequest, res: Response): Promise<void> => {
 		const schema = z.object({
 			voiceChannel: z.string().min(1, 'Voice channel ID must not be empty'),
-			textChannel: z.string().min(1, 'Text channel ID must not be empty')
+			textChannel: z.string().min(1, 'Text channel ID must not be empty'),
+			nodeId: z.string().optional()
 		});
 
 		try {
-			const { voiceChannel, textChannel } = schema.parse(req.body || {});
+			const { voiceChannel, textChannel, nodeId } = schema.parse(req.body || {});
 			const { guild, user } = req;
 
 			const player = this.client.manager.getPlayer(guild!.id);
@@ -52,13 +55,43 @@ class MusicController {
 				return;
 			}
 
+			let customNode: LavalinkNode | undefined;
+			if (nodeId) {
+				const officialLavalink = await this.client.dbNew.getOfficialLavalink(nodeId);
+				const guildLavalink = await this.client.dbNew.getGuildLavalink(guild!.id, nodeId);
+				const lavalink = officialLavalink || guildLavalink;
+				if (!lavalink) {
+					response.error(res, 404, `Lavalink node ${nodeId} not found`);
+					return;
+				}
+
+				const customNodeOptions: LavalinkNodeOptions = {
+					id: `${guild!.id}-${nodeId}`,
+					host: lavalink.NodeHost,
+					port: lavalink.NodePort,
+					authorization: lavalink.NodeAuthorization,
+					secure: lavalink.NodeSecure,
+					retryAmount: lavalink.NodeRetryAmount,
+					retryDelay: lavalink.NodeRetryDelay
+				};
+
+				const result = await testConnection(customNodeOptions, this.client.manager.nodeManager);
+				if (result.status_code === 'failed') {
+					response.error(res, 503, `Failed to connect to ${lavalink.NodeName}: ${result.reason}`);
+					return;
+				}
+
+				customNode = result.node;
+			}
+
 			const newPlayer = this.client.manager.createPlayer({
 				guildId: guild!.id,
 				voiceChannelId: voiceChannel,
 				textChannelId: textChannel,
 				selfMute: false,
 				selfDeaf: true,
-				vcRegion: voiceChannelObj.rtcRegion!
+				vcRegion: voiceChannelObj.rtcRegion!,
+				node: customNode
 			});
 
 			await newPlayer.connect();

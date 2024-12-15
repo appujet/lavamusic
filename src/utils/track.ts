@@ -13,7 +13,7 @@ export interface MappedTrack {
 }
 
 export const mapTrack = (track?: Track & { requester?: any }): MappedTrack | {} => {
-	if (!track) return {};
+	if (!(track?.info)) return {};
 	return {
 		uri: track.info.uri,
 		title: track.info.title,
