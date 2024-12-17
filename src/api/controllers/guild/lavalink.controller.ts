@@ -82,8 +82,27 @@ class LavalinkController {
 
 		try {
 			const lavalinkData = schema.parse(req.body ?? {});
+			const nodeId = nanoid(11);
+
+			// Test connection before creating
+			const customNodeOptions: LavalinkNodeOptions = {
+				id: `${req.guild!.id}-${nodeId}`,
+				host: lavalinkData.nodeHost,
+				port: lavalinkData.nodePort,
+				authorization: lavalinkData.nodeAuthorization,
+				secure: lavalinkData.nodeSecure,
+				retryAmount: lavalinkData.nodeRetryAmount,
+				retryDelay: lavalinkData.nodeRetryDelay
+			};
+
+			const result = await testConnection(customNodeOptions, this.client.manager.nodeManager);
+			if (result.status_code === 'failed') {
+				response.error(res, 503, `Failed to connect to ${lavalinkData.nodeName}: ${result.reason}`);
+				return;
+			}
+
 			await this.client.dbNew.createGuildLavalink(req.guild!.id, {
-				NodeId: nanoid(11),
+				NodeId: nodeId,
 				NodeName: lavalinkData.nodeName,
 				NodeHost: lavalinkData.nodeHost,
 				NodePort: lavalinkData.nodePort,
