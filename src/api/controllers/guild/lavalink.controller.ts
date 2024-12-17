@@ -77,7 +77,7 @@ class LavalinkController {
 			nodeAuthorization: z.string().min(1),
 			nodeSecure: z.coerce.boolean().default(false),
 			nodeRetryAmount: z.coerce.number().int().nonnegative().default(0),
-			nodeRetryDelay: z.coerce.number().int().positive().default(0)
+			nodeRetryDelay: z.coerce.number().int().nonnegative().default(0)
 		});
 
 		try {
