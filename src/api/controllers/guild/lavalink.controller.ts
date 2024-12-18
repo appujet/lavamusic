@@ -22,7 +22,8 @@ class LavalinkController {
 				return;
 			}
 
-			response.success(res, { lavalinks });
+			const formattedLavalinks = lavalinks.map(({ NodeAuthorization, ...rest }) => rest);
+			response.success(res, { lavalinks: formattedLavalinks });
 		} catch (error) {
 			response.error(res, 500, `Internal Server Error: ${error}`);
 		}
@@ -37,7 +38,8 @@ class LavalinkController {
 			return;
 		}
 
-		response.success(res, { lavalink });
+		const formattedLavalink = { ...lavalink, NodeAuthorization: undefined };
+		response.success(res, { lavalink: formattedLavalink });
 	};
 
 	public guildLavalinks = async (req: GuildRequest, res: Response): Promise<void> => {
@@ -48,7 +50,8 @@ class LavalinkController {
 				return;
 			}
 
-			response.success(res, { lavalinks });
+			const formattedLavalinks = lavalinks.map(({ NodeAuthorization, ...rest }) => rest);
+			response.success(res, { lavalinks: formattedLavalinks });
 		} catch (error) {
 			response.error(res, 500, `Internal Server Error: ${error}`);
 		}
@@ -66,7 +69,8 @@ class LavalinkController {
 			return;
 		}
 
-		response.success(res, { lavalink });
+		const formattedLavalink = { ...lavalink, NodeAuthorization: undefined };
+		response.success(res, { lavalink: formattedLavalink });
 	};
 
 	public createGuildLavalink = async (req: GuildRequest, res: Response): Promise<void> => {
