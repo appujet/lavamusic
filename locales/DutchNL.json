@@ -255,3 +255,394 @@
       "description": "Treedt toe tot het spraakkanaal",
       "already_connected": "Ik ben al verbonden met <#{channelId}>.",
       "no_voice_channel": "Je moet in een spraakkanaal zitten om dit commando te gebruiken.",
+      "joined": "Succesvol toegetreden tot <#{channelId}>."
+    },
+    "leave": {
+      "description": "Verlaat het spraakkanaal",
+      "left": "Succesvol <#{channelId}> verlaten.",
+      "not_in_channel": "Ik ben niet in een spraakkanaal."
+    },
+    "loop": {
+      "description": "Herhaal het huidige nummer of de wachtrij",
+      "looping_song": "**Nummer wordt herhaald.**",
+      "looping_queue": "**Wachtrij wordt herhaald.**",
+      "looping_off": "**Herhalen is nu uitgeschakeld.**"
+    },
+    "lyrics": {
+      "description": "Haalt de songtekst op van het huidige nummer",
+      "lyrics_track": "### Songtekst voor: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
+      "searching": "`🔍` Zoeken naar songtekst van **{trackTitle}**...",
+      "errors": {
+        "no_results": "Geen songtekst gevonden voor het huidige nummer.",
+        "lyrics_error": "Er is een fout opgetreden bij het ophalen van de songtekst."
+      }
+    },
+    "nowplaying": {
+      "description": "Toont het huidige nummer",
+      "now_playing": "Nu Spelend",
+      "track_info": "[{title}]({uri}) - Aangevraagd door: <@{requester}>\n\n`{bar}`"
+    },
+    "pause": {
+      "description": "Pauzeert het huidige nummer",
+      "successfully_paused": "Het nummer is succesvol gepauzeerd."
+    },
+    "play": {
+      "description": "Speelt een nummer af van YouTube, Spotify of http",
+      "options": {
+        "song": "Het nummer dat je wilt afspelen"
+      },
+      "loading": "Laden...",
+      "errors": {
+        "search_error": "Er is een fout opgetreden tijdens het zoeken.",
+        "no_results": "Er zijn geen resultaten gevonden.",
+        "queue_too_long": "De wachtrij is te lang. De maximale lengte is {maxQueueSize} nummers.",
+        "playlist_too_long": "De afspeellijst is te lang. De maximale lengte is {maxPlaylistSize} nummers."
+      },
+      "added_to_queue": "[{title}]({uri}) is toegevoegd aan de wachtrij.",
+      "added_playlist_to_queue": "{length} nummers zijn toegevoegd aan de wachtrij."
+    },
+    "playnext": {
+      "description": "Voegt het nummer toe om als volgende af te spelen in de wachtrij",
+      "options": {
+        "song": "Het nummer dat je als volgende wilt afspelen"
+      },
+      "loading": "Laden...",
+      "errors": {
+        "search_error": "Er is een fout opgetreden tijdens het zoeken.",
+        "no_results": "Er zijn geen resultaten gevonden.",
+        "queue_too_long": "De wachtrij is te lang. De maximale lengte is {maxQueueSize} nummers.",
+        "playlist_too_long": "De afspeellijst is te lang. De maximale lengte is {maxPlaylistSize} nummers."
+      },
+      "added_to_play_next": "[{title}]({uri}) is toegevoegd om als volgende af te spelen in de wachtrij.",
+      "added_playlist_to_play_next": "{length} nummers zijn toegevoegd om als volgende af te spelen in de wachtrij."
+    },
+    "queue": {
+      "description": "Toont de huidige wachtrij",
+      "now_playing": "Nu spelend: [{title}]({uri}) - Aangevraagd door: <@{requester}> - Duur: `{duration}`",
+      "live": "LIVE",
+      "track_info": "{index}. [{title}]({uri}) - Aangevraagd door: <@{requester}> - Duur: `{duration}`",
+      "title": "Wachtrij",
+      "page_info": "Pagina {index} van {total}"
+    },
+    "remove": {
+      "description": "Verwijdert een nummer uit de wachtrij",
+      "options": {
+        "song": "Het nummer dat je wilt verwijderen"
+      },
+      "errors": {
+        "no_songs": "Er zijn geen nummers in de wachtrij.",
+        "invalid_number": "Geef een geldig nummer op."
+      },
+      "messages": {
+        "removed": "Nummer {songNumber} is verwijderd uit de wachtrij."
+      }
+    },
+    "replay": {
+      "description": "Speelt het huidige nummer opnieuw af",
+      "errors": {
+        "not_seekable": "Dit nummer kan niet opnieuw worden afgespeeld omdat het niet doorzoekbaar is."
+      },
+      "messages": {
+        "replaying": "Het huidige nummer wordt opnieuw afgespeeld."
+      }
+    },
+    "resume": {
+      "description": "Hervat het huidige nummer",
+      "errors": {
+        "not_paused": "De speler is niet gepauzeerd."
+      },
+      "messages": {
+        "resumed": "De speler is hervat."
+      }
+    },
+    "search": {
+      "description": "Zoekt naar een nummer",
+      "options": {
+        "song": "Het nummer waarnaar je wilt zoeken"
+      },
+      "select": "Selecteer het nummer dat je wilt afspelen",
+      "errors": {
+        "no_results": "Geen resultaten gevonden.",
+        "search_error": "Er is een fout opgetreden tijdens het zoeken."
+      },
+      "messages": {
+        "added_to_queue": "[{title}]({uri}) is toegevoegd aan de wachtrij."
+      }
+    },
+    "seek": {
+      "description": "Springt naar een bepaald tijdstip in het nummer",
+      "options": {
+        "duration": "De tijd waarnaar je wilt springen"
+      },
+      "errors": {
+        "invalid_format": "Ongeldig tijdsformaat. Voorbeelden: seek 1m, seek 1h 30m",
+        "not_seekable": "Dit nummer is niet doorzoekbaar.",
+        "beyond_duration": "Kan niet verder springen dan de duur van het nummer van {length}."
+      },
+      "messages": {
+        "seeked_to": "Gesprongen naar {duration}"
+      }
+    },
+    "shuffle": {
+      "description": "Schudt de wachtrij door elkaar",
+      "messages": {
+        "shuffled": "De wachtrij is door elkaar geschud."
+      }
+    },
+    "skip": {
+      "description": "Slaat het huidige nummer over",
+      "messages": {
+        "skipped": "[{title}]({uri}) is overgeslagen."
+      }
+    },
+    "skipto": {
+      "description": "Slaat over naar een specifiek nummer in de wachtrij",
+      "options": {
+        "number": "Het nummer waarnaar je wilt overspringen"
+      },
+      "errors": {
+        "invalid_number": "Geef een geldig nummer op."
+      },
+      "messages": {
+        "skipped_to": "Overgeslagen naar nummer {number}."
+      }
+    },
+    "stop": {
+      "description": "Stopt de muziek en wist de wachtrij",
+      "messages": {
+        "stopped": "De muziek is gestopt en de wachtrij is gewist."
+      }
+    },
+    "volume": {
+      "description": "Stelt het volume van de speler in",
+      "options": {
+        "number": "Het volume dat je wilt instellen"
+      },
+      "messages": {
+        "invalid_number": "Geef een geldig nummer op.",
+        "too_low": "Het volume kan niet lager zijn dan 0.",
+        "too_high": "Het volume kan niet hoger zijn dan 200. Wil je je gehoor of luidsprekers beschadigen? Hmm, ik denk niet dat dat zo'n goed idee is.",
+        "set": "Het volume is ingesteld op {volume}"
+      }
+    },
+    "addsong": {
+      "description": "Voegt een nummer toe aan de afspeellijst",
+      "options": {
+        "playlist": "De afspeellijst waaraan je wilt toevoegen",
+        "song": "Het nummer dat je wilt toevoegen"
+      },
+      "messages": {
+        "no_playlist": "Geef een afspeellijst op",
+        "no_song": "Geef een nummer op",
+        "playlist_not_found": "Die afspeellijst bestaat niet",
+        "no_songs_found": "Geen nummers gevonden",
+        "added": "{count} nummer(s) toegevoegd aan {playlist}"
+      }
+    },
+    "create": {
+      "description": "Maakt een afspeellijst aan",
+      "options": {
+        "name": "De naam van de afspeellijst"
+      },
+      "messages": {
+        "name_too_long": "Afspeellijstnamen mogen maximaal 50 tekens lang zijn.",
+        "playlist_exists": "Er bestaat al een afspeellijst met die naam. Gebruik een andere naam.",
+        "playlist_created": "Afspeellijst **{name}** is aangemaakt."
+      }
+    },
+    "delete": {
+      "description": "Verwijdert een afspeellijst",
+      "options": {
+        "playlist": "De afspeellijst die je wilt verwijderen"
+      },
+      "messages": {
+        "playlist_not_found": "Die afspeellijst bestaat niet.",
+        "playlist_deleted": "Afspeellijst **{playlistName}** is verwijderd."
+      }
+    },
+    "list": {
+      "description": "Haalt alle afspeellijsten op voor de gebruiker",
+      "options": {
+        "user": "De gebruiker van wie je de afspeellijsten wilt ophalen"
+      },
+      "messages": {
+        "no_playlists": "Deze gebruiker heeft geen afspeellijsten.",
+        "your": "Jouw",
+        "playlists_title": "Afspeellijsten van {username}",
+        "error": "Er is een fout opgetreden bij het ophalen van de afspeellijsten."
+      }
+    },
+    "load": {
+      "description": "Laadt een afspeellijst",
+      "options": {
+        "playlist": "De afspeellijst die je wilt laden"
+      },
+      "messages": {
+        "playlist_not_exist": "Die afspeellijst bestaat niet.",
+        "playlist_empty": "Die afspeellijst is leeg.",
+        "playlist_loaded": "`{name}` met `{count}` nummers is geladen."
+      }
+    },
+    "removesong": {
+      "description": "Verwijdert een nummer uit de afspeellijst",
+      "options": {
+        "playlist": "De afspeellijst waaruit je wilt verwijderen",
+        "song": "Het nummer dat je wilt verwijderen"
+      },
+      "messages": {
+        "provide_playlist": "Geef een afspeellijst op.",
+        "provide_song": "Geef een nummer op.",
+        "playlist_not_exist": "Die afspeellijst bestaat niet.",
+        "song_not_found": "Geen overeenkomend nummer gevonden.",
+        "song_removed": "{song} is verwijderd uit {playlist}.",
+        "error_occurred": "Er is een fout opgetreden bij het verwijderen van het nummer."
+      }
+    },
+    "steal": {
+      "description": "Steelt een afspeellijst van een andere gebruiker en voegt deze toe aan jouw afspeellijsten",
+      "options": {
+        "playlist": "De afspeellijst die je wilt stelen",
+        "user": "De gebruiker van wie je de afspeellijst wilt stelen"
+      },
+      "messages": {
+        "provide_playlist": "Geef een afspeellijstnaam op.",
+        "provide_user": "Vermeld een gebruiker.",
+        "playlist_not_exist": "Die afspeellijst bestaat niet voor de vermelde gebruiker.",
+        "playlist_stolen": "De afspeellijst `{playlist}` is succesvol gestolen van {user}.",
+        "error_occurred": "Er is een fout opgetreden bij het stelen van de afspeellijst."
+      }
+    }
+  },
+  "buttons": {
+    "invite": "Uitnodigen",
+    "support": "Ondersteuningsserver",
+    "previous": "Vorige",
+    "resume": "Hervatten",
+    "stop": "Stoppen",
+    "skip": "Overslaan",
+    "loop": "Herhalen",
+    "errors": {
+      "not_author": "Je kunt deze knop niet gebruiken."
+    }
+  },
+  "player": {
+    "errors": {
+      "no_player": "Er is geen actieve speler in deze server.",
+      "no_channel": "Je moet in een spraakkanaal zitten om dit commando te gebruiken.",
+      "queue_empty": "De wachtrij is leeg.",
+      "no_previous": "Er zijn geen vorige nummers in de wachtrij.",
+      "no_song": "Er zijn geen nummers in de wachtrij.",
+      "already_paused": "Het nummer is al gepauzeerd."
+    },
+    "trackStart": {
+      "now_playing": "Nu Spelend",
+      "requested_by": "Aangevraagd door {user}",
+      "duration": "Duur",
+      "author": "Auteur",
+      "not_connected_to_voice_channel": "Je bent niet verbonden met <#{channel}> om deze knoppen te gebruiken.",
+      "need_dj_role": "Je moet de DJ-rol hebben om dit commando te gebruiken.",
+      "previous_by": "Vorige door {user}",
+      "no_previous_song": "Er is geen vorig nummer.",
+      "paused_by": "Gepauzeerd door {user}",
+      "resumed_by": "Hervat door {user}",
+      "skipped_by": "Overgeslagen door {user}",
+      "no_more_songs_in_queue": "Er zijn geen nummers meer in de wachtrij.",
+      "looping_by": "Herhalen ingeschakeld door {user}",
+      "looping_queue_by": "Wachtrij herhalen ingeschakeld door {user}",
+      "looping_off_by": "Herhalen uitgeschakeld door {user}"
+    },
+    "setupStart": {
+      "now_playing": "Nu Spelend",
+      "description": "[{title}]({uri}) door {author} • `[{length}]` - Aangevraagd door <@{requester}>",
+      "error_searching": "Er is een fout opgetreden tijdens het zoeken.",
+      "no_results": "Er zijn geen resultaten gevonden.",
+      "nothing_playing": "Er wordt momenteel niets afgespeeld",
+      "queue_too_long": "De wachtrij is te lang. De maximale lengte is {maxQueueSize} nummers.",
+      "playlist_too_long": "De afspeellijst is te lang. De maximale lengte is {maxPlaylistSize} nummers.",
+      "added_to_queue": "[{title}]({uri}) is toegevoegd aan de wachtrij.",
+      "added_playlist_to_queue": "[{length}] nummers van de afspeellijst zijn toegevoegd aan de wachtrij."
+    },
+  },
+  "event": {
+    "interaction": {
+      "setup_channel": "Je kunt dit commando niet gebruiken in het instellingskanaal.",
+      "no_send_message": "Ik heb geen **`SendMessage`**, **`ViewChannel`**, **`EmbedLinks`** of **`ReadMessageHistory`** rechten.",
+      "no_permission": "Ik heb geen {permissions} rechten.",
+      "no_user_permission": "Je hebt niet genoeg rechten om dit commando te gebruiken.",
+      "no_voice_channel": "Je moet verbonden zijn met een spraakkanaal om dit `{command}` commando te gebruiken.",
+      "no_connect_permission": "Ik heb geen `CONNECT` rechten om dit `{command}` commando uit te voeren.",
+      "no_speak_permission": "Ik heb geen `SPEAK` rechten om dit `{command}` commando uit te voeren.",
+      "no_request_to_speak": "Ik heb geen `REQUEST TO SPEAK` rechten om dit `{command}` commando uit te voeren.",
+      "different_voice_channel": "Je bent niet verbonden met {channel} om dit `{command}` commando te gebruiken.",
+      "no_music_playing": "Er wordt momenteel niets afgespeeld.",
+      "no_dj_role": "De DJ-rol is niet ingesteld.",
+      "no_dj_permission": "Je moet de DJ-rol hebben om dit commando te gebruiken.",
+      "cooldown": "Wacht nog {time} seconde(n) voordat je het `{command}` commando opnieuw gebruikt.",
+      "error": "Er is een fout opgetreden: `{error}`",
+      "vote_button": "Stem op mij!",
+      "vote_message": "Wacht! Je moet stemmen op top.gg om dit commando te gebruiken. Bedankt."
+    },
+    "message": {
+      "prefix_mention": "Hé, mijn voorvoegsel voor deze server is `{prefix}`. Wil je meer informatie? Gebruik dan `{prefix}help`\nBlijf veilig, blijf geweldig!",
+      "no_send_message": "Ik heb geen **`SendMessage`**, **`ViewChannel`**, **`EmbedLinks`** of **`ReadMessageHistory`** rechten.",
+      "no_permission": "Ik heb geen {permissions} rechten.",
+      "no_user_permission": "Je hebt niet genoeg rechten om dit commando te gebruiken.",
+      "no_voice_channel": "Je moet verbonden zijn met een spraakkanaal om dit `{command}` commando te gebruiken.",
+      "no_connect_permission": "Ik heb geen `CONNECT` rechten om dit `{command}` commando uit te voeren.",
+      "no_speak_permission": "Ik heb geen `SPEAK` rechten om dit `{command}` commando uit te voeren.",
+      "no_request_to_speak": "Ik heb geen `REQUEST TO SPEAK` rechten om dit `{command}` commando uit te voeren.",
+      "different_voice_channel": "Je bent niet verbonden met {channel} om dit `{command}` commando te gebruiken.",
+      "no_music_playing": "Er wordt momenteel niets afgespeeld.",
+      "no_dj_role": "De DJ-rol is niet ingesteld.",
+      "no_dj_permission": "Je moet de DJ-rol hebben om dit commando te gebruiken.",
+      "missing_arguments": "Ontbrekende argumenten",
+      "missing_arguments_description": "Geef de vereiste argumenten op voor het `{command}` commando.\n\nVoorbeelden:\n{examples}",
+      "syntax_footer": "Syntax: [] = optioneel, <> = verplicht",
+      "cooldown": "Wacht nog {time} seconde(n) voordat je het `{command}` commando opnieuw gebruikt.",
+      "no_mention_everyone": "Je kunt dit commando niet gebruiken met everyone of here. Gebruik alsjeblieft het slash-commando.",
+      "error": "Er is een fout opgetreden: `{error}`",
+      "no_voice_channel_queue": "Je bent niet verbonden met een spraakkanaal om nummers in de wachtrij te zetten.",
+      "no_permission_connect_speak": "Ik heb niet genoeg rechten om te verbinden/spreken in <#{channel}>.",
+      "different_voice_channel_queue": "Je bent niet verbonden met <#{channel}> om nummers in de wachtrij te zetten.",
+      "vote_button": "Stem op mij!",
+      "vote_message": "Wacht! Je moet stemmen op top.gg om dit commando te gebruiken. Bedankt."
+    },
+    "setupButton": {
+      "no_voice_channel_button": "Je bent niet verbonden met een spraakkanaal om deze knop te gebruiken.",
+      "different_voice_channel_button": "Je bent niet verbonden met {channel} om deze knoppen te gebruiken.",
+      "now_playing": "Nu Spelend",
+      "live": "LIVE",
+      "requested_by": "Aangevraagd door <@{requester}>",
+      "no_dj_permission": "Je moet de DJ-rol hebben om deze knop te gebruiken.",
+      "volume_set": "Volume ingesteld op {vol}%",
+      "volume_footer": "Volume: {vol}%",
+      "paused": "Gepauzeerd",
+      "resumed": "Hervat",
+      "pause_resume": "Muziek {name}.",
+      "pause_resume_footer": "{name} door {displayName}",
+      "no_music_to_skip": "Er is geen muziek om over te slaan.",
+      "skipped": "Muziek overgeslagen.",
+      "skipped_footer": "Overgeslagen door {displayName}",
+      "stopped": "Muziek gestopt.",
+      "stopped_footer": "Gestopt door {displayName}",
+      "nothing_playing": "Er wordt momenteel niets afgespeeld",
+      "loop_set": "Herhalen ingesteld op {loop}.",
+      "loop_footer": "Herhalen ingesteld op {loop} door {displayName}",
+      "shuffled": "Wachtrij door elkaar geschud.",
+      "no_previous_track": "Er is geen vorig nummer.",
+      "playing_previous": "Vorig nummer wordt afgespeeld.",
+      "previous_footer": "Vorig nummer afgespeeld door {displayName}",
+      "rewinded": "Muziek teruggespoeld.",
+      "rewind_footer": "Teruggespoeld door {displayName}",
+      "forward_limit": "Je kunt de muziek niet verder vooruitspoelen dan de lengte van het nummer.",
+      "forwarded": "Muziek vooruitgespoeld.",
+      "forward_footer": "Vooruitgespoeld door {displayName}",
+      "button_not_available": "Deze knop is niet beschikbaar.",
+      "no_music_playing": "Er wordt geen muziek afgespeeld in deze server."
+    }
+  },
+  "Evaluate code": "Code evalueren",
+  "Leave a guild": "Een server verlaten",
+  "List all guilds the bot is in": "Toon alle servers waar de bot in zit",
+  "Restart the bot": "Herstart de bot"
+}
