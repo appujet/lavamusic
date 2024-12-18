@@ -8,6 +8,9 @@ export default function musicRoute(client: Lavamusic): Router {
 	const { musicController } = setupControllers(client);
 	const { guildMiddleware } = setupMiddlewares(client);
 
+	// search
+	router.get('/search', [guildMiddleware.guildExists], musicController.search);
+
 	// Player management
 	router.post('/player', [guildMiddleware.optionalAuth, guildMiddleware.guildExists], musicController.playerCreate);
 	router.delete('/player', [guildMiddleware.optionalAuth, guildMiddleware.dj, guildMiddleware.guildExists, guildMiddleware.playerExists, guildMiddleware.channelExists], musicController.playerDelete);

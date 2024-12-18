@@ -1,6 +1,6 @@
 import type { LavalinkNode } from 'lavalink-client';
 import { Event, type Lavamusic } from '../../structures/index';
-import { sendLog } from '../../utils/BotLog';
+// import { sendLog } from '../../utils/BotLog';
 
 export default class Connect extends Event {
 	constructor(client: Lavamusic, file: string) {
@@ -9,8 +9,8 @@ export default class Connect extends Event {
 		});
 	}
 
-	public async run(node: LavalinkNode): Promise<void> {
-		this.client.logger.success(`Node ${node.id} is ready!`);
+	public async run(_node: LavalinkNode): Promise<void> {
+		// this.client.logger.success(`Node ${node.id} is ready!`);
 
 		let data = await this.client.db.get_247();
 		if (!data) return;
@@ -48,7 +48,7 @@ export default class Connect extends Event {
 			}, index * 1000);
 		});
 
-		sendLog(this.client, `Node ${node.id} is ready!`, 'success');
+		// sendLog(this.client, `Node ${node.id} is ready!`, 'success');
 	}
 }
 

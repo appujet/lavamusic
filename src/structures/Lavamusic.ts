@@ -183,7 +183,7 @@ export default class Lavamusic extends Client {
 
 		try {
 			const rest = new REST({ version: '10' }).setToken(env.TOKEN ?? '');
-			const allowedCommands = ['play', 'join', 'ping', 'help', 'webplayer'];
+			const allowedCommands = ['play', 'join', 'ping', 'help', 'webplayer', 'leave'];
 			const filteredBody = this.body.filter(data => allowedCommands.includes(data.name));
 			await rest.put(route, { body: filteredBody });
 			this.logger.info('Successfully deployed slash commands!');

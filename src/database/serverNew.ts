@@ -138,7 +138,14 @@ export default class ServerData {
 	}
 
 	public async getGuildLavalinks(guildId: string) {
-		return this.prisma.guildLavalink.findMany({ where: { GuildId: guildId } });
+		return this.prisma.guildLavalink.findMany({
+			where: {
+				OR: [
+					{ GuildId: guildId },
+					{ GuildId: { isSet: false } }
+				]
+			}
+		});
 	}
 
 	public async getGuildLavalink(guildId: string, nodeId: string) {

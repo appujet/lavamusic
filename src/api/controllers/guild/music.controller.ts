@@ -16,6 +16,28 @@ class MusicController {
 		this.client = client;
 	}
 
+	public search = async (req: GuildRequest, res: Response): Promise<void> => {
+		const searchSchema = z.object({
+			query: z.string().min(1, 'Query must not be empty'),
+			source: z.enum(['youtube', 'ytsearch', 'youtube music', 'ytmsearch', 'soundcloud']).optional(),
+		});
+
+		try {
+			const { query, source } = searchSchema.parse(req.query);
+			const player = this.client.manager.getPlayer(req.guild!.id);
+			const result = player ? await player.search({ query, source }, null, false) : await this.client.manager.search(query, null, source);
+			const mappedResult = mapTracks(result.tracks as Track[]);
+			response.success(res, { search: { tracks: mappedResult } });
+
+		} catch (error) {
+			if (error instanceof z.ZodError) {
+				response.error(res, 400, zod.formatZodError(error));
+			} else {
+				response.error(res, 500, `An unexpected error occurred: ${error}`);
+			}
+		}
+	};
+
 	public playerCreate = async (req: GuildRequest, res: Response): Promise<void> => {
 		const schema = z.object({
 			voiceChannel: z.string().min(1, 'Voice channel ID must not be empty'),

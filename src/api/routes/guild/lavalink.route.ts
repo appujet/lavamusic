@@ -19,27 +19,25 @@ export default function lavalinkRoute(client: Lavamusic): Router {
 	], lavalinkController.guildLavalinks);
 
 	router.post('/', [
-		guildMiddleware.auth,
+		guildMiddleware.optionalAuth,
 		guildMiddleware.guildExists,
 		guildMiddleware.dj
 	], lavalinkController.createGuildLavalink);
 
 	router.get('/:nodeId', [
-		guildMiddleware.auth,
+		guildMiddleware.optionalAuth,
 		guildMiddleware.guildExists,
-		guildMiddleware.dj
 	], lavalinkController.getGuildLavalink);
 
 	router.delete('/:nodeId', [
-		guildMiddleware.auth,
+		guildMiddleware.optionalAuth,
 		guildMiddleware.guildExists,
 		guildMiddleware.dj
 	], lavalinkController.deleteGuildLavalink);
 
 	router.get('/:nodeId/test', [
-		guildMiddleware.auth,
+		guildMiddleware.optionalAuth,
 		guildMiddleware.guildExists,
-		guildMiddleware.dj
 	], lavalinkController.testGuildLavalink);
 
 	return router;
