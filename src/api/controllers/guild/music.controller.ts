@@ -7,7 +7,7 @@ import { z } from 'zod';
 import type { LavalinkNodeOptions, SearchResult, Track, UnresolvedSearchResult } from 'lavalink-client';
 import type { LavalinkNode } from 'lavalink-client';
 import { mapTrack, mapTracks } from '@/utils/track';
-import { testConnection } from '@/utils/lavalink';
+import { testConnection, waitForPlayerConnection } from '@/utils/lavalink';
 
 class MusicController {
 	private client: Lavamusic;
@@ -117,6 +117,17 @@ class MusicController {
 			});
 
 			await newPlayer.connect();
+
+			const connected = await waitForPlayerConnection(newPlayer);
+			if (!connected) {
+				const message = new EmbedBuilder()
+					.setDescription('Disconnecting because cannot verify player connection')
+					.setColor(this.client.color.main);
+				await textChannelObj.send({ embeds: [message] });
+				await newPlayer.destroy();
+				response.error(res, 500, 'Cannot verify player connection');
+				return;
+			}
 
 			const message = new EmbedBuilder()
 				.setDescription(`${user?.username ? `[${user.username}]` : `[[Web Player](${process.env.APP_CLIENT_URL}/guild/${guild!.id}/room)]`} Joined <#${voiceChannel}> and bound to <#${textChannel}>`)

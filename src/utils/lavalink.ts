@@ -36,3 +36,12 @@ export const testConnection = async (nodeOptions: LavalinkNodeOptions, nodeManag
 		};
 	}
 };
+
+export const waitForPlayerConnection = async (player: any, maxAttempts = 20) => {
+	let attempts = 0;
+	while (!player.connected && attempts < maxAttempts) {
+		await new Promise(resolve => setTimeout(resolve, 500));
+		attempts++;
+	}
+	return player.connected;
+};
