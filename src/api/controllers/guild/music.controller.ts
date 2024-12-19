@@ -104,7 +104,6 @@ class MusicController {
 				}
 
 				customNode = result.node;
-				await this.client.dbNew.updateGuildLavalink(guild!.id, lavalink.id, { LastUsedAt: Date.now() });
 			}
 
 			const newPlayer = this.client.manager.createPlayer({

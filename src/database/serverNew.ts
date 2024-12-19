@@ -156,10 +156,6 @@ export default class ServerData {
 		return this.prisma.guildLavalink.create({ data: { GuildId: guildId, ...lavalink } });
 	}
 
-	public async updateGuildLavalink(guildId: string, lavalinkId: string, lavalink: Partial<Pick<GuildLavalink, 'NodeId' | 'NodeName' | 'NodeHost' | 'NodePort' | 'NodeAuthorization' | 'NodeSecure' | 'NodeRetryAmount' | 'NodeRetryDelay' | 'LastUsedAt'>>) {
-		return this.prisma.guildLavalink.update({ where: { id: lavalinkId, GuildId: guildId }, data: { ...lavalink } });
-	}
-
 	public async deleteGuildLavalink(guildId: string, lavalinkId: string) {
 		return this.prisma.guildLavalink.delete({ where: { id: lavalinkId, GuildId: guildId } });
 	}
