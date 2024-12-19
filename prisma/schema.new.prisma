@@ -53,6 +53,7 @@ model GuildLavalink {
   NodeSecure        Boolean
   NodeRetryAmount   Int
   NodeRetryDelay    Int
+  LastUsedAt        Int?
 
   @@map("guildlavalinks")
 }

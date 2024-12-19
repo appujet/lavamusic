@@ -61,7 +61,7 @@ export default class ServerData {
 				GuildId: guildId,
 				PlaylistName: name,
 				Playlist: [],
-				CreatedOn: Math.floor(Date.now() / 1000)
+				CreatedOn: Date.now(),
 			}
 		});
 	}
@@ -154,6 +154,10 @@ export default class ServerData {
 
 	public async createGuildLavalink(guildId: string, lavalink: Pick<GuildLavalink, 'NodeId' | 'NodeName' | 'NodeHost' | 'NodePort' | 'NodeAuthorization' | 'NodeSecure' | 'NodeRetryAmount' | 'NodeRetryDelay'>) {
 		return this.prisma.guildLavalink.create({ data: { GuildId: guildId, ...lavalink } });
+	}
+
+	public async updateGuildLavalink(guildId: string, lavalinkId: string, lavalink: Partial<Pick<GuildLavalink, 'NodeId' | 'NodeName' | 'NodeHost' | 'NodePort' | 'NodeAuthorization' | 'NodeSecure' | 'NodeRetryAmount' | 'NodeRetryDelay' | 'LastUsedAt'>>) {
+		return this.prisma.guildLavalink.update({ where: { id: lavalinkId, GuildId: guildId }, data: { ...lavalink } });
 	}
 
 	public async deleteGuildLavalink(guildId: string, lavalinkId: string) {
