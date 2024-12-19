@@ -274,8 +274,8 @@ class MusicController {
 
 			if (req.query.identifier) {
 				const uri = `https://music.youtube.com/watch?v=${req.query.identifier}&list=RD${req.query.identifier}`;
-				const search = await this.client.manager.search(uri, undefined);
-				const mappedResult = mapTracks(search.tracks);
+				const search = player ? await player.search({ query: uri }, null, false) : await this.client.manager.search(uri, undefined);
+				const mappedResult = mapTracks(search.tracks as Track[]);
 
 				response.success(res, { search: { tracks: mappedResult } });
 				return;
@@ -288,8 +288,8 @@ class MusicController {
 			}
 
 			const uri = `https://youtube.com/watch?v=${identifier}&list=RD${identifier}`;
-			const search = await this.client.manager.search(uri, undefined);
-			const mappedResult = mapTracks(search.tracks);
+			const search = player ? await player.search({ query: uri }, null, false) : await this.client.manager.search(uri, undefined);
+			const mappedResult = mapTracks(search.tracks as Track[]);
 
 			response.success(res, { search: { tracks: mappedResult } });
 		} catch (error) {
