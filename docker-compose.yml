@@ -72,12 +72,14 @@ services:
 
         volumes:
             # mount .env from the same directory or use environment variables
-            - .env:/opt/lavamusic/.env
+            - ${PWD}/.env:/opt/lavamusic/.env
             - ./locales:/opt/lavamusic/locales
         restart: on-failure
         depends_on:
             lavalink:
                 condition: service_healthy
+        networks:
+            - lavalink
 networks:
     lavalink:
         name: lavalink
