@@ -78,6 +78,8 @@ services:
         depends_on:
             lavalink:
                 condition: service_healthy
+        networks:
+            - lavalink
 networks:
     lavalink:
         name: lavalink
