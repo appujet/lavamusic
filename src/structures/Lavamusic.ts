@@ -23,6 +23,8 @@ import { T, i18n, initI18n, localization } from './I18n';
 import LavalinkClient from './LavalinkClient';
 import Logger from './Logger';
 import type { Command } from './index';
+import { Api as API } from '../api/Api';
+import { SocketService } from './socket/index';
 
 export default class Lavamusic extends Client {
 	public commands: Collection<string, any> = new Collection();
@@ -38,6 +40,8 @@ export default class Lavamusic extends Client {
 	public utils = Utils;
 	public env: typeof env = env;
 	public manager!: LavalinkClient;
+	public socket!: SocketService;
+	public api!: API;
 	public embed(): EmbedBuilder {
 		return new EmbedBuilder();
 	}
@@ -50,6 +54,8 @@ export default class Lavamusic extends Client {
 			this.logger.warn('Top.gg token not found!');
 		}
 		this.manager = new LavalinkClient(this);
+		this.api = new API();
+		this.socket = new SocketService(this);
 		await this.loadCommands();
 		this.logger.info('Successfully loaded commands!');
 		await this.loadEvents();

@@ -27,6 +27,7 @@ const envSchema = z.object({
 	CLIENT_ID: z.string(),
 	DEFAULT_LANGUAGE: z.string().default('EnglishUS'),
 	PREFIX: z.string().default('!'),
+	API_PORT: z.string().optional().default('8080'),
 	OWNER_IDS: z.preprocess(val => (typeof val === 'string' ? JSON.parse(val) : val), z.string().array().optional()),
 	GUILD_ID: z.string().optional(),
 	TOPGG: z.string().optional(),
