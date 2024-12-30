@@ -24,6 +24,7 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "noErrorTruncation": true,
+    "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
     "stripInternal": true
   },

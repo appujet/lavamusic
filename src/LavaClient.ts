@@ -1,21 +1,35 @@
-import "reflect-metadata"
-import { Client, type ClientOptions, GatewayIntentBits } from 'discord.js';
-import { env } from './env';
-import Lavamusic from './structures/Lavamusic';
-import { container } from 'tsyringe';
+import "reflect-metadata";
+import { type ClientOptions, GatewayIntentBits } from "discord.js";
+import { env } from "./env";
+import Lavamusic from "./structures/Lavamusic";
+import { container } from "tsyringe";
+import { kClient } from "./types";
 
-
-const { GuildMembers, MessageContent, GuildVoiceStates, GuildMessages, Guilds, GuildMessageTyping } = GatewayIntentBits;
+const {
+  GuildMembers,
+  MessageContent,
+  GuildVoiceStates,
+  GuildMessages,
+  Guilds,
+  GuildMessageTyping,
+} = GatewayIntentBits;
 
 const clientOptions: ClientOptions = {
-	intents: [Guilds, GuildMessages, MessageContent, GuildVoiceStates, GuildMembers, GuildMessageTyping],
-	allowedMentions: { parse: ['users', 'roles'], repliedUser: false },
+  intents: [
+    Guilds,
+    GuildMessages,
+    MessageContent,
+    GuildVoiceStates,
+    GuildMembers,
+    GuildMessageTyping,
+  ],
+  allowedMentions: { parse: ["users", "roles"], repliedUser: false },
 };
 
 const client = new Lavamusic(clientOptions);
 
 client.setMaxListeners(20);
-container.register(Client, { useValue: client });
+container.register(kClient, { useValue: client });
 
 client.start(env.TOKEN);
 client.api.init();

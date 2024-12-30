@@ -9,8 +9,8 @@
     "db:migrate": "npx prisma migrate dev --name init",
     "build": "tsc --project tsconfig.json",
     "clean": "node scripts/clean.js && npm run build",
-    "lint": "biome lint --write",
-    "format": "biome format --write"
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "repository": {
     "type": "git",
@@ -33,10 +33,13 @@
   },
   "homepage": "https://github.com/appujet/lavamusic#readme",
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@appujet/eslint-config": "^0.0.3",
     "@types/i18n": "^0.13.12",
     "@types/node": "^22.10.2",
     "@types/signale": "^1.4.7",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.4.2",
     "prisma": "^6.1.0",
     "typescript": "^5.7.2"
   },

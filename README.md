@@ -121,8 +121,8 @@ npm i
 4. Copy the `.env.example` file to `.env` and fill in all required values
 
 5. Copy the `example.<The data source you want to use>.schema.prisma` file to `schema.prisma` in `prisma` folder
-Note: If you want to use sqlite, skip this step.
-If you are using a different data source, don't forget to fill in the `DATABASE_URL` value in `.env`.
+   Note: If you want to use sqlite, skip this step.
+   If you are using a different data source, don't forget to fill in the `DATABASE_URL` value in `.env`.
 
 6. Generate the Prisma client:
 
@@ -215,7 +215,7 @@ Thank you for your interest in contributing to Lavamusic! Here are some guidelin
 3. Create detailed and thorough documentation for any new features or changes.
 4. Write and run tests for your code.
 5. Submit a pull request with your changes.
-Your contribution will be reviewed by the project maintainers, and any necessary feedback or changes will be discussed with you. We appreciate your help in making Lavamusic better!
+   Your contribution will be reviewed by the project maintainers, and any necessary feedback or changes will be discussed with you. We appreciate your help in making Lavamusic better!
 
 ## 🔐 License
 
@@ -230,7 +230,7 @@ Do you like this project? Support it by donating!
 
 Thanks go to these wonderful people:
 <a href="https://github.com/appujet/lavamusic/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=appujet/lavamusic" />
+<img src="https://contrib.rocks/image?repo=appujet/lavamusic" />
 </a>
 
 [version-shield]: https://img.shields.io/github/package-json/v/appujet/lavamusic?style=for-the-badge
