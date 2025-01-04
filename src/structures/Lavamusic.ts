@@ -24,7 +24,7 @@ import LavalinkClient from "./LavalinkClient";
 import Logger from "./Logger";
 import type { Command } from "./index";
 import { Api as API } from "../api/Api";
-import { SocketService } from "./socket/index";
+import SocketServer from "./socket";
 
 export default class Lavamusic extends Client {
   public commands: Collection<string, any> = new Collection();
@@ -40,8 +40,8 @@ export default class Lavamusic extends Client {
   public utils = Utils;
   public env: typeof env = env;
   public manager!: LavalinkClient;
-  public socket!: SocketService;
   public api!: API;
+  public socket!: SocketServer
   public embed(): EmbedBuilder {
     return new EmbedBuilder();
   }
@@ -55,14 +55,15 @@ export default class Lavamusic extends Client {
     }
     this.manager = new LavalinkClient(this);
     this.api = new API();
-    this.socket = new SocketService(this);
+    this.socket = new SocketServer(this);
     await this.loadCommands();
     this.logger.info("Successfully loaded commands!");
     await this.loadEvents();
     this.logger.info("Successfully loaded events!");
     loadPlugins(this);
     await this.login(token);
-
+    this.api.start();
+    this.socket.start();
     this.on(Events.InteractionCreate, async (interaction: Interaction) => {
       if (interaction.isButton() && interaction.guildId) {
         const setup = await this.db.getSetup(interaction.guildId);

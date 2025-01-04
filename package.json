@@ -52,6 +52,7 @@
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.7",
     "fastify": "^5.2.0",
+    "fastify-plugin": "^5.0.1",
     "genius-lyrics-api": "^3.2.1",
     "i18n": "^0.15.1",
     "lavalink-client": "^2.4.3",

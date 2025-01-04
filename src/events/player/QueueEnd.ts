@@ -13,7 +13,7 @@ export default class QueueEnd extends Event {
   public async run(
     player: Player,
     _track: Track | null,
-    _payload: TrackStartEvent,
+    _payload: TrackStartEvent
   ): Promise<void> {
     const guild = this.client.guilds.cache.get(player.guildId);
     if (!guild) return;
@@ -24,7 +24,7 @@ export default class QueueEnd extends Event {
     if (!messageId) return;
 
     const channel = guild.channels.cache.get(
-      player.textChannelId!,
+      player.textChannelId!
     ) as TextChannel;
     if (!channel) return;
 

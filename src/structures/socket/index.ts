@@ -1,42 +1,36 @@
-import { Server as SocketIOServer } from "socket.io";
-import type { Lavamusic } from "..";
+import { Server } from "socket.io";
+import { Lavamusic } from "..";
 import { env } from "../../env";
+import playerEvents from "./events/player";
 
-export class SocketService {
-  private client: Lavamusic;
-  private io!: SocketIOServer;
+export default class SocketServer {
+  private readonly client: Lavamusic;
+  private readonly config = {
+    cors: {
+      origin: "http://localhost:3000",
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    },
+  };
+  public io: Server;
+
   constructor(client: Lavamusic) {
     this.client = client;
+    this.io = new Server(client.api.fastify.server, { cors: this.config.cors });
+    this.setupSocketEvents();
   }
-  async init() {
-    this.io = new SocketIOServer(this.client.api.fastify.server, {
-      cors: {
-        origin: "*",
-      },
-    });
+
+  public start(): void {
     this.client.logger.info(
-      `Socket server is running on port: ${env.API_PORT}`,
+      `[Socket] Server is running on port: ${env.API_PORT}`
     );
-    this.setupSocketIO();
   }
 
-  async setupSocketIO() {
+  private setupSocketEvents(): void {
     this.io.on("connection", (socket) => {
-      this.client.logger.info("Socket connection established");
-
-      socket.on("disconnect", () => {
-        console.log("A user disconnected");
-      });
-
-      // You can add other socket event handlers here
-      socket.on("message", (msg) => {
-        console.log("Received message:", msg);
-        socket.emit("response", { message: "Message received!" });
-      });
+      this.client.logger.info(`[Socket] New connection: ${socket.id}`);
+      // Handle socket events here
+      playerEvents(socket, this.client);
     });
-  }
-
-  getSocketIOInstance() {
-    return this.io;
   }
 }

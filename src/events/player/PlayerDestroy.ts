@@ -2,7 +2,6 @@ import type { TextChannel } from "discord.js";
 import type { Player } from "lavalink-client";
 import { Event, type Lavamusic } from "../../structures/index";
 import { updateSetup } from "../../utils/SetupSystem";
-
 export default class PlayerDestroy extends Event {
   constructor(client: Lavamusic, file: string) {
     super(client, file, {
@@ -11,8 +10,13 @@ export default class PlayerDestroy extends Event {
   }
 
   public async run(player: Player, _reason: string): Promise<void> {
+    
     const guild = this.client.guilds.cache.get(player.guildId);
     if (!guild) return;
+
+    this.client.socket.io.to(player?.guildId).emit("player:create:success", {
+      connected: false,
+    });
     const locale = await this.client.db.getLanguage(player.guildId);
     await updateSetup(this.client, guild, locale);
 
@@ -20,7 +24,7 @@ export default class PlayerDestroy extends Event {
     if (!messageId) return;
 
     const channel = guild.channels.cache.get(
-      player.textChannelId!,
+      player.textChannelId!
     ) as TextChannel;
     if (!channel) return;
 
@@ -34,6 +38,7 @@ export default class PlayerDestroy extends Event {
         null;
       });
     }
+    
   }
 }
 

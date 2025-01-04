@@ -32,8 +32,6 @@ client.setMaxListeners(20);
 container.register(kClient, { useValue: client });
 
 client.start(env.TOKEN);
-client.api.init();
-client.socket.init();
 
 /**
  * Project: lavamusic
