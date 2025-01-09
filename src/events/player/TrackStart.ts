@@ -99,6 +99,21 @@ export default class TrackStart extends Event {
       player.set("messageId", message.id);
       createCollector(message, player, track, embed, this.client, locale);
     }
+  
+    this.client.socket.io.to(player?.guildId).emit("player:update:success", {
+      paused: player?.paused,
+      repeat: player?.repeatMode,
+      position: player?.position,
+      track: player?.queue?.current
+        ? this.client.utils.formatTrack(player?.queue?.current)
+        : null,
+      queue: player?.queue?.tracks
+        ? player?.queue?.tracks.map((track) =>
+            this.client.utils.formatTrack(track as Track)
+          )
+        : [],
+      volume: player?.volume,
+    });
   }
 }
 

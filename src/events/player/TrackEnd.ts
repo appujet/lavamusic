@@ -11,8 +11,8 @@ export default class TrackEnd extends Event {
 
   public async run(
     player: Player,
-    _track: Track | null,
-    _payload: TrackStartEvent,
+    track: Track | null,
+    _payload: TrackStartEvent
   ): Promise<void> {
     const guild = this.client.guilds.cache.get(player.guildId);
     if (!guild) return;
@@ -21,7 +21,7 @@ export default class TrackEnd extends Event {
     if (!messageId) return;
 
     const channel = guild.channels.cache.get(
-      player.textChannelId!,
+      player.textChannelId!
     ) as TextChannel;
     if (!channel) return;
 
@@ -32,6 +32,19 @@ export default class TrackEnd extends Event {
 
     message.delete().catch(() => {
       null;
+    });
+    // get all voice channel members
+    const members = guild.members.cache.filter(
+      (member) => member.voice.channelId === player.voiceChannelId
+    );
+    if (members.size === 0) return;
+    members.forEach((member) => {
+      this.client.db.updateTrackHistory(
+        track!,
+        guild.id,
+        member.id,
+        this.client.user!.id
+      );
     });
   }
 }

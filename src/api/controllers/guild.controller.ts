@@ -48,4 +48,25 @@ export class GuildController {
     }
     return reply.status(200).send(data.channels);
   }
+
+  async getTopPlayedTracksPast24Hours(
+    req: FastifyRequest<{ Params: { guildId: string } }>,
+    reply: FastifyReply
+  ) {
+    const guildId = req.params.guildId;
+    const accessToken = req.headers.authorization?.split(" ")[1];
+
+    if (!accessToken) {
+      return reply.status(401).send({ message: "Unauthorized" });
+    }
+    const data = await this.guildService.getTopPlayedTracksPast24Hours(
+      guildId,
+      accessToken
+    );
+
+    if (!data) {
+      return reply.status(404).send({ message: "Tracks not found" });
+    }
+    return reply.status(200).send(data);
+  }
 }

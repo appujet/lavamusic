@@ -22,3 +22,12 @@ export const getUserGuilds = async (token: string) => {
   });
   return res;
 };
+
+export const getUser = async (token: string) => {
+  const res = await fetchDiscord("/users/@me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};

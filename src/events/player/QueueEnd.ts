@@ -17,6 +17,12 @@ export default class QueueEnd extends Event {
   ): Promise<void> {
     const guild = this.client.guilds.cache.get(player.guildId);
     if (!guild) return;
+    this.client.socket.io.to(player?.guildId).emit("player:update:success", {
+      paused: player?.paused,
+      repeat: player?.repeatMode,
+      position: player?.position,
+      volume: player?.volume,
+    });
     const locale = await this.client.db.getLanguage(player.guildId);
     await updateSetup(this.client, guild, locale);
 

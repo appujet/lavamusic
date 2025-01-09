@@ -8,6 +8,7 @@ import {
   type Stay,
 } from "@prisma/client";
 import { env } from "../env";
+import { Track } from "lavalink-client";
 
 export default class ServerData {
   private prisma: PrismaClient;
@@ -47,7 +48,7 @@ export default class ServerData {
 
   public async updateLanguage(
     guildId: string,
-    language: string,
+    language: string
   ): Promise<void> {
     await this.prisma.guild.update({
       where: { guildId },
@@ -67,7 +68,7 @@ export default class ServerData {
   public async setSetup(
     guildId: string,
     textId: string,
-    messageId: string,
+    messageId: string
   ): Promise<void> {
     await this.prisma.setup.upsert({
       where: { guildId },
@@ -83,7 +84,7 @@ export default class ServerData {
   public async set_247(
     guildId: string,
     textId: string,
-    voiceId: string,
+    voiceId: string
   ): Promise<void> {
     await this.prisma.stay.upsert({
       where: { guildId },
@@ -136,7 +137,7 @@ export default class ServerData {
 
   public async getPlaylist(
     userId: string,
-    name: string,
+    name: string
   ): Promise<Playlist | null> {
     return await this.prisma.playlist.findUnique({
       where: { userId_name: { userId, name } },
@@ -157,7 +158,7 @@ export default class ServerData {
   public async createPlaylistWithTracks(
     userId: string,
     name: string,
-    tracks: string[],
+    tracks: string[]
   ): Promise<void> {
     await this.prisma.playlist.create({
       data: {
@@ -181,7 +182,7 @@ export default class ServerData {
 
   public async deleteSongsFromPlaylist(
     userId: string,
-    playlistName: string,
+    playlistName: string
   ): Promise<void> {
     // Fetch the playlist
     const playlist = await this.getPlaylist(userId, playlistName);
@@ -205,7 +206,7 @@ export default class ServerData {
   public async addTracksToPlaylist(
     userId: string,
     playlistName: string,
-    tracks: string[],
+    tracks: string[]
   ) {
     // Serialize the tracks array into a JSON string
     const tracksJson = JSON.stringify(tracks);
@@ -258,7 +259,7 @@ export default class ServerData {
   public async removeSong(
     userId: string,
     playlistName: string,
-    encodedSong: string,
+    encodedSong: string
   ): Promise<void> {
     const playlist = await this.getPlaylist(userId, playlistName);
     if (playlist) {
@@ -304,6 +305,231 @@ export default class ServerData {
     // Deserialize the tracks JSON string back into an array
     const tracks = JSON.parse(playlist.tracks!);
     return tracks;
+  }
+  public async updateTrackHistory(
+    track: Track,
+    guildId: string,
+    userId?: string,
+    botId?: string
+  ) {
+    // Handle Track
+    await this.prisma.track.upsert({
+      where: { identifier: track.info.identifier! },
+      update: {
+        played: { increment: 1 },
+        lastPlayed: new Date(),
+      },
+      create: {
+        identifier: track.info.identifier!,
+        encoded: track.encoded!,
+        played: 1,
+        lastPlayed: new Date(),
+      },
+    });
+
+    // Handle Guild history
+    if (guildId) {
+      const guild = await this.prisma.guild.findUnique({
+        where: { guildId },
+      });
+
+      if (guild) {
+        const guildTrackExists = await this.prisma.guild.findFirst({
+          where: {
+            guildId,
+            history: {
+              some: { identifier: track.info.identifier! },
+            },
+          },
+        });
+
+        if (!guildTrackExists) {
+          await this.prisma.guild.update({
+            where: { guildId },
+            data: {
+              history: {
+                connect: { identifier: track.info.identifier! },
+              },
+            },
+          });
+        }
+      } else {
+        // Create Guild and connect track
+        await this.prisma.guild.create({
+          data: {
+            guildId,
+            prefix: env.PREFIX,
+            history: {
+              connect: { identifier: track.info.identifier! },
+            },
+          },
+        });
+      }
+    }
+
+    // Handle User history
+    if (userId) {
+      const user = await this.prisma.user.findUnique({
+        where: { userId },
+      });
+
+      if (user) {
+        const userTrackExists = await this.prisma.user.findFirst({
+          where: {
+            userId,
+            history: {
+              some: { identifier: track.info.identifier! },
+            },
+          },
+        });
+
+        if (!userTrackExists) {
+          await this.prisma.user.update({
+            where: { userId },
+            data: {
+              history: {
+                connect: { identifier: track.info.identifier! },
+              },
+            },
+          });
+        }
+      } else {
+        // Create User and connect track
+        await this.prisma.user.create({
+          data: {
+            userId,
+            history: {
+              connect: { identifier: track.info.identifier! },
+            },
+          },
+        });
+      }
+    }
+
+    // Handle Bot history
+    if (botId) {
+      const bot = await this.prisma.bot.findUnique({
+        where: { botId },
+      });
+
+      if (bot) {
+        const botTrackExists = await this.prisma.bot.findFirst({
+          where: {
+            botId,
+            history: {
+              some: { identifier: track.info.identifier! },
+            },
+          },
+        });
+
+        if (!botTrackExists) {
+          await this.prisma.bot.update({
+            where: { botId },
+            data: {
+              history: {
+                connect: { identifier: track.info.identifier! },
+              },
+            },
+          });
+        }
+      } else {
+        // Create Bot and connect track
+        await this.prisma.bot.create({
+          data: {
+            botId,
+            history: {
+              connect: { identifier: track.info.identifier! },
+            },
+          },
+        });
+      }
+    }
+  }
+
+  public async getTopPlayedTracksPast24Hours(guildId: string) {
+    const now = new Date();
+    const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000); // 24 hours ago
+
+    // Get the guild's history with the count of how many times tracks have been played in the past 24 hours
+    const guildHistory = await this.prisma.guild.findUnique({
+      where: { guildId },
+      include: {
+        history: {
+          where: {
+            lastPlayed: {
+              gte: twentyFourHoursAgo,
+            },
+          },
+          orderBy: {
+            played: "desc",
+          },
+        },
+      },
+    });
+
+    if (guildHistory) {
+      return guildHistory.history;
+    } else {
+      return [];
+    }
+  }
+
+  public async getBotTopPlayedTracks(botId: string) {
+    const bot = await this.prisma.bot.findUnique({
+      where: { botId },
+      include: {
+        history: {
+          orderBy: {
+            played: "desc",
+          },
+        },
+      },
+    });
+
+    if (bot) {
+      return bot.history;
+    } else {
+      return [];
+    }
+  }
+
+  public async getUserTopPlayedTracks(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { userId },
+      include: {
+        history: {
+          orderBy: {
+            played: "desc",
+          },
+        },
+      },
+    });
+
+    if (user) {
+      return user.history;
+    } else {
+      return [];
+    }
+  }
+
+  public async getLastPlayedTrack(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { userId },
+      include: {
+        history: {
+          orderBy: {
+            played: "desc",
+          },
+          take: 1,
+        },
+      },
+    });
+
+    if (user) {
+      return user.history[0];
+    } else {
+      return null;
+    }
   }
 }
 

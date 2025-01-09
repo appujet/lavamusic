@@ -1,26 +1,22 @@
 import { Socket } from "socket.io";
 import { Lavamusic } from "../..";
-
+import { Player, Track } from "lavalink-client";
+import { container } from "tsyringe";
+import { kClient } from "../../../types";
 
 export default function playerEvents(socket: Socket, client: Lavamusic) {
-  // player events [player create, player destroy, track start, track end]
 
-  socket.on("player:create", (data: { guildId: string }) => {
-    if (!data.guildId) {
-      return socket.emit("player:create:error", "Guild ID is required!");
-    }
+  const handleError = (socket: Socket, event: string, message: string) => {
+    socket.emit(`${event}:error`, { message });
+  };
 
-    socket.join(data.guildId);
+  socket.on("player:create", ({ guildId }) => {
+    if (!guildId) return;
+    socket.join(guildId);
+    client.logger.info(`[Socket] Player created: ${guildId}`);
 
-    client.logger.info(`[Socket] Player created: ${data.guildId}`);
-
-    const player = client.manager.getPlayer(data.guildId);
-
-    if (!player) {
-      return socket.emit("player:create:error", "Player not found!");
-    }
-
-    return socket.emit("player:create:success", {
+    const player = client.manager.getPlayer(guildId);
+    socket.emit("player:create:success", {
       connected: player?.connected,
       textChannelId: player?.textChannelId,
       voiceChannelId: player?.voiceChannelId,
@@ -28,62 +24,191 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
     });
   });
 
-  socket.on("player:trackStart", (data: { guildId: string }) => {
-    if (!data.guildId) {
-      return socket.emit("player:trackStart:error", "Guild ID is required!");
+  socket.on("player:update", ({ guildId }) => {
+    if (!guildId) return;
+
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(socket, "player:update", "Player not found.");
+
+    emitPlayerUpdate(socket, player);
+  });
+
+  socket.on(
+    "player:connect",
+    async ({ guildId, textChannelId, voiceChannelId, user }) => {
+      if (!guildId) return;
+
+      const guild = client.guilds.cache.get(guildId);
+      const member = await guild?.members.fetch(user.id);
+
+      if (!member)
+        return handleError(
+          socket,
+          "player:connect",
+          "Member not found in the server."
+        );
+      const channel = guild?.channels.cache.get(voiceChannelId);
+      if (!channel || member.voice.channel?.id !== channel.id) {
+        return handleError(
+          socket,
+          "player:connect",
+          "Invalid or mismatched voice channel."
+        );
+      }
+
+      let player = client.manager.getPlayer(guildId);
+      if (!player) {
+        player = client.manager.createPlayer({
+          guildId,
+          textChannelId,
+          voiceChannelId,
+        });
+      } else {
+        player.textChannelId = textChannelId;
+        player.voiceChannelId = voiceChannelId;
+      }
+
+      if (!player.connected) await player.connect();
     }
-    socket.join(data.guildId);
+  );
 
-    const player = client.manager.getPlayer(data.guildId);
+  socket.on("player:control:playpause", ({ guildId }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(
+        socket,
+        "player:control:playpause",
+        "Player not found."
+      );
 
-    if (!player) {
-      return socket.emit("player:trackStart:error", "Player not found!");
+    player.paused ? player.resume() : player.pause();
+    emitPlayerUpdate(socket, player);
+  });
+
+  socket.on("player:control:previous", ({ guildId }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(
+        socket,
+        "player:control:previous",
+        "Player not found."
+      );
+
+    const previousTrack = player.queue.previous[0];
+    player.play({ track: previousTrack });
+    emitPlayerUpdate(socket, player);
+  });
+
+  socket.on("player:control:skip", ({ guildId }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player || !player.queue.tracks.length) {
+      return handleError(socket, "player:control:skip", "No tracks to skip.");
     }
 
-    return socket.emit("player:trackStart:success", {
-      connected: player?.connected,
-      textChannelId: player?.textChannelId,
-      voiceChannelId: player?.voiceChannelId,
-      volume: player?.volume,
+    player.skip();
+    emitPlayerUpdate(socket, player);
+  });
+
+  socket.on("player:control:seek", ({ guildId, position }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(socket, "player:control:seek", "Player not found.");
+
+    player.seek(position);
+    emitPlayerUpdate(socket, player);
+  });
+
+  socket.on("player:control:volume", ({ guildId, volume }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(socket, "player:control:volume", "Player not found.");
+
+    player.setVolume(volume);
+    emitPlayerUpdate(socket, player);
+  });
+
+  socket.on("player:control:removeTrack", ({ guildId, index }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(
+        socket,
+        "player:control:removeTrack",
+        "Player not found."
+      );
+
+    player.queue.remove(index);
+    emitPlayerUpdate(socket, player);
+  });
+
+  socket.on("player:control:playTrack", ({ guildId, index }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(
+        socket,
+        "player:control:playTrack",
+        "Player not found."
+      );
+
+    const track = player.queue.tracks[index];
+    player.queue.remove(index);
+    player.play({ track });
+    emitPlayerUpdate(socket, player);
+  });
+
+
+  socket.on("player:search", async ({ guildId, query, user }) => {
+    if (!guildId || query === "") return;
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(socket, "player:search", "Player not found.");
+
+    const res = await player.search(query, user);
+    
+    if ((res && res.loadType === "empty") || res.loadType === "error")
+      return handleError(socket, "player:search", "Track not found.");
+    return socket.emit("player:search:success", {
+      loadType: res.loadType,
+      playlist: res.playlist,
+      tracks: res.tracks,
     });
   });
 
-    socket.on("player:connect", async (data: { guildId: string, textChannelId: string, voiceChannelId: string, user: any }) => {
-        if (!data.guildId) {
-            return socket.emit("player:connect:error", "Guild ID is required!");
-        }
-        // check is user connected to voice channel
-        const guild = client.guilds.cache.get(data.guildId);
-        if (!guild) {
-            return socket.emit("player:connect:error", "Guild not found!");
-        }
-        const member = guild.members.cache.get(data.user.id);
-        if (!member) {
-            return socket.emit("player:connect:error", "Member not found!");
-        }
-        const channel = guild.channels.cache.get(data.voiceChannelId);
-        if (!channel) {
-            return socket.emit("player:connect:error", "Voice channel not found!");
-        }
-        if (!member.voice.channel) {
-            return socket.emit("player:connect:error", "You are not in a voice channel!");
-        }
-        if (member.voice.channel.id !== channel.id) {
-            return socket.emit("player:connect:error", "You are not in the same voice channel!");
-        }
-        // connect player
-        let player = client.manager.getPlayer(data.guildId);
-        if (!player) {
-            player = client.manager.createPlayer({
-                guildId: data.guildId,
-                textChannelId: data.textChannelId,
-                voiceChannelId: data.voiceChannelId,
-            });
-        } else {
-            player.textChannelId = data.textChannelId;
-            player.voiceChannelId = data.voiceChannelId;
-        }
-        if (!player.connected) return await player.connect();
-        return player
-    })
+  socket.on("player:playTrack", async ({ guildId, track }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(socket, "player:playTrack", "Player not found.");
+
+    await player.play({ track: { encoded: track.encoded, requester: track.requester } });
+    
+    emitPlayerUpdate(socket, player);
+  });
+
+  socket.on("player:addQueueOrPlay", async ({ guildId, track }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(socket, "player:queue", "Player not found.");
+
+    await player.queue.add(track);
+    if (!player.playing) player.play();
+    emitPlayerUpdate(socket, player);
+  });
 }
+
+
+export const emitPlayerUpdate = (socket: Socket, player: Player) => {
+  const client = container.resolve<Lavamusic>(kClient);
+  socket.emit("player:update:success", {
+    paused: player?.paused,
+    repeat: player?.repeatMode,
+    position: player?.position,
+    track: player?.queue?.current
+      ? client.utils.formatTrack(player.queue.current)
+      : null,
+    queue:
+      player?.queue?.tracks.map((track) =>
+        client.utils.formatTrack(track as Track)
+      ) || [],
+    volume: player?.volume,
+  });
+};

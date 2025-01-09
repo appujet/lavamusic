@@ -9,5 +9,6 @@ export const guildRoutes = (fastify: FastifyInstance) => {
     fastify.get("/user/@me/guilds", controller.userMeGuild.bind(controller));
     fastify.get("/:guildId/channels", controller.channels.bind(controller));
     fastify.get("/:guildId", controller.guild.bind(controller));
+    fastify.get("/:guildId/top-tracks", controller.getTopPlayedTracksPast24Hours.bind(controller));
 };
 

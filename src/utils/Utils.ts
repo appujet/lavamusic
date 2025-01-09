@@ -201,19 +201,22 @@ export class Utils {
   public static formatTrack(track: Track) {
     if (!track?.info) return {};
     return {
-      title: track.info.title,
-      uri: track.info.uri,
-      author: track.info.author,
-      duration: track.info.duration,
-      artworkUrl: track.info.artworkUrl,
-      identifier: track.info.identifier,
-      ...(track.requester !== "unknown" && {
-        requester: {
-          id: (track.requester as any).id,
-          username: (track.requester as any).username,
-          avatarUrl: (track.requester as any).avatarURL,
-        },
-      }),
+      encoded: track.encoded,
+      info: {
+        title: track.info.title,
+        uri: track.info.uri,
+        author: track.info.author,
+        duration: track.info.duration,
+        artworkUrl: track.info.artworkUrl,
+        identifier: track.info.identifier,
+        ...(track.requester !== "unknown" && {
+          requester: {
+            id: (track.requester as any).id,
+            username: (track.requester as any).username,
+            avatarUrl: (track.requester as any).avatarURL,
+          },
+        }),
+      },
     };
   }
 }

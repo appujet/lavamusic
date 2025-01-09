@@ -6,6 +6,7 @@ import { env } from "../env";
 import { botRoutes } from "./routes/bot.routes";
 import Logger from "../structures/Logger";
 import { guildRoutes } from "./routes/guild.routes";
+import { userRoutes } from "./routes/user.routes";
 
 export class Api {
   public fastify: FastifyInstance;
@@ -30,6 +31,11 @@ export class Api {
     await this.fastify.register(guildRoutes, {
       prefix: "/guild",
     });
+    /* user routes */
+    await this.fastify.register(userRoutes, {
+      prefix: "/user",
+    })
+    
     this.fastify.get("/", (_, reply) =>
       reply.send(
         `Welcome to the Lavamusic API! Listening on port ${Number(

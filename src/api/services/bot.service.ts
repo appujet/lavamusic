@@ -1,6 +1,8 @@
 import { container } from "tsyringe";
 import type { Lavamusic } from "../../structures";
 import { kClient } from "../../types";
+import { Base64 } from "lavalink-client";
+import { getUser } from "../lib/fetch/requests";
 
 export class BotService {
   private client: Lavamusic;
@@ -21,5 +23,20 @@ export class BotService {
     };
 
     return data;
+  }
+  async getTopPlayedTracks(accessToken: string) {
+    const data = await this.client.db.getBotTopPlayedTracks(
+      this.client.user!.id
+    );
+    const restUser = await getUser(accessToken);
+    const user = await this.client.users.fetch(restUser.id).catch(() => null);
+    const nodes = this.client.manager.nodeManager.leastUsedNodes();
+    const node = nodes[Math.floor(Math.random() * nodes.length)];
+    const tracks = await node.decode.multipleTracks(
+      data.map((t) => t.encoded) as Base64[],
+      user!
+    );
+
+    return tracks;
   }
 }
