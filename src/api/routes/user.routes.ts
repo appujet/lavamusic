@@ -7,5 +7,5 @@ export const userRoutes = (fastify: FastifyInstance) => {
     const controller = container.resolve(UserController);
 
     fastify.get("/:userId", controller.status.bind(controller));
-    fastify.get("/:userId/recommended-tracks", controller.getRecommendedTracks.bind(controller));
+    fastify.get("/recommended-tracks", controller.getRecommendedTracks.bind(controller));
 };

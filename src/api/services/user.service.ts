@@ -3,6 +3,7 @@ import type { Lavamusic } from "../../structures";
 import { kClient } from "../../types";
 import { Base64, LavalinkNode } from "lavalink-client";
 import { User } from "discord.js";
+import { getUser } from "../lib/fetch/requests";
 
 export class UserService {
   private client: Lavamusic;
@@ -14,11 +15,12 @@ export class UserService {
     return this.client.users.cache.get(userId);
   }
 
-  public async getRecommendedTracks(userId: string) {
-    const user = await this.client.users.fetch(userId).catch(() => null);
+  public async getRecommendedTracks(accessToken: string) {
+    const restUser = await getUser(accessToken);
+    const user = await this.client.users.fetch(restUser.id).catch(() => null);
     if (!user) return [];
-      const lastPlayedTrack = await this.client.db.getLastPlayedTrack(userId);
-      console.log(lastPlayedTrack);
+    const lastPlayedTrack = await this.client.db.getLastPlayedTrack(user.id);
+    
     if (!lastPlayedTrack) return [];
     const encoded = lastPlayedTrack.encoded as Base64;
 

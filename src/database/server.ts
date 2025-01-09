@@ -513,15 +513,20 @@ export default class ServerData {
   }
 
   public async getLastPlayedTrack(userId: string) {
+ 
     const user = await this.prisma.user.findUnique({
       where: { userId },
       include: {
         history: {
-          orderBy: {
-            played: "desc",
+          where: {
+            lastPlayed: {
+              lte: new Date(),
+            },
           },
-          take: 1,
-        },
+          orderBy: {
+            lastPlayed: "desc",
+          },
+        }
       },
     });
 
