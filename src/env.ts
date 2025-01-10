@@ -13,7 +13,7 @@ const LavalinkNodeSchema = z.object({
   authorization: z.string(),
   secure: z.preprocess(
     (val) => (val === "true" || val === "false" ? val === "true" : val),
-    z.boolean().optional(),
+    z.boolean().optional()
   ),
   sessionId: z.string().optional(),
   regions: z.string().array().optional(),
@@ -31,9 +31,10 @@ const envSchema = z.object({
   DEFAULT_LANGUAGE: z.string().default("EnglishUS"),
   PREFIX: z.string().default("!"),
   API_PORT: z.string().optional().default("8080"),
+  NEXT_PUBLIC_BASE_URL: z.string().optional(),
   OWNER_IDS: z.preprocess(
     (val) => (typeof val === "string" ? JSON.parse(val) : val),
-    z.string().array().optional(),
+    z.string().array().optional()
   ),
   GUILD_ID: z.string().optional(),
   TOPGG: z.string().optional(),
@@ -47,7 +48,7 @@ const envSchema = z.object({
       }
       return val;
     },
-    z.enum(["online", "idle", "dnd", "invisible"]).default("online"),
+    z.enum(["online", "idle", "dnd", "invisible"]).default("online")
   ),
   BOT_ACTIVITY: z.string().default("Lavamusic"),
   BOT_ACTIVITY_TYPE: z.preprocess((val) => {
@@ -75,11 +76,11 @@ const envSchema = z.object({
         "yandex",
         "jiosaavn",
       ])
-      .default("youtube"),
+      .default("youtube")
   ),
   NODES: z.preprocess(
     (val) => (typeof val === "string" ? JSON.parse(val) : val),
-    z.array(LavalinkNodeSchema),
+    z.array(LavalinkNodeSchema)
   ),
   GENIUS_API: z.string().optional(),
 });
@@ -91,7 +92,7 @@ export const env: Env = envSchema.parse(process.env);
 for (const key in env) {
   if (!(key in env)) {
     throw new Error(
-      `Missing env variable: ${key}. Please check the .env file and try again.`,
+      `Missing env variable: ${key}. Please check the .env file and try again.`
     );
   }
 }

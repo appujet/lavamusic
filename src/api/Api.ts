@@ -17,7 +17,7 @@ export class Api {
   async start() {
     await this.fastify.register(helmet);
     await this.fastify.register(cors, {
-      origin: "http://localhost:3000",
+      origin: env.NEXT_PUBLIC_BASE_URL,
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     });
@@ -34,8 +34,8 @@ export class Api {
     /* user routes */
     await this.fastify.register(userRoutes, {
       prefix: "/user",
-    })
-    
+    });
+
     this.fastify.get("/", (_, reply) =>
       reply.send(
         `Welcome to the Lavamusic API! Listening on port ${Number(

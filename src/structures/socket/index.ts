@@ -7,7 +7,7 @@ export default class SocketServer {
   private readonly client: Lavamusic;
   private readonly config = {
     cors: {
-      origin: "http://localhost:3000",
+      origin: env.NEXT_PUBLIC_BASE_URL,
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     },

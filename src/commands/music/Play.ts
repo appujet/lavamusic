@@ -5,6 +5,7 @@ import type {
 } from "discord.js";
 import type { SearchResult } from "lavalink-client";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
+import { env } from "../../env";
 
 export default class Play extends Command {
   constructor(client: Lavamusic) {
@@ -120,8 +121,8 @@ export default class Play extends Command {
             ctx.locale("cmd.play.added_to_queue", {
               title: response.tracks[0].info.title,
               uri: response.tracks[0].info.uri,
-            }),
-          ),
+            }) + "\n\n" + `[Web Player](${env.NEXT_PUBLIC_BASE_URL}/player/${ctx.guild!.id})`,
+          )
         ],
       });
     }

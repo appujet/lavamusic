@@ -7,7 +7,6 @@ import {
   type TextChannel,
 } from "discord.js";
 import type { Context, Lavamusic } from "../structures/index";
-import { Track } from "lavalink-client";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class Utils {
@@ -196,28 +195,6 @@ export class Utils {
     collector.on("end", async () => {
       await msg.edit({ embeds: [embed[page]], components: [] });
     });
-  }
-
-  public static formatTrack(track: Track) {
-    if (!track?.info) return {};
-    return {
-      encoded: track.encoded,
-      info: {
-        title: track.info.title,
-        uri: track.info.uri,
-        author: track.info.author,
-        duration: track.info.duration,
-        artworkUrl: track.info.artworkUrl,
-        identifier: track.info.identifier,
-        ...(track.requester !== "unknown" && {
-          requester: {
-            id: (track.requester as any).id,
-            username: (track.requester as any).username,
-            avatarUrl: (track.requester as any).avatarURL,
-          },
-        }),
-      },
-    };
   }
 }
 

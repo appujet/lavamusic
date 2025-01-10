@@ -104,14 +104,8 @@ export default class TrackStart extends Event {
       paused: player?.paused,
       repeat: player?.repeatMode,
       position: player?.position,
-      track: player?.queue?.current
-        ? this.client.utils.formatTrack(player?.queue?.current)
-        : null,
-      queue: player?.queue?.tracks
-        ? player?.queue?.tracks.map((track) =>
-            this.client.utils.formatTrack(track as Track)
-          )
-        : [],
+      track: player?.queue?.current,
+      queue: player?.queue?.tracks,
       volume: player?.volume,
     });
   }

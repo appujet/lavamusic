@@ -1,16 +1,15 @@
 import { Socket } from "socket.io";
 import { Lavamusic } from "../..";
-import { Player, Track } from "lavalink-client";
-import { container } from "tsyringe";
-import { kClient } from "../../../types";
+import { Player } from "lavalink-client";
+import { ChannelType } from "discord.js";
+import { env } from "../../../env";
 
 export default function playerEvents(socket: Socket, client: Lavamusic) {
-
   const handleError = (socket: Socket, event: string, message: string) => {
     socket.emit(`${event}:error`, { message });
   };
 
-  socket.on("player:create", ({ guildId }) => {
+  socket.on("player:create", async ({ guildId }) => {
     if (!guildId) return;
     socket.join(guildId);
     client.logger.info(`[Socket] Player created: ${guildId}`);
@@ -70,8 +69,34 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
       }
 
       if (!player.connected) await player.connect();
+
+      const textChannel = guild?.channels.cache.get(textChannelId);
+      if (!textChannel) return;
+      if (textChannel.type !== ChannelType.GuildText) return;
+      const embed = client.embed();
+      embed
+        .setColor(client.color.main)
+        .setAuthor({
+          name: member.user.username,
+          iconURL: member.user.displayAvatarURL(),
+        })
+        .setDescription(
+          `[Web Player] Connected to [Dashboard](${env.NEXT_PUBLIC_BASE_URL}/player/${guildId})`
+        );
+
+      textChannel.send({ embeds: [embed] });
     }
   );
+
+  socket.on("player:disconnect", ({ guildId }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(socket, "player:disconnect", "Player not found.");
+
+    player.destroy();
+
+    socket.emit("player:disconnect:success", { connected: false });
+  });
 
   socket.on("player:control:playpause", ({ guildId }) => {
     const player = client.manager.getPlayer(guildId);
@@ -156,7 +181,6 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
     emitPlayerUpdate(socket, player);
   });
 
-
   socket.on("player:search", async ({ guildId, query, user }) => {
     if (!guildId || query === "") return;
     const player = client.manager.getPlayer(guildId);
@@ -164,7 +188,7 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
       return handleError(socket, "player:search", "Player not found.");
 
     const res = await player.search(query, user);
-    
+
     if ((res && res.loadType === "empty") || res.loadType === "error")
       return handleError(socket, "player:search", "Track not found.");
     return socket.emit("player:search:success", {
@@ -179,8 +203,10 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
     if (!player)
       return handleError(socket, "player:playTrack", "Player not found.");
 
-    await player.play({ track: { encoded: track.encoded, requester: track.requester } });
-    
+    await player.play({
+      track: { encoded: track.encoded, requester: track.requester },
+    });
+
     emitPlayerUpdate(socket, player);
   });
 
@@ -195,20 +221,13 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
   });
 }
 
-
 export const emitPlayerUpdate = (socket: Socket, player: Player) => {
-  const client = container.resolve<Lavamusic>(kClient);
   socket.emit("player:update:success", {
     paused: player?.paused,
     repeat: player?.repeatMode,
     position: player?.position,
-    track: player?.queue?.current
-      ? client.utils.formatTrack(player.queue.current)
-      : null,
-    queue:
-      player?.queue?.tracks.map((track) =>
-        client.utils.formatTrack(track as Track)
-      ) || [],
+    track: player?.queue?.current,
+    queue: player?.queue?.tracks,
     volume: player?.volume,
   });
 };
