@@ -4,6 +4,7 @@ import {
 	ButtonBuilder,
 	ButtonStyle,
 	CommandInteraction,
+	Message,
 	type TextChannel,
 } from 'discord.js';
 import type { Context, Lavamusic } from '../structures/index';
@@ -58,7 +59,7 @@ export class Utils {
 	}
 
 	public static parseTime(string: string): number {
-		const time = string.match(/([0-9]+[d,h,m,s])/g);
+		const time = string.match(/(\d+[dhms])/g);
 		if (!time) return 0;
 		let ms = 0;
 		for (const t of time) {
@@ -125,17 +126,25 @@ export class Utils {
 		};
 
 		const msgOptions = getButton(0);
-		const msg = ctx.isInteraction
-			? await (ctx.deferred
-					? ctx.interaction!.followUp({
-							...msgOptions,
-							fetchReply: true as boolean,
-						})
-					: ctx.interaction!.reply({ ...msgOptions, fetchReply: true }))
-			: await (ctx.channel as TextChannel).send({
+		let msg: Message;
+		if (ctx.isInteraction) {
+			if (ctx.deferred) {
+				msg = await ctx.interaction!.followUp({
 					...msgOptions,
 					fetchReply: true,
 				});
+			} else {
+				msg = (await ctx.interaction!.reply({
+					...msgOptions,
+					fetchReply: true,
+				})) as unknown as Message;
+			}
+		} else {
+			msg = await (ctx.channel as TextChannel).send({
+				...msgOptions,
+				fetchReply: true,
+			});
+		}
 
 		const author = ctx instanceof CommandInteraction ? ctx.user : ctx.author;
 
