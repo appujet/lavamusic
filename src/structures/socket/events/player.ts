@@ -180,6 +180,40 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
     emitPlayerUpdate(socket, player);
   });
 
+  socket.on("player:control:shuffle", ({ guildId }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(socket, "player:control:shuffle", "Player not found.");
+
+    player.queue.shuffle();
+    emitPlayerUpdate(socket, player);
+  });
+
+  socket.on("player:control:loop", ({ guildId, loop }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(socket, "player:control:loop", "Player not found.");
+
+    if (loop) player.repeatMode = "track";
+    else player.repeatMode = "off";
+    player.setRepeatMode(loop ? "track" : "off");
+
+    emitPlayerUpdate(socket, player);
+  })
+
+  socket.on("player:control:autoPlay", ({ guildId, enabled }) => {
+    const player = client.manager.getPlayer(guildId);
+    if (!player)
+      return handleError(socket, "player:control:autoPlay", "Player not found.");
+
+    player.set("autoplay", enabled);
+    emitPlayerUpdate(socket, player);
+  });
+
+
+  //--------------------------------------//
+  //              SEARCH                  //
+  //--------------------------------------//
   socket.on("player:search", async ({ guildId, query, user }) => {
     if (!guildId || query === "") return;
     const player = client.manager.getPlayer(guildId);
@@ -228,5 +262,7 @@ export const emitPlayerUpdate = (socket: Socket, player: Player) => {
     track: player?.queue?.current,
     queue: player?.queue?.tracks,
     volume: player?.volume,
+    isLooping: player?.repeatMode === "track",
+    isAutoPlayEnabled: player?.get("autoplay"),
   });
 };
