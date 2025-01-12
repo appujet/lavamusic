@@ -2,8 +2,11 @@ import {
   ActionRowBuilder,
   ActivityType,
   ButtonBuilder,
+  ButtonInteraction,
   ButtonStyle,
+  CacheType,
   CommandInteraction,
+  Message,
   type TextChannel,
 } from "discord.js";
 import type { Context, Lavamusic } from "../structures/index";
@@ -150,49 +153,54 @@ export class Utils {
               fetchReply: true as boolean,
             })
           : ctx.interaction!.reply({ ...msgOptions, fetchReply: true }))
-      : await (ctx.channel as TextChannel).send({
+      : ((await (ctx.channel as TextChannel).send({
           ...msgOptions,
           fetchReply: true,
-        });
+        })) as Message);
 
     const author = ctx instanceof CommandInteraction ? ctx.user : ctx.author;
 
     const filter = (int: any): any => int.user.id === author?.id;
-    const collector = msg.createMessageComponentCollector({
+    // @ts-ignore
+    const collector = msg?.createMessageComponentCollector({
       filter,
       time: 60000,
     });
 
-    collector.on("collect", async (interaction) => {
-      if (interaction.user.id === author?.id) {
-        await interaction.deferUpdate();
-        if (interaction.customId === "first" && page !== 0) {
-          page = 0;
-        } else if (interaction.customId === "back" && page !== 0) {
-          page--;
-        } else if (interaction.customId === "stop") {
-          collector.stop();
-        } else if (
-          interaction.customId === "next" &&
-          page !== embed.length - 1
-        ) {
-          page++;
-        } else if (
-          interaction.customId === "last" &&
-          page !== embed.length - 1
-        ) {
-          page = embed.length - 1;
+    collector.on(
+      "collect",
+      async (interaction: ButtonInteraction<CacheType>) => {
+        if (interaction.user.id === author?.id) {
+          await interaction.deferUpdate();
+          if (interaction.customId === "first" && page !== 0) {
+            page = 0;
+          } else if (interaction.customId === "back" && page !== 0) {
+            page--;
+          } else if (interaction.customId === "stop") {
+            collector.stop();
+          } else if (
+            interaction.customId === "next" &&
+            page !== embed.length - 1
+          ) {
+            page++;
+          } else if (
+            interaction.customId === "last" &&
+            page !== embed.length - 1
+          ) {
+            page = embed.length - 1;
+          }
+          await interaction.editReply(getButton(page));
+        } else {
+          await interaction.reply({
+            content: ctx.locale("buttons.errors.not_author"),
+            ephemeral: true,
+          });
         }
-        await interaction.editReply(getButton(page));
-      } else {
-        await interaction.reply({
-          content: ctx.locale("buttons.errors.not_author"),
-          ephemeral: true,
-        });
       }
-    });
+    );
 
     collector.on("end", async () => {
+      // @ts-ignore
       await msg.edit({ embeds: [embed[page]], components: [] });
     });
   }

@@ -12,7 +12,6 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
   socket.on("player:create", async ({ guildId }) => {
     if (!guildId) return;
     socket.join(guildId);
-    client.logger.info(`[Socket] Player created: ${guildId}`);
 
     const player = client.manager.getPlayer(guildId);
     socket.emit("player:create:success", {
@@ -52,7 +51,7 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
         return handleError(
           socket,
           "player:connect",
-          "Invalid or mismatched voice channel."
+          "You must be in the voice channel to connect."
         );
       }
 

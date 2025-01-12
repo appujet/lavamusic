@@ -1,4 +1,8 @@
-import Fastify, { type FastifyInstance } from "fastify";
+import Fastify, {
+  FastifyReply,
+  FastifyRequest,
+  type FastifyInstance,
+} from "fastify";
 import helmet from "@fastify/helmet";
 import cors from "@fastify/cors";
 import sensible from "@fastify/sensible";
@@ -11,13 +15,24 @@ import { userRoutes } from "./routes/user.routes";
 export class Api {
   public fastify: FastifyInstance;
   public Logger = new Logger();
+  
   constructor() {
     this.fastify = Fastify({ trustProxy: true });
+    this.fastify.addHook("preHandler", this.verifyJWT.bind(this));
+  }
+  private async verifyJWT(request: FastifyRequest, reply: FastifyReply) {
+    const authHeader = request.headers["authorization"];
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      reply
+        .status(401)
+        .send({ error: "Unauthorized: Missing or invalid token" });
+      return;
+    }
   }
   async start() {
     await this.fastify.register(helmet);
     await this.fastify.register(cors, {
-      origin: env.NEXT_PUBLIC_BASE_URL,
+      origin: ["http://localhost:3000", env.NEXT_PUBLIC_BASE_URL!],
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     });
@@ -46,6 +61,7 @@ export class Api {
 
     await this.fastify.listen({
       port: Number(env.API_PORT || 8080),
+      host: "0.0.0.0",
     });
     this.Logger.info(`[API] listening on port ${Number(env.API_PORT || 8080)}`);
   }

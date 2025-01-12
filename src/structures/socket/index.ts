@@ -3,11 +3,12 @@ import { Lavamusic } from "..";
 import { env } from "../../env";
 import playerEvents from "./events/player";
 
+
 export default class SocketServer {
   private readonly client: Lavamusic;
   private readonly config = {
     cors: {
-      origin: env.NEXT_PUBLIC_BASE_URL,
+      origin: ["http://localhost:3000", env.NEXT_PUBLIC_BASE_URL!],
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     },
