@@ -15,8 +15,10 @@ datasource db {
 }
 
 model Bot {
-  botId         String @unique
+  botId         String @unique @id
   totalPlaySong Int
+
+  Track Track[] @relation("botHistory")
 }
 
 model Guild {
@@ -27,6 +29,8 @@ model Guild {
   dj       Dj?
   roles    Role[]
   setup    Setup?
+
+  Track Track[] @relation("guildHistory")
 }
 
 model Stay {
@@ -64,4 +68,18 @@ model Setup {
   textId    String
   messageId String
   Guild     Guild  @relation(fields: [guildId], references: [guildId])
+}
+model Track {
+  identifier String @id
+  encoded    String
+  played     Int    @default(0)
+  lastPlayed DateTime? @default(now())
+  User User[] @relation("userHistory")
+  Bot Bot[] @relation("botHistory")
+  Guild Guild[] @relation("guildHistory")
+}
+
+model User {
+  userId String @id
+  history    Track[] @relation("userHistory")
 }

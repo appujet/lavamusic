@@ -26,4 +26,18 @@ export class UserController {
     }
     return reply.status(200).send(data);
   }
+  async getPlaylist(req: FastifyRequest<{ Params: { name: string }}>, reply: FastifyReply) {
+    const accessToken = req.headers.authorization?.split(" ")[1];
+    const name = req.params.name;
+    
+    if (!accessToken) {
+      return reply.status(401).send({ message: "Unauthorized" });
+    }
+    const data = await this.userService.getPlaylist(accessToken, name);
+    
+    if (!data) {
+      return reply.status(404).send({ message: "Playlist not found" });
+    }
+    return reply.status(200).send(data);
+  }
 }

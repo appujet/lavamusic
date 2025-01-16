@@ -205,7 +205,7 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
     const player = client.manager.getPlayer(guildId);
     if (!player)
       return handleError(socket, "player:control:autoPlay", "Player not found.");
-
+    console.log(enabled)
     player.set("autoplay", enabled);
     emitPlayerUpdate(socket, player);
   });

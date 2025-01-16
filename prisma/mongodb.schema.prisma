@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
@@ -17,33 +11,36 @@ datasource db {
 model Bot {
   botId         String @id @map("_id")
   totalPlaySong Int
+  history       Track[]
 }
 
 model Guild {
-  guildId  String  @id @map("_id")
+  guildId  String  @id @map("_id") @db.ObjectId
   prefix   String
   language String? @default("EnglishUS")
   stay     Stay?
   dj       Dj?
   roles    Role[]
   setup    Setup?
+  history  Track[]
 }
 
 model Stay {
-  guildId String @id @map("_id")
+  guildId String @id @map("_id") @db.ObjectId
   textId  String
   voiceId String
   Guild   Guild  @relation(fields: [guildId], references: [guildId])
 }
 
 model Dj {
-  guildId String  @id @map("_id")
+  guildId String  @id @map("_id") @db.ObjectId
   mode    Boolean
   Guild   Guild   @relation(fields: [guildId], references: [guildId])
 }
 
 model Role {
-  guildId String @id @map("_id")
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  guildId String @db.ObjectId
   roleId  String
   Guild   Guild  @relation(fields: [guildId], references: [guildId])
 
@@ -51,7 +48,7 @@ model Role {
 }
 
 model Playlist {
-  id     String  @id @default(uuid()) @map("_id")
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
   userId String
   name   String
   tracks String? // Store the array of encoded tracks as a JSON string
@@ -60,8 +57,28 @@ model Playlist {
 }
 
 model Setup {
-  guildId   String @id @map("_id")
+  guildId   String @id @map("_id") @db.ObjectId
   textId    String
   messageId String
   Guild     Guild  @relation(fields: [guildId], references: [guildId])
+}
+
+model Track {
+  identifier String @id @map("_id") @db.ObjectId
+  encoded    String
+  played     Int    @default(0)
+  lastPlayed DateTime? @default(now())
+  author   User      @relation(fields: [authorId], references: [userId])
+  authorId String
+
+  bot Bot    @relation(fields: [botId], references: [botId])
+  botId String
+
+  guild Guild  @relation(fields: [guildId], references: [guildId])
+  guildId String @db.ObjectId
+}
+
+model User {
+  userId String @id @map("_id")
+  history    Track[]
 }

@@ -28,7 +28,12 @@ export class GuildController {
     reply: FastifyReply
   ) {
     const guildId = req.params.guildId;
-    const data = await this.guildService.getGuild(guildId);
+    const accessToken = req.headers.authorization?.split(" ")[1];
+
+    if (!accessToken) {
+      return reply.status(401).send({ message: "Unauthorized" });
+    }
+    const data = await this.guildService.getGuild(accessToken, guildId);
     if (!data) {
       return reply.status(404).send({ message: "Guild not found" });
     }
@@ -39,7 +44,12 @@ export class GuildController {
     reply: FastifyReply
   ) {
     const guildId = req.params.guildId;
-    const data = await this.guildService.getChannels(guildId);
+    const accessToken = req.headers.authorization?.split(" ")[1];
+
+    if (!accessToken) {
+      return reply.status(401).send({ message: "Unauthorized" });
+    }
+    const data = await this.guildService.getChannels(accessToken, guildId);
     if (!data) {
       return reply.status(404).send({ message: "Channels not found" });
     }
@@ -66,6 +76,23 @@ export class GuildController {
 
     if (!data) {
       return reply.status(404).send({ message: "Tracks not found" });
+    }
+    return reply.status(200).send(data);
+  }
+  
+  async updateGuildSettings(
+    req: FastifyRequest<{ Params: { guildId: string } }>,
+    reply: FastifyReply
+  ) {
+    const guildId = req.params.guildId;
+    const accessToken = req.headers.authorization?.split(" ")[1];
+
+    if (!accessToken) {
+      return reply.status(401).send({ message: "Unauthorized" });
+    }
+    const data = await this.guildService.updateGuildSettings(accessToken, guildId, req.body);
+    if (!data) {
+      return reply.status(404).send({ message: "Guild not found" });
     }
     return reply.status(200).send(data);
   }

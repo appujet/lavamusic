@@ -20,7 +20,7 @@ export class UserService {
     const user = await this.client.users.fetch(restUser.id).catch(() => null);
     if (!user) return [];
     const lastPlayedTrack = await this.client.db.getLastPlayedTrack(user.id);
-    
+
     if (!lastPlayedTrack) return [];
     const encoded = lastPlayedTrack.encoded as Base64;
 
@@ -74,4 +74,24 @@ export class UserService {
       return res.tracks;
     },
   };
+
+  public async getPlaylist(accessToken: string, name: string) {
+    const restUser = await getUser(accessToken);
+    const user = await this.client.users.fetch(restUser.id).catch(() => null);
+    if (!user) return null;
+   
+    const playlist = await this.client.db.getPlaylist(user.id, name); 
+    if (!playlist) return null;
+    const tracks = JSON.parse(playlist.tracks!);
+    const nodes = this.client.manager.nodeManager.leastUsedNodes();
+    const node = nodes[Math.floor(Math.random() * nodes.length)];
+    const decodedTracks = await node.decode.multipleTracks(
+      tracks.map((t: any ) => t.encoded) as Base64[],
+      user
+    );
+    return {
+      name: playlist.name,
+      tracks: decodedTracks
+    };
+  }
 }
