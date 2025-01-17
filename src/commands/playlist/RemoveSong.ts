@@ -75,9 +75,9 @@ export default class RemoveSong extends Command {
 			return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
 		}
 
-		/* const res = await client.queue.search(song);
+        const res = await client.manager.search(song, ctx.author);
 
-        if (!res || res.loadType !== LoadType.TRACK) {
+        if (!res || res.loadType !== "track") {
             const noSongsFoundError = this.client
                 .embed()
                 .setDescription(ctx.locale("cmd.removesong.messages.song_not_found"))
@@ -85,10 +85,10 @@ export default class RemoveSong extends Command {
             return await ctx.sendMessage({ embeds: [noSongsFoundError] });
         }
 
-        const trackToRemove = res.data;
+        const trackToRemove = res.tracks[0];
 
         try {
-            await client.db.removeSong(ctx.author.id, playlist, trackToRemove.encoded);
+            await client.db.removeSong(ctx.author!.id, playlist, trackToRemove.encoded!);
 
             const successMessage = this.client
                 .embed()
@@ -107,7 +107,7 @@ export default class RemoveSong extends Command {
                 .setDescription(ctx.locale("cmd.removesong.messages.error_occurred"))
                 .setColor(this.client.color.red);
             return await ctx.sendMessage({ embeds: [genericError] });
-        } */
+        }
 	}
 	public async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
 		const focusedValue = interaction.options.getFocused();
