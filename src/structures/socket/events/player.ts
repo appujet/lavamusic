@@ -108,7 +108,7 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
           iconURL: member.user.displayAvatarURL(),
         })
         .setDescription(
-          `[Web Player] Connected to [Dashboard](${env.NEXT_PUBLIC_BASE_URL}/player/${guildId})`
+          `**Web Player**: Successfully connected to [**Dashboard**](${env.NEXT_PUBLIC_BASE_URL}/guild/${guildId})`
         );
 
       textChannel.send({ embeds: [embed] });
@@ -131,7 +131,38 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
         "player:disconnect",
         "You don't have the required permission to disconnect. Only users with DJ roles are allowed to do."
       );
+    const guild = client.guilds.cache.get(guildId);
+    const member = await guild?.members.fetch(userId);
 
+    if (!member)
+      return handleError(
+        socket,
+        "player:dicsonnect",
+        "Member not found in the server."
+      );
+    const channel = guild?.channels.cache.get(player.voiceChannelId!);
+    if (!channel || member.voice.channel?.id !== channel.id) {
+      return handleError(
+        socket,
+        "player:disconnect",
+        "You must be in the voice channel to disconnect."
+      );
+    }
+    const textChannel = guild?.channels.cache.get(player.textChannelId!);
+    if (!textChannel) return;
+    if (textChannel.type !== ChannelType.GuildText) return;
+    const embed = client.embed();
+    embed
+      .setColor(client.color.main)
+      .setAuthor({
+        name: member.user.username,
+        iconURL: member.user.displayAvatarURL(),
+      })
+      .setDescription(
+        `**Web Player**: Successfully disconnected By - ${member.user.username}`
+      );
+
+    textChannel.send({ embeds: [embed] });
     player.destroy();
 
     socket.emit("player:disconnect:success", { connected: false });
@@ -374,7 +405,7 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
         "player:queue",
         "No active player found. Please make sure there's a player currently running in the guild."
       );
-    
+
     await player.queue.add(track);
     if (!player.playing && player.queue.tracks.length) player.play();
     emitPlayerUpdate(socket, player);
