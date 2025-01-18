@@ -1,5 +1,7 @@
 import type { Player, Track } from "lavalink-client";
-import type { Requester } from "../../types";
+import { kClient, type Requester } from "../../types";
+import { Lavamusic } from "../../structures";
+import { container } from "tsyringe";
 
 /**
  * Transforms a requester into a standardized requester object.
@@ -54,7 +56,7 @@ export async function autoPlayFunction(
 ): Promise<void> {
   if (!player.get("autoplay")) return;
   if (!lastTrack) return;
-
+  const client = container.resolve<Lavamusic>(kClient);
   if (lastTrack.info.sourceName === "spotify") {
     const filtered = player.queue.previous
       .filter((v) => v.info.sourceName === "spotify")
@@ -72,7 +74,7 @@ export async function autoPlayFunction(
             query: `seed_tracks=${ids.join(",")}`, //`seed_artists=${artistIds.join(",")}&seed_genres=${genre.join(",")}&seed_tracks=${trackIds.join(",")}`;
             source: "sprec",
           },
-          lastTrack.requester,
+          client.user,
         )
         .then((response: any) => {
           response.tracks = response.tracks.filter(
@@ -108,7 +110,7 @@ export async function autoPlayFunction(
           query: `https://www.youtube.com/watch?v=${lastTrack.info.identifier}&list=RD${lastTrack.info.identifier}`,
           source: "youtube",
         },
-        lastTrack.requester,
+        client.user,
       )
       .then((response: any) => {
         response.tracks = response.tracks.filter(
@@ -136,7 +138,7 @@ export async function autoPlayFunction(
   if (lastTrack.info.sourceName === "jiosaavn") {
     const res = await player.search(
       { query: `jsrec:${lastTrack.info.identifier}`, source: "jsrec" },
-      lastTrack.requester,
+      client.user,
     );
     if (res.tracks.length > 0) {
       const track = res.tracks.filter(

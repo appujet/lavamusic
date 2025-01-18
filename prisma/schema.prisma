@@ -55,7 +55,7 @@ model Playlist {
   id     String  @id @default(uuid())
   userId String
   name   String
-  tracks String? // Store the array of encoded tracks as a JSON string
+   tracks   Track[] @relation("PlaylistTracks")
 
   @@unique([userId, name])
 }
@@ -75,6 +75,8 @@ model Track {
   User User[] @relation("userHistory")
   Bot Bot[] @relation("botHistory")
   Guild Guild[] @relation("guildHistory")
+
+  Playlist   Playlist[] @relation("PlaylistTracks")
 }
 
 model User {

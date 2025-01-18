@@ -29,8 +29,6 @@ export default class SocketServer {
 
   private setupSocketEvents(): void {
     this.io.on("connection", (socket) => {
-      this.client.logger.info(`[Socket] New connection: ${socket.id}`);
-      // Handle socket events here
       playerEvents(socket, this.client);
     });
   }

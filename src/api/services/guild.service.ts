@@ -82,10 +82,6 @@ export class GuildService {
       this.client.db.getRoles(guildId),
     ]);
 
-    const hasDjRole = user?.roles.cache.some((role) =>
-      roles?.some((r) => r.roleId === role.id)
-    );
-
     return {
       id: guild.id,
       name: guild.name,
@@ -105,7 +101,6 @@ export class GuildService {
           })
           .filter((role) => role !== null),
       },
-      hasDjRole,
       permissions: user?.permissions?.toArray(),
     };
   }

@@ -1,5 +1,6 @@
 import type { AutocompleteInteraction } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
+import { Track } from "lavalink-client";
 
 export default class AddSong extends Command {
   constructor(client: Lavamusic) {
@@ -106,24 +107,20 @@ export default class AddSong extends Command {
       });
     }
 
-    let trackStrings: any;
+    let tracks: Track[] = [];
     let count = 0;
     if (res.loadType === "playlist") {
-      trackStrings = res.tracks.map((track) => track.encoded);
+      tracks = res.tracks;
       count = res.tracks.length;
     } else if (res.loadType === "track") {
-      trackStrings = [res.tracks[0].encoded];
+      tracks = [res.tracks[0]];
       count = 1;
     } else if (res.loadType === "search") {
-      trackStrings = [res.tracks[0].encoded];
+      tracks = [res.tracks[0]];
       count = 1;
     }
 
-    await client.db.addTracksToPlaylist(
-      ctx.author?.id!,
-      playlist,
-      trackStrings,
-    );
+    await client.db.addTracksToPlaylist(ctx.author?.id!, playlist, tracks);
 
     return await ctx.sendMessage({
       embeds: [

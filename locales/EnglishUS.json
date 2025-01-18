@@ -644,5 +644,42 @@
 	"Evaluate code": "Evaluate code",
 	"Leave a guild": "Leave a guild",
 	"List all guilds the bot is in": "List all guilds the bot is in",
-	"Restart the bot": "Restart the bot"
+	"Restart the bot": "Restart the bot",
+	"The DJ role you want to add": "The DJ role you want to add",
+	"The DJ role you want to remove": "The DJ role you want to remove",
+	"Clears all DJ roles": "Clears all DJ roles",
+	"Toggles the DJ role": "Toggles the DJ role",
+	"Set the language for the bot": "Set the language for the bot",
+	"Change the language back to the default language": "Change the language back to the default language",
+	"Sets the prefix": "Sets the prefix",
+	"Resets the prefix to the default one": "Resets the prefix to the default one",
+	"Creates the song request channel": "Creates the song request channel",
+	"Deletes the song request channel": "Deletes the song request channel",
+	"Shows the song request channel": "Shows the song request channel",
+	"Create an invite link for a guild": "Create an invite link for a guild",
+	"Destroy all invite links created by the bot in a guild": "Destroy all invite links created by the bot in a guild",
+	"Deploy commands": "Deploy commands",
+	"The bassboost level you want to set": "The bassboost level you want to set",
+	"The number you want to set the pitch to (between 0": {
+		"5 and 5)": "The number you want to set the pitch to (between 0.5 and 5)"
+	},
+	"The number you want to set the rate to (between 0": {
+		"5 and 5)": "The number you want to set the rate to (between 0.5 and 5)"
+	},
+	"The speed you want to set": "The speed you want to set",
+	"The command you want to get info on": "The command you want to get info on",
+	"The song you want to play": "The song you want to play",
+	"The song number you want to remove": "The song number you want to remove",
+	"The song you want to search": "The song you want to search",
+	"The duration to seek to": "The duration to seek to",
+	"The number of the song you want to skip to": "The number of the song you want to skip to",
+	"The volume you want to set": "The volume you want to set",
+	"The playlist you want to add": "The playlist you want to add",
+	"The song you want to add": "The song you want to add",
+	"The name of the playlist": "The name of the playlist",
+	"The playlist you want to delete": "The playlist you want to delete",
+	"The user whose playlists you want to retrieve": "The user whose playlists you want to retrieve",
+	"The playlist you want to load": "The playlist you want to load",
+	"The playlist you want to remove from": "The playlist you want to remove from",
+	"The song you want to remove": "The song you want to remove"
 }

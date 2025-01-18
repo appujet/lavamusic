@@ -60,7 +60,7 @@ export default class Play extends Command {
   public async run(
     client: Lavamusic,
     ctx: Context,
-    args: string[],
+    args: string[]
   ): Promise<any> {
     const query = args.join(" ");
     await ctx.sendDeferMessage(ctx.locale("cmd.play.loading"));
@@ -81,7 +81,7 @@ export default class Play extends Command {
 
     const response = (await player.search(
       { query: query },
-      ctx.author,
+      ctx.author
     )) as SearchResult;
     const embed = this.client.embed();
 
@@ -97,20 +97,31 @@ export default class Play extends Command {
     }
 
     await player.queue.add(
-      response.loadType === "playlist" ? response.tracks : response.tracks[0],
+      response.loadType === "playlist" ? response.tracks : response.tracks[0]
     );
 
     if (response.loadType === "playlist") {
       await ctx.editMessage({
         content: "",
         embeds: [
-          embed
-            .setColor(this.client.color.main)
-            .setDescription(
-              ctx.locale("cmd.play.added_playlist_to_queue", {
-                length: response.tracks.length,
-              }),
-            ),
+          embed.setColor(this.client.color.main).setDescription(
+            ctx.locale("cmd.play.added_playlist_to_queue", {
+              length: response.tracks.length,
+            })
+          ),
+        ],
+        components: [
+          {
+            type: 1,
+            components: [
+              {
+                type: 2,
+                label: "Web Player",
+                style: 5,
+                url: `${env.NEXT_PUBLIC_BASE_URL}/guild/${ctx.guild!.id}`,
+              },
+            ],
+          },
         ],
       });
     } else {
@@ -121,8 +132,21 @@ export default class Play extends Command {
             ctx.locale("cmd.play.added_to_queue", {
               title: response.tracks[0].info.title,
               uri: response.tracks[0].info.uri,
-            }) + "\n\n" + `[Web Player](${env.NEXT_PUBLIC_BASE_URL}/player/${ctx.guild!.id})`,
-          )
+            })
+          ),
+        ],
+        components: [
+          {
+            type: 1,
+            components: [
+              {
+                type: 2,
+                label: "Web Player",
+                style: 5,
+                url: `${env.NEXT_PUBLIC_BASE_URL}/guild/${ctx.guild!.id}`,
+              },
+            ],
+          },
         ],
       });
     }
@@ -130,7 +154,7 @@ export default class Play extends Command {
       await player.play({ paused: false });
   }
   public async autocomplete(
-    interaction: AutocompleteInteraction,
+    interaction: AutocompleteInteraction
   ): Promise<void> {
     const focusedValue = interaction.options.getFocused(true);
 
@@ -140,7 +164,7 @@ export default class Play extends Command {
 
     const res = await this.client.manager.search(
       focusedValue.value.trim(),
-      interaction.user,
+      interaction.user
     );
     const songs: ApplicationCommandOptionChoiceData[] = [];
 
@@ -153,7 +177,6 @@ export default class Play extends Command {
         });
       });
     }
-
     return await interaction.respond(songs);
   }
 }

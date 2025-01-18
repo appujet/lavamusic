@@ -1,7 +1,7 @@
 import { container } from "tsyringe";
 import type { Lavamusic } from "../../structures";
 import { kClient } from "../../types";
-import { Base64, LavalinkNode } from "lavalink-client";
+import { Base64, LavalinkNode, Track } from "lavalink-client";
 import { User } from "discord.js";
 import { getUser } from "../lib/fetch/requests";
 
@@ -79,19 +79,130 @@ export class UserService {
     const restUser = await getUser(accessToken);
     const user = await this.client.users.fetch(restUser.id).catch(() => null);
     if (!user) return null;
-   
-    const playlist = await this.client.db.getPlaylist(user.id, name); 
-    if (!playlist) return null;
-    const tracks = JSON.parse(playlist.tracks!);
+
+    const tracks = await this.client.db.getTracksFromPlaylist(user.id, name);
+    if (!tracks) return null;
+
     const nodes = this.client.manager.nodeManager.leastUsedNodes();
     const node = nodes[Math.floor(Math.random() * nodes.length)];
     const decodedTracks = await node.decode.multipleTracks(
-      tracks.map((t: any ) => t.encoded) as Base64[],
+      tracks.map((t: any) => t.encoded) as Base64[],
       user
     );
     return {
-      name: playlist.name,
-      tracks: decodedTracks
+      name: name,
+      tracks: decodedTracks,
     };
+  }
+  public async getPlaylists(accessToken: string) {
+    const restUser = await getUser(accessToken);
+    const user = await this.client.users.fetch(restUser.id).catch(() => null);
+    if (!user) {
+      return null;
+    }
+
+    const playlists = await this.client.db.getUserPlaylists(user.id);
+    if (!playlists || playlists.length === 0) {
+      return [];
+    }
+
+    const playlistsWithTracks = await Promise.all(
+      playlists.map(async (playlist) => {
+        const tracks =
+          (await this.client.db.getTracksFromPlaylist(
+            user.id,
+            playlist.name
+          )) || [];
+        if (tracks.length === 0) {
+          return {
+            id: playlist.id,
+            name: playlist.name,
+            tracks: [],
+          };
+        }
+
+        const nodes = this.client.manager.nodeManager.leastUsedNodes();
+        if (!nodes.length) {
+          return {
+            id: playlist.id,
+            name: playlist.name,
+            tracks: [],
+          };
+        }
+
+        const node = nodes[Math.floor(Math.random() * nodes.length)];
+
+        try {
+          const decodedTracks = await node.decode.multipleTracks(
+            tracks.map((t: any) => t.encoded) as Base64[],
+            user
+          );
+          return {
+            id: playlist.id,
+            name: playlist.name,
+            tracks: decodedTracks || [],
+          };
+        } catch (error) {
+          return {
+            id: playlist.id,
+            name: playlist.name,
+            tracks: [],
+          };
+        }
+      })
+    );
+    return playlistsWithTracks;
+  }
+
+  public async toggleLike(accessToken: string, encoded: string) {
+    const restUser = await getUser(accessToken);
+
+    const user = await this.client.users.fetch(restUser.id).catch(() => null);
+    if (!user) return null;
+
+    let playlist = await this.client.db.getPlaylist(user.id, "liked", true);
+
+    const tracks = await this.client.db.getTracksFromPlaylist(user.id, "liked");
+
+    const isLiked = tracks?.find((t) => t.encoded === encoded);
+
+    if (isLiked) {
+      await this.client.db.removeSong(user.id, "liked", encoded);
+    } else {
+      const nodes = this.client.manager.nodeManager.leastUsedNodes();
+      const node = nodes[Math.floor(Math.random() * nodes.length)];
+      const decodedTracks = await node.decode.singleTrack(encoded, user);
+      await this.client.db.addTracksToPlaylist(user.id, "liked", [
+        decodedTracks,
+      ]);
+    }
+    return playlist;
+  }
+  public async updatePlaylist(
+    accessToken: string,
+    name: string,
+    tracks: Track[],
+    type: "add" | "remove" | "rename" | "create" | "delete",
+    id: string
+  ) {
+    const restUser = await getUser(accessToken);
+    const user = await this.client.users.fetch(restUser.id).catch(() => null);
+    if (!user) return null;
+    if (type === "create") {
+      return await this.client.db.createPlaylist(user.id, name);
+    } else if (type === "delete" && id) {
+      return await this.client.db.deletePlaylistById(user.id, id);
+    } else if (type === "add") {
+      return await this.client.db.addTracksToPlaylist(user.id, name, tracks);
+    } else if (type === "remove") {
+      return await this.client.db.removeSong(user.id, name, tracks as any);
+    } else if (type === "rename") {
+      const playlist = await this.client.db.prisma.playlist.update({
+        where: { id: id },
+        data: { name: name },
+      });
+      return playlist;
+    }
+    return null;
   }
 }

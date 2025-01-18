@@ -22,7 +22,7 @@ export class Api {
   }
   private async verifyJWT(request: FastifyRequest, reply: FastifyReply) {
     const authHeader = request.headers["authorization"];
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    if (!authHeader || !authHeader.startsWith("Bearer")) {
       reply
         .status(401)
         .send({ error: "Unauthorized: Missing or invalid token" });
@@ -59,6 +59,10 @@ export class Api {
       )
     );
 
+    this.fastify.setErrorHandler((error, _, reply) => {
+      this.Logger.error(error);
+      reply.status(500).send({ error: error.message });
+    });
     await this.fastify.listen({
       port: Number(env.API_PORT || 8080),
       host: "0.0.0.0",

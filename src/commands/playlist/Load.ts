@@ -106,7 +106,7 @@ export default class LoadPlaylist extends Command {
 
     const nodes = client.manager.nodeManager.leastUsedNodes();
     const node = nodes[Math.floor(Math.random() * nodes.length)];
-    const tracks = await node.decode.multipleTracks(songs as any, ctx.author);
+    const tracks = await node.decode.multipleTracks(songs.map((s) => s.encoded), ctx.author);
     if (tracks.length === 0) {
       return await ctx.sendMessage({
         embeds: [

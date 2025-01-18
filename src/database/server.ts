@@ -8,10 +8,10 @@ import {
   type Stay,
 } from "@prisma/client";
 import { env } from "../env";
-import { Track } from "lavalink-client";
+import { Base64, Track } from "lavalink-client";
 
 export default class ServerData {
-  private prisma: PrismaClient;
+  public prisma: PrismaClient;
 
   constructor() {
     this.prisma = new PrismaClient();
@@ -33,8 +33,8 @@ export default class ServerData {
     });
   }
 
-  public async setPrefix(guildId: string, prefix: string): Promise<void> {
-    await this.prisma.guild.upsert({
+  public async setPrefix(guildId: string, prefix: string) {
+    return await this.prisma.guild.upsert({
       where: { guildId },
       update: { prefix },
       create: { guildId, prefix },
@@ -107,8 +107,8 @@ export default class ServerData {
     return this.prisma.stay.findMany();
   }
 
-  public async setDj(guildId: string, mode: boolean): Promise<void> {
-    await this.prisma.dj.upsert({
+  public async setDj(guildId: string, mode: boolean) {
+    return await this.prisma.dj.upsert({
       where: { guildId },
       update: { mode },
       create: { guildId, mode },
@@ -134,14 +134,16 @@ export default class ServerData {
   public async clearRoles(guildId: string): Promise<void> {
     await this.prisma.role.deleteMany({ where: { guildId } });
   }
-
-  public async getPlaylist(
-    userId: string,
-    name: string
-  ): Promise<Playlist | null> {
-    return await this.prisma.playlist.findUnique({
+  public async getPlaylist(userId: string, name: string, create = false) {
+    const playlist = await this.prisma.playlist.findUnique({
       where: { userId_name: { userId, name } },
     });
+
+    if (!playlist && create) {
+      return await this.createPlaylist(userId, name);
+    }
+
+    return playlist;
   }
 
   public async getUserPlaylists(userId: string): Promise<Playlist[]> {
@@ -150,24 +152,10 @@ export default class ServerData {
     });
   }
 
-  public async createPlaylist(userId: string, name: string): Promise<void> {
-    await this.prisma.playlist.create({ data: { userId, name } });
+  public async createPlaylist(userId: string, name: string): Promise<Playlist> {
+    return await this.prisma.playlist.create({ data: { userId, name } });
   }
 
-  // createPlaylist with tracks
-  public async createPlaylistWithTracks(
-    userId: string,
-    name: string,
-    tracks: string[]
-  ): Promise<void> {
-    await this.prisma.playlist.create({
-      data: {
-        userId,
-        name,
-        tracks: JSON.stringify(tracks),
-      },
-    });
-  }
   /**
    * Deletes a playlist from the database
    *
@@ -177,6 +165,12 @@ export default class ServerData {
   public async deletePlaylist(userId: string, name: string): Promise<void> {
     await this.prisma.playlist.delete({
       where: { userId_name: { userId, name } },
+    });
+  }
+
+  public async deletePlaylistById(userId: string, id: string) {
+   return await this.prisma.playlist.delete({
+      where: { id, userId },
     });
   }
 
@@ -197,7 +191,9 @@ export default class ServerData {
           },
         },
         data: {
-          tracks: JSON.stringify([]), // Set tracks to an empty array
+          tracks: {
+            set: [],
+          },
         },
       });
     }
@@ -206,11 +202,8 @@ export default class ServerData {
   public async addTracksToPlaylist(
     userId: string,
     playlistName: string,
-    tracks: string[]
+    tracks: Track[]
   ) {
-    // Serialize the tracks array into a JSON string
-    const tracksJson = JSON.stringify(tracks);
-
     // Check if the playlist already exists for the user
     const playlist = await this.prisma.playlist.findUnique({
       where: {
@@ -219,38 +212,47 @@ export default class ServerData {
           name: playlistName,
         },
       },
+      include: {
+        tracks: true,
+      },
     });
 
     if (playlist) {
-      // If the playlist exists, handle existing tracks
-      const existingTracks = playlist.tracks ? JSON.parse(playlist.tracks) : []; // Initialize as an empty array if null
-
-      if (Array.isArray(existingTracks)) {
-        // Merge new and existing tracks
-        const updatedTracks = [...existingTracks, ...tracks];
-
-        // Update the playlist with the new tracks
-        await this.prisma.playlist.update({
-          where: {
-            userId_name: {
-              userId,
-              name: playlistName,
-            },
+      // Add the new tracks to the existing playlist
+      return await this.prisma.playlist.update({
+        where: {
+          userId_name: {
+            userId,
+            name: playlistName,
           },
-          data: {
-            tracks: JSON.stringify(updatedTracks), // Store the updated tracks as a serialized JSON string
+        },
+        data: {
+          tracks: {
+            connectOrCreate: tracks.map((track) => ({
+              where: { identifier: track.info.identifier! },
+              create: {
+                identifier: track.info.identifier!,
+                encoded: track.encoded!,
+              },
+            })),
           },
-        });
-      } else {
-        throw new Error("Existing tracks are not in an array format.");
-      }
+        },
+      });
     } else {
-      // If no playlist exists, create a new one with the provided tracks
-      await this.prisma.playlist.create({
+      // Create a new playlist with the new tracks
+      return await this.prisma.playlist.create({
         data: {
           userId,
           name: playlistName,
-          tracks: tracksJson, // Store the serialized JSON string
+          tracks: {
+            connectOrCreate: tracks.map((track) => ({
+              where: { identifier: track.info.identifier! },
+              create: {
+                identifier: track.info.identifier!,
+                encoded: track.encoded!,
+              },
+            })),
+          },
         },
       });
     }
@@ -259,21 +261,28 @@ export default class ServerData {
   public async removeSong(
     userId: string,
     playlistName: string,
-    encodedSong: string
-  ): Promise<void> {
-    const playlist = await this.getPlaylist(userId, playlistName);
+    encodedSong: Base64
+  ) {
+    const playlist = await this.prisma.playlist.findUnique({
+      where: {
+        userId_name: {
+          userId,
+          name: playlistName,
+        },
+      },
+      include: {
+        tracks: true,
+      },
+    });
     if (playlist) {
-      const tracks: string[] = JSON.parse(playlist?.tracks!);
+      const tracks = playlist.tracks;
 
       // Find the index of the song to remove
-      const songIndex = tracks.indexOf(encodedSong);
-
-      if (songIndex !== -1) {
+      const index = tracks.findIndex((track) => track.encoded === encodedSong);
+      if (index !== -1) {
         // Remove the song from the array
-        tracks.splice(songIndex, 1);
-
-        // Update the playlist with the new list of tracks
-        await this.prisma.playlist.update({
+        tracks.splice(index, 1);
+        return await this.prisma.playlist.update({
           where: {
             userId_name: {
               userId,
@@ -281,11 +290,14 @@ export default class ServerData {
             },
           },
           data: {
-            tracks: JSON.stringify(tracks), // Re-serialize the updated array back to a string
+            tracks: {
+              set: tracks,
+            },
           },
         });
       }
     }
+    return null;
   }
 
   public async getTracksFromPlaylist(userId: string, playlistName: string) {
@@ -296,16 +308,18 @@ export default class ServerData {
           name: playlistName,
         },
       },
+      include: {
+        tracks: true, // Ensures tracks are fetched with the playlist
+      },
     });
 
     if (!playlist) {
       return null;
     }
 
-    // Deserialize the tracks JSON string back into an array
-    const tracks = JSON.parse(playlist.tracks!);
-    return tracks;
+    return playlist.tracks;
   }
+
   public async updateTrackHistory(
     track: Track,
     guildId: string,
@@ -513,7 +527,6 @@ export default class ServerData {
   }
 
   public async getLastPlayedTrack(userId: string) {
- 
     const user = await this.prisma.user.findUnique({
       where: { userId },
       include: {
@@ -526,7 +539,7 @@ export default class ServerData {
           orderBy: {
             lastPlayed: "desc",
           },
-        }
+        },
       },
     });
 

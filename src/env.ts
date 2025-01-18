@@ -36,6 +36,8 @@ const envSchema = z.object({
     (val) => (typeof val === "string" ? JSON.parse(val) : val),
     z.string().array().optional()
   ),
+  TURSO_DATABASE_URL: z.string().optional(),
+  TURSO_AUTH_TOKEN: z.string().optional(),
   GUILD_ID: z.string().optional(),
   TOPGG: z.string().optional(),
   KEEP_ALIVE: z.preprocess((val) => val === "true", z.boolean().default(false)),

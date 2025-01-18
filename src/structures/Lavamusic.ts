@@ -35,13 +35,13 @@ export default class Lavamusic extends Client {
   public logger: Logger = new Logger();
   public readonly emoji = config.emoji;
   public readonly color = config.color;
-  private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
+  public body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
   public topGG!: Api;
   public utils = Utils;
   public env: typeof env = env;
   public manager!: LavalinkClient;
   public api!: API;
-  public socket!: SocketServer
+  public socket!: SocketServer;
   public embed(): EmbedBuilder {
     return new EmbedBuilder();
   }

@@ -10,7 +10,8 @@
     "build": "tsc --project tsconfig.json",
     "clean": "node scripts/clean.js && npm run build",
     "lint": "eslint .",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "postinstall": "npm run build && npm run db:migrate"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "@types/i18n": "^0.13.12",
     "@types/node": "^22.10.2",
     "@types/signale": "^1.4.7",
+    "drizzle-kit": "latest",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.4.2",
@@ -47,10 +49,13 @@
     "@fastify/cors": "^10.0.1",
     "@fastify/helmet": "^13.0.0",
     "@fastify/sensible": "^6.0.2",
+    "@libsql/client": "^0.14.0",
+    "@prisma/adapter-libsql": "^6.2.1",
     "@prisma/client": "^6.2.1",
     "@top-gg/sdk": "^3.1.6",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.38.3",
     "fastify": "^5.2.0",
     "fastify-plugin": "^5.0.1",
     "genius-lyrics-api": "^3.2.1",

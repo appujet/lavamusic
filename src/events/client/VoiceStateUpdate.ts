@@ -83,6 +83,11 @@ export default class VoiceStateUpdate extends Event {
 
       const vc = newState.guild.channels.cache.get(player.voiceChannelId);
       if (!(vc && vc.members instanceof Map)) return;
+
+      client.socket.io
+        .to(player?.guildId)
+        .emit(`${player?.guildId}:user:connect`, { userId: newState.id });
+
       if (newState.id === client.user?.id && !newState.serverDeaf) {
         const permissions = vc.permissionsFor(newState.guild.members.me!);
         if (permissions?.has("DeafenMembers")) {
@@ -107,6 +112,10 @@ export default class VoiceStateUpdate extends Event {
       const vc = newState.guild.channels.cache.get(player.voiceChannelId);
       if (!(vc && vc.members instanceof Map)) return;
 
+      client.socket.io
+        .to(player?.guildId)
+        .emit(`${player?.guildId}:user:disconnect`, { userId: newState.id });
+
       if (
         vc.members instanceof Map &&
         [...vc.members.values()].filter((x: GuildMember) => !x.user.bot)
@@ -116,14 +125,14 @@ export default class VoiceStateUpdate extends Event {
           if (!player?.voiceChannelId) return;
 
           const playerVoiceChannel = newState.guild.channels.cache.get(
-            player?.voiceChannelId,
+            player?.voiceChannelId
           );
           if (
             player &&
             playerVoiceChannel &&
             playerVoiceChannel.members instanceof Map &&
             [...playerVoiceChannel.members.values()].filter(
-              (x: GuildMember) => !x.user.bot,
+              (x: GuildMember) => !x.user.bot
             ).length <= 0
           ) {
             if (!is247) {
@@ -138,21 +147,31 @@ export default class VoiceStateUpdate extends Event {
       // delay for 3 seconds
       await new Promise((resolve) => setTimeout(resolve, 3000));
       const bot = newState.guild.voiceStates.cache.get(client.user!.id);
-      if (!bot) return;
-
-      if (
-        bot.id === client.user?.id &&
-        bot.channelId &&
-        bot.channel?.type === ChannelType.GuildStageVoice &&
-        bot.suppress
-      ) {
+      if (bot) {
         if (
-          bot.channel &&
-          bot.member &&
-          bot.channel.permissionsFor(bot.member!).has("MuteMembers")
+          bot.id === client.user?.id &&
+          bot.channelId &&
+          bot.channel?.type === ChannelType.GuildStageVoice &&
+          bot.suppress
         ) {
-          await bot.setSuppressed(false);
+          if (
+            bot.channel &&
+            bot.member &&
+            bot.channel.permissionsFor(bot.member!).has("MuteMembers")
+          ) {
+            await bot.setSuppressed(false);
+          }
         }
+      } else {
+        const player = client.manager.getPlayer(newState.guild.id);
+        if (!player) return;
+        if (!player?.voiceChannelId) return;
+        const vc = newState.guild.channels.cache.get(player.voiceChannelId);
+        if (!(vc && vc.members instanceof Map)) return;
+
+        client.socket.io
+          .to(player?.guildId)
+          .emit(`${player?.guildId}:user:disconnect`, { userId: newState.id });
       }
     },
   };
