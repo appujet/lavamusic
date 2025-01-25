@@ -1,14 +1,16 @@
 import { Socket } from "socket.io";
 import { Lavamusic } from "../..";
 import { Player } from "lavalink-client";
-import { ChannelType, PermissionsBitField } from "discord.js";
+import {
+  ChannelType,
+  PermissionsBitField,
+} from "discord.js";
 import { env } from "../../../env";
 
 export default function playerEvents(socket: Socket, client: Lavamusic) {
   const handleError = (socket: Socket, event: string, message: string) => {
     socket.emit(`${event}:error`, { message });
   };
-
   const djPermission = async (
     memberId: string,
     guildId: string
@@ -397,13 +399,29 @@ export default function playerEvents(socket: Socket, client: Lavamusic) {
     emitPlayerUpdate(socket, player);
   });
 
-  socket.on("player:addQueueOrPlay", async ({ guildId, track }) => {
+  socket.on("player:addQueueOrPlay", async ({ guildId, track, userId }) => {
     const player = client.manager.getPlayer(guildId);
     if (!player)
       return handleError(
         socket,
         "player:queue",
         "No active player found. Please make sure there's a player currently running in the guild."
+      );
+    const guild = client.guilds.cache.get(guildId);
+    if (!guild) return;
+    const member = guild.members.cache.get(userId);
+    if (!member) return;
+    if (!member.voice.channelId)
+      return handleError(
+        socket,
+        "player:control",
+        "You must be in a voice channel."
+      );
+    if (member.voice.channelId !== player.voiceChannelId)
+      return handleError(
+        socket,
+        "player:control",
+        "You must be in the same voice channel as the bot."
       );
 
     await player.queue.add(track);
