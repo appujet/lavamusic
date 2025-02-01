@@ -92,7 +92,7 @@ export class Utils {
   public static async paginate(
     client: Lavamusic,
     ctx: Context,
-    embed: any[]
+    embed: any[],
   ): Promise<void> {
     if (embed.length < 2) {
       if (ctx.isInteraction) {
@@ -140,7 +140,7 @@ export class Utils {
         back,
         stop,
         next,
-        last
+        last,
       );
       return { embeds: [pageEmbed], components: [row] };
     };
@@ -196,7 +196,7 @@ export class Utils {
             ephemeral: true,
           });
         }
-      }
+      },
     );
 
     collector.on("end", async () => {

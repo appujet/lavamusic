@@ -28,7 +28,7 @@ export const requesterTransformer = (requester: any): Requester => {
       discriminator: requester.discriminator,
     };
   }
-  
+
   if (requester && requester.avatar) {
     // it's a string
     return {

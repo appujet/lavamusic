@@ -3,7 +3,6 @@ import { Lavamusic } from "..";
 import { env } from "../../env";
 import playerEvents from "./events/player";
 
-
 export default class SocketServer {
   private readonly client: Lavamusic;
   private readonly config = {
@@ -23,7 +22,7 @@ export default class SocketServer {
 
   public start(): void {
     this.client.logger.info(
-      `[Socket] Server is running on port: ${env.API_PORT}`
+      `[Socket] Server is running on port: ${env.API_PORT}`,
     );
   }
 

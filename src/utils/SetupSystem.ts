@@ -123,13 +123,11 @@ async function setupStart(
             await message.channel
               .send({
                 embeds: [
-                  embed
-                    .setColor(client.color.main)
-                    .setDescription(
-                      T(locale, "player.setupStart.added_playlist_to_queue", {
-                        length: res.tracks.length,
-                      }),
-                    ),
+                  embed.setColor(client.color.main).setDescription(
+                    T(locale, "player.setupStart.added_playlist_to_queue", {
+                      length: res.tracks.length,
+                    }),
+                  ),
                 ],
               })
               .then((msg) => setTimeout(() => msg.delete(), 5000));

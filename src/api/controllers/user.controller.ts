@@ -9,7 +9,7 @@ export class UserController {
 
   async status(
     req: FastifyRequest<{ Params: { userId: string } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { userId } = req.params;
     const data = this.userService.getUser(userId);
@@ -29,7 +29,7 @@ export class UserController {
   }
   async getPlaylist(
     req: FastifyRequest<{ Params: { name: string } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const accessToken = req.headers.authorization?.split(" ")[1];
     const name = req.params.name;
@@ -61,7 +61,7 @@ export class UserController {
 
   public async toggleLike(
     req: FastifyRequest<{ Body: { encoded: string } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const accessToken = req.headers.authorization?.split(" ")[1];
 
@@ -70,7 +70,7 @@ export class UserController {
     }
     const data = await this.userService.toggleLike(
       accessToken,
-      req.body.encoded
+      req.body.encoded,
     );
     if (!data) {
       return reply.status(404).send({ message: "Track not found" });
@@ -79,21 +79,26 @@ export class UserController {
   }
 
   public async updatePlaylist(
-    req: FastifyRequest<{ Body: {playlist: {id:string, name: string, tracks: Track[] }, type: string } }>,
-    reply: FastifyReply
+    req: FastifyRequest<{
+      Body: {
+        playlist: { id: string; name: string; tracks: Track[] };
+        type: string;
+      };
+    }>,
+    reply: FastifyReply,
   ) {
     const accessToken = req.headers.authorization?.split(" ")[1];
 
     if (!accessToken) {
       return reply.status(401).send({ message: "Unauthorized" });
     }
-    
+
     const data = await this.userService.updatePlaylist(
       accessToken,
       req.body.playlist.name,
       req.body.playlist.tracks,
       req.body.type as "add" | "remove" | "rename" | "create" | "delete",
-      req.body.playlist.id
+      req.body.playlist.id,
     );
 
     if (!data) {

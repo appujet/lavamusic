@@ -28,14 +28,14 @@ export default class TrackStart extends Event {
   public async run(
     player: Player,
     track: Track | null,
-    _payload: TrackStartEvent
+    _payload: TrackStartEvent,
   ): Promise<void> {
     const guild = this.client.guilds.cache.get(player.guildId);
     if (!guild) return;
     if (!player.textChannelId) return;
     if (!track) return;
     const channel = guild.channels.cache.get(
-      player.textChannelId
+      player.textChannelId,
     ) as TextChannel;
     if (!channel) return;
 
@@ -72,7 +72,7 @@ export default class TrackStart extends Event {
           name: T(locale, "player.trackStart.author"),
           value: track.info.author,
           inline: true,
-        }
+        },
       )
       .setTimestamp();
 
@@ -87,7 +87,7 @@ export default class TrackStart extends Event {
           player,
           track,
           this.client,
-          locale
+          locale,
         );
       }
     } else {
@@ -99,7 +99,7 @@ export default class TrackStart extends Event {
       player.set("messageId", message.id);
       createCollector(message, player, track, embed, this.client, locale);
     }
-  
+
     this.client.socket.io.to(player?.guildId).emit("player:update:success", {
       paused: player?.paused,
       repeat: player?.repeatMode,
@@ -113,7 +113,7 @@ export default class TrackStart extends Event {
 
 function createButtonRow(
   player: Player,
-  client: Lavamusic
+  client: Lavamusic,
 ): ActionRowBuilder<ButtonBuilder> {
   const previousButton = new ButtonBuilder()
 
@@ -142,10 +142,10 @@ function createButtonRow(
     .setEmoji(
       player.repeatMode === "track"
         ? client.emoji.loop.track
-        : client.emoji.loop.none
+        : client.emoji.loop.none,
     )
     .setStyle(
-      player.repeatMode !== "off" ? ButtonStyle.Success : ButtonStyle.Secondary
+      player.repeatMode !== "off" ? ButtonStyle.Success : ButtonStyle.Secondary,
     );
 
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
@@ -153,7 +153,7 @@ function createButtonRow(
     previousButton,
     stopButton,
     skipButton,
-    loopButton
+    loopButton,
   );
 }
 
@@ -163,7 +163,7 @@ function createCollector(
   _track: Track,
   embed: any,
   client: Lavamusic,
-  locale: string
+  locale: string,
 ): void {
   const collector = message.createMessageComponentCollector({
     filter: async (b: ButtonInteraction) => {
@@ -215,7 +215,7 @@ function createCollector(
           await editMessage(
             T(locale, "player.trackStart.previous_by", {
               user: interaction.user.tag,
-            })
+            }),
           );
         } else {
           await interaction.reply({
@@ -231,7 +231,7 @@ function createCollector(
           await editMessage(
             T(locale, "player.trackStart.resumed_by", {
               user: interaction.user.tag,
-            })
+            }),
           );
         } else {
           player.pause();
@@ -239,7 +239,7 @@ function createCollector(
           await editMessage(
             T(locale, "player.trackStart.paused_by", {
               user: interaction.user.tag,
-            })
+            }),
           );
         }
         break;
@@ -255,7 +255,7 @@ function createCollector(
           await editMessage(
             T(locale, "player.trackStart.skipped_by", {
               user: interaction.user.tag,
-            })
+            }),
           );
         } else {
           await interaction.reply({
@@ -272,7 +272,7 @@ function createCollector(
             await editMessage(
               T(locale, "player.trackStart.looping_by", {
                 user: interaction.user.tag,
-              })
+              }),
             );
             break;
           }
@@ -281,7 +281,7 @@ function createCollector(
             await editMessage(
               T(locale, "player.trackStart.looping_queue_by", {
                 user: interaction.user.tag,
-              })
+              }),
             );
             break;
           }
@@ -290,7 +290,7 @@ function createCollector(
             await editMessage(
               T(locale, "player.trackStart.looping_off_by", {
                 user: interaction.user.tag,
-              })
+              }),
             );
             break;
           }
@@ -309,14 +309,14 @@ export async function checkDj(
     | UserSelectMenuInteraction<"cached">
     | RoleSelectMenuInteraction<"cached">
     | MentionableSelectMenuInteraction<"cached">
-    | ChannelSelectMenuInteraction<"cached">
+    | ChannelSelectMenuInteraction<"cached">,
 ): Promise<boolean> {
   const dj = await client.db.getDj(interaction.guildId);
   if (dj?.mode) {
     const djRole = await client.db.getRoles(interaction.guildId);
     if (!djRole) return false;
     const hasDjRole = interaction.member.roles.cache.some((role) =>
-      djRole.map((r) => r.roleId).includes(role.id)
+      djRole.map((r) => r.roleId).includes(role.id),
     );
     if (
       !(

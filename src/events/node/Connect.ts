@@ -41,14 +41,12 @@ export default class Connect extends Event {
                 selfMute: false,
               });
               if (!player.connected) await player.connect();
-              this.client.socket.io
-                .to(guild.id).emit("player:create:success", {
-                  connected: player?.connected,
-                  textChannelId: player?.textChannelId,
-                  voiceChannelId: player?.voiceChannelId,
-                  volume: player?.volume,
-                });
-              
+              this.client.socket.io.to(guild.id).emit("player:create:success", {
+                connected: player?.connected,
+                textChannelId: player?.textChannelId,
+                voiceChannelId: player?.voiceChannelId,
+                volume: player?.volume,
+              });
             } catch (error) {
               this.client.logger.error(
                 `Failed to create queue for guild ${guild.id}: ${error}`,

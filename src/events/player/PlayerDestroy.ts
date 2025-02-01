@@ -10,7 +10,6 @@ export default class PlayerDestroy extends Event {
   }
 
   public async run(player: Player, _reason: string): Promise<void> {
-    
     const guild = this.client.guilds.cache.get(player.guildId);
     if (!guild) return;
 
@@ -24,7 +23,7 @@ export default class PlayerDestroy extends Event {
     if (!messageId) return;
 
     const channel = guild.channels.cache.get(
-      player.textChannelId!
+      player.textChannelId!,
     ) as TextChannel;
     if (!channel) return;
 
@@ -38,7 +37,6 @@ export default class PlayerDestroy extends Event {
         null;
       });
     }
-    
   }
 }
 
