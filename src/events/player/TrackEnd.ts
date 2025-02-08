@@ -12,7 +12,7 @@ export default class TrackEnd extends Event {
   public async run(
     player: Player,
     track: Track | null,
-    _payload: TrackStartEvent
+    _payload: TrackStartEvent,
   ): Promise<void> {
     const guild = this.client.guilds.cache.get(player.guildId);
     if (!guild) return;
@@ -21,7 +21,7 @@ export default class TrackEnd extends Event {
     if (!messageId) return;
 
     const channel = guild.channels.cache.get(
-      player.textChannelId!
+      player.textChannelId!,
     ) as TextChannel;
     if (!channel) return;
 
@@ -35,7 +35,7 @@ export default class TrackEnd extends Event {
     });
     // get all voice channel members
     const members = guild.members.cache.filter(
-      (member) => member.voice.channelId === player.voiceChannelId
+      (member) => member.voice.channelId === player.voiceChannelId,
     );
     if (members.size === 0) return;
     members.forEach((member) => {
@@ -43,7 +43,7 @@ export default class TrackEnd extends Event {
         track!,
         guild.id,
         member.id,
-        this.client.user!.id
+        this.client.user!.id,
       );
     });
   }

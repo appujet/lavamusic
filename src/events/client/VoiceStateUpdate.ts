@@ -125,14 +125,14 @@ export default class VoiceStateUpdate extends Event {
           if (!player?.voiceChannelId) return;
 
           const playerVoiceChannel = newState.guild.channels.cache.get(
-            player?.voiceChannelId
+            player?.voiceChannelId,
           );
           if (
             player &&
             playerVoiceChannel &&
             playerVoiceChannel.members instanceof Map &&
             [...playerVoiceChannel.members.values()].filter(
-              (x: GuildMember) => !x.user.bot
+              (x: GuildMember) => !x.user.bot,
             ).length <= 0
           ) {
             if (!is247) {

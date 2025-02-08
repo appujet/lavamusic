@@ -15,7 +15,7 @@ import { userRoutes } from "./routes/user.routes";
 export class Api {
   public fastify: FastifyInstance;
   public Logger = new Logger();
-  
+
   constructor() {
     this.fastify = Fastify({ trustProxy: true });
     this.fastify.addHook("preHandler", this.verifyJWT.bind(this));
@@ -54,9 +54,9 @@ export class Api {
     this.fastify.get("/", (_, reply) =>
       reply.send(
         `Welcome to the Lavamusic API! Listening on port ${Number(
-          env.API_PORT || 8080
-        )}`
-      )
+          env.API_PORT || 8080,
+        )}`,
+      ),
     );
 
     this.fastify.setErrorHandler((error, _, reply) => {

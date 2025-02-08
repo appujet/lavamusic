@@ -26,7 +26,7 @@ export class BotService {
   }
   async getTopPlayedTracks(accessToken: string) {
     const data = await this.client.db.getBotTopPlayedTracks(
-      this.client.user!.id
+      this.client.user!.id,
     );
     const restUser = await getUser(accessToken);
     const user = await this.client.users.fetch(restUser.id).catch(() => null);
@@ -34,7 +34,7 @@ export class BotService {
     const node = nodes[Math.floor(Math.random() * nodes.length)];
     const tracks = await node.decode.multipleTracks(
       data.map((t) => t.encoded) as Base64[],
-      user!
+      user!,
     );
 
     return tracks;

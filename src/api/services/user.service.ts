@@ -49,7 +49,7 @@ export class UserService {
           query: `seed_tracks=${identifier}`,
           source: "sprec",
         },
-        user
+        user,
       );
       return res.tracks;
     },
@@ -59,7 +59,7 @@ export class UserService {
           query: `https://www.youtube.com/watch?v=${identifier}&list=RD${identifier}`,
           source: "youtube",
         },
-        user
+        user,
       );
       return res.tracks;
     },
@@ -69,7 +69,7 @@ export class UserService {
           query: `jsrec:${identifier}`,
           source: "jsrec",
         },
-        user
+        user,
       );
       return res.tracks;
     },
@@ -87,7 +87,7 @@ export class UserService {
     const node = nodes[Math.floor(Math.random() * nodes.length)];
     const decodedTracks = await node.decode.multipleTracks(
       tracks.map((t: any) => t.encoded) as Base64[],
-      user
+      user,
     );
     return {
       name: name,
@@ -111,7 +111,7 @@ export class UserService {
         const tracks =
           (await this.client.db.getTracksFromPlaylist(
             user.id,
-            playlist.name
+            playlist.name,
           )) || [];
         if (tracks.length === 0) {
           return {
@@ -135,7 +135,7 @@ export class UserService {
         try {
           const decodedTracks = await node.decode.multipleTracks(
             tracks.map((t: any) => t.encoded) as Base64[],
-            user
+            user,
           );
           return {
             id: playlist.id,
@@ -149,7 +149,7 @@ export class UserService {
             tracks: [],
           };
         }
-      })
+      }),
     );
     return playlistsWithTracks;
   }
@@ -183,7 +183,7 @@ export class UserService {
     name: string,
     tracks: Track[],
     type: "add" | "remove" | "rename" | "create" | "delete",
-    id: string
+    id: string,
   ) {
     const restUser = await getUser(accessToken);
     const user = await this.client.users.fetch(restUser.id).catch(() => null);

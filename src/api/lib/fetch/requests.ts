@@ -1,8 +1,6 @@
-
 export const API_ENDPOINTS = {
   discord: "https://discord.com/api/v10",
 };
-
 
 export const fetchDiscord = async (endpoint: string, options?: RequestInit) => {
   try {
@@ -12,7 +10,6 @@ export const fetchDiscord = async (endpoint: string, options?: RequestInit) => {
     console.error(error);
   }
 };
-
 
 export const getUserGuilds = async (token: string) => {
   const res = await fetchDiscord("/users/@me/guilds", {

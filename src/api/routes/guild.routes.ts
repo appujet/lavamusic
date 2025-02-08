@@ -10,10 +10,10 @@ export const guildRoutes = (fastify: FastifyInstance) => {
   fastify.get("/:guildId", controller.guild.bind(controller));
   fastify.get(
     "/:guildId/top-tracks",
-    controller.getTopPlayedTracksPast24Hours.bind(controller)
+    controller.getTopPlayedTracksPast24Hours.bind(controller),
   );
   fastify.put(
     "/:guildId/settings",
-    controller.updateGuildSettings.bind(controller)
+    controller.updateGuildSettings.bind(controller),
   );
 };

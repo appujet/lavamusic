@@ -48,7 +48,7 @@ export default class ServerData {
 
   public async updateLanguage(
     guildId: string,
-    language: string
+    language: string,
   ): Promise<void> {
     await this.prisma.guild.update({
       where: { guildId },
@@ -68,7 +68,7 @@ export default class ServerData {
   public async setSetup(
     guildId: string,
     textId: string,
-    messageId: string
+    messageId: string,
   ): Promise<void> {
     await this.prisma.setup.upsert({
       where: { guildId },
@@ -84,7 +84,7 @@ export default class ServerData {
   public async set_247(
     guildId: string,
     textId: string,
-    voiceId: string
+    voiceId: string,
   ): Promise<void> {
     await this.prisma.stay.upsert({
       where: { guildId },
@@ -169,14 +169,14 @@ export default class ServerData {
   }
 
   public async deletePlaylistById(userId: string, id: string) {
-   return await this.prisma.playlist.delete({
+    return await this.prisma.playlist.delete({
       where: { id, userId },
     });
   }
 
   public async deleteSongsFromPlaylist(
     userId: string,
-    playlistName: string
+    playlistName: string,
   ): Promise<void> {
     // Fetch the playlist
     const playlist = await this.getPlaylist(userId, playlistName);
@@ -202,7 +202,7 @@ export default class ServerData {
   public async addTracksToPlaylist(
     userId: string,
     playlistName: string,
-    tracks: Track[]
+    tracks: Track[],
   ) {
     // Check if the playlist already exists for the user
     const playlist = await this.prisma.playlist.findUnique({
@@ -261,7 +261,7 @@ export default class ServerData {
   public async removeSong(
     userId: string,
     playlistName: string,
-    encodedSong: Base64
+    encodedSong: Base64,
   ) {
     const playlist = await this.prisma.playlist.findUnique({
       where: {
@@ -324,7 +324,7 @@ export default class ServerData {
     track: Track,
     guildId: string,
     userId?: string,
-    botId?: string
+    botId?: string,
   ) {
     // Handle Track
     await this.prisma.track.upsert({

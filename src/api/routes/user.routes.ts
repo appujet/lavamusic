@@ -8,7 +8,7 @@ export const userRoutes = (fastify: FastifyInstance) => {
   fastify.get("/:userId", controller.status.bind(controller));
   fastify.get(
     "/recommended-tracks",
-    controller.getRecommendedTracks.bind(controller)
+    controller.getRecommendedTracks.bind(controller),
   );
   fastify.get("/playlist/:name", controller.getPlaylist.bind(controller));
   fastify.get("/playlists", controller.getPlaylists.bind(controller));
