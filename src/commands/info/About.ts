@@ -41,7 +41,7 @@ export default class About extends Command {
 		const supportButton = new ButtonBuilder()
 			.setLabel(ctx.locale('buttons.support'))
 			.setStyle(ButtonStyle.Link)
-			.setURL('https://discord.gg/ns8CTk9J3e');
+			.setURL('https://discord.gg/YQsGbTwPBx');
 		const row = new ActionRowBuilder<ButtonBuilder>().addComponents(inviteButton, supportButton);
 		const embed = this.client
 			.embed()
@@ -66,7 +66,7 @@ export default class About extends Command {
 				},
 				{
 					name: ctx.locale('cmd.about.fields.support'),
-					value: '[Here](https://discord.gg/ns8CTk9J3e)',
+					value: '[Here](https://discord.gg/YQsGbTwPBx)',
 					inline: true,
 				},
 				{
@@ -91,5 +91,5 @@ export default class About extends Command {
  * Copyright (c) 2024. All rights reserved.
  * This code is the property of Coder and may not be reproduced or
  * modified without permission. For more information, contact us at
- * https://discord.gg/ns8CTk9J3e
+ * https://discord.gg/YQsGbTwPBx
  */

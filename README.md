@@ -82,7 +82,7 @@ To Setup a Lavalink server on Windows, Linux, or Replit, [Click Here!](https://g
 
 ### **Need help with plugins?**
 
-Join our [Discord Server](https://discord.gg/YsJCtDuTXp) and ask for help in the `#support` channel!
+Join our [Discord Server](https://discord.gg/YQsGbTwPBx) and ask for help in the `#support` channel!
 
 ## 🔧 Requirements
 
@@ -244,5 +244,5 @@ Thanks go to these wonderful people:
 [issues-url]: https://github.com/appujet/lavamusic/issues
 [license-shield]: https://img.shields.io/github/license/appujet/lavamusic.svg?style=for-the-badge
 [license-url]: https://github.com/appujet/lavamusic/blob/master/LICENSE
-[support-server]: https://discord.gg/PMpJnJaHmy
+[support-server]: https://discord.gg/YQsGbTwPBx
 [support-shield]: https://img.shields.io/discord/942117923001098260.svg?style=for-the-badge&logo=discord&colorB=7289DA
