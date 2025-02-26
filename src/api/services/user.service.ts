@@ -160,7 +160,7 @@ export class UserService {
     const user = await this.client.users.fetch(restUser.id).catch(() => null);
     if (!user) return null;
 
-    let playlist = await this.client.db.getPlaylist(user.id, "liked", true);
+    const playlist = await this.client.db.getPlaylist(user.id, "liked", true);
 
     const tracks = await this.client.db.getTracksFromPlaylist(user.id, "liked");
 
