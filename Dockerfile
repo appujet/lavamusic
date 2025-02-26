@@ -33,7 +33,7 @@ COPY --from=builder /opt/lavamusic/scripts ./scripts
 COPY --from=builder /opt/lavamusic/locales ./locales
 
 # Install production dependencies
-COPY --from=builder /opt/lavamusic/package*.json ./
+COPY --from=builder /opt/lavamusic/package.json ./
 RUN npm install --omit=dev --legacy-peer-deps
 
 # Generate Prisma client
