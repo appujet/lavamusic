@@ -45,7 +45,7 @@
     "@top-gg/sdk": "^3.1.6",
     "discord.js": "^14.17.3",
     "dotenv": "^16.4.7",
-    "genius-lyrics-api": "^3.2.1",
+    "genius-lyrics": "^4.4.7",
     "i18n": "^0.15.1",
     "lavalink-client": "^2.4.7",
     "node-system-stats": "^1.3.0",

@@ -6,7 +6,7 @@ import {
 	ComponentType,
 	type TextChannel,
 } from 'discord.js';
-import { getLyrics } from 'genius-lyrics-api';
+import { Client } from 'genius-lyrics';
 import { Command, type Context, type Lavamusic } from '../../structures/index';
 
 export default class Lyrics extends Command {
@@ -52,97 +52,102 @@ export default class Lyrics extends Command {
 
 		await ctx.sendDeferMessage(ctx.locale('cmd.lyrics.searching', { trackTitle }));
 
-		const options = {
-			apiKey: client.env.GENIUS_API,
-			title: trackTitle,
-			artist: artistName,
-			optimizeQuery: true,
-		};
-
 		try {
-			const lyrics = await getLyrics(options);
-			if (lyrics) {
-				const lyricsPages = this.paginateLyrics(lyrics);
-				let currentPage = 0;
-
-				const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-					new ButtonBuilder()
-						.setCustomId('prev')
-						.setEmoji(this.client.emoji.page.back)
-						.setStyle(ButtonStyle.Secondary)
-						.setDisabled(true),
-					new ButtonBuilder().setCustomId('stop').setEmoji(this.client.emoji.page.cancel).setStyle(ButtonStyle.Danger),
-					new ButtonBuilder()
-						.setCustomId('next')
-						.setEmoji(this.client.emoji.page.next)
-						.setStyle(ButtonStyle.Secondary)
-						.setDisabled(lyricsPages.length <= 1),
+			const geniusClient = new Client(client.env.GENIUS_API || undefined);
+			const searches = await geniusClient.songs.search(trackTitle);
+			const song =
+				searches.find(s =>
+					s.artist.name.toLowerCase().includes(artistName.toLowerCase())
 				);
 
-				await ctx.editMessage({
-					embeds: [
-						embed
-							.setColor(client.color.main)
-							.setDescription(
-								ctx.locale('cmd.lyrics.lyrics_track', { trackTitle, trackUrl, lyrics: lyricsPages[currentPage] }),
-							)
-							.setThumbnail(artworkUrl)
-							.setTimestamp(),
-					],
-					components: [row],
-				});
+			if (song) {
+				const lyrics = await song.lyrics();
+				if (lyrics) {
+					const lyricsPages = this.paginateLyrics(lyrics);
+					let currentPage = 0;
 
-				const filter = (interaction: ButtonInteraction<'cached'>) => interaction.user.id === ctx.author?.id;
-				const collector = (ctx.channel as TextChannel).createMessageComponentCollector({
-					filter,
-					componentType: ComponentType.Button,
-					time: 60000,
-				});
+					const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+						new ButtonBuilder()
+							.setCustomId('prev')
+							.setEmoji(this.client.emoji.page.back)
+							.setStyle(ButtonStyle.Secondary)
+							.setDisabled(true),
+						new ButtonBuilder().setCustomId('stop').setEmoji(this.client.emoji.page.cancel).setStyle(ButtonStyle.Danger),
+						new ButtonBuilder()
+							.setCustomId('next')
+							.setEmoji(this.client.emoji.page.next)
+							.setStyle(ButtonStyle.Secondary)
+							.setDisabled(lyricsPages.length <= 1),
+					);
 
-				collector.on('collect', async (interaction: ButtonInteraction) => {
-					if (interaction.customId === 'prev') {
-						currentPage--;
-					} else if (interaction.customId === 'next') {
-						currentPage++;
-					} else if (interaction.customId === 'stop') {
-						collector.stop();
-						return interaction.update({ components: [] });
-					}
-
-					await interaction.update({
+					await ctx.editMessage({
 						embeds: [
 							embed
+								.setColor(client.color.main)
 								.setDescription(
 									ctx.locale('cmd.lyrics.lyrics_track', { trackTitle, trackUrl, lyrics: lyricsPages[currentPage] }),
 								)
 								.setThumbnail(artworkUrl)
 								.setTimestamp(),
 						],
-						components: [
-							new ActionRowBuilder<ButtonBuilder>().addComponents(
-								new ButtonBuilder()
-									.setCustomId('prev')
-									.setEmoji(this.client.emoji.page.back)
-									.setStyle(ButtonStyle.Secondary)
-									.setDisabled(currentPage === 0),
-								new ButtonBuilder()
-									.setCustomId('stop')
-									.setEmoji(this.client.emoji.page.cancel)
-									.setStyle(ButtonStyle.Danger),
-								new ButtonBuilder()
-									.setCustomId('next')
-									.setEmoji(this.client.emoji.page.next)
-									.setStyle(ButtonStyle.Secondary)
-									.setDisabled(currentPage === lyricsPages.length - 1),
-							),
-						],
+						components: [row],
 					});
-					return;
-				});
 
-				collector.on('end', () => {
-					ctx.editMessage({ components: [] });
-				});
+					const filter = (interaction: ButtonInteraction<'cached'>) => interaction.user.id === ctx.author?.id;
+					const collector = (ctx.channel as TextChannel).createMessageComponentCollector({
+						filter,
+						componentType: ComponentType.Button
+					});
+
+					collector.on('collect', async (interaction: ButtonInteraction) => {
+						if (interaction.customId === 'prev') {
+							currentPage--;
+						} else if (interaction.customId === 'next') {
+							currentPage++;
+						} else if (interaction.customId === 'stop') {
+							collector.stop();
+							return interaction.update({ components: [] });
+						}
+
+						await interaction.update({
+							embeds: [
+								embed
+									.setDescription(
+										ctx.locale('cmd.lyrics.lyrics_track', { trackTitle, trackUrl, lyrics: lyricsPages[currentPage] }),
+									)
+									.setThumbnail(artworkUrl)
+									.setTimestamp(),
+							],
+							components: [
+								new ActionRowBuilder<ButtonBuilder>().addComponents(
+									new ButtonBuilder()
+										.setCustomId('prev')
+										.setEmoji(this.client.emoji.page.back)
+										.setStyle(ButtonStyle.Secondary)
+										.setDisabled(currentPage === 0),
+									new ButtonBuilder()
+										.setCustomId('stop')
+										.setEmoji(this.client.emoji.page.cancel)
+										.setStyle(ButtonStyle.Danger),
+									new ButtonBuilder()
+										.setCustomId('next')
+										.setEmoji(this.client.emoji.page.next)
+										.setStyle(ButtonStyle.Secondary)
+										.setDisabled(currentPage === lyricsPages.length - 1),
+								),
+							],
+						});
+						return;
+					});
+
+					collector.on('end', () => {
+						ctx.editMessage({ components: [] });
+					});
+				} else {
+					await ctx.editMessage({
+						embeds: [embed.setColor(client.color.red).setDescription(ctx.locale('cmd.lyrics.errors.no_results'))],
+					});
+				}
 			} else {
 				await ctx.editMessage({
 					embeds: [embed.setColor(client.color.red).setDescription(ctx.locale('cmd.lyrics.errors.no_results'))],
