@@ -36,6 +36,7 @@ export default class TrackStart extends Event {
 		this.client.utils.updateStatus(this.client, guild.id);
 
 		const locale = await this.client.db.getLanguage(guild.id);
+		track.info.artworkUrl = track.info.artworkUrl ?? this.client.config.links.img;
 
 		const embed = this.client
 			.embed()
