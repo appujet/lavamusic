@@ -1,54 +1,60 @@
 # Stage 1: Build TypeScript
-FROM node:23 AS builder
+FROM node:23-alpine AS builder
 
-WORKDIR /opt/lavamusic/
+WORKDIR /opt/lavamusic
 
-# Copy only package files and install dependencies
+# Install build dependencies including Python and make for native modules
+RUN apk add --no-cache python3 make g++
+
+# Copy package files first for better layer caching
 COPY package*.json ./
+COPY prisma/schema.prisma ./prisma/
+
+# Install dependencies (using npm install instead of ci)
 RUN npm install --legacy-peer-deps
 
-# Copy source code and configuration
+# Copy remaining source files
 COPY . .
 
-# Generate Prisma client and build TypeScript
-RUN npx prisma db push && \
-    npm run build
+# Build TypeScript and generate Prisma client
+RUN npm run build && \
+    npx prisma generate
 
-# Stage 2: Create production image
-FROM node:23-slim
+# Stage 2: Production image
+FROM node:23-alpine
 
-ENV NODE_ENV=production
+ENV NODE_ENV=production \
+    PORT=80 \
+    TZ=UTC
 
-WORKDIR /opt/lavamusic/
+WORKDIR /opt/lavamusic
 
-# Install necessary tools
-RUN apt-get update && apt-get install -y --no-install-recommends openssl && \
-    rm -rf /var/lib/apt/lists/*
+# Install runtime dependencies
+RUN apk add --no-cache --virtual .runtime-deps \
+    openssl \
+    ca-certificates \
+    tzdata
 
-# Copy compiled code and necessary files from the builder stage
-COPY --from=builder /opt/lavamusic/dist ./dist
-COPY --from=builder /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.txt
-COPY --from=builder /opt/lavamusic/prisma ./prisma
-COPY --from=builder /opt/lavamusic/scripts ./scripts
-COPY --from=builder /opt/lavamusic/locales ./locales
+# Copy necessary files from builder
+COPY --from=builder --chown=node:node /opt/lavamusic/dist ./dist
+COPY --from=builder --chown=node:node /opt/lavamusic/node_modules ./node_modules
+COPY --from=builder --chown=node:node /opt/lavamusic/prisma ./prisma
+COPY --from=builder --chown=node:node /opt/lavamusic/package*.json ./
+COPY --from=builder --chown=node:node /opt/lavamusic/src/utils/LavaLogo.txt ./src/utils/LavaLogo.txt
+COPY --from=builder --chown=node:node /opt/lavamusic/locales ./locales
 
-# Install production dependencies
-COPY --from=builder /opt/lavamusic/package*.json ./
-RUN npm install --omit=dev
+# Create non-root user and set permissions
+RUN chown -R node:node /opt/lavamusic
+USER node
 
-# Generate Prisma client
-RUN npx prisma generate
-RUN npx prisma db push
+# Entrypoint script for runtime operations
+COPY --chown=node:node docker-entrypoint.sh .
+RUN chmod +x docker-entrypoint.sh
 
-# Ensure application.yml is a file, not a directory
-RUN rm -rf /opt/lavamusic/application.yml && \
-    touch /opt/lavamusic/application.yml
+# Metadata labels
+LABEL maintainer="appujet <sdipedit@gmail.com>" \
+      org.opencontainers.image.description="LavaMusic - Advanced Music Bot" \
+      org.opencontainers.image.licenses="MIT"
 
-# Run as non-root user
-RUN addgroup --gid 322 --system lavamusic && \
-    adduser --uid 322 --system lavamusic && \
-    chown -R lavamusic:lavamusic /opt/lavamusic/
-
-USER lavamusic
-
+ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["node", "dist/index.js"]
