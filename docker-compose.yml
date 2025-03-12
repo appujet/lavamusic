@@ -2,8 +2,8 @@ services:
     ## services for lavalink
     lavalink:
         container_name: lavamusic-lavalink
-        image: ghcr.io/lavalink-devs/lavalink
-        restart: on-failure
+        image: ghcr.io/lavalink-devs/lavalink:latest
+        restart: unless-stopped
         environment:
             - _JAVA_OPTIONS=-Xmx6G
             - SERVER_PORT=2333
