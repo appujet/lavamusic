@@ -5,6 +5,7 @@ services:
         image: ghcr.io/lavalink-devs/lavalink
         restart: on-failure
         environment:
+            - _JAVA_OPTIONS=-Xmx6G
             - SERVER_PORT=2333
         volumes:
             # mount application.yml from the same directory or use environment variables
@@ -18,8 +19,8 @@ services:
         # lavalink exposes port 2333 to connect to for other containers (this is for documentation purposes only)
         #- 2333
         #ports:
-        # you only need this if you want to make your lavalink accessible from outside of containers
-        #- "2333:2333"
+        ports:
+          - "2333:2333"
         healthcheck:
             test: 'curl -H "Authorization: youshallnotpass" -s http://localhost:2333/version'
             interval: 10s
