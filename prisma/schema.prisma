@@ -16,7 +16,7 @@ datasource db {
 
 model Bot {
   botId         String @unique
-  totalPlaySong Int
+  totalPlaySong Int    @default(0)
 }
 
 model Guild {
