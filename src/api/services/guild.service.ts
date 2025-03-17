@@ -1,25 +1,25 @@
-import { container } from "tsyringe";
+import { container, inject, injectable } from "tsyringe";
 import type { Lavamusic } from "../../structures";
 import { kClient } from "../../types";
-import { getUser, getUserGuilds } from "../lib/fetch/requests";
 import { PermissionFlagsBits, PermissionsBitField, Role } from "discord.js";
 import { Base64 } from "lavalink-client";
+import { DiscordApiService } from "../fetch/discord";
 
+@injectable()
 export class GuildService {
   private client: Lavamusic;
-  constructor() {
+  constructor(
+    @inject("discordApiService")
+    private readonly discordApiService: DiscordApiService
+  ) {
     this.client = container.resolve<Lavamusic>(kClient);
   }
-
-  public async getUserGuilds(token: string) {
-    const [userGuilds, restUser] = await Promise.all([
-      getUserGuilds(token),
-      getUser(token),
-    ]);
-
+  public async getUserGuilds(accessToken: string) {
+    const guilds = await this.discordApiService(accessToken).getUserGuilds();
+    const restUser = await this.discordApiService(accessToken).usersMe();
+   
     const filteredGuilds = await Promise.all(
-      userGuilds.map(async (g: any) => {
-        // Fetch the guild only if necessary
+      guilds.map(async (g: any) => {
         const guildPromise = this.client.guilds.fetch(g.id).catch(() => null);
 
         // Fetch DJ mode and roles in parallel
@@ -38,12 +38,12 @@ export class GuildService {
         ]);
 
         const hasDjRole = user?.roles.cache.some((role) =>
-          djRole?.some((r) => r.roleId === role.id),
+          djRole?.some((r) => r.roleId === role.id)
         );
 
         const permissions = new PermissionsBitField(g.permissions);
         const formattedPermission = permissions.has(
-          PermissionFlagsBits.Administrator,
+          PermissionFlagsBits.Administrator
         )
           ? "Administrator"
           : permissions.has(PermissionFlagsBits.ManageGuild)
@@ -61,15 +61,14 @@ export class GuildService {
             isJoined: Boolean(this.client.guilds.cache.get(g.id)),
           },
         };
-      }),
+      })
     );
-
     return filteredGuilds;
   }
 
   public async getGuild(accessToken: string, guildId: string) {
     const [restUser, guild] = await Promise.all([
-      getUser(accessToken),
+      await this.discordApiService(accessToken).usersMe(),
       this.client.guilds.fetch(guildId).catch(() => null),
     ]);
 
@@ -123,7 +122,7 @@ export class GuildService {
   public async getChannels(accessToken: string, guildId: string) {
     const guild = await this.client.guilds.fetch(guildId).catch(() => null);
     if (!guild) return null;
-    const restUser = await getUser(accessToken);
+    const restUser = await this.discordApiService(accessToken).usersMe();
     const user = await guild.members.fetch(restUser.id).catch(() => null);
     if (!user) return null;
 
@@ -136,25 +135,23 @@ export class GuildService {
       );
     });
 
-    return {
-      channels: channels,
-    };
+    return channels
   }
 
   public async getTopPlayedTracksPast24Hours(
     guildId: string,
-    accessToken: string,
+    accessToken: string
   ) {
     const guild = await this.client.guilds.fetch(guildId).catch(() => null);
     if (!guild) return null;
-    const restUser = await getUser(accessToken);
+    const restUser = await this.discordApiService(accessToken).usersMe();
     const user = await guild.members.fetch(restUser.id).catch(() => null);
     const data = await this.client.db.getTopPlayedTracksPast24Hours(guildId);
     const nodes = this.client.manager.nodeManager.leastUsedNodes();
     const node = nodes[Math.floor(Math.random() * nodes.length)];
     const tracks = await node.decode.multipleTracks(
       data.map((t) => t.encoded) as Base64[],
-      user,
+      user
     );
 
     return tracks;
@@ -163,11 +160,11 @@ export class GuildService {
   public async updateGuildSettings(
     accessToken: string,
     guildId: string,
-    body: any,
+    body: any
   ) {
     const [guild, restUser] = await Promise.all([
       this.client.guilds.fetch(guildId).catch(() => null),
-      getUser(accessToken),
+      await this.discordApiService(accessToken).usersMe(),
     ]);
 
     if (!guild) return null;
@@ -185,19 +182,19 @@ export class GuildService {
 
     // Determine added and removed DJ roles
     const addedDjRoles = body.djRoles.filter(
-      (role: any) => !djRoles.some((r: any) => r.roleId === role.id),
+      (role: any) => !djRoles.some((r: any) => r.roleId === role.id)
     );
     const removedDjRoles = djRoles.filter(
-      (role: any) => !body.djRoles.some((r: any) => r.id === role.roleId),
+      (role: any) => !body.djRoles.some((r: any) => r.id === role.roleId)
     );
 
     // Perform role updates in parallel
     await Promise.all([
       ...addedDjRoles.map((role: any) =>
-        this.client.db.addRole(guildId, role.id),
+        this.client.db.addRole(guildId, role.id)
       ),
       ...removedDjRoles.map((role: any) =>
-        this.client.db.removeRole(guildId, role.roleId),
+        this.client.db.removeRole(guildId, role.roleId)
       ),
     ]);
 

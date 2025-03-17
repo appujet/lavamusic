@@ -1,6 +1,4 @@
 import Fastify, {
-  FastifyReply,
-  FastifyRequest,
   type FastifyInstance,
 } from "fastify";
 import helmet from "@fastify/helmet";
@@ -11,6 +9,9 @@ import { botRoutes } from "./routes/bot.routes";
 import Logger from "../structures/Logger";
 import { guildRoutes } from "./routes/guild.routes";
 import { userRoutes } from "./routes/user.routes";
+import { authRoutes } from "./routes/auth.routes";
+import jwtPlugin from "./plugins/jwt";
+import { container } from "tsyringe";
 
 export class Api {
   public fastify: FastifyInstance;
@@ -18,18 +19,13 @@ export class Api {
 
   constructor() {
     this.fastify = Fastify({ trustProxy: true });
-    this.fastify.addHook("preHandler", this.verifyJWT.bind(this));
-  }
-  private async verifyJWT(request: FastifyRequest, reply: FastifyReply) {
-    const authHeader = request.headers["authorization"];
-    if (!authHeader || !authHeader.startsWith("Bearer")) {
-      reply
-        .status(401)
-        .send({ error: "Unauthorized: Missing or invalid token" });
-      return;
-    }
+    container.register<FastifyInstance>("FastifyInstance", {
+      useValue: this.fastify,
+    });
+
   }
   async start() {
+    await this.fastify.register(jwtPlugin);
     await this.fastify.register(helmet);
     await this.fastify.register(cors, {
       origin: ["http://localhost:3000", env.NEXT_PUBLIC_BASE_URL!],
@@ -38,6 +34,9 @@ export class Api {
     });
     await this.fastify.register(sensible);
 
+    /* auth routes */
+    await this.fastify.register(authRoutes, { prefix: "/api" });
+    
     /* bot routes */
     await this.fastify.register(botRoutes, {
       prefix: "/bot",
@@ -45,6 +44,7 @@ export class Api {
     /* guild routes */
     await this.fastify.register(guildRoutes, {
       prefix: "/guild",
+      preValidation: [this.fastify.authenticate],
     });
     /* user routes */
     await this.fastify.register(userRoutes, {

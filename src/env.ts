@@ -28,6 +28,7 @@ const LavalinkNodeSchema = z.object({
 const envSchema = z.object({
   TOKEN: z.string(),
   CLIENT_ID: z.string(),
+  CLIENT_SECRET: z.string().optional(),
   DEFAULT_LANGUAGE: z.string().default("EnglishUS"),
   PREFIX: z.string().default("!"),
   API_PORT: z.string().optional().default("8080"),
@@ -36,8 +37,6 @@ const envSchema = z.object({
     (val) => (typeof val === "string" ? JSON.parse(val) : val),
     z.string().array().optional(),
   ),
-  TURSO_DATABASE_URL: z.string().optional(),
-  TURSO_AUTH_TOKEN: z.string().optional(),
   GUILD_ID: z.string().optional(),
   TOPGG: z.string().optional(),
   KEEP_ALIVE: z.preprocess((val) => val === "true", z.boolean().default(false)),
@@ -52,6 +51,7 @@ const envSchema = z.object({
     },
     z.enum(["online", "idle", "dnd", "invisible"]).default("online"),
   ),
+  JWT_SECRET: z.string().default("itsasecret"),
   BOT_ACTIVITY: z.string().default("Lavamusic"),
   BOT_ACTIVITY_TYPE: z.preprocess((val) => {
     if (typeof val === "string") {

@@ -1,10 +1,12 @@
-import { container } from "tsyringe";
+import { container, injectable } from "tsyringe";
 import type { Lavamusic } from "../../structures";
 import { kClient } from "../../types";
 import { Base64, LavalinkNode, Track } from "lavalink-client";
 import { User } from "discord.js";
-import { getUser } from "../lib/fetch/requests";
+import { discordApiService } from "../fetch/discord";
 
+
+@injectable()
 export class UserService {
   private client: Lavamusic;
   constructor() {
@@ -16,7 +18,9 @@ export class UserService {
   }
 
   public async getRecommendedTracks(accessToken: string) {
-    const restUser = await getUser(accessToken);
+    const restUser = await discordApiService(
+      accessToken
+    ).usersMe();
     const user = await this.client.users.fetch(restUser.id).catch(() => null);
     if (!user) return [];
     const lastPlayedTrack = await this.client.db.getLastPlayedTrack(user.id);
@@ -76,13 +80,13 @@ export class UserService {
   };
 
   public async getPlaylist(accessToken: string, name: string) {
-    const restUser = await getUser(accessToken);
+    const restUser = await discordApiService(accessToken).usersMe();
     const user = await this.client.users.fetch(restUser.id).catch(() => null);
     if (!user) return null;
 
     const tracks = await this.client.db.getTracksFromPlaylist(user.id, name);
     if (!tracks) return null;
-
+    if (tracks.length === 0) return null;
     const nodes = this.client.manager.nodeManager.leastUsedNodes();
     const node = nodes[Math.floor(Math.random() * nodes.length)];
     const decodedTracks = await node.decode.multipleTracks(
@@ -95,7 +99,7 @@ export class UserService {
     };
   }
   public async getPlaylists(accessToken: string) {
-    const restUser = await getUser(accessToken);
+    const restUser = await discordApiService(accessToken).usersMe();
     const user = await this.client.users.fetch(restUser.id).catch(() => null);
     if (!user) {
       return null;
@@ -155,7 +159,7 @@ export class UserService {
   }
 
   public async toggleLike(accessToken: string, encoded: string) {
-    const restUser = await getUser(accessToken);
+    const restUser = await discordApiService(accessToken).usersMe();
 
     const user = await this.client.users.fetch(restUser.id).catch(() => null);
     if (!user) return null;
@@ -185,7 +189,7 @@ export class UserService {
     type: "add" | "remove" | "rename" | "create" | "delete",
     id: string,
   ) {
-    const restUser = await getUser(accessToken);
+    const restUser = await discordApiService(accessToken).usersMe();
     const user = await this.client.users.fetch(restUser.id).catch(() => null);
     if (!user) return null;
     if (type === "create") {
