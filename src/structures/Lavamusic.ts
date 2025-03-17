@@ -79,15 +79,15 @@ export default class Lavamusic extends Client {
   }
 
   private async loadCommands(): Promise<void> {
-    const commandsPath = fs.readdirSync(path.join(__dirname, "../commands"));
+    const commandsPath = fs.readdirSync(path.join(process.cwd(), "dist", "commands"));
 
     for (const dir of commandsPath) {
       const commandFiles = fs
-        .readdirSync(path.join(__dirname, "../commands", dir))
+        .readdirSync(path.join(process.cwd(), "dist", "commands", dir))
         .filter((file) => file.endsWith(".js"));
 
       for (const file of commandFiles) {
-        const cmdModule = require(`../commands/${dir}/${file}`);
+        const cmdModule = require(path.join(process.cwd(), "dist", "commands", dir, file));
         const command: Command = new cmdModule.default(this, file);
         command.category = dir;
 
@@ -218,15 +218,15 @@ export default class Lavamusic extends Client {
   }
 
   private async loadEvents(): Promise<void> {
-    const eventsPath = fs.readdirSync(path.join(__dirname, "..", "events"));
+    const eventsPath = fs.readdirSync(path.join(process.cwd(), "dist", "events"));
 
     for (const dir of eventsPath) {
       const eventFiles = fs
-        .readdirSync(path.join(__dirname, "..", "events", dir))
+        .readdirSync(path.join(process.cwd(), "dist", "events", dir))
         .filter((file) => file.endsWith(".js"));
 
       for (const file of eventFiles) {
-        const eventModule = require(`../events/${dir}/${file}`);
+        const eventModule = require(path.join(process.cwd(), "dist", "events", dir, file));
         const event = new eventModule.default(this, file);
 
         if (dir === "player") {

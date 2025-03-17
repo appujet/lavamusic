@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { Lavamusic } from "../structures/index";
 
-const pluginsFolder = path.join(__dirname, "plugins");
+const pluginsFolder = path.join(process.cwd(), "dist", "plugin", "plugins");
 
 export default async function loadPlugins(client: Lavamusic): Promise<void> {
   try {

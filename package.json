@@ -4,11 +4,11 @@
   "description": "LavaMusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, lavalink-client (Lavalink) library.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run clean && node .",
+    "dev": "tsup --watch --onSuccess \"node dist/index.js\"",
+    "start": "node dist/index.js",
     "db:push": "npx prisma db push",
     "db:migrate": "npx prisma migrate dev --name init",
-    "build": "tsc --project tsconfig.json",
-    "clean": "node scripts/clean.js && npm run build",
+    "build": "tsup",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write \"**/*.{js,ts,tsx,md}\""
@@ -42,6 +42,7 @@
     "eslint-config-prettier": "^10.1.1",
     "prettier": "^3.5.3",
     "prisma": "^6.5.0",
+    "tsup": "^8.4.0",
     "typescript": "^5.8.2"
   },
   "dependencies": {
