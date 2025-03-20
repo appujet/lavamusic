@@ -157,10 +157,10 @@
 		"pitch": {
 			"description": "Active/désactive le filtre de hauteur",
 			"options": {
-				"pitch": "Le nombre auquel vous souhaitez définir la hauteur (entre 0,5 et 5)"
+				"pitch": "Le nombre auquel vous souhaitez définir la hauteur (entre 0,25 et 8)"
 			},
 			"errors": {
-				"invalid_number": "Veuillez fournir un nombre valide compris entre 0,5 et 5."
+				"invalid_number": "Veuillez fournir un nombre valide compris entre 0,25 et 8."
 			},
 			"messages": {
 				"pitch_set": "`✅` | La hauteur a été définie sur **{pitch}**."
@@ -169,10 +169,10 @@
 		"rate": {
 			"description": "Modifie le rythme de la chanson",
 			"options": {
-				"rate": "Le nombre auquel vous souhaitez définir le rythme (entre 0,5 et 5)"
+				"rate": "Le nombre auquel vous souhaitez définir le rythme (entre 0,25 et 8)"
 			},
 			"errors": {
-				"invalid_number": "Veuillez fournir un nombre valide compris entre 0,5 et 5."
+				"invalid_number": "Veuillez fournir un nombre valide compris entre 0,25 et 8."
 			},
 			"messages": {
 				"rate_set": "`✅` | Le rythme a été défini sur **{rate}**."
@@ -197,7 +197,7 @@
 				"speed": "La vitesse que vous souhaitez définir"
 			},
 			"messages": {
-				"invalid_number": "Veuillez fournir un nombre valide compris entre 0,5 et 5.",
+				"invalid_number": "Veuillez fournir un nombre valide compris entre 0,25 et 8.",
 				"set_speed": "`✅` | La vitesse a été définie sur **{speed}**."
 			}
 		},
