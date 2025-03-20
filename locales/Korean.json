@@ -173,10 +173,10 @@
 		"pitch": {
 			"description": "노래의 음높이를 변경해요",
 			"options": {
-				"pitch": "설정할 음높이(0.5 - 5)"
+				"pitch": "설정할 음높이(0.25 - 8)"
 			},
 			"errors": {
-				"invalid_number": "0.5에서 5 사이의 올바른 숫자를 입력해주세요."
+				"invalid_number": "0.25에서 8 사이의 올바른 숫자를 입력해주세요."
 			},
 			"messages": {
 				"pitch_set": "`✅` | 음높이가 **{pitch}**로 변경되었어요."
@@ -185,10 +185,10 @@
 		"rate": {
 			"description": "노래의 비율을 설정해요",
 			"options": {
-				"rate": "설정할 비율(0.5 - 5)"
+				"rate": "설정할 비율(0.25 - 8)"
 			},
 			"errors": {
-				"invalid_number": "0.5에서 5 사이의 올바른 숫자를 입력해주세요."
+				"invalid_number": "0.25에서 8 사이의 올바른 숫자를 입력해주세요."
 			},
 			"messages": {
 				"rate_set": "`✅` | 노래의 비율이 **{rate}**로 변경되었어요."
@@ -210,10 +210,10 @@
 		"speed": {
 			"description": "노래의 속도를 변경해요",
 			"options": {
-				"speed": "설정할 속도를 0.5에서 5 사이로 입력하세요"
+				"speed": "설정할 속도를 0.25에서 8 사이로 입력하세요"
 			},
 			"messages": {
-				"invalid_number": "0.5에서 5 사이에 올바른 숫자를 입력해주세요.",
+				"invalid_number": "0.25에서 8 사이에 올바른 숫자를 입력해주세요.",
 				"set_speed": "`✅` | 속도가 **{speed}**로 변경되었어요."
 			}
 		},

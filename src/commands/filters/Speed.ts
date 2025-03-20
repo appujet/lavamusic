@@ -60,7 +60,7 @@ export default class Speed extends Command {
     const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(speedString);
     const speed = Number.parseFloat(speedString);
 
-    if (!isValidNumber || Number.isNaN(speed) || speed < 0.5 || speed > 5) {
+    if (!isValidNumber || Number.isNaN(speed) || speed < 0.25 || speed > 8) {
       await ctx.sendMessage({
         embeds: [
           {

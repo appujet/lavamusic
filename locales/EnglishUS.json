@@ -173,10 +173,10 @@
 		"pitch": {
 			"description": "Toggle the pitch filter on/off",
 			"options": {
-				"pitch": "The number you want to set the pitch to (between 0.5 and 5)"
+				"pitch": "The number you want to set the pitch to (between 0.25 and 8)"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5."
+				"invalid_number": "Please provide a valid number between 0.25 and 8."
 			},
 			"messages": {
 				"pitch_set": "`✅` | Pitch has been set to **{pitch}**."
@@ -185,10 +185,10 @@
 		"rate": {
 			"description": "Change the rate of the song",
 			"options": {
-				"rate": "The number you want to set the rate to (between 0.5 and 5)"
+				"rate": "The number you want to set the rate to (between 0.25 and 8)"
 			},
 			"errors": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5."
+				"invalid_number": "Please provide a valid number between 0.25 and 8."
 			},
 			"messages": {
 				"rate_set": "`✅` | Rate has been set to **{rate}**."
@@ -213,7 +213,7 @@
 				"speed": "The speed you want to set"
 			},
 			"messages": {
-				"invalid_number": "Please provide a valid number between 0.5 and 5.",
+				"invalid_number": "Please provide a valid number between 0.25 and 8.",
 				"set_speed": "`✅` | Speed has been set to **{speed}**."
 			}
 		},
@@ -661,10 +661,10 @@
 	"Deploy commands": "Deploy commands",
 	"The bassboost level you want to set": "The bassboost level you want to set",
 	"The number you want to set the pitch to (between 0": {
-		"5 and 5)": "The number you want to set the pitch to (between 0.5 and 5)"
+		"5 and 5)": "The number you want to set the pitch to (between 0.25 and 8)"
 	},
 	"The number you want to set the rate to (between 0": {
-		"5 and 5)": "The number you want to set the rate to (between 0.5 and 5)"
+		"5 and 5)": "The number you want to set the rate to (between 0.25 and 8)"
 	},
 	"The speed you want to set": "The speed you want to set",
 	"The command you want to get info on": "The command you want to get info on",

@@ -170,10 +170,10 @@
 		"pitch": {
 			"description": "Włącz/wyłącz filtr wysokości dźwięku",
 			"options": {
-				"pitch": "Liczba, na którą chcesz ustawić wysokość dźwięku (między 0,5 a 5)"
+				"pitch": "Liczba, na którą chcesz ustawić wysokość dźwięku (między 0,25 a 8)"
 			},
 			"errors": {
-				"invalid_number": "Podaj prawidłową liczbę między 0,5 a 5."
+				"invalid_number": "Podaj prawidłową liczbę między 0,25 a 8."
 			},
 			"messages": {
 				"pitch_set": "`✅` | Wysokość dźwięku została ustawiona na **{pitch}**."
@@ -182,10 +182,10 @@
 		"rate": {
 			"description": "Zmień tempo utworu",
 			"options": {
-				"rate": "Liczba, na którą chcesz ustawić tempo (między 0,5 a 5)"
+				"rate": "Liczba, na którą chcesz ustawić tempo (między 0,25 a 8)"
 			},
 			"errors": {
-				"invalid_number": "Podaj prawidłową liczbę między 0,5 a 5."
+				"invalid_number": "Podaj prawidłową liczbę między 0,25 a 8."
 			},
 			"messages": {
 				"rate_set": "`✅` | Tempo utworu zostało ustawione na **{rate}**."
@@ -210,7 +210,7 @@
 				"speed": "Prędkość, którą chcesz ustawić"
 			},
 			"messages": {
-				"invalid_number": "Podaj prawidłową liczbę między 0,5 a 5.",
+				"invalid_number": "Podaj prawidłową liczbę między 0,25 a 8.",
 				"set_speed": "`✅` | Prędkość została ustawiona na **{speed}**."
 			}
 		},

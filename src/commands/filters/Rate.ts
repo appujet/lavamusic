@@ -60,7 +60,7 @@ export default class Rate extends Command {
     const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(rateString);
     const rate = Number.parseFloat(rateString);
 
-    if (!isValidNumber || Number.isNaN(rate) || rate < 0.5 || rate > 5) {
+    if (!isValidNumber || Number.isNaN(rate) || rate < 0.25 || rate > 8) {
       await ctx.sendMessage({
         embeds: [
           {

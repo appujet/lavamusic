@@ -173,10 +173,10 @@
     "pitch": {
       "description": "Schakel het toonhoogtefilter in/uit",
       "options": {
-        "pitch": "Het nummer waarmee je de toonhoogte wilt instellen (tussen 0,5 en 5)"
+        "pitch": "Het nummer waarmee je de toonhoogte wilt instellen (tussen 0,25 en 8)"
       },
       "errors": {
-        "invalid_number": "Geef een geldig nummer op tussen 0,5 en 5."
+        "invalid_number": "Geef een geldig nummer op tussen 0,25 en 8."
       },
       "messages": {
         "pitch_set": "`✅` | Toonhoogte is ingesteld op **{pitch}**."
@@ -185,10 +185,10 @@
     "rate": {
       "description": "Verander de afspeelsnelheid van het nummer",
       "options": {
-        "rate": "Het nummer waarmee je de afspeelsnelheid wilt instellen (tussen 0,5 en 5)"
+        "rate": "Het nummer waarmee je de afspeelsnelheid wilt instellen (tussen 0,25 en 8)"
       },
       "errors": {
-        "invalid_number": "Geef een geldig nummer op tussen 0,5 en 5."
+        "invalid_number": "Geef een geldig nummer op tussen 0,25 en 8."
       },
       "messages": {
         "rate_set": "`✅` | Afspeelsnelheid is ingesteld op **{rate}**."
@@ -213,7 +213,7 @@
         "speed": "De snelheid die je wilt instellen"
       },
       "messages": {
-        "invalid_number": "Geef een geldig nummer op tussen 0,5 en 5.",
+        "invalid_number": "Geef een geldig nummer op tussen 0,25 en 8.",
         "set_speed": "`✅` | Snelheid is ingesteld op **{speed}**."
       }
     },

@@ -170,10 +170,10 @@
 		"pitch": {
 			"description": "Mengaktifkan/menonaktifkan filter pitch",
 			"options": {
-				"pitch": "Angka yang ingin Anda atur untuk pitch (antara 0,5 dan 5)"
+				"pitch": "Angka yang ingin Anda atur untuk pitch (antara 0,25 dan 8)"
 			},
 			"errors": {
-				"invalid_number": "Harap berikan angka yang valid antara 0,5 dan 5."
+				"invalid_number": "Harap berikan angka yang valid antara 0,25 dan 8."
 			},
 			"messages": {
 				"pitch_set": "`✅` | Pitch telah diatur ke **{pitch}**."
@@ -182,10 +182,10 @@
 		"rate": {
 			"description": "Mengubah kecepatan lagu",
 			"options": {
-				"rate": "Angka yang ingin Anda atur untuk kecepatan (antara 0,5 dan 5)"
+				"rate": "Angka yang ingin Anda atur untuk kecepatan (antara 0,25 dan 8)"
 			},
 			"errors": {
-				"invalid_number": "Harap berikan angka yang valid antara 0,5 dan 5."
+				"invalid_number": "Harap berikan angka yang valid antara 0,25 dan 8."
 			},
 			"messages": {
 				"rate_set": "`✅` | Kecepatan telah diatur ke **{rate}**."
@@ -210,7 +210,7 @@
 				"speed": "Kecepatan yang ingin Anda atur"
 			},
 			"messages": {
-				"invalid_number": "Harap berikan angka yang valid antara 0,5 dan 5.",
+				"invalid_number": "Harap berikan angka yang valid antara 0,25 dan 8.",
 				"set_speed": "`✅` | Kecepatan telah diatur ke **{speed}**."
 			}
 		},

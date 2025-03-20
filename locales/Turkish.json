@@ -173,10 +173,10 @@
 		"pitch": {
 			"description": "Pitch filtresini açar/kapatır.",
 			"options": {
-				"pitch": "Ayarlamak istediğiniz pitch değeri (0.5 ile 5 arasında)"
+				"pitch": "Ayarlamak istediğiniz pitch değeri (0.25 ile 8 arasında)"
 			},
 			"errors": {
-				"invalid_number": "Lütfen 0.5 ile 5 arasında geçerli bir sayı girin."
+				"invalid_number": "Lütfen 0.25 ile 8 arasında geçerli bir sayı girin."
 			},
 			"messages": {
 				"pitch_set": "`✅` | Pitch **{pitch}** olarak ayarlandı."
@@ -185,10 +185,10 @@
 		"rate": {
 			"description": "Şarkının hızını değiştirir.",
 			"options": {
-				"rate": "Ayarlamak istediğiniz hız değeri (0.5 ile 5 arasında)"
+				"rate": "Ayarlamak istediğiniz hız değeri (0.25 ile 8 arasında)"
 			},
 			"errors": {
-				"invalid_number": "Lütfen 0.5 ile 5 arasında geçerli bir sayı girin."
+				"invalid_number": "Lütfen 0.25 ile 8 arasında geçerli bir sayı girin."
 			},
 			"messages": {
 				"rate_set": "`✅` | Hız **{rate}** olarak ayarlandı.."
@@ -213,7 +213,7 @@
 				"speed": "Ayarlamak istediğiniz hız."
 			},
 			"messages": {
-				"invalid_number": "Lütfen 0.5 ile 5 arasında geçerli bir sayı girin.",
+				"invalid_number": "Lütfen 0.25 ile 8 arasında geçerli bir sayı girin.",
 				"set_speed": "`✅` | Hız **{speed}** olarak ayarlandı."
 			}
 		},
