@@ -157,10 +157,10 @@
 		"pitch": {
 			"description": "Schalte den Pitch-Filter ein-/aus",
 			"options": {
-				"pitch": "Die Zahl, auf die du den Pitch setzen möchtest (zwischen 0,5 und 5)"
+				"pitch": "Die Zahl, auf die du den Pitch setzen möchtest (zwischen 0,25 und 8)"
 			},
 			"errors": {
-				"invalid_number": "Bitte gib eine gültige Zahl zwischen 0,5 und 5 ein."
+				"invalid_number": "Bitte gib eine gültige Zahl zwischen 0,25 und 8 ein."
 			},
 			"messages": {
 				"pitch_set": "`✅` | Pitch wurde auf **{pitch}** gesetzt."
@@ -169,10 +169,10 @@
 		"rate": {
 			"description": "Ändere die Rate des Songs",
 			"options": {
-				"rate": "Die Zahl, auf die du die Rate setzen möchtest (zwischen 0,5 und 5)"
+				"rate": "Die Zahl, auf die du die Rate setzen möchtest (zwischen 0,25 und 8)"
 			},
 			"errors": {
-				"invalid_number": "Bitte gib eine gültige Zahl zwischen 0,5 und 5 ein."
+				"invalid_number": "Bitte gib eine gültige Zahl zwischen 0,25 und 8 ein."
 			},
 			"messages": {
 				"rate_set": "`✅` | Rate wurde auf **{rate}** gesetzt."
@@ -197,7 +197,7 @@
 				"speed": "Die Geschwindigkeit, die du einstellen möchtest"
 			},
 			"messages": {
-				"invalid_number": "Bitte gib eine gültige Zahl zwischen 0,5 und 5 ein.",
+				"invalid_number": "Bitte gib eine gültige Zahl zwischen 0,25 und 8 ein.",
 				"set_speed": "`✅` | Geschwindigkeit wurde auf **{speed}** gesetzt."
 			}
 		},

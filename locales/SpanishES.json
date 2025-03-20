@@ -157,10 +157,10 @@
 		"pitch": {
 			"description": "Activar/desactivar filtro de tono",
 			"options": {
-				"pitch": "El número al que quieres establecer el tono (entre 0,5 y 5)"
+				"pitch": "El número al que quieres establecer el tono (entre 0,25 y 8)"
 			},
 			"errors": {
-				"invalid_number": "Por favor, proporciona un número válido entre 0,5 y 5."
+				"invalid_number": "Por favor, proporciona un número válido entre 0,25 y 8."
 			},
 			"messages": {
 				"pitch_set": "`✅` | El tono se ha establecido en **{pitch}**."
@@ -169,10 +169,10 @@
 		"rate": {
 			"description": "Cambiar la velocidad de la canción",
 			"options": {
-				"rate": "El número al que quieres establecer la velocidad (entre 0,5 y 5)"
+				"rate": "El número al que quieres establecer la velocidad (entre 0,25 y 8)"
 			},
 			"errors": {
-				"invalid_number": "Por favor, proporciona un número válido entre 0,5 y 5."
+				"invalid_number": "Por favor, proporciona un número válido entre 0,25 y 8."
 			},
 			"messages": {
 				"rate_set": "`✅` | La velocidad se ha establecido en **{rate}**."
@@ -197,7 +197,7 @@
 				"speed": "La velocidad que quieres establecer"
 			},
 			"messages": {
-				"invalid_number": "Por favor, proporciona un número válido entre 0,5 y 5.",
+				"invalid_number": "Por favor, proporciona un número válido entre 0,25 y 8.",
 				"set_speed": "`✅` | La velocidad se ha establecido en **{speed}**."
 			}
 		},

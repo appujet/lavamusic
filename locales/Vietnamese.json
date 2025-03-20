@@ -170,10 +170,10 @@
 		"pitch": {
 			"description": "Bật/tắt bộ lọc pitch",
 			"options": {
-				"pitch": "Số bạn muốn đặt độ cao (giữa 0.5 và 5)"
+				"pitch": "Số bạn muốn đặt độ cao (giữa 0.25 và 8)"
 			},
 			"errors": {
-				"invalid_number": "Vui lòng cung cấp một số hợp lệ giữa 0.5 và 5."
+				"invalid_number": "Vui lòng cung cấp một số hợp lệ giữa 0.25 và 8."
 			},
 			"messages": {
 				"pitch_set": "`✅` | Độ cao đã được đặt thành **{pitch}**."
@@ -182,10 +182,10 @@
 		"rate": {
 			"description": "Thay đổi tốc độ của bài hát",
 			"options": {
-				"rate": "Số bạn muốn đặt tốc độ (giữa 0.5 và 5)"
+				"rate": "Số bạn muốn đặt tốc độ (giữa 0.25 và 8)"
 			},
 			"errors": {
-				"invalid_number": "Vui lòng cung cấp một số hợp lệ giữa 0.5 và 5."
+				"invalid_number": "Vui lòng cung cấp một số hợp lệ giữa 0.25 và 8."
 			},
 			"messages": {
 				"rate_set": "`✅` | Tốc độ đã được đặt thành **{rate}**."
@@ -210,7 +210,7 @@
 				"speed": "Tốc độ bạn muốn đặt"
 			},
 			"messages": {
-				"invalid_number": "Vui lòng cung cấp một số hợp lệ giữa 0.5 và 5.",
+				"invalid_number": "Vui lòng cung cấp một số hợp lệ giữa 0.25 và 8.",
 				"set_speed": "`✅` | Tốc độ đã được đặt thành **{speed}**."
 			}
 		},

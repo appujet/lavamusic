@@ -170,10 +170,10 @@
 		"pitch": {
 			"description": "Slå på/av tonehøydefilteret",
 			"options": {
-				"pitch": "Tallet du vil angi tonehøyden til (mellom 0,5 og 5)"
+				"pitch": "Tallet du vil angi tonehøyden til (mellom 0,25 og 8)"
 			},
 			"errors": {
-				"invalid_number": "Angi et gyldig tall mellom 0,5 og 5."
+				"invalid_number": "Angi et gyldig tall mellom 0,25 og 8."
 			},
 			"messages": {
 				"pitch_set": "`✅` | Tonehøyden er satt til **{pitch}**."
@@ -182,10 +182,10 @@
 		"rate": {
 			"description": "Endre hastigheten på sangen",
 			"options": {
-				"rate": "Tallet du vil angi hastigheten til (mellom 0,5 og 5)"
+				"rate": "Tallet du vil angi hastigheten til (mellom 0,25 og 8)"
 			},
 			"errors": {
-				"invalid_number": "Angi et gyldig tall mellom 0,5 og 5."
+				"invalid_number": "Angi et gyldig tall mellom 0,25 og 8."
 			},
 			"messages": {
 				"rate_set": "`✅` | Hastigheten er satt til **{rate}**."
@@ -210,7 +210,7 @@
 				"speed": "Hastigheten du vil angi"
 			},
 			"messages": {
-				"invalid_number": "Angi et gyldig tall mellom 0,5 og 5.",
+				"invalid_number": "Angi et gyldig tall mellom 0,25 og 8.",
 				"set_speed": "`✅` | Hastigheten er satt til **{speed}**."
 			}
 		},
