@@ -9,16 +9,18 @@ export const userRoutes = (fastify: FastifyInstance) => {
     "/:userId",
     async (
       req: FastifyRequest<{ Params: { userId: string } }>,
-      reply: FastifyReply
+      reply: FastifyReply,
     ) => {
       return reply.send(userService.getUser(req.params.userId));
-    }
+    },
   );
 
   fastify.get("/recommended-tracks", async (req, reply) => {
-   const user = req.user as any;
+    const user = req.user as any;
 
-    const data = await userService.getRecommendedTracks(user.token.access_token);
+    const data = await userService.getRecommendedTracks(
+      user.token.access_token,
+    );
     return reply.send(data);
   });
 
@@ -30,7 +32,7 @@ export const userRoutes = (fastify: FastifyInstance) => {
       const accessToken = user.token.access_token;
       const data = await userService.getPlaylist(accessToken, req.params.name);
       return reply.send(data ?? { message: "Playlist not found" });
-    }
+    },
   );
 
   fastify.get("/playlists", async (req, reply) => {
@@ -49,7 +51,7 @@ export const userRoutes = (fastify: FastifyInstance) => {
       const accessToken = user.token.access_token;
       const data = await userService.toggleLike(accessToken, req.body.encoded);
       return reply.send(data);
-    }
+    },
   );
 
   fastify.put(
@@ -61,7 +63,7 @@ export const userRoutes = (fastify: FastifyInstance) => {
           type: string;
         };
       }>,
-      reply
+      reply,
     ) => {
       const user = req.user as any;
 
@@ -72,9 +74,9 @@ export const userRoutes = (fastify: FastifyInstance) => {
         playlist.name,
         playlist.tracks,
         type as "add" | "remove" | "rename" | "create" | "delete",
-        playlist.id
+        playlist.id,
       );
       return reply.send(data ?? { message: "Playlist not found" });
-    }
+    },
   );
 };

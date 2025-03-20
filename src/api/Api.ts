@@ -1,6 +1,4 @@
-import Fastify, {
-  type FastifyInstance,
-} from "fastify";
+import Fastify, { type FastifyInstance } from "fastify";
 import helmet from "@fastify/helmet";
 import cors from "@fastify/cors";
 import sensible from "@fastify/sensible";
@@ -22,7 +20,6 @@ export class Api {
     container.register<FastifyInstance>("FastifyInstance", {
       useValue: this.fastify,
     });
-
   }
   async start() {
     await this.fastify.register(jwtPlugin);
@@ -36,7 +33,7 @@ export class Api {
 
     /* auth routes */
     await this.fastify.register(authRoutes, { prefix: "/api" });
-    
+
     /* bot routes */
     await this.fastify.register(botRoutes, {
       prefix: "/bot",

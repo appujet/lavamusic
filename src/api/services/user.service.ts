@@ -5,7 +5,6 @@ import { Base64, LavalinkNode, Track } from "lavalink-client";
 import { User } from "discord.js";
 import { discordApiService } from "../fetch/discord";
 
-
 @injectable()
 export class UserService {
   private client: Lavamusic;
@@ -18,9 +17,7 @@ export class UserService {
   }
 
   public async getRecommendedTracks(accessToken: string) {
-    const restUser = await discordApiService(
-      accessToken
-    ).usersMe();
+    const restUser = await discordApiService(accessToken).usersMe();
     const user = await this.client.users.fetch(restUser.id).catch(() => null);
     if (!user) return [];
     const lastPlayedTrack = await this.client.db.getLastPlayedTrack(user.id);

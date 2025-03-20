@@ -18,9 +18,7 @@ export const botRoutes = (fastify: FastifyInstance) => {
         return reply.status(401).send({ message: "Unauthorized" });
       }
       const tracks = await botService.getTopPlayedTracks(accessToken);
-      return reply
-        .status(tracks ? 200 : 404)
-        .send(tracks);
-    }
+      return reply.status(tracks ? 200 : 404).send(tracks);
+    },
   );
 };

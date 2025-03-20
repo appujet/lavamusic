@@ -14,7 +14,7 @@ const createApiInstance = (baseURL: string) => {
 
     if (!response.ok) {
       throw new Error(
-        `API request failed: ${response.status} ${response.statusText}`
+        `API request failed: ${response.status} ${response.statusText}`,
       );
     }
 

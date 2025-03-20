@@ -4,7 +4,6 @@ import { discordApiService } from "../fetch/discord.js";
 import { env } from "../../env.js";
 
 export const authRoutes = (fastify: FastifyInstance) => {
-
   fastify.get("/auth/login", async (_request, reply) => {
     const params = new URLSearchParams({
       client_id: env.CLIENT_ID!,
@@ -26,7 +25,7 @@ export const authRoutes = (fastify: FastifyInstance) => {
       const { code } = callbackSchema.parse(request.query);
       const tokenData = await discordApiService(null).getToken(code);
       const userData = await discordApiService(
-        tokenData.access_token
+        tokenData.access_token,
       ).usersMe();
       const jwt = fastify.jwt.sign({
         id: userData.id,
@@ -50,7 +49,7 @@ export const authRoutes = (fastify: FastifyInstance) => {
         };
         if (decodedToken?.token?.access_token) {
           await discordApiService(null).revokeToken(
-            decodedToken.token.access_token
+            decodedToken.token.access_token,
           );
         }
       }
@@ -69,6 +68,6 @@ export const authRoutes = (fastify: FastifyInstance) => {
       } catch (error: any) {
         return reply.status(400).send({ error: error.message });
       }
-    }
+    },
   );
 };

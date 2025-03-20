@@ -1,4 +1,3 @@
-
 import { APIGuild, APIUser } from "discord.js";
 import { discordApi } from "./base.js";
 import { z } from "zod";

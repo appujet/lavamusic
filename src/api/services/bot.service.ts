@@ -4,7 +4,6 @@ import { kClient } from "../../types";
 import type { Lavamusic } from "../../structures";
 import { discordApiService } from "../fetch/discord";
 
-
 @injectable()
 export class BotService {
   private client: Lavamusic;
@@ -28,7 +27,7 @@ export class BotService {
 
   public async getTopPlayedTracks(accessToken: string) {
     const data = await this.client.db.getBotTopPlayedTracks(
-      this.client.user!.id
+      this.client.user!.id,
     );
     if (!data) return null;
 
@@ -42,7 +41,7 @@ export class BotService {
 
     return await node.decode.multipleTracks(
       data.map((t: any) => t.encoded) as Base64[],
-      user
+      user,
     );
   }
 }
