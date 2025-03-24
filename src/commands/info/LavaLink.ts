@@ -58,7 +58,7 @@ export default class LavaLink extends Command {
 				};
 
 				embed.addFields({
-					name: `${node.name} (${statusEmoji})`,
+					name: `${node.id} (${statusEmoji})`,
 					value: `\`\`\`yaml\n${ctx.locale('cmd.lavalink.content', {
 						players: stats.players,
 						playingPlayers: stats.playingPlayers,
