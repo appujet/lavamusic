@@ -5,6 +5,7 @@ import {
 	ButtonStyle,
 	CommandInteraction,
 	Message,
+	MessageFlags,
 	type TextChannel,
 } from 'discord.js';
 import type { Context, Lavamusic } from '../structures/index';
@@ -172,7 +173,7 @@ export class Utils {
 			} else {
 				await interaction.reply({
 					content: ctx.locale('buttons.errors.not_author'),
-					ephemeral: true,
+					flags: MessageFlags.Ephemeral,
 				});
 			}
 		});

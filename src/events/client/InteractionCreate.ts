@@ -7,6 +7,7 @@ import {
 	Collection,
 	CommandInteraction,
 	EmbedBuilder,
+	MessageFlags,
 	type GuildMember,
 	InteractionType,
 	PermissionFlagsBits,
@@ -37,7 +38,7 @@ export default class InteractionCreate extends Event {
 			) {
 				return await interaction.reply({
 					content: T(locale, 'event.interaction.setup_channel'),
-					ephemeral: true,
+					flags: MessageFlags.Ephemeral,
 				});
 			}
 
@@ -89,7 +90,7 @@ export default class InteractionCreate extends Event {
 							content: T(locale, 'event.interaction.no_permission', {
 								permissions: missingClientPermissions.map((perm: string) => `\`${perm}\``).join(', '),
 							}),
-							ephemeral: true,
+							flags: MessageFlags.Ephemeral,
 						});
 					}
 				}
@@ -100,7 +101,7 @@ export default class InteractionCreate extends Event {
 				) {
 					await interaction.reply({
 						content: T(locale, 'event.interaction.no_user_permission'),
-						ephemeral: true,
+						flags: MessageFlags.Ephemeral,
 					});
 					return;
 				}
@@ -123,7 +124,7 @@ export default class InteractionCreate extends Event {
 					return await interaction.reply({
 						content: T(locale, 'event.interaction.vote_message'),
 						components: [voteBtn],
-						ephemeral: true,
+						flags: MessageFlags.Ephemeral,
 					});
 				}
 			}
@@ -194,7 +195,7 @@ export default class InteractionCreate extends Event {
 						if (!(hasDJRole && !(interaction.member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild))) {
 							return await interaction.reply({
 								content: T(locale, 'event.interaction.no_dj_permission'),
-								ephemeral: true,
+								flags: MessageFlags.Ephemeral,
 							});
 						}
 					}

@@ -1,4 +1,4 @@
-import { type ColorResolvable, EmbedBuilder, type Guild, type Message, type TextChannel } from 'discord.js';
+import { type ColorResolvable, EmbedBuilder, type Guild, type Message, type TextChannel, MessageFlags } from 'discord.js';
 import type { Player, Track } from 'lavalink-client';
 import { T } from '../structures/I18n';
 import type { Lavamusic } from '../structures/index';
@@ -289,13 +289,13 @@ async function buttonReply(int: any, args: string, color: ColorResolvable): Prom
 		});
 	}
 	setTimeout(async () => {
-		if (int && !int.ephemeral) {
+		if (int && !int.flags?.has(MessageFlags.Ephemeral)) {
 			await m.delete().catch(() => {
 				null;
 			});
 		}
 	}, 2000);
-}
+}	
 
 async function oops(channel: TextChannel, args: string): Promise<void> {
 	try {
