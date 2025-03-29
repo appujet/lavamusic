@@ -288,6 +288,20 @@
 			"added_to_queue": "[{title}]({uri}) ko queue mein jod diya gaya है.",
 			"added_playlist_to_queue": "{length} songs ko queue mein jod diya गया है."
 		},
+		"playlocal": {
+			"description": "आपकी स्थानीय ऑडियो फ़ाइलों को चलाता है।",
+			"options": {
+				"file": "वह ऑडियो फ़ाइल जिसे आप चलाना चाहते हैं।"
+			},
+			"loading": "ऑडियो फ़ाइल लोड हो रही है...",
+			"errors": {
+				"empty_query": "चलाने के लिए कृपया एक ऑडियो फ़ाइल संलग्न करें।",
+				"invalid_format": "कृपया एक ऑडियो फ़ाइल (MP3, WAV, OGG, FLAC, AAC, या M4A) का उपयोग करें।",
+				"no_results": "ऑडियो फ़ाइल चलाने में विफल। यह खराब हो सकती है।"
+			},
+			"now_playing": "[**{title}**]({url}) चलना शुरू हो गया है",
+			"added_to_queue": "[**{title}**]({url}) को कतार में जोड़ दिया गया है"
+		},
 		"playnext": {
 			"description": "Queue mein aage play karne ke liye song jodein",
 			"options": {

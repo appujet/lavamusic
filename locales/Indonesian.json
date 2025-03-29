@@ -288,6 +288,20 @@
 			"added_to_queue": "Menambahkan [{title}]({uri}) ke antrean.",
 			"added_playlist_to_queue": "Menambahkan {length} lagu ke antrean."
 		},
+		"playlocal": {
+			"description": "Memutar file audio lokal Anda.",
+			"options": {
+				"file": "File audio yang ingin diputar."
+			},
+			"loading": "Memuat file audio...",
+			"errors": {
+				"empty_query": "Harap lampirkan file audio untuk diputar.",
+				"invalid_format": "Harap gunakan file audio (MP3, WAV, OGG, FLAC, AAC, atau M4A).",
+				"no_results": "Gagal memutar file audio. File mungkin rusak."
+			},
+			"now_playing": "Memutar [**{title}**]({url})",
+			"added_to_queue": "[**{title}**]({url}) telah ditambahkan ke antrian"
+		},
 		"playnext": {
 			"description": "Menambahkan lagu untuk diputar selanjutnya dalam antrean",
 			"options": {

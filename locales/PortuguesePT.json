@@ -272,6 +272,20 @@
 			"added_to_queue": "Adicionado [{title}]({uri}) à fila.",
 			"added_playlist_to_queue": "Adicionado {length} músicas à fila."
 		},
+		"playlocal": {
+			"description": "Reproduz os teus ficheiros de áudio locais.",
+			"options": {
+				"file": "O ficheiro de áudio que queres reproduzir."
+			},
+			"loading": "A carregar o ficheiro de áudio...",
+			"errors": {
+				"empty_query": "Por favor, anexa um ficheiro de áudio para reproduzir.",
+				"invalid_format": "Por favor, usa um ficheiro de áudio (MP3, WAV, OGG, FLAC, AAC ou M4A).",
+				"no_results": "Falha ao reproduzir o ficheiro de áudio. Pode estar corrompido."
+			},
+			"now_playing": "A reproduzir [**{title}**]({url})",
+			"added_to_queue": "[**{title}**]({url}) adicionado à fila"
+		},
 		"playnext": {
 			"description": "Adiciona a música para tocar em seguida na fila",
 			"options": {

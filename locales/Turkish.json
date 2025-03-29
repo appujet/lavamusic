@@ -301,6 +301,20 @@
 			"added_to_queue": "Kuyruğa [{title}]({uri}) eklendi.",
 			"added_playlist_to_queue": "{length} şarkı kuyruğa eklendi."
 		},
+		"playlocal": {
+			"description": "Yerel ses dosyalarınızı çalar.",
+			"options": {
+				"file": "Çalmak istediğiniz ses dosyası."
+			},
+			"loading": "Ses dosyası yükleniyor...",
+			"errors": {
+				"empty_query": "Lütfen çalmak için bir ses dosyası ekleyin.",
+				"invalid_format": "Lütfen bir ses dosyası kullanın (MP3, WAV, OGG, FLAC, AAC veya M4A).",
+				"no_results": "Ses dosyası çalınamadı. Bozuk olabilir."
+			},
+			"now_playing": "[**{title}**]({url}) çalınıyor",
+			"added_to_queue": "[**{title}**]({url}) sıraya eklendi"
+		},
 		"playnext": {
 			"description": "Sıradaki olarak çalınacak şarkıyı kuyruğa ekler.",
 			"options": {

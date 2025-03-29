@@ -301,6 +301,20 @@
       "added_to_queue": "[{title}]({uri}) is toegevoegd aan de wachtrij.",
       "added_playlist_to_queue": "{length} nummers zijn toegevoegd aan de wachtrij."
     },
+    "playlocal": {
+      "description": "Speelt je lokale audiobestanden af.",
+      "options": {
+        "file": "Het audiobestand dat je wilt afspelen."
+      },
+      "loading": "Audiobestand laden...",
+      "errors": {
+        "empty_query": "Voeg alstublieft een audiobestand toe om af te spelen.",
+        "invalid_format": "Gebruik alstublieft een audiobestand (MP3, WAV, OGG, FLAC, AAC of M4A).",
+        "no_results": "Kon het audiobestand niet afspelen. Het bestand is mogelijk beschadigd."
+      },
+      "now_playing": "Begonnen met afspelen van [**{title}**]({url})",
+      "added_to_queue": "[**{title}**]({url}) is aan de wachtrij toegevoegd"
+    },
     "playnext": {
       "description": "Voegt het nummer toe om als volgende af te spelen in de wachtrij",
       "options": {
@@ -561,7 +575,7 @@
       "playlist_too_long": "De afspeellijst is te lang. De maximale lengte is {maxPlaylistSize} nummers.",
       "added_to_queue": "[{title}]({uri}) is toegevoegd aan de wachtrij.",
       "added_playlist_to_queue": "[{length}] nummers van de afspeellijst zijn toegevoegd aan de wachtrij."
-    },
+    }
   },
   "event": {
     "interaction": {

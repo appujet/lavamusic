@@ -275,6 +275,20 @@
 			"added_to_queue": "Ajouté [{title}]({uri}) à la file d'attente.",
 			"added_playlist_to_queue": "Ajouté {length} chansons à la file d'attente."
 		},
+		"playlocal": {
+			"description": "Joue vos fichiers audio locaux.",
+			"options": {
+				"file": "Le fichier audio que vous souhaitez jouer."
+			},
+			"loading": "Chargement du fichier audio...",
+			"errors": {
+				"empty_query": "Veuillez joindre un fichier audio à jouer.",
+				"invalid_format": "Veuillez utiliser un fichier audio (MP3, WAV, OGG, FLAC, AAC ou M4A).",
+				"no_results": "Échec de lecture du fichier audio. Il est peut-être corrompu."
+			},
+			"now_playing": "Lecture en cours de [**{title}**]({url})",
+			"added_to_queue": "[**{title}**]({url}) a été ajouté à la file d'attente"
+		},
 		"playnext": {
 			"description": "Ajoute la chanson à jouer ensuite dans la file d'attente",
 			"options": {
