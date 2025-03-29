@@ -1,6 +1,7 @@
 import type { TextChannel } from 'discord.js';
 import type { Player, Track, TrackStartEvent } from 'lavalink-client';
 import { Event, type Lavamusic } from '../../structures/index';
+import { updateSetup } from '../../utils/SetupSystem';
 
 export default class TrackEnd extends Event {
 	constructor(client: Lavamusic, file: string) {
@@ -12,6 +13,9 @@ export default class TrackEnd extends Event {
 	public async run(player: Player, _track: Track | null, _payload: TrackStartEvent): Promise<void> {
 		const guild = this.client.guilds.cache.get(player.guildId);
 		if (!guild) return;
+
+		const locale = await this.client.db.getLanguage(player.guildId);
+		await updateSetup(this.client, guild, locale);
 
 		const messageId = player.get<string | undefined>('messageId');
 		if (!messageId) return;
