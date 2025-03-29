@@ -63,9 +63,29 @@ export default class Restart extends Command {
 				components: [],
 			});
 
-			await client.destroy();
-			exec('node scripts/restart.js');
-			process.exit(0);
+			try {
+				// Destroy client connection
+				await client.destroy();
+
+				// Run npm run start to restart the bot directly
+				exec('npm run start', (error, stdout, stderr) => {
+					if (error) {
+						console.error(`[RESTART ERROR]: ${error.message}`);
+						return;
+					}
+					if (stderr) {
+						console.error(`[RESTART STDERR]: ${stderr}`);
+						return;
+					}
+					console.log(`[RESTART SUCCESS]: ${stdout}`);
+				});
+			} catch (error) {
+				console.error('[RESTART ERROR]:', error);
+				await msg.edit({
+					content: 'An error occurred while restarting the bot.',
+					components: [],
+				});
+			}
 		});
 
 		collector.on('end', async () => {
@@ -78,14 +98,3 @@ export default class Restart extends Command {
 		});
 	}
 }
-
-/**
- * Project: lavamusic
- * Author: Appu
- * Main Contributor: LucasB25
- * Company: Coders
- * Copyright (c) 2024. All rights reserved.
- * This code is the property of Coder and may not be reproduced or
- * modified without permission. For more information, contact us at
- * https://discord.gg/YQsGbTwPBx
- */
