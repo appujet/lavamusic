@@ -6,13 +6,13 @@ export default class Loop extends Command {
 			name: 'loop',
 			description: {
 				content: 'cmd.loop.description',
-				examples: ['loop', 'loop queue', 'loop song'],
+				examples: ['loop off', 'loop queue', 'loop song'],
 				usage: 'loop',
 			},
 			category: 'general',
 			aliases: ['loop'],
 			cooldown: 3,
-			args: false,
+			args: true,
 			vote: false,
 			player: {
 				voice: true,
@@ -26,7 +26,28 @@ export default class Loop extends Command {
 				user: [],
 			},
 			slashCommand: true,
-			options: [],
+			options: [
+				{
+					name: 'mode',
+					description: 'The loop mode you want to set',
+					type: 3,
+					required: false,
+					choices: [
+						{
+							name: 'Off',
+							value: 'off',
+						},
+						{
+							name: 'Song',
+							value: 'song',
+						},
+						{
+							name: 'Queue',
+							value: 'queue',
+						},
+					],
+				},
+			],
 		});
 	}
 
@@ -34,22 +55,42 @@ export default class Loop extends Command {
 		const embed = this.client.embed().setColor(this.client.color.main);
 		const player = client.manager.getPlayer(ctx.guild!.id);
 		let loopMessage = '';
-
-		switch (player?.repeatMode) {
-			case 'off': {
-				player.setRepeatMode('track');
+		
+		const args = ctx.args ? ctx.args[0]?.toLowerCase() : '';
+		const mode = ctx.options?.get('mode')?.value as string;
+		
+		const argument = mode || args;
+		
+		if (argument) {
+			if (argument === 'song' || argument === 'track' || argument === 's') {
+				player?.setRepeatMode('track');
 				loopMessage = ctx.locale('cmd.loop.looping_song');
-				break;
-			}
-			case 'track': {
-				player.setRepeatMode('queue');
+			} else if (argument === 'queue' || argument === 'q') {
+				player?.setRepeatMode('queue');
 				loopMessage = ctx.locale('cmd.loop.looping_queue');
-				break;
-			}
-			case 'queue': {
-				player.setRepeatMode('off');
+			} else if (argument === 'off' || argument === 'o') {
+				player?.setRepeatMode('off');
 				loopMessage = ctx.locale('cmd.loop.looping_off');
-				break;
+			} else {
+				loopMessage = ctx.locale('cmd.loop.invalid_mode');
+			}
+		} else {
+			switch (player?.repeatMode) {
+				case 'off': {
+					player.setRepeatMode('track');
+					loopMessage = ctx.locale('cmd.loop.looping_song');
+					break;
+				}
+				case 'track': {
+					player.setRepeatMode('queue');
+					loopMessage = ctx.locale('cmd.loop.looping_queue');
+					break;
+				}
+				case 'queue': {
+					player.setRepeatMode('off');
+					loopMessage = ctx.locale('cmd.loop.looping_off');
+					break;
+				}
 			}
 		}
 
