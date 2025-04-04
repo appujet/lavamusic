@@ -288,6 +288,20 @@
 			"added_to_queue": "[{title}]({uri}) をキューに追加しました。",
 			"added_playlist_to_queue": "{length} 曲をキューに追加しました。"
 		},
+		"playlocal": {
+			"description": "ローカルのオーディオファイルを再生します。",
+			"options": {
+				"file": "再生したいオーディオファイル"
+			},
+			"loading": "オーディオファイルを読み込み中...",
+			"errors": {
+				"empty_query": "再生するオーディオファイルを添付してください。",
+				"invalid_format": "オーディオファイル（MP3、WAV、OGG、FLAC、AAC、またはM4A）を使用してください。",
+				"no_results": "オーディオファイルの再生に失敗しました。ファイルが破損している可能性があります。"
+			},
+			"now_playing": "[**{title}**]({url}) の再生を開始しました",
+			"added_to_queue": "[**{title}**]({url}) を再生待ち行列に追加しました"
+		},
 		"playnext": {
 			"description": "キューの次に再生する曲を追加します",
 			"options": {

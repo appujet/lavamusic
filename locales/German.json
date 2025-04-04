@@ -275,6 +275,20 @@
 			"added_to_queue": "[{title}]({uri}) zur Warteschlange hinzugefügt.",
 			"added_playlist_to_queue": "{length} Songs zur Warteschlange hinzugefügt."
 		},
+		"playlocal": {
+			"description": "Spielt deine lokalen Audiodateien ab.",
+			"options": {
+				"file": "Die Audiodatei, die abgespielt werden soll."
+			},
+			"loading": "Audiodatei wird geladen...",
+			"errors": {
+				"empty_query": "Bitte füge eine Audiodatei zum Abspielen an.",
+				"invalid_format": "Bitte verwende eine Audiodatei (MP3, WAV, OGG, FLAC, AAC oder M4A).",
+				"no_results": "Die Audiodatei konnte nicht abgespielt werden. Sie könnte beschädigt sein."
+			},
+			"now_playing": "[**{title}**]({url}) wird jetzt abgespielt",
+			"added_to_queue": "[**{title}**]({url}) wurde zur Warteschlange hinzugefügt"
+		},
 		"playnext": {
 			"description": "Füge den Song hinzu, der als nächstes in der Warteschlange abgespielt werden soll",
 			"options": {

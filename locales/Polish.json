@@ -288,6 +288,20 @@
 			"added_to_queue": "Dodano utwór [{title}]({uri}) do kolejki.",
 			"added_playlist_to_queue": "Dodano {length} utworów do kolejki."
 		},
+		"playlocal": {
+			"description": "Odtwarza lokalne pliki audio.",
+			"options": {
+				"file": "Plik audio, który chcesz odtworzyć."
+			},
+			"loading": "Ładowanie pliku audio...",
+			"errors": {
+				"empty_query": "Załącz plik audio do odtworzenia.",
+				"invalid_format": "Użyj pliku audio (MP3, WAV, OGG, FLAC, AAC lub M4A).",
+				"no_results": "Nie udało się odtworzyć pliku audio. Może być uszkodzony."
+			},
+			"now_playing": "Rozpoczęto odtwarzanie [**{title}**]({url})",
+			"added_to_queue": "Dodano [**{title}**]({url}) do kolejki"
+		},
 		"playnext": {
 			"description": "Dodaj utwór do odtworzenia jako następny w kolejce",
 			"options": {

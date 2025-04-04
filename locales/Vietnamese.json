@@ -288,6 +288,20 @@
 			"added_to_queue": "Đã thêm [{title}]({uri}) vào hàng chờ.",
 			"added_playlist_to_queue": "Đã thêm {length} bài hát vào hàng chờ."
 		},
+		"playlocal": {
+			"description": "Phát các tệp âm thanh trên thiết bị của bạn.",
+			"options": {
+				"file": "Tệp âm thanh bạn muốn phát."
+			},
+			"loading": "Đang tải tệp âm thanh...",
+			"errors": {
+				"empty_query": "Vui lòng đính kèm tệp âm thanh để phát.",
+				"invalid_format": "Vui lòng sử dụng tệp âm thanh (MP3, WAV, OGG, FLAC, AAC hoặc M4A).",
+				"no_results": "Không thể phát tệp âm thanh. Có thể tệp đã bị hỏng."
+			},
+			"now_playing": "Đang phát [**{title}**]({url})",
+			"added_to_queue": "Đã thêm [**{title}**]({url}) vào hàng đợi"
+		},
 		"playnext": {
 			"description": "Thêm bài hát để phát tiếp theo trong hàng chờ",
 			"options": {

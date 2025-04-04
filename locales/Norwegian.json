@@ -288,6 +288,20 @@
 			"added_to_queue": "La til [{title}]({uri}) i køen.",
 			"added_playlist_to_queue": "La til {length} sanger i køen."
 		},
+		"playlocal": {
+			"description": "Spiller av dine lokale lydfiler.",
+			"options": {
+				"file": "Lydfilen du vil spille av."
+			},
+			"loading": "Laster lydfil...",
+			"errors": {
+				"empty_query": "Vennligst legg ved en lydfil for å spille av.",
+				"invalid_format": "Vennligst bruk en lydfil (MP3, WAV, OGG, FLAC, AAC eller M4A).",
+				"no_results": "Kunne ikke spille av lydfilen. Den kan være ødelagt."
+			},
+			"now_playing": "Spiller nå [**{title}**]({url})",
+			"added_to_queue": "La til [**{title}**]({url}) i køen"
+		},
 		"playnext": {
 			"description": "Legg til sangen som skal spilles av neste i køen",
 			"options": {

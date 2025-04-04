@@ -288,6 +288,20 @@
 			"added_to_queue": "已將 [{title}]({uri}) 新增到佇列。",
 			"added_playlist_to_queue": "已將 {length} 首歌曲新增到佇列。"
 		},
+		"playlocal": {
+			"description": "播放您本地的音频文件。",
+			"options": {
+				"file": "您想要播放的音频文件。"
+			},
+			"loading": "正在加载音频文件...",
+			"errors": {
+				"empty_query": "请附加要播放的音频文件。",
+				"invalid_format": "请使用支持的音频格式（MP3、WAV、OGG、FLAC、AAC 或 M4A）。",
+				"no_results": "播放音频文件失败，文件可能已损坏。"
+			},
+			"now_playing": "开始播放 [**{title}**]({url})",
+			"added_to_queue": "已将 [**{title}**]({url}) 添加到队列"
+		},
 		"playnext": {
 			"description": "新增歌曲以在佇列中接下來播放",
 			"options": {

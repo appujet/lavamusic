@@ -275,6 +275,20 @@
 			"added_to_queue": "Se ha añadido [{title}]({uri}) a la cola.",
 			"added_playlist_to_queue": "Se han añadido {length} canciones a la cola."
 		},
+		"playlocal": {
+			"description": "Reproduce tus archivos de audio locales.",
+			"options": {
+				"file": "El archivo de audio que quieres reproducir."
+			},
+			"loading": "Cargando archivo de audio...",
+			"errors": {
+				"empty_query": "Por favor, adjunta un archivo de audio para reproducir.",
+				"invalid_format": "Por favor, usa un archivo de audio (MP3, WAV, OGG, FLAC, AAC o M4A).",
+				"no_results": "Error al reproducir el archivo de audio. Puede estar corrupto."
+			},
+			"now_playing": "Comenzando a reproducir [**{title}**]({url})",
+			"added_to_queue": "[**{title}**]({url}) añadido a la cola"
+		},
 		"playnext": {
 			"description": "Añade la canción para reproducirla a continuación en la cola",
 			"options": {
