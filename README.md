@@ -118,25 +118,31 @@ cd lavamusic
 npm i
 ```
 
-4. Copy the `.env.example` file to `.env` and fill in all required values
+4. Compile:
 
-5. Copy the `example.<The data source you want to use>.schema.prisma` file to `schema.prisma` in `prisma` folder
+```
+npm run build
+```
+
+5. Copy the `.env.example` file to `.env` and fill in all required values:
+
+6. Copy the `example.<The data source you want to use>.schema.prisma` file to `schema.prisma` in `prisma` folder
 Note: If you want to use sqlite, skip this step.
 If you are using a different data source, don't forget to fill in the `DATABASE_URL` value in `.env`.
 
-6. Generate the Prisma client:
+7. Generate the Prisma client:
 
 ```bash
 npm run db:push
 ```
 
-7. Run the migrations (Only if you want to migrate your database):
+8. Run the migrations (Only if you want to migrate your database):
 
 ```bash
 npm run db:migrate
 ```
 
-8. Run the bot:
+9. Run the bot:
 
 Note: You can also run `run.bat` to easily run the bot on Windows.
 
@@ -144,15 +150,21 @@ Note: You can also run `run.bat` to easily run the bot on Windows.
 npm start
 ```
 
-9. Invite the bot to your server:
+10. Invite the bot to your server:
 
 Generate an invite link for your bot and invite it to your server using the [Discord Developer Portal](https://discord.com/developers/applications) or [Permissions Calculator](https://discordapi.com/permissions.html).
+
+11. (Optional) Deploy Slash Commands
+
+Make sure that your User ID is listed under `OWNER_IDS` in `.env`. In the Discord server with Lavamusic, run
+```
+!deploy
+```
 
 ## 🚀 Installation using Docker Compose
 
 This section assumes you have Docker and Docker Compose installed and running correctly.
-Edit docker-compose.yml and make sure to set the following variables:
-Your .env file should look like this or you can use the .env.example file.
+Copy the `.env.example` file to `.env` and fill in all required values:
 
 ```yaml
 TOKEN="." # Your bot token and remember, don't show everyone your bot token
@@ -162,21 +174,23 @@ OWNER_IDS=["859640640640640640","859640640640640640"] # Your discord id, you can
 GUILD_ID="859640640640640640" # Your server ID (if you want to use it for a single server)
 ```
 
-For more information how to fill all the variables go to this page.
-You do not need to edit anything like the LAVALINK_SERVERS, DATABASE_URL and the ports unless you know what you're doing.
+Then copy `Lavalink/example.application.yml` to `Lavalink/application.yml` and put any Lavalink plugins you want to use in `Lavalink/plugins`.
+
 After saving your changes you can open a terminal and go to the same location as the docker-compose.yml file. Then run the following:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 The above command will start all your services and your bot should be up and running!
 If you want to run it from the console, remove the -d argument.
 
+Now, you can invite the bot to your server.
+
 To update, you only have to type the following:
 
 ```bash
-docker-compose up --force-recreate --build -d
+docker compose up --force-recreate --build -d
 image prune -f
 ```
 
