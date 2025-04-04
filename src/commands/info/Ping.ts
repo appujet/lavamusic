@@ -31,41 +31,39 @@ export default class Ping extends Command {
 	}
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
+		// Send a deferred message
 		const msg = await ctx.sendDeferMessage(ctx.locale('cmd.ping.content'));
 
+		// Calculate latencies
 		const botLatency = msg.createdTimestamp - ctx.createdTimestamp;
 		const apiLatency = Math.round(ctx.client.ws.ping);
 
-		const botLatencySign = botLatency < 600 ? '+' : '-';
-		const apiLatencySign = apiLatency < 500 ? '+' : '-';
-
-		const embed = this.client
-			.embed()
+		// Embed styling
+		const embed = this.client.embed()
 			.setAuthor({
-				name: 'Pong',
+				name: 'Pong!',
 				iconURL: client.user?.displayAvatarURL(),
 			})
 			.setColor(this.client.color.main)
 			.addFields([
 				{
 					name: ctx.locale('cmd.ping.bot_latency'),
-					value: `\`\`\`diff\n${botLatencySign} ${botLatency}ms\n\`\`\``,
+					value: `\`\`\`diff\n+ ${botLatency}ms\n\`\`\``, // Always positive latency
 					inline: true,
 				},
 				{
 					name: ctx.locale('cmd.ping.api_latency'),
-					value: `\`\`\`diff\n${apiLatencySign} ${apiLatency}ms\n\`\`\``,
+					value: `\`\`\`diff\n+ ${apiLatency}ms\n\`\`\``, // Always positive latency
 					inline: true,
 				},
 			])
 			.setFooter({
-				text: ctx.locale('cmd.ping.requested_by', {
-					author: ctx.author?.tag,
-				}),
+				text: ctx.locale('cmd.ping.requested_by', { author: ctx.author?.tag }),
 				iconURL: ctx.author?.displayAvatarURL({}),
 			})
 			.setTimestamp();
 
+		// Send back the result
 		return await ctx.editMessage({ content: '', embeds: [embed] });
 	}
 }

@@ -1,18 +1,17 @@
-import { exec } from 'node:child_process';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 import { Command, type Context, type Lavamusic } from '../../structures/index';
 
-export default class Restart extends Command {
+export default class Shutdown extends Command {
 	constructor(client: Lavamusic) {
 		super(client, {
-			name: 'restart',
+			name: 'shutdown',
 			description: {
-				content: 'Restart the bot',
-				examples: ['restart'],
-				usage: 'restart',
+				content: 'Shutdown the bot',
+				examples: ['shutdown'],
+				usage: 'shutdown',
 			},
 			category: 'dev',
-			aliases: ['reboot'],
+			aliases: ['turnoff'],
 			cooldown: 3,
 			args: false,
 			player: {
@@ -35,20 +34,20 @@ export default class Restart extends Command {
 		const embed = this.client.embed();
 		const button = new ButtonBuilder()
 			.setStyle(ButtonStyle.Danger)
-			.setLabel('Confirm Restart')
-			.setCustomId('confirm-restart');
+			.setLabel('Confirm Shutdown')
+			.setCustomId('confirm-shutdown');
 		const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
-		const restartEmbed = embed
+		const shutdownEmbed = embed
 			.setColor(this.client.color.red)
-			.setDescription(`**Are you sure you want to restart **\`${client.user?.username}\`?`)
+			.setDescription(`**Are you sure you want to shutdown the bot **\`${client.user?.username}\`?`)
 			.setTimestamp();
 
 		const msg = await ctx.sendMessage({
-			embeds: [restartEmbed],
+			embeds: [shutdownEmbed],
 			components: [row],
 		});
 
-		const filter = (i: any) => i.customId === 'confirm-restart' && i.user.id === ctx.author?.id;
+		const filter = (i: any) => i.customId === 'confirm-shutdown' && i.user.id === ctx.author?.id;
 		const collector = msg.createMessageComponentCollector({
 			time: 30000,
 			filter,
@@ -58,46 +57,27 @@ export default class Restart extends Command {
 			await i.deferUpdate();
 
 			await msg.edit({
-				content: 'Restarting the bot...',
+				content: 'Shutting down the bot...',
 				embeds: [],
 				components: [],
 			});
 
-			try {
-				// Destroy client connection
-				await client.destroy();
-
-				// Run npm run start to restart the bot directly
-				exec('npm run start', (error, stdout, stderr) => {
-					if (error) {
-						console.error(`[RESTART ERROR]: ${error.message}`);
-						return;
-					}
-					if (stderr) {
-						console.error(`[RESTART STDERR]: ${stderr}`);
-						return;
-					}
-					console.log(`[RESTART SUCCESS]: ${stdout}`);
-				});
-			} catch (error) {
-				console.error('[RESTART ERROR]:', error);
-				await msg.edit({
-					content: 'An error occurred while restarting the bot.',
-					components: [],
-				});
-			}
+			await client.destroy();
+			process.exit(0);
 		});
 
 		collector.on('end', async () => {
 			if (collector.collected.size === 0) {
 				await msg.edit({
-					content: 'Restart cancelled.',
+					content: 'Shutdown cancelled.',
 					components: [],
 				});
 			}
 		});
 	}
 }
+
+
 /**
  * Project: lavamusic
  * Author: Appu
