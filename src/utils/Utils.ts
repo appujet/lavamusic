@@ -9,7 +9,7 @@ import {
 	type TextChannel,
 } from 'discord.js';
 import type { Context, Lavamusic } from '../structures/index';
-
+import axios from 'axios';
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class Utils {
 	public static formatTime(ms: number): string {
@@ -37,7 +37,11 @@ export class Utils {
 			});
 		}
 	}
-
+	public static async setVoiceStatus(channel: string, status: string = "") {
+			await axios.put(`https://discord.com/api/v10/channels/${channel}/voice-status`,
+				{ status: status.length > 0 ? status.slice(0, 28) : null }, { headers: { Authorization: `Bot ${process.env.TOKEN}` } });
+	}
+	
 	public static chunk(array: any[], size: number) {
 		const chunked_arr: any[][] = [];
 		for (let index = 0; index < array.length; index += size) {
