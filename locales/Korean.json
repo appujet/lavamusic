@@ -301,6 +301,19 @@
 			"added_to_queue": "대기열에 추가되었어요: [{title}]({uri})",
 			"added_playlist_to_queue": "{length}개의 노래가 대기열에 추가되었어요."
 		},
+		"playlocal": {
+			"description": "로컬 오디오 파일을 재생해요",
+			"options": {
+				"file": "재생할 오디오 파일 첨부"
+			},
+			"loading": "로드 중...",
+			"errors": {
+				"empty_query": "재생할 오디오 파일을 첨부해 주세요.",
+				"invalid_format": "MP3, WAV, OGG, FLAC, AAC, M4A 파일만 재생할 수 있어요.",
+				"no_results": "오디오 파일 재생에 실패했어요. 파일이 손상되었을 수 있어요."
+			},
+			"added_to_queue": "대기열에 추가되었어요: [{title}]({url})"
+		},
 		"playnext": {
 			"description": "노래를 바로 다음에 재생해요",
 			"options": {

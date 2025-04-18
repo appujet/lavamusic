@@ -301,6 +301,19 @@
 			"added_to_queue": "Added [{title}]({uri}) to the queue.",
 			"added_playlist_to_queue": "Added {length} songs to the queue."
 		},
+		"playlocal": {
+			"description": "Plays an your local audio files",
+			"options": {
+				"file": "The audio file you want to play"
+			},
+			"loading": "Loading...",
+			"errors": {
+				"empty_query": "Please attach an audio file to play.",
+				"invalid_format": "You can only play MP3, WAV, OGG, FLAC, AAC or M4A files.",
+				"no_results": "Failed to play the audio file. It may be corrupted."
+			},
+			"added_to_queue": "Added [{title}]({url}) to the queue"
+		},
 		"playnext": {
 			"description": "Add the song to play next in queue",
 			"options": {
