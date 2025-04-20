@@ -98,7 +98,7 @@ export default class Context {
 
 	public async sendDeferMessage(content: string | MessagePayload | MessageCreateOptions): Promise<Message> {
 		if (this.isInteraction) {
-			this.msg = await this.interaction?.deferReply({ fetchReply: true });
+			this.msg = await this.interaction?.deferReply({ withResponse: true });
 			return this.msg;
 		}
 
