@@ -132,18 +132,18 @@ export class Utils {
 			if (ctx.deferred) {
 				msg = await ctx.interaction!.followUp({
 					...msgOptions,
-					fetchReply: true,
+					withResponse: true,
 				});
 			} else {
 				msg = (await ctx.interaction!.reply({
 					...msgOptions,
-					fetchReply: true,
+					withResponse: true,
 				})) as unknown as Message;
 			}
 		} else {
 			msg = await (ctx.channel as TextChannel).send({
 				...msgOptions,
-				fetchReply: true,
+				withResponse: true,
 			});
 		}
 
