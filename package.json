@@ -51,6 +51,7 @@
     "@fastify/jwt": "^9.0.4",
     "@fastify/sensible": "^6.0.3",
     "@prisma/client": "^6.5.0",
+    "@swc/core": "^1.11.21",
     "@top-gg/sdk": "^3.1.6",
     "discord.js": "^14.18.0",
     "dotenv": "^16.4.7",
