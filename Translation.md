@@ -24,7 +24,7 @@
 - [x] Hindi - `Hindi.json` [by @Appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
 - [ ] Hungarian - `Hungarian.json` (Not Started)
 - [x] Indonesian - `Indonesian.json` [by @iaMJ](https://github.com/idMJA)
-- [ ] Italian - `Italian.json` (Not Started)
+- [x] Italian - `Italian.json` [by @lori28167](https://github.com/lori28167)
 - [x] Japanese - `Japanese.json` [by @hatry4](https://github.com/hatry4)
 - [x] Korean - `Korean.json` [by @hwangsihu](https://github.com/hwangsihu)
 - [ ] Lithuanian - `Lithuanian.json` (Not Started)
