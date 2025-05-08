@@ -500,6 +500,12 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"playlocal": {
+			"description": "Plays an your local audio files",
+			"options": {
+				"file": "The audio file you want to play"
+			}
 		}
 	},
 	"buttons": {
@@ -631,5 +637,6 @@
 	"Evaluate code": "Evaluasi kode",
 	"Leave a guild": "Tinggalkan server",
 	"List all guilds the bot is in": "Daftar semua server tempat bot berada",
-	"Restart the bot": "Restart bot"
+	"Restart the bot": "Restart bot",
+	"The loop mode you want to set": "The loop mode you want to set"
 }
