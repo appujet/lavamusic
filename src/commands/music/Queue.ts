@@ -75,7 +75,10 @@ export default class Queue extends Command {
 					name: ctx.locale('cmd.queue.title'),
 					iconURL: ctx.guild.icon ? ctx.guild.iconURL()! : ctx.author?.displayAvatarURL(),
 				})
-				.setDescription(chunk.join('\n'))
+				.setDescription(chunk.join('\n')
+					+ '\n\n' + ctx.locale('cmd.queue.duration', {
+						totalDuration: client.utils.formatTime(player.queue.utils.totalDuration() - player.queue.current?.info.duration!),
+					}))
 				.setFooter({
 					text: ctx.locale('cmd.queue.page_info', {
 						index: index + 1,

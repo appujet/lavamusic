@@ -335,7 +335,8 @@
 			"live": "LIVE",
 			"track_info": "{index}. [{title}]({uri}) - Requested By: <@{requester}> - Duration: `{duration}`",
 			"title": "Queue",
-			"page_info": "Page {index} of {total}"
+			"page_info": "Page {index} of {total}",
+			"duration": "Queue Duration: `{totalDuration}`"
 		},
 		"remove": {
 			"description": "Removes a song from the queue",
