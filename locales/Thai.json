@@ -34,26 +34,26 @@
 				"command": "ดูข้อมูลของคำสั่งที่ต้องการใช้"
 			},
 			"content": "สวัสดีค่ะ 🙏🏻 {bot} เองนะคะ บอทเปิดเพลงที่ใช้ [Lavamusic](https://github.com/appujet/lavamusic) และ Discord.js คุณสามารถใช้ `{prefix}help <คำสั่งที่ต้องการ>` เพื่อดูข้อมูลเพิ่มเติมของคำสั่งนั้น",
-			"title": "Help Menu",
-			"not_found": "This `{cmdName}` command does not exist.",
-			"help_cmd": "**Description:** {description}\n**Usage:** {usage}\n**Examples:** {examples}\n**Aliases:** {aliases}\n**Category:** {category}\n**Cooldown:** {cooldown} seconds\n**Permissions:** {premUser}\n**Bot Permissions:** {premBot}\n**Developer Only:** {dev}\n**Slash Command:** {slash}\n**Args:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**DJ Permissions:** {djPerm}\n**Voice:** {voice}",
-			"footer": "Use {prefix}help <command> for more info on a command"
+			"title": "เมนูคำสั่ง",
+			"not_found": "ไม่มีคำสั่ง `{cmdName}` ในระบบ",
+			"help_cmd": "**คำอธิบาย:** {description}\n**วิธีใช้:** {usage}\n**ตัวอย่าง:** {examples}\n**ชื่ออื่น:** {aliases}\n**หมวดหมู่:** {category}\n**คูลดาวน์:** {cooldown} วินาที\n**สิทธิ์:** {premUser}\n**สิทธิ์ของบอท:** {premBot}\n**เฉพาะผู้พัฒนา:** {dev}\n**คำสั่ง /:** {slash}\n**Args:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**DJ Permissions:** {djPerm}\n**Voice:** {voice}",
+			"footer": "ใช้ {prefix}help <คำสั่ง> เพื่อดูข้อมูลเพิ่มเติม"
 		},
 		"botinfo": {
-			"description": "Information about the bot",
-			"content": "Bot Information:\n- **Operating System**: {osInfo}\n- **Uptime**: {osUptime}\n- **Hostname**: {osHostname}\n- **CPU Architecture**: {cpuInfo}\n- **CPU Usage**: {cpuUsed}%\n- **Memory Usage**: {memUsed}MB / {memTotal}GB\n- **Node Version**: {nodeVersion}\n- **Discord.js Version**: {discordJsVersion}\n- **Connected to** {guilds} guilds, {channels} channels, and {users} users\n- **Total Commands**: {commands}"
+			"description": "ข้อมูลเกี่ยวกับบอท",
+			"content": "ข้อมูลบอท:\n- **OS**: {osInfo}\n- **Uptime**: {osUptime}\n- **Hostname**: {osHostname}\n- **CPU Architecture**: {cpuInfo}\n- **CPU Usage**: {cpuUsed}%\n- **Memory Usage**: {memUsed}MB / {memTotal}GB\n- **Node Version**: {nodeVersion}\n- **Discord.js Version**: {discordJsVersion}\n- **Connected to** {guilds} guilds, {channels} channels, and {users} users\n- **Total Commands**: {commands}"
 		},
 		"about": {
-			"description": "Shows information about the bot",
+			"description": "เกี่ยวกับบอท",
 			"fields": {
-				"creator": "Creator",
+				"creator": "ผู้สร้าง",
 				"repository": "Repository",
-				"support": "Support",
+				"support": "ซัดพอร์ต",
 				"description": "He really wanted to make his first open source project ever for more coding experience. In this project, he was challenged to make a project with fewer bugs. Hope you enjoy using LavaMusic!"
 			}
 		},
 		"dj": {
-			"description": "Manage the DJ mode and associated roles",
+			"description": "จัดการโหมด DJ และบทบาทที่เกี่ยวข้อง",
 			"errors": {
 				"provide_role": "Please provide a role.",
 				"no_roles": "The DJ role is empty.",
