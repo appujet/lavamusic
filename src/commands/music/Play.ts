@@ -76,7 +76,6 @@ export default class Play extends Command {
 		await player.queue.add(response.loadType === 'playlist' ? response.tracks : response.tracks[0]);
 
 		const fairPlayEnabled = player.get<boolean>('fairplay');
-
 		if (fairPlayEnabled) {
 			await applyFairPlayToQueue(player);
 		}
