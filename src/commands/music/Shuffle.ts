@@ -39,6 +39,14 @@ export default class Shuffle extends Command {
 				embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale('player.errors.no_song'))],
 			});
 		}
+
+		const fairPlay = player.get<boolean>('fairplay');
+		if (fairPlay) {
+			return await ctx.sendMessage({
+				embeds: [embed.setColor(this.client.color.red).setDescription(ctx.locale('cmd.shuffle.errors.fairplay'))],
+			});
+		}
+
 		player.queue.shuffle();
 		return await ctx.sendMessage({
 			embeds: [embed.setColor(this.client.color.main).setDescription(ctx.locale('cmd.shuffle.messages.shuffled'))],

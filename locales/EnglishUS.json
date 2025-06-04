@@ -412,6 +412,9 @@
 			"description": "Shuffles the queue",
 			"messages": {
 				"shuffled": "Shuffled the queue."
+			},
+			"errors": {
+				"fairplay": "Fairplay mode is enabled. You cannot shuffle the queue."
 			}
 		},
 		"skip": {
