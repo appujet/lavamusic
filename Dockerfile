@@ -1,5 +1,5 @@
 # Stage 1: Build TypeScript
-FROM node:23-alpine AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /opt/lavamusic
 
@@ -7,11 +7,11 @@ WORKDIR /opt/lavamusic
 RUN apk add --no-cache python3 make g++
 
 # Copy package files first for better layer caching
-COPY package*.json ./
+COPY package.json ./
 COPY prisma/schema.prisma ./prisma/
 
 # Install dependencies (using npm install instead of ci)
-RUN npm install --legacy-peer-deps
+RUN npm install
 
 # Copy remaining source files
 COPY . .
@@ -21,7 +21,7 @@ RUN npm run build && \
     npx prisma generate
 
 # Stage 2: Production image
-FROM node:23-alpine
+FROM node:24-alpine
 
 ENV NODE_ENV=production \
     PORT=80 \
