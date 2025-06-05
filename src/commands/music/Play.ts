@@ -1,6 +1,7 @@
 import type { ApplicationCommandOptionChoiceData, AutocompleteInteraction, VoiceChannel } from 'discord.js';
 import type { SearchResult } from 'lavalink-client';
 import { Command, type Context, type Lavamusic } from '../../structures/index';
+import {applyFairPlayToQueue} from "../../utils/functions/player";
 
 export default class Play extends Command {
 	constructor(client: Lavamusic) {
@@ -73,6 +74,11 @@ export default class Play extends Command {
 		}
 
 		await player.queue.add(response.loadType === 'playlist' ? response.tracks : response.tracks[0]);
+
+		const fairPlayEnabled = player.get<boolean>('fairplay');
+		if (fairPlayEnabled) {
+			await applyFairPlayToQueue(player);
+		}
 
 		if (response.loadType === 'playlist') {
 			await ctx.editMessage({

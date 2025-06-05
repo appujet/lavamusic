@@ -11,6 +11,17 @@
 				"enabled": "`✅` | 24/7 mode has been `ENABLED`."
 			}
 		},
+		"fairplay": {
+			"description": "Set the bot to play music fairly",
+			"errors": {
+				"not_in_voice": "You need to be in a voice channel to use this command.",
+				"generic": "An error occurred while trying to execute this command."
+			},
+			"messages": {
+				"disabled": "`✅` | Fairplay mode has been `DISABLED`.",
+				"enabled": "`✅` | Fairplay mode has been `ENABLED`."
+			}
+		},
 		"ping": {
 			"description": "Shows the bot's ping.",
 			"content": "Pinging...",
@@ -401,6 +412,9 @@
 			"description": "Shuffles the queue",
 			"messages": {
 				"shuffled": "Shuffled the queue."
+			},
+			"errors": {
+				"fairplay": "Fairplay mode is enabled. You cannot shuffle the queue."
 			}
 		},
 		"skip": {

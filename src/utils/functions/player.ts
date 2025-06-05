@@ -110,6 +110,43 @@ export async function autoPlayFunction(player: Player, lastTrack?: Track): Promi
 }
 
 /**
+ * Applies fair play to the player's queue by ensuring that tracks from different requesters are played in a round-robin fashion.
+ * @param {Player} player The player instance.
+ * @returns {Promise<Track[]>} A promise that resolves to the fair queue of tracks.
+ */
+export async function applyFairPlayToQueue(player: Player): Promise<Track[]> {
+	const tracks = [...player.queue.tracks];
+	const requesterMap = new Map<string, any[]>();
+
+	// Group tracks by requester
+	for (const track of tracks) {
+		const requesterId = (track.requester as any).id
+		if (!requesterMap.has(requesterId)) {
+			requesterMap.set(requesterId, []);
+		}
+		requesterMap.get(requesterId)!.push(track);
+	}
+
+	// Build fair queue
+	const fairQueue: Track[] = [];
+	while (fairQueue.length < tracks.length) {
+		for (const [, trackList] of requesterMap.entries()) {
+			if (trackList.length > 0) {
+				fairQueue.push(trackList.shift()!);
+			}
+		}
+	}
+
+	// Clear the player's queue and add the fair queue tracks
+	await player.queue.splice(0, player.queue.tracks.length);
+	for (const track of fairQueue) {
+		player.queue.add(track);
+	}
+
+	return fairQueue;
+}
+
+/**
  * Project: lavamusic
  * Author: Appu
  * Main Contributor: LucasB25
