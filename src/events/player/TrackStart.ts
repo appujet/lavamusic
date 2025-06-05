@@ -83,6 +83,7 @@ export default class TrackStart extends Event {
 
 			player.set('messageId', message.id);
 			createCollector(message, player, track, embed, this.client, locale);
+			this.client.utils.setVoiceStatus(channel.id, track.info.title);
 		}
 	}
 }
