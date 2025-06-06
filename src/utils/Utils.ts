@@ -85,11 +85,11 @@ export class Utils {
 	public static async paginate(client: Lavamusic, ctx: Context, embed: any[]): Promise<void> {
 		if (embed.length < 2) {
 			if (ctx.isInteraction) {
-				ctx.deferred ? ctx.interaction?.followUp({ embeds: embed }) : ctx.interaction?.reply({ embeds: embed });
+				ctx.deferred ? await ctx.interaction?.followUp({ embeds: embed }) : await ctx.interaction?.reply({ embeds: embed });
 				return;
 			}
 
-			(ctx.channel as TextChannel).send({ embeds: embed });
+			await (ctx.channel as TextChannel).send({ embeds: embed });
 			return;
 		}
 
@@ -128,23 +128,17 @@ export class Utils {
 
 		const msgOptions = getButton(0);
 		let msg: Message;
+		
 		if (ctx.isInteraction) {
 			if (ctx.deferred) {
-				msg = await ctx.interaction!.followUp({
-					...msgOptions,
-					withResponse: true,
-				});
+				await ctx.interaction!.followUp(msgOptions);
+				msg = await ctx.interaction!.fetchReply() as Message;
 			} else {
-				msg = (await ctx.interaction!.reply({
-					...msgOptions,
-					withResponse: true,
-				})) as unknown as Message;
+				await ctx.interaction!.reply(msgOptions);
+				msg = await ctx.interaction!.fetchReply() as Message;
 			}
 		} else {
-			msg = await (ctx.channel as TextChannel).send({
-				...msgOptions,
-				withResponse: true,
-			});
+			msg = await (ctx.channel as TextChannel).send(msgOptions);
 		}
 
 		const author = ctx instanceof CommandInteraction ? ctx.user : ctx.author;
@@ -179,7 +173,11 @@ export class Utils {
 		});
 
 		collector.on('end', async () => {
-			await msg.edit({ embeds: [embed[page]], components: [] });
+			try {
+				await msg.edit({ embeds: [embed[page]], components: [] });
+			} catch (error) {
+				
+			}
 		});
 	}
 }
