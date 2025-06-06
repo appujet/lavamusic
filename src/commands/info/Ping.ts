@@ -35,7 +35,7 @@ export default class Ping extends Command {
 		const msg = await ctx.sendDeferMessage(ctx.locale('cmd.ping.content'));
 
 		// Calculate latencies
-		const botLatency = msg.createdTimestamp - ctx.createdTimestamp;
+		const botLatency = Date.now() - startTime;
 		const apiLatency = Math.round(ctx.client.ws.ping);
 
 		// Embed styling
