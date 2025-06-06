@@ -32,6 +32,7 @@ export default class Ping extends Command {
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
 		// Send a deferred message
+		const startTime = Date.now();
 		const msg = await ctx.sendDeferMessage(ctx.locale('cmd.ping.content'));
 
 		// Calculate latencies
