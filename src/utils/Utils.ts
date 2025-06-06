@@ -82,106 +82,103 @@ export class Utils {
 		return `${filledBar}${emptyBar} ${percent}%`;
 	}
 
-	public static async paginate(client: Lavamusic, ctx: Context, embed: any[]): Promise<void> {
-		if (embed.length < 2) {
-			if (ctx.isInteraction) {
-				ctx.deferred ? ctx.interaction?.followUp({ embeds: embed }) : ctx.interaction?.reply({ embeds: embed });
-				return;
-			}
-
-			(ctx.channel as TextChannel).send({ embeds: embed });
+public static async paginate(client: Lavamusic, ctx: Context, embed: any[]): Promise<void> {
+	if (embed.length < 2) {
+		if (ctx.isInteraction) {
+			ctx.deferred ? await ctx.interaction?.followUp({ embeds: embed }) : await ctx.interaction?.reply({ embeds: embed });
 			return;
 		}
 
-		let page = 0;
-		const getButton = (page: number): any => {
-			const firstEmbed = page === 0;
-			const lastEmbed = page === embed.length - 1;
-			const pageEmbed = embed[page];
-			const first = new ButtonBuilder()
-				.setCustomId('first')
-				.setEmoji(client.emoji.page.first)
-				.setStyle(ButtonStyle.Primary)
-				.setDisabled(firstEmbed);
-			const back = new ButtonBuilder()
-				.setCustomId('back')
-				.setEmoji(client.emoji.page.back)
-				.setStyle(ButtonStyle.Primary)
-				.setDisabled(firstEmbed);
-			const next = new ButtonBuilder()
-				.setCustomId('next')
-				.setEmoji(client.emoji.page.next)
-				.setStyle(ButtonStyle.Primary)
-				.setDisabled(lastEmbed);
-			const last = new ButtonBuilder()
-				.setCustomId('last')
-				.setEmoji(client.emoji.page.last)
-				.setStyle(ButtonStyle.Primary)
-				.setDisabled(lastEmbed);
-			const stop = new ButtonBuilder()
-				.setCustomId('stop')
-				.setEmoji(client.emoji.page.cancel)
-				.setStyle(ButtonStyle.Danger);
-			const row = new ActionRowBuilder().addComponents(first, back, stop, next, last);
-			return { embeds: [pageEmbed], components: [row] };
-		};
+		await (ctx.channel as TextChannel).send({ embeds: embed });
+		return;
+	}
 
-		const msgOptions = getButton(0);
-		let msg: Message;
-		if (ctx.isInteraction) {
-			if (ctx.deferred) {
-				msg = await ctx.interaction!.followUp({
-					...msgOptions,
-					withResponse: true,
-				});
-			} else {
-				msg = (await ctx.interaction!.reply({
-					...msgOptions,
-					withResponse: true,
-				})) as unknown as Message;
-			}
+	let page = 0;
+	const getButton = (page: number): any => {
+		const firstEmbed = page === 0;
+		const lastEmbed = page === embed.length - 1;
+		const pageEmbed = embed[page];
+		const first = new ButtonBuilder()
+			.setCustomId('first')
+			.setEmoji(client.emoji.page.first)
+			.setStyle(ButtonStyle.Primary)
+			.setDisabled(firstEmbed);
+		const back = new ButtonBuilder()
+			.setCustomId('back')
+			.setEmoji(client.emoji.page.back)
+			.setStyle(ButtonStyle.Primary)
+			.setDisabled(firstEmbed);
+		const next = new ButtonBuilder()
+			.setCustomId('next')
+			.setEmoji(client.emoji.page.next)
+			.setStyle(ButtonStyle.Primary)
+			.setDisabled(lastEmbed);
+		const last = new ButtonBuilder()
+			.setCustomId('last')
+			.setEmoji(client.emoji.page.last)
+			.setStyle(ButtonStyle.Primary)
+			.setDisabled(lastEmbed);
+		const stop = new ButtonBuilder()
+			.setCustomId('stop')
+			.setEmoji(client.emoji.page.cancel)
+			.setStyle(ButtonStyle.Danger);
+		const row = new ActionRowBuilder().addComponents(first, back, stop, next, last);
+		return { embeds: [pageEmbed], components: [row] };
+	};
+
+	const msgOptions = getButton(0);
+	let msg: Message;
+	
+	if (ctx.isInteraction) {
+		if (ctx.deferred) {
+			await ctx.interaction!.followUp(msgOptions);
+			msg = await ctx.interaction!.fetchReply() as Message;
 		} else {
-			msg = await (ctx.channel as TextChannel).send({
-				...msgOptions,
-				withResponse: true,
+			await ctx.interaction!.reply(msgOptions);
+			msg = await ctx.interaction!.fetchReply() as Message;
+		}
+	} else {
+		msg = await (ctx.channel as TextChannel).send(msgOptions);
+	}
+
+	const author = ctx instanceof CommandInteraction ? ctx.user : ctx.author;
+
+	const filter = (int: any): any => int.user.id === author?.id;
+	const collector = msg.createMessageComponentCollector({
+		filter,
+		time: 60000,
+	});
+
+	collector.on('collect', async interaction => {
+		if (interaction.user.id === author?.id) {
+			await interaction.deferUpdate();
+			if (interaction.customId === 'first' && page !== 0) {
+				page = 0;
+			} else if (interaction.customId === 'back' && page !== 0) {
+				page--;
+			} else if (interaction.customId === 'stop') {
+				collector.stop();
+			} else if (interaction.customId === 'next' && page !== embed.length - 1) {
+				page++;
+			} else if (interaction.customId === 'last' && page !== embed.length - 1) {
+				page = embed.length - 1;
+			}
+			await interaction.editReply(getButton(page));
+		} else {
+			await interaction.reply({
+				content: ctx.locale('buttons.errors.not_author'),
+				flags: MessageFlags.Ephemeral,
 			});
 		}
+	});
 
-		const author = ctx instanceof CommandInteraction ? ctx.user : ctx.author;
-
-		const filter = (int: any): any => int.user.id === author?.id;
-		const collector = msg.createMessageComponentCollector({
-			filter,
-			time: 60000,
-		});
-
-		collector.on('collect', async interaction => {
-			if (interaction.user.id === author?.id) {
-				await interaction.deferUpdate();
-				if (interaction.customId === 'first' && page !== 0) {
-					page = 0;
-				} else if (interaction.customId === 'back' && page !== 0) {
-					page--;
-				} else if (interaction.customId === 'stop') {
-					collector.stop();
-				} else if (interaction.customId === 'next' && page !== embed.length - 1) {
-					page++;
-				} else if (interaction.customId === 'last' && page !== embed.length - 1) {
-					page = embed.length - 1;
-				}
-				await interaction.editReply(getButton(page));
-			} else {
-				await interaction.reply({
-					content: ctx.locale('buttons.errors.not_author'),
-					flags: MessageFlags.Ephemeral,
-				});
-			}
-		});
-
-		collector.on('end', async () => {
+	collector.on('end', async () => {
+		try {
 			await msg.edit({ embeds: [embed[page]], components: [] });
-		});
-	}
+		} catch (error) {
+			
+		}
+	});
 }
 
 /**
