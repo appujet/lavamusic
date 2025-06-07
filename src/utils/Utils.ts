@@ -10,7 +10,6 @@ import {
 } from 'discord.js';
 import type { Context, Lavamusic } from '../structures/index';
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class Utils {
 	public static formatTime(ms: number): string {
 		const minuteMs = 60 * 1000;
@@ -88,12 +87,13 @@ export class Utils {
 				ctx.deferred ? await ctx.interaction?.followUp({ embeds: embed }) : await ctx.interaction?.reply({ embeds: embed });
 				return;
 			}
-
 			await (ctx.channel as TextChannel).send({ embeds: embed });
 			return;
 		}
 
 		let page = 0;
+		let stoppedManually = false;
+
 		const getButton = (page: number): any => {
 			const firstEmbed = page === 0;
 			const lastEmbed = page === embed.length - 1;
@@ -122,13 +122,13 @@ export class Utils {
 				.setCustomId('stop')
 				.setEmoji(client.emoji.page.cancel)
 				.setStyle(ButtonStyle.Danger);
-			const row = new ActionRowBuilder().addComponents(first, back, stop, next, last);
+			const row = new ActionRowBuilder<ButtonBuilder>().addComponents(first, back, stop, next, last);
 			return { embeds: [pageEmbed], components: [row] };
 		};
 
 		const msgOptions = getButton(0);
 		let msg: Message;
-		
+
 		if (ctx.isInteraction) {
 			if (ctx.deferred) {
 				await ctx.interaction!.followUp(msgOptions);
@@ -144,43 +144,53 @@ export class Utils {
 		const author = ctx instanceof CommandInteraction ? ctx.user : ctx.author;
 
 		const filter = (int: any): any => int.user.id === author?.id;
-		const collector = msg.createMessageComponentCollector({
-			filter,
-			time: 60000,
-		});
+		const collector = msg.createMessageComponentCollector({ filter, time: 60000 });
 
 		collector.on('collect', async interaction => {
-			if (interaction.user.id === author?.id) {
-				await interaction.deferUpdate();
-				if (interaction.customId === 'first' && page !== 0) {
-					page = 0;
-				} else if (interaction.customId === 'back' && page !== 0) {
-					page--;
-				} else if (interaction.customId === 'stop') {
-					collector.stop();
-				} else if (interaction.customId === 'next' && page !== embed.length - 1) {
-					page++;
-				} else if (interaction.customId === 'last' && page !== embed.length - 1) {
-					page = embed.length - 1;
-				}
-				await interaction.editReply(getButton(page));
-			} else {
+			if (interaction.user.id !== author?.id) {
 				await interaction.reply({
 					content: ctx.locale('buttons.errors.not_author'),
 					flags: MessageFlags.Ephemeral,
 				});
+				return;
 			}
+
+			await interaction.deferUpdate();
+
+			switch (interaction.customId) {
+				case 'first':
+					if (page !== 0) page = 0;
+					break;
+				case 'back':
+					if (page > 0) page--;
+					break;
+				case 'next':
+					if (page < embed.length - 1) page++;
+					break;
+				case 'last':
+					if (page !== embed.length - 1) page = embed.length - 1;
+					break;
+				case 'stop':
+					stoppedManually = true;
+					collector.stop();
+					try {
+						await msg.edit({ components: [] });
+					} catch {}
+					return;
+			}
+
+			await interaction.editReply(getButton(page));
 		});
 
 		collector.on('end', async () => {
+			if (stoppedManually) return;
 			try {
 				await msg.edit({ embeds: [embed[page]], components: [] });
-			} catch (error) {
-				
-			}
+			} catch {}
 		});
 	}
 }
+
 
 /**
  * Project: lavamusic
