@@ -36,7 +36,7 @@
   "devDependencies": {
     "@appujet/eslint-config": "^0.0.3",
     "@types/i18n": "^0.13.12",
-    "@types/node": "^22.14.1",
+    "@types/node": "^24.0.0",
     "@types/signale": "^1.4.7",
     "eslint": "^9.25.0",
     "eslint-config-prettier": "^10.1.2",
