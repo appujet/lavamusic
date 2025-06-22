@@ -62,7 +62,7 @@ services:
     # services for lavamusic
     lavamusic:
         container_name: lavamusic
-        image: ghcr.io/appujet/lavamusic:main
+        image: ghcr.io/c0ders-io/c0ders-io/lavamusic:main
         environment:
             # lavalink nodes
             - NODES=[{"id":"LavaMusic","host":"lavalink","port":2333,"authorization":"youshallnotpass"}]
