@@ -7,13 +7,13 @@
 [![Issues][issues-shield]][issues-url]
 [![Support Server][support-shield]][support-server]
 [![MIT License][license-shield]][license-url]
-[![Run on Repl.it](https://repl.it/badge/github/appujet/lavamusic)](https://repl.it/github/appujet/lavamusic)
-[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/appujet/lavamusic)
+[![Run on Repl.it](https://repl.it/badge/github/c0ders-io/lavamusic)](https://repl.it/github/c0ders-io/lavamusic)
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/c0ders-io/lavamusic)
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/appujet/lavamusic">
+  <a href="https://github.com/c0ders-io/lavamusic">
     <img src="https://cdn.discordapp.com/avatars/875635121770889257/adc4fd956872a72814b70448d1fddd40.webp?size=512" alt="lavamusic" width="200" height="200">
   </a>
 
@@ -21,9 +21,9 @@
   <p align="center">Lavamusic is a Discord music bot that uses Discord.js, lavalink-client, and TypeScript.
     <br />
     <br />
-    <a href="https://discord.com/oauth2/authorize?client_id=875635121770889257&scope=bot+applications.commands&permissions=8">Invite Lavamusic</a>
+    <a href="https://discord.com/oauth2/authorize?client_id=1343814433134346241&permissions=279209954560&response_type=code&redirect_uri=https%3A%2F%2Fdiscord.gg%2Fkhfw8z6gg9&integration_type=0&scope=bot+guilds+applications.commands">Invite Lavamusic</a>
     ·
-    <a href="https://github.com/appujet/lavamusic/issues">Report Bug & Request Feature</a>
+    <a href="https://github.com/appujet/c0ders-io/issues">Report Bug & Request Feature</a>
   </p>
 </p>
 
@@ -76,7 +76,7 @@
 [LavaSrc]: https://github.com/topi314/LavaSrc
 [skybot-lavalink-plugin]: https://github.com/DuncteBot/skybot-lavalink-plugin
 [youtube-source]: https://github.com/lavalink-devs/youtube-source
-[jiosaavn]: https://github.com/appujet/jiosaavn-plugin
+[jiosaavn]: https://github.com/c0ders-io/jiosaavn-plugin
 
 To Setup a Lavalink server on Windows, Linux, or Replit, [Click Here!](https://github.com/LucasB25/lavalink-server)
 
@@ -233,7 +233,7 @@ Your contribution will be reviewed by the project maintainers, and any necessary
 
 ## 🔐 License
 
-Distributed under the GPL-3.0 license. See [![LICENSE](https://img.shields.io/github/license/appujet/lavamusic?style=social)](https://github.com/appujet/lavamusic/blob/main/LICENSE) for more information [READ](https://discord.com/channels/942117923001098260/942120006219624469/1278087961774129314).
+Distributed under the GPL-3.0 license. See [![LICENSE](https://img.shields.io/github/license/appujet/lavamusic?style=social)](https://github.com/c0ders-io/lavamusic/blob/main/LICENSE) for more information [READ](https://discord.com/channels/942117923001098260/942120006219624469/1278087961774129314).
 
 ## ☕ Donate
 
@@ -243,20 +243,20 @@ Do you like this project? Support it by donating!
 ## 👥 Contributors
 
 Thanks go to these wonderful people:
-<a href="https://github.com/appujet/lavamusic/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=appujet/lavamusic" />
+<a href="https://github.com/c0ders-io/lavamusic/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=c0ders-io/lavamusic" />
 </a>
 
-[version-shield]: https://img.shields.io/github/package-json/v/appujet/lavamusic?style=for-the-badge
-[contributors-shield]: https://img.shields.io/github/contributors/appujet/lavamusic.svg?style=for-the-badge
-[contributors-url]: https://github.com/appujet/lavamusic/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/appujet/lavamusic.svg?style=for-the-badge
-[forks-url]: https://github.com/appujet/lavamusic/network/members
-[stars-shield]: https://img.shields.io/github/stars/appujet/lavamusic.svg?style=for-the-badge
-[stars-url]: https://github.com/appujet/lavamusic/stargazers
-[issues-shield]: https://img.shields.io/github/issues/appujet/lavamusic.svg?style=for-the-badge
-[issues-url]: https://github.com/appujet/lavamusic/issues
-[license-shield]: https://img.shields.io/github/license/appujet/lavamusic.svg?style=for-the-badge
-[license-url]: https://github.com/appujet/lavamusic/blob/master/LICENSE
+[version-shield]: https://img.shields.io/github/package-json/v/c0ders-io/lavamusic?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/c0ders-io/lavamusic.svg?style=for-the-badge
+[contributors-url]: https://github.com/c0ders-io/lavamusic/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/c0ders-io/lavamusic.svg?style=for-the-badge
+[forks-url]: https://github.com/c0ders-io/lavamusic/network/members
+[stars-shield]: https://img.shields.io/github/stars/c0ders-io/lavamusic.svg?style=for-the-badge
+[stars-url]: https://github.com/c0ders-io/lavamusic/stargazers
+[issues-shield]: https://img.shields.io/github/issues/c0ders-io/lavamusic.svg?style=for-the-badge
+[issues-url]: https://github.com/c0ders-io/lavamusic/issues
+[license-shield]: https://img.shields.io/github/license/c0ders-io/lavamusic.svg?style=for-the-badge
+[license-url]: https://github.com/c0ders-io/lavamusic/blob/master/LICENSE
 [support-server]: https://discord.gg/YQsGbTwPBx
 [support-shield]: https://img.shields.io/discord/942117923001098260.svg?style=for-the-badge&logo=discord&colorB=7289DA
