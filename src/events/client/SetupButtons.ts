@@ -183,18 +183,29 @@ export default class SetupButtons extends Event {
 							this.client.color.main,
 						);
 					}
+
 					player.skip();
 					await buttonReply(interaction, T(locale, 'event.setupButton.skipped'), this.client.color.main);
-					await message.edit({
-						embeds: [
-							embed.setFooter({
-								text: T(locale, 'event.setupButton.skipped_footer', {
-									displayName: interaction.member.displayName,
-								}),
-								iconURL: interaction.member.displayAvatarURL({}),
-							}),
-						],
-					});
+
+					const newTrack = player.queue.current?.info;
+					const newEmbed = this.client
+						.embed()
+						.setAuthor({
+							name: T(locale, 'event.setupButton.now_playing'),
+							iconURL: this.client.config.icons[newTrack?.sourceName || ''] || this.client.user?.displayAvatarURL({ extension: 'png' }),
+						})
+						.setColor(this.client.color.main)
+						.setDescription(
+							`[${newTrack?.title}](${newTrack?.uri}) - ${newTrack?.isStream ? T(locale, 'event.setupButton.live') : this.client.utils.formatTime(newTrack?.duration)} - ${T(locale, 'event.setupButton.requested_by', { requester: (player.queue.current?.requester as Requester).id })}`
+						)
+						.setImage(newTrack?.artworkUrl || this.client.user?.displayAvatarURL({ extension: 'png' })!);
+
+					if (message) {
+						await message.edit({
+							embeds: [newEmbed],
+							components: getButtons(player, this.client),
+						});
+					}
 					break;
 				}
 				case 'LOW_VOL_BUT':
