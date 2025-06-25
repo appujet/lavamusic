@@ -10,17 +10,17 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./lavamusic.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Bot {
   botId         String @unique
-  totalPlaySong Int    @default(0)
+  totalPlaySong Int
 }
 
 model Guild {
-  guildId  String  @id
+  guildId  String  @id @unique
   prefix   String
   language String? @default("EnglishUS")
   stay     Stay?
