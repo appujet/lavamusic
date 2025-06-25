@@ -1,5 +1,8 @@
 name: Build and publish a Docker image to ghcr.io
 on: push
+permissions:
+    contents: read
+    packages: write
 
 jobs:
     docker_publish:
