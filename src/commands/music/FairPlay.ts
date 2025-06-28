@@ -50,7 +50,7 @@ export default class FairPlay extends Command {
     }
 
     const embed = this.client.embed();
-    let fairPlay = player.get<boolean>("fairplay");
+    const fairPlay = player.get<boolean>("fairplay");
 
     player.set("fairplay", !fairPlay);
 
