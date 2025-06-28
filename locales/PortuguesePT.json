@@ -154,10 +154,10 @@
 		"pitch": {
 			"description": "Ativar/desativar filtro de tom",
 			"options": {
-				"pitch": "O número para o qual deseja definir o tom (entre 0,5 e 5)"
+				"pitch": "O número para o qual deseja definir o tom (entre 0,25 e 8)"
 			},
 			"errors": {
-				"invalid_number": "Por favor, forneça um número válido entre 0,5 e 5."
+				"invalid_number": "Por favor, forneça um número válido entre 0,25 e 8."
 			},
 			"messages": {
 				"pitch_set": "`✅` | O tom foi definido para **{pitch}**."
@@ -166,10 +166,10 @@
 		"rate": {
 			"description": "Altera a velocidade da música",
 			"options": {
-				"rate": "O número para o qual deseja definir a velocidade (entre 0,5 e 5)"
+				"rate": "O número para o qual deseja definir a velocidade (entre 0,25 e 8)"
 			},
 			"errors": {
-				"invalid_number": "Por favor, forneça um número válido entre 0,5 e 5."
+				"invalid_number": "Por favor, forneça um número válido entre 0,25 e 8."
 			},
 			"messages": {
 				"rate_set": "`✅` | A velocidade foi definida para **{rate}**."
@@ -194,7 +194,7 @@
 				"speed": "A velocidade que deseja definir"
 			},
 			"messages": {
-				"invalid_number": "Por favor, forneça um número válido entre 0,5 e 5.",
+				"invalid_number": "Por favor, forneça um número válido entre 0,25 e 8.",
 				"set_speed": "`✅` | A velocidade foi definida para **{speed}**."
 			}
 		},

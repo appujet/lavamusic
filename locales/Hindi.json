@@ -170,10 +170,10 @@
 		"pitch": {
 			"description": "Pitch filter on/off karein",
 			"options": {
-				"pitch": "Woh number jiske liye aap pitch set karna chahte hain (0.5 aur 5 ke beech)"
+				"pitch": "Woh number jiske liye aap pitch set karna chahte hain (0.25 aur 8 ke beech)"
 			},
 			"errors": {
-				"invalid_number": "Kripya 0.5 aur 5 ke beech ek valid number प्रदान करें."
+				"invalid_number": "Kripya 0.25 aur 8 ke beech ek valid number प्रदान करें."
 			},
 			"messages": {
 				"pitch_set": "`✅` | Pitch **{pitch}** par set kar diya gaya hai."
@@ -182,10 +182,10 @@
 		"rate": {
 			"description": "Song ki rate badlein",
 			"options": {
-				"rate": "Woh number jiske liye aap rate set karna chahte hain (0.5 aur 5 ke beech)"
+				"rate": "Woh number jiske liye aap rate set karna chahte hain (0.25 aur 8 ke beech)"
 			},
 			"errors": {
-				"invalid_number": "Kripya 0.5 aur 5 ke beech ek valid number प्रदान करें."
+				"invalid_number": "Kripya 0.25 aur 8 ke beech ek valid number प्रदान करें."
 			},
 			"messages": {
 				"rate_set": "`✅` | Rate **{rate}** par set kar diya gaya hai."
@@ -210,7 +210,7 @@
 				"speed": "Woh speed jise aap set karna chahte hain"
 			},
 			"messages": {
-				"invalid_number": "Kripya 0.5 aur 5 ke beech ek valid number प्रदान करें.",
+				"invalid_number": "Kripya 0.25 aur 8 ke beech ek valid number प्रदान करें.",
 				"set_speed": "`✅` | Speed **{speed}** par set kar diya gaya hai."
 			}
 		},

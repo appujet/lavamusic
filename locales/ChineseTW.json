@@ -170,10 +170,10 @@
 		"pitch": {
 			"description": "啟用/關閉音調等化器",
 			"options": {
-				"pitch": "您要將音調設定為的數字（介於 0.5 和 5 之間）"
+				"pitch": "您要將音調設定為的數字（介於 0.25 和 8 之間）"
 			},
 			"errors": {
-				"invalid_number": "請提供一個介於 0.5 和 5 之間的有效數字。"
+				"invalid_number": "請提供一個介於 0.25 和 8 之間的有效數字。"
 			},
 			"messages": {
 				"pitch_set": "`✅` | 音調已設定為 **{pitch}**。"
@@ -182,10 +182,10 @@
 		"rate": {
 			"description": "更改歌曲的速度",
 			"options": {
-				"rate": "您要將速度設定到的數字（介於 0.5 和 5 之間）"
+				"rate": "您要將速度設定到的數字（介於 0.25 和 8 之間）"
 			},
 			"errors": {
-				"invalid_number": "請提供一個介於 0.5 和 5 之間的有效數字。"
+				"invalid_number": "請提供一個介於 0.25 和 8 之間的有效數字。"
 			},
 			"messages": {
 				"rate_set": "`✅` | 速度已設定為 **{rate}**。"
@@ -210,7 +210,7 @@
 				"speed": "您要設定的速度"
 			},
 			"messages": {
-				"invalid_number": "請提供一個介於 0.5 和 5 之間的有效數字。",
+				"invalid_number": "請提供一個介於 0.25 和 8 之間的有效數字。",
 				"set_speed": "`✅` | 速度已設定為 **{speed}**。"
 			}
 		},
