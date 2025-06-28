@@ -73,7 +73,7 @@ export default class Lavamusic extends Client {
 
   private async loadCommands(): Promise<void> {
     const commandsPath = fs.readdirSync(
-      path.join(process.cwd(), "dist", "commands")
+      path.join(process.cwd(), "dist", "commands"),
     );
 
     for (const dir of commandsPath) {
@@ -83,7 +83,7 @@ export default class Lavamusic extends Client {
 
       for (const file of commandFiles) {
         const cmdModule = require(
-          path.join(process.cwd(), "dist", "commands", dir, file)
+          path.join(process.cwd(), "dist", "commands", dir, file),
         );
         const command: Command = new cmdModule.default(this, file);
         command.category = dir;
@@ -103,7 +103,7 @@ export default class Lavamusic extends Client {
               Array.isArray(command.permissions.user) &&
               command.permissions.user.length > 0
                 ? PermissionsBitField.resolve(
-                    command.permissions.user as any
+                    command.permissions.user as any,
                   ).toString()
                 : null,
             name_localizations: null,
@@ -113,7 +113,7 @@ export default class Lavamusic extends Client {
           const localizations: { name: any[]; description: string[] }[] = [];
           i18n.getLocales().map((locale: any) => {
             localizations.push(
-              localization(locale, command.name, command.description.content)
+              localization(locale, command.name, command.description.content),
             );
           });
 
@@ -138,7 +138,7 @@ export default class Lavamusic extends Client {
               }[] = [];
               i18n.getLocales().map((locale: any) => {
                 optionsLocalizations.push(
-                  localization(locale, option.name, option.description)
+                  localization(locale, option.name, option.description),
                 );
               });
 
@@ -169,8 +169,8 @@ export default class Lavamusic extends Client {
                       localization(
                         locale,
                         subOption.name,
-                        subOption.description
-                      )
+                        subOption.description,
+                      ),
                     );
                   });
 
@@ -188,7 +188,7 @@ export default class Lavamusic extends Client {
                   }
                   subOption.description = T(
                     Locale.EnglishUS,
-                    subOption.description
+                    subOption.description,
                   );
                 });
               }
@@ -216,7 +216,7 @@ export default class Lavamusic extends Client {
 
   private async loadEvents(): Promise<void> {
     const eventsPath = fs.readdirSync(
-      path.join(process.cwd(), "dist", "events")
+      path.join(process.cwd(), "dist", "events"),
     );
 
     for (const dir of eventsPath) {
@@ -226,7 +226,7 @@ export default class Lavamusic extends Client {
 
       for (const file of eventFiles) {
         const eventModule = require(
-          path.join(process.cwd(), "dist", "events", dir, file)
+          path.join(process.cwd(), "dist", "events", dir, file),
         );
         const event = new eventModule.default(this, file);
 
@@ -234,7 +234,7 @@ export default class Lavamusic extends Client {
           this.manager.on(event.name, (...args: any) => event.run(...args));
         } else if (dir === "node") {
           this.manager.nodeManager.on(event.name, (...args: any) =>
-            event.run(...args)
+            event.run(...args),
           );
         } else {
           this.on(event.name, (...args) => event.run(...args));

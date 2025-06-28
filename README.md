@@ -127,8 +127,8 @@ npm run build
 5. Copy the `.env.example` file to `.env` and fill in all required values:
 
 6. Copy the `example.<The data source you want to use>.schema.prisma` file to `schema.prisma` in `prisma` folder
-Note: If you want to use sqlite, skip this step.
-If you are using a different data source, don't forget to fill in the `DATABASE_URL` value in `.env`.
+   Note: If you want to use sqlite, skip this step.
+   If you are using a different data source, don't forget to fill in the `DATABASE_URL` value in `.env`.
 
 7. Generate the Prisma client:
 
@@ -157,6 +157,7 @@ Generate an invite link for your bot and invite it to your server using the [Dis
 11. (Optional) Deploy Slash Commands
 
 Make sure that your User ID is listed under `OWNER_IDS` in `.env`. In the Discord server with Lavamusic, run
+
 ```
 !deploy
 ```
@@ -229,7 +230,7 @@ Thank you for your interest in contributing to Lavamusic! Here are some guidelin
 3. Create detailed and thorough documentation for any new features or changes.
 4. Write and run tests for your code.
 5. Submit a pull request with your changes.
-Your contribution will be reviewed by the project maintainers, and any necessary feedback or changes will be discussed with you. We appreciate your help in making Lavamusic better!
+   Your contribution will be reviewed by the project maintainers, and any necessary feedback or changes will be discussed with you. We appreciate your help in making Lavamusic better!
 
 ## 🔐 License
 
@@ -244,7 +245,7 @@ Do you like this project? Support it by donating!
 
 Thanks go to these wonderful people:
 <a href="https://github.com/c0ders-io/lavamusic/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=c0ders-io/lavamusic" />
+<img src="https://contrib.rocks/image?repo=c0ders-io/lavamusic" />
 </a>
 
 [version-shield]: https://img.shields.io/github/package-json/v/c0ders-io/lavamusic?style=for-the-badge
