@@ -16,6 +16,10 @@ export default class QueueEnd extends Event {
 		const locale = await this.client.db.getLanguage(player.guildId);
 		await updateSetup(this.client, guild, locale);
 
+		if (player.voiceChannelId) {
+			await this.client.utils.setVoiceStatus(this.client, player.voiceChannelId, "");
+		}
+
 		const messageId = player.get<string | undefined>('messageId');
 		if (!messageId) return;
 

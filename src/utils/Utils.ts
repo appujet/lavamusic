@@ -37,6 +37,10 @@ export class Utils {
 		}
 	}
 
+	public static async setVoiceStatus(client: Lavamusic, channelId: string, message: string): Promise<void> {
+		await client.rest.put(`/channels/${channelId}/voice-status`, { body: { status: message } }).catch(() => {});
+	}
+	
 	public static chunk(array: any[], size: number) {
 		const chunked_arr: any[][] = [];
 		for (let index = 0; index < array.length; index += size) {
