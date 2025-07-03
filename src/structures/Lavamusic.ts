@@ -38,6 +38,7 @@ export default class Lavamusic extends Client {
   public utils = Utils;
   public env: typeof env = env;
   public manager!: LavalinkClient;
+  public rest = new REST({ version: "10" }).setToken(env.TOKEN ?? "");
   public embed(): EmbedBuilder {
     return new EmbedBuilder();
   }
@@ -206,8 +207,7 @@ export default class Lavamusic extends Client {
       : Routes.applicationCommands(this.user?.id ?? "");
 
     try {
-      const rest = new REST({ version: "10" }).setToken(env.TOKEN ?? "");
-      await rest.put(route, { body: this.body });
+      await this.rest.put(route, { body: this.body });
       this.logger.info("Successfully deployed slash commands!");
     } catch (error) {
       this.logger.error(error);

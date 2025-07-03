@@ -38,6 +38,10 @@ export default class TrackStart extends Event {
 
 		const locale = await this.client.db.getLanguage(guild.id);
 
+		if (player.voiceChannelId) {
+			await this.client.utils.setVoiceStatus(this.client, player.voiceChannelId, `🎵 ${track.info.title}`);
+		}
+
 		const embed = this.client
 			.embed()
 			.setAuthor({
