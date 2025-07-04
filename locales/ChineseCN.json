@@ -170,10 +170,10 @@
 		"pitch": {
 			"description": "启用/关闭音调滤镜",
 			"options": {
-				"pitch": "您要将音调设置为的数字（介于 0.5 和 5 之间）"
+				"pitch": "您要将音调设置为的数字（介于 0.25 和 8 之间）"
 			},
 			"errors": {
-				"invalid_number": "请提供一个介于 0.5 和 5 之间的有效数字。"
+				"invalid_number": "请提供一个介于 0.25 和 8 之间的有效数字。"
 			},
 			"messages": {
 				"pitch_set": "`✅` | 音调已设置为 **{pitch}**。"
@@ -182,10 +182,10 @@
 		"rate": {
 			"description": "更改歌曲的速率",
 			"options": {
-				"rate": "您要将速率设置到的数字（介于 0.5 和 5 之间）"
+				"rate": "您要将速率设置到的数字（介于 0.25 和 8 之间）"
 			},
 			"errors": {
-				"invalid_number": "请提供一个介于 0.5 和 5 之间的有效数字。"
+				"invalid_number": "请提供一个介于 0.25 和 8 之间的有效数字。"
 			},
 			"messages": {
 				"rate_set": "`✅` | 速率已设置为 **{rate}**。"
@@ -210,7 +210,7 @@
 				"speed": "您要设置的速度"
 			},
 			"messages": {
-				"invalid_number": "请提供一个介于 0.5 和 5 之间的有效数字。",
+				"invalid_number": "请提供一个介于 0.25 和 8 之间的有效数字。",
 				"set_speed": "`✅` | 速度已设置为 **{speed}**。"
 			}
 		},
