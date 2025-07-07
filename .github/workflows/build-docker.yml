@@ -4,7 +4,6 @@ on: push
 jobs:
     docker_publish:
         runs-on: ubuntu-latest
-
         steps:
             - name: Checkout
               uses: actions/checkout@v4
