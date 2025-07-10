@@ -1,17 +1,25 @@
+import type { Player } from "lavalink-client";
 import { Event, type Lavamusic } from "../../structures/index";
 
-export default class Raw extends Event {
-  client: Lavamusic;
-
+export default class PlayerMuteChange extends Event {
   constructor(client: Lavamusic, file: string) {
     super(client, file, {
-      name: "raw",
+      name: "playerMuteChange",
     });
-    this.client = client;
   }
 
-  public async run(d: any): Promise<void> {
-    this.client.manager.sendRawData(d);
+  public async run(
+    player: Player,
+    _selfMuted: boolean,
+    serverMuted: boolean,
+  ): Promise<void> {
+    if (!player) return;
+
+    if (serverMuted && player.playing && !player.paused) {
+      player.pause();
+    } else if (!serverMuted && player.paused) {
+      player.resume();
+    }
   }
 }
 
