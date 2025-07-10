@@ -16,10 +16,10 @@ export default class PlayerDestroy extends Event {
     const locale = await this.client.db.getLanguage(player.guildId);
     await updateSetup(this.client, guild, locale);
 
-    if (player.voiceChannelId) {
+    if (player.options?.voiceChannelId) {
       await this.client.utils.setVoiceStatus(
         this.client,
-        player.voiceChannelId,
+        player.options.voiceChannelId,
         "",
       );
     }
