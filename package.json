@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/appujet/lavamusic.git"
+    "url": "git+https://github.com/c0ders-io/lavamusic.git"
   },
   "keywords": [
     "discord",
@@ -30,9 +30,9 @@
   "author": "appujet",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/appujet/lavamusic/issues"
+    "url": "https://github.com/c0ders-io/lavamusic/issues"
   },
-  "homepage": "https://github.com/appujet/lavamusic#readme",
+  "homepage": "https://github.com/c0ders-io/lavamusic#readme",
   "devDependencies": {
     "@eslint/js": "^9.31.0",
     "@next/eslint-plugin-next": "^15.3.5",
