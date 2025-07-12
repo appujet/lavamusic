@@ -109,13 +109,11 @@ export default class Play extends Command {
       await ctx.editMessage({
         content: "",
         embeds: [
-          embed
-            .setColor(this.client.color.main)
-            .setDescription(
-              ctx.locale("cmd.play.added_playlist_to_queue", {
-                length: response.tracks.length,
-              }),
-            ),
+          embed.setColor(this.client.color.main).setDescription(
+            ctx.locale("cmd.play.added_playlist_to_queue", {
+              length: response.tracks.length,
+            }),
+          ),
         ],
       });
     } else {

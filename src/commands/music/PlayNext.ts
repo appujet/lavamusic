@@ -105,13 +105,11 @@ export default class PlayNext extends Command {
       await ctx.editMessage({
         content: "",
         embeds: [
-          embed
-            .setColor(this.client.color.main)
-            .setDescription(
-              ctx.locale("cmd.playnext.added_playlist_to_play_next", {
-                length: response.tracks.length,
-              }),
-            ),
+          embed.setColor(this.client.color.main).setDescription(
+            ctx.locale("cmd.playnext.added_playlist_to_play_next", {
+              length: response.tracks.length,
+            }),
+          ),
         ],
       });
     } else {
