@@ -60,17 +60,17 @@ export default class Pitch extends Command {
     const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(pitchString);
     const pitch = Number.parseFloat(pitchString);
 
-		if (!isValidNumber || Number.isNaN(pitch) || pitch < 0.25 || pitch > 8) {
-			await ctx.sendMessage({
-				embeds: [
-					{
-						description: ctx.locale('cmd.pitch.errors.invalid_number'),
-						color: this.client.color.red,
-					},
-				],
-			});
-			return;
-		}
+    if (!isValidNumber || Number.isNaN(pitch) || pitch < 0.25 || pitch > 8) {
+      await ctx.sendMessage({
+        embeds: [
+          {
+            description: ctx.locale("cmd.pitch.errors.invalid_number"),
+            color: this.client.color.red,
+          },
+        ],
+      });
+      return;
+    }
 
     await player.filterManager.setPitch(pitch);
     return await ctx.sendMessage({
