@@ -10,18 +10,14 @@ export default class PlayerDisconnect extends Event {
     });
   }
 
-  public async run(player: Player, _voiceChannelId: string): Promise<void> {
+  public async run(player: Player, voiceChannelId: string): Promise<void> {
     const guild = this.client.guilds.cache.get(player.guildId);
     if (!guild) return;
     const locale = await this.client.db.getLanguage(player.guildId);
     await updateSetup(this.client, guild, locale);
 
-    if (player.voiceChannelId) {
-      await this.client.utils.setVoiceStatus(
-        this.client,
-        player.voiceChannelId,
-        "",
-      );
+    if (voiceChannelId) {
+      await this.client.utils.setVoiceStatus(this.client, voiceChannelId, "");
     }
 
     const messageId = player.get<string | undefined>("messageId");
