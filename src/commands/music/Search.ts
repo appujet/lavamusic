@@ -60,12 +60,19 @@ export default class Search extends Command {
     });
   }
 
+  private formatTrackDisplay(track: Track, index: number, client: Lavamusic): string {
+    return `**${index + 1}. [${track.info.title}](${track.info.uri})**\n` +
+           `*${track.info.author || "Unknown Artist"}*\n` +
+           `\`${track.info.duration ? client.utils.formatTime(track.info.duration) : 'N/A'}\``;
+  }
+
   private generatePageComponents(
     client: Lavamusic,
     ctx: Context,
     tracks: Track[],
     currentPage: number,
     maxPages: number,
+    isDisabled: boolean = false // Now takes an optional isDisabled parameter
   ) {
     const startIndex = currentPage * TRACKS_PER_PAGE;
     const endIndex = startIndex + TRACKS_PER_PAGE;
@@ -90,12 +97,7 @@ export default class Search extends Command {
     tracksOnPage.forEach((track: Track, index: number) => {
       const globalIndex = startIndex + index;
       const section = new SectionBuilder().addTextDisplayComponents(
-        (textDisplay) =>
-          textDisplay.setContent(
-            `**${globalIndex + 1}. [${track.info.title}](${track.info.uri})**\n` +
-            `*${track.info.author || "Unknown Artist"}*\n` +
-            `\`${track.info.duration ? client.utils.formatTime(track.info.duration) : 'N/A'}\``,
-          ),
+        (textDisplay) => textDisplay.setContent(this.formatTrackDisplay(track, globalIndex, client)),
       );
 
       if (track.info.artworkUrl) {
@@ -122,7 +124,8 @@ export default class Search extends Command {
           description: (track.info.author || "Unknown Artist").slice(0, 100),
           value: (startIndex + index).toString(),
         })),
-      );
+      )
+      .setDisabled(isDisabled); // Apply disabled state
 
     const selectRow = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
       selectMenu,
@@ -132,13 +135,13 @@ export default class Search extends Command {
       .setCustomId("previous-page")
       .setLabel(ctx.locale("cmd.search.buttons.previous"))
       .setStyle(ButtonStyle.Primary)
-      .setDisabled(currentPage === 0);
+      .setDisabled(currentPage === 0 || isDisabled); // Apply disabled state
 
     const nextButton = new ButtonBuilder()
       .setCustomId("next-page")
       .setLabel(ctx.locale("cmd.search.buttons.next"))
       .setStyle(ButtonStyle.Primary)
-      .setDisabled(currentPage === maxPages - 1);
+      .setDisabled(currentPage === maxPages - 1 || isDisabled); // Apply disabled state
 
     const buttonRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
       previousButton,
@@ -178,14 +181,15 @@ export default class Search extends Command {
         await player.connect();
       } catch (error) {
         console.error("Failed to connect to voice channel:", error);
+        player.destroy(); // Clean up the player if connection fails
         const connectErrorContainer = new ContainerBuilder()
           .setAccentColor(this.client.color.red)
           .addTextDisplayComponents(
             (textDisplay) =>
               textDisplay.setContent(
                 `**${ctx.locale(
-                  "cmd.play.errors.vc_connect_fail_title",
-                )}**\n${ctx.locale("cmd.play.errors.vc_connect_fail_description")}`,
+                  "cmd.search.errors.vc_connect_fail_title", // Changed key
+                )}**\n${ctx.locale("cmd.search.errors.vc_connect_fail_description")}`, // Changed key
               ),
           );
         return await ctx.sendMessage({
@@ -228,7 +232,7 @@ export default class Search extends Command {
       currentPage,
       maxPages,
     );
-    await ctx.sendMessage(initialComponents);
+    const sentMessage = await ctx.sendMessage(initialComponents);
 
     const collector = (
       ctx.channel as TextChannel
@@ -278,12 +282,22 @@ export default class Search extends Command {
               ),
           );
 
+        // Disable all components after track selection
+        const disabledComponents = this.generatePageComponents(
+            client,
+            ctx,
+            response.tracks,
+            currentPage,
+            maxPages,
+            true // Pass true to disable components
+        );
+
         await ctx.editMessage({
-          components: [confirmationContainer],
+          components: [...confirmationContainer.components, ...disabledComponents.components.slice(1)], // Combine confirmation with disabled pagination
           flags: MessageFlags.IsComponentsV2,
         });
 
-        return collector.stop();
+        collector.stop("trackSelected");
       } else if (int.customId === "previous-page") {
         if (currentPage > 0) {
           currentPage--;
@@ -337,7 +351,6 @@ export default class Search extends Command {
             flags: MessageFlags.IsComponentsV2,
           });
         } catch (error) {
-          // Fallback if editing the original message fails for some reason
           console.error("Failed to edit message on collector timeout:", error);
           const fallbackTimeoutContainer = new ContainerBuilder()
             .setAccentColor(this.client.color.red)
@@ -352,18 +365,9 @@ export default class Search extends Command {
             flags: MessageFlags.IsComponentsV2 | MessageFlags.Ephemeral,
           });
         }
+      } else if (reason === "trackSelected") {
+        // Do nothing, components are already disabled and message edited.
       }
     });
   }
 }
-
-/**
- * Project: lavamusic
- * Author: Appu
- * Main Contributor: LucasB25
- * Company: Coders
- * Copyright (c) 2024. All rights reserved.
- * This code is the property of Coder and may not be reproduced or
- * modified without permission. For more information, contact us at
- * https://discord.gg/YQsGbTwPBx
- */
