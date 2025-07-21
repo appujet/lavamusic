@@ -392,7 +392,9 @@
 				"no_results_description": "I couldn't find any songs matching your query. Try changing keywords or providing a link.",
 				"invalid_selection_title": "Invalid Selection!",
 				"invalid_selection_description": "The selected option is invalid. Please select a song number from the list.",
-				"search_error": "An error occurred while searching for the song."
+				"search_error": "An error occurred while searching for the song.",
+				"vc_connect_fail_title": "Voice channel connection error",
+            			"vc_connect_fail_description": "I could not connect to your voice channel. Make sure I have the proper permissions."
 			},
 			"messages": {
 				"results_found": "Found **{count}** songs.",
