@@ -48,7 +48,7 @@ export default class Nowplaying extends Command {
   public async run(client: Lavamusic, ctx: Context): Promise<any> {
     const player = client.manager.getPlayer(ctx.guild!.id);
 
-    // Brak muzyki
+
     if (!player || !player.queue.current) {
       const noMusic = ctx.locale("event.message.no_music_playing");
       const container = new ContainerBuilder()
