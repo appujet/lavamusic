@@ -50,7 +50,7 @@ export default class Nowplaying extends Command {
   public async run(client: Lavamusic, ctx: Context): Promise<any> {
     const player = client.manager.getPlayer(ctx.guild!.id);
 
-    // Sprawdzenie, czy jest odtwarzana muzyka
+
     if (!player || !player.queue.current) {
       const noMusicContainer = new ContainerBuilder()
         .setAccentColor(this.client.color.red)
@@ -81,7 +81,7 @@ export default class Nowplaying extends Command {
         ),
     );
 
-    // Dodanie miniatury, jeśli jest dostępna i poprawna
+
     if (track.info.artworkUrl && track.info.artworkUrl.length > 0) {
       mainSection.setThumbnailAccessory(
         (thumbnail) =>
@@ -91,7 +91,7 @@ export default class Nowplaying extends Command {
       );
     }
 
-    // Główne komponenty wiadomości
+
     const nowPlayingContainer = new ContainerBuilder()
       .setAccentColor(this.client.color.main)
       .addSectionComponents(mainSection); 
