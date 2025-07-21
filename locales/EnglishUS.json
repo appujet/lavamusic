@@ -381,17 +381,31 @@
 			}
 		},
 		"search": {
-			"description": "Searches for a song",
+			"description": "Search for a song",
 			"options": {
-				"song": "The song you want to search"
+				"song": "The song you are looking for"
 			},
-			"select": "Please select the song you want to play",
+			"select": "Select a song from the list...",
 			"errors": {
 				"no_results": "No results found.",
-				"search_error": "There was an error while searching."
+				"no_results_title": "No Search Results Found!",
+				"no_results_description": "I couldn't find any songs matching your query. Try changing keywords or providing a link.",
+				"invalid_selection_title": "Invalid Selection!",
+				"invalid_selection_description": "The selected option is invalid. Please select a song number from the list.",
+				"search_error": "An error occurred while searching for the song."
 			},
 			"messages": {
-				"added_to_queue": "Added [{title}]({uri}) to the queue."
+				"results_found": "Found **{count}** songs.",
+				"select_prompt": "Select a number to add the song to the queue.",
+				"page_info": "Page {currentPage}/{maxPages}",
+				"added_to_queue": "Added **[{title}]({uri})** to the queue!",
+				"selection_timed_out_title": "Time Expired!",
+				"selection_timed_out_description": "No song was selected within the given time. The search has been canceled. Please try again.",
+				"selection_timed_out_short": "Selection timed out."
+			},
+			"buttons": {
+				"previous": "◀ Previous",
+				"next": "Next ▶"
 			}
 		},
 		"seek": {
