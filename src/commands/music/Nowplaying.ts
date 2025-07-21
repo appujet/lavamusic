@@ -36,7 +36,6 @@ export default class Nowplaying extends Command {
           "ReadMessageHistory",
           "ViewChannel",
           "EmbedLinks",
-          "AttachFiles",
         ],
         user: [],
       },
