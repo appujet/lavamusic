@@ -9,7 +9,6 @@ import {
   SectionBuilder,
   MessageFlags,
   ThumbnailBuilder,
-  SeparatorBuilder, 
 } from "discord.js";
 
 export default class Nowplaying extends Command {
@@ -38,7 +37,7 @@ export default class Nowplaying extends Command {
           "SendMessages",
           "ReadMessageHistory",
           "ViewChannel",
-          "EmbedLinks", 
+          "EmbedLinks",
           "AttachFiles", 
         ],
         user: [],
@@ -69,27 +68,29 @@ export default class Nowplaying extends Command {
     const duration = track.info.duration;
     const bar = client.utils.progressBar(position, duration, 20);
 
-    const nowPlayingContainer = new ContainerBuilder()
-      .setAccentColor(this.client.color.main)
-      .addTextDisplayComponents(
+    const mainSection = new SectionBuilder().addTextDisplayComponents(
         (textDisplay) =>
-          textDisplay.setContent(
-            `**${ctx.locale("cmd.nowplaying.now_playing")}**\n` +
-            `**[${track.info.title}](${track.info.uri})**\n` +
-            `*${track.info.author || "Unknown Artist"}*\n\n` +
-            `${bar}\n` +
-            `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(duration)}\``
-          ),
-      );
+            textDisplay.setContent(
+                `**${ctx.locale("cmd.nowplaying.now_playing")}**\n` +
+                `**[${track.info.title}](${track.info.uri})**\n` +
+                `*${track.info.author || "Unknown Artist"}*\n\n` +
+                `${bar}\n` +
+                `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(duration)}\``
+            ),
+    );
 
     if (track.info.artworkUrl) {
-      nowPlayingContainer.addThumbnailComponents(
+      mainSection.setThumbnailAccessory(
         (thumbnail) =>
           thumbnail
             .setURL(track.info.artworkUrl)
             .setDescription(`Artwork for ${track.info.title}`),
       );
     }
+
+    const nowPlayingContainer = new ContainerBuilder()
+      .setAccentColor(this.client.color.main)
+      .addSectionComponents(mainSection);
 
 
     if (track.requester) {
@@ -105,10 +106,6 @@ export default class Nowplaying extends Command {
       );
     }
     
-
-    nowPlayingContainer.addSeparatorComponents(new SeparatorBuilder());
-
-
     return await ctx.sendMessage({
       components: [nowPlayingContainer],
       flags: MessageFlags.IsComponentsV2,
