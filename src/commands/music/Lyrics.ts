@@ -100,9 +100,9 @@ export default class Lyrics extends Command {
 
           
           if (!finalState) {
-              fullContent += `\n\nStrona ${pageIndex + 1}/${lyricsPages.length}`;
+              fullContent += `\n\nPage ${pageIndex + 1}/${lyricsPages.length}`;
           } else {
-              fullContent += `\n\n*Sesja wygasła. Użyj komendy ponownie, aby odświeżyć.*`;
+              fullContent += `\n\n*The session has expired. Use the command again to refresh.*`;
           }
 
           const mainLyricsSection = new SectionBuilder()
