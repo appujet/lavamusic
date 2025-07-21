@@ -83,9 +83,9 @@ export default class Search extends Command {
     )) as SearchResult;
 
     if (!response || response.tracks?.length === 0) {
-      // No results - using Component v2
+      
       const noResultsContainer = new ContainerBuilder()
-        .setAccentColor(0xFF0000) // Red color for error
+        .setAccentColor(0xFF0000) 
         .addTextDisplayComponents(
           textDisplay => textDisplay
             .setContent(`❌ **No Results Found**\n\nCouldn't find any tracks matching: **${query}**\n\nTry different keywords or check your spelling.`)
@@ -97,18 +97,17 @@ export default class Search extends Command {
       });
     }
 
-    // Create the search results UI using Component v2
     const searchContainer = new ContainerBuilder()
-      .setAccentColor(0x0099FF) // Blue accent color
+      .setAccentColor(0x0099FF) 
       .addTextDisplayComponents(
         textDisplay => textDisplay
           .setContent(`🔍 **Search Results for:** "${query}"\n\nFound **${response.tracks.length}** tracks. Select one from the menu below:`)
       );
 
-    // Add separator
+    
     searchContainer.addSeparatorComponents(separator => separator);
 
-    // Create sections for each track (limit to 8 to avoid hitting component limits)
+    
     const tracksToShow = response.tracks.slice(0, 8);
     tracksToShow.forEach((track: Track, index: number) => {
       searchContainer.addSectionComponents(
@@ -120,7 +119,7 @@ export default class Search extends Command {
       );
     });
 
-    // Add separator before controls
+    
     searchContainer.addSeparatorComponents(separator => separator);
 
     // Create select menu for track selection
@@ -138,7 +137,7 @@ export default class Search extends Command {
         }))
       );
 
-    // Create control buttons
+    
     const cancelButton = new ButtonBuilder()
       .setCustomId("search-cancel")
       .setLabel("Cancel")
@@ -151,7 +150,7 @@ export default class Search extends Command {
       .setStyle(ButtonStyle.Success)
       .setEmoji("➕");
 
-    // Add action rows to container
+    
     searchContainer.addActionRowComponents(
       actionRow => actionRow.setComponents(selectMenu)
     );
@@ -165,7 +164,7 @@ export default class Search extends Command {
       flags: MessageFlags.IsComponentsV2,
     });
 
-    // Create collector for interactions
+    
     const collector = message.createMessageComponentCollector({
       filter: (interaction) => interaction.user.id === ctx.author?.id,
       time: 60000,
@@ -224,7 +223,7 @@ export default class Search extends Command {
     }
 
     const successContainer = new ContainerBuilder()
-      .setAccentColor(0x00FF00) // Green for success
+      .setAccentColor(0x00FF00) 
       .addTextDisplayComponents(
         textDisplay => textDisplay
           .setContent(`✅ **Track Added Successfully**\n\n🎵 **[${track.info.title}](${track.info.uri})**\n🎤 **Artist:** ${track.info.author}\n⏱️ **Duration:** ${this.formatDuration(track.info.duration)}\n📍 **Queue Position:** #${player.queue.tracks.length}`)
@@ -243,7 +242,7 @@ export default class Search extends Command {
     }
 
     const successContainer = new ContainerBuilder()
-      .setAccentColor(0x00FF00) // Green for success
+      .setAccentColor(0x00FF00) 
       .addTextDisplayComponents(
         textDisplay => textDisplay
           .setContent(`✅ **All Tracks Added Successfully**\n\n➕ Added **${tracks.length} tracks** to the queue\n📊 **Total Queue Length:** ${player.queue.tracks.length} tracks\n🎵 Queue is now ${player.playing ? 'playing' : 'ready to start'}!`)
@@ -257,7 +256,7 @@ export default class Search extends Command {
 
   private async handleCancel(ctx: Context) {
     const cancelContainer = new ContainerBuilder()
-      .setAccentColor(0xFF0000) // Red for cancelled
+      .setAccentColor(0xFF0000) 
       .addTextDisplayComponents(
         textDisplay => textDisplay
           .setContent(`❌ **Search Cancelled**\n\nNo tracks were added to the queue.\nRun the search command again when you're ready!`)
@@ -271,7 +270,7 @@ export default class Search extends Command {
 
   private async handleTimeout(ctx: Context) {
     const timeoutContainer = new ContainerBuilder()
-      .setAccentColor(0xFF8C00) // Orange for timeout
+      .setAccentColor(0xFF8C00) 
       .addTextDisplayComponents(
         textDisplay => textDisplay
           .setContent(`⏰ **Search Menu Expired**\n\nThe search menu has timed out after 60 seconds.\nPlease run the search command again to continue.`)
@@ -285,7 +284,7 @@ export default class Search extends Command {
 
   private async handleError(ctx: Context) {
     const errorContainer = new ContainerBuilder()
-      .setAccentColor(0xFF0000) // Red for error
+      .setAccentColor(0xFF0000) 
       .addTextDisplayComponents(
         textDisplay => textDisplay
           .setContent(`❌ **An Error Occurred**\n\nSomething went wrong while processing your selection.\nPlease try running the search command again.`)
