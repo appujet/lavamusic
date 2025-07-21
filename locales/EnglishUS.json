@@ -288,7 +288,7 @@
 				"no_results": "No lyrics found for the current track.",
 				"lyrics_error": "An error occurred while getting the lyrics."
 			}
-		}
+		},
 		"nowplaying": {
 			"description": "Shows the currently playing song",
 			"now_playing": "Now Playing",
