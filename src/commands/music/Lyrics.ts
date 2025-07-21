@@ -89,24 +89,25 @@ export default class Lyrics extends Command {
         const lyricsPages = this.paginateLyrics(lyrics);
         let currentPage = 0;
 
-
+        
         const createLyricsContainer = (pageIndex: number, finalState: boolean = false) => {
           const currentLyricsPage = lyricsPages[pageIndex] || ctx.locale("cmd.lyrics.no_lyrics_on_page"); 
           
+          let fullContent = 
+              ctx.locale("cmd.lyrics.lyrics_for_track", { trackTitle: trackTitle, trackUrl: trackUrl }) + "\n" +
+              `*${artistName}*\n\n` +
+              `${currentLyricsPage}`;
+
+          
+          if (!finalState) {
+              fullContent += `\n\nStrona ${pageIndex + 1}/${lyricsPages.length}`;
+          } else {
+              fullContent += `\n\n*Sesja wygasła. Użyj komendy ponownie, aby odświeżyć.*`;
+          }
+
           const mainLyricsSection = new SectionBuilder()
             .addTextDisplayComponents(
-              (textDisplay) => {
-                let content = `**${ctx.locale("cmd.lyrics.lyrics_for_track", { trackTitle: trackTitle, trackUrl: trackUrl })}**\n` +
-                              `*${artistName}*\n\n` +
-                              `${currentLyricsPage}`;
-                
-
-                if (!finalState) {
-                    content += `\n\nStrona ${pageIndex + 1}/${lyricsPages.length}`;
-                }
-                
-                textDisplay.setContent(content);
-              },
+              (textDisplay) => textDisplay.setContent(fullContent) 
             );
 
 
@@ -121,7 +122,7 @@ export default class Lyrics extends Command {
 
           const lyricsContainer = new ContainerBuilder()
             .setAccentColor(client.color.main)
-            .addSectionComponents(mainLyricsSection); 
+            .addSectionComponents(mainLyricsSection);
 
           return lyricsContainer;
         };
@@ -167,7 +168,7 @@ export default class Lyrics extends Command {
             currentPage++;
           } else if (interaction.customId === "stop") {
             collector.stop();
-            return; 
+            return;
           }
 
           await interaction.update({
@@ -177,10 +178,7 @@ export default class Lyrics extends Command {
 
         collector.on("end", async (collected, reason) => {
             if (ctx.guild?.members.me?.permissionsIn(ctx.channelId).has("SendMessages")) {
-                const finalContainer = createLyricsContainer(currentPage, true); 
-                finalContainer.addTextDisplayComponents(
-                    (textDisplay) => textDisplay.setContent(`\n*Sesja wygasła. Użyj komendy ponownie, aby odświeżyć.*`)
-                );
+                const finalContainer = createLyricsContainer(currentPage, true);
                 await ctx.editMessage({ components: [finalContainer], flags: MessageFlags.IsComponentsV2 }).catch(e => client.logger.error("Failed to clear lyrics buttons:", e));
             }
         });
@@ -216,7 +214,7 @@ export default class Lyrics extends Command {
     const lines = lyrics.split("\n");
     const pages: any = [];
     let page = "";
-    const MAX_CHARACTERS_PER_PAGE = 3000; 
+    const MAX_CHARACTERS_PER_PAGE = 3000;
 
     for (const line of lines) {
       if (page.length + line.length + 1 > MAX_CHARACTERS_PER_PAGE) {
