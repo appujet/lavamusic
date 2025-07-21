@@ -5,6 +5,11 @@ import {
   ButtonStyle,
   ComponentType,
   type TextChannel,
+  ContainerBuilder,
+  TextDisplayBuilder,
+  SectionBuilder,
+  MessageFlags,
+  ThumbnailBuilder,
 } from "discord.js";
 import { getLyrics } from "genius-lyrics-api";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
@@ -36,6 +41,7 @@ export default class Lyrics extends Command {
           "ReadMessageHistory",
           "ViewChannel",
           "EmbedLinks",
+          "AttachFiles",
         ],
         user: [],
       },
@@ -46,20 +52,28 @@ export default class Lyrics extends Command {
 
   public async run(client: Lavamusic, ctx: Context): Promise<any> {
     const player = client.manager.getPlayer(ctx.guild!.id);
-    if (!player)
-      return await ctx.sendMessage(
-        ctx.locale("event.message.no_music_playing"),
-      );
-    const embed = this.client.embed();
+    if (!player || !player.queue.current) {
+      const noMusicContainer = new ContainerBuilder()
+        .setAccentColor(this.client.color.red)
+        .addTextDisplayComponents(
+          (textDisplay) =>
+            textDisplay.setContent(ctx.locale("event.message.no_music_playing")),
+        );
+      return await ctx.sendMessage({
+        components: [noMusicContainer],
+        flags: MessageFlags.IsComponentsV2,
+      });
+    }
 
     const track = player.queue.current!;
-    const trackTitle = track.info.title.replace(/\[.*?\]/g, "").trim();
-    const artistName = track.info.author.replace(/\[.*?\]/g, "").trim();
-    const trackUrl = track.info.uri;
+    const trackTitle = track.info.title?.replace(/\[.*?\]|\(.*?\)|\{.*?\}/g, "").trim() || "Unknown Title";
+    const artistName = track.info.author?.replace(/\[.*?\]|\(.*?\)|\{.*?\}/g, "").trim() || "Unknown Artist";
+    const trackUrl = track.info.uri || "about:blank";
     const artworkUrl = track.info.artworkUrl;
 
     await ctx.sendDeferMessage(
       ctx.locale("cmd.lyrics.searching", { trackTitle }),
+      MessageFlags.IsComponentsV2 
     );
 
     const options = {
@@ -74,39 +88,66 @@ export default class Lyrics extends Command {
       if (lyrics) {
         const lyricsPages = this.paginateLyrics(lyrics);
         let currentPage = 0;
+        const createLyricsContainer = (pageIndex: number) => {
+          const currentLyricsPage = lyricsPages[pageIndex];
+          const lyricsContainer = new ContainerBuilder()
+            .setAccentColor(client.color.main)
+            .addSectionComponents(
+              new SectionBuilder()
+                .addTextDisplayComponents(
+                  (textDisplay) =>
+                    textDisplay.setContent(
+                      `**${ctx.locale("cmd.lyrics.lyrics_track_title", {
+                        trackTitle,
+                        trackUrl,
+                      })}**\n` +
+                      `*${artistName}*\n\n` +
+                      `${currentLyricsPage}`
+                    ),
+                )
+                .addTextDisplayComponents( 
+                    (textDisplay) =>
+                        textDisplay.setContent(
+                            `\nStrona ${pageIndex + 1}/${lyricsPages.length}` 
+                        )
+                )
+            );
 
-        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-          new ButtonBuilder()
-            .setCustomId("prev")
-            .setEmoji(this.client.emoji.page.back)
-            .setStyle(ButtonStyle.Secondary)
-            .setDisabled(true),
-          new ButtonBuilder()
-            .setCustomId("stop")
-            .setEmoji(this.client.emoji.page.cancel)
-            .setStyle(ButtonStyle.Danger),
-          new ButtonBuilder()
-            .setCustomId("next")
-            .setEmoji(this.client.emoji.page.next)
-            .setStyle(ButtonStyle.Secondary)
-            .setDisabled(lyricsPages.length <= 1),
-        );
+          if (artworkUrl && artworkUrl.length > 0) {
+            lyricsContainer.addSectionComponents( 
+              new SectionBuilder().setThumbnailAccessory(
+                (thumbnail) =>
+                  thumbnail
+                    .setURL(artworkUrl)
+                    .setDescription(`Artwork for ${trackTitle}`),
+              ),
+            );
+          }
+          return lyricsContainer;
+        };
+
+        const getNavigationRow = (current: number) => {
+          return new ActionRowBuilder<ButtonBuilder>().addComponents(
+            new ButtonBuilder()
+              .setCustomId("prev")
+              .setEmoji(this.client.emoji.page.back)
+              .setStyle(ButtonStyle.Secondary)
+              .setDisabled(current === 0),
+            new ButtonBuilder()
+              .setCustomId("stop")
+              .setEmoji(this.client.emoji.page.cancel)
+              .setStyle(ButtonStyle.Danger),
+            new ButtonBuilder()
+              .setCustomId("next")
+              .setEmoji(this.client.emoji.page.next)
+              .setStyle(ButtonStyle.Secondary)
+              .setDisabled(current === lyricsPages.length - 1),
+          );
+        };
 
         await ctx.editMessage({
-          embeds: [
-            embed
-              .setColor(client.color.main)
-              .setDescription(
-                ctx.locale("cmd.lyrics.lyrics_track", {
-                  trackTitle,
-                  trackUrl,
-                  lyrics: lyricsPages[currentPage],
-                }),
-              )
-              .setThumbnail(artworkUrl)
-              .setTimestamp(),
-          ],
-          components: [row],
+          components: [createLyricsContainer(currentPage), getNavigationRow(currentPage)],
+          flags: MessageFlags.IsComponentsV2,
         });
 
         const filter = (interaction: ButtonInteraction<"cached">) =>
@@ -130,78 +171,59 @@ export default class Lyrics extends Command {
           }
 
           await interaction.update({
-            embeds: [
-              embed
-                .setDescription(
-                  ctx.locale("cmd.lyrics.lyrics_track", {
-                    trackTitle,
-                    trackUrl,
-                    lyrics: lyricsPages[currentPage],
-                  }),
-                )
-                .setThumbnail(artworkUrl)
-                .setTimestamp(),
-            ],
-            components: [
-              new ActionRowBuilder<ButtonBuilder>().addComponents(
-                new ButtonBuilder()
-                  .setCustomId("prev")
-                  .setEmoji(this.client.emoji.page.back)
-                  .setStyle(ButtonStyle.Secondary)
-                  .setDisabled(currentPage === 0),
-                new ButtonBuilder()
-                  .setCustomId("stop")
-                  .setEmoji(this.client.emoji.page.cancel)
-                  .setStyle(ButtonStyle.Danger),
-                new ButtonBuilder()
-                  .setCustomId("next")
-                  .setEmoji(this.client.emoji.page.next)
-                  .setStyle(ButtonStyle.Secondary)
-                  .setDisabled(currentPage === lyricsPages.length - 1),
-              ),
-            ],
+            components: [createLyricsContainer(currentPage), getNavigationRow(currentPage)],
           });
-          return;
         });
 
-        collector.on("end", () => {
-          ctx.editMessage({ components: [] });
+        collector.on("end", async () => {
+            if (ctx.guild?.members.me?.permissionsIn(ctx.channelId).has("SendMessages")) {
+                await ctx.editMessage({ components: [] }).catch(e => client.logger.error("Failed to clear lyrics buttons:", e));
+            }
         });
+
       } else {
+        const noResultsContainer = new ContainerBuilder()
+          .setAccentColor(client.color.red)
+          .addTextDisplayComponents(
+            (textDisplay) =>
+              textDisplay.setContent(ctx.locale("cmd.lyrics.errors.no_results")),
+          );
         await ctx.editMessage({
-          embeds: [
-            embed
-              .setColor(client.color.red)
-              .setDescription(ctx.locale("cmd.lyrics.errors.no_results")),
-          ],
+          components: [noResultsContainer],
+          flags: MessageFlags.IsComponentsV2,
         });
       }
     } catch (error) {
       client.logger.error(error);
+      const errorContainer = new ContainerBuilder()
+        .setAccentColor(client.color.red)
+        .addTextDisplayComponents(
+          (textDisplay) =>
+            textDisplay.setContent(ctx.locale("cmd.lyrics.errors.lyrics_error")),
+        );
       await ctx.editMessage({
-        embeds: [
-          embed
-            .setColor(client.color.red)
-            .setDescription(ctx.locale("cmd.lyrics.errors.lyrics_error")),
-        ],
+        components: [errorContainer],
+        flags: MessageFlags.IsComponentsV2,
       });
     }
   }
+
 
   paginateLyrics(lyrics: string) {
     const lines = lyrics.split("\n");
     const pages: any = [];
     let page = "";
+    const MAX_CHARACTERS_PER_PAGE = 3500; 
 
     for (const line of lines) {
-      if (page.length + line.length > 2048) {
-        pages.push(page);
+      if (page.length + line.length + 1 > MAX_CHARACTERS_PER_PAGE) {
+        pages.push(page.trim());
         page = "";
       }
       page += `${line}\n`;
     }
 
-    if (page) pages.push(page);
+    if (page) pages.push(page.trim());
     return pages;
   }
 }
