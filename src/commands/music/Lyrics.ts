@@ -90,26 +90,23 @@ export default class Lyrics extends Command {
         let currentPage = 0;
 
 
-        const createLyricsContainer = (pageIndex: number) => {
-          const currentLyricsPage = lyricsPages[pageIndex] || "There is no text on this page."; 
+        const createLyricsContainer = (pageIndex: number, finalState: boolean = false) => {
+          const currentLyricsPage = lyricsPages[pageIndex] || ctx.locale("cmd.lyrics.no_lyrics_on_page"); 
           
           const mainLyricsSection = new SectionBuilder()
             .addTextDisplayComponents(
-              (textDisplay) =>
-                textDisplay.setContent(
-                  `**${ctx.locale("cmd.lyrics.lyrics_track_title", {
-                    trackTitle,
-                    trackUrl,
-                  })}**\n` +
-                  `*${artistName}*\n\n` +
-                  `${currentLyricsPage}`
-                ),
-            )
-            .addTextDisplayComponents( 
-                (textDisplay) =>
-                    textDisplay.setContent(
-                        `\nStrona ${pageIndex + 1}/${lyricsPages.length}` 
-                    )
+              (textDisplay) => {
+                let content = `**${ctx.locale("cmd.lyrics.lyrics_for_track", { trackTitle: trackTitle, trackUrl: trackUrl })}**\n` +
+                              `*${artistName}*\n\n` +
+                              `${currentLyricsPage}`;
+                
+
+                if (!finalState) {
+                    content += `\n\nStrona ${pageIndex + 1}/${lyricsPages.length}`;
+                }
+                
+                textDisplay.setContent(content);
+              },
             );
 
 
@@ -170,7 +167,7 @@ export default class Lyrics extends Command {
             currentPage++;
           } else if (interaction.customId === "stop") {
             collector.stop();
-            return interaction.update({ components: [] });
+            return; 
           }
 
           await interaction.update({
@@ -178,9 +175,13 @@ export default class Lyrics extends Command {
           });
         });
 
-        collector.on("end", async () => {
+        collector.on("end", async (collected, reason) => {
             if (ctx.guild?.members.me?.permissionsIn(ctx.channelId).has("SendMessages")) {
-                await ctx.editMessage({ components: [] }).catch(e => client.logger.error("Failed to clear lyrics buttons:", e));
+                const finalContainer = createLyricsContainer(currentPage, true); 
+                finalContainer.addTextDisplayComponents(
+                    (textDisplay) => textDisplay.setContent(`\n*Sesja wygasła. Użyj komendy ponownie, aby odświeżyć.*`)
+                );
+                await ctx.editMessage({ components: [finalContainer], flags: MessageFlags.IsComponentsV2 }).catch(e => client.logger.error("Failed to clear lyrics buttons:", e));
             }
         });
 
@@ -211,12 +212,11 @@ export default class Lyrics extends Command {
     }
   }
 
-
   paginateLyrics(lyrics: string) {
     const lines = lyrics.split("\n");
     const pages: any = [];
     let page = "";
-    const MAX_CHARACTERS_PER_PAGE = 3500;
+    const MAX_CHARACTERS_PER_PAGE = 3000; 
 
     for (const line of lines) {
       if (page.length + line.length + 1 > MAX_CHARACTERS_PER_PAGE) {
