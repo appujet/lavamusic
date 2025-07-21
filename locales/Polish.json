@@ -515,10 +515,16 @@
 				"error_occurred": "Wystąpił błąd podczas kradzieży playlisty."
 			}
 		},
-		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track"
-		}
-	},
+                "lyrics": {
+			"description": "Pobiera tekst aktualnie odtwarzanego utworu",
+			"lyrics_for_track": "### Tekst piosenki: [{trackTitle}]({trackUrl})",
+			"no_lyrics_on_page": "Brak tekstu piosenki na tej stronie.",
+			"searching": "🔍 Szukam tekstu dla: **{trackTitle}**...",
+			"errors": {
+				"no_results": "Nie znaleziono tekstu dla tego utworu.",
+				"lyrics_error": "Wystąpił błąd podczas pobierania tekstu piosenki."
+			}
+		},
 	"buttons": {
 		"invite": "Zaproś",
 		"support": "Serwer wsparcia",
