@@ -347,12 +347,27 @@
 			"options": {
 				"song": "Utwór, którego szukasz"
 			},
+			"select": "Wybierz utwór z listy...",
 			"errors": {
 				"no_results": "Nie znaleziono żadnych rezultatów.",
+				"no_results_title": "Brak Wyników Wyszukiwania!",
+				"no_results_description": "Nie mogłem znaleźć żadnych utworów pasujących do Twojego zapytania. Spróbuj zmienić słowa kluczowe lub link.",
+				"invalid_selection_title": "Niepoprawny Wybór!",
+				"invalid_selection_description": "Wybrana opcja jest nieprawidłowa. Proszę wybierz numer utworu z listy.",
 				"search_error": "Wystąpił błąd podczas wyszukiwania utworu."
 			},
 			"messages": {
-				"added_to_queue": "Dodano utwór [{title}]({uri}) do kolejki."
+				"results_found": "Znaleziono **{count}** utworów.",
+				"select_prompt": "Wybierz numer, aby dodać utwór do kolejki.",
+				"page_info": "Strona {currentPage}/{maxPages}",
+				"added_to_queue": "Dodano **[{title}]({uri})** do kolejki!",
+				"selection_timed_out_title": "Czas Minął!",
+				"selection_timed_out_description": "Nie wybrano utworu w wyznaczonym czasie. Wyszukiwanie zostało anulowane. Spróbuj ponownie.",
+				"selection_timed_out_short": "Czas na wybór minął."
+			},
+			"buttons": {
+				"previous": "◀ Poprzednia",
+				"next": "Następna ▶"
 			}
 		},
 		"seek": {
