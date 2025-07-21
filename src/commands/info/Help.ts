@@ -7,7 +7,7 @@ import {
   ContainerBuilder,
   TextDisplayBuilder,
   SectionBuilder,
-  MessageFlags
+  MessageFlags,
 } from "discord.js";
 
 export default class Help extends Command {
@@ -131,14 +131,14 @@ export default class Help extends Command {
             ctx.locale("cmd.help.content", {
               bot: client.user?.username,
               prefix: guild.prefix,
-            }),
+            }) + "\n" 
           ),
       );
 
     categories.forEach((category) => {
       const categoryCommands = commands.filter((cmd) => cmd.category === category);
       if (categoryCommands.length > 0) {
-        helpContainer.addSectionComponents(
+        helpContainer.addSectionComponents( 
           new SectionBuilder().addTextDisplayComponents(
             (textDisplay) =>
               textDisplay.setContent(
@@ -165,14 +165,3 @@ export default class Help extends Command {
     });
   }
 }
-
-/**
- * Project: lavamusic
- * Author: Appu
- * Main Contributor: LucasB25
- * Company: Coders
- * Copyright (c) 2024. All rights reserved.
- * This code is the property of Coder and may not be reproduced or
- * modified without permission. For more information, contact us at
- * https://discord.gg/YQsGbTwPBx
- */
