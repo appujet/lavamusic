@@ -15,7 +15,7 @@ import {
 import type { SearchResult, Track } from "lavalink-client";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 
-const TRACKS_PER_PAGE = 5; // adjust this to change how many tracks are shown per page
+const TRACKS_PER_PAGE = 5;
 
 export default class Search extends Command {
   constructor(client: Lavamusic) {
@@ -71,7 +71,6 @@ export default class Search extends Command {
     const endIndex = startIndex + TRACKS_PER_PAGE;
     const tracksOnPage = tracks.slice(startIndex, Math.min(endIndex, tracks.length));
 
-    // Główny kontener na wyniki wyszukiwania
     const resultsContainer = new ContainerBuilder()
       .setAccentColor(client.color.main)
       .addTextDisplayComponents(
@@ -88,27 +87,14 @@ export default class Search extends Command {
           ),
       );
 
-    // Dodaj każdy utwór jako Section z miniaturą
     tracksOnPage.forEach((track: Track, index: number) => {
       const globalIndex = startIndex + index;
-
-      // DODANY LOG: Sprawdzamy dane dla każdego utworu
-      console.log(`--- Track ${globalIndex + 1} Data ---`);
-      console.log(`Title: ${track.info.title}`);
-      console.log(`Author: ${track.info.author}`);
-      console.log(`URI: ${track.info.uri}`);
-      console.log(`Length (ms): ${track.info.length}`); // KLUCZOWE: Sprawdź tę wartość!
-      console.log(`Is Stream: ${track.info.isStream}`);
-      console.log(`Artwork URL: ${track.info.artworkUrl}`);
-      console.log(`------------------------------`);
-
-
       const section = new SectionBuilder().addTextDisplayComponents(
         (textDisplay) =>
           textDisplay.setContent(
             `**${globalIndex + 1}. [${track.info.title}](${track.info.uri})**\n` +
             `*${track.info.author || "Unknown Artist"}*\n` +
-            `\`${track.info.length ? client.utils.formatTime(track.info.length) : 'N/A'}\``,
+            `\`${track.info.duration ? client.utils.formatTime(track.info.duration) : 'N/A'}\``,
           ),
       );
 
@@ -123,7 +109,6 @@ export default class Search extends Command {
       resultsContainer.addSectionComponents(section);
     });
 
-    // Separator if there are tracks
     if (tracksOnPage.length > 0) {
       resultsContainer.addSeparatorComponents(new SeparatorBuilder());
     }
@@ -143,7 +128,6 @@ export default class Search extends Command {
       selectMenu,
     );
 
-    // Przyciski nawigacyjne
     const previousButton = new ButtonBuilder()
       .setCustomId("previous-page")
       .setLabel(ctx.locale("cmd.search.buttons.previous"))
@@ -194,42 +178,27 @@ export default class Search extends Command {
         await player.connect();
       } catch (error) {
         console.error("Failed to connect to voice channel:", error);
-        return await ctx.sendMessage({
-          components: [
-            new ContainerBuilder()
-              .setAccentColor(this.client.color.red)
-              .addTextDisplayComponents(
-                (textDisplay) =>
-                  textDisplay.setContent(
-                    `**${ctx.locale(
-                      "cmd.play.errors.vc_connect_fail_title",
-                    )}**\n${ctx.locale("cmd.play.errors.vc_connect_fail_description")}`,
-                  ),
+        const connectErrorContainer = new ContainerBuilder()
+          .setAccentColor(this.client.color.red)
+          .addTextDisplayComponents(
+            (textDisplay) =>
+              textDisplay.setContent(
+                `**${ctx.locale(
+                  "cmd.play.errors.vc_connect_fail_title",
+                )}**\n${ctx.locale("cmd.play.errors.vc_connect_fail_description")}`,
               ),
-          ],
+          );
+        return await ctx.sendMessage({
+          components: [connectErrorContainer],
           flags: MessageFlags.IsComponentsV2,
         });
       }
     }
 
-    // DODANY LOG: Przed wyszukiwaniem
-    console.log(`Attempting to search for query: "${query}"`);
-
     const response = (await player.search(
       { query: query },
       ctx.author,
     )) as SearchResult;
-
-    // DODANY LOG: Po otrzymaniu odpowiedzi z wyszukiwania
-    console.log(`Search response received.`);
-    console.log(`Response type: ${response?.loadType}`); // np. "SEARCH_RESULT", "TRACK_LOADED"
-    console.log(`Number of tracks found: ${response?.tracks?.length || 0}`);
-    if (response?.tracks && response.tracks.length > 0) {
-      console.log(`First track info:`, response.tracks[0].info);
-    } else {
-      console.log(`No tracks found in the search response.`);
-    }
-
 
     if (!response || response.tracks?.length === 0) {
       const noResultsContainer = new ContainerBuilder()
@@ -259,8 +228,7 @@ export default class Search extends Command {
       currentPage,
       maxPages,
     );
-    const sentMessage = await ctx.sendMessage(initialComponents);
-
+    await ctx.sendMessage(initialComponents);
 
     const collector = (
       ctx.channel as TextChannel
@@ -293,10 +261,6 @@ export default class Search extends Command {
             flags: MessageFlags.IsComponentsV2 | MessageFlags.Ephemeral,
           });
         }
-
-        // DODANY LOG: Po wyborze utworu
-        console.log(`Selected track:`, track.info);
-        console.log(`Selected track length: ${track.info.length}`);
 
         player.queue.add(track);
         if (!player.playing && player.queue.tracks.length > 0)
@@ -373,17 +337,19 @@ export default class Search extends Command {
             flags: MessageFlags.IsComponentsV2,
           });
         } catch (error) {
+          // Fallback if editing the original message fails for some reason
           console.error("Failed to edit message on collector timeout:", error);
-
-          await ctx.followUp({
-            embeds: [
-              this.client.embed()
-                .setDescription(
+          const fallbackTimeoutContainer = new ContainerBuilder()
+            .setAccentColor(this.client.color.red)
+            .addTextDisplayComponents(
+              (textDisplay) =>
+                textDisplay.setContent(
                   ctx.locale("cmd.search.messages.selection_timed_out_short"),
-                )
-                .setColor(this.client.color.red),
-            ],
-            flags: MessageFlags.Ephemeral,
+                ),
+            );
+          await ctx.followUp({
+            components: [fallbackTimeoutContainer],
+            flags: MessageFlags.IsComponentsV2 | MessageFlags.Ephemeral,
           });
         }
       }
