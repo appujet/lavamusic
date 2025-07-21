@@ -37,7 +37,7 @@ export default class Nowplaying extends Command {
           "SendMessages",
           "ReadMessageHistory",
           "ViewChannel",
-          "EmbedLinks",
+          "EmbedLinks", 
           "AttachFiles", 
         ],
         user: [],
@@ -50,6 +50,7 @@ export default class Nowplaying extends Command {
   public async run(client: Lavamusic, ctx: Context): Promise<any> {
     const player = client.manager.getPlayer(ctx.guild!.id);
 
+    // Sprawdzenie, czy jest odtwarzana muzyka
     if (!player || !player.queue.current) {
       const noMusicContainer = new ContainerBuilder()
         .setAccentColor(this.client.color.red)
@@ -68,29 +69,32 @@ export default class Nowplaying extends Command {
     const duration = track.info.duration;
     const bar = client.utils.progressBar(position, duration, 20);
 
+
     const mainSection = new SectionBuilder().addTextDisplayComponents(
-        (textDisplay) =>
-            textDisplay.setContent(
-                `**${ctx.locale("cmd.nowplaying.now_playing")}**\n` +
-                `**[${track.info.title}](${track.info.uri})**\n` +
-                `*${track.info.author || "Unknown Artist"}*\n\n` +
-                `${bar}\n` +
-                `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(duration)}\``
-            ),
+      (textDisplay) =>
+        textDisplay.setContent(
+          `**${ctx.locale("cmd.nowplaying.now_playing")}**\n` +
+          `**[${track.info.title || "N/A"}](${track.info.uri || "about:blank"})**\n` + 
+          `*${track.info.author || "Unknown Artist"}*\n\n` +
+          `${bar}\n` +
+          `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(duration)}\``
+        ),
     );
 
-    if (track.info.artworkUrl) {
+    // Dodanie miniatury, jeśli jest dostępna i poprawna
+    if (track.info.artworkUrl && track.info.artworkUrl.length > 0) {
       mainSection.setThumbnailAccessory(
         (thumbnail) =>
           thumbnail
-            .setURL(track.info.artworkUrl)
-            .setDescription(`Artwork for ${track.info.title}`),
+            .setURL(track.info.artworkUrl!) 
+            .setDescription(`Artwork for ${track.info.title || "N/A"}`),
       );
     }
 
+    // Główne komponenty wiadomości
     const nowPlayingContainer = new ContainerBuilder()
       .setAccentColor(this.client.color.main)
-      .addSectionComponents(mainSection);
+      .addSectionComponents(mainSection); 
 
 
     if (track.requester) {
@@ -105,7 +109,7 @@ export default class Nowplaying extends Command {
         ),
       );
     }
-    
+
     return await ctx.sendMessage({
       components: [nowPlayingContainer],
       flags: MessageFlags.IsComponentsV2,
