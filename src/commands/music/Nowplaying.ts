@@ -75,7 +75,7 @@ export default class Nowplaying extends Command {
     const trackInfo = ctx.locale("cmd.nowplaying.track_info", {
       title: track.info.title ?? "N/A",
       uri: track.info.uri ?? "about:blank",
-      requester: track.requester ? (track.requester as any).id : "Unknown",
+      requester: track.requester?.id ?? "Unknown",
       bar,
     });
 
