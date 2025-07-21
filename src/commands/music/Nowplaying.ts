@@ -1,4 +1,16 @@
-import { Command, type Context, type Lavamusic } from "../../structures/index";
+import {
+  Command,
+  type Context,
+  type Lavamusic
+} from "../../structures/index";
+import {
+  ContainerBuilder,
+  TextDisplayBuilder,
+  SectionBuilder,
+  MessageFlags,
+  ThumbnailBuilder,
+  SeparatorBuilder, 
+} from "discord.js";
 
 export default class Nowplaying extends Command {
   constructor(client: Lavamusic) {
@@ -26,7 +38,8 @@ export default class Nowplaying extends Command {
           "SendMessages",
           "ReadMessageHistory",
           "ViewChannel",
-          "EmbedLinks",
+          "EmbedLinks", 
+          "AttachFiles", 
         ],
         user: [],
       },
@@ -37,37 +50,69 @@ export default class Nowplaying extends Command {
 
   public async run(client: Lavamusic, ctx: Context): Promise<any> {
     const player = client.manager.getPlayer(ctx.guild!.id);
-    if (!player)
-      return await ctx.sendMessage(
-        ctx.locale("event.message.no_music_playing"),
-      );
+
+    if (!player || !player.queue.current) {
+      const noMusicContainer = new ContainerBuilder()
+        .setAccentColor(this.client.color.red)
+        .addTextDisplayComponents(
+          (textDisplay) =>
+            textDisplay.setContent(ctx.locale("event.message.no_music_playing")),
+        );
+      return await ctx.sendMessage({
+        components: [noMusicContainer],
+        flags: MessageFlags.IsComponentsV2,
+      });
+    }
+
     const track = player.queue.current!;
     const position = player.position;
     const duration = track.info.duration;
     const bar = client.utils.progressBar(position, duration, 20);
 
-    const embed = this.client
-      .embed()
-      .setColor(this.client.color.main)
-      .setAuthor({
-        name: ctx.locale("cmd.nowplaying.now_playing"),
-        iconURL: ctx.guild?.iconURL({})!,
-      })
-      .setThumbnail(track.info.artworkUrl!)
-      .setDescription(
-        ctx.locale("cmd.nowplaying.track_info", {
-          title: track.info.title,
-          uri: track.info.uri,
-          requester: (track.requester as any).id,
-          bar: bar,
-        }),
-      )
-      .addFields({
-        name: "\u200b",
-        value: `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(duration)}\``,
-      });
+    const nowPlayingContainer = new ContainerBuilder()
+      .setAccentColor(this.client.color.main)
+      .addTextDisplayComponents(
+        (textDisplay) =>
+          textDisplay.setContent(
+            `**${ctx.locale("cmd.nowplaying.now_playing")}**\n` +
+            `**[${track.info.title}](${track.info.uri})**\n` +
+            `*${track.info.author || "Unknown Artist"}*\n\n` +
+            `${bar}\n` +
+            `\`${client.utils.formatTime(position)} / ${client.utils.formatTime(duration)}\``
+          ),
+      );
 
-    return await ctx.sendMessage({ embeds: [embed] });
+    if (track.info.artworkUrl) {
+      nowPlayingContainer.addThumbnailComponents(
+        (thumbnail) =>
+          thumbnail
+            .setURL(track.info.artworkUrl)
+            .setDescription(`Artwork for ${track.info.title}`),
+      );
+    }
+
+
+    if (track.requester) {
+      nowPlayingContainer.addSectionComponents(
+        new SectionBuilder().addTextDisplayComponents(
+          (textDisplay) =>
+            textDisplay.setContent(
+              ctx.locale("cmd.nowplaying.requested_by", {
+                requester: (track.requester as any).id,
+              })
+            ),
+        ),
+      );
+    }
+    
+
+    nowPlayingContainer.addSeparatorComponents(new SeparatorBuilder());
+
+
+    return await ctx.sendMessage({
+      components: [nowPlayingContainer],
+      flags: MessageFlags.IsComponentsV2,
+    });
   }
 }
 
