@@ -279,15 +279,16 @@
 			"looping_queue": "**Looping the queue.**",
 			"looping_off": "**Looping is now off.**"
 		},
-		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track",
-			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
-			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
+                "lyrics": {
+			"description": "Gets the lyrics of the currently playing track",
+			"lyrics_for_track": "### Lyrics for: [{trackTitle}]({trackUrl})",
+			"no_lyrics_on_page": "No lyrics found on this page.",
+			"searching": "🔍 Searching for **{trackTitle}** lyrics...",
 			"errors": {
 				"no_results": "No lyrics found for the current track.",
 				"lyrics_error": "An error occurred while getting the lyrics."
 			}
-		},
+		}
 		"nowplaying": {
 			"description": "Shows the currently playing song",
 			"now_playing": "Now Playing",
