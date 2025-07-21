@@ -1,19 +1,22 @@
 import {
   ActionRowBuilder,
   StringSelectMenuBuilder,
+  ButtonBuilder,
+  ButtonStyle,   
   type TextChannel,
   type VoiceChannel,
   TextDisplayBuilder,
   SectionBuilder,
   MessageFlags,
   ContainerBuilder,
-  SeparatorBuilder,
+  SeparatorBuilder, 
   ThumbnailBuilder,
-  ButtonStyle,
-  ButtonBuilder,
 } from "discord.js";
 import type { SearchResult, Track } from "lavalink-client";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
+
+
+const TRACKS_PER_PAGE = 4; //adjust this to change how many tracks are shown per page
 
 export default class Search extends Command {
   constructor(client: Lavamusic) {
@@ -56,6 +59,96 @@ export default class Search extends Command {
         },
       ],
     });
+  }
+
+
+  private generatePageComponents(
+    client: Lavamusic,
+    ctx: Context,
+    tracks: Track[],
+    currentPage: number,
+    maxPages: number,
+  ) {
+    const startIndex = currentPage * TRACKS_PER_PAGE;
+    const endIndex = startIndex + TRACKS_PER_PAGE;
+    const tracksOnPage = tracks.slice(startIndex, endIndex);
+
+    // Główny kontener na wyniki wyszukiwania
+    const resultsContainer = new ContainerBuilder()
+      .setAccentColor(client.color.main)
+      .addTextDisplayComponents(
+        (textDisplay) =>
+          textDisplay.setContent(
+            `**${ctx.locale(
+              "cmd.search.messages.results_found",
+              { count: tracks.length }, 
+            )}**\n*${ctx.locale("cmd.search.messages.select_prompt")}*` +
+            `\n\n**${ctx.locale("cmd.search.messages.page_info", {
+              currentPage: currentPage + 1,
+              maxPages: maxPages,
+            })}**`,
+          ),
+      );
+
+    // Dodaj każdy utwór jako Section z miniaturą
+    tracksOnPage.forEach((track: Track, index: number) => {
+      const globalIndex = startIndex + index; 
+      const section = new SectionBuilder().addTextDisplayComponents(
+        (textDisplay) =>
+          textDisplay.setContent(
+            `**${globalIndex + 1}. [${track.info.title}](${track.info.uri})**\n*${track.info.author}*\n\`${client.utils.formatTime(track.info.length)}\``,
+          ),
+      );
+
+      if (track.info.artworkUrl) {
+        section.setThumbnailAccessory(
+          (thumbnail) =>
+            thumbnail
+              .setURL(track.info.artworkUrl)
+              .setDescription(`Artwork for ${track.info.title}`),
+        );
+      }
+      resultsContainer.addSectionComponents(section);
+    });
+
+
+    const selectMenu = new StringSelectMenuBuilder()
+      .setCustomId("select-track")
+      .setPlaceholder(ctx.locale("cmd.search.select"))
+      .addOptions(
+        tracks.slice(0, 10).map((track: Track, index: number) => ({
+          label: `${index + 1}. ${track.info.title.slice(0, 50)}${track.info.title.length > 50 ? "..." : ""}`,
+          description: track.info.author.slice(0, 100),
+          value: index.toString(),
+        })),
+      );
+
+    const selectRow = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
+      selectMenu,
+    );
+
+    // Przyciski nawigacyjne
+    const previousButton = new ButtonBuilder()
+      .setCustomId("previous-page")
+      .setLabel(ctx.locale("cmd.search.buttons.previous"))
+      .setStyle(ButtonStyle.Primary)
+      .setDisabled(currentPage === 0);
+
+    const nextButton = new ButtonBuilder()
+      .setCustomId("next-page")
+      .setLabel(ctx.locale("cmd.search.buttons.next"))
+      .setStyle(ButtonStyle.Primary)
+      .setDisabled(currentPage === maxPages - 1);
+
+    const buttonRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
+      previousButton,
+      nextButton,
+    );
+
+    return {
+      components: [resultsContainer, selectRow, buttonRow],
+      flags: MessageFlags.IsComponentsV2,
+    };
   }
 
   public async run(
@@ -127,129 +220,115 @@ export default class Search extends Command {
       });
     }
 
+    let currentPage = 0;
+    const maxPages = Math.ceil(response.tracks.length / TRACKS_PER_PAGE);
 
-    const selectMenu = new StringSelectMenuBuilder()
-      .setCustomId("select-track")
-      .setPlaceholder(ctx.locale("cmd.search.select"))
-      .addOptions(
-        response.tracks.slice(0, 10).map((track: Track, index: number) => ({
-          label: `${index + 1}. ${track.info.title.slice(0, 50)}${track.info.title.length > 50 ? "..." : ""}`,
-          description: track.info.author.slice(0, 100),
-          value: index.toString(),
-        })),
-      );
 
-    const actionRow = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
-      selectMenu,
+    const initialComponents = this.generatePageComponents(
+      client,
+      ctx,
+      response.tracks,
+      currentPage,
+      maxPages,
     );
+    const sentMessage = await ctx.sendMessage(initialComponents);
 
 
-    const resultsContainer = new ContainerBuilder()
-      .setAccentColor(this.client.color.main) 
-      .addTextDisplayComponents( 
-        (textDisplay) =>
-          textDisplay.setContent(
-            `**${ctx.locale(
-              "cmd.search.messages.results_found",
-              { count: Math.min(response.tracks.length, 10) },
-            )}**\n*${ctx.locale("cmd.search.messages.select_prompt")}*`,
-          ),
-      );
-
-
-    response.tracks.slice(0, 10).forEach((track: Track, index: number) => {
-      const section = new SectionBuilder()
-        .addTextDisplayComponents(
-          (textDisplay) =>
-            textDisplay.setContent(
-              `**${index + 1}. [${track.info.title}](${track.info.uri})**\n*${track.info.author}*\n\`${this.client.utils.formatTime(track.info.length)}\``,
-            ),
-        );
-
-
-      if (track.info.artworkUrl) {
-        section.setThumbnailAccessory(
-          (thumbnail) =>
-            thumbnail
-              .setURL(track.info.artworkUrl)
-              .setDescription(`Artwork for ${track.info.title}`),
-        );
-      }
-
-      resultsContainer.addSectionComponents(section);
-
-
-      if (index < response.tracks.slice(0, 10).length - 1) {
-        resultsContainer.addSeparatorComponents(
-          (separator) => separator.setDivider(true),
-        );
-      }
-    });
-
-
-    const sentMessage = await ctx.sendMessage({
-      components: [resultsContainer, actionRow], 
-      flags: MessageFlags.IsComponentsV2,
-    });
-
-
-    const collector = (ctx.channel as TextChannel).createMessageComponentCollector({
-      filter: (f: any) => f.user.id === ctx.author?.id && f.customId === "select-track",
-      max: 1,
-      time: 60000, 
-      idle: 30000, 
+    const collector = (
+      ctx.channel as TextChannel
+    ).createMessageComponentCollector({
+      filter: (f: any) => f.user.id === ctx.author?.id, 
+      time: 120000, 
+      idle: 60000, 
     });
 
     collector.on("collect", async (int: any) => {
-      const selectedIndex = Number.parseInt(int.values[0]);
-      const track = response.tracks[selectedIndex];
+      if (int.customId === "select-track") {
 
-      await int.deferUpdate();
+        const selectedIndex = Number.parseInt(int.values[0]);
+        const track = response.tracks[selectedIndex];
 
-      if (!track) {
-        const errorContainer = new ContainerBuilder()
-          .setAccentColor(this.client.color.red)
+        await int.deferUpdate(); 
+
+        if (!track) {
+          const errorContainer = new ContainerBuilder()
+            .setAccentColor(this.client.color.red)
+            .addTextDisplayComponents(
+              (textDisplay) =>
+                textDisplay.setContent(
+                  `**${ctx.locale(
+                    "cmd.search.errors.invalid_selection_title",
+                  )}**\n${ctx.locale("cmd.search.errors.invalid_selection_description")}`,
+                ),
+            );
+          return await int.followUp({
+            components: [errorContainer],
+            flags: MessageFlags.IsComponentsV2,
+            flags: MessageFlags.Ephemeral,
+          });
+        }
+
+        player.queue.add(track);
+        if (!player.playing && player.queue.tracks.length > 0)
+          await player.play({ paused: false });
+
+
+        const confirmationContainer = new ContainerBuilder()
+          .setAccentColor(this.client.color.green)
           .addTextDisplayComponents(
             (textDisplay) =>
               textDisplay.setContent(
-                `**${ctx.locale(
-                  "cmd.search.errors.invalid_selection_title",
-                )}**\n${ctx.locale("cmd.search.errors.invalid_selection_description")}`,
+                ctx.locale("cmd.search.messages.added_to_queue", {
+                  title: track.info.title,
+                  uri: track.info.uri,
+                }),
               ),
           );
-        return await int.followUp({
-          components: [errorContainer],
+
+        await ctx.editMessage({
+          components: [confirmationContainer],
           flags: MessageFlags.IsComponentsV2,
-          flags: MessageFlags.Ephemeral,
         });
+
+        return collector.stop(); 
+      } else if (int.customId === "previous-page") {
+
+        if (currentPage > 0) {
+          currentPage--;
+          await int.deferUpdate(); 
+          const newComponents = this.generatePageComponents(
+            client,
+            ctx,
+            response.tracks,
+            currentPage,
+            maxPages,
+          );
+          await ctx.editMessage(newComponents); 
+        } else {
+          await int.deferUpdate(); 
+        }
+      } else if (int.customId === "next-page") {
+
+        if (currentPage < maxPages - 1) {
+          currentPage++;
+          await int.deferUpdate(); 
+          const newComponents = this.generatePageComponents(
+            client,
+            ctx,
+            response.tracks,
+            currentPage,
+            maxPages,
+          );
+          await ctx.editMessage(newComponents); 
+        } else {
+          await int.deferUpdate(); 
+        }
       }
-
-      player.queue.add(track);
-      if (!player.playing && player.queue.tracks.length > 0)
-        await player.play({ paused: false });
-
-
-      const confirmationContainer = new ContainerBuilder()
-        .setAccentColor(this.client.color.green)
-        .addTextDisplayComponents(
-          (textDisplay) =>
-            textDisplay.setContent(
-              ctx.locale("cmd.search.messages.added_to_queue", {
-                title: track.info.title,
-                uri: track.info.uri,
-              }),
-            ),
-        );
-
-      await ctx.editMessage({
-        components: [confirmationContainer],
-        flags: MessageFlags.IsComponentsV2,
-      });
-
-      return collector.stop();
+      collector.resetTimer(); 
     });
 
     collector.on("end", async (_collected, reason) => {
+
       if (reason === "time" || reason === "idle") {
         try {
           const timeoutContainer = new ContainerBuilder()
@@ -263,12 +342,14 @@ export default class Search extends Command {
                 ),
             );
 
+
           await ctx.editMessage({
             components: [timeoutContainer],
             flags: MessageFlags.IsComponentsV2,
           });
         } catch (error) {
           console.error("Failed to edit message on collector timeout:", error);
+
           await ctx.followUp({
             embeds: [
               this.client.embed()
@@ -281,6 +362,7 @@ export default class Search extends Command {
           });
         }
       }
+
     });
   }
 }
