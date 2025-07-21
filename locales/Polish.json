@@ -354,7 +354,9 @@
 				"no_results_description": "Nie mogłem znaleźć żadnych utworów pasujących do Twojego zapytania. Spróbuj zmienić słowa kluczowe lub link.",
 				"invalid_selection_title": "Niepoprawny Wybór!",
 				"invalid_selection_description": "Wybrana opcja jest nieprawidłowa. Proszę wybierz numer utworu z listy.",
-				"search_error": "Wystąpił błąd podczas wyszukiwania utworu."
+				"search_error": "Wystąpił błąd podczas wyszukiwania utworu.",
+				"vc_connect_fail_title": "Błąd połączenia z kanałem głosowym",
+            			"vc_connect_fail_description": "Nie mogłem połączyć się z Twoim kanałem głosowym. Upewnij się, że mam odpowiednie uprawnienia."
 			},
 			"messages": {
 				"results_found": "Znaleziono **{count}** utworów.",
