@@ -2,21 +2,20 @@ import {
   ActionRowBuilder,
   StringSelectMenuBuilder,
   ButtonBuilder,
-  ButtonStyle,   
+  ButtonStyle,
   type TextChannel,
   type VoiceChannel,
   TextDisplayBuilder,
   SectionBuilder,
   MessageFlags,
   ContainerBuilder,
-  SeparatorBuilder, 
+  SeparatorBuilder,
   ThumbnailBuilder,
 } from "discord.js";
 import type { SearchResult, Track } from "lavalink-client";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 
-
-const TRACKS_PER_PAGE = 4; //adjust this to change how many tracks are shown per page
+const TRACKS_PER_PAGE = 5; // adjust this to change how many tracks are shown per page
 
 export default class Search extends Command {
   constructor(client: Lavamusic) {
@@ -61,7 +60,6 @@ export default class Search extends Command {
     });
   }
 
-
   private generatePageComponents(
     client: Lavamusic,
     ctx: Context,
@@ -71,7 +69,7 @@ export default class Search extends Command {
   ) {
     const startIndex = currentPage * TRACKS_PER_PAGE;
     const endIndex = startIndex + TRACKS_PER_PAGE;
-    const tracksOnPage = tracks.slice(startIndex, endIndex);
+    const tracksOnPage = tracks.slice(startIndex, Math.min(endIndex, tracks.length));
 
     // Główny kontener na wyniki wyszukiwania
     const resultsContainer = new ContainerBuilder()
@@ -81,7 +79,7 @@ export default class Search extends Command {
           textDisplay.setContent(
             `**${ctx.locale(
               "cmd.search.messages.results_found",
-              { count: tracks.length }, 
+              { count: tracks.length },
             )}**\n*${ctx.locale("cmd.search.messages.select_prompt")}*` +
             `\n\n**${ctx.locale("cmd.search.messages.page_info", {
               currentPage: currentPage + 1,
@@ -92,11 +90,25 @@ export default class Search extends Command {
 
     // Dodaj każdy utwór jako Section z miniaturą
     tracksOnPage.forEach((track: Track, index: number) => {
-      const globalIndex = startIndex + index; 
+      const globalIndex = startIndex + index;
+
+      // DODANY LOG: Sprawdzamy dane dla każdego utworu
+      console.log(`--- Track ${globalIndex + 1} Data ---`);
+      console.log(`Title: ${track.info.title}`);
+      console.log(`Author: ${track.info.author}`);
+      console.log(`URI: ${track.info.uri}`);
+      console.log(`Length (ms): ${track.info.length}`); // KLUCZOWE: Sprawdź tę wartość!
+      console.log(`Is Stream: ${track.info.isStream}`);
+      console.log(`Artwork URL: ${track.info.artworkUrl}`);
+      console.log(`------------------------------`);
+
+
       const section = new SectionBuilder().addTextDisplayComponents(
         (textDisplay) =>
           textDisplay.setContent(
-            `**${globalIndex + 1}. [${track.info.title}](${track.info.uri})**\n*${track.info.author}*\n\`${client.utils.formatTime(track.info.length)}\``,
+            `**${globalIndex + 1}. [${track.info.title}](${track.info.uri})**\n` +
+            `*${track.info.author || "Unknown Artist"}*\n` +
+            `\`${track.info.length ? client.utils.formatTime(track.info.length) : 'N/A'}\``,
           ),
       );
 
@@ -111,15 +123,19 @@ export default class Search extends Command {
       resultsContainer.addSectionComponents(section);
     });
 
+    // Separator if there are tracks
+    if (tracksOnPage.length > 0) {
+      resultsContainer.addSeparatorComponents(new SeparatorBuilder());
+    }
 
     const selectMenu = new StringSelectMenuBuilder()
       .setCustomId("select-track")
       .setPlaceholder(ctx.locale("cmd.search.select"))
       .addOptions(
-        tracks.slice(0, 10).map((track: Track, index: number) => ({
-          label: `${index + 1}. ${track.info.title.slice(0, 50)}${track.info.title.length > 50 ? "..." : ""}`,
-          description: track.info.author.slice(0, 100),
-          value: index.toString(),
+        tracksOnPage.slice(0, 10).map((track: Track, index: number) => ({
+          label: `${startIndex + index + 1}. ${track.info.title.slice(0, 50)}${track.info.title.length > 50 ? "..." : ""}`,
+          description: (track.info.author || "Unknown Artist").slice(0, 100),
+          value: (startIndex + index).toString(),
         })),
       );
 
@@ -196,10 +212,23 @@ export default class Search extends Command {
       }
     }
 
+    // DODANY LOG: Przed wyszukiwaniem
+    console.log(`Attempting to search for query: "${query}"`);
+
     const response = (await player.search(
       { query: query },
       ctx.author,
     )) as SearchResult;
+
+    // DODANY LOG: Po otrzymaniu odpowiedzi z wyszukiwania
+    console.log(`Search response received.`);
+    console.log(`Response type: ${response?.loadType}`); // np. "SEARCH_RESULT", "TRACK_LOADED"
+    console.log(`Number of tracks found: ${response?.tracks?.length || 0}`);
+    if (response?.tracks && response.tracks.length > 0) {
+      console.log(`First track info:`, response.tracks[0].info);
+    } else {
+      console.log(`No tracks found in the search response.`);
+    }
 
 
     if (!response || response.tracks?.length === 0) {
@@ -223,7 +252,6 @@ export default class Search extends Command {
     let currentPage = 0;
     const maxPages = Math.ceil(response.tracks.length / TRACKS_PER_PAGE);
 
-
     const initialComponents = this.generatePageComponents(
       client,
       ctx,
@@ -237,18 +265,17 @@ export default class Search extends Command {
     const collector = (
       ctx.channel as TextChannel
     ).createMessageComponentCollector({
-      filter: (f: any) => f.user.id === ctx.author?.id, 
-      time: 120000, 
-      idle: 60000, 
+      filter: (f: any) => f.user.id === ctx.author?.id,
+      time: 120000,
+      idle: 60000,
     });
 
     collector.on("collect", async (int: any) => {
       if (int.customId === "select-track") {
-
         const selectedIndex = Number.parseInt(int.values[0]);
         const track = response.tracks[selectedIndex];
 
-        await int.deferUpdate(); 
+        await int.deferUpdate();
 
         if (!track) {
           const errorContainer = new ContainerBuilder()
@@ -263,15 +290,17 @@ export default class Search extends Command {
             );
           return await int.followUp({
             components: [errorContainer],
-            flags: MessageFlags.IsComponentsV2,
-            flags: MessageFlags.Ephemeral,
+            flags: MessageFlags.IsComponentsV2 | MessageFlags.Ephemeral,
           });
         }
+
+        // DODANY LOG: Po wyborze utworu
+        console.log(`Selected track:`, track.info);
+        console.log(`Selected track length: ${track.info.length}`);
 
         player.queue.add(track);
         if (!player.playing && player.queue.tracks.length > 0)
           await player.play({ paused: false });
-
 
         const confirmationContainer = new ContainerBuilder()
           .setAccentColor(this.client.color.green)
@@ -290,12 +319,11 @@ export default class Search extends Command {
           flags: MessageFlags.IsComponentsV2,
         });
 
-        return collector.stop(); 
+        return collector.stop();
       } else if (int.customId === "previous-page") {
-
         if (currentPage > 0) {
           currentPage--;
-          await int.deferUpdate(); 
+          await int.deferUpdate();
           const newComponents = this.generatePageComponents(
             client,
             ctx,
@@ -303,15 +331,14 @@ export default class Search extends Command {
             currentPage,
             maxPages,
           );
-          await ctx.editMessage(newComponents); 
+          await ctx.editMessage(newComponents);
         } else {
-          await int.deferUpdate(); 
+          await int.deferUpdate();
         }
       } else if (int.customId === "next-page") {
-
         if (currentPage < maxPages - 1) {
           currentPage++;
-          await int.deferUpdate(); 
+          await int.deferUpdate();
           const newComponents = this.generatePageComponents(
             client,
             ctx,
@@ -319,16 +346,15 @@ export default class Search extends Command {
             currentPage,
             maxPages,
           );
-          await ctx.editMessage(newComponents); 
+          await ctx.editMessage(newComponents);
         } else {
-          await int.deferUpdate(); 
+          await int.deferUpdate();
         }
       }
-      collector.resetTimer(); 
+      collector.resetTimer();
     });
 
     collector.on("end", async (_collected, reason) => {
-
       if (reason === "time" || reason === "idle") {
         try {
           const timeoutContainer = new ContainerBuilder()
@@ -341,7 +367,6 @@ export default class Search extends Command {
                   )}**\n${ctx.locale("cmd.search.messages.selection_timed_out_description")}`,
                 ),
             );
-
 
           await ctx.editMessage({
             components: [timeoutContainer],
@@ -362,7 +387,6 @@ export default class Search extends Command {
           });
         }
       }
-
     });
   }
 }
