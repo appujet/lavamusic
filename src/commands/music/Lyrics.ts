@@ -73,7 +73,7 @@ export default class Lyrics extends Command {
 
     await ctx.sendDeferMessage(
       ctx.locale("cmd.lyrics.searching", { trackTitle }),
-      MessageFlags.IsComponentsV2 
+      MessageFlags.IsComponentsV2
     );
 
     const options = {
@@ -88,41 +88,44 @@ export default class Lyrics extends Command {
       if (lyrics) {
         const lyricsPages = this.paginateLyrics(lyrics);
         let currentPage = 0;
+
+
         const createLyricsContainer = (pageIndex: number) => {
-          const currentLyricsPage = lyricsPages[pageIndex];
-          const lyricsContainer = new ContainerBuilder()
-            .setAccentColor(client.color.main)
-            .addSectionComponents(
-              new SectionBuilder()
-                .addTextDisplayComponents(
-                  (textDisplay) =>
+          const currentLyricsPage = lyricsPages[pageIndex] || "There is no text on this page."; 
+          
+          const mainLyricsSection = new SectionBuilder()
+            .addTextDisplayComponents(
+              (textDisplay) =>
+                textDisplay.setContent(
+                  `**${ctx.locale("cmd.lyrics.lyrics_track_title", {
+                    trackTitle,
+                    trackUrl,
+                  })}**\n` +
+                  `*${artistName}*\n\n` +
+                  `${currentLyricsPage}`
+                ),
+            )
+            .addTextDisplayComponents( 
+                (textDisplay) =>
                     textDisplay.setContent(
-                      `**${ctx.locale("cmd.lyrics.lyrics_track_title", {
-                        trackTitle,
-                        trackUrl,
-                      })}**\n` +
-                      `*${artistName}*\n\n` +
-                      `${currentLyricsPage}`
-                    ),
-                )
-                .addTextDisplayComponents( 
-                    (textDisplay) =>
-                        textDisplay.setContent(
-                            `\nStrona ${pageIndex + 1}/${lyricsPages.length}` 
-                        )
-                )
+                        `\nStrona ${pageIndex + 1}/${lyricsPages.length}` 
+                    )
             );
 
+
           if (artworkUrl && artworkUrl.length > 0) {
-            lyricsContainer.addSectionComponents( 
-              new SectionBuilder().setThumbnailAccessory(
-                (thumbnail) =>
-                  thumbnail
-                    .setURL(artworkUrl)
-                    .setDescription(`Artwork for ${trackTitle}`),
-              ),
+            mainLyricsSection.setThumbnailAccessory(
+              (thumbnail) =>
+                thumbnail
+                  .setURL(artworkUrl)
+                  .setDescription(`Artwork for ${trackTitle}`),
             );
           }
+
+          const lyricsContainer = new ContainerBuilder()
+            .setAccentColor(client.color.main)
+            .addSectionComponents(mainLyricsSection); 
+
           return lyricsContainer;
         };
 
@@ -213,7 +216,7 @@ export default class Lyrics extends Command {
     const lines = lyrics.split("\n");
     const pages: any = [];
     let page = "";
-    const MAX_CHARACTERS_PER_PAGE = 3500; 
+    const MAX_CHARACTERS_PER_PAGE = 3500;
 
     for (const line of lines) {
       if (page.length + line.length + 1 > MAX_CHARACTERS_PER_PAGE) {
