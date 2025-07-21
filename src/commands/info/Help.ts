@@ -7,11 +7,7 @@ import {
   ContainerBuilder,
   TextDisplayBuilder,
   SectionBuilder,
-  MessageFlags,
-  ButtonBuilder, 
-  ButtonStyle,  
-  ActionRowBuilder, 
-  StringSelectMenuBuilder 
+  MessageFlags
 } from "discord.js";
 
 export default class Help extends Command {
@@ -41,7 +37,6 @@ export default class Help extends Command {
           "ReadMessageHistory",
           "ViewChannel",
           "EmbedLinks",
-          "AttachFiles",
         ],
         user: [],
       },
@@ -142,12 +137,12 @@ export default class Help extends Command {
 
     categories.forEach((category) => {
       const categoryCommands = commands.filter((cmd) => cmd.category === category);
-      if (categoryCommands.length > 0) { 
+      if (categoryCommands.length > 0) {
         helpContainer.addSectionComponents(
           new SectionBuilder().addTextDisplayComponents(
             (textDisplay) =>
               textDisplay.setContent(
-                `**${category.charAt(0).toUpperCase() + category.slice(1)}**\n` + 
+                `**${category.charAt(0).toUpperCase() + category.slice(1)}**\n` +
                 categoryCommands
                   .map((cmd) => `\`${cmd.name}\``)
                   .join(", "),
