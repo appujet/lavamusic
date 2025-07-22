@@ -525,11 +525,12 @@
 	"buttons": {
 		"invite": "Zaproś",
 		"support": "Serwer wsparcia",
-		"previous": "Poprzedni",
+		"previous": "Poprzedna",
 		"resume": "Wznów",
 		"stop": "Zatrzymaj",
 		"skip": "Pomiń",
 		"loop": "Zapętl",
+		"next": "Następna",
 		"errors": {
 			"not_author": "Nie możesz użyć tego przycisku."
 		}
