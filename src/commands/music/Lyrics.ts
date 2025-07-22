@@ -1,241 +1,298 @@
 import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  type ButtonInteraction,
-  ButtonStyle,
-  ComponentType,
-  type TextChannel,
-  ContainerBuilder,
-  TextDisplayBuilder,
-  SectionBuilder,
-  MessageFlags,
-  ThumbnailBuilder,
+ ActionRowBuilder,
+ ButtonBuilder,
+ type ButtonInteraction,
+ ButtonStyle,
+ ComponentType,
+ type TextChannel,
+ ContainerBuilder,
+ TextDisplayBuilder,
+ SectionBuilder,
+ MessageFlags,
+ ThumbnailBuilder,
 } from "discord.js";
 import { getLyrics } from "genius-lyrics-api";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class Lyrics extends Command {
-  constructor(client: Lavamusic) {
-    super(client, {
-      name: "lyrics",
-      description: {
-        content: "cmd.lyrics.description",
-        examples: ["lyrics"],
-        usage: "lyrics",
-      },
-      category: "music",
-      aliases: ["ly"],
-      cooldown: 3,
-      args: false,
-      vote: false,
-      player: {
-        voice: true,
-        dj: false,
-        active: true,
-        djPerm: null,
-      },
-      permissions: {
-        dev: false,
-        client: [
-          "SendMessages",
-          "ReadMessageHistory",
-          "ViewChannel",
-          "EmbedLinks",
-          "AttachFiles",
-        ],
-        user: [],
-      },
-      slashCommand: true,
-      options: [],
-    });
-  }
-
-  public async run(client: Lavamusic, ctx: Context): Promise<any> {
-    const player = client.manager.getPlayer(ctx.guild!.id);
-    if (!player || !player.queue.current) {
-      const noMusicContainer = new ContainerBuilder()
-        .setAccentColor(this.client.color.red)
-        .addTextDisplayComponents(
-          (textDisplay) =>
-            textDisplay.setContent(ctx.locale("event.message.no_music_playing")),
-        );
-      return await ctx.sendMessage({
-        components: [noMusicContainer],
-        flags: MessageFlags.IsComponentsV2,
-      });
-    }
-
-    const track = player.queue.current!;
-    const trackTitle = track.info.title?.replace(/\[.*?\]|\(.*?\)|\{.*?\}/g, "").trim() || "Unknown Title";
-    const artistName = track.info.author?.replace(/\[.*?\]|\(.*?\)|\{.*?\}/g, "").trim() || "Unknown Artist";
-    const trackUrl = track.info.uri || "about:blank";
-    const artworkUrl = track.info.artworkUrl;
-
-    await ctx.sendDeferMessage(
-      ctx.locale("cmd.lyrics.searching", { trackTitle }),
-      MessageFlags.IsComponentsV2
-    );
-
-    const options = {
-      apiKey: client.env.GENIUS_API,
-      title: trackTitle,
-      artist: artistName,
-      optimizeQuery: true,
-    };
-
-    try {
-      const lyrics = await getLyrics(options);
-      if (lyrics) {
-        const lyricsPages = this.paginateLyrics(lyrics);
-        let currentPage = 0;
-
-        
-        const createLyricsContainer = (pageIndex: number, finalState: boolean = false) => {
-          const currentLyricsPage = lyricsPages[pageIndex] || ctx.locale("cmd.lyrics.no_lyrics_on_page"); 
-          
-          let fullContent = 
-              ctx.locale("cmd.lyrics.lyrics_for_track", { trackTitle: trackTitle, trackUrl: trackUrl }) + "\n" +
-              `*${artistName}*\n\n` +
-              `${currentLyricsPage}`;
-
-          
-          if (!finalState) {
-              fullContent += `\n\nPage ${pageIndex + 1}/${lyricsPages.length}`;
-          } else {
-              fullContent += `\n\n*The session has expired. Use the command again to refresh.*`;
-          }
-
-          const mainLyricsSection = new SectionBuilder()
-            .addTextDisplayComponents(
-              (textDisplay) => textDisplay.setContent(fullContent) 
-            );
+ constructor(client: Lavamusic) {
+   super(client, {
+     name: "lyrics",
+     description: {
+       content: "cmd.lyrics.description",
+       examples: ["lyrics"],
+       usage: "lyrics",
+     },
+     category: "music",
+     aliases: ["ly"],
+     cooldown: 3,
+     args: false,
+     vote: false,
+     player: {
+       voice: true,
+       dj: false,
+       active: true,
+       djPerm: null,
+     },
+     permissions: {
+       dev: false,
+       client: [
+         "SendMessages",
+         "ReadMessageHistory",
+         "ViewChannel",
+         "EmbedLinks",
+         "AttachFiles",
+       ],
+       user: [],
+     },
+     slashCommand: true,
+     options: [],
+   });
+ }
 
 
-          if (artworkUrl && artworkUrl.length > 0) {
-            mainLyricsSection.setThumbnailAccessory(
-              (thumbnail) =>
-                thumbnail
-                  .setURL(artworkUrl)
-                  .setDescription(`Artwork for ${trackTitle}`),
-            );
-          }
+ private cleanLyrics(lyrics: string): string {
+   let cleaned = lyrics;
 
-          const lyricsContainer = new ContainerBuilder()
-            .setAccentColor(client.color.main)
-            .addSectionComponents(mainLyricsSection);
+   cleaned = cleaned.replace(/^\d+\s*Contributors.*?Lyrics/gi, '');
+   
+   cleaned = cleaned.replace(/^.*Contributors.*$/gmi, '');
+   
+   cleaned = cleaned.replace(/^Lyrics\s*$/gmi, '');
+   
+   cleaned = cleaned.replace(/^.*Lyrics\s*$/gmi, '');
+   
+   cleaned = cleaned.replace(/^[\s\n\r]+/, '');
+   
+   cleaned = cleaned.replace(/[\s\n\r]+$/, '');
+   
+   cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
+   
+   return cleaned.trim();
+ }
 
-          return lyricsContainer;
-        };
+ public async run(client: Lavamusic, ctx: Context): Promise<any> {
+   const player = client.manager.getPlayer(ctx.guild!.id);
+   if (!player || !player.queue.current) {
+     const noMusicContainer = new ContainerBuilder()
+       .setAccentColor(this.client.color.red)
+       .addTextDisplayComponents(
+         (textDisplay) =>
+           textDisplay.setContent(ctx.locale("event.message.no_music_playing")),
+       );
+     return await ctx.sendMessage({
+       components: [noMusicContainer],
+       flags: MessageFlags.IsComponentsV2,
+     });
+   }
 
-        const getNavigationRow = (current: number) => {
-          return new ActionRowBuilder<ButtonBuilder>().addComponents(
-            new ButtonBuilder()
-              .setCustomId("prev")
-              .setEmoji(this.client.emoji.page.back)
-              .setStyle(ButtonStyle.Secondary)
-              .setDisabled(current === 0),
-            new ButtonBuilder()
-              .setCustomId("stop")
-              .setEmoji(this.client.emoji.page.cancel)
-              .setStyle(ButtonStyle.Danger),
-            new ButtonBuilder()
-              .setCustomId("next")
-              .setEmoji(this.client.emoji.page.next)
-              .setStyle(ButtonStyle.Secondary)
-              .setDisabled(current === lyricsPages.length - 1),
-          );
-        };
+   const track = player.queue.current!;
+   const trackTitle = track.info.title?.replace(/\[.*?\]|\(.*?\)|\{.*?\}/g, "").trim() || "Unknown Title";
+   const artistName = track.info.author?.replace(/\[.*?\]|\(.*?\)|\{.*?\}/g, "").trim() || "Unknown Artist";
+   const trackUrl = track.info.uri || "about:blank";
+   const artworkUrl = track.info.artworkUrl;
 
-        await ctx.editMessage({
-          components: [createLyricsContainer(currentPage), getNavigationRow(currentPage)],
-          flags: MessageFlags.IsComponentsV2,
-        });
+   await ctx.sendDeferMessage(
+     ctx.locale("cmd.lyrics.searching", { trackTitle }),
+     MessageFlags.IsComponentsV2
+   );
 
-        const filter = (interaction: ButtonInteraction<"cached">) =>
-          interaction.user.id === ctx.author?.id;
-        const collector = (
-          ctx.channel as TextChannel
-        ).createMessageComponentCollector({
-          filter,
-          componentType: ComponentType.Button,
-          time: 60000,
-        });
+   const options = {
+     apiKey: client.env.GENIUS_API,
+     title: trackTitle,
+     artist: artistName,
+     optimizeQuery: true,
+   };
 
-        collector.on("collect", async (interaction: ButtonInteraction) => {
-          if (interaction.customId === "prev") {
-            currentPage--;
-          } else if (interaction.customId === "next") {
-            currentPage++;
-          } else if (interaction.customId === "stop") {
-            collector.stop();
-            return;
-          }
+   try {
+     const rawLyrics = await getLyrics(options);
+     if (rawLyrics) {
 
-          await interaction.update({
-            components: [createLyricsContainer(currentPage), getNavigationRow(currentPage)],
-          });
-        });
+       const cleanedLyrics = this.cleanLyrics(rawLyrics);
+       
 
-        collector.on("end", async (collected, reason) => {
-            if (ctx.guild?.members.me?.permissionsIn(ctx.channelId).has("SendMessages")) {
-                const finalContainer = createLyricsContainer(currentPage, true);
-                await ctx.editMessage({ components: [finalContainer], flags: MessageFlags.IsComponentsV2 }).catch(e => client.logger.error("Failed to clear lyrics buttons:", e));
-            }
-        });
+       if (!cleanedLyrics || cleanedLyrics.length < 10) {
+         const noResultsContainer = new ContainerBuilder()
+           .setAccentColor(client.color.red)
+           .addTextDisplayComponents(
+             (textDisplay) =>
+               textDisplay.setContent(ctx.locale("cmd.lyrics.errors.no_results")),
+           );
+         await ctx.editMessage({
+           components: [noResultsContainer],
+           flags: MessageFlags.IsComponentsV2,
+         });
+         return;
+       }
 
-      } else {
-        const noResultsContainer = new ContainerBuilder()
-          .setAccentColor(client.color.red)
-          .addTextDisplayComponents(
-            (textDisplay) =>
-              textDisplay.setContent(ctx.locale("cmd.lyrics.errors.no_results")),
-          );
-        await ctx.editMessage({
-          components: [noResultsContainer],
-          flags: MessageFlags.IsComponentsV2,
-        });
-      }
-    } catch (error) {
-      client.logger.error(error);
-      const errorContainer = new ContainerBuilder()
-        .setAccentColor(client.color.red)
-        .addTextDisplayComponents(
-          (textDisplay) =>
-            textDisplay.setContent(ctx.locale("cmd.lyrics.errors.lyrics_error")),
-        );
-      await ctx.editMessage({
-        components: [errorContainer],
-        flags: MessageFlags.IsComponentsV2,
-      });
-    }
-  }
+       const lyricsPages = this.paginateLyrics(cleanedLyrics);
+       let currentPage = 0;
 
-  paginateLyrics(lyrics: string) {
-    const lines = lyrics.split("\n");
-    const pages: any = [];
-    let page = "";
-    const MAX_CHARACTERS_PER_PAGE = 3000;
+       const createLyricsContainer = (pageIndex: number, finalState: boolean = false) => {
+         const currentLyricsPage = lyricsPages[pageIndex] || ctx.locale("cmd.lyrics.no_lyrics_on_page"); 
+         
+         let fullContent = 
+             ctx.locale("cmd.lyrics.lyrics_for_track", { trackTitle: trackTitle, trackUrl: trackUrl }) + "\n" +
+             `*${artistName}*\n\n` +
+             `${currentLyricsPage}`;
 
-    for (const line of lines) {
-      if (page.length + line.length + 1 > MAX_CHARACTERS_PER_PAGE) {
-        pages.push(page.trim());
-        page = "";
-      }
-      page += `${line}\n`;
-    }
+         if (!finalState) {
+             fullContent += `\n\nPage ${pageIndex + 1}/${lyricsPages.length}`;
+         } else {
+             fullContent += `\n\n*The session has expired. Use the command again to refresh.*`;
+         }
 
-    if (page) pages.push(page.trim());
-    return pages;
-  }
+         const mainLyricsSection = new SectionBuilder()
+           .addTextDisplayComponents(
+             (textDisplay) => textDisplay.setContent(fullContent) 
+           );
+
+         if (artworkUrl && artworkUrl.length > 0) {
+           mainLyricsSection.setThumbnailAccessory(
+             (thumbnail) =>
+               thumbnail
+                 .setURL(artworkUrl)
+                 .setDescription(`Artwork for ${trackTitle}`),
+           );
+         }
+
+         const lyricsContainer = new ContainerBuilder()
+           .setAccentColor(client.color.main)
+           .addSectionComponents(mainLyricsSection);
+
+         return lyricsContainer;
+       };
+
+       const getNavigationRow = (current: number) => {
+         return new ActionRowBuilder<ButtonBuilder>().addComponents(
+           new ButtonBuilder()
+             .setCustomId("prev")
+             .setEmoji(this.client.emoji.page.back)
+             .setStyle(ButtonStyle.Secondary)
+             .setDisabled(current === 0),
+           new ButtonBuilder()
+             .setCustomId("stop")
+             .setEmoji(this.client.emoji.page.cancel)
+             .setStyle(ButtonStyle.Danger),
+           new ButtonBuilder()
+             .setCustomId("next")
+             .setEmoji(this.client.emoji.page.next)
+             .setStyle(ButtonStyle.Secondary)
+             .setDisabled(current === lyricsPages.length - 1),
+         );
+       };
+
+       await ctx.editMessage({
+         components: [createLyricsContainer(currentPage), getNavigationRow(currentPage)],
+         flags: MessageFlags.IsComponentsV2,
+       });
+
+       const filter = (interaction: ButtonInteraction<"cached">) =>
+         interaction.user.id === ctx.author?.id;
+       const collector = (
+         ctx.channel as TextChannel
+       ).createMessageComponentCollector({
+         filter,
+         componentType: ComponentType.Button,
+         time: 60000,
+       });
+
+       collector.on("collect", async (interaction: ButtonInteraction) => {
+         if (interaction.customId === "prev") {
+           currentPage--;
+         } else if (interaction.customId === "next") {
+           currentPage++;
+         } else if (interaction.customId === "stop") {
+           collector.stop();
+           return;
+         }
+
+         await interaction.update({
+           components: [createLyricsContainer(currentPage), getNavigationRow(currentPage)],
+         });
+       });
+
+       collector.on("end", async (collected, reason) => {
+           if (ctx.guild?.members.me?.permissionsIn(ctx.channelId).has("SendMessages")) {
+               const finalContainer = createLyricsContainer(currentPage, true);
+               await ctx.editMessage({ 
+                 components: [finalContainer], 
+                 flags: MessageFlags.IsComponentsV2 
+               }).catch(e => client.logger.error("Failed to clear lyrics buttons:", e));
+           }
+       });
+
+     } else {
+       const noResultsContainer = new ContainerBuilder()
+         .setAccentColor(client.color.red)
+         .addTextDisplayComponents(
+           (textDisplay) =>
+             textDisplay.setContent(ctx.locale("cmd.lyrics.errors.no_results")),
+         );
+       await ctx.editMessage({
+         components: [noResultsContainer],
+         flags: MessageFlags.IsComponentsV2,
+       });
+     }
+   } catch (error) {
+     client.logger.error(error);
+     const errorContainer = new ContainerBuilder()
+       .setAccentColor(client.color.red)
+       .addTextDisplayComponents(
+         (textDisplay) =>
+           textDisplay.setContent(ctx.locale("cmd.lyrics.errors.lyrics_error")),
+       );
+     await ctx.editMessage({
+       components: [errorContainer],
+       flags: MessageFlags.IsComponentsV2,
+     });
+   }
+ }
+
+
+ paginateLyrics(lyrics: string): string[] {
+   const lines = lyrics.split("\n");
+   const pages: string[] = [];
+   let currentPage = "";
+   const MAX_CHARACTERS_PER_PAGE = 2800; 
+
+   for (const line of lines) {
+     const lineWithNewline = `${line}\n`;
+     
+
+     if (currentPage.length + lineWithNewline.length > MAX_CHARACTERS_PER_PAGE) {
+
+       if (currentPage.trim()) {
+         pages.push(currentPage.trim());
+       }
+
+       currentPage = lineWithNewline;
+     } else {
+       currentPage += lineWithNewline;
+     }
+   }
+
+
+   if (currentPage.trim()) {
+     pages.push(currentPage.trim());
+   }
+
+
+   if (pages.length === 0) {
+     pages.push("No lyrics available");
+   }
+
+   return pages;
+ }
 }
 
 /**
- * Project: lavamusic
- * Author: Appu
- * Main Contributor: LucasB25
- * Company: Coders
- * Copyright (c) 2024. All rights reserved.
- * This code is the property of Coder and may not be reproduced or
- * modified without permission. For more information, contact us at
- * https://discord.gg/YQsGbTwPBx
- */
+* Project: lavamusic
+* Author: Appu
+* Main Contributor: LucasB25
+* Company: Coders
+* Copyright (c) 2024. All rights reserved.
+* This code is the property of Coder and may not be reproduced or
+* modified without permission. For more information, contact us at
+* https://discord.gg/YQsGbTwPBx
+*/
