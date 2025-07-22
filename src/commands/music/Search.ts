@@ -133,13 +133,13 @@ export default class Search extends Command {
 
     const previousButton = new ButtonBuilder()
       .setCustomId("previous-page")
-      .setLabel(ctx.locale("cmd.search.buttons.previous"))
+      .setLabel(ctx.locale("buttons.previous"))
       .setStyle(ButtonStyle.Primary)
       .setDisabled(currentPage === 0 || isDisabled); // Apply disabled state
 
     const nextButton = new ButtonBuilder()
       .setCustomId("next-page")
-      .setLabel(ctx.locale("cmd.search.buttons.next"))
+      .setLabel(ctx.locale("buttons.next"))
       .setStyle(ButtonStyle.Primary)
       .setDisabled(currentPage === maxPages - 1 || isDisabled); // Apply disabled state
 
