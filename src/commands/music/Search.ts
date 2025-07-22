@@ -119,14 +119,13 @@ export default class Search extends Command {
       .setCustomId("select-track")
       .setPlaceholder(ctx.locale("cmd.search.select"))
       .addOptions(
-        tracksOnPage.slice(0, 10).map((track: Track, index: number) => ({
+        tracksOnPage.map((track: Track, index: number) => ({
           label: `${startIndex + index + 1}. ${track.info.title.slice(0, 50)}${track.info.title.length > 50 ? "..." : ""}`,
           description: (track.info.author || "Unknown Artist").slice(0, 100),
           value: (startIndex + index).toString(),
         })),
       )
-      .setDisabled(isDisabled); // Apply disabled state
-
+      .setDisabled(isDisabled);
     const selectRow = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
       selectMenu,
     );
