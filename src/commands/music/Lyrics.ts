@@ -280,7 +280,7 @@ paginateLyrics(lyrics: string, ctx: Context): string[] {
 
   return pages;
 }
-
+}
 /**
 * Project: lavamusic
 * Author: Appu
