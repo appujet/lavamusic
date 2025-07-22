@@ -292,7 +292,7 @@ export default class Search extends Command {
         );
 
         await ctx.editMessage({
-          components: [...confirmationContainer.components, ...disabledComponents.components.slice(1)], // Combine confirmation with disabled pagination
+          components: [confirmationContainer, ...disabledComponents.components.slice(1)], // Remove .components from confirmationContainer
           flags: MessageFlags.IsComponentsV2,
         });
 
