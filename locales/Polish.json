@@ -515,6 +515,10 @@
 			"description": "Pobiera tekst aktualnie odtwarzanego utworu",
 			"lyrics_for_track": "### Tekst piosenki: [{trackTitle}]({trackUrl})",
 			"no_lyrics_on_page": "Brak tekstu piosenki na tej stronie.",
+			"session_expired": "Sesja wygasła. Użyj ponownie polecenia, aby odświeżyć.",
+			"page_indicator": "Strona {current}/{total}",
+			"artwork_description": "Grafika do {trackTitle}",
+			"no_lyrics_available": "Brak tekstu piosenki",
 			"searching": "🔍 Szukam tekstu dla: **{trackTitle}**...",
 			"errors": {
 				"no_results": "Nie znaleziono tekstu dla tego utworu.",
