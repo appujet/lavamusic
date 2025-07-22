@@ -405,10 +405,6 @@
 				"selection_timed_out_title": "Time Expired!",
 				"selection_timed_out_description": "No song was selected within the given time. The search has been canceled. Please try again.",
 				"selection_timed_out_short": "Selection timed out."
-			},
-			"buttons": {
-				"previous": "◀ Previous",
-				"next": "Next ▶"
 			}
 		},
 		"seek": {
