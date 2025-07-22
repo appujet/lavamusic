@@ -524,7 +524,8 @@
 				"no_results": "Nie znaleziono tekstu dla tego utworu.",
 				"lyrics_error": "Wystąpił błąd podczas pobierania tekstu piosenki."
 			}
-		},
+		}
+	},
 	"buttons": {
 		"invite": "Zaproś",
 		"support": "Serwer wsparcia",
