@@ -562,6 +562,7 @@
 		"stop": "Stop",
 		"skip": "Skip",
 		"loop": "Loop",
+		"next": "Next",
 		"errors": {
 			"not_author": "You can't use this button."
 		}
