@@ -137,9 +137,9 @@ export default class Lyrics extends Command {
              `${currentLyricsPage}`;
 
          if (!finalState) {
-             fullContent += `\n\nPage ${pageIndex + 1}/${lyricsPages.length}`;
+             fullContent += `\n\n${ctx.locale("cmd.lyrics.page_indicator", { current: pageIndex + 1, total: lyricsPages.length })}`;
          } else {
-             fullContent += `\n\n*The session has expired. Use the command again to refresh.*`;
+             fullContent += `\n\n*${ctx.locale("cmd.lyrics.session_expired")}*`;
          }
 
          const mainLyricsSection = new SectionBuilder()
@@ -152,7 +152,7 @@ export default class Lyrics extends Command {
              (thumbnail) =>
                thumbnail
                  .setURL(artworkUrl)
-                 .setDescription(`Artwork for ${trackTitle}`),
+                 .setDescription(ctx.locale("cmd.lyrics.artwork_description", { trackTitle })),
            );
          }
 
@@ -279,7 +279,7 @@ export default class Lyrics extends Command {
 
 
    if (pages.length === 0) {
-     pages.push("No lyrics available");
+     pages.push(ctx.locale("cmd.lyrics.no_lyrics_available"));
    }
 
    return pages;
