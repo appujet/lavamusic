@@ -279,11 +279,15 @@
 			"looping_queue": "**Looping the queue.**",
 			"looping_off": "**Looping is now off.**"
 		},
-                "lyrics": {
+		"lyrics": {
 			"description": "Gets the lyrics of the currently playing track",
 			"lyrics_for_track": "### Lyrics for: [{trackTitle}]({trackUrl})",
 			"no_lyrics_on_page": "No lyrics found on this page.",
 			"searching": "🔍 Searching for **{trackTitle}** lyrics...",
+			"session_expired": "The session has expired. Use the command again to refresh.",
+			"page_indicator": "Page {current}/{total}",
+			"artwork_description": "Artwork for {trackTitle}",
+			"no_lyrics_available": "No lyrics available",
 			"errors": {
 				"no_results": "No lyrics found for the current track.",
 				"lyrics_error": "An error occurred while getting the lyrics."
