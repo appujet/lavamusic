@@ -125,7 +125,7 @@ export default class Lyrics extends Command {
          return;
        }
 
-       const lyricsPages = this.paginateLyrics(cleanedLyrics);
+       const lyricsPages = this.paginateLyrics(cleanedLyrics, ctx);
        let currentPage = 0;
 
        const createLyricsContainer = (pageIndex: number, finalState: boolean = false) => {
@@ -250,40 +250,35 @@ export default class Lyrics extends Command {
  }
 
 
- paginateLyrics(lyrics: string): string[] {
-   const lines = lyrics.split("\n");
-   const pages: string[] = [];
-   let currentPage = "";
-   const MAX_CHARACTERS_PER_PAGE = 2800; 
+paginateLyrics(lyrics: string, ctx: Context): string[] {
+  const lines = lyrics.split("\n");
+  const pages: string[] = [];
+  let currentPage = "";
+  const MAX_CHARACTERS_PER_PAGE = 2800; 
 
-   for (const line of lines) {
-     const lineWithNewline = `${line}\n`;
-     
+  for (const line of lines) {
+    const lineWithNewline = `${line}\n`;
+    
+    if (currentPage.length + lineWithNewline.length > MAX_CHARACTERS_PER_PAGE) {
+      if (currentPage.trim()) {
+        pages.push(currentPage.trim());
+      }
+      currentPage = lineWithNewline;
+    } else {
+      currentPage += lineWithNewline;
+    }
+  }
 
-     if (currentPage.length + lineWithNewline.length > MAX_CHARACTERS_PER_PAGE) {
-
-       if (currentPage.trim()) {
-         pages.push(currentPage.trim());
-       }
-
-       currentPage = lineWithNewline;
-     } else {
-       currentPage += lineWithNewline;
-     }
-   }
-
-
-   if (currentPage.trim()) {
-     pages.push(currentPage.trim());
-   }
+  if (currentPage.trim()) {
+    pages.push(currentPage.trim());
+  }
 
 
-   if (pages.length === 0) {
-     pages.push(ctx.locale("cmd.lyrics.no_lyrics_available"));
-   }
+  if (pages.length === 0) {
+    pages.push(ctx.locale("cmd.lyrics.no_lyrics_available"));
+  }
 
-   return pages;
- }
+  return pages;
 }
 
 /**
