@@ -356,7 +356,7 @@
 				"invalid_selection_description": "Wybrana opcja jest nieprawidłowa. Proszę wybierz numer utworu z listy.",
 				"search_error": "Wystąpił błąd podczas wyszukiwania utworu.",
 				"vc_connect_fail_title": "Błąd połączenia z kanałem głosowym",
-            			"vc_connect_fail_description": "Nie mogłem połączyć się z Twoim kanałem głosowym. Upewnij się, że mam odpowiednie uprawnienia."
+				"vc_connect_fail_description": "Nie mogłem połączyć się z Twoim kanałem głosowym. Upewnij się, że mam odpowiednie uprawnienia."
 			},
 			"messages": {
 				"results_found": "Znaleziono **{count}** utworów.",
@@ -515,7 +515,7 @@
 				"error_occurred": "Wystąpił błąd podczas kradzieży playlisty."
 			}
 		},
-                "lyrics": {
+		"lyrics": {
 			"description": "Pobiera tekst aktualnie odtwarzanego utworu",
 			"lyrics_for_track": "### Tekst piosenki: [{trackTitle}]({trackUrl})",
 			"no_lyrics_on_page": "Brak tekstu piosenki na tej stronie.",
