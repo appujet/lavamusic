@@ -366,10 +366,6 @@
 				"selection_timed_out_title": "Czas Minął!",
 				"selection_timed_out_description": "Nie wybrano utworu w wyznaczonym czasie. Wyszukiwanie zostało anulowane. Spróbuj ponownie.",
 				"selection_timed_out_short": "Czas na wybór minął."
-			},
-			"buttons": {
-				"previous": "◀ Poprzednia",
-				"next": "Następna ▶"
 			}
 		},
 		"seek": {
