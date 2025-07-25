@@ -347,12 +347,25 @@
 			"options": {
 				"song": "Utwór, którego szukasz"
 			},
+			"select": "Wybierz utwór z listy...",
 			"errors": {
 				"no_results": "Nie znaleziono żadnych rezultatów.",
-				"search_error": "Wystąpił błąd podczas wyszukiwania utworu."
+				"no_results_title": "Brak Wyników Wyszukiwania!",
+				"no_results_description": "Nie mogłem znaleźć żadnych utworów pasujących do Twojego zapytania. Spróbuj zmienić słowa kluczowe lub link.",
+				"invalid_selection_title": "Niepoprawny Wybór!",
+				"invalid_selection_description": "Wybrana opcja jest nieprawidłowa. Proszę wybierz numer utworu z listy.",
+				"search_error": "Wystąpił błąd podczas wyszukiwania utworu.",
+				"vc_connect_fail_title": "Błąd połączenia z kanałem głosowym",
+				"vc_connect_fail_description": "Nie mogłem połączyć się z Twoim kanałem głosowym. Upewnij się, że mam odpowiednie uprawnienia."
 			},
 			"messages": {
-				"added_to_queue": "Dodano utwór [{title}]({uri}) do kolejki."
+				"results_found": "Znaleziono **{count}** utworów.",
+				"select_prompt": "Wybierz numer, aby dodać utwór do kolejki.",
+				"page_info": "Strona {currentPage}/{maxPages}",
+				"added_to_queue": "Dodano **[{title}]({uri})** do kolejki!",
+				"selection_timed_out_title": "Czas Minął!",
+				"selection_timed_out_description": "Nie wybrano utworu w wyznaczonym czasie. Wyszukiwanie zostało anulowane. Spróbuj ponownie.",
+				"selection_timed_out_short": "Czas na wybór minął."
 			}
 		},
 		"seek": {
@@ -499,17 +512,29 @@
 			}
 		},
 		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track"
+			"description": "Pobiera tekst aktualnie odtwarzanego utworu",
+			"lyrics_for_track": "### Tekst piosenki: [{trackTitle}]({trackUrl})",
+			"no_lyrics_on_page": "Brak tekstu piosenki na tej stronie.",
+			"session_expired": "Sesja wygasła. Użyj ponownie polecenia, aby odświeżyć.",
+			"page_indicator": "Strona {current}/{total}",
+			"artwork_description": "Grafika do {trackTitle}",
+			"no_lyrics_available": "Brak tekstu piosenki",
+			"searching": "🔍 Szukam tekstu dla: **{trackTitle}**...",
+			"errors": {
+				"no_results": "Nie znaleziono tekstu dla tego utworu.",
+				"lyrics_error": "Wystąpił błąd podczas pobierania tekstu piosenki."
+			}
 		}
 	},
 	"buttons": {
 		"invite": "Zaproś",
 		"support": "Serwer wsparcia",
-		"previous": "Poprzedni",
+		"previous": "Poprzedna",
 		"resume": "Wznów",
 		"stop": "Zatrzymaj",
 		"skip": "Pomiń",
 		"loop": "Zapętl",
+		"next": "Następna",
 		"errors": {
 			"not_author": "Nie możesz użyć tego przycisku."
 		}

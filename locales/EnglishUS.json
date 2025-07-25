@@ -280,9 +280,14 @@
 			"looping_off": "**Looping is now off.**"
 		},
 		"lyrics": {
-			"description": "Get's the lyrics of the currently playing track",
-			"lyrics_track": "### Lyrics for: [{trackTitle}]({trackUrl})\n**`{lyrics}`**",
-			"searching": "`🔍` Searching for **{trackTitle}** lyrics...",
+			"description": "Gets the lyrics of the currently playing track",
+			"lyrics_for_track": "### Lyrics for: [{trackTitle}]({trackUrl})",
+			"no_lyrics_on_page": "No lyrics found on this page.",
+			"searching": "🔍 Searching for **{trackTitle}** lyrics...",
+			"session_expired": "The session has expired. Use the command again to refresh.",
+			"page_indicator": "Page {current}/{total}",
+			"artwork_description": "Artwork for {trackTitle}",
+			"no_lyrics_available": "No lyrics available",
 			"errors": {
 				"no_results": "No lyrics found for the current track.",
 				"lyrics_error": "An error occurred while getting the lyrics."
@@ -381,17 +386,29 @@
 			}
 		},
 		"search": {
-			"description": "Searches for a song",
+			"description": "Search for a song",
 			"options": {
-				"song": "The song you want to search"
+				"song": "The song you are looking for"
 			},
-			"select": "Please select the song you want to play",
+			"select": "Select a song from the list...",
 			"errors": {
 				"no_results": "No results found.",
-				"search_error": "There was an error while searching."
+				"no_results_title": "No Search Results Found!",
+				"no_results_description": "I couldn't find any songs matching your query. Try changing keywords or providing a link.",
+				"invalid_selection_title": "Invalid Selection!",
+				"invalid_selection_description": "The selected option is invalid. Please select a song number from the list.",
+				"search_error": "An error occurred while searching for the song.",
+				"vc_connect_fail_title": "Voice channel connection error",
+            			"vc_connect_fail_description": "I could not connect to your voice channel. Make sure I have the proper permissions."
 			},
 			"messages": {
-				"added_to_queue": "Added [{title}]({uri}) to the queue."
+				"results_found": "Found **{count}** songs.",
+				"select_prompt": "Select a number to add the song to the queue.",
+				"page_info": "Page {currentPage}/{maxPages}",
+				"added_to_queue": "Added **[{title}]({uri})** to the queue!",
+				"selection_timed_out_title": "Time Expired!",
+				"selection_timed_out_description": "No song was selected within the given time. The search has been canceled. Please try again.",
+				"selection_timed_out_short": "Selection timed out."
 			}
 		},
 		"seek": {
@@ -549,6 +566,7 @@
 		"stop": "Stop",
 		"skip": "Skip",
 		"loop": "Loop",
+		"next": "Next",
 		"errors": {
 			"not_author": "You can't use this button."
 		}
