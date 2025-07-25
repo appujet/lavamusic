@@ -5,12 +5,10 @@ import {
   ButtonStyle,
   type TextChannel,
   type VoiceChannel,
-  TextDisplayBuilder,
   SectionBuilder,
   MessageFlags,
   ContainerBuilder,
   SeparatorBuilder,
-  ThumbnailBuilder,
 } from "discord.js";
 import type { SearchResult, Track } from "lavalink-client";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
@@ -104,7 +102,7 @@ export default class Search extends Command {
         section.setThumbnailAccessory(
           (thumbnail) =>
             thumbnail
-              .setURL(track.info.artworkUrl)
+              .setURL(track.info.artworkUrl!)
               .setDescription(`Artwork for ${track.info.title}`),
         );
       }
@@ -231,6 +229,7 @@ export default class Search extends Command {
       currentPage,
       maxPages,
     );
+    // @ts-ignore
     const sentMessage = await ctx.sendMessage(initialComponents);
 
     const collector = (
@@ -259,7 +258,7 @@ export default class Search extends Command {
                   )}**\n${ctx.locale("cmd.search.errors.invalid_selection_description")}`,
                 ),
             );
-          return await int.followUp({
+          return await int.sendMessage({
             components: [errorContainer],
             flags: MessageFlags.IsComponentsV2 | MessageFlags.Ephemeral,
           });
@@ -308,6 +307,7 @@ export default class Search extends Command {
             currentPage,
             maxPages,
           );
+          // @ts-ignore
           await ctx.editMessage(newComponents);
         } else {
           await int.deferUpdate();
@@ -323,6 +323,7 @@ export default class Search extends Command {
             currentPage,
             maxPages,
           );
+          // @ts-ignore
           await ctx.editMessage(newComponents);
         } else {
           await int.deferUpdate();
@@ -359,7 +360,7 @@ export default class Search extends Command {
                   ctx.locale("cmd.search.messages.selection_timed_out_short"),
                 ),
             );
-          await ctx.followUp({
+          await ctx.sendMessage({
             components: [fallbackTimeoutContainer],
             flags: MessageFlags.IsComponentsV2 | MessageFlags.Ephemeral,
           });

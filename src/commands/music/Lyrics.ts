@@ -6,10 +6,8 @@ import {
  ComponentType,
  type TextChannel,
  ContainerBuilder,
- TextDisplayBuilder,
- SectionBuilder,
+  SectionBuilder,
  MessageFlags,
- ThumbnailBuilder,
 } from "discord.js";
 import { getLyrics } from "genius-lyrics-api";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
@@ -86,10 +84,17 @@ export default class Lyrics extends Command {
    const trackUrl = track.info.uri || "about:blank";
    const artworkUrl = track.info.artworkUrl;
 
-   await ctx.sendDeferMessage(
-     ctx.locale("cmd.lyrics.searching", { trackTitle }),
-     MessageFlags.IsComponentsV2
-   );
+   const searchingContainer = new ContainerBuilder()
+     .setAccentColor(this.client.color.main)
+     .addTextDisplayComponents(
+       (textDisplay) =>
+         textDisplay.setContent(ctx.locale("cmd.lyrics.searching", { trackTitle })),
+     );
+
+   await ctx.sendDeferMessage({
+     components: [searchingContainer],
+     flags: MessageFlags.IsComponentsV2,
+   });
 
    const options = {
      apiKey: client.env.GENIUS_API,
@@ -206,7 +211,7 @@ export default class Lyrics extends Command {
          });
        });
 
-       collector.on("end", async (collected, reason) => {
+       collector.on("end", async (_collected, _reason) => {
            if (ctx.guild?.members.me?.permissionsIn(ctx.channelId).has("SendMessages")) {
                const finalContainer = createLyricsContainer(currentPage, true);
                await ctx.editMessage({ 
