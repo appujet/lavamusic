@@ -54,14 +54,8 @@ export default class Lyrics extends Command {
  private cleanLyrics(lyrics: string): string {
    let cleaned = lyrics;
 
-   cleaned = cleaned.replace(/^\d+\s*Contributors.*?Lyrics/gi, '');
-   
-   cleaned = cleaned.replace(/^.*Contributors.*$/gmi, '');
-   
-   cleaned = cleaned.replace(/^Lyrics\s*$/gmi, '');
-   
-   cleaned = cleaned.replace(/^.*Lyrics\s*$/gmi, '');
-   
+   cleaned = cleaned.replace(/^(\d+\s*Contributors.*?Lyrics|.*Contributors.*|Lyrics\s*|.*Lyrics\s*)$/gmi, '');
+
    cleaned = cleaned.replace(/^[\s\n\r]+/, '');
    
    cleaned = cleaned.replace(/[\s\n\r]+$/, '');
