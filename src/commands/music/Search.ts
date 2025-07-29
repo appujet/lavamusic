@@ -58,10 +58,16 @@ export default class Search extends Command {
     });
   }
 
-  private formatTrackDisplay(track: Track, index: number, client: Lavamusic): string {
-    return `**${index + 1}. [${track.info.title}](${track.info.uri})**\n` +
-           `*${track.info.author || "Unknown Artist"}*\n` +
-           `\`${track.info.duration ? client.utils.formatTime(track.info.duration) : 'N/A'}\``;
+  private formatTrackDisplay(
+    track: Track,
+    index: number,
+    client: Lavamusic,
+  ): string {
+    return (
+      `**${index + 1}. [${track.info.title}](${track.info.uri})**\n` +
+      `*${track.info.author || "Unknown Artist"}*\n` +
+      `\`${track.info.duration ? client.utils.formatTime(track.info.duration) : "N/A"}\``
+    );
   }
 
   private generatePageComponents(
@@ -70,40 +76,43 @@ export default class Search extends Command {
     tracks: Track[],
     currentPage: number,
     maxPages: number,
-    isDisabled: boolean = false // Now takes an optional isDisabled parameter
+    isDisabled: boolean = false, // Now takes an optional isDisabled parameter
   ) {
     const startIndex = currentPage * TRACKS_PER_PAGE;
     const endIndex = startIndex + TRACKS_PER_PAGE;
-    const tracksOnPage = tracks.slice(startIndex, Math.min(endIndex, tracks.length));
+    const tracksOnPage = tracks.slice(
+      startIndex,
+      Math.min(endIndex, tracks.length),
+    );
 
     const resultsContainer = new ContainerBuilder()
       .setAccentColor(client.color.main)
-      .addTextDisplayComponents(
-        (textDisplay) =>
-          textDisplay.setContent(
-            `**${ctx.locale(
-              "cmd.search.messages.results_found",
-              { count: tracks.length },
-            )}**\n*${ctx.locale("cmd.search.messages.select_prompt")}*` +
+      .addTextDisplayComponents((textDisplay) =>
+        textDisplay.setContent(
+          `**${ctx.locale("cmd.search.messages.results_found", {
+            count: tracks.length,
+          })}**\n*${ctx.locale("cmd.search.messages.select_prompt")}*` +
             `\n\n**${ctx.locale("cmd.search.messages.page_info", {
               currentPage: currentPage + 1,
               maxPages: maxPages,
             })}**`,
-          ),
+        ),
       );
 
     tracksOnPage.forEach((track: Track, index: number) => {
       const globalIndex = startIndex + index;
       const section = new SectionBuilder().addTextDisplayComponents(
-        (textDisplay) => textDisplay.setContent(this.formatTrackDisplay(track, globalIndex, client)),
+        (textDisplay) =>
+          textDisplay.setContent(
+            this.formatTrackDisplay(track, globalIndex, client),
+          ),
       );
 
       if (track.info.artworkUrl) {
-        section.setThumbnailAccessory(
-          (thumbnail) =>
-            thumbnail
-              .setURL(track.info.artworkUrl!)
-              .setDescription(`Artwork for ${track.info.title}`),
+        section.setThumbnailAccessory((thumbnail) =>
+          thumbnail
+            .setURL(track.info.artworkUrl!)
+            .setDescription(`Artwork for ${track.info.title}`),
         );
       }
       resultsContainer.addSectionComponents(section);
@@ -124,9 +133,8 @@ export default class Search extends Command {
         })),
       )
       .setDisabled(isDisabled);
-    const selectRow = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
-      selectMenu,
-    );
+    const selectRow =
+      new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(selectMenu);
 
     const previousButton = new ButtonBuilder()
       .setCustomId("previous-page")
@@ -181,13 +189,12 @@ export default class Search extends Command {
         player.destroy(); // Clean up the player if connection fails
         const connectErrorContainer = new ContainerBuilder()
           .setAccentColor(this.client.color.red)
-          .addTextDisplayComponents(
-            (textDisplay) =>
-              textDisplay.setContent(
-                `**${ctx.locale(
-                  "cmd.search.errors.vc_connect_fail_title", // Changed key
-                )}**\n${ctx.locale("cmd.search.errors.vc_connect_fail_description")}`, // Changed key
-              ),
+          .addTextDisplayComponents((textDisplay) =>
+            textDisplay.setContent(
+              `**${ctx.locale(
+                "cmd.search.errors.vc_connect_fail_title", // Changed key
+              )}**\n${ctx.locale("cmd.search.errors.vc_connect_fail_description")}`, // Changed key
+            ),
           );
         return await ctx.sendMessage({
           components: [connectErrorContainer],
@@ -204,13 +211,12 @@ export default class Search extends Command {
     if (!response || response.tracks?.length === 0) {
       const noResultsContainer = new ContainerBuilder()
         .setAccentColor(this.client.color.red)
-        .addTextDisplayComponents(
-          (textDisplay) =>
-            textDisplay.setContent(
-              `**${ctx.locale(
-                "cmd.search.errors.no_results_title",
-              )}**\n\n${ctx.locale("cmd.search.errors.no_results_description")}`,
-            ),
+        .addTextDisplayComponents((textDisplay) =>
+          textDisplay.setContent(
+            `**${ctx.locale(
+              "cmd.search.errors.no_results_title",
+            )}**\n\n${ctx.locale("cmd.search.errors.no_results_description")}`,
+          ),
         );
 
       return await ctx.sendMessage({
@@ -250,13 +256,12 @@ export default class Search extends Command {
         if (!track) {
           const errorContainer = new ContainerBuilder()
             .setAccentColor(this.client.color.red)
-            .addTextDisplayComponents(
-              (textDisplay) =>
-                textDisplay.setContent(
-                  `**${ctx.locale(
-                    "cmd.search.errors.invalid_selection_title",
-                  )}**\n${ctx.locale("cmd.search.errors.invalid_selection_description")}`,
-                ),
+            .addTextDisplayComponents((textDisplay) =>
+              textDisplay.setContent(
+                `**${ctx.locale(
+                  "cmd.search.errors.invalid_selection_title",
+                )}**\n${ctx.locale("cmd.search.errors.invalid_selection_description")}`,
+              ),
             );
           return await int.sendMessage({
             components: [errorContainer],
@@ -270,28 +275,30 @@ export default class Search extends Command {
 
         const confirmationContainer = new ContainerBuilder()
           .setAccentColor(this.client.color.green)
-          .addTextDisplayComponents(
-            (textDisplay) =>
-              textDisplay.setContent(
-                ctx.locale("cmd.search.messages.added_to_queue", {
-                  title: track.info.title,
-                  uri: track.info.uri,
-                }),
-              ),
+          .addTextDisplayComponents((textDisplay) =>
+            textDisplay.setContent(
+              ctx.locale("cmd.search.messages.added_to_queue", {
+                title: track.info.title,
+                uri: track.info.uri,
+              }),
+            ),
           );
 
         // Disable all components after track selection
         const disabledComponents = this.generatePageComponents(
-            client,
-            ctx,
-            response.tracks,
-            currentPage,
-            maxPages,
-            true // Pass true to disable components
+          client,
+          ctx,
+          response.tracks,
+          currentPage,
+          maxPages,
+          true, // Pass true to disable components
         );
 
         await ctx.editMessage({
-          components: [confirmationContainer, ...disabledComponents.components.slice(1)], // Remove .components from confirmationContainer
+          components: [
+            confirmationContainer,
+            ...disabledComponents.components.slice(1),
+          ], // Remove .components from confirmationContainer
           flags: MessageFlags.IsComponentsV2,
         });
 
@@ -337,13 +344,12 @@ export default class Search extends Command {
         try {
           const timeoutContainer = new ContainerBuilder()
             .setAccentColor(this.client.color.red)
-            .addTextDisplayComponents(
-              (textDisplay) =>
-                textDisplay.setContent(
-                  `**${ctx.locale(
-                    "cmd.search.messages.selection_timed_out_title",
-                  )}**\n${ctx.locale("cmd.search.messages.selection_timed_out_description")}`,
-                ),
+            .addTextDisplayComponents((textDisplay) =>
+              textDisplay.setContent(
+                `**${ctx.locale(
+                  "cmd.search.messages.selection_timed_out_title",
+                )}**\n${ctx.locale("cmd.search.messages.selection_timed_out_description")}`,
+              ),
             );
 
           await ctx.editMessage({
@@ -354,11 +360,10 @@ export default class Search extends Command {
           console.error("Failed to edit message on collector timeout:", error);
           const fallbackTimeoutContainer = new ContainerBuilder()
             .setAccentColor(this.client.color.red)
-            .addTextDisplayComponents(
-              (textDisplay) =>
-                textDisplay.setContent(
-                  ctx.locale("cmd.search.messages.selection_timed_out_short"),
-                ),
+            .addTextDisplayComponents((textDisplay) =>
+              textDisplay.setContent(
+                ctx.locale("cmd.search.messages.selection_timed_out_short"),
+              ),
             );
           await ctx.sendMessage({
             components: [fallbackTimeoutContainer],
