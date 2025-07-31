@@ -48,7 +48,7 @@ export default class MoveNode extends Command {
     args: string[],
   ): Promise<any> {
     // If no node specified, show available nodes as before
-    const nodeId = args[0] || ctx.args?.[0];
+    const nodeId = args.length > 0 ? args.join(" ") : ctx.args?.join(" ");
     const allPlayers = client.manager.players;
     const currentNodeId =
       allPlayers.size > 0
