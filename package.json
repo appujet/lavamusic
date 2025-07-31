@@ -59,7 +59,7 @@
     "fastify-plugin": "^5.0.1",
     "genius-lyrics-api": "^3.2.1",
     "i18n": "^0.15.1",
-    "lavalink-client": "^2.5.8",
+    "lavalink-client": "^2.5.9",
     "node-system-stats": "^2.0.5",
     "reflect-metadata": "^0.2.2",
     "signale": "^1.4.0",

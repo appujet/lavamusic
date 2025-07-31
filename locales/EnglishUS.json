@@ -399,7 +399,7 @@
 				"invalid_selection_description": "The selected option is invalid. Please select a song number from the list.",
 				"search_error": "An error occurred while searching for the song.",
 				"vc_connect_fail_title": "Voice channel connection error",
-            			"vc_connect_fail_description": "I could not connect to your voice channel. Make sure I have the proper permissions."
+				"vc_connect_fail_description": "I could not connect to your voice channel. Make sure I have the proper permissions."
 			},
 			"messages": {
 				"results_found": "Found **{count}** songs.",
@@ -556,6 +556,33 @@
 				"playlist_stolen": "Successfully stole the playlist `{playlist}` from {user}.",
 				"error_occurred": "An error occurred while stealing the playlist."
 			}
+		},
+		"movenode": {
+			"description": "Move the players to a different Lavalink node",
+			"options": {
+				"node": "The node ID to move the players"
+			},
+			"no_player": "There is no active music player in this server.",
+			"no_available_nodes": "There are no available nodes to move to.",
+			"available_nodes_title": "Available Nodes",
+			"current_node": "Current Node",
+			"available_nodes": "Available Nodes",
+			"usage_hint": "Use: movenode <nodeId>",
+			"node_not_found": "Node `{node}` was not found.",
+			"node_not_connected": "Node `{node}` is not connected.",
+			"same_node": "Player is already on node `{node}`.",
+			"moving": "Moving player from `{from}` to `{to}`...",
+			"success_title": "Player Moved Successfully",
+			"success_description": "Player has been moved from `{from}` to `{to}`.",
+			"error": "Failed to move player: {error}",
+			"moving_all_players": "Moving all players to node `{node}`...",
+			"results_title": "MoveNode Results",
+			"moved_players": "**Moved players in guilds:**\n{list}",
+			"guild_move": "• `{guildId}` ({from} → {to})",
+			"failed_moves": "**Failed to move players in guilds:**\n{list}",
+			"guild_move_failed": "• `{guildId}`: {error}",
+			"no_players_moved": "No players needed to be moved.",
+			"unknown_error": "Unknown error"
 		}
 	},
 	"buttons": {
@@ -690,5 +717,6 @@
 	"Evaluate code": "Evaluate code",
 	"Leave a guild": "Leave a guild",
 	"List all guilds the bot is in": "List all guilds the bot is in",
-	"Restart the bot": "Restart the bot"
+	"Restart the bot": "Restart the bot",
+	"The loop mode you want to set": "The loop mode you want to set"
 }
