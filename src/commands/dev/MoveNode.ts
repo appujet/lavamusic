@@ -137,14 +137,13 @@ export default class MoveNode extends Command {
     }
 
     try {
-      // Show loading message
-      let sentMsg;
+
       if (
         ctx.interaction &&
         !ctx.interaction.replied &&
         !ctx.interaction.deferred
       ) {
-        sentMsg = await ctx.sendMessage({
+        await ctx.sendMessage({
           embeds: [
             {
               description: ctx.locale("cmd.movenode.moving_all_players", {

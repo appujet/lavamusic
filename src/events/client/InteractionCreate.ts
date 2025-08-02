@@ -1,17 +1,17 @@
 import {
   ActionRowBuilder,
-  type AutocompleteInteraction,
   ButtonBuilder,
   ButtonStyle,
   ChannelType,
   Collection,
-  CommandInteraction,
   EmbedBuilder,
   MessageFlags,
   type GuildMember,
   InteractionType,
   PermissionFlagsBits,
   type TextChannel,
+  type Interaction,
+  type CacheType,
 } from "discord.js";
 import { T } from "../../structures/I18n";
 import { Context, Event, type Lavamusic } from "../../structures/index";
@@ -24,10 +24,10 @@ export default class InteractionCreate extends Event {
   }
 
   public async run(
-    interaction: CommandInteraction | AutocompleteInteraction,
+    interaction: Interaction<CacheType>,
   ): Promise<any> {
     if (!(interaction.guild && interaction.guildId)) return;
-    if (interaction instanceof CommandInteraction && interaction.isCommand()) {
+    if (interaction.type === InteractionType.ApplicationCommand && interaction.isChatInputCommand()) {
       const setup = await this.client.db.getSetup(interaction.guildId);
       const allowedCategories = ["filters", "music", "playlist"];
       const commandInSetup = this.client.commands.get(interaction.commandName);
@@ -51,10 +51,10 @@ export default class InteractionCreate extends Event {
       if (!command) return;
 
       const ctx = new Context(
-        interaction as any,
-        interaction.options.data as any,
+        interaction,
+        [...interaction.options.data],
       );
-      ctx.setArgs(interaction.options.data as any);
+      ctx.setArgs([...interaction.options.data]);
       ctx.guildLocale = locale;
       const clientMember = interaction.guild.members.resolve(
         this.client.user!,

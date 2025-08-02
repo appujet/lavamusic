@@ -1,7 +1,6 @@
 import {
   type APIInteractionGuildMember,
   ChatInputCommandInteraction,
-  type CommandInteraction,
   type Guild,
   type GuildMember,
   type GuildMemberResolvable,
@@ -20,8 +19,8 @@ import { T } from "./I18n";
 import type { Lavamusic } from "./index";
 
 export default class Context {
-  public ctx: CommandInteraction | Message;
-  public interaction: CommandInteraction | null;
+  public ctx: ChatInputCommandInteraction | Message;
+  public interaction: ChatInputCommandInteraction | null;
   public message: Message | null;
   public id: string;
   public channelId: string;
