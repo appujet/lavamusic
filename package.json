@@ -1,6 +1,6 @@
 {
 	"name": "lavamusic",
-	"version": "5.0.0-beta",
+	"version": "4.7.0",
 	"description": "LavaMusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, lavalink-client (Lavalink) library.",
 	"main": "dist/index.js",
 	"scripts": {
