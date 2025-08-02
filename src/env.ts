@@ -1,10 +1,4 @@
-import path from "node:path";
-import { config } from "dotenv";
 import { z } from "zod";
-
-config({
-	path: path.join(__dirname, "../.env"),
-});
 
 const LavalinkNodeSchema = z.object({
 	id: z.string(),
