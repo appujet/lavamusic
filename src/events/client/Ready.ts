@@ -26,7 +26,7 @@ export default class Ready extends Event {
 			const autoPoster = AutoPoster(env.TOPGG, this.client);
 			setInterval(() => {
 				autoPoster.on("posted", (_stats) => {
-					null;
+					this.client.logger.info("Successfully posted stats to Top.gg!");
 				});
 			}, 86400000); // 24 hours in milliseconds
 		} else {
