@@ -63,7 +63,7 @@ export default class Play extends Command {
     args: string[],
   ): Promise<any> {
     const query = args.join(" ");
-    if (ctx.isInteraction) await ctx.interaction?.deferReply();
+    await ctx.sendDeferMessage(ctx.locale("cmd.play.loading"));
     let player = client.manager.getPlayer(ctx.guild!.id);
     const memberVoiceChannel = (ctx.member as any).voice
       .channel as VoiceChannel;
@@ -77,7 +77,7 @@ export default class Play extends Command {
         selfDeaf: true,
         vcRegion: memberVoiceChannel.rtcRegion!,
       });
-
+      
     if (!player.connected) await player.connect();
 
     const response = (await player.search(

@@ -24,13 +24,16 @@ export default class MessageCreate extends Event {
   public async run(message: Message): Promise<any> {
     if (message.author.bot) return;
     if (!(message.guild && message.guildId)) return;
-    const setup = await this.client.db.getSetup(message.guildId);
+
+    const [setup, locale, guild] = await Promise.all([
+      this.client.db.getSetup(message.guildId),
+      this.client.db.getLanguage(message.guildId),
+      this.client.db.get(message.guildId),
+    ]);
+
     if (setup && setup.textId === message.channelId) {
       return this.client.emit("setupSystem", message);
     }
-    const locale = await this.client.db.getLanguage(message.guildId);
-
-    const guild = await this.client.db.get(message.guildId);
     const mention = new RegExp(`^<@!?${this.client.user?.id}>( |)$`);
     if (mention.test(message.content)) {
       await message.reply({
@@ -211,9 +214,11 @@ export default class MessageCreate extends Event {
       }
 
       if (command.player.dj) {
-        const dj = await this.client.db.getDj(message.guildId);
+        const [dj, djRole] = await Promise.all([
+          this.client.db.getDj(message.guildId),
+          this.client.db.getRoles(message.guildId),
+        ]);
         if (dj?.mode) {
-          const djRole = await this.client.db.getRoles(message.guildId);
           if (!djRole) {
             return await message.reply({
               content: T(locale, "event.message.no_dj_role"),
