@@ -6,7 +6,15 @@
 		"useIgnoreFile": false
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": [
+			"**/src/**",
+			"!/node_modules/",
+			"!/dist",
+			"!/package.json",
+			"!/tsconfig.json",
+			"!/.vscode"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -15,7 +23,19 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noAssignInExpressions": "off",
+				"noRedundantUseStrict": "off"
+			},
+			"complexity": {
+				"noCommaOperator": "off",
+				"noThisInStatic": "off"
+			},
+			"style": {
+				"useNodejsImportProtocol": "off"
+			}
 		}
 	},
 	"javascript": {
