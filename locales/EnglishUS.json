@@ -288,9 +288,19 @@
 			"page_indicator": "Page {current}/{total}",
 			"artwork_description": "Artwork for {trackTitle}",
 			"no_lyrics_available": "No lyrics available",
+			"button_subscribe": "📌 Subscribe to Live Lyrics",
+			"button_unsubscribe": "📌 Unsubscribe from Live Lyrics",
+			"subscribed": "You have subscribed to live lyrics updates!",
+			"unsubscribed": "You have unsubscribed from live lyrics updates.",
 			"errors": {
 				"no_results": "No lyrics found for the current track.",
-				"lyrics_error": "An error occurred while getting the lyrics."
+				"lyrics_error": "An error occurred while getting the lyrics.",
+				"no_player_for_lyrics": "Cannot get lyrics for this song without an active player."
+			},
+			"options": {
+				"song": {
+					"description": "The song you want to get lyrics for."
+				}
 			}
 		},
 		"nowplaying": {
