@@ -327,7 +327,7 @@ export default class Lyrics extends Command {
 							running = true;
 							subscriptionActive = true;
 							const maxTime = Date.now() + 3 * 60 * 1000;
-							const lyricsLines = (lyricsResult as any).lines as LyricsLine[];
+							const lyricsLines = (lyricsResult as LyricsResult).lines!;
 							lyricsUpdater = (async () => {
 								while (running && Date.now() < maxTime) {
 									if (!player || !player.playing) break;
