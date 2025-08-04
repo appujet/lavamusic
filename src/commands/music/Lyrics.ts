@@ -28,7 +28,7 @@ export default class Lyrics extends Command {
 			player: {
 				voice: true,
 				dj: false,
-				active: true,
+				active: false,
 				djPerm: null,
 			},
 			permissions: {
@@ -74,7 +74,7 @@ export default class Lyrics extends Command {
 		const player = client.manager.getPlayer(ctx.guild!.id);
 
 		// If there is no player and no song title is given, lyrics cannot be fetched
-		if (!player && !songQuery) {
+		if (!songQuery && !player) {
 			const noMusicContainer = new ContainerBuilder()
 				.setAccentColor(client.color.red)
 				.addTextDisplayComponents((textDisplay) =>
@@ -93,49 +93,70 @@ export default class Lyrics extends Command {
 		let lyricsResult: LyricsResult | string = "";
 		if (songQuery) {
 			if (!player) {
-				const noPlayerContainer = new ContainerBuilder()
-					.setAccentColor(client.color.red)
-					.addTextDisplayComponents((textDisplay) =>
-						textDisplay.setContent(
-							ctx.locale("cmd.lyrics.errors.no_player_for_lyrics"),
-						),
-					);
-				await ctx.editMessage({
-					components: [noPlayerContainer],
-					flags: MessageFlags.IsComponentsV2,
-				});
-				return;
-			}
-			const searchRes = await client.manager.search(
-				songQuery,
-				ctx.author,
-				undefined,
-			);
-			const track = searchRes.tracks[0];
-			if (!track) {
-				const noResultsContainer = new ContainerBuilder()
-					.setAccentColor(client.color.red)
-					.addTextDisplayComponents((textDisplay) =>
-						textDisplay.setContent(ctx.locale("cmd.lyrics.errors.no_results")),
-					);
-				await ctx.editMessage({
-					components: [noResultsContainer],
-					flags: MessageFlags.IsComponentsV2,
-				});
-				return;
-			}
-			try {
-				lyricsResult = await player.getLyrics(track, true);
-			} catch (err) {
-				if (client.logger && typeof client.logger.error === "function") {
-					client.logger.error(`[LYRICS] Error fetching lyrics: ${err}`);
+				const searchRes = await client.manager.search(
+					songQuery,
+					ctx.author,
+					undefined,
+				);
+				const track = searchRes.tracks[0];
+				if (!track) {
+					const noResultsContainer = new ContainerBuilder()
+						.setAccentColor(client.color.red)
+						.addTextDisplayComponents((textDisplay) =>
+							textDisplay.setContent(ctx.locale("cmd.lyrics.errors.no_results")),
+						);
+					await ctx.editMessage({
+						components: [noResultsContainer],
+						flags: MessageFlags.IsComponentsV2,
+					});
+					return;
 				}
-				throw err;
+				try {
+					const node = client.manager.nodeManager.leastUsedNodes()[0];
+					const result = await node.lyrics.get(track, true);
+					lyricsResult = result ?? "";
+				} catch (err) {
+					if (client.logger && typeof client.logger.error === "function") {
+						client.logger.error(`[LYRICS] Error fetching lyrics: ${err}`);
+					}
+					throw err;
+				}
+				trackTitle = track.info.title;
+				artistName = track.info.author;
+				trackUrl = track.info.uri;
+				artworkUrl = track.info.artworkUrl || "";
+			} else {
+				const searchRes = await client.manager.search(
+					songQuery,
+					ctx.author,
+					undefined,
+				);
+				const track = searchRes.tracks[0];
+				if (!track) {
+					const noResultsContainer = new ContainerBuilder()
+						.setAccentColor(client.color.red)
+						.addTextDisplayComponents((textDisplay) =>
+							textDisplay.setContent(ctx.locale("cmd.lyrics.errors.no_results")),
+						);
+					await ctx.editMessage({
+						components: [noResultsContainer],
+						flags: MessageFlags.IsComponentsV2,
+					});
+					return;
+				}
+				try {
+					lyricsResult = await player.getLyrics(track, true);
+				} catch (err) {
+					if (client.logger && typeof client.logger.error === "function") {
+						client.logger.error(`[LYRICS] Error fetching lyrics: ${err}`);
+					}
+					throw err;
+				}
+				trackTitle = track.info.title;
+				artistName = track.info.author;
+				trackUrl = track.info.uri;
+				artworkUrl = track.info.artworkUrl || "";
 			}
-			trackTitle = track.info.title;
-			artistName = track.info.author;
-			trackUrl = track.info.uri;
-			artworkUrl = track.info.artworkUrl || "";
 		} else if (player && player.queue.current) {
 			// If no songquery is given, fetch lyrics for the currently playing song
 			lyricsResult = await player.getCurrentLyrics(false);
