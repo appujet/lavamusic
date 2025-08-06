@@ -63,8 +63,15 @@ export default class PlayNext extends Command {
 	): Promise<any> {
 		const query = args.join(" ");
 		let player = client.manager.getPlayer(ctx.guild.id);
-		const memberVoiceChannel = (ctx.member as any).voice
-			.channel as VoiceChannel;
+		const memberVoiceChannel = (ctx.member as any).voice?.channel as
+			| VoiceChannel
+			| undefined;
+
+		if (!memberVoiceChannel) {
+			return await ctx.editMessage({
+				content: ctx.locale("player.errors.user_not_in_voice_channel"),
+			});
+		}
 
 		if (!player)
 			player = client.manager.createPlayer({
@@ -79,10 +86,21 @@ export default class PlayNext extends Command {
 
 		await ctx.sendDeferMessage(ctx.locale("cmd.playnext.loading"));
 
-		const response = (await player.search(
-			{ query: query },
-			ctx.author,
-		)) as SearchResult;
+		let response: SearchResult;
+		try {
+			response = (await player.search({ query }, ctx.author)) as SearchResult;
+		} catch (err) {
+			return await ctx.editMessage({
+				content: "",
+				embeds: [
+					this.client
+						.embed()
+						.setColor(this.client.color.red)
+						.setDescription(ctx.locale("cmd.play.errors.search_error")),
+				],
+			});
+		}
+
 		const embed = this.client.embed();
 
 		if (!response || response.tracks?.length === 0) {
@@ -98,7 +116,9 @@ export default class PlayNext extends Command {
 		await player.queue.splice(
 			0,
 			0,
-			response.loadType === "playlist" ? response.tracks : response.tracks[0],
+			...(response.loadType === "playlist"
+				? response.tracks
+				: [response.tracks[0]]),
 		);
 
 		if (response.loadType === "playlist") {

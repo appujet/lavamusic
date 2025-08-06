@@ -58,13 +58,9 @@ export default class Lyrics extends Command {
 		// Get the song query from options or arguments
 		let songQuery = "";
 		if (ctx.options && typeof ctx.options.get === "function") {
-			try {
-				const songOpt = ctx.options.get("song");
-				if (songOpt && typeof songOpt.value === "string") {
-					songQuery = songOpt.value;
-				}
-			} catch (e) {
-				// No options - ignore
+			const songOpt = ctx.options.get("song");
+			if (songOpt && typeof songOpt.value === "string") {
+				songQuery = songOpt.value;
 			}
 		}
 		if (!songQuery && ctx.args?.[0]) {
@@ -85,7 +81,7 @@ export default class Lyrics extends Command {
 				flags: MessageFlags.IsComponentsV2,
 			});
 		}
-		// If songQuery is given, require player to fetch lyrics (according to the new logic)
+		// If songQuery is given, fetch lyrics for the specified song
 		let trackTitle = "";
 		let artistName = "";
 		let trackUrl = "";
@@ -435,7 +431,12 @@ export default class Lyrics extends Command {
 		}
 	}
 
-	async fetchTrackAndLyrics({ client, ctx, songQuery, player }: { client: any, ctx: any, songQuery: string, player?: any }) {
+	async fetchTrackAndLyrics({ client, ctx, songQuery, player }: {
+		client: Lavamusic,
+		ctx: Context,
+		songQuery: string,
+		player?: any // Use proper player type from lavalink-client
+	}) {
 		let trackTitle = "";
 		let artistName = "";
 		let trackUrl = "";

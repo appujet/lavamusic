@@ -39,7 +39,8 @@ export default class Pitch extends Command {
 				{
 					name: "pitch",
 					description: "cmd.pitch.options.pitch",
-					type: 3,
+					// 10 = ApplicationCommandOptionType.Number
+					type: 10,
 					required: true,
 				},
 			],

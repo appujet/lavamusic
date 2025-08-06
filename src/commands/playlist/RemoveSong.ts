@@ -88,7 +88,10 @@ export default class RemoveSong extends Command {
 
 		const res = await client.manager.search(song, ctx.author);
 
-		if (!res || res.loadType !== "track") {
+		if (
+			!res ||
+			(res.loadType !== "track" && res.loadType !== "search")
+		) {
 			const noSongsFoundError = this.client
 				.embed()
 				.setDescription(ctx.locale("cmd.removesong.messages.song_not_found"))

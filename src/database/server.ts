@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/style/noNonNullAssertion: explanation */
 import {
 	type Dj,
 	type Guild,
@@ -265,6 +264,7 @@ export default class ServerData {
 	): Promise<void> {
 		const playlist = await this.getPlaylist(userId, playlistName);
 		if (playlist) {
+			// biome-ignore lint/style/noNonNullAssertion: playlist.tracks is always set for existing playlists
 			const tracks: string[] = JSON.parse(playlist?.tracks!);
 
 			// Find the index of the song to remove
@@ -304,7 +304,7 @@ export default class ServerData {
 			return null;
 		}
 
-		// Deserialize the tracks JSON string back into an array
+		// biome-ignore lint/style/noNonNullAssertion: playlist.tracks is always set for existing playlists
 		const tracks = JSON.parse(playlist.tracks!);
 		return tracks;
 	}

@@ -28,7 +28,7 @@ export default class GuildDelete extends Event {
 			.setColor(this.client.config.color.red)
 			.setAuthor({
 				name: guild.name || "Unknown Guild",
-				iconURL: guild.iconURL({ extension: "jpeg" })!,
+				iconURL: guild.iconURL({ extension: "jpeg" }) ?? undefined,
 			})
 			.setDescription(`**${guild.name}** has been removed from my guilds!`)
 			.setThumbnail(guild.iconURL({ extension: "jpeg" }))
@@ -64,15 +64,14 @@ export default class GuildDelete extends Event {
 		}
 
 		try {
-			const channel = (await this.client.channels.fetch(
-				logChannelId,
-			)) as TextChannel;
-			if (!channel) {
+			const fetched = await this.client.channels.fetch(logChannelId);
+			if (!fetched?.isTextBased()) {
 				this.client.logger.error(
-					`Log channel not found with ID ${logChannelId}. Please change the settings in .env or, if you have a channel, invite me to that guild.`,
+					`Channel ${logChannelId} is not a text-based channel.`,
 				);
 				return;
 			}
+			const channel = fetched as TextChannel;
 			await channel.send({ embeds: [embed] });
 		} catch (error) {
 			this.client.logger.error(

@@ -152,9 +152,12 @@ export default class Search extends Command {
 			nextButton,
 		);
 
+		const resultsEmbed = resultsContainer.toJSON ? [resultsContainer.toJSON()] : [];
+
 		return {
-			components: [resultsContainer, selectRow, buttonRow],
-			flags: MessageFlags.IsComponentsV2,
+			embeds: resultsEmbed as any,
+			components: [selectRow, buttonRow],
+			flags: MessageFlags.IsComponentsV2 as any,
 		};
 	}
 
@@ -234,7 +237,6 @@ export default class Search extends Command {
 			currentPage,
 			maxPages,
 		);
-		// @ts-ignore
 		const sentMessage = await ctx.sendMessage(initialComponents);
 
 		const collector = sentMessage.createMessageComponentCollector({

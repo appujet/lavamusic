@@ -617,7 +617,8 @@
 			"queue_empty": "The queue is empty.",
 			"no_previous": "There are no previous songs in the queue.",
 			"no_song": "There are no songs in the queue.",
-			"already_paused": "The song is already paused."
+			"already_paused": "The song is already paused.",
+			"user_not_in_voice_channel": "You are not connected to a voice channel."
 		},
 		"trackStart": {
 			"now_playing": "Now Playing",
