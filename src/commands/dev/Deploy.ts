@@ -95,12 +95,14 @@ export default class Deploy extends Command {
 		collector.on("collect", async (interaction) => {
 			try {
 				if (interaction.customId === "deploy-global") {
+					await interaction.deferUpdate();         // acknowledge first
 					await client.deployCommands();
 					await ctx.editMessage({
 						content: "Commands deployed globally.",
 						components: [],
 					});
 				} else if (interaction.customId === "deploy-guild") {
+					await interaction.deferUpdate();         // acknowledge first
 					await client.deployCommands(interaction.guild!.id);
 					await ctx.editMessage({
 						content: "Commands deployed in this guild.",

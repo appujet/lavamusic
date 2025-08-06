@@ -150,7 +150,8 @@
 				"high": "`✅` | High bassboost filter has been `ENABLED`.",
 				"low": "`✅` | Low bassboost filter has been `ENABLED`.",
 				"medium": "`✅` | Medium bassboost filter has been `ENABLED`.",
-				"off": "`✅` | Bassboost filter has been `DISABLED`."
+				"off": "`✅` | Bassboost filter has been `DISABLED`.",
+				"invalid_level": "Please provide a valid bassboost level. Available levels: `high`, `medium`, `low`, `off`."
 			}
 		},
 		"distortion": {

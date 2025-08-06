@@ -11,7 +11,7 @@ export default class LowPass extends Command {
 			description: {
 				content: "cmd.lowpass.description",
 				examples: ["lowpass"],
-				usage: "lowpass <number>",
+				usage: "lowpass",
 			},
 			category: "filters",
 			aliases: ["lp"],

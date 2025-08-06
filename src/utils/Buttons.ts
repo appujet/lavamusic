@@ -8,7 +8,7 @@ import type { Player } from "lavalink-client";
 import type { Lavamusic } from "../structures/index";
 
 function getButtons(
-	player: Player,
+	player: Player | null,
 	client: Lavamusic,
 ): ActionRowBuilder<ButtonBuilder>[] {
 	const buttonData = [

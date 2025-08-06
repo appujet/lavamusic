@@ -39,7 +39,8 @@ export default class Rate extends Command {
 				{
 					name: "rate",
 					description: "cmd.rate.options.rate",
-					type: 3,
+					// 10 = ApplicationCommandOptionType.Number
+					type: 10,
 					required: true,
 				},
 			],

@@ -66,6 +66,12 @@ export default class Loop extends Command {
 
 		const argument = mode || args;
 
+		if (!player) {
+			return await ctx.sendMessage({
+				embeds: [embed.setDescription(ctx.locale("player.error.no_player"))],
+			});
+		}
+
 		if (argument) {
 			if (argument === "song" || argument === "track" || argument === "s") {
 				player?.setRepeatMode("track");

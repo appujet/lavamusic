@@ -4,7 +4,7 @@
 	"description": "LavaMusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, lavalink-client (Lavalink) library.",
 	"main": "dist/index.js",
 	"scripts": {
-		"dev": "tsup --watch --onSuccess \"dotenvx run -- node dist/index.js\"",
+		"dev": "tsup --watch --onSuccess=\"dotenvx run -- node dist/index.js\"",
 		"start": "dotenvx run -- node dist/index.js",
 		"db:push": "npx prisma db push",
 		"db:migrate": "npx prisma migrate dev --name init",

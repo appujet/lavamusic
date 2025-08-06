@@ -87,7 +87,7 @@ export default class Eval extends Command {
 				await msg.delete();
 			});
 		} catch (e) {
-			ctx.sendMessage(`\`\`\`js\n${e}\n\`\`\``);
+			await ctx.sendMessage(`\`\`\`js\n${e}\n\`\`\``);
 		}
 	}
 }

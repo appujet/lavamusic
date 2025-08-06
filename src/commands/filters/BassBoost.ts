@@ -114,6 +114,14 @@ export default class BassBoost extends Command {
 				});
 				break;
 			}
+			default: {
+				await ctx.sendMessage(
+					ctx.locale("cmd.bassboost.messages.invalid_level", {
+						level: ctx.args[0] ?? "undefined",
+					}),
+				);
+				break;
+			}
 		}
 	}
 }

@@ -76,7 +76,7 @@ export default class Restart extends Command {
 				await client.destroy();
 
 				// Run npm run start to restart the bot directly
-				exec("npm run start", (error, stdout, stderr) => {
+				const child = exec("npm run start", (error, stdout, stderr) => {
 					if (error) {
 						console.error(`[RESTART ERROR]: ${error.message}`);
 						return;
@@ -87,6 +87,9 @@ export default class Restart extends Command {
 					}
 					console.log(`[RESTART SUCCESS]: ${stdout}`);
 				});
+				// Detach and exit current process
+				child.unref();
+				process.exit(0);
 			} catch (error) {
 				console.error("[RESTART ERROR]:", error);
 				await msg.edit({
