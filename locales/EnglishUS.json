@@ -535,7 +535,8 @@
 			"messages": {
 				"playlist_not_exist": "That playlist doesn't exist.",
 				"playlist_empty": "That playlist is empty.",
-				"playlist_loaded": "Loaded `{name}` with `{count}` songs."
+				"playlist_loaded": "Loaded `{name}` with `{count}` songs.",
+				"no_lavalink_nodes": "There are no available Lavalink nodes to load the playlist."
 			}
 		},
 		"removesong": {

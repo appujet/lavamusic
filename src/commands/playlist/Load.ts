@@ -95,6 +95,16 @@ export default class LoadPlaylist extends Command {
 		}
 
 		const nodes = client.manager.nodeManager.leastUsedNodes();
+		if (!nodes || nodes.length === 0) {
+			return await ctx.sendMessage({
+				embeds: [
+					{
+						description: ctx.locale("cmd.load.messages.no_lavalink_nodes"),
+						color: client.color.red,
+					},
+				],
+			});
+		}
 		const node = nodes[Math.floor(Math.random() * nodes.length)];
 		const tracks = await node.decode.multipleTracks(songs as any, ctx.author);
 		if (tracks.length === 0) {

@@ -11,10 +11,12 @@ import {
 import { env } from "../env";
 
 export default class ServerData {
+	private static prisma = new PrismaClient();
 	private prisma: PrismaClient;
 
 	constructor() {
-		this.prisma = new PrismaClient();
+		// reuse the singleton
+		this.prisma = ServerData.prisma;
 	}
 
 	public async get(guildId: string): Promise<Guild> {

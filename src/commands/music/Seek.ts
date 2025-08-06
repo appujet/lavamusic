@@ -50,7 +50,11 @@ export default class Seek extends Command {
 		const player = client.manager.getPlayer(ctx.guild.id);
 		const current = player?.queue.current?.info;
 		const embed = this.client.embed();
-		const duration = client.utils.parseTime(args.join(" "));
+		const durationInput =
+			(args.length
+				? args.join(" ")
+				: (ctx.options?.get("duration")?.value as string)) ?? "";
+		const duration = client.utils.parseTime(durationInput);
 		if (!duration) {
 			return await ctx.sendMessage({
 				embeds: [

@@ -9,8 +9,8 @@
 		"ignoreUnknown": false,
 		"includes": [
 			"**/src/**",
-			"!/node_modules/",
-			"!/dist",
+			"!**/node_modules/**",
+			"!**/dist/**",
 			"!/package.json",
 			"!/tsconfig.json",
 			"!/.vscode"
