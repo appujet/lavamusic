@@ -58,7 +58,12 @@ export default class Lyrics extends Command {
 		// Get the song query from options or arguments
 		let songQuery = "";
 		if (ctx.options && typeof ctx.options.get === "function") {
-			const songOpt = ctx.options.get("song");
+			let songOpt = null;
+			try {
+				songOpt = ctx.options.get("song");
+			} catch (e) {
+				songOpt = null;
+			}
 			if (songOpt && typeof songOpt.value === "string") {
 				songQuery = songOpt.value;
 			}
