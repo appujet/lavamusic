@@ -91,10 +91,10 @@ export default class Search extends Command {
 					`**${ctx.locale("cmd.search.messages.results_found", {
 						count: tracks.length,
 					})}**\n*${ctx.locale("cmd.search.messages.select_prompt")}*` +
-						`\n\n**${ctx.locale("cmd.search.messages.page_info", {
-							currentPage: currentPage + 1,
-							maxPages: maxPages,
-						})}**`,
+					`\n\n**${ctx.locale("cmd.search.messages.page_info", {
+						currentPage: currentPage + 1,
+						maxPages: maxPages,
+					})}**`,
 				),
 			);
 
@@ -152,12 +152,9 @@ export default class Search extends Command {
 			nextButton,
 		);
 
-		const resultsEmbed = resultsContainer.toJSON ? [resultsContainer.toJSON()] : [];
-
 		return {
-			embeds: resultsEmbed as any,
-			components: [selectRow, buttonRow],
-			flags: MessageFlags.IsComponentsV2 as any,
+			components: [resultsContainer, selectRow, buttonRow],
+			flags: MessageFlags.IsComponentsV2,
 		};
 	}
 
@@ -237,6 +234,7 @@ export default class Search extends Command {
 			currentPage,
 			maxPages,
 		);
+		// @ts-ignore
 		const sentMessage = await ctx.sendMessage(initialComponents);
 
 		const collector = sentMessage.createMessageComponentCollector({
