@@ -68,7 +68,7 @@ export default class Loop extends Command {
 
 		if (!player) {
 			return await ctx.sendMessage({
-				embeds: [embed.setDescription(ctx.locale("player.error.no_player"))],
+				embeds: [embed.setDescription(ctx.locale("player.errors.no_player"))],
 			});
 		}
 
