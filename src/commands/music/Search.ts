@@ -3,7 +3,6 @@ import {
 	StringSelectMenuBuilder,
 	ButtonBuilder,
 	ButtonStyle,
-	type TextChannel,
 	type VoiceChannel,
 	SectionBuilder,
 	MessageFlags,
@@ -238,9 +237,7 @@ export default class Search extends Command {
 		// @ts-ignore
 		const sentMessage = await ctx.sendMessage(initialComponents);
 
-		const collector = (
-			ctx.channel as TextChannel
-		).createMessageComponentCollector({
+		const collector = sentMessage.createMessageComponentCollector({
 			filter: (f: any) => f.user.id === ctx.author?.id,
 			time: 120000,
 			idle: 60000,

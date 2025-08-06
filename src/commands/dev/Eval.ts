@@ -48,7 +48,16 @@ export default class Eval extends Command {
 			let evaled = eval(code);
 			if (evaled === client.config) evaled = "Nice try";
 
-			if (typeof evaled !== "string") evaled = util.inspect(evaled);
+			if (typeof evaled !== "string") {
+				evaled = util.inspect(evaled, { depth: 1 });
+			}
+
+			// Redact common secrets
+			const secrets = [client.token, process.env.TOKEN];
+			for (const secret of secrets.filter(Boolean)) {
+				evaled = evaled.replaceAll(secret!, "[REDACTED]");
+			}
+
 			if (evaled.length > 2000) {
 				const response = await fetch("https://hasteb.in/post", {
 					method: "POST",

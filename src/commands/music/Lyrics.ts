@@ -92,71 +92,13 @@ export default class Lyrics extends Command {
 		let artworkUrl = "";
 		let lyricsResult: LyricsResult | string = "";
 		if (songQuery) {
-			if (!player) {
-				const searchRes = await client.manager.search(
-					songQuery,
-					ctx.author,
-					undefined,
-				);
-				const track = searchRes.tracks[0];
-				if (!track) {
-					const noResultsContainer = new ContainerBuilder()
-						.setAccentColor(client.color.red)
-						.addTextDisplayComponents((textDisplay) =>
-							textDisplay.setContent(ctx.locale("cmd.lyrics.errors.no_results")),
-						);
-					await ctx.editMessage({
-						components: [noResultsContainer],
-						flags: MessageFlags.IsComponentsV2,
-					});
-					return;
-				}
-				try {
-					const node = client.manager.nodeManager.leastUsedNodes()[0];
-					const result = await node.lyrics.get(track, true);
-					lyricsResult = result ?? "";
-				} catch (err) {
-					if (client.logger && typeof client.logger.error === "function") {
-						client.logger.error(`[LYRICS] Error fetching lyrics: ${err}`);
-					}
-					throw err;
-				}
-				trackTitle = track.info.title;
-				artistName = track.info.author;
-				trackUrl = track.info.uri;
-				artworkUrl = track.info.artworkUrl || "";
-			} else {
-				const searchRes = await client.manager.search(
-					songQuery,
-					ctx.author,
-					undefined,
-				);
-				const track = searchRes.tracks[0];
-				if (!track) {
-					const noResultsContainer = new ContainerBuilder()
-						.setAccentColor(client.color.red)
-						.addTextDisplayComponents((textDisplay) =>
-							textDisplay.setContent(ctx.locale("cmd.lyrics.errors.no_results")),
-						);
-					await ctx.editMessage({
-						components: [noResultsContainer],
-						flags: MessageFlags.IsComponentsV2,
-					});
-					return;
-				}
-				try {
-					lyricsResult = await player.getLyrics(track, true);
-				} catch (err) {
-					if (client.logger && typeof client.logger.error === "function") {
-						client.logger.error(`[LYRICS] Error fetching lyrics: ${err}`);
-					}
-					throw err;
-				}
-				trackTitle = track.info.title;
-				artistName = track.info.author;
-				trackUrl = track.info.uri;
-				artworkUrl = track.info.artworkUrl || "";
-			}
+			const result = await this.fetchTrackAndLyrics({ client, ctx, songQuery, player });
+			if (!result) return;
+			lyricsResult = result.lyricsResult;
+			trackTitle = result.trackTitle;
+			artistName = result.artistName;
+			trackUrl = result.trackUrl;
+			artworkUrl = result.artworkUrl;
 		} else if (player && player.queue.current) {
 			// If no songquery is given, fetch lyrics for the currently playing song
 			lyricsResult = await player.getCurrentLyrics(false);
@@ -356,9 +298,9 @@ export default class Lyrics extends Command {
 														trackTitle,
 														trackUrl,
 													}) +
-														"\n" +
-														(artistName ? `*${artistName}*\n\n` : "") +
-														formatted,
+													"\n" +
+													(artistName ? `*${artistName}*\n\n` : "") +
+													formatted,
 												),
 											);
 										await ctx.editMessage({
@@ -384,10 +326,10 @@ export default class Lyrics extends Command {
 											trackTitle,
 											trackUrl,
 										}) +
-											"\n" +
-											(artistName ? `*${artistName}*\n\n` : "") +
-											formatted +
-											`\n\n*${ctx.locale("cmd.lyrics.unsubscribed")}*`,
+										"\n" +
+										(artistName ? `*${artistName}*\n\n` : "") +
+										formatted +
+										`\n\n*${ctx.locale("cmd.lyrics.unsubscribed")}*`,
 									),
 								);
 							await interaction.update({
@@ -491,6 +433,55 @@ export default class Lyrics extends Command {
 				flags: MessageFlags.IsComponentsV2,
 			});
 		}
+	}
+
+	async fetchTrackAndLyrics({ client, ctx, songQuery, player }: { client: any, ctx: any, songQuery: string, player?: any }) {
+		let trackTitle = "";
+		let artistName = "";
+		let trackUrl = "";
+		let artworkUrl = "";
+		let lyricsResult: LyricsResult | string = "";
+
+		const searchRes = await client.manager.search(
+			songQuery,
+			ctx.author,
+			undefined,
+		);
+		const track = searchRes.tracks[0];
+		if (!track) {
+			const noResultsContainer = new ContainerBuilder()
+				.setAccentColor(client.color.red)
+				.addTextDisplayComponents((textDisplay) =>
+					textDisplay.setContent(
+						ctx.locale("cmd.lyrics.errors.no_results"),
+					),
+				);
+			await ctx.editMessage({
+				components: [noResultsContainer],
+				flags: MessageFlags.IsComponentsV2,
+			});
+			return null;
+		}
+		try {
+			if (!player) {
+				const node = client.manager.nodeManager.leastUsedNodes()[0];
+				const result = await node.lyrics.get(track, true);
+				lyricsResult = result ?? "";
+			} else {
+				lyricsResult = await player.getLyrics(track, true);
+			}
+		} catch (err) {
+			if (client.logger && typeof client.logger.error === "function") {
+				client.logger.error(`[LYRICS] Error fetching lyrics: ${err}`);
+			}
+			throw err;
+		}
+		trackTitle = track.info.title;
+		artistName = track.info.author;
+		trackUrl = track.info.uri;
+		artworkUrl = track.info.artworkUrl || "";
+
+		return { lyricsResult, trackTitle, artistName, trackUrl, artworkUrl };
 	}
 
 	paginateLyrics(lyrics: string, ctx: Context): string[] {

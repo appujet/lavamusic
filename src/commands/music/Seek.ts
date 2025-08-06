@@ -48,7 +48,12 @@ export default class Seek extends Command {
 		args: string[],
 	): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild.id);
-		const current = player?.queue.current?.info;
+		if (!player) {
+			return await ctx.sendMessage(
+				ctx.locale("event.message.no_music_playing"),
+			);
+		}
+		const current = player.queue.current?.info;
 		const embed = this.client.embed();
 		const durationInput =
 			(args.length
