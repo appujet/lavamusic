@@ -12,7 +12,7 @@ export default class Loop extends Command {
 			category: "general",
 			aliases: ["loop"],
 			cooldown: 3,
-			args: true,
+			args: false,
 			vote: false,
 			player: {
 				voice: true,
@@ -62,7 +62,12 @@ export default class Loop extends Command {
 		let loopMessage = "";
 
 		const args = ctx.args ? ctx.args[0]?.toLowerCase() : "";
-		const mode = ctx.options?.get("mode")?.value as string;
+		let mode: string | undefined = undefined;
+		try {
+			mode = ctx.options?.get("mode")?.value as string | undefined;
+		} catch {
+			mode = undefined;
+		}
 
 		const argument = mode || args;
 

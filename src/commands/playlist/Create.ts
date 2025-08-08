@@ -49,6 +49,17 @@ export default class CreatePlaylist extends Command {
 	): Promise<any> {
 		const name = args.join(" ").trim();
 		const embed = this.client.embed();
+		const normalizedName = name.toLowerCase();
+
+		if (!name.length) {
+			return await ctx.sendMessage({
+				embeds: [
+					embed
+						.setDescription(ctx.locale("cmd.create.messages.name_empty"))
+						.setColor(this.client.color.red),
+				],
+			});
+		}
 
 		if (name.length > 50) {
 			return await ctx.sendMessage({
@@ -60,7 +71,10 @@ export default class CreatePlaylist extends Command {
 			});
 		}
 
-		const playlistExists = await client.db.getPlaylist(ctx.author?.id!, name);
+		const playlistExists = await client.db.getPlaylist(
+			ctx.author?.id!,
+			normalizedName,
+		);
 		if (playlistExists) {
 			return await ctx.sendMessage({
 				embeds: [
@@ -71,7 +85,7 @@ export default class CreatePlaylist extends Command {
 			});
 		}
 
-		await client.db.createPlaylist(ctx.author?.id!, name);
+		await client.db.createPlaylist(ctx.author?.id!, normalizedName);
 		return await ctx.sendMessage({
 			embeds: [
 				embed

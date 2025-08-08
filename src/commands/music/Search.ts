@@ -91,10 +91,10 @@ export default class Search extends Command {
 					`**${ctx.locale("cmd.search.messages.results_found", {
 						count: tracks.length,
 					})}**\n*${ctx.locale("cmd.search.messages.select_prompt")}*` +
-					`\n\n**${ctx.locale("cmd.search.messages.page_info", {
-						currentPage: currentPage + 1,
-						maxPages: maxPages,
-					})}**`,
+						`\n\n**${ctx.locale("cmd.search.messages.page_info", {
+							currentPage: currentPage + 1,
+							maxPages: maxPages,
+						})}**`,
 				),
 			);
 
@@ -185,7 +185,7 @@ export default class Search extends Command {
 				await player.connect();
 			} catch (error) {
 				console.error("Failed to connect to voice channel:", error);
-				player.destroy(); // Clean up the player if connection fails
+				await player.destroy(); // Clean up the player if connection fails
 				const connectErrorContainer = new ContainerBuilder()
 					.setAccentColor(this.client.color.red)
 					.addTextDisplayComponents((textDisplay) =>
@@ -291,13 +291,15 @@ export default class Search extends Command {
 					true, // Pass true to disable components
 				);
 
-				await ctx.editMessage({
-					components: [
-						confirmationContainer,
-						...disabledComponents.components.slice(1),
-					], // Remove .components from confirmationContainer
-					flags: MessageFlags.IsComponentsV2,
-				});
+				await ctx.editMessage(
+					filterFlagsForEditMessage({
+						components: [
+							confirmationContainer,
+							...disabledComponents.components.slice(1),
+						],
+						flags: MessageFlags.IsComponentsV2,
+					}),
+				);
 
 				collector.stop("trackSelected");
 			} else if (int.customId === "previous-page") {
@@ -311,8 +313,7 @@ export default class Search extends Command {
 						currentPage,
 						maxPages,
 					);
-					// @ts-ignore
-					await ctx.editMessage(newComponents);
+					await ctx.editMessage(filterFlagsForEditMessage(newComponents));
 				} else {
 					await int.deferUpdate();
 				}
@@ -327,8 +328,9 @@ export default class Search extends Command {
 						currentPage,
 						maxPages,
 					);
-					// @ts-ignore
-					await ctx.editMessage(newComponents);
+					const newComponentsFiltered =
+						filterFlagsForEditMessage(newComponents);
+					await ctx.editMessage(newComponentsFiltered);
 				} else {
 					await int.deferUpdate();
 				}
@@ -349,10 +351,12 @@ export default class Search extends Command {
 							),
 						);
 
-					await ctx.editMessage({
-						components: [timeoutContainer],
-						flags: MessageFlags.IsComponentsV2,
-					});
+					await ctx.editMessage(
+						filterFlagsForEditMessage({
+							components: [timeoutContainer],
+							flags: MessageFlags.IsComponentsV2,
+						}),
+					);
 				} catch (error) {
 					console.error("Failed to edit message on collector timeout:", error);
 					const fallbackTimeoutContainer = new ContainerBuilder()
@@ -372,6 +376,13 @@ export default class Search extends Command {
 			}
 		});
 	}
+}
+
+// Helper function to filter out 'flags' for editMessage
+function filterFlagsForEditMessage(options: any) {
+	// biome-ignore lint/correctness/noUnusedVariables: false positive, 'flags' is intentionally omitted
+	const { flags, ...rest } = options;
+	return rest;
 }
 
 /**

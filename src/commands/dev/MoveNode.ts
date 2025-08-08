@@ -49,8 +49,31 @@ export default class MoveNode extends Command {
 		args: string[],
 	): Promise<any> {
 		// If no node specified, show available nodes as before
-		const nodeId = args.length > 0 ? args.join(" ") : ctx.args?.join(" ");
+		let nodeId: string | undefined;
+		if (args.length > 0) {
+			nodeId = args.join(" ");
+		} else if (ctx.options && typeof ctx.options.get === "function") {
+			let nodeOption: any;
+			try {
+				nodeOption = ctx.options.get("node");
+			} catch {
+				nodeOption = undefined;
+			}
+			nodeId = nodeOption ? (nodeOption.value as string | undefined) : undefined;
+		} else {
+			nodeId = undefined;
+		}
 		const allPlayers = client.manager.players;
+		if (allPlayers.size === 0) {
+			return await ctx.sendMessage({
+				embeds: [
+					{
+						description: ctx.locale("cmd.movenode.no_players"),
+						color: this.client.color.red,
+					},
+				],
+			});
+		}
 		const currentNodeId =
 			allPlayers.size > 0
 				? allPlayers.values().next().value?.node.options.id
@@ -219,7 +242,7 @@ export default class MoveNode extends Command {
 				description = ctx.locale("cmd.movenode.no_players_moved");
 			}
 
-			// Send summary message
+			// Send a summary message
 			const resultTitle = ctx.locale("cmd.movenode.results_title");
 			const resultColor =
 				failedMoves.length > 0

@@ -1,3 +1,8 @@
+import {
+	ChannelType,
+	type GuildChannel,
+	type VoiceBasedChannel,
+} from "discord.js";
 import { Event, type Lavamusic } from "../../structures/index";
 
 export default class ChannelDelete extends Event {
@@ -7,31 +12,41 @@ export default class ChannelDelete extends Event {
 		});
 	}
 
-	public async run(channel: any): Promise<void> {
+	public async run(channel: GuildChannel | VoiceBasedChannel): Promise<void> {
 		const { guild } = channel;
 		const setup = await this.client.db.getSetup(guild.id);
 		const stay = await this.client.db.get_247(guild.id);
 
 		if (Array.isArray(stay)) {
 			for (const s of stay) {
-				if (channel.type === 2 && s.voiceId === channel.id) {
+				if (
+					channel.type === ChannelType.GuildVoice &&
+					s.voiceId === channel.id
+				) {
 					await this.client.db.delete_247(guild.id);
 					break;
 				}
 			}
 		} else if (stay) {
-			if (channel.type === 2 && stay.voiceId === channel.id) {
+			if (
+				channel.type === ChannelType.GuildVoice &&
+				stay.voiceId === channel.id
+			) {
 				await this.client.db.delete_247(guild.id);
 			}
 		}
 
-		if (setup && channel.type === 0 && setup.textId === channel.id) {
+		if (
+			setup &&
+			channel.type === ChannelType.GuildText &&
+			setup.textId === channel.id
+		) {
 			await this.client.db.deleteSetup(guild.id);
 		}
 
 		const player = this.client.manager.getPlayer(guild.id);
 		if (player && player.voiceChannelId === channel.id) {
-			player.destroy();
+			await player.destroy();
 		}
 	}
 }

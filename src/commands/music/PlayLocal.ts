@@ -1,4 +1,8 @@
-import { ApplicationCommandOptionType, Attachment } from "discord.js";
+import {
+	ApplicationCommandOptionType,
+	type Attachment,
+	type GuildMember,
+} from "discord.js";
 import type { SearchResult } from "lavalink-client";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 
@@ -79,14 +83,26 @@ export default class PlayLocal extends Command {
 
 		let player = client.manager.getPlayer(ctx.guild.id);
 		if (!player) {
-			const memberVoiceChannel = (ctx.member as any).voice.channel;
+			const memberVoiceChannel = (ctx.member as GuildMember)?.voice.channel;
+			if (!memberVoiceChannel) {
+				return ctx.sendMessage({
+					embeds: [
+						this.client
+							.embed()
+							.setColor(this.client.color.red)
+							.setDescription(
+								ctx.locale("player.errors.user_not_in_voice_channel"),
+							),
+					],
+				});
+			}
 			player = client.manager.createPlayer({
 				guildId: ctx.guild.id,
 				voiceChannelId: memberVoiceChannel.id,
 				textChannelId: ctx.channel.id,
 				selfMute: false,
 				selfDeaf: true,
-				vcRegion: memberVoiceChannel.rtcRegion!,
+				vcRegion: memberVoiceChannel.rtcRegion ?? undefined,
 			});
 		}
 

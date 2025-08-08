@@ -503,7 +503,8 @@
 			"messages": {
 				"name_too_long": "Playlist names can only be 50 characters long.",
 				"playlist_exists": "A playlist with that name already exists. Please use a different name.",
-				"playlist_created": "Playlist **{name}** has been created."
+				"playlist_created": "Playlist **{name}** has been created.",
+				"name_empty": "You must provide a playlist name."
 			}
 		},
 		"delete": {
@@ -594,7 +595,8 @@
 			"failed_moves": "**Failed to move players in guilds:**\n{list}",
 			"guild_move_failed": "• `{guildId}`: {error}",
 			"no_players_moved": "No players needed to be moved.",
-			"unknown_error": "Unknown error"
+			"unknown_error": "Unknown error",
+			"no_players": "There are no players to move."
 		}
 	},
 	"buttons": {
