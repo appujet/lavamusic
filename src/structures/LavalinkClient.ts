@@ -17,6 +17,11 @@ export default class LavalinkClient extends LavalinkManager {
 			nodes: client.env.NODES as LavalinkNodeOptions[],
 			sendToShard: (guildId, payload) =>
 				client.guilds.cache.get(guildId)?.shard?.send(payload),
+			autoSkip: true,
+			client: {
+				id: client.env.CLIENT_ID,
+				username: "LavaMusic",
+			},
 			queueOptions: {
 				maxPreviousTracks: 25,
 			},
@@ -31,6 +36,7 @@ export default class LavalinkClient extends LavalinkManager {
 					autoPlayFunction,
 				},
 			},
+			autoMove: true,
 		});
 		this.client = client;
 	}
@@ -49,8 +55,7 @@ export default class LavalinkClient extends LavalinkManager {
 		const nodes = this.nodeManager.leastUsedNodes();
 		const node = nodes[Math.floor(Math.random() * nodes.length)];
 		const searchOptions = typeof query === "string" ? { query, source } : query;
-		const result = await node.search(searchOptions, user, false);
-		return result;
+		return await node.search(searchOptions, user, false);
 	}
 }
 

@@ -49,7 +49,7 @@
 		"discord.js": "^14.21.0",
 		"genius-lyrics-api": "^3.2.1",
 		"i18n": "^0.15.1",
-		"lavalink-client": "^2.5.9",
+		"lavalink-client": "https://pkg.pr.new/Tomato6966/lavalink-client@136",
 		"node-system-stats": "^2.0.5",
 		"signale": "^1.4.0",
 		"topgg-autoposter": "^2.0.2",
