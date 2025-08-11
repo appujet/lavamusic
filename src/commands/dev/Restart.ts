@@ -1,4 +1,4 @@
-import { exec } from "node:child_process";
+import { spawn } from "node:child_process";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 
@@ -75,19 +75,11 @@ export default class Restart extends Command {
 				// Destroy client connection
 				await client.destroy();
 
-				// Run npm run start to restart the bot directly
-				const child = exec("npm run start", (error, stdout, stderr) => {
-					if (error) {
-						console.error(`[RESTART ERROR]: ${error.message}`);
-						return;
-					}
-					if (stderr) {
-						console.error(`[RESTART STDERR]: ${stderr}`);
-						return;
-					}
-					console.log(`[RESTART SUCCESS]: ${stdout}`);
+				// Restart logic
+				const child = spawn("npm", ["run", "start"], {
+					detached: true,
+					stdio: "ignore",
 				});
-				// Detach and exit current process
 				child.unref();
 				process.exit(0);
 			} catch (error) {

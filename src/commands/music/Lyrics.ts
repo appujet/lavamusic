@@ -93,7 +93,12 @@ export default class Lyrics extends Command {
 		let artworkUrl = "";
 		let lyricsResult: LyricsResult | string = "";
 		if (songQuery) {
-			const result = await this.fetchTrackAndLyrics({ client, ctx, songQuery, player });
+			const result = await this.fetchTrackAndLyrics({
+				client,
+				ctx,
+				songQuery,
+				player,
+			});
 			if (!result) return;
 			lyricsResult = result.lyricsResult;
 			trackTitle = result.trackTitle;
@@ -299,9 +304,9 @@ export default class Lyrics extends Command {
 														trackTitle,
 														trackUrl,
 													}) +
-													"\n" +
-													(artistName ? `*${artistName}*\n\n` : "") +
-													formatted,
+														"\n" +
+														(artistName ? `*${artistName}*\n\n` : "") +
+														formatted,
 												),
 											);
 										await ctx.editMessage({
@@ -327,10 +332,10 @@ export default class Lyrics extends Command {
 											trackTitle,
 											trackUrl,
 										}) +
-										"\n" +
-										(artistName ? `*${artistName}*\n\n` : "") +
-										formatted +
-										`\n\n*${ctx.locale("cmd.lyrics.unsubscribed")}*`,
+											"\n" +
+											(artistName ? `*${artistName}*\n\n` : "") +
+											formatted +
+											`\n\n*${ctx.locale("cmd.lyrics.unsubscribed")}*`,
 									),
 								);
 							await interaction.update({
@@ -353,6 +358,7 @@ export default class Lyrics extends Command {
 							currentPage++;
 						} else if (interaction.customId === "stop") {
 							collectorActive = false;
+							running = false;
 							await interaction.update({
 								components: [
 									createLyricsContainer(currentPage, true),
@@ -436,11 +442,16 @@ export default class Lyrics extends Command {
 		}
 	}
 
-	async fetchTrackAndLyrics({ client, ctx, songQuery, player }: {
-		client: Lavamusic,
-		ctx: Context,
-		songQuery: string,
-		player?: any // Use proper player type from lavalink-client
+	async fetchTrackAndLyrics({
+		client,
+		ctx,
+		songQuery,
+		player,
+	}: {
+		client: Lavamusic;
+		ctx: Context;
+		songQuery: string;
+		player?: any; // Use proper player type from lavalink-client
 	}) {
 		let trackTitle = "";
 		let artistName = "";
@@ -458,9 +469,7 @@ export default class Lyrics extends Command {
 			const noResultsContainer = new ContainerBuilder()
 				.setAccentColor(client.color.red)
 				.addTextDisplayComponents((textDisplay) =>
-					textDisplay.setContent(
-						ctx.locale("cmd.lyrics.errors.no_results"),
-					),
+					textDisplay.setContent(ctx.locale("cmd.lyrics.errors.no_results")),
 				);
 			await ctx.editMessage({
 				components: [noResultsContainer],

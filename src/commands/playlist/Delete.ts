@@ -98,7 +98,7 @@ export default class DeletePlaylist extends Command {
 		);
 
 		await interaction.respond(
-			filtered.map((playlist) => ({
+			filtered.slice(0, 25).map((playlist) => ({
 				name: playlist.name,
 				value: playlist.name,
 			})),

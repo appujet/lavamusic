@@ -527,6 +527,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+.idea/
 
 # Lavamusic
 Lavalink/logs

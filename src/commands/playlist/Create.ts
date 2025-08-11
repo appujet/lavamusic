@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 
 export default class CreatePlaylist extends Command {
@@ -85,7 +86,25 @@ export default class CreatePlaylist extends Command {
 			});
 		}
 
-		await client.db.createPlaylist(ctx.author?.id!, normalizedName);
+		try {
+			await client.db.createPlaylist(ctx.author?.id!, normalizedName);
+		} catch (error) {
+			// Handle unique-constraint violation (race condition)
+			if (
+				typeof Prisma !== "undefined" &&
+				error instanceof Prisma.PrismaClientKnownRequestError &&
+				error.code === "P2002"
+			) {
+				return await ctx.sendMessage({
+					embeds: [
+						embed
+							.setDescription(ctx.locale("cmd.create.messages.playlist_exists"))
+							.setColor(this.client.color.red),
+					],
+				});
+			}
+			throw error;
+		}
 		return await ctx.sendMessage({
 			embeds: [
 				embed

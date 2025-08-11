@@ -34,7 +34,7 @@
 				"noThisInStatic": "off"
 			},
 			"style": {
-				"noNonNullAssertion":"off",
+				"noNonNullAssertion": "off",
 				"useNodejsImportProtocol": "off"
 			}
 		}
