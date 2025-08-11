@@ -41,8 +41,8 @@ export default class _247 extends Command {
 		let player = client.manager.getPlayer(ctx.guild.id);
 		try {
 			const data = await client.db.get_247(ctx.guild.id);
-			const member = ctx.member as GuildMember;
-			if (!member.voice.channel) {
+			const member = ctx.member as GuildMember | null;
+			if (!member?.voice?.channel) {
 				return await ctx.sendMessage({
 					embeds: [
 						embed
@@ -73,7 +73,7 @@ export default class _247 extends Command {
 					textChannelId: ctx.channel!.id,
 					selfMute: false,
 					selfDeaf: true,
-					vcRegion: member.voice.channel.rtcRegion!,
+					vcRegion: member.voice.channel.rtcRegion ?? undefined,
 				});
 			}
 			if (!player.connected) await player.connect();

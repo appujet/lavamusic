@@ -6,7 +6,6 @@ import {
 	ComponentType,
 	MessageFlags,
 	type Message,
-	type TextChannel,
 } from "discord.js";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 
@@ -71,7 +70,7 @@ export default class Deploy extends Command {
 			return;
 		}
 
-		const filter = (interaction: ButtonInteraction<"cached">) => {
+		const filter = (interaction: ButtonInteraction) => {
 			if (interaction.user.id !== ctx.author?.id) {
 				interaction
 					.reply({
@@ -84,10 +83,11 @@ export default class Deploy extends Command {
 			return true;
 		};
 
-		const collector = (
-			ctx.channel as TextChannel
-		).createMessageComponentCollector({
-			filter,
+		const collector = msg!.createMessageComponentCollector({
+			filter: (interaction) => {
+				if (interaction.message.id !== msg!.id) return false;
+				return filter(interaction);
+			},
 			componentType: ComponentType.Button,
 			time: 30000,
 		});
@@ -95,14 +95,14 @@ export default class Deploy extends Command {
 		collector.on("collect", async (interaction) => {
 			try {
 				if (interaction.customId === "deploy-global") {
-					await interaction.deferUpdate();         // acknowledge first
+					await interaction.deferUpdate(); // acknowledge first
 					await client.deployCommands();
 					await ctx.editMessage({
 						content: "Commands deployed globally.",
 						components: [],
 					});
 				} else if (interaction.customId === "deploy-guild") {
-					await interaction.deferUpdate();         // acknowledge first
+					await interaction.deferUpdate(); // acknowledge first
 					await client.deployCommands(interaction.guild!.id);
 					await ctx.editMessage({
 						content: "Commands deployed in this guild.",

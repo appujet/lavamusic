@@ -53,13 +53,8 @@ export default class MoveNode extends Command {
 		if (args.length > 0) {
 			nodeId = args.join(" ");
 		} else if (ctx.options && typeof ctx.options.get === "function") {
-			let nodeOption: any;
-			try {
-				nodeOption = ctx.options.get("node");
-			} catch {
-				nodeOption = undefined;
-			}
-			nodeId = nodeOption ? (nodeOption.value as string | undefined) : undefined;
+			const nodeOption = ctx.options.get("node", /* required */ false);
+			nodeId = nodeOption?.value as string | undefined;
 		} else {
 			nodeId = undefined;
 		}

@@ -117,12 +117,14 @@ plugins:
       tidal: false # Enable Tidal source
       qobuz: false # Enabled qobuz source
       ytdlp: false # Enable yt-dlp source
+      jiosaavn: false # Enable JioSaavn source
     lyrics-sources:
       spotify: false # Enable Spotify lyrics source
       deezer: false # Enable Deezer lyrics source
       youtube: true # Enable YouTube lyrics source
       yandexmusic: false # Enable Yandex Music lyrics source
       vkmusic: false # Enable Vk Music lyrics source
+      lrcLib: false # Enable LRC Library lyrics source (https://lrclib.net)
     spotify:
       # clientId & clientSecret are required for using spsearch
 #      clientId: "your client id"
@@ -183,6 +185,15 @@ plugins:
       searchLimit: 10 # How many search results should be returned
   #      customLoadArgs: ["-q", "--no-warnings", "--flat-playlist", "--skip-download", "-J"] # Custom arguments to pass to yt-dlp
   #      customPlaybackArgs: ["-q", "--no-warnings", "-f", "bestaudio", "-J"] # Custom arguments for yt-dlp
+    jiosaavn:
+      decryption: # The decryption configuration for the JioSaavn tracks
+        secretKey: "??" # The required secret key used for decryption (Find your own secret key)
+#        algorithm: "DES" # The algorithm used for decryption (Default "DES")
+#        transformation: "DES/ECB/PKCS5Padding" # The transformation used for decryption (Default "DES/ECB/PKCS5Padding")
+#      proxy: # If defined, JioSaavn HTTP requests will be proxied through here. JioSaavn uses region blocking
+#        url: "https://example.org" # The HTTP proxy to use
+#        username: "my-bot" # Optional username to authenticate with the proxy
+#        password: "youshallpass" # Optional password to authenticate with the proxy
 lavalink:
   plugins:
     - dependency: "com.github.appujet:jiosaavn-plugin:1.0.6"
@@ -191,11 +202,11 @@ lavalink:
       snapshot: false # set to true if you want to use snapshot builds
     - dependency: "com.github.topi314.lavasearch:lavasearch-plugin:1.0.0"
       snapshot: false # set to true if you want to use snapshot builds
-    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.7.3"
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.8.0"
       snapshot: false # set to true if you want to use snapshot builds
     - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.1"
       snapshot: false # set to true if you want to use snapshot builds
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.13.3"
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.13.4"
       snapshot: false # set to true if you want to use snapshot builds
   pluginsDir: './plugins'
   server:

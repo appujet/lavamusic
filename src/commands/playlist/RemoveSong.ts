@@ -88,10 +88,7 @@ export default class RemoveSong extends Command {
 
 		const res = await client.manager.search(song, ctx.author);
 
-		if (
-			!res ||
-			(res.loadType !== "track" && res.loadType !== "search")
-		) {
+		if (!res || (res.loadType !== "track" && res.loadType !== "search")) {
 			const noSongsFoundError = this.client
 				.embed()
 				.setDescription(ctx.locale("cmd.removesong.messages.song_not_found"))
@@ -140,7 +137,7 @@ export default class RemoveSong extends Command {
 		);
 
 		await interaction.respond(
-			filtered.map((playlist) => ({
+			filtered.slice(0, 25).map((playlist) => ({
 				name: playlist.name,
 				value: playlist.name,
 			})),

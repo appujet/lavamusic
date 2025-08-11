@@ -57,7 +57,7 @@ export default class Rate extends Command {
 			return await ctx.sendMessage(
 				ctx.locale("event.message.no_music_playing"),
 			);
-		const rateString = args[0].replace(",", ".");
+		const rateString = String(args[0]).replace(",", ".");
 		const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(rateString);
 		const rate = Number.parseFloat(rateString);
 

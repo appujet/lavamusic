@@ -35,15 +35,19 @@ export default class GuildList extends Command {
 	}
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
-		const guilds = await client.shard?.broadcastEval((c) =>
-			c.guilds.cache.map((guild) => ({ name: guild.name, id: guild.id })),
-		);
-		const allGuilds = guilds?.reduce((acc, val) => acc.concat(val), []);
+		const allGuilds = client.shard
+			? (
+					await client.shard.broadcastEval((c) =>
+						c.guilds.cache.map((g) => ({ name: g.name, id: g.id })),
+					)
+				).flat()
+			: client.guilds.cache.map((g) => ({ name: g.name, id: g.id }));
 
-		const guildList = allGuilds?.map(
-			(guild) => `- **${guild.name}** - ${guild.id}`,
-		);
-		const chunks = client.utils.chunk(guildList!, 10) || [[]];
+		const guildList =
+			allGuilds.length > 0
+				? allGuilds.map((g) => `- **${g.name}** - ${g.id}`)
+				: ["No guilds found."];
+		const chunks = client.utils.chunk(guildList, 10) || [[]];
 		const pages = chunks.map((chunk, index) => {
 			return this.client
 				.embed()
