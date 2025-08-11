@@ -510,6 +510,21 @@
 				"playlist_stolen": "`{playlist}` adlı çalma listesi {user} adlı kullanıcıdan başarıyla alındı.",
 				"error_occurred": "Çalma listesi alınırken bir hata oluştu."
 			}
+		},
+		"movenode": {
+			"description": "Oynatıcıları farklı bir Lavalink düğümüne taşır",
+			"options": {
+				"node": "Oynatıcıları taşımak istediğiniz düğüm ID'si"
+			}
+		},
+		"fairplay": {
+			"description": "Botu adil müzik çalması için ayarlar"
+		},
+		"playlocal": {
+			"description": "Yerel ses dosyalarınızı çalar",
+			"options": {
+				"file": "Çalmak istediğiniz ses dosyası"
+			}
 		}
 	},
 	"buttons": {
@@ -643,5 +658,6 @@
 	"Evaluate code": "Kodu çalıştır.",
 	"Leave a guild": "Bir sunucudan çık.",
 	"List all guilds the bot is in": "Botun bulunduğu tüm sunucuları listele.",
-	"Restart the bot": "Botu yeniden başlat."
+	"Restart the bot": "Botu yeniden başlat.",
+	"The loop mode you want to set": "Ayarlamak istediğiniz döngü modu"
 }

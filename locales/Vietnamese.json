@@ -500,6 +500,21 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"movenode": {
+			"description": "Move the players to a different Lavalink node",
+			"options": {
+				"node": "The node ID to move the players"
+			}
+		},
+		"fairplay": {
+			"description": "Set the bot to play music fairly"
+		},
+		"playlocal": {
+			"description": "Plays an your local audio files",
+			"options": {
+				"file": "The audio file you want to play"
+			}
 		}
 	},
 	"buttons": {
@@ -631,5 +646,6 @@
 	"Evaluate code": "Đánh giá mã",
 	"Leave a guild": "Rời khỏi một guild",
 	"List all guilds the bot is in": "Danh sách tất cả guild mà bot đang ở",
-	"Restart the bot": "Khởi động lại bot"
+	"Restart the bot": "Khởi động lại bot",
+	"The loop mode you want to set": "The loop mode you want to set"
 }

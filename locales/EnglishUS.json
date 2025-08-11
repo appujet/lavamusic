@@ -150,7 +150,8 @@
 				"high": "`✅` | High bassboost filter has been `ENABLED`.",
 				"low": "`✅` | Low bassboost filter has been `ENABLED`.",
 				"medium": "`✅` | Medium bassboost filter has been `ENABLED`.",
-				"off": "`✅` | Bassboost filter has been `DISABLED`."
+				"off": "`✅` | Bassboost filter has been `DISABLED`.",
+				"invalid_level": "Please provide a valid bassboost level. Available levels: `high`, `medium`, `low`, `off`."
 			}
 		},
 		"distortion": {
@@ -288,9 +289,19 @@
 			"page_indicator": "Page {current}/{total}",
 			"artwork_description": "Artwork for {trackTitle}",
 			"no_lyrics_available": "No lyrics available",
+			"button_subscribe": "📌 Subscribe to Live Lyrics",
+			"button_unsubscribe": "📌 Unsubscribe from Live Lyrics",
+			"subscribed": "You have subscribed to live lyrics updates!",
+			"unsubscribed": "You have unsubscribed from live lyrics updates.",
 			"errors": {
 				"no_results": "No lyrics found for the current track.",
-				"lyrics_error": "An error occurred while getting the lyrics."
+				"lyrics_error": "An error occurred while getting the lyrics.",
+				"no_player_for_lyrics": "Cannot get lyrics for this song without an active player."
+			},
+			"options": {
+				"song": {
+					"description": "The song you want to get lyrics for."
+				}
 			}
 		},
 		"nowplaying": {
@@ -492,7 +503,8 @@
 			"messages": {
 				"name_too_long": "Playlist names can only be 50 characters long.",
 				"playlist_exists": "A playlist with that name already exists. Please use a different name.",
-				"playlist_created": "Playlist **{name}** has been created."
+				"playlist_created": "Playlist **{name}** has been created.",
+				"name_empty": "You must provide a playlist name."
 			}
 		},
 		"delete": {
@@ -525,7 +537,8 @@
 			"messages": {
 				"playlist_not_exist": "That playlist doesn't exist.",
 				"playlist_empty": "That playlist is empty.",
-				"playlist_loaded": "Loaded `{name}` with `{count}` songs."
+				"playlist_loaded": "Loaded `{name}` with `{count}` songs.",
+				"no_lavalink_nodes": "There are no available Lavalink nodes to load the playlist."
 			}
 		},
 		"removesong": {
@@ -582,7 +595,8 @@
 			"failed_moves": "**Failed to move players in guilds:**\n{list}",
 			"guild_move_failed": "• `{guildId}`: {error}",
 			"no_players_moved": "No players needed to be moved.",
-			"unknown_error": "Unknown error"
+			"unknown_error": "Unknown error",
+			"no_players": "There are no players to move."
 		}
 	},
 	"buttons": {
@@ -605,7 +619,8 @@
 			"queue_empty": "The queue is empty.",
 			"no_previous": "There are no previous songs in the queue.",
 			"no_song": "There are no songs in the queue.",
-			"already_paused": "The song is already paused."
+			"already_paused": "The song is already paused.",
+			"user_not_in_voice_channel": "You are not connected to a voice channel."
 		},
 		"trackStart": {
 			"now_playing": "Now Playing",

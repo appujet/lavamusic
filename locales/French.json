@@ -500,6 +500,21 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"movenode": {
+			"description": "Déplace les lecteurs vers un autre nœud Lavalink",
+			"options": {
+				"node": "L’ID du nœud vers lequel déplacer les lecteurs"
+			}
+		},
+		"fairplay": {
+			"description": "Configure le bot pour lire la musique de façon équitable"
+		},
+		"playlocal": {
+			"description": "Lit vos fichiers audio locaux",
+			"options": {
+				"file": "Le fichier audio que vous souhaitez lire"
+			}
 		}
 	},
 	"buttons": {
@@ -631,5 +646,6 @@
 	"Evaluate code": "Evaluate code",
 	"Leave a guild": "Leave a guild",
 	"List all guilds the bot is in": "List all guilds the bot is in",
-	"Restart the bot": "Restart the bot"
+	"Restart the bot": "Restart the bot",
+	"The loop mode you want to set": "Le mode de boucle que vous souhaitez définir"
 }

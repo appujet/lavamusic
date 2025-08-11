@@ -524,6 +524,15 @@
 				"playlist_stolen": "`{playlist}` 플레이리스트를 {user}님에게서 가져왔어요.",
 				"error_occurred": "플레이리스트를 가져오는 도중 오류가 발생했어요."
 			}
+		},
+		"movenode": {
+			"description": "Move the players to a different Lavalink node",
+			"options": {
+				"node": "The node ID to move the players"
+			}
+		},
+		"fairplay": {
+			"description": "Set the bot to play music fairly"
 		}
 	},
 	"buttons": {
@@ -657,5 +666,6 @@
 	"Evaluate code": "코드를 실행해요",
 	"Leave a guild": "봇을 서버에서 퇴장시켜요",
 	"List all guilds the bot is in": "봇이 들어가 있는 서버를 확인해요",
-	"Restart the bot": "봇을 재시작해요"
+	"Restart the bot": "봇을 재시작해요",
+	"The loop mode you want to set": "The loop mode you want to set"
 }

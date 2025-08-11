@@ -500,6 +500,21 @@
 		},
 		"lyrics": {
 			"description": "Get's the lyrics of the currently playing track"
+		},
+		"movenode": {
+			"description": "Verschiebt die Player zu einem anderen Lavalink-Knoten",
+			"options": {
+				"node": "Die Knoten-ID, zu der die Player verschoben werden sollen"
+			}
+		},
+		"fairplay": {
+			"description": "Setzt den Bot auf einen fairen Wiedergabemodus"
+		},
+		"playlocal": {
+			"description": "Spielt deine lokalen Audiodateien ab",
+			"options": {
+				"file": "Die Audiodatei, die du abspielen möchtest"
+			}
 		}
 	},
 	"buttons": {
@@ -631,5 +646,6 @@
 	"Evaluate code": "Evaluate code",
 	"Leave a guild": "Leave a guild",
 	"List all guilds the bot is in": "List all guilds the bot is in",
-	"Restart the bot": "Restart the bot"
+	"Restart the bot": "Restart the bot",
+	"The loop mode you want to set": "Der Loop-Modus, den du einstellen möchtest"
 }
