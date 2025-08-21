@@ -5,7 +5,7 @@ import { Event, type Lavamusic } from "../../structures/index";
 export default class Ready extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
-			name: "ready",
+			name: "clientReady",
 		});
 	}
 
