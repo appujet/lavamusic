@@ -6,7 +6,7 @@ const updateStatusPlugin: BotPlugin = {
 	version: "1.0.0",
 	author: "Appu",
 	initialize: (client: Lavamusic) => {
-		client.on("ready", () => client.utils.updateStatus(client));
+		client.on("clientReady", () => client.utils.updateStatus(client));
 	},
 };
 
