@@ -64,15 +64,14 @@ export default class Nowplaying extends Command {
 		const trackInfo = ctx.locale("cmd.nowplaying.track_info", {
 		    title: track.info.title ?? "N/A",
 		    uri: track.info.uri ?? "about:blank",
-		    requester:
-           requester: (() => {
-               const r = track.requester as any;
-               if (!r) return "Unknown";
-               if (typeof r === "string") return r;
-               if (typeof r === "object" && "id" in r && typeof r.id === "string") return r.id;
-               return "Unknown";
-           })(),
-           bar,
+           	requester: (() => {
+               	const r = track.requester as any;
+               	if (!r) return "Unknown";
+               	if (typeof r === "string") return r;
+               	if (typeof r === "object" && "id" in r && typeof r.id === "string") return r.id;
+               	return "Unknown";
+           	})(),
+           	bar,
 		});
 
 		const mainSection = new SectionBuilder().addTextDisplayComponents((td) =>
