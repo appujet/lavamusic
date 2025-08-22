@@ -65,10 +65,14 @@ export default class Nowplaying extends Command {
 		    title: track.info.title ?? "N/A",
 		    uri: track.info.uri ?? "about:blank",
 		    requester:
-		        track.requester && typeof track.requester === "object" && "id" in track.requester
-		            ? (track.requester as any).id
-		            : "Unknown",
-		    bar,
+           requester: (() => {
+               const r = track.requester as any;
+               if (!r) return "Unknown";
+               if (typeof r === "string") return r;
+               if (typeof r === "object" && "id" in r && typeof r.id === "string") return r.id;
+               return "Unknown";
+           })(),
+           bar,
 		});
 
 		const mainSection = new SectionBuilder().addTextDisplayComponents((td) =>
