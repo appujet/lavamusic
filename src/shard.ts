@@ -1,4 +1,4 @@
-import { ShardingManager } from "discord.js";
+import { Events, ShardingManager } from "discord.js";
 import { env } from "./env";
 import type Logger from "./structures/Logger";
 
@@ -11,7 +11,7 @@ export async function shardStart(logger: Logger) {
 	});
 
 	manager.on("shardCreate", (shard) => {
-		shard.on("clientReady", () => {
+		shard.on(Events.ClientReady, () => {
 			logger.start(
 				`[CLIENT] Shard ${shard.id} connected to Discord's Gateway.`,
 			);
