@@ -1,12 +1,13 @@
 import type { Lavamusic } from "../../structures/index";
 import type { BotPlugin } from "../index";
+import { Events } from "discord.js";
 
 const updateStatusPlugin: BotPlugin = {
 	name: "Update Status Plugin",
 	version: "1.0.0",
 	author: "Appu",
 	initialize: (client: Lavamusic) => {
-		client.on("clientReady", () => client.utils.updateStatus(client));
+		client.on(Events.ClientReady, () => client.utils.updateStatus(client));
 	},
 };
 
