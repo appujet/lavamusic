@@ -1,11 +1,12 @@
 import { AutoPoster } from "topgg-autoposter";
 import { env } from "../../env";
 import { Event, type Lavamusic } from "../../structures/index";
+import { Events } from "discord.js";
 
 export default class Ready extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
-			name: "ready",
+			name: Events.ClientReady,
 		});
 	}
 
