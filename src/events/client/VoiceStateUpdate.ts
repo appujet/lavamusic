@@ -21,12 +21,9 @@ export default class VoiceStateUpdate extends Event {
 
    	const is247 = await this.client.db.get_247(guildId);
 
-   	// Sprawdź czy bot jest w kanale głosowym
    	const botVoiceChannelId = newState.guild.members.cache.get(this.client.user!.id)?.voice.channelId;
 
-   	// Check if bot was forcibly disconnected
    	if (newState.id === this.client.user!.id && oldState.channelId && !newState.channelId) {
-   		// Bot was disconnected from voice channel
    		if (!is247) {
    			try {
    				await player.destroy();
@@ -37,7 +34,6 @@ export default class VoiceStateUpdate extends Event {
    		return;
    	}
 
-   	// Jeśli bot nie jest w kanale głosowym i tryb 24/7 nie jest włączony - zniszcz playera
    	if (!botVoiceChannelId && !is247 && player) {
    		try {
    			await player.destroy();
@@ -122,12 +118,9 @@ export default class VoiceStateUpdate extends Event {
    		const player = client.manager.getPlayer(newState.guild.id);
    		if (!player) return;
    		if (!player?.voiceChannelId) return;
-   		
    		const is247 = await client.db.get_247(newState.guild.id);
    		const vc = newState.guild.channels.cache.get(player.voiceChannelId);
    		if (!vc) return;
-
-   		// Check if all non-bot members have left the channel
    		if (vc.members.filter((m: GuildMember) => !m.user.bot).size === 0) {
    			setTimeout(async () => {
    				const latestPlayer = client.manager.getPlayer(newState.guild.id);
