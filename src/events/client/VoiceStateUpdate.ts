@@ -22,10 +22,17 @@ export default class VoiceStateUpdate extends Event {
 
 		const is247 = await this.client.db.get_247(guildId);
 
+		if (newState.id === this.client.user!.id && oldState.channelId && !newState.channelId) {
+			if (!is247) {
+				player.destroy();
+			}
+			return;
+		}
+		
 		if (
 			!(
 				newState.guild.members.cache.get(this.client.user!.id)?.voice
-					.channelId || !is247
+					.channelId || is247
 			) &&
 			player
 		) {
@@ -47,15 +54,15 @@ export default class VoiceStateUpdate extends Event {
 		}
 
 		if (type === "join") {
-			this.handale.join(newState, this.client);
+			this.handle.join(newState, this.client);
 		} else if (type === "leave") {
-			this.handale.leave(newState, this.client);
+			this.handle.leave(newState, this.client);
 		} else if (type === "move") {
-			this.handale.move(newState, this.client);
+			this.handle.move(newState, this.client);
 		}
 	}
 
-	handale = {
+	handle = { // Fixed typo
 		async join(newState: VoiceState, client: Lavamusic) {
 			await new Promise((resolve) => setTimeout(resolve, 3000));
 			const bot = newState.guild.voiceStates.cache.get(client.user!.id);
@@ -83,6 +90,7 @@ export default class VoiceStateUpdate extends Event {
 
 			const vc = newState.guild.channels.cache.get(player.voiceChannelId);
 			if (!(vc && vc.members instanceof Map)) return;
+			
 			if (newState.id === client.user?.id && !newState.serverDeaf) {
 				const permissions = vc.permissionsFor(newState.guild.members.me!);
 				if (permissions?.has("DeafenMembers")) {
@@ -103,10 +111,12 @@ export default class VoiceStateUpdate extends Event {
 			const player = client.manager.getPlayer(newState.guild.id);
 			if (!player) return;
 			if (!player?.voiceChannelId) return;
+			
 			const is247 = await client.db.get_247(newState.guild.id);
 			const vc = newState.guild.channels.cache.get(player.voiceChannelId);
 			if (!(vc && vc.members instanceof Map)) return;
 
+			// Check if all non-bot members have left the channel
 			if (
 				vc.members instanceof Map &&
 				[...vc.members.values()].filter((x: GuildMember) => !x.user.bot)
