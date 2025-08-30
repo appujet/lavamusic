@@ -59,106 +59,106 @@ export default class VoiceStateUpdate extends Event {
 
    	try {
    		if (type === "join") {
-   			await this.handle.join(newState, this.client);
+   			await this.handleJoin(newState, this.client);
    		} else if (type === "leave") {
-   			await this.handle.leave(newState, this.client);
+   			await this.handleLeave(newState, this.client);
    		} else if (type === "move") {
-   			await this.handle.move(newState, this.client);
+   			await this.handleMove(newState, this.client);
    		}
    	} catch (err) {
    		this.client.logger?.error?.("VoiceStateUpdate handler error", err);
    	}
    }
 
-   handle = {
-   	async join(newState: VoiceState, client: Lavamusic) {
-   		await this.delay(3000);
-   		const bot = newState.guild.voiceStates.cache.get(client.user!.id);
-   		if (!bot) return;
+   private async handleJoin(newState: VoiceState, client: Lavamusic): Promise<void> {
+   	await this.delay(3000);
+   	const bot = newState.guild.voiceStates.cache.get(client.user!.id);
+   	if (!bot) return;
 
+   	if (
+   		bot.channelId &&
+   		bot.channel?.type === ChannelType.GuildStageVoice &&
+   		bot.suppress
+   	) {
    		if (
-   			bot.channelId &&
-   			bot.channel?.type === ChannelType.GuildStageVoice &&
-   			bot.suppress
+   			bot.channel &&
+   			bot.member &&
+   			bot.channel.permissionsFor(bot.member!).has("MuteMembers")
    		) {
-   			if (
-   				bot.channel &&
-   				bot.member &&
-   				bot.channel.permissionsFor(bot.member!).has("MuteMembers")
-   			) {
-   				await bot.setSuppressed(false);
-   			}
+   			await bot.setSuppressed(false);
    		}
+   	}
 
-   		const player = client.manager.getPlayer(newState.guild.id);
-   		if (!player) return;
+   	const player = client.manager.getPlayer(newState.guild.id);
+   	if (!player) return;
 
-   		if (!player?.voiceChannelId) return;
+   	if (!player?.voiceChannelId) return;
 
-   		const vc = newState.guild.channels.cache.get(player.voiceChannelId);
-   		if (!vc) return;
-   		
-   		if (newState.id === client.user?.id && !newState.serverDeaf) {
-   			const permissions = vc.permissionsFor(newState.guild.members.me!);
-   			if (permissions?.has("DeafenMembers")) {
-   				await newState.setDeaf(true);
-   			}
+   	const vc = newState.guild.channels.cache.get(player.voiceChannelId);
+   	if (!vc) return;
+   	
+   	if (newState.id === client.user?.id && !newState.serverDeaf) {
+   		const permissions = vc.permissionsFor(newState.guild.members.me!);
+   		if (permissions?.has("DeafenMembers")) {
+   			await newState.setDeaf(true);
    		}
+   	}
 
-   		if (newState.id === client.user?.id) {
-   			if (newState.serverMute && !player.paused) {
-   				await player.pause();
-   			} else if (!newState.serverMute && player.paused) {
-   				await player.resume();
-   			}
+   	if (newState.id === client.user?.id) {
+   		if (newState.serverMute && !player.paused) {
+   			await player.pause();
+   		} else if (!newState.serverMute && player.paused) {
+   			await player.resume();
    		}
-   	},
+   	}
+   }
 
-   	async leave(newState: VoiceState, client: Lavamusic) {
-   		const player = client.manager.getPlayer(newState.guild.id);
-   		if (!player) return;
-   		if (!player?.voiceChannelId) return;
-   		const is247 = await client.db.get_247(newState.guild.id);
-   		const vc = newState.guild.channels.cache.get(player.voiceChannelId);
-   		if (!vc) return;
-   		if (vc.members.filter((m: GuildMember) => !m.user.bot).size === 0) {
-   			setTimeout(async () => {
-   				const latestPlayer = client.manager.getPlayer(newState.guild.id);
-   				if (!latestPlayer?.voiceChannelId) return;
-   				const ch = newState.guild.channels.cache.get(latestPlayer.voiceChannelId);
-   				if (ch && ch.members.filter((m: GuildMember) => !m.user.bot).size === 0) {
-   					if (!is247) {
-   						try {
-   							await latestPlayer.destroy();
-   						} catch (err) {
-   							client.logger?.error?.("destroy() after 5s no-listeners failed", err);
-   						}
+   private async handleLeave(newState: VoiceState, client: Lavamusic): Promise<void> {
+   	const player = client.manager.getPlayer(newState.guild.id);
+   	if (!player) return;
+   	if (!player?.voiceChannelId) return;
+   	
+   	const is247 = await client.db.get_247(newState.guild.id);
+   	const vc = newState.guild.channels.cache.get(player.voiceChannelId);
+   	if (!vc) return;
+
+   	if (vc.members.filter((m: GuildMember) => !m.user.bot).size === 0) {
+   		setTimeout(async () => {
+   			const latestPlayer = client.manager.getPlayer(newState.guild.id);
+   			if (!latestPlayer?.voiceChannelId) return;
+   			const ch = newState.guild.channels.cache.get(latestPlayer.voiceChannelId);
+   			if (ch && ch.members.filter((m: GuildMember) => !m.user.bot).size === 0) {
+   				if (!is247) {
+   					try {
+   						await latestPlayer.destroy();
+   					} catch (err) {
+   						client.logger?.error?.("destroy() after 5s no-listeners failed", err);
    					}
    				}
-   			}, 5000);
-   		}
-   	},
-
-   	async move(newState: VoiceState, client: Lavamusic) {
-   		await this.delay(3000);
-   		const bot = newState.guild.voiceStates.cache.get(client.user!.id);
-   		if (!bot) return;
-
-   		if (
-   			bot.channelId &&
-   			bot.channel?.type === ChannelType.GuildStageVoice &&
-   			bot.suppress
-   		) {
-   			if (
-   				bot.channel &&
-   				bot.member &&
-   				bot.channel.permissionsFor(bot.member!).has("MuteMembers")
-   			) {
-   				await bot.setSuppressed(false);
    			}
+   		}, 5000);
+   	}
+   }
+
+   private async handleMove(newState: VoiceState, client: Lavamusic): Promise<void> {
+   	await this.delay(3000);
+   	const bot = newState.guild.voiceStates.cache.get(client.user!.id);
+   	if (!bot) return;
+
+   	if (
+   		bot.channelId &&
+   		bot.channel?.type === ChannelType.GuildStageVoice &&
+   		bot.suppress
+   	) {
+   		if (
+   			bot.channel &&
+   			bot.member &&
+   			bot.channel.permissionsFor(bot.member!).has("MuteMembers")
+   		) {
+   			await bot.setSuppressed(false);
    		}
-   	},
-   };
+   	}
+   }
 }
 
 /**
