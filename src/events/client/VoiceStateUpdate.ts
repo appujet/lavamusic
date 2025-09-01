@@ -22,7 +22,10 @@ export default class VoiceStateUpdate extends Event {
 		const is247 = await this.client.db.get_247(guildId);
 
 		const botMember = await newState.guild.members.fetch(this.client.user!.id).catch(() => null);
-		const botVoiceChannelId = botMember?.voice?.channelId;
+		const botVoiceChannelId =
+			newState.guild.voiceStates.cache.get(this.client.user!.id)?.channelId ??
+			newState.guild.members.me?.voice?.channelId ??
+			botMember?.voice?.channelId;
 
 		if (newState.id === this.client.user!.id && oldState.channelId && !newState.channelId) {
 			if (!is247) {
@@ -35,7 +38,7 @@ export default class VoiceStateUpdate extends Event {
 			return;
 		}
 
-		if (!botVoiceChannelId && !is247 && player) {
+		if (botMember !== null && !botVoiceChannelId && !is247 && player) {
 			try {
 				await player.destroy();
 			} catch (err) {
@@ -59,6 +62,10 @@ export default class VoiceStateUpdate extends Event {
 		}
 
 		try {
+			if (newState.id === this.client.user!.id) {
+				await this.handleSelfState(oldState, newState, this.client);
+			}
+
 			if (type === "join") {
 				await this.handleJoin(newState, this.client);
 			} else if (type === "leave") {
@@ -71,11 +78,40 @@ export default class VoiceStateUpdate extends Event {
 		}
 	}
 
+	private async handleSelfState(oldState: VoiceState, newState: VoiceState, client: Lavamusic): Promise<void> {
+		const player = client.manager.getPlayer(newState.guild.id);
+		if (!player) return;
+
+		if (newState.serverMute !== oldState.serverMute) {
+			try {
+				if (newState.serverMute && !player.paused) {
+					await player.pause();
+				} else if (!newState.serverMute && player.paused) {
+					await player.resume();
+				}
+			} catch (err) {
+				client.logger?.error?.("pause/resume on serverMute toggle failed", err);
+			}
+		}
+
+		if (newState.serverDeaf !== oldState.serverDeaf && !newState.serverDeaf) {
+			const vc = await newState.guild.channels.fetch(player.voiceChannelId!).catch(() => null);
+			if (vc && 'members' in vc) {
+				const botMember = await newState.guild.members.fetch(client.user!.id).catch(() => null);
+				if (botMember) {
+					const permissions = vc.permissionsFor(botMember);
+					if (permissions?.has("DeafenMembers")) {
+						await newState.setDeaf(true);
+					}
+				}
+			}
+		}
+	}
+
 	private async handleJoin(newState: VoiceState, client: Lavamusic): Promise<void> {
 		await this.delay(3000);
 		const bot = newState.guild.voiceStates.cache.get(client.user!.id);
 		if (!bot) return;
-
 		if (
 			bot.channelId &&
 			bot.channel?.type === ChannelType.GuildStageVoice &&
@@ -105,14 +141,6 @@ export default class VoiceStateUpdate extends Event {
 				if (permissions?.has("DeafenMembers")) {
 					await newState.setDeaf(true);
 				}
-			}
-		}
-
-		if (newState.id === client.user?.id) {
-			if (newState.serverMute && !player.paused) {
-				await player.pause();
-			} else if (!newState.serverMute && player.paused) {
-				await player.resume();
 			}
 		}
 	}
@@ -148,7 +176,6 @@ export default class VoiceStateUpdate extends Event {
 		await this.delay(3000);
 		const bot = newState.guild.voiceStates.cache.get(client.user!.id);
 		if (!bot) return;
-
 		if (
 			bot.channelId &&
 			bot.channel?.type === ChannelType.GuildStageVoice &&
