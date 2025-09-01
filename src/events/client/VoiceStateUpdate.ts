@@ -115,7 +115,7 @@ export default class VoiceStateUpdate extends Event {
 		if (
 			bot.channelId &&
 			bot.channel?.type === ChannelType.GuildStageVoice &&
-			bot.suppress
+			bot.suppressed
 		) {
 			if (
 				bot.channel &&
@@ -179,7 +179,7 @@ export default class VoiceStateUpdate extends Event {
 		if (
 			bot.channelId &&
 			bot.channel?.type === ChannelType.GuildStageVoice &&
-			bot.suppress
+			bot.suppressed
 		) {
 			if (
 				bot.channel &&
