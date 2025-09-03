@@ -38,13 +38,16 @@ export default class GuildList extends Command {
 		let allGuilds: { name: string; id: string }[] = [];
 		if (client.shard) {
 			try {
-				const results = await client.shard.broadcastEval<{ name: string; id: string }[]>(
-					(c) => c.guilds.cache.map((g) => ({ name: g.name, id: g.id })),
-				);
+				const results = await client.shard.broadcastEval<
+					{ name: string; id: string }[]
+				>((c) => c.guilds.cache.map((g) => ({ name: g.name, id: g.id })));
 				allGuilds = results.flat();
 			} catch {
 				// Fallback to local cache if cross-shard request fails
-				allGuilds = client.guilds.cache.map((g) => ({ name: g.name, id: g.id }));
+				allGuilds = client.guilds.cache.map((g) => ({
+					name: g.name,
+					id: g.id,
+				}));
 			}
 		} else {
 			allGuilds = client.guilds.cache.map((g) => ({ name: g.name, id: g.id }));
