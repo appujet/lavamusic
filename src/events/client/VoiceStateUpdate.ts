@@ -1,4 +1,4 @@
-import { ChannelType, type GuildMember, type VoiceState } from "discord.js";
+import { ChannelType, PermissionFlagsBits, type GuildMember, type VoiceState } from "discord.js";
 import { Event, type Lavamusic } from "../../structures/index";
 
 export default class VoiceStateUpdate extends Event {
@@ -100,8 +100,12 @@ export default class VoiceStateUpdate extends Event {
 				const botMember = await newState.guild.members.fetch(client.user!.id).catch(() => null);
 				if (botMember) {
 					const permissions = vc.permissionsFor(botMember);
-					if (permissions?.has("DeafenMembers")) {
-						await newState.setDeaf(true);
+					if (permissions?.has(PermissionFlagsBits.DeafenMembers)) {
+						try {
+							await newState.setDeaf(true);
+						} catch (err) {
+							client.logger?.warn?.("setDeaf(true) failed", err);
+						}
 					}
 				}
 			}
@@ -112,17 +116,17 @@ export default class VoiceStateUpdate extends Event {
 		await this.delay(3000);
 		const bot = newState.guild.voiceStates.cache.get(client.user!.id);
 		if (!bot) return;
-		if (
-			bot.channelId &&
-			bot.channel?.type === ChannelType.GuildStageVoice &&
-			bot.suppressed
-		) {
+		if (bot.channelId && bot.channel?.type === ChannelType.GuildStageVoice && bot.suppressed) {
 			if (
 				bot.channel &&
 				bot.member &&
-				bot.channel.permissionsFor(bot.member!).has("MuteMembers")
+				bot.channel.permissionsFor(bot.member!).has(PermissionFlagsBits.MuteMembers)
 			) {
-				await bot.setSuppressed(false);
+				try {
+					await bot.setSuppressed(false);
+				} catch (err) {
+					client.logger?.warn?.("setSuppressed(false) failed", err);
+				}
 			}
 		}
 
@@ -138,8 +142,12 @@ export default class VoiceStateUpdate extends Event {
 			const botMember = await newState.guild.members.fetch(client.user!.id).catch(() => null);
 			if (botMember) {
 				const permissions = vc.permissionsFor(botMember);
-				if (permissions?.has("DeafenMembers")) {
-					await newState.setDeaf(true);
+				if (permissions?.has(PermissionFlagsBits.DeafenMembers)) {
+					try {
+						await newState.setDeaf(true);
+					} catch (err) {
+						client.logger?.warn?.("setDeaf(true) on join failed", err);
+					}
 				}
 			}
 		}
@@ -176,17 +184,17 @@ export default class VoiceStateUpdate extends Event {
 		await this.delay(3000);
 		const bot = newState.guild.voiceStates.cache.get(client.user!.id);
 		if (!bot) return;
-		if (
-			bot.channelId &&
-			bot.channel?.type === ChannelType.GuildStageVoice &&
-			bot.suppressed
-		) {
+		if (bot.channelId && bot.channel?.type === ChannelType.GuildStageVoice && bot.suppressed) {
 			if (
 				bot.channel &&
 				bot.member &&
-				bot.channel.permissionsFor(bot.member!).has("MuteMembers")
+				bot.channel.permissionsFor(bot.member!).has(PermissionFlagsBits.MuteMembers)
 			) {
-				await bot.setSuppressed(false);
+				try {
+					await bot.setSuppressed(false);
+				} catch (err) {
+					client.logger?.warn?.("setSuppressed(false) failed", err);
+				}
 			}
 		}
 	}
