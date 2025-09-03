@@ -23,7 +23,7 @@ export default class VoiceStateUpdate extends Event {
 		const player = this.client.manager.getPlayer(guildId);
 		if (!player) return;
 
-		if (!player?.voiceChannelId) return;
+		if (!player.voiceChannelId) return;
 
 		const is247 = await this.client.db.get_247(guildId);
 
