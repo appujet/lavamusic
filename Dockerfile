@@ -33,7 +33,11 @@ WORKDIR /opt/lavamusic
 RUN apk add --no-cache --virtual .runtime-deps \
     openssl \
     ca-certificates \
-    tzdata
+    tzdata \
+    curl
+
+# Install dotenvx
+RUN curl -sfS https://dotenvx.sh | sh
 
 # Copy necessary files from builder
 COPY --from=builder --chown=node:node /opt/lavamusic/dist ./dist
@@ -57,4 +61,4 @@ LABEL maintainer="appujet <sdipedit@gmail.com>" \
       org.opencontainers.image.licenses="MIT"
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
-CMD ["node", "dist/index.js"]
+CMD ["dotenvx", "run", "--", "node", "dist/index.js"]
