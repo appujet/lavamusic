@@ -98,18 +98,6 @@ export default class VoiceStateUpdate extends Event {
 		const player = client.manager.getPlayer(newState.guild.id);
 		if (!player) return;
 
-		if (newState.serverMute !== oldState.serverMute) {
-			try {
-				if (newState.serverMute && !player.paused) {
-					await player.pause();
-				} else if (!newState.serverMute && player.paused) {
-					await player.resume();
-				}
-			} catch (err) {
-				client.logger?.error?.("pause/resume on serverMute toggle failed", err);
-			}
-		}
-
 		if (newState.serverDeaf !== oldState.serverDeaf && !newState.serverDeaf) {
 			const vc = await newState.guild.channels
 				.fetch(player.voiceChannelId!)
