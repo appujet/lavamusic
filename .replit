@@ -1,8 +1,8 @@
-run = "npm run start"
-hidden = [".dist", ".config"]
+run = "bun run start"
+hidden = [".dist", ".config", ".bun"]
 
 [packager]
-language = "nodejs"
+language = "bash"
 
 [packager.features]
 enabledForHosting = false
@@ -13,7 +13,7 @@ guessImports = true
 XDG_CONFIG_HOME = "/home/runner/.config"
 
 [nix]
-channel = "stable-22_11"
+channel = "nixos-unstable"
 
 [gitHubImport]
 requiredFiles = [".replit", "replit.nix", ".config"]
