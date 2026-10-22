@@ -54,7 +54,7 @@
     "discord.js": "^14.25.1",
     "drizzle-orm": "^0.45.2",
     "genius-lyrics-api": "^3.2.1",
-    "i18next": "^25.8.13",
+    "i18next": "^26.0.0",
     "lavalink-client": "^2.9.7",
     "node-system-stats": "^2.0.5",
     "pg": "^8.19.0",
