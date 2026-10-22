@@ -1,43 +1,11 @@
 import { Database } from "bun:sqlite";
 import { env } from "../env";
 import logger from "../structures/Logger";
+import { detectDatabaseType } from "./detectDatabaseType";
 import { PostgresProvider, SQLiteProvider } from "./provider";
 import * as pgSchema from "./schemas";
 import * as sqliteSchema from "./schemas.sqlite";
 import { DatabaseType, type IDatabaseProvider } from "./types";
-
-/**
- * Detects the database type from the connection URL
- */
-export function detectDatabaseType(url?: string): DatabaseType {
-	if (!url) return DatabaseType.PGLite;
-
-	if (url.startsWith("postgres://") || url.startsWith("postgresql://")) {
-		return DatabaseType.Postgres;
-	}
-
-	if (
-		url.startsWith("sqlite:") ||
-		url.endsWith(".db") ||
-		url.endsWith(".sqlite") ||
-		url.endsWith(".sqlite3")
-	) {
-		return DatabaseType.SQLite;
-	}
-
-	if (url.startsWith("file:")) {
-		// If it has query parameters (e.g., ?mode=ro), it is a valid SQLite URI
-		if (url.includes("?")) return DatabaseType.SQLite;
-
-		// If it has a file extension, it is likely a SQLite file
-		if (/\.(db|sqlite3?)$/i.test(url)) return DatabaseType.SQLite;
-
-		// If it starts with 'file:' but has no extension or query, assume it's a PGLite directory
-		return DatabaseType.PGLite;
-	}
-
-	return DatabaseType.PGLite;
-}
 
 /**
  * Creates and returns a database provider based on the DATABASE_URL
@@ -61,24 +29,9 @@ export async function createDatabaseProvider(): Promise<IDatabaseProvider> {
 			const { drizzle } = await import("drizzle-orm/pglite");
 			const dataDir = env.DATABASE_URL?.replace("file:", "") || "./lavamusic-pgdata";
 
-			let client: any;
+			const { PGlite } = await import("@electric-sql/pglite");
 
-			// PGLite bundle workaround
-			if (process.env.NODE_ENV === "production") {
-				try {
-					// Dynamic import to not break dev if assets don't exist
-					const { createPGlite } = await import("./pglite-wrapper");
-					client = await createPGlite(dataDir);
-					logger.info("[DB] Using bundled PGlite");
-				} catch (err) {
-					logger.error("Failed to load bundled PGlite, falling back to standard:", err);
-					const { PGlite } = await import("@electric-sql/pglite");
-					client = new PGlite(dataDir);
-				}
-			} else {
-				const { PGlite } = await import("@electric-sql/pglite");
-				client = new PGlite(dataDir);
-			}
+			const client: any = new PGlite(dataDir);
 
 			const db = drizzle(client, { schema: pgSchema });
 
