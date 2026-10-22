@@ -11,16 +11,16 @@ import {
 	type RESTPostAPIChatInputApplicationCommandsJSONBody,
 	Routes,
 } from "discord.js";
+import { CommandList } from "../commands";
+import { ComponentList } from "../components";
 import config from "../config";
 import ServerData from "../database/server";
-import { CommandList } from "../commands";
-import { EventList } from "../events";
-import { ComponentList } from "../components";
 import { env } from "../env";
+import { EventList } from "../events";
 import { LavamusicEventType } from "../types/events";
 import * as Utils from "../utils/Utils";
 import { initI18n, resolveLocalizations, t } from "./I18n";
-import type { Component, Command } from "./index";
+import type { Command, Component } from "./index";
 import LavalinkClient from "./LavalinkClient";
 import logger from "./Logger";
 
