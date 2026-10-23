@@ -19,15 +19,15 @@ export async function initI18n() {
 	// Detect available files to build the supported languages list
 	const languages = existsSync(LOCALES_PATH)
 		? readdirSync(LOCALES_PATH).filter((lang) => {
-				const fullPath = join(LOCALES_PATH, lang);
+			const fullPath = join(LOCALES_PATH, lang);
 
-				if (!lstatSync(fullPath).isDirectory()) return false;
+			if (!lstatSync(fullPath).isDirectory()) return false;
 
-				if (lang.startsWith(".") || lang.startsWith("_")) return false;
-				if (UNSUPPORTED_LOCALES.includes(lang)) return false;
+			if (lang.startsWith(".") || lang.startsWith("_")) return false;
+			if (UNSUPPORTED_LOCALES.includes(lang)) return false;
 
-				return true;
-			})
+			return true;
+		})
 		: [];
 
 	await i18next.init({
@@ -36,7 +36,7 @@ export async function initI18n() {
 		interpolation: { escapeValue: false, prefix: "{", suffix: "}" },
 		nsSeparator: ":",
 		keySeparator: ".",
-		initImmediate: false,
+		initAsync: false,
 	});
 
 	for (const locale of languages) {
@@ -165,7 +165,7 @@ const buildPath = (path: string[]) =>
  * Converts access like I18N.cmd.ping into "cmd:ping".
  */
 const createProxy = (path: string[] = []): any =>
-	new Proxy(() => {}, {
+	new Proxy(() => { }, {
 		get: (_, prop) => {
 			if (prop === "toString" || prop === Symbol.toPrimitive) return () => buildPath(path);
 			if (typeof prop !== "string" || prop === "then") return undefined;

@@ -1,15 +1,15 @@
 import { rm } from "node:fs/promises";
+import { join } from "node:path";
 import type { BuildConfig, BunPlugin } from "bun";
 
 console.time("✅ Build complete");
 
-console.log("🧹 Cleaning previous build...");
-await rm("./dist", { recursive: true, force: true });
+const clean = async () => {
+	console.log("🧹 Cleaning previous build...");
+	await rm(join(import.meta.dir, "..", "dist"), { recursive: true, force: true });
+};
 
-Bun.spawnSync(["bun", "run", "scripts/prepare-pglite.ts"], {
-	stdout: "inherit",
-	stderr: "inherit",
-});
+await clean();
 
 // Find all .ts files (except type definitions and tests)
 const glob = new Bun.Glob("**/*.ts");
@@ -46,7 +46,7 @@ const buildConfig: BuildConfig = {
 	minify: true,
 	target: "bun",
 	sourcemap: false,
-	external: ["./locales/*"],
+	external: ["./locales/*", "@electric-sql/pglite"],
 	splitting: true,
 	naming: { chunk: "chunks/[hash].[ext]" },
 	plugins: [stubOptionalDeps],
