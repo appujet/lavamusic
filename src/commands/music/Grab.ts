@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import type { Requester } from "../../types";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
@@ -8,7 +7,7 @@ export default class Grab extends Command {
 		super(client, {
 			name: "grab",
 			description: {
-				content: I18N.commands.grab.description,
+				content: ($) => $.commands.grab.description,
 				examples: ["grab"],
 				usage: "grab",
 			},
@@ -36,7 +35,7 @@ export default class Grab extends Command {
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild.id);
 
-		await ctx.sendDeferMessage(ctx.locale(I18N.commands.grab.loading));
+		await ctx.sendDeferMessage(ctx.locale(($) => $.commands.grab.loading));
 
 		if (!player?.queue.current) {
 			return await ctx.sendMessage({
@@ -44,14 +43,14 @@ export default class Grab extends Command {
 					this.client
 						.embed()
 						.setColor(this.client.color.red)
-						.setDescription(ctx.locale(I18N.player.errors.no_song)),
+						.setDescription(ctx.locale(($) => $.player.errors.no_song)),
 				],
 			});
 		}
 
 		const song = player.queue.current;
 
-		const songInfo = ctx.locale(I18N.commands.grab.content, {
+		const songInfo = ctx.locale(($) => $.commands.grab.content, {
 			title: song.info.title,
 			uri: song.info.uri,
 			artworkUrl: song.info.artworkUrl,
@@ -76,7 +75,7 @@ export default class Grab extends Command {
 				embeds: [
 					this.client
 						.embed()
-						.setDescription(ctx.locale(I18N.commands.grab.check_dm))
+						.setDescription(ctx.locale(($) => $.commands.grab.check_dm))
 						.setColor(this.client.color.green),
 				],
 			});
@@ -85,7 +84,7 @@ export default class Grab extends Command {
 				embeds: [
 					this.client
 						.embed()
-						.setDescription(ctx.locale(I18N.commands.grab.dm_failed))
+						.setDescription(ctx.locale(($) => $.commands.grab.dm_failed))
 						.setColor(this.client.color.red),
 				],
 			});

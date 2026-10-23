@@ -1,5 +1,4 @@
 import { ContainerBuilder, MessageFlags, SectionBuilder } from "discord.js";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -8,7 +7,7 @@ export default class Nowplaying extends Command {
 		super(client, {
 			name: "nowplaying",
 			description: {
-				content: I18N.commands.nowplaying.description,
+				content: ($) => $.commands.nowplaying.description,
 				examples: ["nowplaying"],
 				usage: "nowplaying",
 			},
@@ -37,7 +36,7 @@ export default class Nowplaying extends Command {
 		const player = client.manager.getPlayer(ctx.guild.id);
 
 		if (!player || !player.queue.current) {
-			const noMusic = ctx.locale(I18N.events.message.no_music_playing);
+			const noMusic = ctx.locale(($) => $.events.message.no_music_playing);
 			const container = new ContainerBuilder()
 				.setAccentColor(this.client.color.red)
 				.addSectionComponents(
@@ -54,9 +53,9 @@ export default class Nowplaying extends Command {
 		const dur = track.info.duration;
 		const bar = client.utils.progressBar(pos, dur, 20);
 
-		const label = ctx.locale(I18N.commands.nowplaying.now_playing);
+		const label = ctx.locale(($) => $.commands.nowplaying.now_playing);
 
-		const trackInfo = ctx.locale(I18N.commands.nowplaying.track_info, {
+		const trackInfo = ctx.locale(($) => $.commands.nowplaying.track_info, {
 			title: track.info.title ?? "N/A",
 			uri: track.info.uri ?? "about:blank",
 			requester: (() => {

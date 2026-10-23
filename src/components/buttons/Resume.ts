@@ -1,6 +1,6 @@
 import type { ButtonInteraction } from "discord.js";
 import { Component, type Lavamusic } from "../../structures";
-import { I18N, t } from "../../structures/I18n";
+import { t } from "../../structures/I18n";
 import { handlePlayerInteraction, updatePlayerMessage } from "../../utils/PlayerUIUtils";
 
 export default class ResumeButton extends Component {
@@ -22,7 +22,7 @@ export default class ResumeButton extends Component {
 				this.client,
 				interaction,
 				player,
-				t(I18N.player.trackStart.resumed_by, { user: interaction.user.tag }),
+				t(($) => $.player.trackStart.resumed_by, { user: interaction.user.tag }),
 			);
 		} else {
 			player.pause();
@@ -31,7 +31,7 @@ export default class ResumeButton extends Component {
 				this.client,
 				interaction,
 				player,
-				t(I18N.player.trackStart.paused_by, { user: interaction.user.tag }),
+				t(($) => $.player.trackStart.paused_by, { user: interaction.user.tag }),
 			);
 		}
 	}

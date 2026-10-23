@@ -1,13 +1,19 @@
 {
-    "invite": "Pozovi",
-    "support": "Poslužitelj za podršku",
-    "previous": "Prethodno",
-    "resume": "Nastavi",
-    "stop": "Zaustavi",
-    "skip": "Preskoči",
-    "loop": "Ponavljanje",
-    "next": "Sljedeće",
-    "errors": {
-        "not_author": "Ne možete koristiti ovaj gumb."
-    }
+	"invite": "Pozovi",
+	"support": "Poslužitelj za podršku",
+	"previous": "Prethodno",
+	"resume": "Nastavi",
+	"stop": "Zaustavi",
+	"skip": "Preskoči",
+	"loop": "Ponavljanje",
+	"next": "Sljedeće",
+	"errors": {
+		"not_author": "Ne možete koristiti ovaj gumb."
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

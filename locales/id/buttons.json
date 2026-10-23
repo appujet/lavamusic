@@ -9,5 +9,11 @@
 	"next": "Selanjutnya",
 	"errors": {
 		"not_author": "Anda tidak dapat menggunakan tombol ini."
-	}
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

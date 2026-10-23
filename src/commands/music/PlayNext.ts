@@ -4,7 +4,6 @@ import type {
 	VoiceChannel,
 } from "discord.js";
 import type { SearchResult } from "lavalink-client";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import {
 	Connect,
@@ -20,7 +19,7 @@ export default class PlayNext extends Command {
 		super(client, {
 			name: "playnext",
 			description: {
-				content: I18N.commands.playnext.description,
+				content: ($) => $.commands.playnext.description,
 				examples: [
 					"playnext example",
 					"playnext https://www.youtube.com/watch?v=example",
@@ -49,7 +48,7 @@ export default class PlayNext extends Command {
 			options: [
 				{
 					name: "song",
-					description: I18N.commands.playnext.options.song,
+					description: ($) => $.commands.playnext.options.song,
 					type: 3,
 					required: true,
 					autocomplete: true,
@@ -65,7 +64,7 @@ export default class PlayNext extends Command {
 
 		if (!memberVoiceChannel) {
 			return await ctx.editMessage({
-				content: ctx.locale(I18N.player.errors.user_not_in_voice_channel),
+				content: ctx.locale(($) => $.player.errors.user_not_in_voice_channel),
 			});
 		}
 
@@ -80,7 +79,7 @@ export default class PlayNext extends Command {
 			});
 		if (!player.connected) await player.connect();
 
-		await ctx.sendDeferMessage(ctx.locale(I18N.commands.playnext.loading));
+		await ctx.sendDeferMessage(ctx.locale(($) => $.commands.playnext.loading));
 
 		let response: SearchResult;
 		try {
@@ -92,7 +91,7 @@ export default class PlayNext extends Command {
 					this.client
 						.embed()
 						.setColor(this.client.color.red)
-						.setDescription(ctx.locale(I18N.commands.play.errors.search_error)),
+						.setDescription(ctx.locale(($) => $.commands.play.errors.search_error)),
 				],
 			});
 		}
@@ -105,7 +104,7 @@ export default class PlayNext extends Command {
 				embeds: [
 					embed
 						.setColor(this.client.color.red)
-						.setDescription(ctx.locale(I18N.commands.play.errors.search_error)),
+						.setDescription(ctx.locale(($) => $.commands.play.errors.search_error)),
 				],
 			});
 		}
@@ -120,7 +119,7 @@ export default class PlayNext extends Command {
 				content: "",
 				embeds: [
 					embed.setColor(this.client.color.main).setDescription(
-						ctx.locale(I18N.commands.playnext.added_playlist_to_play_next, {
+						ctx.locale(($) => $.commands.playnext.added_playlist_to_play_next, {
 							length: response.tracks.length,
 						}),
 					),
@@ -131,7 +130,7 @@ export default class PlayNext extends Command {
 				content: "",
 				embeds: [
 					embed.setColor(this.client.color.main).setDescription(
-						ctx.locale(I18N.commands.playnext.added_to_play_next, {
+						ctx.locale(($) => $.commands.playnext.added_to_play_next, {
 							title: response.tracks[0].info.title,
 							uri: response.tracks[0].info.uri,
 						}),

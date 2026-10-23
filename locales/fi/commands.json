@@ -1,639 +1,644 @@
 {
-    "247": {
-        "description": "Aseta botti pysymään puhekanavalla",
-        "errors": {
-            "not_in_voice": "Sinun on oltava puhekanavalla käyttääksesi tätä komentoa.",
-            "generic": "Tapahtui virhe tätä komentoa suoritettaessa."
-        },
-        "messages": {
-            "disabled": "`✅` | 24/7-tila on `POISTETTU KÄYTÖSTÄ`.",
-            "enabled": "`✅` | 24/7-tila on `OTETTU KÄYTTÖÖN`."
-        }
-    },
-    "fairplay": {
-        "description": "Aseta botti soittamaan musiikkia oikeudenmukaisesti käyttäjien kesken.",
-        "errors": {
-            "not_in_voice": "Sinun on oltava puhekanavalla käyttääksesi tätä komentoa.",
-            "generic": "Tapahtui virhe tätä komentoa suoritettaessa."
-        },
-        "messages": {
-            "disabled": "`✅` | Fairplay-tila on `POISTETTU KÄYTÖSTÄ`.",
-            "enabled": "`✅` | Fairplay-tila on `OTETTU KÄYTTÖÖN`."
-        }
-    },
-    "ping": {
-        "description": "Näyttää botin latenssin.",
-        "content": "Pingataan...",
-        "bot_latency": "Botin latenssi",
-        "api_latency": "API:n latenssi",
-        "requested_by": "Pyytänyt {author}"
-    },
-    "lavalink": {
-        "description": "Näyttää nykyiset Lavalink-solmun tilastot.",
-        "title": "Lavalink-tilastot",
-        "content": "Soitin: {players}\nSoittavia soittimia: {playingPlayers}\nUptime: {uptime}\nYtimet: {cores} ydin(tä)\nMuistin käyttö: {used} / {reservable}\nJärjestelmän kuormitus: {systemLoad}%\nLavalink-kuormitus: {lavalinkLoad}%",
-        "page_info": "Sivu {index} / {total}"
-    },
-    "invite": {
-        "description": "Hanki botin kutsulinkki.",
-        "content": "Voit kutsua minut klikkaamalla alla olevaa painiketta. Onko bugeja tai käyttökatkoja? Liity tukipalvelimelle!"
-    },
-    "help": {
-        "description": "Näyttää ohjevalikon.",
-        "options": {
-            "command": "Komento, josta haluat lisätietoja"
-        },
-        "content": "Hei siellä! Olen `{bot}`, musiikkibotti, joka on tehty käyttäen [`Lavamusic`-projektia](https://github.com/bongodevs/lavamusic) ja `Discord.js`-kirjastoa.\nVoit käyttää komentoa `{prefix}help <komento>` saadaksesi lisätietoja tietystä komennosta.",
-        "title": "Ohjevalikko",
-        "not_found": "Tätä `{cmdName}` -komentoa ei ole olemassa.",
-        "help_cmd": "**Kuvaus:** {description}\n**Käyttö:** {usage}\n**Esimerkit:** {examples}\n**Aliakset:** {aliases}\n**Kategoria:** {category}\n**Latausaika:** {cooldown} sekuntia\n**Oikeudet:** {premUser}\n**Botin oikeudet:** {premBot}\n**Vain kehittäjille:** {dev}\n**Vinoviivakomento:** {slash}\n**Argumentit:** {args}\n**Soitin:** {player}\n**DJ:** {dj}\n**DJ-oikeudet:** {djPerm}\n**Puhe:** {voice}",
-        "footer": "Käytä {prefix}help <komento> saadaksesi lisätietoja"
-    },
-    "botinfo": {
-        "description": "Tietoa botista",
-        "content": "Botin tiedot:\n- **Käyttöjärjestelmä**: {osInfo}\n- **Uptime**: {osUptime}\n- **Isäntänimi**: {osHostname}\n- **CPU-arkkitehtuuri**: {cpuInfo}\n- **CPU-käyttö**: {cpuUsed}%\n- **Muistin käyttö**: {memUsed}MB / {memTotal}GB\n- **Node-versio**: {nodeVersion}\n- **Discord.js-versio**: {discordJsVersion}\n- **Yhdistettynä** {guilds} palvelimelle, {channels} kanavalle ja {users} käyttäjälle\n- **Komentojen määrä**: {commands}"
-    },
-    "about": {
-        "description": "Näyttää tietoja botista",
-        "fields": {
-            "creator": "Luoja",
-            "repository": "Lähdekoodi",
-            "support": "Tuki",
-            "description": "Hän halusi todella tehdä ensimmäisen avoimen lähdekoodin projektinsa saadakseen lisää koodauskokemusta. Tässä projektissa hän haastoi itsensä tekemään projektin, jossa on vähemmän bugeja. Toivottavasti nautit LavaMusicin käytöstä!"
-        }
-    },
-    "dj": {
-        "description": "Hallitse DJ-tilaa ja siihen liittyviä rooleja",
-        "errors": {
-            "provide_role": "Anna rooli.",
-            "no_roles": "DJ-rooli on tyhjä.",
-            "invalid_subcommand": "Anna kelvollinen alikomento."
-        },
-        "messages": {
-            "role_exists": "DJ-rooli <@&{roleId}> on jo lisätty.",
-            "role_added": "DJ-rooli <@&{roleId}> on lisätty.",
-            "role_not_found": "DJ-roolia <@&{roleId}> ei ole lisätty.",
-            "role_removed": "DJ-rooli <@&{roleId}> on poistettu.",
-            "all_roles_cleared": "Kaikki DJ-roolit on poistettu.",
-            "toggle": "DJ-tila on asetettu tilaan {status}."
-        },
-        "options": {
-            "add": "DJ-rooli, jonka haluat lisätä",
-            "remove": "DJ-rooli, jonka haluat poistaa",
-            "clear": "Tyhjentää kaikki DJ-roolit",
-            "toggle": "Vaihtaa DJ-roolin tilaa",
-            "role": "DJ-rooli"
-        },
-        "subcommands": "Alikomennot"
-    },
-    "language": {
-        "description": "Määritä botin kieli.",
-        "invalid_language": "Anna kelvollinen kieli. Esimerkki: `en-US` englannille (Yhdysvallat)\n\nLöydät luettelon tuetuista kielistä [täältä](https://discord.com/developers/docs/reference#locales)\n\n**Saatavilla olevat kielet:**\n{languages}",
-        "already_set": "Kieli on jo asetettu arvoon `{language}`",
-        "not_set": "Kieltä ei ole asetettu.",
-        "set": "Kieli on asetettu arvoon `{language}`",
-        "reset": "Kieli on palautettu oletuskieleen.",
-        "options": {
-            "set": "Aseta botin kieli",
-            "language": "Kieli, jonka haluat asettaa",
-            "reset": "Vaihda kieli takaisin oletuskieleen"
-        }
-    },
-    "prefix": {
-        "description": "Näyttää tai asettaa botin etuliitteen",
-        "errors": {
-            "prefix_too_long": "Etuliite ei voi olla pidempi kuin 3 merkkiä."
-        },
-        "messages": {
-            "current_prefix": "Tämän palvelimen etuliite on `{prefix}`",
-            "prefix_set": "Tämän palvelimen etuliite on nyt `{prefix}`",
-            "prefix_reset": "Tämän palvelimen etuliite on nyt `{prefix}`"
-        },
-        "options": {
-            "set": "Asettaa etuliitteen",
-            "prefix": "Etuliite, jonka haluat asettaa",
-            "reset": "Palauttaa etuliitteen oletusarvoon"
-        }
-    },
-    "setup": {
-        "description": "Määrittää botin asetukset",
-        "errors": {
-            "channel_exists": "Kappalepyyntökanava on jo olemassa.",
-            "channel_not_exists": "Kappalepyyntökanavaa ei ole olemassa.",
-            "channel_delete_fail": "Asetuskanava on poistettu tietokannasta. Poista tekstikanava manuaalisesti."
-        },
-        "messages": {
-            "channel_created": "Kappalepyyntökanava on luotu kanavalle <#{channelId}>.",
-            "channel_deleted": "Kappalepyyntökanava on poistettu.",
-            "channel_info": "Kappalepyyntökanava on <#{channelId}>."
-        },
-        "options": {
-            "create": "Luo kappalepyyntökanavan",
-            "delete": "Poistaa kappalepyyntökanavan",
-            "info": "Näyttää kappalepyyntökanavan"
-        }
-    },
-    "defaultvolume": {
-        "description": "Asettaa botin oletusäänenvoimakkuuden tällä palvelimella",
-        "options": {
-            "volume": "Oletusäänenvoimakkuus, jonka haluat asettaa (0-200)"
-        },
-        "messages": {
-            "current": "Tämän palvelimen nykyinen oletusäänenvoimakkuus on **{volume}**.",
-            "set": "`✅` | Oletusäänenvoimakkuus on asetettu arvoon **{volume}**.",
-            "invalid_number": "Anna kelvollinen numero.",
-            "too_low": "Äänenvoimakkuus ei voi olla pienempi kuin 0.",
-            "too_high": "Äänenvoimakkuus ei voi olla suurempi kuin 200."
-        }
-    },
-    "8d": {
-        "description": "Vaihtaa 8D-suodattimen tilaa",
-        "messages": {
-            "filter_enabled": "`✅` | 8D-suodatin on `OTETTU KÄYTTÖÖN`.",
-            "filter_disabled": "`✅` | 8D-suodatin on `POISTETTU KÄYSTÖSTÄ`."
-        }
-    },
-    "bassboost": {
-        "description": "Vaihtaa bassboost-suodattimen tilaa",
-        "options": {
-            "level": "Basson korostuksen taso"
-        },
-        "messages": {
-            "high": "`✅` | Korkea bassboost-suodatin on `OTETTU KÄYTTÖÖN`.",
-            "low": "`✅` | Matala bassboost-suodatin on `OTETTU KÄYTTÖÖN`.",
-            "medium": "`✅` | Keskisuuri bassboost-suodatin on `OTETTU KÄYTTÖÖN`.",
-            "off": "`✅` | Bassboost-suodatin on `POISTETTU KÄYTÖSTÄ`.",
-            "invalid_level": "Anna kelvollinen taso. Saatavilla olevat tasot: `high`, `medium`, `low`, `off`."
-        }
-    },
-    "distortion": {
-        "description": "Vaihtaa särösuodattimen tilaa",
-        "messages": {
-            "filter_enabled": "`✅` | Särösuodatin on `OTETTU KÄYTTÖÖN`.",
-            "filter_disabled": "`✅` | Särösuodatin on `POISTETTU KÄYTÖSTÄ`."
-        }
-    },
-    "karaoke": {
-        "description": "Vaihtaa karaoke-suodattimen tilaa",
-        "messages": {
-            "filter_enabled": "`✅` | Karaoke-suodatin on `OTETTU KÄYTTÖÖN`.",
-            "filter_disabled": "`✅` | Karaoke-suodatin on `POISTETTU KÄYTÖSTÄ`."
-        }
-    },
-    "lowpass": {
-        "description": "Vaihtaa alipäästösuodattimen tilaa",
-        "messages": {
-            "filter_enabled": "`✅` | Alipäästösuodatin on `OTETTU KÄYTTÖÖN`.",
-            "filter_disabled": "`✅` | Alipäästösuodatin on `POISTETTU KÄYTÖSTÄ`."
-        }
-    },
-    "nightcore": {
-        "description": "Vaihtaa nightcore-suodattimen tilaa",
-        "messages": {
-            "filter_enabled": "`✅` | Nightcore-suodatin on `OTETTU KÄYTTÖÖN`.",
-            "filter_disabled": "`✅` | Nightcore-suodatin on `POISTETTU KÄYTÖSTÄ`."
-        }
-    },
-    "pitch": {
-        "description": "Vaihtaa sävelkorkeuden suodattimen tilaa",
-        "options": {
-            "pitch": "Asetettava sävelkorkeus (0.5 - 5)"
-        },
-        "errors": {
-            "invalid_number": "Anna kelvollinen numero väliltä 0.5 ja 5."
-        },
-        "messages": {
-            "pitch_set": "`✅` | Sävelkorkeus on asetettu arvoon **{pitch}**."
-        }
-    },
-    "rate": {
-        "description": "Muuttaa kappaleen nopeutta",
-        "options": {
-            "rate": "Asetettava nopeus (0.5 - 5)"
-        },
-        "errors": {
-            "invalid_number": "Anna kelvollinen numero väliltä 0.5 ja 5."
-        },
-        "messages": {
-            "rate_set": "`✅` | Nopeus on asetettu arvoon **{rate}**."
-        }
-    },
-    "reset": {
-        "description": "Nollaa kaikki aktiiviset suodattimet",
-        "messages": {
-            "filters_reset": "`✅` | Suodattimet on nollattu."
-        }
-    },
-    "rotation": {
-        "description": "Vaihtaa kiertosuodattimen tilaa",
-        "messages": {
-            "enabled": "`✅` | Kiertosuodatin on `OTETTU KÄYTTÖÖN`.",
-            "disabled": "`✅` | Kiertosuodatin on `POISTETTU KÄYTÖSTÄ`."
-        }
-    },
-    "speed": {
-        "description": "Muuttaa kappaleen nopeutta",
-        "options": {
-            "speed": "Nopeus, jonka haluat asettaa (0.5 - 5)"
-        },
-        "messages": {
-            "invalid_number": "Anna kelvollinen numero väliltä 0.5 ja 5.",
-            "set_speed": "`✅` | Nopeus on asetettu arvoon **{speed}**."
-        }
-    },
-    "tremolo": {
-        "description": "Vaihtaa tremolo-suodattimen tilaa",
-        "messages": {
-            "enabled": "`✅` | Tremolo-suodatin on `OTETTU KÄYTTÖÖN`.",
-            "disabled": "`✅` | Tremolo-suodatin on `POISTETTU KÄYTÖSTÄ`."
-        }
-    },
-    "vibrato": {
-        "description": "Vaihtaa vibrato-suodattimen tilaa",
-        "messages": {
-            "enabled": "`✅` | Vibrato-suodatin on `OTETTU KÄYTTÖÖN`.",
-            "disabled": "`✅` | Vibrato-suodatin on `POISTETTU KÄYTÖSTÄ`."
-        }
-    },
-    "autoplay": {
-        "description": "Vaihtaa automaattisen toiston tilaa.",
-        "messages": {
-            "enabled": "`✅` | Automaattinen toisto on `OTETTU KÄYTTÖÖN`.",
-            "disabled": "`✅` | Automaattinen toisto on `POISTETTU KÄYTÖSTÄ`."
-        }
-    },
-    "clearqueue": {
-        "description": "Tyhjentää nykyisen jonon.",
-        "messages": {
-            "cleared": "Jono on tyhjennetty."
-        }
-    },
-    "grab": {
-        "description": "Tallentaa nykyisen kappaleen yksityisviesteihisi.",
-        "loading": "Ladataan...",
-        "content": "**Kesto:** {length}\n**Pyytänyt:** <@{requester}>\n**Linkki:** [Klikkaa tästä]({uri})",
-        "check_dm": "Tarkista yksityisviestisi.",
-        "dm_failed": "En voinut lähettää sinulle yksityisviestiä. Varmista, että yksityisviestisi ovat auki."
-    },
-    "join": {
-        "description": "Yhdistää botin puhekanavallesi",
-        "already_connected": "Olen jo yhdistettynä kanavaan <#{channelId}>.",
-        "no_voice_channel": "Sinun on oltava puhekanavalla käyttääksesi tätä komentoa.",
-        "joined": "Yhdistetty onnistuneesti kanavaan <#{channelId}>."
-    },
-    "leave": {
-        "description": "Poistaa botin puhekanavalta",
-        "left": "Poistuttu onnistuneesti kanavalta <#{channelId}>.",
-        "not_in_channel": "En ole puhekanavalla."
-    },
-    "loop": {
-        "description": "Toistaa nykyistä kappaletta tai jonoa",
-        "options": {
-            "mode": "Toistotila, jonka haluat asettaa"
-        },
-        "messages": {
-            "looping_song": "**Toistetaan kappaletta.**",
-            "looping_queue": "**Toistetaan jonoa.**",
-            "looping_off": "**Toisto on nyt pois päältä.**",
-            "invalid_mode": "Virheellinen toistotila"
-        }
-    },
-    "lyrics": {
-        "description": "Näyttää nykyisen kappaleen sanat",
-        "lyrics_for_track": "### Sanat kappaleelle: [{trackTitle}]({trackUrl})",
-        "no_lyrics_on_page": "Sanoja ei löytynyt tältä sivulta.",
-        "searching": "🔍 Etsitään kappaleen **{trackTitle}** sanoja...",
-        "session_expired": "Istunto on vanhentunut. Käytä komentoa uudelleen päivittääksesi.",
-        "page_indicator": "Sivu {current}/{total}",
-        "artwork_description": "Kuvitus kohteelle {trackTitle}",
-        "no_lyrics_available": "Sanoja ei ole saatavilla",
-        "button_subscribe": "📌 Tilaa Live Lyrics",
-        "button_unsubscribe": "📌 Peruuta Live Lyrics -tilaus",
-        "subscribed": "Olet tilannut live-lyriikkapäivitykset!",
-        "unsubscribed": "Olet peruuttanut live-lyriikkapäivitysten tilauksen.",
-        "errors": {
-            "no_results": "Nykyiselle kappaleelle ei löytynyt sanoja.",
-            "lyrics_error": "Tapahtui virhe sanoja haettaessa.",
-            "no_player_for_lyrics": "Sanoja ei voida hakea tälle kappaleelle ilman aktiivista soitinta."
-        },
-        "options": {
-            "song": "Kappale, jonka sanat haluat hakea"
-        }
-    },
-    "nowplaying": {
-        "description": "Näyttää tällä hetkellä soivan kappaleen",
-        "now_playing": "Nyt soitetaan",
-        "track_info": "[{title}]({uri}) - Pyytänyt: <@{requester}>\n\n`{bar}`"
-    },
-    "pause": {
-        "description": "Tauottaa nykyisen kappaleen",
-        "successfully_paused": "Kappale tauotettu onnistuneesti."
-    },
-    "play": {
-        "description": "Soittaa kappaleen YouTubesta, Spotifysta, URL-osoitteesta jne.",
-        "options": {
-            "song": "Kappale tai URL, jonka haluat soittaa"
-        },
-        "loading": "Ladataan...",
-        "errors": {
-            "search_error": "Haun aikana tapahtui virhe.",
-            "no_results": "Tuloksia ei löytynyt.",
-            "queue_too_long": "Jono on liian pitkä. Maksimipituus on {maxQueueSize} kappaletta.",
-            "playlist_too_long": "Soittolista on liian pitkä. Maksimipituus on {maxPlaylistSize} kappaletta."
-        },
-        "added_to_queue": "Lisätty [{title}]({uri}) jonoon.",
-        "added_playlist_to_queue": "Lisätty {length} kappaletta jonoon."
-    },
-    "playlocal": {
-        "description": "Soittaa paikallisen äänitiedoston",
-        "options": {
-            "file": "Äänitiedosto, jonka haluat soittaa"
-        },
-        "loading": "Ladataan...",
-        "errors": {
-            "empty_query": "Liitä äänitiedosto soittaaksesi sen.",
-            "invalid_format": "Voit soittaa vain MP3-, WAV-, OGG-, FLAC-, AAC- tai M4A-tiedostoja.",
-            "no_results": "Äänitiedoston soittaminen epäonnistui. Se saattaa olla vioittunut."
-        },
-        "added_to_queue": "Lisätty [{title}]({url}) jonoon"
-    },
-    "playnext": {
-        "description": "Lisää kappaleen jonon kärkeen",
-        "options": {
-            "song": "Kappale, jonka haluat soittaa"
-        },
-        "loading": "Ladataan...",
-        "errors": {
-            "search_error": "Haun aikana tapahtui virhe.",
-            "no_results": "Tuloksia ei löytynyt.",
-            "queue_too_long": "Jono on liian pitkä. Maksimipituus on {maxQueueSize} kappaletta.",
-            "playlist_too_long": "Soittolista on liian pitkä. Maksimipituus on {maxPlaylistSize} kappaletta."
-        },
-        "added_to_play_next": "Lisätty [{title}]({uri}) soitettavaksi seuraavana.",
-        "added_playlist_to_play_next": "Lisätty {length} kappaletta soitettavaksi seuraavana."
-    },
-    "queue": {
-        "description": "Näyttää nykyisen kappalejonon.",
-        "now_playing": "Nyt soitetaan: [{title}]({uri}) - Pyytänyt: <@{requester}> - Kesto: `{duration}`",
-        "live": "LIVE",
-        "track_info": "{index}. [{title}]({uri}) - Pyytänyt: <@{requester}> - Kesto: `{duration}`",
-        "title": "Jono",
-        "page_info": "Sivu {index} / {total}",
-        "duration": "Jonon kesto: `{totalDuration}`"
-    },
-    "remove": {
-        "description": "Poistaa tietyn kappaleen jonosta",
-        "options": {
-            "song": "Kappaleen numero, jonka haluat poistaa"
-        },
-        "errors": {
-            "no_songs": "Jonossa ei ole kappaleita.",
-            "invalid_number": "Anna kelvollinen numero."
-        },
-        "messages": {
-            "removed": "Poistettu kappale numero {songNumber} jonosta."
-        }
-    },
-    "replay": {
-        "description": "Soittaa nykyisen kappaleen uudelleen",
-        "errors": {
-            "not_seekable": "Tätä kappaletta ei voida soittaa uudelleen, koska kelaaminen ei ole mahdollista."
-        },
-        "messages": {
-            "replaying": "Soitetaan nykyinen kappale uudelleen."
-        }
-    },
-    "resume": {
-        "description": "Jatkaa tauotettua kappaletta",
-        "errors": {
-            "not_paused": "Soitin ei ole tauolla."
-        },
-        "messages": {
-            "resumed": "Jatkettu toistoa."
-        }
-    },
-    "search": {
-        "description": "Etsi kappaletta",
-        "options": {
-            "song": "Kappale, jota etsit"
-        },
-        "select": "Valitse kappale listasta...",
-        "errors": {
-            "no_results": "Tuloksia ei löytynyt.",
-            "no_results_title": "Hakutuloksia ei löytynyt!",
-            "no_results_description": "En löytänyt hakuehtojasi vastaavia kappaleita. Yritä vaihtaa hakusanoja tai antaa linkki.",
-            "invalid_selection_title": "Virheellinen valinta!",
-            "invalid_selection_description": "Valittu vaihtoehto on virheellinen. Valitse kappaleen numero listasta.",
-            "search_error": "Tapahtui virhe kappaletta etsittäessä.",
-            "vc_connect_fail_title": "Virhe puhekanavaan yhdistettäessä",
-            "vc_connect_fail_description": "En voinut yhdistää puhekanavaasi. Varmista, että minulla on tarvittavat oikeudet."
-        },
-        "messages": {
-            "results_found": "Löytyi **{count}** kappaletta.",
-            "select_prompt": "Valitse numero lisätäksesi kappaleen jonoon.",
-            "page_info": "Sivu {currentPage}/{maxPages}",
-            "added_to_queue": "Lisätty **[{title}]({uri})** jonoon!",
-            "selection_timed_out_title": "Aika loppui!",
-            "selection_timed_out_description": "Kappaletta ei valittu annetussa ajassa. Haku on peruttu. Yritä uudelleen.",
-            "selection_timed_out_short": "Valinnan aikaraja umpeutui."
-        }
-    },
-    "seek": {
-        "description": "Kelaa tiettyyn kohtaan kappaleessa",
-        "options": {
-            "duration": "Kohta, johon kelataan (esim. 1m 30s)"
-        },
-        "errors": {
-            "invalid_format": "Virheellinen aikamuoto. Esimerkkejä: seek 1m, seek 1h 30m",
-            "not_seekable": "Tämä kappale ei ole kelattavissa.",
-            "beyond_duration": "Ei voida kelata kappaleen keston ({length}) yli."
-        },
-        "messages": {
-            "seeked_to": "Kelattu kohtaan {duration}"
-        }
-    },
-    "shuffle": {
-        "description": "Sekoittaa jonon",
-        "messages": {
-            "shuffled": "Jono sekoitettu."
-        },
-        "errors": {
-            "fairplay": "Fairplay-tila on käytössä. Jonoa ei voi sekoittaa."
-        }
-    },
-    "skip": {
-        "description": "Ohittaa nykyisen kappaleen",
-        "messages": {
-            "skipped": "Ohitettu [{title}]({uri})."
-        }
-    },
-    "skipto": {
-        "description": "Hyppää tiettyyn kappaleeseen jonossa",
-        "options": {
-            "number": "Kappaleen numero, johon haluat hypätä"
-        },
-        "errors": {
-            "invalid_number": "Anna kelvollinen numero."
-        },
-        "messages": {
-            "skipped_to": "Hypätty kappaleeseen numero {number}."
-        }
-    },
-    "move": {
-        "description": "Siirrä kappaleen paikkaa jonossa",
-        "options": {
-            "from": "Siirrettävän kappaleen paikka",
-            "to": "Paikka, johon kappale siirretään"
-        },
-        "errors": {
-            "no_tracks": "Jonossa ei ole kappaleita.",
-            "invalid_usage": "Virheellinen käyttö. Anna lähtö- ja kohdepaikat.",
-            "invalid_numbers": "Anna kelvolliset paikat.",
-            "invalid_positions": "Anna kelvolliset paikat jonossa.",
-            "same_position": "Lähtö- ja kohdepaikat ovat samat."
-        },
-        "messages": {
-            "moved": "Siirretty **{title}** paikasta {from} paikkaan {to}."
-        }
-    },
-    "stop": {
-        "description": "Pysäyttää musiikin ja tyhjentää jonon",
-        "messages": {
-            "stopped": "Musiikki pysäytetty ja jono tyhjennetty."
-        }
-    },
-    "volume": {
-        "description": "Asettaa soittimen äänenvoimakkuuden",
-        "options": {
-            "number": "Äänenvoimakkuus, jonka haluat asettaa (0-200)"
-        },
-        "messages": {
-            "invalid_number": "Anna kelvollinen numero.",
-            "too_low": "Äänenvoimakkuus ei voi olla pienempi kuin 0.",
-            "too_high": "Äänenvoimakkuus ei voi olla suurempi kuin 200. Haluatko vaurioittaa kuuloasi tai kaiuttimiasi? Hmmm, se ei taida olla hyvä idea.",
-            "set": "Asetettu äänenvoimakkuus arvoon {volume}"
-        }
-    },
-    "addsong": {
-        "description": "Lisää kappaleen tallennettuun soittolistaan",
-        "options": {
-            "playlist": "Soittolista, johon haluat lisätä",
-            "song": "Kappale, jonka haluat lisätä"
-        },
-        "messages": {
-            "no_playlist": "Anna soittolista",
-            "no_song": "Anna kappale",
-            "playlist_not_found": "Kyseistä soittolistaa ei ole olemassa",
-            "no_songs_found": "Kappaleita ei löytynyt",
-            "added": "Lisätty {count} kappaletta soittolistaan {playlist}"
-        }
-    },
-    "create": {
-        "description": "Luo uuden soittolistan.",
-        "options": {
-            "name": "Soittolistan nimi"
-        },
-        "messages": {
-            "name_too_long": "Soittolistan nimi voi olla enintään 50 merkkiä pitkä.",
-            "playlist_exists": "Saman niminen soittolista on jo olemassa. Käytä toista nimeä.",
-            "playlist_created": "Soittolista **{name}** on luotu.",
-            "name_empty": "Sinun täytyy antaa soittolistan nimi."
-        }
-    },
-    "delete": {
-        "description": "Poistaa soittolistan",
-        "options": {
-            "playlist": "Soittolista, jonka haluat poistaa"
-        },
-        "messages": {
-            "playlist_not_found": "Kyseistä soittolistaa ei ole olemassa.",
-            "playlist_deleted": "Poistettu soittolista **{playlistName}**."
-        }
-    },
-    "list": {
-        "description": "Listaa kaikki käyttäjän soittolistat",
-        "options": {
-            "user": "Käyttäjä, jonka soittolistat haluat nähdä"
-        },
-        "messages": {
-            "no_playlists": "Tällä käyttäjällä ei ole soittolistoja.",
-            "your": "Sinun",
-            "playlists_title": "Käyttäjän {username} soittolistat",
-            "error": "Tapahtui virhe soittolistoja haettaessa.",
-            "invalid_username": "Virheellinen käyttäjänimi tai käyttäjää ei löytynyt.",
-            "invalid_userid": "Virheellinen käyttäjä-ID."
-        }
-    },
-    "load": {
-        "description": "Lataa tallennetun soittolistan jonoon.",
-        "options": {
-            "playlist": "Soittolista, jonka haluat ladata"
-        },
-        "messages": {
-            "playlist_not_exist": "Kyseistä soittolistaa ei ole olemassa.",
-            "playlist_empty": "Kyseinen soittolista on tyhjä.",
-            "playlist_loaded": "Ladattu `{name}`, jossa on `{count}` kappaletta.",
-            "no_lavalink_nodes": "Lavalink-solmuja ei ole käytettävissä soittolistan lataamiseen."
-        }
-    },
-    "removesong": {
-        "description": "Poistaa kappaleen soittolistasta",
-        "options": {
-            "playlist": "Soittolista, josta haluat poistaa",
-            "song": "Kappale, jonka haluat poistaa"
-        },
-        "messages": {
-            "provide_playlist": "Anna soittolista.",
-            "provide_song": "Anna kappale.",
-            "playlist_not_exist": "Kyseistä soittolistaa ei ole olemassa.",
-            "song_not_found": "Vastaavaa kappaletta ei löytynyt.",
-            "song_removed": "Poistettu {song} soittolistasta {playlist}.",
-            "error_occurred": "Tapahtui virhe kappaletta poistettaessa."
-        }
-    },
-    "steal": {
-        "description": "Varastaa soittolistan toiselta käyttäjältä ja lisää sen omiin soittolistoihisi",
-        "options": {
-            "playlist": "Soittolista, jonka haluat varastaa",
-            "user": "Käyttäjä, jolta haluat varastaa soittolistan"
-        },
-        "messages": {
-            "provide_playlist": "Anna soittolistan nimi.",
-            "provide_user": "Mainitse käyttäjä.",
-            "playlist_not_exist": "Mainitulla käyttäjällä ei ole kyseistä soittolistaa.",
-            "playlist_exists": "Sinulla on jo soittolista nimeltä `{playlist}`.",
-            "playlist_stolen": "Varastettiin onnistuneesti soittolista `{playlist}` käyttäjältä {user}.",
-            "error_occurred": "Tapahtui virhe soittolistaa varastettaessa."
-        }
-    },
-    "movenode": {
-        "description": "Siirrä soittimet toiseen Lavalink-solmuun",
-        "options": {
-            "node": "Solmun ID, jonne soittimet siirretään"
-        },
-        "messages": {
-            "no_player": "Tällä palvelimella ei ole aktiivista musiikkisoitinta.",
-            "no_available_nodes": "Siirrettävissä olevia solmuja ei ole saatavilla.",
-            "available_nodes_title": "Saatavilla olevat solmut",
-            "current_node": "Nykyinen solmu",
-            "available_nodes": "Saatavilla olevat solmut",
-            "usage_hint": "Käyttö: movenode <nodeId>",
-            "node_not_found": "Solmua `{node}` ei löytynyt.",
-            "node_not_connected": "Solmu `{node}` ei ole yhdistetty.",
-            "same_node": "Soitin on jo solmussa `{node}`.",
-            "moving": "Siirretään soitin solmusta `{from}` solmuun `{to}`...",
-            "success_title": "Soitin siirretty onnistuneesti",
-            "success_description": "Soitin on siirretty solmusta `{from}` solmuun `{to}`.",
-            "error": "Soittimen siirtäminen epäonnistui: {error}",
-            "moving_all_players": "Siirretään kaikki soittimet solmuun `{node}`...",
-            "results_title": "MoveNode-tulokset",
-            "moved_players": "**Siirretyt soittimet palvelimilla:**\n{list}",
-            "guild_move": "• `{guildId}` ({from} → {to})",
-            "failed_moves": "**Soittimien siirtäminen epäonnistui palvelimilla:**\n{list}",
-            "guild_move_failed": "• `{guildId}`: {error}",
-            "no_players_moved": "Yhtään soitinta ei tarvinnut siirtää.",
-            "unknown_error": "Tuntematon virhe",
-            "no_players": "Yhtään soitinta ei ole siirrettävänä."
-        }
-    }
+	"247": {
+		"description": "Aseta botti pysymään puhekanavalla",
+		"errors": {
+			"not_in_voice": "Sinun on oltava puhekanavalla käyttääksesi tätä komentoa.",
+			"generic": "Tapahtui virhe tätä komentoa suoritettaessa."
+		},
+		"messages": {
+			"disabled": "`✅` | 24/7-tila on `POISTETTU KÄYTÖSTÄ`.",
+			"enabled": "`✅` | 24/7-tila on `OTETTU KÄYTTÖÖN`."
+		}
+	},
+	"fairplay": {
+		"description": "Aseta botti soittamaan musiikkia oikeudenmukaisesti käyttäjien kesken.",
+		"errors": {
+			"not_in_voice": "Sinun on oltava puhekanavalla käyttääksesi tätä komentoa.",
+			"generic": "Tapahtui virhe tätä komentoa suoritettaessa."
+		},
+		"messages": {
+			"disabled": "`✅` | Fairplay-tila on `POISTETTU KÄYTÖSTÄ`.",
+			"enabled": "`✅` | Fairplay-tila on `OTETTU KÄYTTÖÖN`."
+		}
+	},
+	"ping": {
+		"description": "Näyttää botin latenssin.",
+		"content": "Pingataan...",
+		"bot_latency": "Botin latenssi",
+		"api_latency": "API:n latenssi",
+		"requested_by": "Pyytänyt {author}"
+	},
+	"lavalink": {
+		"description": "Näyttää nykyiset Lavalink-solmun tilastot.",
+		"title": "Lavalink-tilastot",
+		"content": "Soitin: {players}\nSoittavia soittimia: {playingPlayers}\nUptime: {uptime}\nYtimet: {cores} ydin(tä)\nMuistin käyttö: {used} / {reservable}\nJärjestelmän kuormitus: {systemLoad}%\nLavalink-kuormitus: {lavalinkLoad}%",
+		"page_info": "Sivu {index} / {total}"
+	},
+	"invite": {
+		"description": "Hanki botin kutsulinkki.",
+		"content": "Voit kutsua minut klikkaamalla alla olevaa painiketta. Onko bugeja tai käyttökatkoja? Liity tukipalvelimelle!"
+	},
+	"help": {
+		"description": "Näyttää ohjevalikon.",
+		"options": {
+			"command": "Komento, josta haluat lisätietoja"
+		},
+		"content": "Hei siellä! Olen `{bot}`, musiikkibotti, joka on tehty käyttäen [`Lavamusic`-projektia](https://github.com/bongodevs/lavamusic) ja `Discord.js`-kirjastoa.\nVoit käyttää komentoa `{prefix}help <komento>` saadaksesi lisätietoja tietystä komennosta.",
+		"title": "Ohjevalikko",
+		"not_found": "Tätä `{cmdName}` -komentoa ei ole olemassa.",
+		"help_cmd": "**Kuvaus:** {description}\n**Käyttö:** {usage}\n**Esimerkit:** {examples}\n**Aliakset:** {aliases}\n**Kategoria:** {category}\n**Latausaika:** {cooldown} sekuntia\n**Oikeudet:** {premUser}\n**Botin oikeudet:** {premBot}\n**Vain kehittäjille:** {dev}\n**Vinoviivakomento:** {slash}\n**Argumentit:** {args}\n**Soitin:** {player}\n**DJ:** {dj}\n**DJ-oikeudet:** {djPerm}\n**Puhe:** {voice}",
+		"footer": "Käytä {prefix}help <komento> saadaksesi lisätietoja"
+	},
+	"botinfo": {
+		"description": "Tietoa botista",
+		"content": "Botin tiedot:\n- **Käyttöjärjestelmä**: {osInfo}\n- **Uptime**: {osUptime}\n- **Isäntänimi**: {osHostname}\n- **CPU-arkkitehtuuri**: {cpuInfo}\n- **CPU-käyttö**: {cpuUsed}%\n- **Muistin käyttö**: {memUsed}MB / {memTotal}GB\n- **Node-versio**: {nodeVersion}\n- **Discord.js-versio**: {discordJsVersion}\n- **Yhdistettynä** {guilds} palvelimelle, {channels} kanavalle ja {users} käyttäjälle\n- **Komentojen määrä**: {commands}"
+	},
+	"about": {
+		"description": "Näyttää tietoja botista",
+		"fields": {
+			"creator": "Luoja",
+			"repository": "Lähdekoodi",
+			"support": "Tuki",
+			"description": "Hän halusi todella tehdä ensimmäisen avoimen lähdekoodin projektinsa saadakseen lisää koodauskokemusta. Tässä projektissa hän haastoi itsensä tekemään projektin, jossa on vähemmän bugeja. Toivottavasti nautit LavaMusicin käytöstä!"
+		}
+	},
+	"dj": {
+		"description": "Hallitse DJ-tilaa ja siihen liittyviä rooleja",
+		"errors": {
+			"provide_role": "Anna rooli.",
+			"no_roles": "DJ-rooli on tyhjä.",
+			"invalid_subcommand": "Anna kelvollinen alikomento."
+		},
+		"messages": {
+			"role_exists": "DJ-rooli <@&{roleId}> on jo lisätty.",
+			"role_added": "DJ-rooli <@&{roleId}> on lisätty.",
+			"role_not_found": "DJ-roolia <@&{roleId}> ei ole lisätty.",
+			"role_removed": "DJ-rooli <@&{roleId}> on poistettu.",
+			"all_roles_cleared": "Kaikki DJ-roolit on poistettu.",
+			"toggle": "DJ-tila on asetettu tilaan {status}."
+		},
+		"options": {
+			"add": "DJ-rooli, jonka haluat lisätä",
+			"remove": "DJ-rooli, jonka haluat poistaa",
+			"clear": "Tyhjentää kaikki DJ-roolit",
+			"toggle": "Vaihtaa DJ-roolin tilaa",
+			"role": "DJ-rooli"
+		},
+		"subcommands": "Alikomennot"
+	},
+	"language": {
+		"description": "Määritä botin kieli.",
+		"invalid_language": "Anna kelvollinen kieli. Esimerkki: `en-US` englannille (Yhdysvallat)\n\nLöydät luettelon tuetuista kielistä [täältä](https://discord.com/developers/docs/reference#locales)\n\n**Saatavilla olevat kielet:**\n{languages}",
+		"already_set": "Kieli on jo asetettu arvoon `{language}`",
+		"not_set": "Kieltä ei ole asetettu.",
+		"set": "Kieli on asetettu arvoon `{language}`",
+		"reset": "Kieli on palautettu oletuskieleen.",
+		"options": {
+			"set": "Aseta botin kieli",
+			"language": "Kieli, jonka haluat asettaa",
+			"reset": "Vaihda kieli takaisin oletuskieleen"
+		}
+	},
+	"prefix": {
+		"description": "Näyttää tai asettaa botin etuliitteen",
+		"errors": {
+			"prefix_too_long": "Etuliite ei voi olla pidempi kuin 3 merkkiä."
+		},
+		"messages": {
+			"current_prefix": "Tämän palvelimen etuliite on `{prefix}`",
+			"prefix_set": "Tämän palvelimen etuliite on nyt `{prefix}`",
+			"prefix_reset": "Tämän palvelimen etuliite on nyt `{prefix}`"
+		},
+		"options": {
+			"set": "Asettaa etuliitteen",
+			"prefix": "Etuliite, jonka haluat asettaa",
+			"reset": "Palauttaa etuliitteen oletusarvoon"
+		}
+	},
+	"setup": {
+		"description": "Määrittää botin asetukset",
+		"errors": {
+			"channel_exists": "Kappalepyyntökanava on jo olemassa.",
+			"channel_not_exists": "Kappalepyyntökanavaa ei ole olemassa.",
+			"channel_delete_fail": "Asetuskanava on poistettu tietokannasta. Poista tekstikanava manuaalisesti."
+		},
+		"messages": {
+			"channel_created": "Kappalepyyntökanava on luotu kanavalle <#{channelId}>.",
+			"channel_deleted": "Kappalepyyntökanava on poistettu.",
+			"channel_info": "Kappalepyyntökanava on <#{channelId}>."
+		},
+		"options": {
+			"create": "Luo kappalepyyntökanavan",
+			"delete": "Poistaa kappalepyyntökanavan",
+			"info": "Näyttää kappalepyyntökanavan"
+		}
+	},
+	"defaultvolume": {
+		"description": "Asettaa botin oletusäänenvoimakkuuden tällä palvelimella",
+		"options": {
+			"volume": "Oletusäänenvoimakkuus, jonka haluat asettaa (0-200)"
+		},
+		"messages": {
+			"current": "Tämän palvelimen nykyinen oletusäänenvoimakkuus on **{volume}**.",
+			"set": "`✅` | Oletusäänenvoimakkuus on asetettu arvoon **{volume}**.",
+			"invalid_number": "Anna kelvollinen numero.",
+			"too_low": "Äänenvoimakkuus ei voi olla pienempi kuin 0.",
+			"too_high": "Äänenvoimakkuus ei voi olla suurempi kuin 200."
+		}
+	},
+	"8d": {
+		"description": "Vaihtaa 8D-suodattimen tilaa",
+		"messages": {
+			"filter_enabled": "`✅` | 8D-suodatin on `OTETTU KÄYTTÖÖN`.",
+			"filter_disabled": "`✅` | 8D-suodatin on `POISTETTU KÄYSTÖSTÄ`."
+		}
+	},
+	"bassboost": {
+		"description": "Vaihtaa bassboost-suodattimen tilaa",
+		"options": {
+			"level": "Basson korostuksen taso"
+		},
+		"messages": {
+			"high": "`✅` | Korkea bassboost-suodatin on `OTETTU KÄYTTÖÖN`.",
+			"low": "`✅` | Matala bassboost-suodatin on `OTETTU KÄYTTÖÖN`.",
+			"medium": "`✅` | Keskisuuri bassboost-suodatin on `OTETTU KÄYTTÖÖN`.",
+			"off": "`✅` | Bassboost-suodatin on `POISTETTU KÄYTÖSTÄ`.",
+			"invalid_level": "Anna kelvollinen taso. Saatavilla olevat tasot: `high`, `medium`, `low`, `off`."
+		}
+	},
+	"distortion": {
+		"description": "Vaihtaa särösuodattimen tilaa",
+		"messages": {
+			"filter_enabled": "`✅` | Särösuodatin on `OTETTU KÄYTTÖÖN`.",
+			"filter_disabled": "`✅` | Särösuodatin on `POISTETTU KÄYTÖSTÄ`."
+		}
+	},
+	"karaoke": {
+		"description": "Vaihtaa karaoke-suodattimen tilaa",
+		"messages": {
+			"filter_enabled": "`✅` | Karaoke-suodatin on `OTETTU KÄYTTÖÖN`.",
+			"filter_disabled": "`✅` | Karaoke-suodatin on `POISTETTU KÄYTÖSTÄ`."
+		}
+	},
+	"lowpass": {
+		"description": "Vaihtaa alipäästösuodattimen tilaa",
+		"messages": {
+			"filter_enabled": "`✅` | Alipäästösuodatin on `OTETTU KÄYTTÖÖN`.",
+			"filter_disabled": "`✅` | Alipäästösuodatin on `POISTETTU KÄYTÖSTÄ`."
+		}
+	},
+	"nightcore": {
+		"description": "Vaihtaa nightcore-suodattimen tilaa",
+		"messages": {
+			"filter_enabled": "`✅` | Nightcore-suodatin on `OTETTU KÄYTTÖÖN`.",
+			"filter_disabled": "`✅` | Nightcore-suodatin on `POISTETTU KÄYTÖSTÄ`."
+		}
+	},
+	"pitch": {
+		"description": "Vaihtaa sävelkorkeuden suodattimen tilaa",
+		"options": {
+			"pitch": "Asetettava sävelkorkeus (0.5 - 5)"
+		},
+		"errors": {
+			"invalid_number": "Anna kelvollinen numero väliltä 0.5 ja 5."
+		},
+		"messages": {
+			"pitch_set": "`✅` | Sävelkorkeus on asetettu arvoon **{pitch}**."
+		}
+	},
+	"rate": {
+		"description": "Muuttaa kappaleen nopeutta",
+		"options": {
+			"rate": "Asetettava nopeus (0.5 - 5)"
+		},
+		"errors": {
+			"invalid_number": "Anna kelvollinen numero väliltä 0.5 ja 5."
+		},
+		"messages": {
+			"rate_set": "`✅` | Nopeus on asetettu arvoon **{rate}**."
+		}
+	},
+	"reset": {
+		"description": "Nollaa kaikki aktiiviset suodattimet",
+		"messages": {
+			"filters_reset": "`✅` | Suodattimet on nollattu."
+		}
+	},
+	"rotation": {
+		"description": "Vaihtaa kiertosuodattimen tilaa",
+		"messages": {
+			"enabled": "`✅` | Kiertosuodatin on `OTETTU KÄYTTÖÖN`.",
+			"disabled": "`✅` | Kiertosuodatin on `POISTETTU KÄYTÖSTÄ`."
+		}
+	},
+	"speed": {
+		"description": "Muuttaa kappaleen nopeutta",
+		"options": {
+			"speed": "Nopeus, jonka haluat asettaa (0.5 - 5)"
+		},
+		"messages": {
+			"invalid_number": "Anna kelvollinen numero väliltä 0.5 ja 5.",
+			"set_speed": "`✅` | Nopeus on asetettu arvoon **{speed}**."
+		}
+	},
+	"tremolo": {
+		"description": "Vaihtaa tremolo-suodattimen tilaa",
+		"messages": {
+			"enabled": "`✅` | Tremolo-suodatin on `OTETTU KÄYTTÖÖN`.",
+			"disabled": "`✅` | Tremolo-suodatin on `POISTETTU KÄYTÖSTÄ`."
+		}
+	},
+	"vibrato": {
+		"description": "Vaihtaa vibrato-suodattimen tilaa",
+		"messages": {
+			"enabled": "`✅` | Vibrato-suodatin on `OTETTU KÄYTTÖÖN`.",
+			"disabled": "`✅` | Vibrato-suodatin on `POISTETTU KÄYTÖSTÄ`."
+		}
+	},
+	"autoplay": {
+		"description": "Vaihtaa automaattisen toiston tilaa.",
+		"messages": {
+			"enabled": "`✅` | Automaattinen toisto on `OTETTU KÄYTTÖÖN`.",
+			"disabled": "`✅` | Automaattinen toisto on `POISTETTU KÄYTÖSTÄ`."
+		}
+	},
+	"clearqueue": {
+		"description": "Tyhjentää nykyisen jonon.",
+		"messages": {
+			"cleared": "Jono on tyhjennetty."
+		}
+	},
+	"grab": {
+		"description": "Tallentaa nykyisen kappaleen yksityisviesteihisi.",
+		"loading": "Ladataan...",
+		"content": "**Kesto:** {length}\n**Pyytänyt:** <@{requester}>\n**Linkki:** [Klikkaa tästä]({uri})",
+		"check_dm": "Tarkista yksityisviestisi.",
+		"dm_failed": "En voinut lähettää sinulle yksityisviestiä. Varmista, että yksityisviestisi ovat auki."
+	},
+	"join": {
+		"description": "Yhdistää botin puhekanavallesi",
+		"already_connected": "Olen jo yhdistettynä kanavaan <#{channelId}>.",
+		"no_voice_channel": "Sinun on oltava puhekanavalla käyttääksesi tätä komentoa.",
+		"joined": "Yhdistetty onnistuneesti kanavaan <#{channelId}>."
+	},
+	"leave": {
+		"description": "Poistaa botin puhekanavalta",
+		"left": "Poistuttu onnistuneesti kanavalta <#{channelId}>.",
+		"not_in_channel": "En ole puhekanavalla."
+	},
+	"loop": {
+		"description": "Toistaa nykyistä kappaletta tai jonoa",
+		"options": {
+			"mode": "Toistotila, jonka haluat asettaa"
+		},
+		"messages": {
+			"looping_song": "**Toistetaan kappaletta.**",
+			"looping_queue": "**Toistetaan jonoa.**",
+			"looping_off": "**Toisto on nyt pois päältä.**",
+			"invalid_mode": "Virheellinen toistotila"
+		}
+	},
+	"lyrics": {
+		"description": "Näyttää nykyisen kappaleen sanat",
+		"lyrics_for_track": "### Sanat kappaleelle: [{trackTitle}]({trackUrl})",
+		"no_lyrics_on_page": "Sanoja ei löytynyt tältä sivulta.",
+		"searching": "🔍 Etsitään kappaleen **{trackTitle}** sanoja...",
+		"session_expired": "Istunto on vanhentunut. Käytä komentoa uudelleen päivittääksesi.",
+		"page_indicator": "Sivu {current}/{total}",
+		"artwork_description": "Kuvitus kohteelle {trackTitle}",
+		"no_lyrics_available": "Sanoja ei ole saatavilla",
+		"button_subscribe": "📌 Tilaa Live Lyrics",
+		"button_unsubscribe": "📌 Peruuta Live Lyrics -tilaus",
+		"subscribed": "Olet tilannut live-lyriikkapäivitykset!",
+		"unsubscribed": "Olet peruuttanut live-lyriikkapäivitysten tilauksen.",
+		"errors": {
+			"no_results": "Nykyiselle kappaleelle ei löytynyt sanoja.",
+			"lyrics_error": "Tapahtui virhe sanoja haettaessa.",
+			"no_player_for_lyrics": "Sanoja ei voida hakea tälle kappaleelle ilman aktiivista soitinta."
+		},
+		"options": {
+			"song": "Kappale, jonka sanat haluat hakea"
+		}
+	},
+	"nowplaying": {
+		"description": "Näyttää tällä hetkellä soivan kappaleen",
+		"now_playing": "Nyt soitetaan",
+		"track_info": "[{title}]({uri}) - Pyytänyt: <@{requester}>\n\n`{bar}`"
+	},
+	"pause": {
+		"description": "Tauottaa nykyisen kappaleen",
+		"successfully_paused": "Kappale tauotettu onnistuneesti."
+	},
+	"play": {
+		"description": "Soittaa kappaleen YouTubesta, Spotifysta, URL-osoitteesta jne.",
+		"options": {
+			"song": "Kappale tai URL, jonka haluat soittaa"
+		},
+		"loading": "Ladataan...",
+		"errors": {
+			"search_error": "Haun aikana tapahtui virhe.",
+			"no_results": "Tuloksia ei löytynyt.",
+			"queue_too_long": "Jono on liian pitkä. Maksimipituus on {maxQueueSize} kappaletta.",
+			"playlist_too_long": "Soittolista on liian pitkä. Maksimipituus on {maxPlaylistSize} kappaletta."
+		},
+		"added_to_queue": "Lisätty [{title}]({uri}) jonoon.",
+		"added_playlist_to_queue": "Lisätty {length} kappaletta jonoon."
+	},
+	"playlocal": {
+		"description": "Soittaa paikallisen äänitiedoston",
+		"options": {
+			"file": "Äänitiedosto, jonka haluat soittaa"
+		},
+		"loading": "Ladataan...",
+		"errors": {
+			"empty_query": "Liitä äänitiedosto soittaaksesi sen.",
+			"invalid_format": "Voit soittaa vain MP3-, WAV-, OGG-, FLAC-, AAC- tai M4A-tiedostoja.",
+			"no_results": "Äänitiedoston soittaminen epäonnistui. Se saattaa olla vioittunut."
+		},
+		"added_to_queue": "Lisätty [{title}]({url}) jonoon"
+	},
+	"playnext": {
+		"description": "Lisää kappaleen jonon kärkeen",
+		"options": {
+			"song": "Kappale, jonka haluat soittaa"
+		},
+		"loading": "Ladataan...",
+		"errors": {
+			"search_error": "Haun aikana tapahtui virhe.",
+			"no_results": "Tuloksia ei löytynyt.",
+			"queue_too_long": "Jono on liian pitkä. Maksimipituus on {maxQueueSize} kappaletta.",
+			"playlist_too_long": "Soittolista on liian pitkä. Maksimipituus on {maxPlaylistSize} kappaletta."
+		},
+		"added_to_play_next": "Lisätty [{title}]({uri}) soitettavaksi seuraavana.",
+		"added_playlist_to_play_next": "Lisätty {length} kappaletta soitettavaksi seuraavana."
+	},
+	"queue": {
+		"description": "Näyttää nykyisen kappalejonon.",
+		"now_playing": "Nyt soitetaan: [{title}]({uri}) - Pyytänyt: <@{requester}> - Kesto: `{duration}`",
+		"live": "LIVE",
+		"track_info": "{index}. [{title}]({uri}) - Pyytänyt: <@{requester}> - Kesto: `{duration}`",
+		"title": "Jono",
+		"page_info": "Sivu {index} / {total}",
+		"duration": "Jonon kesto: `{totalDuration}`"
+	},
+	"remove": {
+		"description": "Poistaa tietyn kappaleen jonosta",
+		"options": {
+			"song": "Kappaleen numero, jonka haluat poistaa"
+		},
+		"errors": {
+			"no_songs": "Jonossa ei ole kappaleita.",
+			"invalid_number": "Anna kelvollinen numero."
+		},
+		"messages": {
+			"removed": "Poistettu kappale numero {songNumber} jonosta."
+		}
+	},
+	"replay": {
+		"description": "Soittaa nykyisen kappaleen uudelleen",
+		"errors": {
+			"not_seekable": "Tätä kappaletta ei voida soittaa uudelleen, koska kelaaminen ei ole mahdollista."
+		},
+		"messages": {
+			"replaying": "Soitetaan nykyinen kappale uudelleen."
+		}
+	},
+	"resume": {
+		"description": "Jatkaa tauotettua kappaletta",
+		"errors": {
+			"not_paused": "Soitin ei ole tauolla."
+		},
+		"messages": {
+			"resumed": "Jatkettu toistoa."
+		}
+	},
+	"search": {
+		"description": "Etsi kappaletta",
+		"options": {
+			"song": "Kappale, jota etsit"
+		},
+		"select": "Valitse kappale listasta...",
+		"errors": {
+			"no_results": "Tuloksia ei löytynyt.",
+			"no_results_title": "Hakutuloksia ei löytynyt!",
+			"no_results_description": "En löytänyt hakuehtojasi vastaavia kappaleita. Yritä vaihtaa hakusanoja tai antaa linkki.",
+			"invalid_selection_title": "Virheellinen valinta!",
+			"invalid_selection_description": "Valittu vaihtoehto on virheellinen. Valitse kappaleen numero listasta.",
+			"search_error": "Tapahtui virhe kappaletta etsittäessä.",
+			"vc_connect_fail_title": "Virhe puhekanavaan yhdistettäessä",
+			"vc_connect_fail_description": "En voinut yhdistää puhekanavaasi. Varmista, että minulla on tarvittavat oikeudet."
+		},
+		"messages": {
+			"results_found": "Löytyi **{count}** kappaletta.",
+			"select_prompt": "Valitse numero lisätäksesi kappaleen jonoon.",
+			"page_info": "Sivu {currentPage}/{maxPages}",
+			"added_to_queue": "Lisätty **[{title}]({uri})** jonoon!",
+			"selection_timed_out_title": "Aika loppui!",
+			"selection_timed_out_description": "Kappaletta ei valittu annetussa ajassa. Haku on peruttu. Yritä uudelleen.",
+			"selection_timed_out_short": "Valinnan aikaraja umpeutui."
+		}
+	},
+	"seek": {
+		"description": "Kelaa tiettyyn kohtaan kappaleessa",
+		"options": {
+			"duration": "Kohta, johon kelataan (esim. 1m 30s)"
+		},
+		"errors": {
+			"invalid_format": "Virheellinen aikamuoto. Esimerkkejä: seek 1m, seek 1h 30m",
+			"not_seekable": "Tämä kappale ei ole kelattavissa.",
+			"beyond_duration": "Ei voida kelata kappaleen keston ({length}) yli."
+		},
+		"messages": {
+			"seeked_to": "Kelattu kohtaan {duration}"
+		}
+	},
+	"shuffle": {
+		"description": "Sekoittaa jonon",
+		"messages": {
+			"shuffled": "Jono sekoitettu."
+		},
+		"errors": {
+			"fairplay": "Fairplay-tila on käytössä. Jonoa ei voi sekoittaa."
+		}
+	},
+	"skip": {
+		"description": "Ohittaa nykyisen kappaleen",
+		"messages": {
+			"skipped": "Ohitettu [{title}]({uri})."
+		}
+	},
+	"skipto": {
+		"description": "Hyppää tiettyyn kappaleeseen jonossa",
+		"options": {
+			"number": "Kappaleen numero, johon haluat hypätä"
+		},
+		"errors": {
+			"invalid_number": "Anna kelvollinen numero."
+		},
+		"messages": {
+			"skipped_to": "Hypätty kappaleeseen numero {number}."
+		}
+	},
+	"move": {
+		"description": "Siirrä kappaleen paikkaa jonossa",
+		"options": {
+			"from": "Siirrettävän kappaleen paikka",
+			"to": "Paikka, johon kappale siirretään"
+		},
+		"errors": {
+			"no_tracks": "Jonossa ei ole kappaleita.",
+			"invalid_usage": "Virheellinen käyttö. Anna lähtö- ja kohdepaikat.",
+			"invalid_numbers": "Anna kelvolliset paikat.",
+			"invalid_positions": "Anna kelvolliset paikat jonossa.",
+			"same_position": "Lähtö- ja kohdepaikat ovat samat."
+		},
+		"messages": {
+			"moved": "Siirretty **{title}** paikasta {from} paikkaan {to}."
+		}
+	},
+	"stop": {
+		"description": "Pysäyttää musiikin ja tyhjentää jonon",
+		"messages": {
+			"stopped": "Musiikki pysäytetty ja jono tyhjennetty."
+		}
+	},
+	"volume": {
+		"description": "Asettaa soittimen äänenvoimakkuuden",
+		"options": {
+			"number": "Äänenvoimakkuus, jonka haluat asettaa (0-200)"
+		},
+		"messages": {
+			"invalid_number": "Anna kelvollinen numero.",
+			"too_low": "Äänenvoimakkuus ei voi olla pienempi kuin 0.",
+			"too_high": "Äänenvoimakkuus ei voi olla suurempi kuin 200. Haluatko vaurioittaa kuuloasi tai kaiuttimiasi? Hmmm, se ei taida olla hyvä idea.",
+			"set": "Asetettu äänenvoimakkuus arvoon {volume}"
+		}
+	},
+	"addsong": {
+		"description": "Lisää kappaleen tallennettuun soittolistaan",
+		"options": {
+			"playlist": "Soittolista, johon haluat lisätä",
+			"song": "Kappale, jonka haluat lisätä"
+		},
+		"messages": {
+			"no_playlist": "Anna soittolista",
+			"no_song": "Anna kappale",
+			"playlist_not_found": "Kyseistä soittolistaa ei ole olemassa",
+			"no_songs_found": "Kappaleita ei löytynyt",
+			"added": "Lisätty {count} kappaletta soittolistaan {playlist}"
+		}
+	},
+	"create": {
+		"description": "Luo uuden soittolistan.",
+		"options": {
+			"name": "Soittolistan nimi"
+		},
+		"messages": {
+			"name_too_long": "Soittolistan nimi voi olla enintään 50 merkkiä pitkä.",
+			"playlist_exists": "Saman niminen soittolista on jo olemassa. Käytä toista nimeä.",
+			"playlist_created": "Soittolista **{name}** on luotu.",
+			"name_empty": "Sinun täytyy antaa soittolistan nimi."
+		}
+	},
+	"delete": {
+		"description": "Poistaa soittolistan",
+		"options": {
+			"playlist": "Soittolista, jonka haluat poistaa"
+		},
+		"messages": {
+			"playlist_not_found": "Kyseistä soittolistaa ei ole olemassa.",
+			"playlist_deleted": "Poistettu soittolista **{playlistName}**."
+		}
+	},
+	"list": {
+		"description": "Listaa kaikki käyttäjän soittolistat",
+		"options": {
+			"user": "Käyttäjä, jonka soittolistat haluat nähdä"
+		},
+		"messages": {
+			"no_playlists": "Tällä käyttäjällä ei ole soittolistoja.",
+			"your": "Sinun",
+			"playlists_title": "Käyttäjän {username} soittolistat",
+			"error": "Tapahtui virhe soittolistoja haettaessa.",
+			"invalid_username": "Virheellinen käyttäjänimi tai käyttäjää ei löytynyt.",
+			"invalid_userid": "Virheellinen käyttäjä-ID."
+		}
+	},
+	"load": {
+		"description": "Lataa tallennetun soittolistan jonoon.",
+		"options": {
+			"playlist": "Soittolista, jonka haluat ladata"
+		},
+		"messages": {
+			"playlist_not_exist": "Kyseistä soittolistaa ei ole olemassa.",
+			"playlist_empty": "Kyseinen soittolista on tyhjä.",
+			"playlist_loaded": "Ladattu `{name}`, jossa on `{count}` kappaletta.",
+			"no_lavalink_nodes": "Lavalink-solmuja ei ole käytettävissä soittolistan lataamiseen."
+		}
+	},
+	"removesong": {
+		"description": "Poistaa kappaleen soittolistasta",
+		"options": {
+			"playlist": "Soittolista, josta haluat poistaa",
+			"song": "Kappale, jonka haluat poistaa"
+		},
+		"messages": {
+			"provide_playlist": "Anna soittolista.",
+			"provide_song": "Anna kappale.",
+			"playlist_not_exist": "Kyseistä soittolistaa ei ole olemassa.",
+			"song_not_found": "Vastaavaa kappaletta ei löytynyt.",
+			"song_removed": "Poistettu {song} soittolistasta {playlist}.",
+			"error_occurred": "Tapahtui virhe kappaletta poistettaessa."
+		}
+	},
+	"steal": {
+		"description": "Varastaa soittolistan toiselta käyttäjältä ja lisää sen omiin soittolistoihisi",
+		"options": {
+			"playlist": "Soittolista, jonka haluat varastaa",
+			"user": "Käyttäjä, jolta haluat varastaa soittolistan"
+		},
+		"messages": {
+			"provide_playlist": "Anna soittolistan nimi.",
+			"provide_user": "Mainitse käyttäjä.",
+			"playlist_not_exist": "Mainitulla käyttäjällä ei ole kyseistä soittolistaa.",
+			"playlist_exists": "Sinulla on jo soittolista nimeltä `{playlist}`.",
+			"playlist_stolen": "Varastettiin onnistuneesti soittolista `{playlist}` käyttäjältä {user}.",
+			"error_occurred": "Tapahtui virhe soittolistaa varastettaessa."
+		}
+	},
+	"movenode": {
+		"description": "Siirrä soittimet toiseen Lavalink-solmuun",
+		"options": {
+			"node": "Solmun ID, jonne soittimet siirretään"
+		},
+		"messages": {
+			"no_player": "Tällä palvelimella ei ole aktiivista musiikkisoitinta.",
+			"no_available_nodes": "Siirrettävissä olevia solmuja ei ole saatavilla.",
+			"available_nodes_title": "Saatavilla olevat solmut",
+			"current_node": "Nykyinen solmu",
+			"available_nodes": "Saatavilla olevat solmut",
+			"usage_hint": "Käyttö: movenode <nodeId>",
+			"node_not_found": "Solmua `{node}` ei löytynyt.",
+			"node_not_connected": "Solmu `{node}` ei ole yhdistetty.",
+			"same_node": "Soitin on jo solmussa `{node}`.",
+			"moving": "Siirretään soitin solmusta `{from}` solmuun `{to}`...",
+			"success_title": "Soitin siirretty onnistuneesti",
+			"success_description": "Soitin on siirretty solmusta `{from}` solmuun `{to}`.",
+			"error": "Soittimen siirtäminen epäonnistui: {error}",
+			"moving_all_players": "Siirretään kaikki soittimet solmuun `{node}`...",
+			"results_title": "MoveNode-tulokset",
+			"moved_players": "**Siirretyt soittimet palvelimilla:**\n{list}",
+			"guild_move": "• `{guildId}` ({from} → {to})",
+			"failed_moves": "**Soittimien siirtäminen epäonnistui palvelimilla:**\n{list}",
+			"guild_move_failed": "• `{guildId}`: {error}",
+			"no_players_moved": "Yhtään soitinta ei tarvinnut siirtää.",
+			"unknown_error": "Tuntematon virhe",
+			"no_players": "Yhtään soitinta ei ole siirrettävänä."
+		}
+	},
+	"messages": {
+		"no_description": "No description provided",
+		"no_usage": "No usage provided",
+		"no_examples": "No examples provided"
+	}
 }

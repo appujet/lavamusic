@@ -9,7 +9,6 @@ import {
 	SectionBuilder,
 } from "discord.js";
 import type { LyricsLine, LyricsResult } from "lavalink-client";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
 import {
@@ -25,7 +24,7 @@ export default class Lyrics extends Command {
 		super(client, {
 			name: "lyrics",
 			description: {
-				content: I18N.commands.lyrics.description,
+				content: ($) => $.commands.lyrics.description,
 				examples: ["lyrics", "lyrics song:Imagine Dragons - Believer"],
 				usage: "lyrics [song]",
 			},
@@ -49,7 +48,7 @@ export default class Lyrics extends Command {
 			options: [
 				{
 					name: "song",
-					description: I18N.commands.lyrics.options.song,
+					description: ($) => $.commands.lyrics.options.song,
 					type: 3,
 					required: false,
 				},
@@ -82,7 +81,7 @@ export default class Lyrics extends Command {
 			const noMusicContainer = new ContainerBuilder()
 				.setAccentColor(client.color.red)
 				.addTextDisplayComponents((textDisplay) =>
-					textDisplay.setContent(ctx.locale(I18N.events.message.no_music_playing)),
+					textDisplay.setContent(ctx.locale(($) => $.events.message.no_music_playing)),
 				);
 			return ctx.sendMessage({
 				components: [noMusicContainer],
@@ -125,7 +124,7 @@ export default class Lyrics extends Command {
 		const searchingContainer = new ContainerBuilder()
 			.setAccentColor(client.color.main)
 			.addTextDisplayComponents((textDisplay) =>
-				textDisplay.setContent(ctx.locale(I18N.commands.lyrics.searching, { trackTitle })),
+				textDisplay.setContent(ctx.locale(($) => $.commands.lyrics.searching, { trackTitle })),
 			);
 
 		await ctx.sendDeferMessage({
@@ -151,7 +150,7 @@ export default class Lyrics extends Command {
 				const noResultsContainer = new ContainerBuilder()
 					.setAccentColor(client.color.red)
 					.addTextDisplayComponents((textDisplay) =>
-						textDisplay.setContent(ctx.locale(I18N.commands.lyrics.errors.no_results)),
+						textDisplay.setContent(ctx.locale(($) => $.commands.lyrics.errors.no_results)),
 					);
 				await ctx.editMessage({
 					components: [noResultsContainer],
@@ -167,10 +166,10 @@ export default class Lyrics extends Command {
 
 				const createLyricsContainer = (pageIndex: number, finalState: boolean = false) => {
 					const currentLyricsPage =
-						lyricsPages[pageIndex] || ctx.locale(I18N.commands.lyrics.no_lyrics_on_page);
+						lyricsPages[pageIndex] || ctx.locale(($) => $.commands.lyrics.no_lyrics_on_page);
 
 					let fullContent =
-						ctx.locale(I18N.commands.lyrics.lyrics_for_track, {
+						ctx.locale(($) => $.commands.lyrics.lyrics_for_track, {
 							trackTitle: trackTitle,
 							trackUrl: trackUrl,
 						}) +
@@ -179,12 +178,12 @@ export default class Lyrics extends Command {
 						`${currentLyricsPage}`;
 
 					if (!finalState) {
-						fullContent += `\n\n${ctx.locale(I18N.commands.lyrics.page_indicator, {
+						fullContent += `\n\n${ctx.locale(($) => $.commands.lyrics.page_indicator, {
 							current: pageIndex + 1,
 							total: lyricsPages.length,
 						})}`;
 					} else {
-						fullContent += `\n\n*${ctx.locale(I18N.commands.lyrics.session_expired)}*`;
+						fullContent += `\n\n*${ctx.locale(($) => $.commands.lyrics.session_expired)}*`;
 					}
 
 					const mainLyricsSection = new SectionBuilder().addTextDisplayComponents((textDisplay) =>
@@ -196,7 +195,7 @@ export default class Lyrics extends Command {
 							thumbnail
 								.setURL(artworkUrl)
 								.setDescription(
-									ctx.locale(I18N.commands.lyrics.artwork_description, { trackTitle }),
+									ctx.locale(($) => $.commands.lyrics.artwork_description, { trackTitle }),
 								),
 						);
 					}
@@ -229,11 +228,11 @@ export default class Lyrics extends Command {
 				const liveLyricsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
 					new ButtonBuilder()
 						.setCustomId("lyrics_subscribe")
-						.setLabel(ctx.locale(I18N.commands.lyrics.button_subscribe))
+						.setLabel(ctx.locale(($) => $.commands.lyrics.button_subscribe))
 						.setStyle(ButtonStyle.Success),
 					new ButtonBuilder()
 						.setCustomId("lyrics_unsubscribe")
-						.setLabel(ctx.locale(I18N.commands.lyrics.button_unsubscribe))
+						.setLabel(ctx.locale(($) => $.commands.lyrics.button_unsubscribe))
 						.setStyle(ButtonStyle.Danger),
 				);
 
@@ -264,13 +263,13 @@ export default class Lyrics extends Command {
 							const liveLines = (lyricsResult as { lines?: unknown } | null)?.lines;
 							if (!Array.isArray(liveLines)) {
 								await interaction.reply({
-									content: ctx.locale(I18N.commands.lyrics.errors.no_results),
+									content: ctx.locale(($) => $.commands.lyrics.errors.no_results),
 									flags: MessageFlags.Ephemeral,
 								});
 								continue;
 							}
 							await interaction.reply({
-								content: ctx.locale(I18N.commands.lyrics.subscribed),
+								content: ctx.locale(($) => $.commands.lyrics.subscribed),
 								flags: MessageFlags.Ephemeral,
 							});
 							running = true;
@@ -296,7 +295,7 @@ export default class Lyrics extends Command {
 											.setAccentColor(client.color.main)
 											.addTextDisplayComponents((textDisplay) =>
 												textDisplay.setContent(
-													ctx.locale(I18N.commands.lyrics.lyrics_for_track, {
+													ctx.locale(($) => $.commands.lyrics.lyrics_for_track, {
 														trackTitle,
 														trackUrl,
 													}) +
@@ -325,21 +324,21 @@ export default class Lyrics extends Command {
 								.setAccentColor(client.color.main)
 								.addTextDisplayComponents((textDisplay) =>
 									textDisplay.setContent(
-										ctx.locale(I18N.commands.lyrics.lyrics_for_track, {
+										ctx.locale(($) => $.commands.lyrics.lyrics_for_track, {
 											trackTitle,
 											trackUrl,
 										}) +
 											"\n" +
 											(artistName ? `*${artistName}*\n\n` : "") +
 											formatted +
-											`\n\n*${ctx.locale(I18N.commands.lyrics.unsubscribed)}*`,
+											`\n\n*${ctx.locale(($) => $.commands.lyrics.unsubscribed)}*`,
 									),
 								);
 							await interaction.update({
 								components: [unsubLyricsContainer, getNavigationRow(currentPage), liveLyricsRow],
 							});
 							await interaction.followUp({
-								content: ctx.locale(I18N.commands.lyrics.unsubscribed),
+								content: ctx.locale(($) => $.commands.lyrics.unsubscribed),
 								flags: MessageFlags.Ephemeral,
 							});
 							if (lyricsUpdater) await lyricsUpdater;
@@ -385,12 +384,12 @@ export default class Lyrics extends Command {
 					const disabledLiveLyricsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
 						new ButtonBuilder()
 							.setCustomId("lyrics_subscribe")
-							.setLabel(ctx.locale(I18N.commands.lyrics.button_subscribe))
+							.setLabel(ctx.locale(($) => $.commands.lyrics.button_subscribe))
 							.setStyle(ButtonStyle.Success)
 							.setDisabled(true),
 						new ButtonBuilder()
 							.setCustomId("lyrics_unsubscribe")
-							.setLabel(ctx.locale(I18N.commands.lyrics.button_unsubscribe))
+							.setLabel(ctx.locale(($) => $.commands.lyrics.button_unsubscribe))
 							.setStyle(ButtonStyle.Danger)
 							.setDisabled(true),
 					);
@@ -409,7 +408,7 @@ export default class Lyrics extends Command {
 				const noResultsContainer = new ContainerBuilder()
 					.setAccentColor(client.color.red)
 					.addTextDisplayComponents((textDisplay) =>
-						textDisplay.setContent(ctx.locale(I18N.commands.lyrics.errors.no_results)),
+						textDisplay.setContent(ctx.locale(($) => $.commands.lyrics.errors.no_results)),
 					);
 				await ctx.editMessage({
 					components: [noResultsContainer],
@@ -421,7 +420,7 @@ export default class Lyrics extends Command {
 			const errorContainer = new ContainerBuilder()
 				.setAccentColor(client.color.red)
 				.addTextDisplayComponents((textDisplay) =>
-					textDisplay.setContent(ctx.locale(I18N.commands.lyrics.errors.lyrics_error)),
+					textDisplay.setContent(ctx.locale(($) => $.commands.lyrics.errors.lyrics_error)),
 				);
 			await ctx.editMessage({
 				components: [errorContainer],
@@ -453,7 +452,7 @@ export default class Lyrics extends Command {
 			const noResultsContainer = new ContainerBuilder()
 				.setAccentColor(client.color.red)
 				.addTextDisplayComponents((textDisplay) =>
-					textDisplay.setContent(ctx.locale(I18N.commands.lyrics.errors.no_results)),
+					textDisplay.setContent(ctx.locale(($) => $.commands.lyrics.errors.no_results)),
 				);
 			await ctx.editMessage({
 				components: [noResultsContainer],
@@ -510,7 +509,7 @@ export default class Lyrics extends Command {
 		}
 
 		if (pages.length === 0) {
-			pages.push(ctx.locale(I18N.commands.lyrics.no_lyrics_available));
+			pages.push(ctx.locale(($) => $.commands.lyrics.no_lyrics_available));
 		}
 
 		return pages;

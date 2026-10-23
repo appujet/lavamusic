@@ -2,7 +2,6 @@ import util from "node:util";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { fetch } from "undici";
 import { env } from "../../env";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -11,7 +10,7 @@ export default class Eval extends Command {
 		super(client, {
 			name: "eval",
 			description: {
-				content: I18N.dev.eval.description,
+				content: ($) => $.dev.eval.description,
 				examples: ["eval"],
 				usage: "eval",
 			},

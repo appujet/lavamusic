@@ -1,6 +1,6 @@
 import { type ButtonInteraction, MessageFlags } from "discord.js";
 import { Component, type Lavamusic } from "../../structures";
-import { I18N, t } from "../../structures/I18n";
+import { t } from "../../structures/I18n";
 import { handlePlayerInteraction, updatePlayerMessage } from "../../utils/PlayerUIUtils";
 
 export default class SkipButton extends Component {
@@ -22,11 +22,11 @@ export default class SkipButton extends Component {
 				this.client,
 				interaction,
 				player,
-				t(I18N.player.trackStart.skipped_by, { user: interaction.user.tag }),
+				t(($) => $.player.trackStart.skipped_by, { user: interaction.user.tag }),
 			);
 		} else {
 			await interaction.reply({
-				content: t(I18N.player.trackStart.no_more_songs_in_queue),
+				content: t(($) => $.player.trackStart.no_more_songs_in_queue),
 				flags: MessageFlags.Ephemeral,
 			});
 		}

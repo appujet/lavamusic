@@ -7,7 +7,7 @@ import {
 	type TextChannel,
 } from "discord.js";
 import type { Player, Track } from "lavalink-client";
-import { I18N, t } from "../structures/I18n";
+import { t } from "../structures/I18n";
 import type { Lavamusic } from "../structures/index";
 import logger from "../structures/Logger";
 import type { Requester } from "../types";
@@ -28,7 +28,7 @@ function neb(embed: EmbedBuilder, player: Player, client: Lavamusic, locale: str
 		client.user!.displayAvatarURL({ extension: "png" });
 	const icon = player.queue.current.info.artworkUrl || client.config.links.img;
 
-	const description = t(I18N.player.setupStart.description, {
+	const description = t(($) => $.player.setupStart.description, {
 		lng: locale,
 		title: player.queue.current.info.title,
 		uri: player.queue.current.info.uri,
@@ -38,7 +38,7 @@ function neb(embed: EmbedBuilder, player: Player, client: Lavamusic, locale: str
 	});
 	return embed
 		.setAuthor({
-			name: t(I18N.player.setupStart.now_playing, { lng: locale }),
+			name: t(($) => $.player.setupStart.now_playing, { lng: locale }),
 			iconURL: iconUrl,
 		})
 		.setDescription(description)
@@ -88,7 +88,7 @@ async function setupStart(
 								embeds: [
 									embed
 										.setColor(client.color.red)
-										.setDescription(t(I18N.player.setupStart.error_searching, { lng: locale })),
+										.setDescription(t(($) => $.player.setupStart.error_searching, { lng: locale })),
 								],
 							})
 							.then((msg) => setTimeout(() => msg.delete(), 5000));
@@ -100,7 +100,7 @@ async function setupStart(
 							.send({
 								embeds: [
 									embed.setColor(client.color.main).setDescription(
-										t(I18N.player.setupStart.added_to_queue, {
+										t(($) => $.player.setupStart.added_to_queue, {
 											lng: locale,
 											title: res.tracks[0].info.title,
 											uri: res.tracks[0].info.uri,
@@ -121,7 +121,7 @@ async function setupStart(
 							.send({
 								embeds: [
 									embed.setColor(client.color.main).setDescription(
-										t(I18N.player.setupStart.added_playlist_to_queue, {
+										t(($) => $.player.setupStart.added_playlist_to_queue, {
 											lng: locale,
 											length: res.tracks.length,
 										}),
@@ -176,11 +176,11 @@ async function trackStart(
 
 	const embed = new EmbedBuilder()
 		.setAuthor({
-			name: t(I18N.player.setupStart.now_playing, { lng: locale }),
+			name: t(($) => $.player.setupStart.now_playing, { lng: locale }),
 			iconURL: iconUrl,
 		})
 		.setDescription(
-			t(I18N.player.setupStart.description, {
+			t(($) => $.player.setupStart.description, {
 				lng: locale,
 				title: track.info.title,
 				uri: track.info.uri,
@@ -253,11 +253,11 @@ async function updateSetup(client: Lavamusic, guild: Guild, locale: string): Pro
 
 			const embed = new EmbedBuilder()
 				.setAuthor({
-					name: t(I18N.player.setupStart.now_playing, { lng: locale }),
+					name: t(($) => $.player.setupStart.now_playing, { lng: locale }),
 					iconURL: iconUrl,
 				})
 				.setDescription(
-					t(I18N.player.setupStart.description, {
+					t(($) => $.player.setupStart.description, {
 						lng: locale,
 						title: player.queue.current.info.title,
 						uri: player.queue.current.info.uri,
@@ -288,7 +288,7 @@ async function updateSetup(client: Lavamusic, guild: Guild, locale: string): Pro
 		} else {
 			const embed = new EmbedBuilder()
 				.setColor(client.color.main)
-				.setDescription(t(I18N.player.setupStart.nothing_playing, { lng: locale }));
+				.setDescription(t(($) => $.player.setupStart.nothing_playing, { lng: locale }));
 
 			await m
 				.edit({

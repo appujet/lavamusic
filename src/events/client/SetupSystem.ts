@@ -1,5 +1,5 @@
 import { type Message, TextChannel } from "discord.js";
-import { I18N, t } from "../../structures/I18n";
+import { t } from "../../structures/I18n";
 import { Event, type Lavamusic } from "../../structures/index";
 import { LavamusicEventType } from "../../types/events";
 import { oops, setupStart } from "../../utils/SetupSystem";
@@ -17,7 +17,7 @@ export default class SetupSystem extends Event {
 		const channel = message.channel as TextChannel;
 		if (!(channel instanceof TextChannel)) return;
 		if (!message.member?.voice.channel) {
-			await oops(channel, t(I18N.events.message.no_voice_channel_queue, { lng: locale }));
+			await oops(channel, t(($) => $.events.message.no_voice_channel_queue, { lng: locale }));
 			await message.delete().catch(() => {
 				null;
 			});
@@ -31,7 +31,7 @@ export default class SetupSystem extends Event {
 		if (clientMember?.voice.channel && clientMember.voice.channelId !== voiceChannel.id) {
 			await oops(
 				channel,
-				t(I18N.events.message.different_voice_channel_queue, {
+				t(($) => $.events.message.different_voice_channel_queue, {
 					lng: locale,
 					channel: clientMember.voice.channelId,
 				}),

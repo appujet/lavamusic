@@ -1,5 +1,4 @@
 import type { AutocompleteInteraction } from "discord.js";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -8,7 +7,7 @@ export default class DeletePlaylist extends Command {
 		super(client, {
 			name: "delete",
 			description: {
-				content: I18N.commands.delete.description,
+				content: ($) => $.commands.delete.description,
 				examples: ["delete <playlist name>"],
 				usage: "delete <playlist name>",
 			},
@@ -32,7 +31,7 @@ export default class DeletePlaylist extends Command {
 			options: [
 				{
 					name: "playlist",
-					description: I18N.commands.delete.options.playlist,
+					description: ($) => $.commands.delete.options.playlist,
 					type: 3,
 					required: true,
 					autocomplete: true,
@@ -50,7 +49,7 @@ export default class DeletePlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					embed
-						.setDescription(ctx.locale(I18N.commands.delete.messages.playlist_not_found))
+						.setDescription(ctx.locale(($) => $.commands.delete.messages.playlist_not_found))
 						.setColor(this.client.color.red),
 				],
 			});
@@ -64,7 +63,7 @@ export default class DeletePlaylist extends Command {
 			embeds: [
 				embed
 					.setDescription(
-						ctx.locale(I18N.commands.delete.messages.playlist_deleted, {
+						ctx.locale(($) => $.commands.delete.messages.playlist_deleted, {
 							playlistName,
 						}),
 					)

@@ -1,13 +1,19 @@
 {
-    "invite": "Πρόσκληση",
-    "support": "Διακομιστής Υποστήριξης",
-    "previous": "Προηγούμενο",
-    "resume": "Συνέχιση",
-    "stop": "Διακοπή",
-    "skip": "Παράλειψη",
-    "loop": "Επανάληψη",
-    "next": "Επόμενο",
-    "errors": {
-        "not_author": "Δεν μπορείτε να χρησιμοποιήσετε αυτό το κουμπί."
-    }
+	"invite": "Πρόσκληση",
+	"support": "Διακομιστής Υποστήριξης",
+	"previous": "Προηγούμενο",
+	"resume": "Συνέχιση",
+	"stop": "Διακοπή",
+	"skip": "Παράλειψη",
+	"loop": "Επανάληψη",
+	"next": "Επόμενο",
+	"errors": {
+		"not_author": "Δεν μπορείτε να χρησιμοποιήσετε αυτό το κουμπί."
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

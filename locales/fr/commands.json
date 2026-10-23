@@ -635,5 +635,10 @@
 			"unknown_error": "Erreur inconnue",
 			"no_players": "Il n'y a aucun lecteur à déplacer."
 		}
+	},
+	"messages": {
+		"no_description": "No description provided",
+		"no_usage": "No usage provided",
+		"no_examples": "No examples provided"
 	}
 }

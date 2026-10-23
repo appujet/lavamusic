@@ -5,7 +5,6 @@ import {
 	Client,
 	Collection,
 	EmbedBuilder,
-	Locale,
 	PermissionsBitField,
 	REST,
 	type RESTPostAPIChatInputApplicationCommandsJSONBody,
@@ -19,7 +18,7 @@ import { env } from "../env";
 import { EventList } from "../events";
 import { LavamusicEventType } from "../types/events";
 import * as Utils from "../utils/Utils";
-import { initI18n, resolveLocalizations, t } from "./I18n";
+import { initI18n, resolveDescription, resolveLocalizations, sanitizeName } from "./I18n";
 import type { Command, Component } from "./index";
 import LavalinkClient from "./LavalinkClient";
 import logger from "./Logger";
@@ -46,7 +45,7 @@ export default class Lavamusic extends Client {
 	public manager!: LavalinkClient;
 	public rest = new REST({ version: "10" }).setToken(env.TOKEN ?? "");
 
-	// Private members
+	// Slash command payload sent to Discord on deploy
 	private body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 
 	public embed(): EmbedBuilder {
@@ -54,7 +53,7 @@ export default class Lavamusic extends Client {
 	}
 
 	/**
-	 * Initializes the bot, loads resources and login
+	 * Initializes i18n, services, commands, events and components, then logs in.
 	 */
 	public async start(token: string): Promise<void> {
 		await initI18n();
@@ -68,8 +67,8 @@ export default class Lavamusic extends Client {
 		this.manager = new LavalinkClient(this);
 
 		try {
-			this.loadCommands();
-			this.loadEvents();
+			await this.loadCommands();
+			await this.loadEvents();
 			this.loadComponents();
 			logger.info("Commands, Events, and Components loaded successfully!");
 
@@ -81,10 +80,10 @@ export default class Lavamusic extends Client {
 	}
 
 	/**
-	 * Loads commands from registry.
+	 * Instantiates every command from the registry and builds the slash command payload.
+	 * Safe to call more than once: it resets internal state first.
 	 */
 	public async loadCommands(): Promise<void> {
-		// Reset collections to allow reloads (if ever needed in dev)
 		this.commands.clear();
 		this.aliases.clear();
 		this.body = [];
@@ -92,16 +91,12 @@ export default class Lavamusic extends Client {
 		for (const CommandClass of CommandList) {
 			try {
 				/**
-				 * We assume the class exports as default or named export in the registry.  \
-				 * Registry generator handles import, so here we have the Class constructor directly.  \
-				 * Pass the class name as 'file' identifier for debugging purposes.
+				 * The registry already imports the class, so we receive the constructor here.
+				 * The class name is passed as the `file` identifier for debugging purposes.
 				 */
 				const command = new (CommandClass as any)(this, CommandClass.name);
 
-				/**
-				 * Ensure category is set
-				 * It should be set in the Command constructor via super options
-				 */
+				// Category should be set via the Command constructor options
 				if (!command.category) command.category = "general";
 
 				this.commands.set(command.name, command);
@@ -120,44 +115,44 @@ export default class Lavamusic extends Client {
 	}
 
 	/**
-	 * Prepares data for a slash command, handling localizations and options
+	 * Builds the Discord payload for a slash command.
+	 * Descriptions are translation selectors, resolved here to the base text (English)
+	 * plus a localization map for every other supported language.
 	 */
 	private prepareCommandData(command: Command): RESTPostAPIChatInputApplicationCommandsJSONBody {
-		const baseDescription = t(command.description.content, { lng: Locale.EnglishUS });
+		if (sanitizeName(command.name) !== command.name) {
+			logger.warn(`[i18n] Command name "${command.name}" is not a valid Discord name.`);
+		}
 
-		const data: RESTPostAPIChatInputApplicationCommandsJSONBody = {
+		return {
 			name: command.name,
-			description: baseDescription.slice(0, 100),
+			description: resolveDescription(command.description.content),
+			description_localizations: resolveLocalizations(command.description.content, "description"),
 			type: ApplicationCommandType.ChatInput,
-			options: command.options || [],
+			options: command.options?.map((opt) => this.processCommandOptions(opt)) ?? [],
 			default_member_permissions:
 				Array.isArray(command.permissions.user) && command.permissions.user.length > 0
 					? PermissionsBitField.resolve(command.permissions.user).toString()
 					: null,
-			name_localizations: resolveLocalizations(command.name, "name"),
-			description_localizations: resolveLocalizations(command.description.content, "description"),
 		};
-
-		if (command.options?.length) {
-			data.options = command.options.map((opt) => this.processCommandOptions(opt));
-		}
-
-		return data;
 	}
 
 	/**
-	 * Processes command options to apply translations
+	 * Recursively resolves option descriptions (selectors) into plain strings
+	 * and localization maps. The selector never reaches the Discord API payload,
+	 * because `description` is overwritten.
 	 */
 	private processCommandOptions(option: any): APIApplicationCommandOption {
-		const localizedOption: APIApplicationCommandOption = {
+		if (sanitizeName(option.name) !== option.name) {
+			logger.warn(`[i18n] Option name "${option.name}" is not a valid Discord name.`);
+		}
+
+		return {
 			...option,
-			name_localizations: resolveLocalizations(option.name, "name"),
+			description: resolveDescription(option.description),
 			description_localizations: resolveLocalizations(option.description, "description"),
-			description: t(option.description, { lng: Locale.EnglishUS }).slice(0, 100),
 			options: option.options?.map((sub: any) => this.processCommandOptions(sub)),
 		};
-
-		return localizedOption;
 	}
 
 	/**
@@ -175,13 +170,13 @@ export default class Lavamusic extends Client {
 			return;
 		}
 
-		// Determine target body: empty array for undeploy, current body for deploy
+		// Empty array removes every command; otherwise send the current payload
 		let commandsBody = clear ? [] : this.body;
 
-		// If deploying and body is empty, try loading once
+		// If deploying with an empty payload, try loading the commands once
 		if (!clear && commandsBody.length === 0) {
 			logger.warn("Command body is empty. Attempting to reload commands before deployment...");
-			this.loadCommands();
+			await this.loadCommands();
 			commandsBody = this.body;
 		}
 
@@ -202,13 +197,14 @@ export default class Lavamusic extends Client {
 	}
 
 	/**
-	 * Loads events from registry
+	 * Instantiates events from the registry and attaches each one to the right emitter
+	 * (Lavalink player, Lavalink node, or Discord client) based on its type.
 	 */
 	private async loadEvents(): Promise<void> {
 		for (const EventClass of EventList) {
 			try {
 				const event = new (EventClass as any)(this, EventClass.name);
-				// Register event listeners based on category
+
 				switch (event.type) {
 					case LavamusicEventType.Player:
 						this.manager.on(event.name as any, (...args: any[]) => event.run(...args));
@@ -232,7 +228,8 @@ export default class Lavamusic extends Client {
 	}
 
 	/**
-	 * Loads components from registry
+	 * Instantiates components (buttons, menus...) from the registry
+	 * and indexes them by name and aliases.
 	 */
 	private loadComponents(): void {
 		for (const ComponentClass of ComponentList) {

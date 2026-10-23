@@ -203,7 +203,7 @@ export async function paginate(client: Lavamusic, ctx: Context, embeds: PageEmbe
 	collector.on("collect", async (interaction: ButtonInteraction) => {
 		if (interaction.user.id !== authorId) {
 			await interaction.reply({
-				content: ctx.locale("buttons.errors.not_author"),
+				content: ctx.locale(($) => $.buttons.errors.not_author),
 				flags: MessageFlags.Ephemeral,
 			});
 			return;

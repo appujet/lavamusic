@@ -1,5 +1,4 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -8,7 +7,7 @@ export default class Shutdown extends Command {
 		super(client, {
 			name: "shutdown",
 			description: {
-				content: I18N.dev.shutdown.description,
+				content: ($) => $.dev.shutdown.description,
 				examples: ["shutdown"],
 				usage: "shutdown",
 			},
@@ -36,7 +35,7 @@ export default class Shutdown extends Command {
 		const embed = this.client.embed();
 		const button = new ButtonBuilder()
 			.setStyle(ButtonStyle.Danger)
-			.setLabel(I18N.dev.shutdown.prompt)
+			.setLabel(ctx.locale(($) => $.dev.shutdown.prompt))
 			.setCustomId("confirm-shutdown");
 		const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
 		const shutdownEmbed = embed
@@ -59,7 +58,7 @@ export default class Shutdown extends Command {
 			await i.deferUpdate();
 
 			await msg.edit({
-				content: I18N.dev.shutdown.status,
+				content: ctx.locale(($) => $.dev.shutdown.status),
 				embeds: [],
 				components: [],
 			});
@@ -71,7 +70,7 @@ export default class Shutdown extends Command {
 		collector.on("end", async () => {
 			if (collector.collected.size === 0) {
 				await msg.edit({
-					content: I18N.dev.shutdown.canceled,
+					content: ctx.locale(($) => $.dev.shutdown.canceled),
 					components: [],
 				});
 			}

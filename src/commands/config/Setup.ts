@@ -1,6 +1,5 @@
 /** biome-ignore-all lint/style/noNonNullAssertion: explanation */
 import { ChannelType, OverwriteType, PermissionFlagsBits } from "discord.js";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { getButtons } from "../../utils/Buttons";
 import {
@@ -17,7 +16,7 @@ export default class Setup extends Command {
 		super(client, {
 			name: "setup",
 			description: {
-				content: I18N.commands.setup.description,
+				content: ($) => $.commands.setup.description,
 				examples: ["setup create", "setup delete", "setup info"],
 				usage: "setup",
 			},
@@ -41,17 +40,17 @@ export default class Setup extends Command {
 			options: [
 				{
 					name: "create",
-					description: I18N.commands.setup.options.create,
+					description: ($) => $.commands.setup.options.create,
 					type: 1,
 				},
 				{
 					name: "delete",
-					description: I18N.commands.setup.options.delete,
+					description: ($) => $.commands.setup.options.delete,
 					type: 1,
 				},
 				{
 					name: "info",
-					description: I18N.commands.setup.options.info,
+					description: ($) => $.commands.setup.options.info,
 					type: 1,
 				},
 			],
@@ -68,7 +67,7 @@ export default class Setup extends Command {
 					return await ctx.sendMessage({
 						embeds: [
 							{
-								description: ctx.locale(I18N.commands.setup.errors.channel_exists),
+								description: ctx.locale(($) => $.commands.setup.errors.channel_exists),
 								color: client.color.red,
 							},
 						],
@@ -104,7 +103,7 @@ export default class Setup extends Command {
 				const image = this.client.config.links.img;
 				const desc = player?.queue.current
 					? `[${player.queue.current.info.title}](${player.queue.current.info.uri})`
-					: ctx.locale(I18N.player.setupStart.nothing_playing);
+					: ctx.locale(($) => $.player.setupStart.nothing_playing);
 				embed.setDescription(desc).setImage(image);
 				await textChannel
 					.send({
@@ -117,7 +116,7 @@ export default class Setup extends Command {
 				await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.setup.messages.channel_created, {
+							description: ctx.locale(($) => $.commands.setup.messages.channel_created, {
 								channelId: textChannel.id,
 							}),
 							color: this.client.color.main,
@@ -132,7 +131,7 @@ export default class Setup extends Command {
 					return await ctx.sendMessage({
 						embeds: [
 							{
-								description: ctx.locale(I18N.commands.setup.errors.channel_not_exists),
+								description: ctx.locale(($) => $.commands.setup.errors.channel_not_exists),
 								color: client.color.red,
 							},
 						],
@@ -147,7 +146,7 @@ export default class Setup extends Command {
 				await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.setup.messages.channel_deleted),
+							description: ctx.locale(($) => $.commands.setup.messages.channel_deleted),
 							color: this.client.color.main,
 						},
 					],
@@ -160,7 +159,7 @@ export default class Setup extends Command {
 					return await ctx.sendMessage({
 						embeds: [
 							{
-								description: ctx.locale(I18N.commands.setup.errors.channel_not_exists),
+								description: ctx.locale(($) => $.commands.setup.errors.channel_not_exists),
 								color: client.color.red,
 							},
 						],
@@ -169,7 +168,7 @@ export default class Setup extends Command {
 				const channel = ctx.guild.channels.cache.get(data3.textId);
 				if (channel) {
 					embed.setDescription(
-						ctx.locale(I18N.commands.setup.messages.channel_info, {
+						ctx.locale(($) => $.commands.setup.messages.channel_info, {
 							channelId: channel.id,
 						}),
 					);
@@ -178,7 +177,7 @@ export default class Setup extends Command {
 					await ctx.sendMessage({
 						embeds: [
 							{
-								description: ctx.locale(I18N.commands.setup.errors.channel_not_exists),
+								description: ctx.locale(($) => $.commands.setup.errors.channel_not_exists),
 								color: client.color.red,
 							},
 						],

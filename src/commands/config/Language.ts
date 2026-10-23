@@ -1,6 +1,6 @@
 import { type AutocompleteInteraction, Locale } from "discord.js";
 import { env } from "../../env";
-import { getSupportedLanguages, I18N } from "../../structures/I18n";
+import { getSupportedLanguages } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { getLanguageName } from "../../types/locales";
 import { getEmojiFlag } from "../../utils/CountryEmojiFlag";
@@ -51,7 +51,7 @@ export default class LanguageCommand extends Command {
 		super(client, {
 			name: "language",
 			description: {
-				content: I18N.commands.language.description,
+				content: ($) => $.commands.language.description,
 				examples: ["language set `en-US`", "language reset"],
 				usage: "language",
 			},
@@ -75,12 +75,12 @@ export default class LanguageCommand extends Command {
 			options: [
 				{
 					name: "set",
-					description: I18N.commands.language.options.set,
+					description: ($) => $.commands.language.options.set,
 					type: 1,
 					options: [
 						{
 							name: "language",
-							description: I18N.commands.language.options.language,
+							description: ($) => $.commands.language.options.language,
 							type: 3,
 							required: true,
 							autocomplete: true,
@@ -89,7 +89,7 @@ export default class LanguageCommand extends Command {
 				},
 				{
 					name: "reset",
-					description: I18N.commands.language.options.reset,
+					description: ($) => $.commands.language.options.reset,
 					type: 1,
 				},
 			],
@@ -125,7 +125,7 @@ export default class LanguageCommand extends Command {
 				return ctx.sendMessage({
 					embeds: [
 						embed.setDescription(
-							ctx.locale(I18N.commands.language.invalid_language, {
+							ctx.locale(($) => $.commands.language.invalid_language, {
 								languages: availableLanguages,
 							}),
 						),
@@ -137,7 +137,7 @@ export default class LanguageCommand extends Command {
 				return ctx.sendMessage({
 					embeds: [
 						embed.setDescription(
-							`ℹ️ ${ctx.locale(I18N.commands.language.already_set, {
+							`ℹ️ ${ctx.locale(($) => $.commands.language.already_set, {
 								language: localizedDisplay,
 							})}`,
 						),
@@ -151,7 +151,7 @@ export default class LanguageCommand extends Command {
 			return ctx.sendMessage({
 				embeds: [
 					embed.setDescription(
-						`✅ ${ctx.locale(I18N.commands.language.set, {
+						`✅ ${ctx.locale(($) => $.commands.language.set, {
 							language: localizedDisplay,
 							lng: userLocale,
 						})}`,
@@ -165,7 +165,7 @@ export default class LanguageCommand extends Command {
 
 			if (!locale) {
 				return ctx.sendMessage({
-					embeds: [embed.setDescription(`ℹ️ ${ctx.locale(I18N.commands.language.not_set)}`)],
+					embeds: [embed.setDescription(`ℹ️ ${ctx.locale(($) => $.commands.language.not_set)}`)],
 				});
 			}
 
@@ -173,7 +173,7 @@ export default class LanguageCommand extends Command {
 			ctx.guildLocale = defaultLanguage;
 
 			return ctx.sendMessage({
-				embeds: [embed.setDescription(`✅ ${ctx.locale(I18N.commands.language.reset)}`)],
+				embeds: [embed.setDescription(`✅ ${ctx.locale(($) => $.commands.language.reset)}`)],
 			});
 		}
 	}

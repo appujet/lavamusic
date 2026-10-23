@@ -1,6 +1,5 @@
 import { ApplicationCommandOptionType, type Attachment, type GuildMember } from "discord.js";
 import type { SearchResult } from "lavalink-client";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import {
 	Connect,
@@ -16,7 +15,7 @@ export default class PlayLocal extends Command {
 		super(client, {
 			name: "playlocal",
 			description: {
-				content: I18N.commands.playlocal.description,
+				content: ($) => $.commands.playlocal.description,
 				examples: ["playlocal <file>"],
 				usage: "playlocal <file>",
 			},
@@ -40,7 +39,7 @@ export default class PlayLocal extends Command {
 			options: [
 				{
 					name: "file",
-					description: I18N.commands.playlocal.options.file,
+					description: ($) => $.commands.playlocal.options.file,
 					type: ApplicationCommandOptionType.Attachment,
 					required: true,
 				},
@@ -59,7 +58,7 @@ export default class PlayLocal extends Command {
 					this.client
 						.embed()
 						.setColor(this.client.color.red)
-						.setDescription(ctx.locale(I18N.commands.playlocal.errors.empty_query)),
+						.setDescription(ctx.locale(($) => $.commands.playlocal.errors.empty_query)),
 				],
 			});
 		}
@@ -71,12 +70,12 @@ export default class PlayLocal extends Command {
 					this.client
 						.embed()
 						.setColor(this.client.color.red)
-						.setDescription(ctx.locale(I18N.commands.playlocal.errors.invalid_format)),
+						.setDescription(ctx.locale(($) => $.commands.playlocal.errors.invalid_format)),
 				],
 			});
 		}
 
-		await ctx.sendDeferMessage(ctx.locale(I18N.commands.playlocal.loading));
+		await ctx.sendDeferMessage(ctx.locale(($) => $.commands.playlocal.loading));
 
 		let player = client.manager.getPlayer(ctx.guild.id);
 		if (!player) {
@@ -87,7 +86,7 @@ export default class PlayLocal extends Command {
 						this.client
 							.embed()
 							.setColor(this.client.color.red)
-							.setDescription(ctx.locale(I18N.player.errors.user_not_in_voice_channel)),
+							.setDescription(ctx.locale(($) => $.player.errors.user_not_in_voice_channel)),
 					],
 				});
 			}
@@ -120,7 +119,7 @@ export default class PlayLocal extends Command {
 					this.client
 						.embed()
 						.setColor(this.client.color.red)
-						.setDescription(ctx.locale(I18N.commands.playlocal.errors.no_results)),
+						.setDescription(ctx.locale(($) => $.commands.playlocal.errors.no_results)),
 				],
 			});
 		}
@@ -134,7 +133,7 @@ export default class PlayLocal extends Command {
 					.embed()
 					.setColor(this.client.color.main)
 					.setDescription(
-						ctx.locale(I18N.commands.playlocal.added_to_queue, {
+						ctx.locale(($) => $.commands.playlocal.added_to_queue, {
 							title: attachment.name,
 							url: attachment.url,
 						}),

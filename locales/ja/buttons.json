@@ -9,5 +9,11 @@
 	"next": "次へ",
 	"errors": {
 		"not_author": "このボタンを使用する権限がありません。"
-	}
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

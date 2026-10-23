@@ -1,6 +1,5 @@
 import { ApplicationCommandOptionType } from "discord.js";
 import { EQList } from "lavalink-client";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -9,7 +8,7 @@ export default class BassBoost extends Command {
 		super(client, {
 			name: "bassboost",
 			description: {
-				content: I18N.commands.bassboost.description,
+				content: ($) => $.commands.bassboost.description,
 				examples: ["bassboost high", "bassboost medium", "bassboost low", "bassboost off"],
 				usage: "bassboost [level]",
 			},
@@ -33,7 +32,7 @@ export default class BassBoost extends Command {
 			options: [
 				{
 					name: "level",
-					description: I18N.commands.bassboost.options.level,
+					description: ($) => $.commands.bassboost.options.level,
 					type: ApplicationCommandOptionType.String,
 					required: true,
 					choices: [
@@ -49,14 +48,14 @@ export default class BassBoost extends Command {
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild.id);
-		if (!player) return await ctx.sendMessage(ctx.locale(I18N.events.message.no_music_playing));
+		if (!player) return await ctx.sendMessage(ctx.locale(($) => $.events.message.no_music_playing));
 		switch (ctx.args[0]?.toLowerCase()) {
 			case "high": {
 				await player.filterManager.setEQ(EQList.BassboostHigh);
 				await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.bassboost.messages.high),
+							description: ctx.locale(($) => $.commands.bassboost.messages.high),
 							color: this.client.color.main,
 						},
 					],
@@ -68,7 +67,7 @@ export default class BassBoost extends Command {
 				await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.bassboost.messages.medium),
+							description: ctx.locale(($) => $.commands.bassboost.messages.medium),
 							color: this.client.color.main,
 						},
 					],
@@ -80,7 +79,7 @@ export default class BassBoost extends Command {
 				await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.bassboost.messages.low),
+							description: ctx.locale(($) => $.commands.bassboost.messages.low),
 							color: this.client.color.main,
 						},
 					],
@@ -92,7 +91,7 @@ export default class BassBoost extends Command {
 				await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.bassboost.messages.off),
+							description: ctx.locale(($) => $.commands.bassboost.messages.off),
 							color: this.client.color.main,
 						},
 					],
@@ -101,7 +100,7 @@ export default class BassBoost extends Command {
 			}
 			default: {
 				await ctx.sendMessage(
-					ctx.locale(I18N.commands.bassboost.messages.invalid_level, {
+					ctx.locale(($) => $.commands.bassboost.messages.invalid_level, {
 						level: ctx.args[0] ?? "undefined",
 					}),
 				);

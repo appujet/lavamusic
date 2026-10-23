@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -7,7 +6,7 @@ export default class Autoplay extends Command {
 		super(client, {
 			name: "autoplay",
 			description: {
-				content: I18N.commands.autoplay.description,
+				content: ($) => $.commands.autoplay.description,
 				examples: ["autoplay"],
 				usage: "autoplay",
 			},
@@ -38,7 +37,7 @@ export default class Autoplay extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.player.errors.no_player),
+						description: ctx.locale(($) => $.player.errors.no_player),
 						color: this.client.color.red,
 					},
 				],
@@ -52,11 +51,11 @@ export default class Autoplay extends Command {
 
 		if (autoplay) {
 			embed
-				.setDescription(ctx.locale(I18N.commands.autoplay.messages.disabled))
+				.setDescription(ctx.locale(($) => $.commands.autoplay.messages.disabled))
 				.setColor(this.client.color.main);
 		} else {
 			embed
-				.setDescription(ctx.locale(I18N.commands.autoplay.messages.enabled))
+				.setDescription(ctx.locale(($) => $.commands.autoplay.messages.enabled))
 				.setColor(this.client.color.main);
 		}
 

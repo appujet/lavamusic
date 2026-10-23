@@ -1,6 +1,6 @@
 import { type ButtonInteraction, MessageFlags } from "discord.js";
 import { Component, type Lavamusic } from "../../structures";
-import { I18N, t } from "../../structures/I18n";
+import { t } from "../../structures/I18n";
 import { handlePlayerInteraction, updatePlayerMessage } from "../../utils/PlayerUIUtils";
 
 export default class ForwardButton extends Component {
@@ -18,7 +18,7 @@ export default class ForwardButton extends Component {
 		const time = player.position + 10000;
 		if (time >= player.queue.current!.info.duration) {
 			return await interaction.reply({
-				content: t(I18N.events.setupButton.forward_limit),
+				content: t(($) => $.events.setupButton.forward_limit),
 				flags: MessageFlags.Ephemeral,
 			});
 		}
@@ -29,7 +29,7 @@ export default class ForwardButton extends Component {
 			this.client,
 			interaction,
 			player,
-			t(I18N.events.setupButton.forwarded),
+			t(($) => $.events.setupButton.forwarded),
 		);
 	}
 }

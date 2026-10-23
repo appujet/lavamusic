@@ -635,5 +635,10 @@
 			"unknown_error": "Nieznany błąd",
 			"no_players": "Brak odtwarzaczy do przeniesienia."
 		}
+	},
+	"messages": {
+		"no_description": "No description provided",
+		"no_usage": "No usage provided",
+		"no_examples": "No examples provided"
 	}
 }

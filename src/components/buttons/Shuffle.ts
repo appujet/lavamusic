@@ -1,6 +1,6 @@
 import { type ButtonInteraction, MessageFlags } from "discord.js";
 import { Component, type Lavamusic } from "../../structures";
-import { I18N, t } from "../../structures/I18n";
+import { t } from "../../structures/I18n";
 import { handlePlayerInteraction, updatePlayerMessage } from "../../utils/PlayerUIUtils";
 
 export default class ShuffleButton extends Component {
@@ -18,7 +18,7 @@ export default class ShuffleButton extends Component {
 		// respect the same restriction as the /shuffle command
 		if (player.get<boolean>("fairplay")) {
 			await interaction.reply({
-				content: t(I18N.commands.shuffle.errors.fairplay),
+				content: t(($) => $.commands.shuffle.errors.fairplay),
 				flags: MessageFlags.Ephemeral,
 			});
 			return;
@@ -30,7 +30,7 @@ export default class ShuffleButton extends Component {
 			this.client,
 			interaction,
 			player,
-			t(I18N.events.setupButton.shuffled),
+			t(($) => $.events.setupButton.shuffled),
 		);
 	}
 }

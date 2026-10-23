@@ -635,5 +635,10 @@
 			"unknown_error": "Lỗi không xác định",
 			"no_players": "Không có trình phát nào để di chuyển."
 		}
+	},
+	"messages": {
+		"no_description": "No description provided",
+		"no_usage": "No usage provided",
+		"no_examples": "No examples provided"
 	}
 }

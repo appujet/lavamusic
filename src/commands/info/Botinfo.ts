@@ -1,7 +1,6 @@
 import os from "node:os";
 import { version } from "discord.js";
 import { showTotalMemory, usagePercent } from "node-system-stats";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -10,7 +9,7 @@ export default class Botinfo extends Command {
 		super(client, {
 			name: "botinfo",
 			description: {
-				content: I18N.commands.botinfo.description,
+				content: ($) => $.commands.botinfo.description,
 				examples: ["botinfo"],
 				usage: "botinfo",
 			},
@@ -59,7 +58,7 @@ export default class Botinfo extends Command {
 			const users = results[1]?.reduce((acc, memberCount) => acc + memberCount, 0);
 			const channels = results[2]?.reduce((acc, channelCount) => acc + channelCount, 0);
 
-			const botInfo = ctx.locale(I18N.commands.botinfo.content, {
+			const botInfo = ctx.locale(($) => $.commands.botinfo.content, {
 				osInfo,
 				osUptime,
 				osHostname,
