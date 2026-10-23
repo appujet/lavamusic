@@ -16,10 +16,15 @@ import {
 	type User,
 	type WebhookMessageEditOptions,
 } from "discord.js";
+import type { TOptions } from "i18next";
 import { env } from "../env";
-import { t } from "./I18n";
+import { type TKey, t } from "./I18n";
 import type { Lavamusic } from "./index";
 
+/**
+ * Unifies slash commands (interactions) and prefix commands (messages)
+ * behind a single API for replying, editing and translating.
+ */
 export default class Context {
 	public ctx: ChatInputCommandInteraction | Message;
 	public interaction: ChatInputCommandInteraction | null;
@@ -50,6 +55,7 @@ export default class Context {
 		return this.ctx instanceof ChatInputCommandInteraction;
 	}
 
+	/** Sends a new message (interaction reply or channel message). */
 	public async sendMessage(
 		content: string | MessagePayload | MessageCreateOptions | InteractionReplyOptions,
 	): Promise<Message> {
@@ -65,6 +71,7 @@ export default class Context {
 		return this.msg;
 	}
 
+	/** Edits the message previously sent by this context. */
 	public async editMessage(
 		content: string | MessagePayload | InteractionEditReplyOptions | MessageEditOptions,
 	): Promise<Message> {
@@ -79,6 +86,7 @@ export default class Context {
 		return this.msg;
 	}
 
+	/** Defers the interaction (if needed) and then sends/edits the reply. */
 	public async sendDeferMessage(
 		content: string | MessagePayload | MessageCreateOptions,
 	): Promise<Message> {
@@ -97,17 +105,21 @@ export default class Context {
 	}
 
 	/**
-	 * Translates a key using the context's guild locale.
-	 * @param key - Proxy object or string key
-	 * @param params - Translation variables
+	 * Translates a selector using this context's locale.
+	 * Missing translations fall back to English automatically.
+	 *
+	 * @param key - Selector pointing to the translation string
+	 * @param options - Interpolation variables and i18next options
+	 *
+	 * @example
+	 * ctx.locale(($) => $.commands.ping.content)
+	 * ctx.locale(($) => $.commands.ping.requested_by, { author: ctx.author?.tag })
 	 */
-	public locale(key: any, params: Record<string, any> = {}): string {
-		const defaultLanguage = env.DEFAULT_LANGUAGE || Locale.EnglishUS;
-		const lng = this.guildLocale || defaultLanguage;
-
-		return t(String(key), { lng, ...params });
+	public locale(key: TKey, options?: TOptions): string {
+		return t(key, { lng: this.guildLocale, ...options });
 	}
 
+	/** Sends a follow-up message (interaction) or a new channel message. */
 	public async sendFollowUp(
 		content: string | MessagePayload | MessageCreateOptions | InteractionReplyOptions,
 	): Promise<void> {
@@ -124,6 +136,7 @@ export default class Context {
 		return this.isInteraction ? this.interaction?.deferred : !!this.msg;
 	}
 
+	/** Shortcuts to read slash command options. */
 	options = {
 		getRole: (name: string, required = true) => {
 			return this.interaction?.options.get(name, required)?.role;

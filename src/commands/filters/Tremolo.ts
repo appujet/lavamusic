@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -7,7 +6,7 @@ export default class Tremolo extends Command {
 		super(client, {
 			name: "tremolo",
 			description: {
-				content: I18N.commands.tremolo.description,
+				content: ($) => $.commands.tremolo.description,
 				examples: ["tremolo"],
 				usage: "tremolo",
 			},
@@ -34,7 +33,7 @@ export default class Tremolo extends Command {
 
 	public async run(client: Lavamusic, ctx: Context): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild.id);
-		if (!player) return await ctx.sendMessage(ctx.locale(I18N.events.message.no_music_playing));
+		if (!player) return await ctx.sendMessage(ctx.locale(($) => $.events.message.no_music_playing));
 		const tremoloEnabled = player.filterManager.filters.tremolo;
 
 		if (tremoloEnabled) {
@@ -42,7 +41,7 @@ export default class Tremolo extends Command {
 			await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.tremolo.messages.disabled),
+						description: ctx.locale(($) => $.commands.tremolo.messages.disabled),
 						color: this.client.color.main,
 					},
 				],
@@ -52,7 +51,7 @@ export default class Tremolo extends Command {
 			await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.tremolo.messages.enabled),
+						description: ctx.locale(($) => $.commands.tremolo.messages.enabled),
 						color: this.client.color.main,
 					},
 				],

@@ -635,5 +635,10 @@
 			"unknown_error": "알 수 없는 오류",
 			"no_players": "이동할 플레이어가 없어요."
 		}
+	},
+	"messages": {
+		"no_description": "No description provided",
+		"no_usage": "No usage provided",
+		"no_examples": "No examples provided"
 	}
 }

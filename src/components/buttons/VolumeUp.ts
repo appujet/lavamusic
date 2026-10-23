@@ -1,6 +1,6 @@
 import type { ButtonInteraction } from "discord.js";
 import { Component, type Lavamusic } from "../../structures";
-import { I18N, t } from "../../structures/I18n";
+import { t } from "../../structures/I18n";
 import { handlePlayerInteraction, updatePlayerMessage } from "../../utils/PlayerUIUtils";
 
 export default class VolumeUpButton extends Component {
@@ -22,7 +22,7 @@ export default class VolumeUpButton extends Component {
 			this.client,
 			interaction,
 			player,
-			t(I18N.events.setupButton.volume_set, { vol }),
+			t(($) => $.events.setupButton.volume_set, { vol }),
 		);
 	}
 }

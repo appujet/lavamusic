@@ -635,5 +635,10 @@
 			"unknown_error": "Ukjent feil",
 			"no_players": "Det er ingen spillere å flytte."
 		}
+	},
+	"messages": {
+		"no_description": "No description provided",
+		"no_usage": "No usage provided",
+		"no_examples": "No examples provided"
 	}
 }

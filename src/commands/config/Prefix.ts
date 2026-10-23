@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import {
 	EmbedLinks,
@@ -13,7 +12,7 @@ export default class Prefix extends Command {
 		super(client, {
 			name: "prefix",
 			description: {
-				content: I18N.commands.prefix.description,
+				content: ($) => $.commands.prefix.description,
 				examples: ["prefix set !", "prefix reset"],
 				usage: "prefix",
 			},
@@ -37,12 +36,12 @@ export default class Prefix extends Command {
 			options: [
 				{
 					name: "set",
-					description: I18N.commands.prefix.options.set,
+					description: ($) => $.commands.prefix.options.set,
 					type: 1,
 					options: [
 						{
 							name: "prefix",
-							description: I18N.commands.prefix.options.prefix,
+							description: ($) => $.commands.prefix.options.prefix,
 							type: 3,
 							required: true,
 						},
@@ -50,7 +49,7 @@ export default class Prefix extends Command {
 				},
 				{
 					name: "reset",
-					description: I18N.commands.prefix.options.reset,
+					description: ($) => $.commands.prefix.options.reset,
 					type: 1,
 				},
 			],
@@ -78,25 +77,25 @@ export default class Prefix extends Command {
 				if (!prefix) {
 					const currentPrefix = guildData ? guildData.prefix : client.env.PREFIX;
 					embed.setDescription(
-						ctx.locale(I18N.commands.prefix.messages.current_prefix, {
+						ctx.locale(($) => $.commands.prefix.messages.current_prefix, {
 							prefix: currentPrefix,
 						}),
 					);
 					return await ctx.sendMessage({ embeds: [embed] });
 				}
 				if (prefix.length > 3) {
-					embed.setDescription(ctx.locale(I18N.commands.prefix.errors.prefix_too_long));
+					embed.setDescription(ctx.locale(($) => $.commands.prefix.errors.prefix_too_long));
 					return await ctx.sendMessage({ embeds: [embed] });
 				}
 				await client.db.setPrefix(guildId, prefix);
-				embed.setDescription(ctx.locale(I18N.commands.prefix.messages.prefix_set, { prefix }));
+				embed.setDescription(ctx.locale(($) => $.commands.prefix.messages.prefix_set, { prefix }));
 				return await ctx.sendMessage({ embeds: [embed] });
 			}
 			case "reset": {
 				const defaultPrefix = client.env.PREFIX;
 				await client.db.setPrefix(guildId, defaultPrefix);
 				embed.setDescription(
-					ctx.locale(I18N.commands.prefix.messages.prefix_reset, {
+					ctx.locale(($) => $.commands.prefix.messages.prefix_reset, {
 						prefix: defaultPrefix,
 					}),
 				);
@@ -105,7 +104,7 @@ export default class Prefix extends Command {
 			default: {
 				const currentPrefix = guildData ? guildData.prefix : client.env.PREFIX;
 				embed.setDescription(
-					ctx.locale(I18N.commands.prefix.messages.current_prefix, {
+					ctx.locale(($) => $.commands.prefix.messages.current_prefix, {
 						prefix: currentPrefix,
 					}),
 				);

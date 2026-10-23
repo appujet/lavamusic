@@ -3,10 +3,27 @@ import type {
 	AutocompleteInteraction,
 	PermissionResolvable,
 } from "discord.js";
+import { PermissionFlagsBits } from "discord.js";
+import { type TKey, t } from "./I18n";
 import type Lavamusic from "./Lavamusic";
 
+/** `Omit` that keeps discriminated unions intact. */
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
+
+/**
+ * Slash command option whose description is a translation selector.
+ * `description` and `options` are replaced so nested options also use selectors.
+ */
+export type CommandOption = DistributiveOmit<
+	APIApplicationCommandOption,
+	"description" | "description_localizations" | "name_localizations" | "options"
+> & {
+	description: TKey;
+	options?: CommandOption[];
+};
+
 interface CommandDescription {
-	content: string;
+	content: TKey;
 	usage: string;
 	examples: string[];
 }
@@ -18,8 +35,6 @@ interface CommandPlayer {
 	djPerm: string | null;
 }
 
-import { PermissionFlagsBits } from "discord.js";
-
 interface CommandPermissions {
 	dev: boolean;
 	client: PermissionResolvable;
@@ -28,9 +43,7 @@ interface CommandPermissions {
 
 interface CommandOptions {
 	name: string;
-	name_localizations?: Record<string, string>;
 	description?: Partial<CommandDescription>;
-	description_localizations?: Record<string, string>;
 	aliases?: string[];
 	cooldown?: number;
 	args?: boolean;
@@ -38,16 +51,14 @@ interface CommandOptions {
 	player?: Partial<CommandPlayer>;
 	permissions?: Partial<CommandPermissions>;
 	slashCommand?: boolean;
-	options?: APIApplicationCommandOption[];
+	options?: CommandOption[];
 	category?: string;
 }
 
 export default class Command {
 	public client: Lavamusic;
 	public name: string;
-	public name_localizations?: Record<string, string>;
 	public description: CommandDescription;
-	public description_localizations?: Record<string, string>;
 	public aliases: string[];
 	public cooldown: number;
 	public args: boolean;
@@ -55,19 +66,17 @@ export default class Command {
 	public player: CommandPlayer;
 	public permissions: CommandPermissions;
 	public slashCommand: boolean;
-	public options: APIApplicationCommandOption[];
+	public options: CommandOption[];
 	public category: string;
 
 	constructor(client: Lavamusic, options: CommandOptions) {
 		this.client = client;
 		this.name = options.name;
-		this.name_localizations = options.name_localizations ?? {};
 		this.description = {
-			content: options.description?.content ?? "No description provided",
-			usage: options.description?.usage ?? "No usage provided",
-			examples: options.description?.examples ?? ["No examples provided"],
+			content: options.description?.content ?? (($) => $.commands.messages.no_description),
+			usage: options.description?.usage ?? t(($) => $.commands.messages.no_usage),
+			examples: options.description?.examples ?? [t(($) => $.commands.messages.no_examples)],
 		};
-		this.description_localizations = options.description_localizations ?? {};
 		this.aliases = options.aliases ?? [];
 		this.cooldown = options.cooldown ?? 3;
 		this.args = options.args ?? false;
@@ -95,6 +104,7 @@ export default class Command {
 	public async run(_client: Lavamusic, _message: any, _args: string[]): Promise<any> {
 		return await Promise.resolve();
 	}
+
 	public async autocomplete(_interaction: AutocompleteInteraction): Promise<void> {
 		return await Promise.resolve();
 	}

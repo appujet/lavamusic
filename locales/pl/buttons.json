@@ -9,5 +9,11 @@
 	"next": "Następna",
 	"errors": {
 		"not_author": "Nie możesz użyć tego przycisku."
-	}
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

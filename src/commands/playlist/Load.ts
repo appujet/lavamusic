@@ -1,5 +1,4 @@
 import type { AutocompleteInteraction, GuildMember } from "discord.js";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -8,7 +7,7 @@ export default class LoadPlaylist extends Command {
 		super(client, {
 			name: "load",
 			description: {
-				content: I18N.commands.load.description,
+				content: ($) => $.commands.load.description,
 				examples: ["load <playlist>"],
 				usage: "load <playlist>",
 			},
@@ -32,7 +31,7 @@ export default class LoadPlaylist extends Command {
 			options: [
 				{
 					name: "playlist",
-					description: I18N.commands.load.options.playlist,
+					description: ($) => $.commands.load.options.playlist,
 					type: 3,
 					required: true,
 					autocomplete: true,
@@ -49,7 +48,7 @@ export default class LoadPlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.load.messages.playlist_not_exist),
+						description: ctx.locale(($) => $.commands.load.messages.playlist_not_exist),
 						color: this.client.color.red,
 					},
 				],
@@ -61,7 +60,7 @@ export default class LoadPlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.load.messages.playlist_not_exist),
+						description: ctx.locale(($) => $.commands.load.messages.playlist_not_exist),
 						color: client.color.red,
 					},
 				],
@@ -71,7 +70,7 @@ export default class LoadPlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.load.messages.playlist_empty),
+						description: ctx.locale(($) => $.commands.load.messages.playlist_empty),
 						color: client.color.red,
 					},
 				],
@@ -96,7 +95,7 @@ export default class LoadPlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.load.messages.no_lavalink_nodes),
+						description: ctx.locale(($) => $.commands.load.messages.no_lavalink_nodes),
 						color: client.color.red,
 					},
 				],
@@ -108,7 +107,7 @@ export default class LoadPlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.load.messages.playlist_empty),
+						description: ctx.locale(($) => $.commands.load.messages.playlist_empty),
 						color: client.color.red,
 					},
 				],
@@ -121,7 +120,7 @@ export default class LoadPlaylist extends Command {
 		return await ctx.sendMessage({
 			embeds: [
 				{
-					description: ctx.locale(I18N.commands.load.messages.playlist_loaded, {
+					description: ctx.locale(($) => $.commands.load.messages.playlist_loaded, {
 						name: playlistData.name,
 						count: songs.length,
 					}),

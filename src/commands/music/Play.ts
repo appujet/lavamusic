@@ -4,7 +4,6 @@ import type {
 	VoiceChannel,
 } from "discord.js";
 import type { SearchResult } from "lavalink-client";
-import { I18N, t } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { applyFairPlayToQueue } from "../../utils/functions/player";
 import {
@@ -21,7 +20,7 @@ export default class Play extends Command {
 		super(client, {
 			name: "play",
 			description: {
-				content: I18N.commands.play.description,
+				content: ($) => $.commands.play.description,
 				examples: [
 					"play example",
 					"play https://www.youtube.com/watch?v=example",
@@ -50,7 +49,7 @@ export default class Play extends Command {
 			options: [
 				{
 					name: "song",
-					description: t(I18N.commands.play.options.song),
+					description: ($) => $.commands.play.options.song,
 					type: 3,
 					required: true,
 					autocomplete: true,
@@ -61,7 +60,7 @@ export default class Play extends Command {
 
 	public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
 		const query = args.join(" ");
-		await ctx.sendDeferMessage(ctx.locale(I18N.commands.play.loading));
+		await ctx.sendDeferMessage(ctx.locale(($) => $.commands.play.loading));
 		let player = client.manager.getPlayer(ctx.guild.id);
 		const memberVoiceChannel = (ctx.member as any).voice.channel as VoiceChannel;
 
@@ -87,7 +86,7 @@ export default class Play extends Command {
 					this.client
 						.embed()
 						.setColor(this.client.color.red)
-						.setDescription(ctx.locale(I18N.commands.play.errors.search_error)),
+						.setDescription(ctx.locale(($) => $.commands.play.errors.search_error)),
 				],
 			});
 		}
@@ -99,7 +98,7 @@ export default class Play extends Command {
 				embeds: [
 					embed
 						.setColor(this.client.color.red)
-						.setDescription(ctx.locale(I18N.commands.play.errors.search_error)),
+						.setDescription(ctx.locale(($) => $.commands.play.errors.search_error)),
 				],
 			});
 		}
@@ -116,7 +115,7 @@ export default class Play extends Command {
 				content: "",
 				embeds: [
 					embed.setColor(this.client.color.main).setDescription(
-						ctx.locale(I18N.commands.play.added_playlist_to_queue, {
+						ctx.locale(($) => $.commands.play.added_playlist_to_queue, {
 							length: response.tracks.length,
 						}),
 					),
@@ -127,7 +126,7 @@ export default class Play extends Command {
 				content: "",
 				embeds: [
 					embed.setColor(this.client.color.main).setDescription(
-						ctx.locale(I18N.commands.play.added_to_queue, {
+						ctx.locale(($) => $.commands.play.added_to_queue, {
 							title: response.tracks[0].info.title,
 							uri: response.tracks[0].info.uri,
 						}),

@@ -10,7 +10,6 @@ import {
 	type VoiceChannel,
 } from "discord.js";
 import type { SearchResult, Track } from "lavalink-client";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import {
 	AttachFiles,
@@ -27,7 +26,7 @@ export default class Search extends Command {
 		super(client, {
 			name: "search",
 			description: {
-				content: I18N.commands.search.description,
+				content: ($) => $.commands.search.description,
 				examples: ["search example"],
 				usage: "search <song>",
 			},
@@ -51,7 +50,7 @@ export default class Search extends Command {
 			options: [
 				{
 					name: "song",
-					description: I18N.commands.search.options.song,
+					description: ($) => $.commands.search.options.song,
 					type: 3,
 					required: true,
 				},
@@ -83,10 +82,10 @@ export default class Search extends Command {
 			.setAccentColor(client.color.main)
 			.addTextDisplayComponents((textDisplay) =>
 				textDisplay.setContent(
-					`**${ctx.locale(I18N.commands.search.messages.results_found, {
+					`**${ctx.locale(($) => $.commands.search.messages.results_found, {
 						count: tracks.length,
-					})}**\n*${ctx.locale(I18N.commands.search.messages.select_prompt)}*` +
-						`\n\n**${ctx.locale(I18N.commands.search.messages.page_info, {
+					})}**\n*${ctx.locale(($) => $.commands.search.messages.select_prompt)}*` +
+						`\n\n**${ctx.locale(($) => $.commands.search.messages.page_info, {
 							currentPage: currentPage + 1,
 							maxPages: maxPages,
 						})}**`,
@@ -115,7 +114,7 @@ export default class Search extends Command {
 
 		const selectMenu = new StringSelectMenuBuilder()
 			.setCustomId("select-track")
-			.setPlaceholder(ctx.locale(I18N.commands.search.select))
+			.setPlaceholder(ctx.locale(($) => $.commands.search.select))
 			.addOptions(
 				tracksOnPage.map((track: Track, index: number) => ({
 					label: `${startIndex + index + 1}. ${track.info.title.slice(0, 50)}${track.info.title.length > 50 ? "..." : ""}`,
@@ -128,13 +127,13 @@ export default class Search extends Command {
 
 		const previousButton = new ButtonBuilder()
 			.setCustomId("previous-page")
-			.setLabel(ctx.locale(I18N.buttons.previous))
+			.setLabel(ctx.locale(($) => $.buttons.previous))
 			.setStyle(ButtonStyle.Primary)
 			.setDisabled(currentPage === 0 || isDisabled); // Apply disabled state
 
 		const nextButton = new ButtonBuilder()
 			.setCustomId("next-page")
-			.setLabel(ctx.locale(I18N.buttons.next))
+			.setLabel(ctx.locale(($) => $.buttons.next))
 			.setStyle(ButtonStyle.Primary)
 			.setDisabled(currentPage === maxPages - 1 || isDisabled); // Apply disabled state
 
@@ -177,8 +176,8 @@ export default class Search extends Command {
 					.addTextDisplayComponents((textDisplay) =>
 						textDisplay.setContent(
 							`**${ctx.locale(
-								I18N.commands.search.errors.vc_connect_fail_title, // Changed key
-							)}**\n${ctx.locale(I18N.commands.search.errors.vc_connect_fail_description)}`, // Changed key
+								($) => $.commands.search.errors.vc_connect_fail_title, // Changed key
+							)}**\n${ctx.locale(($) => $.commands.search.errors.vc_connect_fail_description)}`, // Changed key
 						),
 					);
 				return await ctx.sendMessage({
@@ -196,8 +195,8 @@ export default class Search extends Command {
 				.addTextDisplayComponents((textDisplay) =>
 					textDisplay.setContent(
 						`**${ctx.locale(
-							I18N.commands.search.errors.no_results_title,
-						)}**\n\n${ctx.locale(I18N.commands.search.errors.no_results_description)}`,
+							($) => $.commands.search.errors.no_results_title,
+						)}**\n\n${ctx.locale(($) => $.commands.search.errors.no_results_description)}`,
 					),
 				);
 
@@ -239,8 +238,8 @@ export default class Search extends Command {
 						.addTextDisplayComponents((textDisplay) =>
 							textDisplay.setContent(
 								`**${ctx.locale(
-									I18N.commands.search.errors.invalid_selection_title,
-								)}**\n${ctx.locale(I18N.commands.search.errors.invalid_selection_description)}`,
+									($) => $.commands.search.errors.invalid_selection_title,
+								)}**\n${ctx.locale(($) => $.commands.search.errors.invalid_selection_description)}`,
 							),
 						);
 					return await int.followUp({
@@ -256,7 +255,7 @@ export default class Search extends Command {
 					.setAccentColor(this.client.color.green)
 					.addTextDisplayComponents((textDisplay) =>
 						textDisplay.setContent(
-							ctx.locale(I18N.commands.search.messages.added_to_queue, {
+							ctx.locale(($) => $.commands.search.messages.added_to_queue, {
 								title: track.info.title,
 								uri: track.info.uri,
 							}),
@@ -324,8 +323,8 @@ export default class Search extends Command {
 						.addTextDisplayComponents((textDisplay) =>
 							textDisplay.setContent(
 								`**${ctx.locale(
-									I18N.commands.search.messages.selection_timed_out_title,
-								)}**\n${ctx.locale(I18N.commands.search.messages.selection_timed_out_description)}`,
+									($) => $.commands.search.messages.selection_timed_out_title,
+								)}**\n${ctx.locale(($) => $.commands.search.messages.selection_timed_out_description)}`,
 							),
 						);
 
@@ -341,7 +340,7 @@ export default class Search extends Command {
 						.setAccentColor(this.client.color.red)
 						.addTextDisplayComponents((textDisplay) =>
 							textDisplay.setContent(
-								ctx.locale(I18N.commands.search.messages.selection_timed_out_short),
+								ctx.locale(($) => $.commands.search.messages.selection_timed_out_short),
 							),
 						);
 					await ctx.sendMessage({

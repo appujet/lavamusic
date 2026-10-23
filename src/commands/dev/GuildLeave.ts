@@ -1,6 +1,5 @@
 import { ChannelType, type TextChannel } from "discord.js";
 import { env } from "../../env";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -9,7 +8,7 @@ export default class GuildLeave extends Command {
 		super(client, {
 			name: "guildleave",
 			description: {
-				content: I18N.dev.guilds.description,
+				content: ($) => $.dev.guilds.description,
 				examples: ["guildleave <guildId>"],
 				usage: "guildleave <guildId>",
 			},
@@ -47,7 +46,7 @@ export default class GuildLeave extends Command {
 			.then((results) => results.find((g) => g !== null));
 
 		if (!guild) {
-			return await ctx.sendMessage(ctx.locale(I18N.dev.guilds.not_found));
+			return await ctx.sendMessage(ctx.locale(($) => $.dev.guilds.not_found));
 		}
 
 		const logChannelId = env.LOG_CHANNEL_ID;
@@ -65,14 +64,14 @@ export default class GuildLeave extends Command {
 				},
 				{ context: { guildId } },
 			);
-			await ctx.sendMessage(ctx.locale(I18N.dev.guilds.leave.success, { name: guild.name }));
+			await ctx.sendMessage(ctx.locale(($) => $.dev.guilds.leave.success, { name: guild.name }));
 			if (logChannel && logChannel.type === ChannelType.GuildText) {
 				await logChannel.send(
-					ctx.locale(I18N.dev.guilds.leave.log, { name: guild.name, id: guild.id }),
+					ctx.locale(($) => $.dev.guilds.leave.log, { name: guild.name, id: guild.id }),
 				);
 			}
 		} catch {
-			await ctx.sendMessage(ctx.locale(I18N.dev.guilds.leave.fail, { name: guild.name }));
+			await ctx.sendMessage(ctx.locale(($) => $.dev.guilds.leave.fail, { name: guild.name }));
 		}
 	}
 }

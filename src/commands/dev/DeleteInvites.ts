@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import {
 	ManageGuild,
@@ -12,7 +11,7 @@ export default class DestroyInvites extends Command {
 		super(client, {
 			name: "destroyinvites",
 			description: {
-				content: I18N.dev.invite.destroy.description,
+				content: ($) => $.dev.invite.destroy.description,
 				examples: ["destroyinvites 0000000000000000000"],
 				usage: "destroyinvites <guildId>",
 			},
@@ -40,7 +39,7 @@ export default class DestroyInvites extends Command {
 					client
 						.embed()
 						.setColor(client.color.red)
-						.setDescription(ctx.locale(I18N.dev.invite.destroy.errors.guild_not_found)),
+						.setDescription(ctx.locale(($) => $.dev.invite.destroy.errors.guild_not_found)),
 				],
 			});
 		}
@@ -56,7 +55,7 @@ export default class DestroyInvites extends Command {
 						client
 							.embed()
 							.setColor(client.color.main)
-							.setDescription(ctx.locale(I18N.dev.invite.destroy.not_found)),
+							.setDescription(ctx.locale(($) => $.dev.invite.destroy.not_found)),
 					],
 				});
 			}
@@ -70,7 +69,7 @@ export default class DestroyInvites extends Command {
 						.embed()
 						.setColor(client.color.main)
 						.setDescription(
-							ctx.locale(I18N.dev.invite.destroy.success, {
+							ctx.locale(($) => $.dev.invite.destroy.success, {
 								count: botInvites.size,
 								guildName: guild.name,
 							}),
@@ -83,7 +82,7 @@ export default class DestroyInvites extends Command {
 					client
 						.embed()
 						.setColor(client.color.red)
-						.setDescription(ctx.locale(I18N.dev.invite.destroy.errors.generic)),
+						.setDescription(ctx.locale(($) => $.dev.invite.destroy.errors.generic)),
 				],
 			});
 		}

@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -7,7 +6,7 @@ export default class Help extends Command {
 		super(client, {
 			name: "help",
 			description: {
-				content: I18N.commands.help.description,
+				content: ($) => $.commands.help.description,
 				examples: ["help"],
 				usage: "help",
 			},
@@ -31,7 +30,7 @@ export default class Help extends Command {
 			options: [
 				{
 					name: "command",
-					description: I18N.commands.help.options.command,
+					description: ($) => $.commands.help.options.command,
 					type: 3,
 					required: false,
 				},
@@ -51,7 +50,7 @@ export default class Help extends Command {
 				return await ctx.sendMessage({
 					embeds: [
 						embed.setColor(this.client.color.red).setDescription(
-							ctx.locale(I18N.commands.help.not_found, {
+							ctx.locale(($) => $.commands.help.not_found, {
 								cmdName: args[0],
 							}),
 						),
@@ -60,9 +59,9 @@ export default class Help extends Command {
 			}
 			const helpEmbed = embed
 				.setColor(client.color.main)
-				.setTitle(`${ctx.locale(I18N.commands.help.title)} - ${command.name}`)
+				.setTitle(`${ctx.locale(($) => $.commands.help.title)} - ${command.name}`)
 				.setDescription(
-					ctx.locale(I18N.commands.help.help_cmd, {
+					ctx.locale(($) => $.commands.help.help_cmd, {
 						description: ctx.locale(command.description.content),
 						usage: `${guild?.prefix}${command.description.usage}`,
 						examples: command.description.examples
@@ -103,15 +102,15 @@ export default class Help extends Command {
 
 		const helpEmbed = embed
 			.setColor(client.color.main)
-			.setTitle(ctx.locale(I18N.commands.help.title))
+			.setTitle(ctx.locale(($) => $.commands.help.title))
 			.setDescription(
-				ctx.locale(I18N.commands.help.content, {
+				ctx.locale(($) => $.commands.help.content, {
 					bot: client.user?.username,
 					prefix: guild.prefix,
 				}),
 			)
 			.setFooter({
-				text: ctx.locale(I18N.commands.help.footer, { prefix: guild.prefix }),
+				text: ctx.locale(($) => $.commands.help.footer, { prefix: guild.prefix }),
 			})
 			.addFields(...fields);
 

@@ -635,5 +635,10 @@
 			"unknown_error": "Unknown error",
 			"no_players": "There are no players to move."
 		}
+	},
+	"messages": {
+		"no_description": "No description provided",
+		"no_usage": "No usage provided",
+		"no_examples": "No examples provided"
 	}
 }

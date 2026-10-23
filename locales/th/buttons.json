@@ -9,5 +9,11 @@
 	"next": "ถัดไป",
 	"errors": {
 		"not_author": "คุณไม่สามารถใช้ปุ่มนี้ได้"
-	}
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

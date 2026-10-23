@@ -635,5 +635,10 @@
 			"unknown_error": "Неизвестная ошибка",
 			"no_players": "Нет плееров для перемещения."
 		}
+	},
+	"messages": {
+		"no_description": "No description provided",
+		"no_usage": "No usage provided",
+		"no_examples": "No examples provided"
 	}
 }

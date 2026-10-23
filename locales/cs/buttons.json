@@ -1,13 +1,19 @@
 {
-    "invite": "Pozvat",
-    "support": "Support server",
-    "previous": "Předchozí",
-    "resume": "Obnovit",
-    "stop": "Zastavit",
-    "skip": "Přeskočit",
-    "loop": "Smyčka",
-    "next": "Další",
-    "errors": {
-        "not_author": "Toto tlačítko nemůžete použít."
-    }
+	"invite": "Pozvat",
+	"support": "Support server",
+	"previous": "Předchozí",
+	"resume": "Obnovit",
+	"stop": "Zastavit",
+	"skip": "Přeskočit",
+	"loop": "Smyčka",
+	"next": "Další",
+	"errors": {
+		"not_author": "Toto tlačítko nemůžete použít."
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

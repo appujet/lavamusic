@@ -1,5 +1,4 @@
-import { I18N } from "../../structures/I18n";
-import { Command, type Lavamusic } from "../../structures/index";
+import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { applyFairPlayToQueue } from "../../utils/functions/player";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -8,7 +7,7 @@ export default class FairPlay extends Command {
 		super(client, {
 			name: "fairplay",
 			description: {
-				content: I18N.commands.fairplay.description,
+				content: ($) => $.commands.fairplay.description,
 				examples: ["fairplay"],
 				usage: "fairplay",
 			},
@@ -33,13 +32,13 @@ export default class FairPlay extends Command {
 		});
 	}
 
-	public async run(client: Lavamusic, ctx: any): Promise<any> {
+	public async run(client: Lavamusic, ctx: Context): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild.id);
 		if (!player) {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.player.errors.no_player),
+						description: ctx.locale(($) => $.player.errors.no_player),
 						color: this.client.color.red,
 					},
 				],
@@ -53,11 +52,11 @@ export default class FairPlay extends Command {
 
 		if (fairPlay) {
 			embed
-				.setDescription(ctx.locale(I18N.commands.fairplay.messages.disabled))
+				.setDescription(ctx.locale(($) => $.commands.fairplay.messages.disabled))
 				.setColor(this.client.color.main);
 		} else {
 			embed
-				.setDescription(ctx.locale(I18N.commands.fairplay.messages.enabled))
+				.setDescription(ctx.locale(($) => $.commands.fairplay.messages.enabled))
 				.setColor(this.client.color.main);
 			await applyFairPlayToQueue(player);
 		}

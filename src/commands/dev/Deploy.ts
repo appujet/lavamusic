@@ -6,19 +6,19 @@ import {
 	ComponentType,
 	MessageFlags,
 } from "discord.js";
-import { I18N, t } from "../../structures/I18n";
+import { type TKey, t } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
-const deployStatus = {
+const deployStatus: Record<ActionType, Record<ScopeType, { key: TKey; emoji: string }>> = {
 	deploy: {
-		global: { key: I18N.dev.deploy.status.deployed_global, emoji: "🚀" },
-		guild: { key: I18N.dev.deploy.status.deployed_guild, emoji: "✅" },
+		global: { key: ($) => $.dev.deploy.status.deployed_global, emoji: "🚀" },
+		guild: { key: ($) => $.dev.deploy.status.deployed_guild, emoji: "✅" },
 	},
 	undeploy: {
-		global: { key: I18N.dev.deploy.status.removed_global, emoji: "🗑️" },
-		guild: { key: I18N.dev.deploy.status.removed_guild, emoji: "❌" },
+		global: { key: ($) => $.dev.deploy.status.removed_global, emoji: "🗑️" },
+		guild: { key: ($) => $.dev.deploy.status.removed_guild, emoji: "❌" },
 	},
 } as const;
 
@@ -30,7 +30,7 @@ export default class Deploy extends Command {
 		super(client, {
 			name: "deploy",
 			description: {
-				content: `🔁 ${I18N.dev.deploy.description}`,
+				content: ($) => $.dev.deploy.description,
 				examples: ["deploy"],
 				usage: "deploy",
 			},
@@ -55,24 +55,28 @@ export default class Deploy extends Command {
 	}
 
 	public async run(client: Lavamusic, ctx: Context, _args: string[]): Promise<any> {
-		const buildButton = (id: string, labelKey: string, style: ButtonStyle) =>
+		const buildButton = (id: string, labelKey: TKey, style: ButtonStyle) =>
 			new ButtonBuilder()
 				.setCustomId(id)
 				.setLabel(t(labelKey, { lng: ctx.guildLocale }))
 				.setStyle(style);
 
 		const deployRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
-			buildButton("deploy-global", I18N.dev.deploy.buttons.deploy_global, ButtonStyle.Success),
-			buildButton("deploy-guild", I18N.dev.deploy.buttons.deploy_guild, ButtonStyle.Primary),
+			buildButton("deploy-global", ($) => $.dev.deploy.buttons.deploy_global, ButtonStyle.Success),
+			buildButton("deploy-guild", ($) => $.dev.deploy.buttons.deploy_guild, ButtonStyle.Primary),
 		);
 
 		const undeployRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
-			buildButton("undeploy-global", I18N.dev.deploy.buttons.remove_global, ButtonStyle.Danger),
-			buildButton("undeploy-guild", I18N.dev.deploy.buttons.remove_guild, ButtonStyle.Secondary),
+			buildButton("undeploy-global", ($) => $.dev.deploy.buttons.remove_global, ButtonStyle.Danger),
+			buildButton(
+				"undeploy-guild",
+				($) => $.dev.deploy.buttons.remove_guild,
+				ButtonStyle.Secondary,
+			),
 		);
 
 		const msg = await ctx.sendMessage({
-			content: `⚠️ ${ctx.locale(I18N.dev.deploy.prompt)}`,
+			content: `⚠️ ${ctx.locale(($) => $.dev.deploy.prompt)}`,
 			components: [deployRow, undeployRow],
 			flags: MessageFlags.Ephemeral,
 		});
@@ -88,7 +92,7 @@ export default class Deploy extends Command {
 		collector.on("collect", async (interaction: ButtonInteraction) => {
 			if (interaction.user.id !== ctx.author?.id) {
 				return await interaction.reply({
-					content: ctx.locale(I18N.common.errors.no_permissions),
+					content: ctx.locale(($) => $.common.errors.no_permissions),
 					flags: MessageFlags.Ephemeral,
 				});
 			}
@@ -113,10 +117,12 @@ export default class Deploy extends Command {
 				collector.stop("success");
 				return;
 			} catch (error) {
-				logger.error(`[DEPLOY] ${ctx.locale(I18N.dev.deploy.status.failed, { error: error })} `);
+				logger.error(
+					`[DEPLOY] ${ctx.locale(($) => $.dev.deploy.status.failed, { error: error })} `,
+				);
 
 				await ctx.editMessage({
-					content: ctx.locale(I18N.common.errors.generic, { error: error }),
+					content: ctx.locale(($) => $.common.errors.generic, { error: error }),
 					components: [],
 				});
 				return;

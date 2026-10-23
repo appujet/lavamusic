@@ -1,13 +1,19 @@
 {
-    "invite": "Inviter",
-    "support": "Support server",
-    "previous": "Forrige",
-    "resume": "Genoptag",
-    "stop": "Stop",
-    "skip": "Spring over",
-    "loop": "Loop",
-    "next": "Næste",
-    "errors": {
-        "not_author": "Du kan ikke bruge denne knap."
-    }
+	"invite": "Inviter",
+	"support": "Support server",
+	"previous": "Forrige",
+	"resume": "Genoptag",
+	"stop": "Stop",
+	"skip": "Spring over",
+	"loop": "Loop",
+	"next": "Næste",
+	"errors": {
+		"not_author": "Du kan ikke bruge denne knap."
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

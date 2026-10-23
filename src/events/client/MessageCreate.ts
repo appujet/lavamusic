@@ -10,7 +10,7 @@ import {
 	PermissionFlagsBits,
 	type TextChannel,
 } from "discord.js";
-import { I18N, t } from "../../structures/I18n";
+import { t } from "../../structures/I18n";
 import { Context, Event, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
 import { LavamusicEventType } from "../../types/events";
@@ -38,7 +38,7 @@ export default class MessageCreate extends Event {
 		const mention = new RegExp(`^<@!?${this.client.user?.id}>( |)$`);
 		if (mention.test(message.content)) {
 			await message.reply({
-				content: t(I18N.events.message.prefix_mention, {
+				content: t(($) => $.events.message.prefix_mention, {
 					lng: locale,
 					prefix: guild?.prefix,
 				}),
@@ -86,7 +86,7 @@ export default class MessageCreate extends Event {
 		) {
 			return await message.author
 				.send({
-					content: t(I18N.events.message.no_send_message, { lng: locale }),
+					content: t(($) => $.events.message.no_send_message, { lng: locale }),
 				})
 				.catch(() => {
 					null;
@@ -105,7 +105,7 @@ export default class MessageCreate extends Event {
 
 				if (missingClientPermissions.length > 0) {
 					return await message.reply({
-						content: t(I18N.events.message.no_permission, {
+						content: t(($) => $.events.message.no_permission, {
 							lng: locale,
 							permissions: missingClientPermissions.map((perm: string) => `\`${perm}\``).join(", "),
 						}),
@@ -120,7 +120,7 @@ export default class MessageCreate extends Event {
 
 				if (!(isDev || (message.member as GuildMember).permissions.has(userRequiredPermissions))) {
 					return await message.reply({
-						content: t(I18N.events.message.no_user_permission, { lng: locale }),
+						content: t(($) => $.events.message.no_user_permission, { lng: locale }),
 					});
 				}
 			}
@@ -135,13 +135,13 @@ export default class MessageCreate extends Event {
 			if (!(isDev || voted)) {
 				const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
 					new ButtonBuilder()
-						.setLabel(t(I18N.events.message.vote_button, { lng: locale }))
+						.setLabel(t(($) => $.events.message.vote_button, { lng: locale }))
 						.setURL(`https://top.gg/bot/${this.client.user?.id}/vote`)
 						.setStyle(ButtonStyle.Link),
 				);
 
 				return await message.reply({
-					content: t(I18N.events.message.vote_message, { lng: locale }),
+					content: t(($) => $.events.message.vote_message, { lng: locale }),
 					components: [voteBtn],
 				});
 			}
@@ -151,7 +151,7 @@ export default class MessageCreate extends Event {
 			if (command.player.voice) {
 				if (!(message.member as GuildMember).voice.channel) {
 					return await message.reply({
-						content: t(I18N.events.message.no_voice_channel, {
+						content: t(($) => $.events.message.no_voice_channel, {
 							lng: locale,
 							command: command.name,
 						}),
@@ -160,7 +160,7 @@ export default class MessageCreate extends Event {
 
 				if (!clientMember.permissions.has(PermissionFlagsBits.Connect)) {
 					return await message.reply({
-						content: t(I18N.events.message.no_connect_permission, {
+						content: t(($) => $.events.message.no_connect_permission, {
 							lng: locale,
 							command: command.name,
 						}),
@@ -169,7 +169,7 @@ export default class MessageCreate extends Event {
 
 				if (!clientMember.permissions.has(PermissionFlagsBits.Speak)) {
 					return await message.reply({
-						content: t(I18N.events.message.no_speak_permission, {
+						content: t(($) => $.events.message.no_speak_permission, {
 							lng: locale,
 							command: command.name,
 						}),
@@ -181,7 +181,7 @@ export default class MessageCreate extends Event {
 					!clientMember.permissions.has(PermissionFlagsBits.RequestToSpeak)
 				) {
 					return await message.reply({
-						content: t(I18N.events.message.no_request_to_speak, {
+						content: t(($) => $.events.message.no_request_to_speak, {
 							lng: locale,
 							command: command.name,
 						}),
@@ -193,7 +193,7 @@ export default class MessageCreate extends Event {
 					clientMember.voice.channelId !== (message.member as GuildMember).voice.channelId
 				) {
 					return await message.reply({
-						content: t(I18N.events.message.different_voice_channel, {
+						content: t(($) => $.events.message.different_voice_channel, {
 							lng: locale,
 							channel: `<#${clientMember.voice.channelId}>`,
 							command: command.name,
@@ -206,7 +206,7 @@ export default class MessageCreate extends Event {
 				const queue = this.client.manager.getPlayer(message.guildId);
 				if (!queue?.queue.current) {
 					return await message.reply({
-						content: t(I18N.events.message.no_music_playing, { lng: locale }),
+						content: t(($) => $.events.message.no_music_playing, { lng: locale }),
 					});
 				}
 			}
@@ -219,7 +219,7 @@ export default class MessageCreate extends Event {
 				if (dj?.mode) {
 					if (!djRole) {
 						return await message.reply({
-							content: t(I18N.events.message.no_dj_role, { lng: locale }),
+							content: t(($) => $.events.message.no_dj_role, { lng: locale }),
 						});
 					}
 
@@ -234,7 +234,7 @@ export default class MessageCreate extends Event {
 						)
 					) {
 						return await message.reply({
-							content: t(I18N.events.message.no_dj_permission, { lng: locale }),
+							content: t(($) => $.events.message.no_dj_permission, { lng: locale }),
 						});
 					}
 				}
@@ -245,9 +245,9 @@ export default class MessageCreate extends Event {
 			const embed = this.client
 				.embed()
 				.setColor(this.client.color.red)
-				.setTitle(t(I18N.events.message.missing_arguments, { lng: locale }))
+				.setTitle(t(($) => $.events.message.missing_arguments, { lng: locale }))
 				.setDescription(
-					t(I18N.events.message.missing_arguments_description, {
+					t(($) => $.events.message.missing_arguments_description, {
 						lng: locale,
 						command: command.name,
 						examples: command.description.examples
@@ -255,7 +255,7 @@ export default class MessageCreate extends Event {
 							: "None",
 					}),
 				)
-				.setFooter({ text: t(I18N.events.message.syntax_footer, { lng: locale }) });
+				.setFooter({ text: t(($) => $.events.message.syntax_footer, { lng: locale }) });
 			await message.reply({ embeds: [embed] });
 			return;
 		}
@@ -272,7 +272,7 @@ export default class MessageCreate extends Event {
 			const timeLeft = (expirationTime - now) / 1000;
 			if (now < expirationTime && timeLeft > 0.9) {
 				return await message.reply({
-					content: t(I18N.events.message.cooldown, {
+					content: t(($) => $.events.message.cooldown, {
 						lng: locale,
 						time: timeLeft.toFixed(1),
 						command: cmd,
@@ -288,7 +288,7 @@ export default class MessageCreate extends Event {
 
 		if (args.includes("@everyone") || args.includes("@here")) {
 			return await message.reply({
-				content: t(I18N.events.message.no_mention_everyone, { lng: locale }),
+				content: t(($) => $.events.message.no_mention_everyone, { lng: locale }),
 			});
 		}
 
@@ -297,7 +297,7 @@ export default class MessageCreate extends Event {
 		} catch (error: any) {
 			logger.error(error);
 			await message.reply({
-				content: t(I18N.events.message.error, {
+				content: t(($) => $.events.message.error, {
 					lng: locale,
 					error: error.message || "Unknown error",
 				}),

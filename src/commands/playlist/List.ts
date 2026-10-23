@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
@@ -8,7 +7,7 @@ export default class GetPlaylists extends Command {
 		super(client, {
 			name: "list",
 			description: {
-				content: I18N.commands.list.description,
+				content: ($) => $.commands.list.description,
 				examples: ["list", "list @user"],
 				usage: "list [@user]",
 			},
@@ -32,7 +31,7 @@ export default class GetPlaylists extends Command {
 			options: [
 				{
 					name: "user",
-					description: I18N.commands.list.options.user,
+					description: ($) => $.commands.list.options.user,
 					type: 6,
 					required: false,
 				},
@@ -70,7 +69,7 @@ export default class GetPlaylists extends Command {
 						return await ctx.sendMessage({
 							embeds: [
 								{
-									description: ctx.locale(I18N.commands.list.messages.invalid_username),
+									description: ctx.locale(($) => $.commands.list.messages.invalid_username),
 									color: this.client.color.red,
 								},
 							],
@@ -86,7 +85,7 @@ export default class GetPlaylists extends Command {
 				return await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.list.messages.invalid_userid),
+							description: ctx.locale(($) => $.commands.list.messages.invalid_userid),
 							color: this.client.color.red,
 						},
 					],
@@ -99,7 +98,7 @@ export default class GetPlaylists extends Command {
 				return await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.list.messages.no_playlists),
+							description: ctx.locale(($) => $.commands.list.messages.no_playlists),
 							color: this.client.color.red,
 						},
 					],
@@ -108,11 +107,11 @@ export default class GetPlaylists extends Command {
 
 			const targetUsername = targetUser
 				? targetUser.username
-				: ctx.locale(I18N.commands.list.messages.your);
+				: ctx.locale(($) => $.commands.list.messages.your);
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						title: ctx.locale(I18N.commands.list.messages.playlists_title, {
+						title: ctx.locale(($) => $.commands.list.messages.playlists_title, {
 							username: targetUsername,
 						}),
 						description: playlists.map((playlist: any) => playlist.name).join("\n"),
@@ -125,7 +124,7 @@ export default class GetPlaylists extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.list.messages.error),
+						description: ctx.locale(($) => $.commands.list.messages.error),
 						color: this.client.color.red,
 					},
 				],

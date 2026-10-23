@@ -635,5 +635,10 @@
 			"unknown_error": "未知錯誤",
 			"no_players": "沒有可移動的播放器。"
 		}
+	},
+	"messages": {
+		"no_description": "No description provided",
+		"no_usage": "No usage provided",
+		"no_examples": "No examples provided"
 	}
 }

@@ -1,5 +1,4 @@
 import type { AutocompleteInteraction } from "discord.js";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
@@ -9,7 +8,7 @@ export default class StealPlaylist extends Command {
 		super(client, {
 			name: "steal",
 			description: {
-				content: I18N.commands.steal.description,
+				content: ($) => $.commands.steal.description,
 				examples: ["steal <@user> <playlist_name>"],
 				usage: "steal <@user> <playlist_name>",
 			},
@@ -33,13 +32,13 @@ export default class StealPlaylist extends Command {
 			options: [
 				{
 					name: "user",
-					description: I18N.commands.steal.options.user,
+					description: ($) => $.commands.steal.options.user,
 					type: 6,
 					required: true,
 				},
 				{
 					name: "playlist",
-					description: I18N.commands.steal.options.playlist,
+					description: ($) => $.commands.steal.options.playlist,
 					type: 3,
 					required: true,
 					autocomplete: true,
@@ -89,7 +88,7 @@ export default class StealPlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.steal.messages.provide_playlist),
+						description: ctx.locale(($) => $.commands.steal.messages.provide_playlist),
 						color: this.client.color.red,
 					},
 				],
@@ -100,7 +99,7 @@ export default class StealPlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.steal.messages.provide_user),
+						description: ctx.locale(($) => $.commands.steal.messages.provide_user),
 						color: this.client.color.red,
 					},
 				],
@@ -114,7 +113,7 @@ export default class StealPlaylist extends Command {
 				return await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.steal.messages.playlist_not_exist),
+							description: ctx.locale(($) => $.commands.steal.messages.playlist_not_exist),
 							color: this.client.color.red,
 						},
 					],
@@ -126,7 +125,7 @@ export default class StealPlaylist extends Command {
 				return await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.steal.messages.playlist_not_exist),
+							description: ctx.locale(($) => $.commands.steal.messages.playlist_not_exist),
 							color: this.client.color.red,
 						},
 					],
@@ -137,7 +136,7 @@ export default class StealPlaylist extends Command {
 				return await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.steal.messages.playlist_exists, {
+							description: ctx.locale(($) => $.commands.steal.messages.playlist_exists, {
 								playlist: playlistName,
 							}),
 							color: this.client.color.red,
@@ -151,7 +150,7 @@ export default class StealPlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.steal.messages.playlist_stolen, {
+						description: ctx.locale(($) => $.commands.steal.messages.playlist_stolen, {
 							playlist: playlistName,
 							user: targetUser.username,
 						}),
@@ -164,7 +163,7 @@ export default class StealPlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.steal.messages.error_occurred),
+						description: ctx.locale(($) => $.commands.steal.messages.error_occurred),
 						color: this.client.color.red,
 					},
 				],

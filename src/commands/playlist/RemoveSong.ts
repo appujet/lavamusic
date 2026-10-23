@@ -1,5 +1,4 @@
 import type { AutocompleteInteraction } from "discord.js";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -8,7 +7,7 @@ export default class RemoveSong extends Command {
 		super(client, {
 			name: "removesong",
 			description: {
-				content: I18N.commands.removesong.description,
+				content: ($) => $.commands.removesong.description,
 				examples: ["removesong <playlist> <song>"],
 				usage: "removesong <playlist> <song>",
 			},
@@ -32,14 +31,14 @@ export default class RemoveSong extends Command {
 			options: [
 				{
 					name: "playlist",
-					description: I18N.commands.removesong.options.playlist,
+					description: ($) => $.commands.removesong.options.playlist,
 					type: 3,
 					required: true,
 					autocomplete: true,
 				},
 				{
 					name: "song",
-					description: I18N.commands.removesong.options.song,
+					description: ($) => $.commands.removesong.options.song,
 					type: 3,
 					required: true,
 				},
@@ -54,7 +53,7 @@ export default class RemoveSong extends Command {
 		if (!playlist) {
 			const errorMessage = this.client
 				.embed()
-				.setDescription(ctx.locale(I18N.commands.removesong.messages.provide_playlist))
+				.setDescription(ctx.locale(($) => $.commands.removesong.messages.provide_playlist))
 				.setColor(this.client.color.red);
 			return await ctx.sendMessage({ embeds: [errorMessage] });
 		}
@@ -62,7 +61,7 @@ export default class RemoveSong extends Command {
 		if (!song) {
 			const errorMessage = this.client
 				.embed()
-				.setDescription(ctx.locale(I18N.commands.removesong.messages.provide_song))
+				.setDescription(ctx.locale(($) => $.commands.removesong.messages.provide_song))
 				.setColor(this.client.color.red);
 			return await ctx.sendMessage({ embeds: [errorMessage] });
 		}
@@ -72,7 +71,7 @@ export default class RemoveSong extends Command {
 		if (!playlistData) {
 			const playlistNotFoundError = this.client
 				.embed()
-				.setDescription(ctx.locale(I18N.commands.removesong.messages.playlist_not_exist))
+				.setDescription(ctx.locale(($) => $.commands.removesong.messages.playlist_not_exist))
 				.setColor(this.client.color.red);
 			return await ctx.sendMessage({ embeds: [playlistNotFoundError] });
 		}
@@ -82,7 +81,7 @@ export default class RemoveSong extends Command {
 		if (!res || (res.loadType !== "track" && res.loadType !== "search")) {
 			const noSongsFoundError = this.client
 				.embed()
-				.setDescription(ctx.locale(I18N.commands.removesong.messages.song_not_found))
+				.setDescription(ctx.locale(($) => $.commands.removesong.messages.song_not_found))
 				.setColor(this.client.color.red);
 			return await ctx.sendMessage({ embeds: [noSongsFoundError] });
 		}
@@ -95,7 +94,7 @@ export default class RemoveSong extends Command {
 			const successMessage = this.client
 				.embed()
 				.setDescription(
-					ctx.locale(I18N.commands.removesong.messages.song_removed, {
+					ctx.locale(($) => $.commands.removesong.messages.song_removed, {
 						song: trackToRemove.info.title,
 						playlist: playlistData.name,
 					}),
@@ -106,7 +105,7 @@ export default class RemoveSong extends Command {
 			console.error(error);
 			const genericError = this.client
 				.embed()
-				.setDescription(ctx.locale(I18N.commands.removesong.messages.error_occurred))
+				.setDescription(ctx.locale(($) => $.commands.removesong.messages.error_occurred))
 				.setColor(this.client.color.red);
 			return await ctx.sendMessage({ embeds: [genericError] });
 		}

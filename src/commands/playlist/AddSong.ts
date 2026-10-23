@@ -1,5 +1,4 @@
 import type { AutocompleteInteraction } from "discord.js";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -8,7 +7,7 @@ export default class AddSong extends Command {
 		super(client, {
 			name: "addsong",
 			description: {
-				content: I18N.commands.addsong.description,
+				content: ($) => $.commands.addsong.description,
 				examples: [
 					"addsong test exemple",
 					"addsong exemple https://www.youtube.com/watch?v=example",
@@ -35,14 +34,14 @@ export default class AddSong extends Command {
 			options: [
 				{
 					name: "playlist",
-					description: I18N.commands.addsong.options.playlist,
+					description: ($) => $.commands.addsong.options.playlist,
 					type: 3,
 					required: true,
 					autocomplete: true,
 				},
 				{
 					name: "song",
-					description: I18N.commands.addsong.options.song,
+					description: ($) => $.commands.addsong.options.song,
 					type: 3,
 					required: true,
 				},
@@ -58,7 +57,7 @@ export default class AddSong extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.addsong.messages.no_playlist),
+						description: ctx.locale(($) => $.commands.addsong.messages.no_playlist),
 						color: this.client.color.red,
 					},
 				],
@@ -69,7 +68,7 @@ export default class AddSong extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.addsong.messages.no_song),
+						description: ctx.locale(($) => $.commands.addsong.messages.no_song),
 						color: this.client.color.red,
 					},
 				],
@@ -80,7 +79,7 @@ export default class AddSong extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.addsong.messages.no_songs_found),
+						description: ctx.locale(($) => $.commands.addsong.messages.no_songs_found),
 						color: this.client.color.red,
 					},
 				],
@@ -92,7 +91,7 @@ export default class AddSong extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.addsong.messages.playlist_not_found),
+						description: ctx.locale(($) => $.commands.addsong.messages.playlist_not_found),
 						color: this.client.color.red,
 					},
 				],
@@ -115,7 +114,7 @@ export default class AddSong extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.addsong.messages.no_songs_found),
+						description: ctx.locale(($) => $.commands.addsong.messages.no_songs_found),
 						color: this.client.color.red,
 					},
 				],
@@ -127,7 +126,7 @@ export default class AddSong extends Command {
 		return await ctx.sendMessage({
 			embeds: [
 				{
-					description: ctx.locale(I18N.commands.addsong.messages.added, {
+					description: ctx.locale(($) => $.commands.addsong.messages.added, {
 						playlist: playlistData.name,
 						count,
 					}),

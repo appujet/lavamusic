@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
@@ -8,7 +7,7 @@ export default class MoveNode extends Command {
 		super(client, {
 			name: "movenode",
 			description: {
-				content: I18N.commands.movenode.description,
+				content: ($) => $.commands.movenode.description,
 				examples: ["movenode", "movenode node2"],
 				usage: "movenode [nodeId]",
 			},
@@ -32,7 +31,7 @@ export default class MoveNode extends Command {
 			options: [
 				{
 					name: "node",
-					description: I18N.commands.movenode.options.node,
+					description: ($) => $.commands.movenode.options.node,
 					type: 3,
 					required: false,
 				},
@@ -56,7 +55,7 @@ export default class MoveNode extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.movenode.messages.no_players),
+						description: ctx.locale(($) => $.commands.movenode.messages.no_players),
 						color: this.client.color.red,
 					},
 				],
@@ -74,7 +73,7 @@ export default class MoveNode extends Command {
 				return await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.movenode.messages.no_available_nodes),
+							description: ctx.locale(($) => $.commands.movenode.messages.no_available_nodes),
 							color: this.client.color.red,
 						},
 					],
@@ -82,19 +81,19 @@ export default class MoveNode extends Command {
 			}
 
 			const currentNodeText = currentNodeId
-				? `**${ctx.locale(I18N.commands.movenode.messages.current_node)}:** ${currentNodeId}`
+				? `**${ctx.locale(($) => $.commands.movenode.messages.current_node)}:** ${currentNodeId}`
 				: "";
 			const availableNodesList = availableNodes.map((id) => `• ${id}`).join("\n");
-			const availableNodesText = `**${ctx.locale(I18N.commands.movenode.messages.available_nodes)}:**\n${availableNodesList}`;
+			const availableNodesText = `**${ctx.locale(($) => $.commands.movenode.messages.available_nodes)}:**\n${availableNodesList}`;
 
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						title: ctx.locale(I18N.commands.movenode.messages.available_nodes_title),
+						title: ctx.locale(($) => $.commands.movenode.messages.available_nodes_title),
 						description: `${currentNodeText}\n\n${availableNodesText}`,
 						color: this.client.color.main,
 						footer: {
-							text: ctx.locale(I18N.commands.movenode.messages.usage_hint),
+							text: ctx.locale(($) => $.commands.movenode.messages.usage_hint),
 						},
 					},
 				],
@@ -107,7 +106,7 @@ export default class MoveNode extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.movenode.messages.node_not_found, {
+						description: ctx.locale(($) => $.commands.movenode.messages.node_not_found, {
 							node: nodeId,
 						}),
 						color: this.client.color.red,
@@ -120,7 +119,7 @@ export default class MoveNode extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.movenode.messages.node_not_connected, {
+						description: ctx.locale(($) => $.commands.movenode.messages.node_not_connected, {
 							node: nodeId,
 						}),
 						color: this.client.color.red,
@@ -137,7 +136,7 @@ export default class MoveNode extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.movenode.messages.same_node, { node: nodeId }),
+						description: ctx.locale(($) => $.commands.movenode.messages.same_node, { node: nodeId }),
 						color: this.client.color.red,
 					},
 				],
@@ -149,7 +148,7 @@ export default class MoveNode extends Command {
 				await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.movenode.messages.moving_all_players, {
+							description: ctx.locale(($) => $.commands.movenode.messages.moving_all_players, {
 								node: nodeId,
 							}),
 							color: this.client.color.main,
@@ -191,10 +190,10 @@ export default class MoveNode extends Command {
 
 			let description = "";
 			if (successMoves.length > 0) {
-				description += `${ctx.locale(I18N.commands.movenode.messages.moved_players, {
+				description += `${ctx.locale(($) => $.commands.movenode.messages.moved_players, {
 					list: successMoves
 						.map((r) =>
-							ctx.locale(I18N.commands.movenode.messages.guild_move, {
+							ctx.locale(($) => $.commands.movenode.messages.guild_move, {
 								guildId: r.guildId,
 								from: r.from,
 								to: r.to,
@@ -206,10 +205,10 @@ export default class MoveNode extends Command {
 			if (failedMoves.length > 0) {
 				description +=
 					"\n" +
-					ctx.locale(I18N.commands.movenode.messages.failed_moves, {
+					ctx.locale(($) => $.commands.movenode.messages.failed_moves, {
 						list: failedMoves
 							.map((r) =>
-								ctx.locale(I18N.commands.movenode.messages.guild_move_failed, {
+								ctx.locale(($) => $.commands.movenode.messages.guild_move_failed, {
 									guildId: r.guildId,
 									error: r.error,
 								}),
@@ -218,11 +217,11 @@ export default class MoveNode extends Command {
 					});
 			}
 			if (description === "") {
-				description = ctx.locale(I18N.commands.movenode.messages.no_players_moved);
+				description = ctx.locale(($) => $.commands.movenode.messages.no_players_moved);
 			}
 
 			// Send a summary message
-			const resultTitle = ctx.locale(I18N.commands.movenode.messages.results_title);
+			const resultTitle = ctx.locale(($) => $.commands.movenode.messages.results_title);
 			const resultColor = failedMoves.length > 0 ? this.client.color.red : this.client.color.green;
 			const resultTimestamp = new Date().toISOString();
 
@@ -257,11 +256,11 @@ export default class MoveNode extends Command {
 				await ctx.editMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.movenode.messages.error, {
+							description: ctx.locale(($) => $.commands.movenode.messages.error, {
 								error:
 									error instanceof Error
 										? error.message
-										: ctx.locale(I18N.commands.movenode.messages.unknown_error),
+										: ctx.locale(($) => $.commands.movenode.messages.unknown_error),
 							}),
 							color: this.client.color.red,
 						},
@@ -271,11 +270,11 @@ export default class MoveNode extends Command {
 				await ctx.sendMessage({
 					embeds: [
 						{
-							description: ctx.locale(I18N.commands.movenode.messages.error, {
+							description: ctx.locale(($) => $.commands.movenode.messages.error, {
 								error:
 									error instanceof Error
 										? error.message
-										: ctx.locale(I18N.commands.movenode.messages.unknown_error),
+										: ctx.locale(($) => $.commands.movenode.messages.unknown_error),
 							}),
 							color: this.client.color.red,
 						},

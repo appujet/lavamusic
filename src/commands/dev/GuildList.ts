@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -7,7 +6,7 @@ export default class GuildList extends Command {
 		super(client, {
 			name: "guildlist",
 			description: {
-				content: I18N.dev.guilds.list,
+				content: ($) => $.dev.guilds.list,
 				examples: ["guildlist"],
 				usage: "guildlist",
 			},

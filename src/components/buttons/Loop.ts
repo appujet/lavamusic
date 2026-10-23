@@ -1,6 +1,6 @@
 import type { ButtonInteraction } from "discord.js";
 import { Component, type Lavamusic } from "../../structures";
-import { I18N, t } from "../../structures/I18n";
+import { t } from "../../structures/I18n";
 import { handlePlayerInteraction, updatePlayerMessage } from "../../utils/PlayerUIUtils";
 
 export default class LoopButton extends Component {
@@ -23,7 +23,7 @@ export default class LoopButton extends Component {
 					this.client,
 					interaction,
 					player,
-					t(I18N.player.trackStart.looping_by, { user: interaction.user.tag }),
+					t(($) => $.player.trackStart.looping_by, { user: interaction.user.tag }),
 				);
 				break;
 			case "track":
@@ -32,7 +32,7 @@ export default class LoopButton extends Component {
 					this.client,
 					interaction,
 					player,
-					t(I18N.player.trackStart.looping_queue_by, { user: interaction.user.tag }),
+					t(($) => $.player.trackStart.looping_queue_by, { user: interaction.user.tag }),
 				);
 				break;
 			case "queue":
@@ -41,7 +41,7 @@ export default class LoopButton extends Component {
 					this.client,
 					interaction,
 					player,
-					t(I18N.player.trackStart.looping_off_by, { user: interaction.user.tag }),
+					t(($) => $.player.trackStart.looping_off_by, { user: interaction.user.tag }),
 				);
 				break;
 		}

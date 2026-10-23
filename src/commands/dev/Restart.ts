@@ -1,6 +1,5 @@
 import { spawn } from "node:child_process";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } from "discord.js";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
@@ -10,7 +9,7 @@ export default class Restart extends Command {
 		super(client, {
 			name: "restart",
 			description: {
-				content: I18N.dev.restart.description,
+				content: ($) => $.dev.restart.description,
 				examples: ["restart"],
 				usage: "restart",
 			},
@@ -39,18 +38,18 @@ export default class Restart extends Command {
 		const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
 			new ButtonBuilder()
 				.setCustomId("confirm-restart")
-				.setLabel(ctx.locale(I18N.common.ui.confirm))
+				.setLabel(ctx.locale(($) => $.common.ui.confirm))
 				.setStyle(ButtonStyle.Danger),
 			new ButtonBuilder()
 				.setCustomId("cancel-restart")
-				.setLabel(ctx.locale(I18N.common.ui.cancel))
+				.setLabel(ctx.locale(($) => $.common.ui.cancel))
 				.setStyle(ButtonStyle.Secondary),
 		);
 
 		const restartEmbed = embed
 			.setColor(this.client.color.red)
-			.setTitle(`🔄 ${ctx.locale(I18N.dev.restart.description)}`)
-			.setDescription(ctx.locale(I18N.dev.restart.prompt, { client: client.user?.username }))
+			.setTitle(`🔄 ${ctx.locale(($) => $.dev.restart.description)}`)
+			.setDescription(ctx.locale(($) => $.dev.restart.prompt, { client: client.user?.username }))
 			.setTimestamp();
 
 		const msg = await ctx.sendMessage({
@@ -71,7 +70,7 @@ export default class Restart extends Command {
 
 			if (interaction.customId === "cancel-restart") {
 				await ctx.editMessage({
-					content: `❌ ${ctx.locale(I18N.dev.restart.status.canceled)}`,
+					content: `❌ ${ctx.locale(($) => $.dev.restart.status.canceled)}`,
 					embeds: [],
 					components: [],
 				});
@@ -80,13 +79,13 @@ export default class Restart extends Command {
 
 			// Proceed with restart
 			await ctx.editMessage({
-				content: `⏳ ${ctx.locale(I18N.dev.restart.status.restarting)}`,
+				content: `⏳ ${ctx.locale(($) => $.dev.restart.status.restarting)}`,
 				embeds: [],
 				components: [],
 			});
 
 			try {
-				logger.info(ctx.locale(I18N.dev.restart.restart_by, { user: ctx.author?.username }));
+				logger.info(ctx.locale(($) => $.dev.restart.restart_by, { user: ctx.author?.username }));
 
 				// Destroy client connection
 				await client.destroy();
@@ -102,9 +101,9 @@ export default class Restart extends Command {
 				child.unref();
 				process.exit(0);
 			} catch (error) {
-				logger.error(`${ctx.locale(I18N.dev.restart.status.error)} :`, error);
+				logger.error(`${ctx.locale(($) => $.dev.restart.status.error)} :`, error);
 				await ctx.editMessage({
-					content: `⚠️ ${ctx.locale(I18N.dev.restart.status.error)}`,
+					content: `⚠️ ${ctx.locale(($) => $.dev.restart.status.error)}`,
 					components: [],
 				});
 			}
@@ -114,7 +113,7 @@ export default class Restart extends Command {
 			if (reason === "time") {
 				await ctx
 					.editMessage({
-						content: `⌛ ${ctx.locale(I18N.dev.restart.status.canceled)}`,
+						content: `⌛ ${ctx.locale(($) => $.dev.restart.status.canceled)}`,
 						embeds: [],
 						components: [],
 					})

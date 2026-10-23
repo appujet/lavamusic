@@ -1,5 +1,4 @@
 import { ChannelType, type TextChannel } from "discord.js";
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import {
 	CreateInstantInvite,
@@ -14,7 +13,7 @@ export default class CreateInvite extends Command {
 		super(client, {
 			name: "createinvite",
 			description: {
-				content: I18N.dev.invite.create.description,
+				content: ($) => $.dev.invite.create.description,
 				examples: ["createinvite 0000000000000000000"],
 				usage: "createinvite <guildId>",
 			},
@@ -42,7 +41,7 @@ export default class CreateInvite extends Command {
 					client
 						.embed()
 						.setColor(client.color.red)
-						.setDescription(ctx.locale(I18N.dev.invite.create.errors.guild_not_found)),
+						.setDescription(ctx.locale(($) => $.dev.invite.create.errors.guild_not_found)),
 				],
 			});
 		}
@@ -62,7 +61,7 @@ export default class CreateInvite extends Command {
 					client
 						.embed()
 						.setColor(client.color.red)
-						.setDescription(ctx.locale(I18N.dev.invite.create.errors.no_suitable_channel)),
+						.setDescription(ctx.locale(($) => $.dev.invite.create.errors.no_suitable_channel)),
 				],
 			});
 		}
@@ -79,7 +78,7 @@ export default class CreateInvite extends Command {
 					.embed()
 					.setColor(client.color.main)
 					.setDescription(
-						ctx.locale(I18N.dev.invite.create.success, {
+						ctx.locale(($) => $.dev.invite.create.success, {
 							guildName: guild.name,
 							url: invite.url,
 						}),

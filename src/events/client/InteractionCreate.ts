@@ -14,7 +14,7 @@ import {
 	PermissionFlagsBits,
 	type TextChannel,
 } from "discord.js";
-import { I18N, t } from "../../structures/I18n";
+import { t } from "../../structures/I18n";
 import { Context, Event, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
 import { LavamusicEventType } from "../../types/events";
@@ -46,7 +46,7 @@ export default class InteractionCreate extends Event {
 				!(commandInSetup && allowedCategories.includes(commandInSetup.category))
 			) {
 				return await interaction.reply({
-					content: t(I18N.events.interaction.setup_channel),
+					content: t(($) => $.events.interaction.setup_channel),
 					flags: MessageFlags.Ephemeral,
 				});
 			}
@@ -78,7 +78,7 @@ export default class InteractionCreate extends Event {
 			) {
 				return await (interaction.member as GuildMember)
 					.send({
-						content: t(I18N.events.interaction.no_send_message),
+						content: t(($) => $.events.interaction.no_send_message),
 					})
 					.catch(() => {
 						null;
@@ -99,7 +99,7 @@ export default class InteractionCreate extends Event {
 
 					if (missingClientPermissions.length > 0) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_permission, {
+							content: t(($) => $.events.interaction.no_permission, {
 								permissions: missingClientPermissions
 									.map((perm: string) => `\`${perm}\``)
 									.join(", "),
@@ -114,7 +114,7 @@ export default class InteractionCreate extends Event {
 					!(interaction.member as GuildMember).permissions.has(command.permissions.user)
 				) {
 					await interaction.reply({
-						content: t(I18N.events.interaction.no_user_permission),
+						content: t(($) => $.events.interaction.no_user_permission),
 						flags: MessageFlags.Ephemeral,
 					});
 					return;
@@ -130,13 +130,13 @@ export default class InteractionCreate extends Event {
 				if (!voted) {
 					const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
 						new ButtonBuilder()
-							.setLabel(t(I18N.events.interaction.vote_button))
+							.setLabel(t(($) => $.events.interaction.vote_button))
 							.setURL(`https://top.gg/bot/${this.client.user?.id}/vote`)
 							.setStyle(ButtonStyle.Link),
 					);
 
 					return await interaction.reply({
-						content: t(I18N.events.interaction.vote_message),
+						content: t(($) => $.events.interaction.vote_message),
 						components: [voteBtn],
 						flags: MessageFlags.Ephemeral,
 					});
@@ -146,19 +146,19 @@ export default class InteractionCreate extends Event {
 				if (command.player.voice) {
 					if (!(interaction.member as GuildMember).voice.channel) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_voice_channel, { command: command.name }),
+							content: t(($) => $.events.interaction.no_voice_channel, { command: command.name }),
 						});
 					}
 
 					if (!clientMember.permissions.has(PermissionFlagsBits.Connect)) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_connect_permission, { command: command.name }),
+							content: t(($) => $.events.interaction.no_connect_permission, { command: command.name }),
 						});
 					}
 
 					if (!clientMember.permissions.has(PermissionFlagsBits.Speak)) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_speak_permission, { command: command.name }),
+							content: t(($) => $.events.interaction.no_speak_permission, { command: command.name }),
 						});
 					}
 
@@ -168,7 +168,7 @@ export default class InteractionCreate extends Event {
 						!clientMember.permissions.has(PermissionFlagsBits.RequestToSpeak)
 					) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_request_to_speak, { command: command.name }),
+							content: t(($) => $.events.interaction.no_request_to_speak, { command: command.name }),
 						});
 					}
 
@@ -177,7 +177,7 @@ export default class InteractionCreate extends Event {
 						clientMember.voice.channelId !== (interaction.member as GuildMember).voice.channelId
 					) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.different_voice_channel, {
+							content: t(($) => $.events.interaction.different_voice_channel, {
 								channel: `<#${clientMember.voice.channelId}>`,
 								command: command.name,
 							}),
@@ -189,7 +189,7 @@ export default class InteractionCreate extends Event {
 					const queue = this.client.manager.getPlayer(interaction.guildId);
 					if (!queue?.queue.current) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_music_playing),
+							content: t(($) => $.events.interaction.no_music_playing),
 						});
 					}
 				}
@@ -199,7 +199,7 @@ export default class InteractionCreate extends Event {
 					if (dj?.mode) {
 						const djRole = await this.client.db.getRoles(interaction.guildId);
 						if (!djRole) {
-							return await interaction.reply({ content: t(I18N.events.interaction.no_dj_role) });
+							return await interaction.reply({ content: t(($) => $.events.interaction.no_dj_role) });
 						}
 
 						const hasDJRole = (interaction.member as GuildMember).roles.cache.some((role) =>
@@ -212,7 +212,7 @@ export default class InteractionCreate extends Event {
 							)
 						) {
 							return await interaction.reply({
-								content: t(I18N.events.interaction.no_dj_permission),
+								content: t(($) => $.events.interaction.no_dj_permission),
 								flags: MessageFlags.Ephemeral,
 							});
 						}
@@ -233,7 +233,7 @@ export default class InteractionCreate extends Event {
 				const timeLeft = (expirationTime - now) / 1000;
 				if (now < expirationTime && timeLeft > 0.9) {
 					return await interaction.reply({
-						content: t(I18N.events.interaction.cooldown, {
+						content: t(($) => $.events.interaction.cooldown, {
 							lng: locale,
 							time: timeLeft.toFixed(1),
 							command: commandName,
@@ -287,7 +287,7 @@ export default class InteractionCreate extends Event {
 			} catch (error) {
 				logger.error(error);
 				await interaction.reply({
-					content: t(I18N.events.interaction.error, { error }),
+					content: t(($) => $.events.interaction.error, { error }),
 				});
 			}
 		} else if (

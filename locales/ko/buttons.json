@@ -9,5 +9,11 @@
 	"next": "다음",
 	"errors": {
 		"not_author": "지금은 이 버튼을 사용할 수 없어요."
-	}
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

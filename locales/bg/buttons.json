@@ -1,13 +1,19 @@
 {
-    "invite": "Покана",
-    "support": "Сървър за поддръжка",
-    "previous": "Предишен",
-    "resume": "Възобновяване",
-    "stop": "Стоп",
-    "skip": "Пропускане",
-    "loop": "Повторение",
-    "next": "Следващ",
-    "errors": {
-        "not_author": "Не можете да използвате този бутон."
-    }
+	"invite": "Покана",
+	"support": "Сървър за поддръжка",
+	"previous": "Предишен",
+	"resume": "Възобновяване",
+	"stop": "Стоп",
+	"skip": "Пропускане",
+	"loop": "Повторение",
+	"next": "Следващ",
+	"errors": {
+		"not_author": "Не можете да използвате този бутон."
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

@@ -13,7 +13,7 @@ import {
 	type UserSelectMenuInteraction,
 } from "discord.js";
 import type { Player, Track, TrackStartEvent } from "lavalink-client";
-import { I18N, t } from "../../structures/I18n";
+import { t } from "../../structures/I18n";
 import { Event, type Lavamusic } from "../../structures/index";
 import type { Requester } from "../../types";
 import { LavamusicEventType } from "../../types/events";
@@ -47,15 +47,15 @@ export default class TrackStart extends Event {
 
 		const embed = new EmbedBuilder()
 			.setAuthor({
-				name: t(I18N.player.trackStart.now_playing, { lng: locale }),
+				name: t(($) => $.player.trackStart.now_playing, { lng: locale }),
 				iconURL:
 					this.client.config.icons[track.info.sourceName] || this.client.user?.displayAvatarURL(),
 			})
 			.setDescription(
 				`**[${track.info.title}](${track.info.uri})**\n` +
-					`-# ${t(I18N.player.trackStart.author)}: ${track.info.author}\n` +
-					`-# ${t(I18N.player.trackStart.duration)}: ${track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.duration)}\n` +
-					`-# ${t(I18N.player.trackStart.requested_by, { user: (track.requester as Requester).username })}`,
+					`-# ${t(($) => $.player.trackStart.author)}: ${track.info.author}\n` +
+					`-# ${t(($) => $.player.trackStart.duration)}: ${track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.duration)}\n` +
+					`-# ${t(($) => $.player.trackStart.requested_by, { user: (track.requester as Requester).username })}`,
 			)
 			.setColor(this.client.color.main);
 
@@ -85,24 +85,24 @@ export function createButtonRow(player: Player): ActionRowBuilder<ButtonBuilder>
 	return new ActionRowBuilder<ButtonBuilder>().addComponents(
 		new ButtonBuilder()
 			.setCustomId("resume")
-			.setLabel(player.paused ? t(I18N.buttons.resume) : t(I18N.buttons.pause))
+			.setLabel(player.paused ? t(($) => $.buttons.resume) : t(($) => $.buttons.pause))
 			.setStyle(player.paused ? ButtonStyle.Success : ButtonStyle.Secondary),
 		new ButtonBuilder()
 			.setCustomId("previous")
-			.setLabel(t(I18N.buttons.previous))
+			.setLabel(t(($) => $.buttons.previous))
 			.setStyle(ButtonStyle.Secondary)
 			.setDisabled(!player.queue.previous || player.queue.previous.length === 0),
 		new ButtonBuilder()
 			.setCustomId("stop")
-			.setLabel(t(I18N.buttons.stop))
+			.setLabel(t(($) => $.buttons.stop))
 			.setStyle(ButtonStyle.Danger),
 		new ButtonBuilder()
 			.setCustomId("skip")
-			.setLabel(t(I18N.buttons.skip))
+			.setLabel(t(($) => $.buttons.skip))
 			.setStyle(ButtonStyle.Secondary),
 		new ButtonBuilder()
 			.setCustomId("loop")
-			.setLabel(t(I18N.buttons.loop))
+			.setLabel(t(($) => $.buttons.loop))
 			.setStyle(player.repeatMode !== "off" ? ButtonStyle.Success : ButtonStyle.Secondary),
 	);
 }

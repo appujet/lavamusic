@@ -1,13 +1,19 @@
 {
-    "invite": "Invită",
-    "support": "Server de Suport",
-    "previous": "Anterior",
-    "resume": "Reluare",
-    "stop": "Stop",
-    "skip": "Sari",
-    "loop": "Repetă",
-    "next": "Următorul",
-    "errors": {
-        "not_author": "Nu poți folosi acest buton."
-    }
+	"invite": "Invită",
+	"support": "Server de Suport",
+	"previous": "Anterior",
+	"resume": "Reluare",
+	"stop": "Stop",
+	"skip": "Sari",
+	"loop": "Repetă",
+	"next": "Următorul",
+	"errors": {
+		"not_author": "Nu poți folosi acest buton."
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

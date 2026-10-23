@@ -1,13 +1,19 @@
 {
-    "invite": "Kutsu",
-    "support": "Tukipalvelin",
-    "previous": "Edellinen",
-    "resume": "Jatka",
-    "stop": "Lopeta",
-    "skip": "Ohita",
-    "loop": "Toisto",
-    "next": "Seuraava",
-    "errors": {
-        "not_author": "Et voi käyttää tätä painiketta."
-    }
+	"invite": "Kutsu",
+	"support": "Tukipalvelin",
+	"previous": "Edellinen",
+	"resume": "Jatka",
+	"stop": "Lopeta",
+	"skip": "Ohita",
+	"loop": "Toisto",
+	"next": "Seuraava",
+	"errors": {
+		"not_author": "Et voi käyttää tätä painiketta."
+	},
+	"pause": "Pause",
+	"rewind": "Rewind",
+	"forward": "Forward",
+	"shuffle": "Shuffle",
+	"volume_up": "Volume Up",
+	"volume_down": "Volume Down"
 }

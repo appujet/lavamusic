@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index.js";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -7,7 +6,7 @@ export default class Rate extends Command {
 		super(client, {
 			name: "rate",
 			description: {
-				content: I18N.commands.rate.description,
+				content: ($) => $.commands.rate.description,
 				examples: ["rate 1", "rate 1.5", "rate 1,5"],
 				usage: "rate <number>",
 			},
@@ -31,7 +30,7 @@ export default class Rate extends Command {
 			options: [
 				{
 					name: "rate",
-					description: I18N.commands.rate.options.rate,
+					description: ($) => $.commands.rate.options.rate,
 					// 10 = ApplicationCommandOptionType.Number
 					type: 10,
 					required: true,
@@ -42,7 +41,7 @@ export default class Rate extends Command {
 
 	public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
 		const player = client.manager.getPlayer(ctx.guild.id);
-		if (!player) return await ctx.sendMessage(ctx.locale(I18N.events.message.no_music_playing));
+		if (!player) return await ctx.sendMessage(ctx.locale(($) => $.events.message.no_music_playing));
 		const rateString = String(args[0]).replace(",", ".");
 		const isValidNumber = /^[0-9]*\.?[0-9]+$/.test(rateString);
 		const rate = Number.parseFloat(rateString);
@@ -51,7 +50,7 @@ export default class Rate extends Command {
 			await ctx.sendMessage({
 				embeds: [
 					{
-						description: ctx.locale(I18N.commands.rate.errors.invalid_number),
+						description: ctx.locale(($) => $.commands.rate.errors.invalid_number),
 						color: this.client.color.red,
 					},
 				],
@@ -63,7 +62,7 @@ export default class Rate extends Command {
 		await ctx.sendMessage({
 			embeds: [
 				{
-					description: ctx.locale(I18N.commands.rate.messages.rate_set, {
+					description: ctx.locale(($) => $.commands.rate.messages.rate_set, {
 						rate,
 					}),
 					color: this.client.color.main,

@@ -1,639 +1,644 @@
 {
-    "247": {
-        "description": "Setează botul să rămână în canalul vocal",
-        "errors": {
-            "not_in_voice": "Trebuie să fii într-un canal vocal pentru a utiliza această comandă.",
-            "generic": "A apărut o eroare la încercarea de a executa această comandă."
-        },
-        "messages": {
-            "disabled": "`✅` | Modul 24/7 este `DEZACTIVAT`.",
-            "enabled": "`✅` | Modul 24/7 este `ACTIVAT`."
-        }
-    },
-    "fairplay": {
-        "description": "Setează botul să redea muzica în mod echitabil între utilizatori.",
-        "errors": {
-            "not_in_voice": "Trebuie să fii într-un canal vocal pentru a utiliza această comandă.",
-            "generic": "A apărut o eroare la încercarea de a executa această comandă."
-        },
-        "messages": {
-            "disabled": "`✅` | Modul Fairplay este `DEZACTIVAT`.",
-            "enabled": "`✅` | Modul Fairplay este `ACTIVAT`."
-        }
-    },
-    "ping": {
-        "description": "Afișează latența botului.",
-        "content": "Se verifică latența...",
-        "bot_latency": "Latență Bot",
-        "api_latency": "Latență API",
-        "requested_by": "Solicitat de {author}"
-    },
-    "lavalink": {
-        "description": "Afișează statisticile actuale ale nodului Lavalink.",
-        "title": "Statistici Lavalink",
-        "content": "Playere: {players}\nPlayere care redau: {playingPlayers}\nUptime: {uptime}\nNuclee: {cores} nuclee\nUtilizare Memorie: {used} / {reservable}\nÎncărcare Sistem: {systemLoad}%\nÎncărcare Lavalink: {lavalinkLoad}%",
-        "page_info": "Pagina {index} din {total}"
-    },
-    "invite": {
-        "description": "Obține linkul de invitație al botului.",
-        "content": "Mă poți invita dând clic pe butonul de mai jos. Vreun bug sau problemă? Vino pe serverul de suport!"
-    },
-    "help": {
-        "description": "Afișează meniul de ajutor.",
-        "options": {
-            "command": "Comanda despre care dorești informații"
-        },
-        "content": "Bună! Eu sunt `{bot}`, un bot de muzică creat cu [`Lavamusic`](https://github.com/bongodevs/lavamusic) și `Discord.js`.\nPoți folosi `{prefix}help <command>` pentru a obține mai multe informații despre o comandă.",
-        "title": "Meniu Ajutor",
-        "not_found": "Această comandă `{cmdName}` nu există.",
-        "help_cmd": "**Descriere:** {description}\n**Utilizare:** {usage}\n**Exemple:** {examples}\n**Alias-uri:** {aliases}\n**Categorie:** {category}\n**Cooldown:** {cooldown} secunde\n**Permisiuni Utilizator:** {premUser}\n**Permisiuni Bot:** {premBot}\n**Doar Dezvoltatori:** {dev}\n**Comandă Slash:** {slash}\n**Argumente:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**Permisiuni DJ:** {djPerm}\n**Voce:** {voice}",
-        "footer": "Foloseşte {prefix}help <command> pentru mai multe informaţii"
-    },
-    "botinfo": {
-        "description": "Informații despre bot",
-        "content": "Informații Bot:\n- **Sistem de Operare**: {osInfo}\n- **Uptime**: {osUptime}\n- **Nume Host**: {osHostname}\n- **Arhitectură CPU**: {cpuInfo}\n- **Utilizare CPU**: {cpuUsed}%\n- **Utilizare Memorie**: {memUsed}MB / {memTotal}GB\n- **Versiune Node**: {nodeVersion}\n- **Versiune Discord.js**: {discordJsVersion}\n- **Conectat la** {guilds} servere, {channels} canale și {users} utilizatori\n- **Total Comenzi**: {commands}"
-    },
-    "about": {
-        "description": "Afișează informații despre bot",
-        "fields": {
-            "creator": "Creator",
-            "repository": "Depozit",
-            "support": "Suport",
-            "description": "Chiar a vrut să realizeze primul său proiect open source pentru mai multă experiență în codare. În acest proiect, s-a provocat să creeze un proiect cu mai puține bug-uri. Sperăm că vă place să folosiți LavaMusic!"
-        }
-    },
-    "dj": {
-        "description": "Gestionează modul DJ și rolurile aferente",
-        "errors": {
-            "provide_role": "Vă rugăm să furnizați un rol.",
-            "no_roles": "Rolul de DJ este gol.",
-            "invalid_subcommand": "Vă rugăm să furnizați o subcomandă validă."
-        },
-        "messages": {
-            "role_exists": "Rolul de DJ <@&{roleId}> a fost deja adăugat.",
-            "role_added": "Rolul de DJ <@&{roleId}> a fost adăugat.",
-            "role_not_found": "Rolul de DJ <@&{roleId}> nu a fost adăugat.",
-            "role_removed": "Rolul de DJ <@&{roleId}> a fost eliminat.",
-            "all_roles_cleared": "Toate rolurile de DJ au fost șterse.",
-            "toggle": "Modul DJ a fost comutat la {status}."
-        },
-        "options": {
-            "add": "Rolul de DJ pe care dorești să-l adaugi",
-            "remove": "Rolul de DJ pe care dorești să-l elimini",
-            "clear": "Șterge toate rolurile de DJ",
-            "toggle": "Comută rolul de DJ",
-            "role": "Rol de DJ"
-        },
-        "subcommands": "Subcomenzi"
-    },
-    "language": {
-        "description": "Configurează limba botului.",
-        "invalid_language": "Te rugăm să furnizezi o limbă validă. Exemplu: `en-US` pentru Engleză (SUA)\n\nPoți găsi lista limbilor acceptate [aici](https://discord.com/developers/docs/reference#locales)\n\n**Limbi Disponibile:**\n{languages}",
-        "already_set": "Limba este deja setată la `{language}`",
-        "not_set": "Limba nu este setată.",
-        "set": "Limba a fost setată la `{language}`",
-        "reset": "Limba a fost resetată la limba implicită.",
-        "options": {
-            "set": "Setează limba pentru bot",
-            "language": "Limba pe care dorești să o setezi",
-            "reset": "Schimbă limba înapoi la cea implicită"
-        }
-    },
-    "prefix": {
-        "description": "Afișează sau setează prefixul botului",
-        "errors": {
-            "prefix_too_long": "Prefixul nu poate avea mai mult de 3 caractere."
-        },
-        "messages": {
-            "current_prefix": "Prefixul pentru acest server este `{prefix}`",
-            "prefix_set": "Prefixul pentru acest server este acum `{prefix}`",
-            "prefix_reset": "Prefixul pentru acest server este acum `{prefix}`"
-        },
-        "options": {
-            "set": "Setează prefixul",
-            "prefix": "Prefixul pe care dorești să-l setezi",
-            "reset": "Resetează prefixul la cel implicit"
-        }
-    },
-    "setup": {
-        "description": "Configurează botul",
-        "errors": {
-            "channel_exists": "Canalul pentru cereri muzicale există deja.",
-            "channel_not_exists": "Canalul pentru cereri muzicale nu există.",
-            "channel_delete_fail": "Canalul de configurare a fost șters din baza de date. Te rugăm să ștergi canalul de text manual."
-        },
-        "messages": {
-            "channel_created": "Canalul pentru cereri muzicale a fost creat în <#{channelId}>.",
-            "channel_deleted": "Canalul pentru cereri muzicale a fost șters.",
-            "channel_info": "Canalul pentru cereri muzicale este <#{channelId}>."
-        },
-        "options": {
-            "create": "Creează canalul pentru cereri muzicale",
-            "delete": "Șterge canalul pentru cereri muzicale",
-            "info": "Afișează canalul pentru cereri muzicale"
-        }
-    },
-    "defaultvolume": {
-        "description": "Setează volumul implicit pentru bot pe acest server",
-        "options": {
-            "volume": "Volumul implicit pe care dorești să-l setezi (0-200)"
-        },
-        "messages": {
-            "current": "Volumul implicit actual pentru acest server este **{volume}**.",
-            "set": "`✅` | Volumul implicit a fost setat la **{volume}**.",
-            "invalid_number": "Te rugăm să furnizezi un număr valid.",
-            "too_low": "Volumul nu poate fi mai mic de 0.",
-            "too_high": "Volumul nu poate fi mai mare de 200."
-        }
-    },
-    "8d": {
-        "description": "Comută filtrul 8D",
-        "messages": {
-            "filter_enabled": "`✅` | Filtrul 8D a fost `ACTIVAT`.",
-            "filter_disabled": "`✅` | Filtrul 8D a fost `DEZACTIVAT`."
-        }
-    },
-    "bassboost": {
-        "description": "Comută filtrul bassboost",
-        "options": {
-            "level": "Nivelul de bassboost"
-        },
-        "messages": {
-            "high": "`✅` | Filtrul High bassboost a fost `ACTIVAT`.",
-            "low": "`✅` | Filtrul Low bassboost a fost `ACTIVAT`.",
-            "medium": "`✅` | Filtrul Medium bassboost a fost `ACTIVAT`.",
-            "off": "`✅` | Filtrul bassboost a fost `DEZACTIVAT`.",
-            "invalid_level": "Te rugăm să furnizezi un nivel de bassboost valid. Niveluri disponibile: `high`, `medium`, `low`, `off`."
-        }
-    },
-    "distortion": {
-        "description": "Comută filtrul de distorsiune",
-        "messages": {
-            "filter_enabled": "`✅` | Filtrul de distorsiune a fost `ACTIVAT`.",
-            "filter_disabled": "`✅` | Filtrul de distorsiune a fost `DEZACTIVAT`."
-        }
-    },
-    "karaoke": {
-        "description": "Comută filtrul karaoke",
-        "messages": {
-            "filter_enabled": "`✅` | Filtrul karaoke a fost `ACTIVAT`.",
-            "filter_disabled": "`✅` | Filtrul karaoke a fost `DEZACTIVAT`."
-        }
-    },
-    "lowpass": {
-        "description": "Comută filtrul lowpass",
-        "messages": {
-            "filter_enabled": "`✅` | Filtrul lowpass a fost `ACTIVAT`.",
-            "filter_disabled": "`✅` | Filtrul lowpass a fost `DEZACTIVAT`."
-        }
-    },
-    "nightcore": {
-        "description": "Comută filtrul nightcore",
-        "messages": {
-            "filter_enabled": "`✅` | Filtrul nightcore a fost `ACTIVAT`.",
-            "filter_disabled": "`✅` | Filtrul nightcore a fost `DEZACTIVAT`."
-        }
-    },
-    "pitch": {
-        "description": "Comută filtrul de înălțime (pitch)",
-        "options": {
-            "pitch": "Valoarea pentru setarea înălțimii (0.5 - 5)"
-        },
-        "errors": {
-            "invalid_number": "Te rugăm să furnizezi un număr valid între 0.5 și 5."
-        },
-        "messages": {
-            "pitch_set": "`✅` | Înălțimea a fost setată la **{pitch}**."
-        }
-    },
-    "rate": {
-        "description": "Schimbă rata melodiei",
-        "options": {
-            "rate": "Valoarea pentru setarea ratei (0.5 - 5)"
-        },
-        "errors": {
-            "invalid_number": "Te rugăm să furnizezi un număr valid între 0.5 și 5."
-        },
-        "messages": {
-            "rate_set": "`✅` | Rata a fost setată la **{rate}**."
-        }
-    },
-    "reset": {
-        "description": "Resetează toate filtrele active",
-        "messages": {
-            "filters_reset": "`✅` | Filtrele au fost resetate."
-        }
-    },
-    "rotation": {
-        "description": "Comută filtrul de rotație",
-        "messages": {
-            "enabled": "`✅` | Filtrul de rotație a fost `ACTIVAT`.",
-            "disabled": "`✅` | Filtrul de rotație a fost `DEZACTIVAT`."
-        }
-    },
-    "speed": {
-        "description": "Schimbă viteza melodiei",
-        "options": {
-            "speed": "Viteza pe care dorești să o setezi (0.5 - 5)"
-        },
-        "messages": {
-            "invalid_number": "Te rugăm să furnizezi un număr valid între 0.5 și 5.",
-            "set_speed": "`✅` | Viteza a fost setată la **{speed}**."
-        }
-    },
-    "tremolo": {
-        "description": "Comută filtrul tremolo",
-        "messages": {
-            "enabled": "`✅` | Filtrul tremolo a fost `ACTIVAT`.",
-            "disabled": "`✅` | Filtrul tremolo a fost `DEZACTIVAT`."
-        }
-    },
-    "vibrato": {
-        "description": "Comută filtrul vibrato",
-        "messages": {
-            "enabled": "`✅` | Filtrul vibrato a fost `ACTIVAT`.",
-            "disabled": "`✅` | Filtrul vibrato a fost `DEZACTIVAT`."
-        }
-    },
-    "autoplay": {
-        "description": "Comută modul de redare automată.",
-        "messages": {
-            "enabled": "`✅` | Redarea automată este `ACTIVATĂ`.",
-            "disabled": "`✅` | Redarea automată este `DEZACTIVATĂ`."
-        }
-    },
-    "clearqueue": {
-        "description": "Golește coada actuală.",
-        "messages": {
-            "cleared": "Coada a fost golită."
-        }
-    },
-    "grab": {
-        "description": "Salvează melodia actuală în mesajele tale private.",
-        "loading": "Se încarcă...",
-        "content": "**Durată:** {length}\n**Solicitat de:** <@{requester}>\n**Link:** [Click aici]({uri})",
-        "check_dm": "Te rugăm să îți verifici mesajele private.",
-        "dm_failed": "Nu am putut să îți trimit mesaj privat. Asigură-te că mesajele tale private sunt deschise."
-    },
-    "join": {
-        "description": "Conectează botul la canalul tău vocal",
-        "already_connected": "Sunt deja conectat la <#{channelId}>.",
-        "no_voice_channel": "Trebuie să fii într-un canal vocal pentru a utiliza această comandă.",
-        "joined": "M-am conectat cu succes la <#{channelId}>."
-    },
-    "leave": {
-        "description": "Deconectează botul de la canalul vocal",
-        "left": "Am părăsit cu succes <#{channelId}>.",
-        "not_in_channel": "Nu sunt într-un canal vocal."
-    },
-    "loop": {
-        "description": "Repetă melodia actuală sau coada",
-        "options": {
-            "mode": "Modul de repetare"
-        },
-        "messages": {
-            "looping_song": "**Se repetă melodia.**",
-            "looping_queue": "**Se repetă coada.**",
-            "looping_off": "**Repetarea este acum dezactivată.**",
-            "invalid_mode": "Mod de repetare invalid"
-        }
-    },
-    "lyrics": {
-        "description": "Afișează versurile pentru piesa actuală",
-        "lyrics_for_track": "### Versuri pentru: [{trackTitle}]({trackUrl})",
-        "no_lyrics_on_page": "Nu au fost găsite versuri pe această pagină.",
-        "searching": "🔍 Se caută versurile pentru **{trackTitle}**...",
-        "session_expired": "Sesiunea a expirat. Te rugăm să folosești din nou comanda pentru a reîmprospăta.",
-        "page_indicator": "Pagina {current}/{total}",
-        "artwork_description": "Copertă pentru {trackTitle}",
-        "no_lyrics_available": "Nu sunt versuri disponibile",
-        "button_subscribe": "📌 Abonează-te la Live Lyrics",
-        "button_unsubscribe": "📌 Dezabonează-te de la Live Lyrics",
-        "subscribed": "Te-ai abonat la actualizările versurilor live!",
-        "unsubscribed": "Te-ai dezabonat de la actualizările versurilor live.",
-        "errors": {
-            "no_results": "Nu s-au găsit versuri pentru piesa actuală.",
-            "lyrics_error": "A apărut o eroare la preluarea versurilor.",
-            "no_player_for_lyrics": "Nu se pot prelua versurile pentru această melodie fără un player activ."
-        },
-        "options": {
-            "song": "Melodia pentru care dorești versurile"
-        }
-    },
-    "nowplaying": {
-        "description": "Afișează melodia care se redă acum",
-        "now_playing": "Acum se redă",
-        "track_info": "[{title}]({uri}) - Solicitat de: <@{requester}>\n\n`{bar}`"
-    },
-    "pause": {
-        "description": "Pune în pauză melodia actuală",
-        "successfully_paused": "Melodia a fost pusă în pauză cu succes."
-    },
-    "play": {
-        "description": "Redă o melodie de pe YouTube, Spotify, URL etc.",
-        "options": {
-            "song": "Melodia sau URL-ul pe care dorești să îl redai"
-        },
-        "loading": "Se încarcă...",
-        "errors": {
-            "search_error": "A apărut o eroare în timpul căutării.",
-            "no_results": "Nu s-au găsit rezultate.",
-            "queue_too_long": "Coada este prea lungă. Dimensiunea maximă este de {maxQueueSize} melodii.",
-            "playlist_too_long": "Lista de redare este prea lungă. Dimensiunea maximă este de {maxPlaylistSize} melodii."
-        },
-        "added_to_queue": "S-a adăugat [{title}]({uri}) în coadă.",
-        "added_playlist_to_queue": "S-au adăugat {length} melodii în coadă."
-    },
-    "playlocal": {
-        "description": "Redă un fișier audio local",
-        "options": {
-            "file": "Fișierul audio pe care dorești să îl redai"
-        },
-        "loading": "Se încarcă...",
-        "errors": {
-            "empty_query": "Te rugăm să atașezi un fișier audio pentru a-l reda.",
-            "invalid_format": "Poți reda doar fișiere MP3, WAV, OGG, FLAC, AAC sau M4A.",
-            "no_results": "Eșec la redarea fișierului audio. S-ar putea să fie corupt."
-        },
-        "added_to_queue": "S-a adăugat [{title}]({url}) în coadă"
-    },
-    "playnext": {
-        "description": "Adaugă o melodie la începutul cozii",
-        "options": {
-            "song": "Melodia pe care dorești să o redai"
-        },
-        "loading": "Se încarcă...",
-        "errors": {
-            "search_error": "A apărut o eroare în timpul căutării.",
-            "no_results": "Nu s-au găsit rezultate.",
-            "queue_too_long": "Coada este prea lungă. Dimensiunea maximă este de {maxQueueSize} melodii.",
-            "playlist_too_long": "Lista de redare este prea lungă. Dimensiunea maximă este de {maxPlaylistSize} melodii."
-        },
-        "added_to_play_next": "S-a adăugat [{title}]({uri}) pentru a fi redat următorul în coadă.",
-        "added_playlist_to_play_next": "S-au adăugat {length} melodii pentru a fi redate următoarele în coadă."
-    },
-    "queue": {
-        "description": "Afișează coada actuală de melodii.",
-        "now_playing": "Acum se redă: [{title}]({uri}) - Solicitat de: <@{requester}> - Durată: `{duration}`",
-        "live": "LIVE",
-        "track_info": "{index}. [{title}]({uri}) - Solicitat de: <@{requester}> - Durată: `{duration}`",
-        "title": "Coadă",
-        "page_info": "Pagina {index} din {total}",
-        "duration": "Durata Cozii: `{totalDuration}`"
-    },
-    "remove": {
-        "description": "Elimină o anumită melodie din coadă",
-        "options": {
-            "song": "Numărul melodiei pe care dorești să o elimini"
-        },
-        "errors": {
-            "no_songs": "Nu există melodii în coadă.",
-            "invalid_number": "Te rugăm să furnizezi un număr de melodie valid."
-        },
-        "messages": {
-            "removed": "S-a eliminat melodia numărul {songNumber} din coadă."
-        }
-    },
-    "replay": {
-        "description": "Redă din nou piesa actuală",
-        "errors": {
-            "not_seekable": "Nu se poate reda din nou această piesă deoarece nu permite derularea."
-        },
-        "messages": {
-            "replaying": "Se redă din nou piesa actuală."
-        }
-    },
-    "resume": {
-        "description": "Reia melodia aflată în pauză",
-        "errors": {
-            "not_paused": "Playerul nu este în pauză."
-        },
-        "messages": {
-            "resumed": "Playerul a fost reluat."
-        }
-    },
-    "search": {
-        "description": "Caută o melodie",
-        "options": {
-            "song": "Melodia pe care o cauți"
-        },
-        "select": "Alege o melodie din listă...",
-        "errors": {
-            "no_results": "Nu s-au găsit rezultate.",
-            "no_results_title": "Nu s-au găsit rezultate de căutare!",
-            "no_results_description": "Nu am putut găsi nicio melodie care să corespundă interogării tale. Încearcă să schimbi cuvintele cheie sau să furnizezi un link.",
-            "invalid_selection_title": "Selecție invalidă!",
-            "invalid_selection_description": "Opțiunea selectată este invalidă. Te rugăm să alegi un număr de melodie din listă.",
-            "search_error": "A apărut o eroare în timpul căutării melodiei.",
-            "vc_connect_fail_title": "Eroare la conectarea în canalul vocal",
-            "vc_connect_fail_description": "Nu m-am putut conecta la canalul tău vocal. Asigură-te că am permisiunile corecte."
-        },
-        "messages": {
-            "results_found": "S-au găsit **{count}** melodii.",
-            "select_prompt": "Alege un număr pentru a adăuga melodia în coadă.",
-            "page_info": "Pagina {currentPage}/{maxPages}",
-            "added_to_queue": "Melodia **[{title}]({uri})** a fost adăugată în coadă!",
-            "selection_timed_out_title": "Timp expirat!",
-            "selection_timed_out_description": "Nicio melodie nu a fost selectată în timpul acordat. Căutarea a fost anulată. Te rugăm să încerci din nou.",
-            "selection_timed_out_short": "Selecția a expirat."
-        }
-    },
-    "seek": {
-        "description": "Derulează la un anumit moment în melodie",
-        "options": {
-            "duration": "Durata la care dorești să derulezi (ex: 1m 30s)"
-        },
-        "errors": {
-            "invalid_format": "Format de timp invalid. Exemple: seek 1m, seek 1h 30m",
-            "not_seekable": "Această piesă nu permite derularea.",
-            "beyond_duration": "Nu se poate derula dincolo de durata melodiei {length}."
-        },
-        "messages": {
-            "seeked_to": "Derulat la {duration}"
-        }
-    },
-    "shuffle": {
-        "description": "Amestecă coada",
-        "messages": {
-            "shuffled": "Coada a fost amestecată."
-        },
-        "errors": {
-            "fairplay": "Modul Fairplay este activat. Nu poți amesteca coada."
-        }
-    },
-    "skip": {
-        "description": "Sare peste melodia actuală",
-        "messages": {
-            "skipped": "S-a sărit peste [{title}]({uri})."
-        }
-    },
-    "skipto": {
-        "description": "Sare la o anumită melodie din coadă",
-        "options": {
-            "number": "Numărul melodiei la care dorești să sari"
-        },
-        "errors": {
-            "invalid_number": "Te rugăm să furnizezi un număr valid."
-        },
-        "messages": {
-            "skipped_to": "S-a sărit la melodia numărul {number}."
-        }
-    },
-    "move": {
-        "description": "Mută poziția unei piese în coadă",
-        "options": {
-            "from": "Poziția piesei de mutat",
-            "to": "Poziția în care se va muta piesa"
-        },
-        "errors": {
-            "no_tracks": "Nu există piese în coadă.",
-            "invalid_usage": "Utilizare invalidă. Te rugăm să furnizezi pozițiile 'de la' și 'la'.",
-            "invalid_numbers": "Te rugăm să furnizezi poziții de piese valide.",
-            "invalid_positions": "Te rugăm să furnizezi poziții de piese valide în cadrul cozii.",
-            "same_position": "Pozițiile 'de la' și 'la' sunt aceleași."
-        },
-        "messages": {
-            "moved": "S-a mutat **{title}** de la poziția {from} la {to}."
-        }
-    },
-    "stop": {
-        "description": "Oprește muzica și golește coada",
-        "messages": {
-            "stopped": "Muzica a fost oprită și coada a fost golită."
-        }
-    },
-    "volume": {
-        "description": "Setează volumul playerului",
-        "options": {
-            "number": "Volumul pe care dorești să îl setezi (0-200)"
-        },
-        "messages": {
-            "invalid_number": "Te rugăm să furnizezi un număr valid.",
-            "too_low": "Volumul nu poate fi mai mic de 0.",
-            "too_high": "Volumul nu poate fi mai mare de 200. Vrei să îți distrugi auzul sau difuzoarele? Hmmm, cred că nu este o idee atât de bună.",
-            "set": "Volumul a fost setat la {volume}"
-        }
-    },
-    "addsong": {
-        "description": "Adaugă o melodie la o listă de redare salvată",
-        "options": {
-            "playlist": "Lista de redare la care dorești să adaugi",
-            "song": "Melodia pe care dorești să o adaugi"
-        },
-        "messages": {
-            "no_playlist": "Te rugăm să furnizezi o listă de redare",
-            "no_song": "Te rugăm să furnizezi o melodie",
-            "playlist_not_found": "Acea listă de redare nu există",
-            "no_songs_found": "Nu s-au găsit melodii",
-            "added": "S-au adăugat {count} melodii la lista {playlist}"
-        }
-    },
-    "create": {
-        "description": "Creează o listă de redare nouă.",
-        "options": {
-            "name": "Numele listei de redare"
-        },
-        "messages": {
-            "name_too_long": "Numele listelor de redare pot avea maximum 50 de caractere.",
-            "playlist_exists": "O listă de redare cu acest nume există deja. Te rugăm să folosești alt nume.",
-            "playlist_created": "Lista de redare **{name}** a fost creată.",
-            "name_empty": "Trebuie să furnizezi un nume pentru lista de redare."
-        }
-    },
-    "delete": {
-        "description": "Șterge o listă de redare",
-        "options": {
-            "playlist": "Lista de redare pe care dorești să o ștergi"
-        },
-        "messages": {
-            "playlist_not_found": "Acea listă de redare nu există.",
-            "playlist_deleted": "S-a șters lista de redare **{playlistName}**."
-        }
-    },
-    "list": {
-        "description": "Listează toate listele de redare ale unui utilizator",
-        "options": {
-            "user": "Utilizatorul ale cărui liste de redare dorești să le obții"
-        },
-        "messages": {
-            "no_playlists": "Acest utilizator nu are liste de redare.",
-            "your": "Tale",
-            "playlists_title": "Listele de redare ale lui {username}",
-            "error": "A apărut o eroare la preluarea listelor de redare.",
-            "invalid_username": "Nume de utilizator invalid sau utilizatorul nu a fost găsit.",
-            "invalid_userid": "ID de utilizator invalid."
-        }
-    },
-    "load": {
-        "description": "Încarcă o listă de redare salvată în coadă.",
-        "options": {
-            "playlist": "Lista de redare pe care dorești să o încarci"
-        },
-        "messages": {
-            "playlist_not_exist": "Acea listă de redare nu există.",
-            "playlist_empty": "Acea listă de redare este goală.",
-            "playlist_loaded": "S-a încărcat `{name}` cu `{count}` melodii.",
-            "no_lavalink_nodes": "Nu există noduri Lavalink disponibile pentru a încărca lista de redare."
-        }
-    },
-    "removesong": {
-        "description": "Elimină o melodie dintr-o listă de redare",
-        "options": {
-            "playlist": "Lista de redare din care dorești să elimini",
-            "song": "Melodia pe care dorești să o elimini"
-        },
-        "messages": {
-            "provide_playlist": "Te rugăm să furnizezi o listă de redare.",
-            "provide_song": "Te rugăm să furnizezi o melodie.",
-            "playlist_not_exist": "Acea listă de redare nu există.",
-            "song_not_found": "Nu a fost găsită nicio melodie corespunzătoare.",
-            "song_removed": "S-a eliminat {song} din lista {playlist}.",
-            "error_occurred": "A apărut o eroare la eliminarea melodiei."
-        }
-    },
-    "steal": {
-        "description": "Fură o listă de redare de la un alt utilizator și o adaugă la listele tale",
-        "options": {
-            "playlist": "Lista de redare pe care dorești să o furi",
-            "user": "Utilizatorul de la care dorești să furi lista de redare"
-        },
-        "messages": {
-            "provide_playlist": "Te rugăm să furnizezi un nume de listă de redare.",
-            "provide_user": "Te rugăm să menționezi un utilizator.",
-            "playlist_not_exist": "Acea listă de redare nu există pentru utilizatorul menționat.",
-            "playlist_exists": "Ai deja o listă de redare numită `{playlist}`.",
-            "playlist_stolen": "Lista de redare `{playlist}` a fost furată cu succes de la {user}.",
-            "error_occurred": "A apărut o eroare la furarea listei de redare."
-        }
-    },
-    "movenode": {
-        "description": "Mută playerele pe un alt nod Lavalink",
-        "options": {
-            "node": "ID-ul nodului pentru mutarea playerelor"
-        },
-        "messages": {
-            "no_player": "Nu există niciun player muzical activ pe acest server.",
-            "no_available_nodes": "Nu există noduri disponibile pentru mutare.",
-            "available_nodes_title": "Noduri Disponibile",
-            "current_node": "Nod Actual",
-            "available_nodes": "Noduri Disponibile",
-            "usage_hint": "Utilizare: movenode <nodeId>",
-            "node_not_found": "Nodul `{node}` nu a fost găsit.",
-            "node_not_connected": "Nodul `{node}` nu este conectat.",
-            "same_node": "Playerul este deja pe nodul `{node}`.",
-            "moving": "Se mută playerul de la `{from}` la `{to}`...",
-            "success_title": "Player mutat cu succes",
-            "success_description": "Playerul a fost mutat de la `{from}` la `{to}`.",
-            "error": "Eșec la mutarea playerului: {error}",
-            "moving_all_players": "Se mută toate playerele pe nodul `{node}`...",
-            "results_title": "Rezultate MoveNode",
-            "moved_players": "**Playere mutate pe servere:**\n{list}",
-            "guild_move": "• `{guildId}` ({from} → {to})",
-            "failed_moves": "**Eșec la mutarea playerelor pe servere:**\n{list}",
-            "guild_move_failed": "• `{guildId}`: {error}",
-            "no_players_moved": "Nu a fost necesară mutarea niciunui player.",
-            "unknown_error": "Eroare necunoscută",
-            "no_players": "Nu există playere de mutat."
-        }
-    }
+	"247": {
+		"description": "Setează botul să rămână în canalul vocal",
+		"errors": {
+			"not_in_voice": "Trebuie să fii într-un canal vocal pentru a utiliza această comandă.",
+			"generic": "A apărut o eroare la încercarea de a executa această comandă."
+		},
+		"messages": {
+			"disabled": "`✅` | Modul 24/7 este `DEZACTIVAT`.",
+			"enabled": "`✅` | Modul 24/7 este `ACTIVAT`."
+		}
+	},
+	"fairplay": {
+		"description": "Setează botul să redea muzica în mod echitabil între utilizatori.",
+		"errors": {
+			"not_in_voice": "Trebuie să fii într-un canal vocal pentru a utiliza această comandă.",
+			"generic": "A apărut o eroare la încercarea de a executa această comandă."
+		},
+		"messages": {
+			"disabled": "`✅` | Modul Fairplay este `DEZACTIVAT`.",
+			"enabled": "`✅` | Modul Fairplay este `ACTIVAT`."
+		}
+	},
+	"ping": {
+		"description": "Afișează latența botului.",
+		"content": "Se verifică latența...",
+		"bot_latency": "Latență Bot",
+		"api_latency": "Latență API",
+		"requested_by": "Solicitat de {author}"
+	},
+	"lavalink": {
+		"description": "Afișează statisticile actuale ale nodului Lavalink.",
+		"title": "Statistici Lavalink",
+		"content": "Playere: {players}\nPlayere care redau: {playingPlayers}\nUptime: {uptime}\nNuclee: {cores} nuclee\nUtilizare Memorie: {used} / {reservable}\nÎncărcare Sistem: {systemLoad}%\nÎncărcare Lavalink: {lavalinkLoad}%",
+		"page_info": "Pagina {index} din {total}"
+	},
+	"invite": {
+		"description": "Obține linkul de invitație al botului.",
+		"content": "Mă poți invita dând clic pe butonul de mai jos. Vreun bug sau problemă? Vino pe serverul de suport!"
+	},
+	"help": {
+		"description": "Afișează meniul de ajutor.",
+		"options": {
+			"command": "Comanda despre care dorești informații"
+		},
+		"content": "Bună! Eu sunt `{bot}`, un bot de muzică creat cu [`Lavamusic`](https://github.com/bongodevs/lavamusic) și `Discord.js`.\nPoți folosi `{prefix}help <command>` pentru a obține mai multe informații despre o comandă.",
+		"title": "Meniu Ajutor",
+		"not_found": "Această comandă `{cmdName}` nu există.",
+		"help_cmd": "**Descriere:** {description}\n**Utilizare:** {usage}\n**Exemple:** {examples}\n**Alias-uri:** {aliases}\n**Categorie:** {category}\n**Cooldown:** {cooldown} secunde\n**Permisiuni Utilizator:** {premUser}\n**Permisiuni Bot:** {premBot}\n**Doar Dezvoltatori:** {dev}\n**Comandă Slash:** {slash}\n**Argumente:** {args}\n**Player:** {player}\n**DJ:** {dj}\n**Permisiuni DJ:** {djPerm}\n**Voce:** {voice}",
+		"footer": "Foloseşte {prefix}help <command> pentru mai multe informaţii"
+	},
+	"botinfo": {
+		"description": "Informații despre bot",
+		"content": "Informații Bot:\n- **Sistem de Operare**: {osInfo}\n- **Uptime**: {osUptime}\n- **Nume Host**: {osHostname}\n- **Arhitectură CPU**: {cpuInfo}\n- **Utilizare CPU**: {cpuUsed}%\n- **Utilizare Memorie**: {memUsed}MB / {memTotal}GB\n- **Versiune Node**: {nodeVersion}\n- **Versiune Discord.js**: {discordJsVersion}\n- **Conectat la** {guilds} servere, {channels} canale și {users} utilizatori\n- **Total Comenzi**: {commands}"
+	},
+	"about": {
+		"description": "Afișează informații despre bot",
+		"fields": {
+			"creator": "Creator",
+			"repository": "Depozit",
+			"support": "Suport",
+			"description": "Chiar a vrut să realizeze primul său proiect open source pentru mai multă experiență în codare. În acest proiect, s-a provocat să creeze un proiect cu mai puține bug-uri. Sperăm că vă place să folosiți LavaMusic!"
+		}
+	},
+	"dj": {
+		"description": "Gestionează modul DJ și rolurile aferente",
+		"errors": {
+			"provide_role": "Vă rugăm să furnizați un rol.",
+			"no_roles": "Rolul de DJ este gol.",
+			"invalid_subcommand": "Vă rugăm să furnizați o subcomandă validă."
+		},
+		"messages": {
+			"role_exists": "Rolul de DJ <@&{roleId}> a fost deja adăugat.",
+			"role_added": "Rolul de DJ <@&{roleId}> a fost adăugat.",
+			"role_not_found": "Rolul de DJ <@&{roleId}> nu a fost adăugat.",
+			"role_removed": "Rolul de DJ <@&{roleId}> a fost eliminat.",
+			"all_roles_cleared": "Toate rolurile de DJ au fost șterse.",
+			"toggle": "Modul DJ a fost comutat la {status}."
+		},
+		"options": {
+			"add": "Rolul de DJ pe care dorești să-l adaugi",
+			"remove": "Rolul de DJ pe care dorești să-l elimini",
+			"clear": "Șterge toate rolurile de DJ",
+			"toggle": "Comută rolul de DJ",
+			"role": "Rol de DJ"
+		},
+		"subcommands": "Subcomenzi"
+	},
+	"language": {
+		"description": "Configurează limba botului.",
+		"invalid_language": "Te rugăm să furnizezi o limbă validă. Exemplu: `en-US` pentru Engleză (SUA)\n\nPoți găsi lista limbilor acceptate [aici](https://discord.com/developers/docs/reference#locales)\n\n**Limbi Disponibile:**\n{languages}",
+		"already_set": "Limba este deja setată la `{language}`",
+		"not_set": "Limba nu este setată.",
+		"set": "Limba a fost setată la `{language}`",
+		"reset": "Limba a fost resetată la limba implicită.",
+		"options": {
+			"set": "Setează limba pentru bot",
+			"language": "Limba pe care dorești să o setezi",
+			"reset": "Schimbă limba înapoi la cea implicită"
+		}
+	},
+	"prefix": {
+		"description": "Afișează sau setează prefixul botului",
+		"errors": {
+			"prefix_too_long": "Prefixul nu poate avea mai mult de 3 caractere."
+		},
+		"messages": {
+			"current_prefix": "Prefixul pentru acest server este `{prefix}`",
+			"prefix_set": "Prefixul pentru acest server este acum `{prefix}`",
+			"prefix_reset": "Prefixul pentru acest server este acum `{prefix}`"
+		},
+		"options": {
+			"set": "Setează prefixul",
+			"prefix": "Prefixul pe care dorești să-l setezi",
+			"reset": "Resetează prefixul la cel implicit"
+		}
+	},
+	"setup": {
+		"description": "Configurează botul",
+		"errors": {
+			"channel_exists": "Canalul pentru cereri muzicale există deja.",
+			"channel_not_exists": "Canalul pentru cereri muzicale nu există.",
+			"channel_delete_fail": "Canalul de configurare a fost șters din baza de date. Te rugăm să ștergi canalul de text manual."
+		},
+		"messages": {
+			"channel_created": "Canalul pentru cereri muzicale a fost creat în <#{channelId}>.",
+			"channel_deleted": "Canalul pentru cereri muzicale a fost șters.",
+			"channel_info": "Canalul pentru cereri muzicale este <#{channelId}>."
+		},
+		"options": {
+			"create": "Creează canalul pentru cereri muzicale",
+			"delete": "Șterge canalul pentru cereri muzicale",
+			"info": "Afișează canalul pentru cereri muzicale"
+		}
+	},
+	"defaultvolume": {
+		"description": "Setează volumul implicit pentru bot pe acest server",
+		"options": {
+			"volume": "Volumul implicit pe care dorești să-l setezi (0-200)"
+		},
+		"messages": {
+			"current": "Volumul implicit actual pentru acest server este **{volume}**.",
+			"set": "`✅` | Volumul implicit a fost setat la **{volume}**.",
+			"invalid_number": "Te rugăm să furnizezi un număr valid.",
+			"too_low": "Volumul nu poate fi mai mic de 0.",
+			"too_high": "Volumul nu poate fi mai mare de 200."
+		}
+	},
+	"8d": {
+		"description": "Comută filtrul 8D",
+		"messages": {
+			"filter_enabled": "`✅` | Filtrul 8D a fost `ACTIVAT`.",
+			"filter_disabled": "`✅` | Filtrul 8D a fost `DEZACTIVAT`."
+		}
+	},
+	"bassboost": {
+		"description": "Comută filtrul bassboost",
+		"options": {
+			"level": "Nivelul de bassboost"
+		},
+		"messages": {
+			"high": "`✅` | Filtrul High bassboost a fost `ACTIVAT`.",
+			"low": "`✅` | Filtrul Low bassboost a fost `ACTIVAT`.",
+			"medium": "`✅` | Filtrul Medium bassboost a fost `ACTIVAT`.",
+			"off": "`✅` | Filtrul bassboost a fost `DEZACTIVAT`.",
+			"invalid_level": "Te rugăm să furnizezi un nivel de bassboost valid. Niveluri disponibile: `high`, `medium`, `low`, `off`."
+		}
+	},
+	"distortion": {
+		"description": "Comută filtrul de distorsiune",
+		"messages": {
+			"filter_enabled": "`✅` | Filtrul de distorsiune a fost `ACTIVAT`.",
+			"filter_disabled": "`✅` | Filtrul de distorsiune a fost `DEZACTIVAT`."
+		}
+	},
+	"karaoke": {
+		"description": "Comută filtrul karaoke",
+		"messages": {
+			"filter_enabled": "`✅` | Filtrul karaoke a fost `ACTIVAT`.",
+			"filter_disabled": "`✅` | Filtrul karaoke a fost `DEZACTIVAT`."
+		}
+	},
+	"lowpass": {
+		"description": "Comută filtrul lowpass",
+		"messages": {
+			"filter_enabled": "`✅` | Filtrul lowpass a fost `ACTIVAT`.",
+			"filter_disabled": "`✅` | Filtrul lowpass a fost `DEZACTIVAT`."
+		}
+	},
+	"nightcore": {
+		"description": "Comută filtrul nightcore",
+		"messages": {
+			"filter_enabled": "`✅` | Filtrul nightcore a fost `ACTIVAT`.",
+			"filter_disabled": "`✅` | Filtrul nightcore a fost `DEZACTIVAT`."
+		}
+	},
+	"pitch": {
+		"description": "Comută filtrul de înălțime (pitch)",
+		"options": {
+			"pitch": "Valoarea pentru setarea înălțimii (0.5 - 5)"
+		},
+		"errors": {
+			"invalid_number": "Te rugăm să furnizezi un număr valid între 0.5 și 5."
+		},
+		"messages": {
+			"pitch_set": "`✅` | Înălțimea a fost setată la **{pitch}**."
+		}
+	},
+	"rate": {
+		"description": "Schimbă rata melodiei",
+		"options": {
+			"rate": "Valoarea pentru setarea ratei (0.5 - 5)"
+		},
+		"errors": {
+			"invalid_number": "Te rugăm să furnizezi un număr valid între 0.5 și 5."
+		},
+		"messages": {
+			"rate_set": "`✅` | Rata a fost setată la **{rate}**."
+		}
+	},
+	"reset": {
+		"description": "Resetează toate filtrele active",
+		"messages": {
+			"filters_reset": "`✅` | Filtrele au fost resetate."
+		}
+	},
+	"rotation": {
+		"description": "Comută filtrul de rotație",
+		"messages": {
+			"enabled": "`✅` | Filtrul de rotație a fost `ACTIVAT`.",
+			"disabled": "`✅` | Filtrul de rotație a fost `DEZACTIVAT`."
+		}
+	},
+	"speed": {
+		"description": "Schimbă viteza melodiei",
+		"options": {
+			"speed": "Viteza pe care dorești să o setezi (0.5 - 5)"
+		},
+		"messages": {
+			"invalid_number": "Te rugăm să furnizezi un număr valid între 0.5 și 5.",
+			"set_speed": "`✅` | Viteza a fost setată la **{speed}**."
+		}
+	},
+	"tremolo": {
+		"description": "Comută filtrul tremolo",
+		"messages": {
+			"enabled": "`✅` | Filtrul tremolo a fost `ACTIVAT`.",
+			"disabled": "`✅` | Filtrul tremolo a fost `DEZACTIVAT`."
+		}
+	},
+	"vibrato": {
+		"description": "Comută filtrul vibrato",
+		"messages": {
+			"enabled": "`✅` | Filtrul vibrato a fost `ACTIVAT`.",
+			"disabled": "`✅` | Filtrul vibrato a fost `DEZACTIVAT`."
+		}
+	},
+	"autoplay": {
+		"description": "Comută modul de redare automată.",
+		"messages": {
+			"enabled": "`✅` | Redarea automată este `ACTIVATĂ`.",
+			"disabled": "`✅` | Redarea automată este `DEZACTIVATĂ`."
+		}
+	},
+	"clearqueue": {
+		"description": "Golește coada actuală.",
+		"messages": {
+			"cleared": "Coada a fost golită."
+		}
+	},
+	"grab": {
+		"description": "Salvează melodia actuală în mesajele tale private.",
+		"loading": "Se încarcă...",
+		"content": "**Durată:** {length}\n**Solicitat de:** <@{requester}>\n**Link:** [Click aici]({uri})",
+		"check_dm": "Te rugăm să îți verifici mesajele private.",
+		"dm_failed": "Nu am putut să îți trimit mesaj privat. Asigură-te că mesajele tale private sunt deschise."
+	},
+	"join": {
+		"description": "Conectează botul la canalul tău vocal",
+		"already_connected": "Sunt deja conectat la <#{channelId}>.",
+		"no_voice_channel": "Trebuie să fii într-un canal vocal pentru a utiliza această comandă.",
+		"joined": "M-am conectat cu succes la <#{channelId}>."
+	},
+	"leave": {
+		"description": "Deconectează botul de la canalul vocal",
+		"left": "Am părăsit cu succes <#{channelId}>.",
+		"not_in_channel": "Nu sunt într-un canal vocal."
+	},
+	"loop": {
+		"description": "Repetă melodia actuală sau coada",
+		"options": {
+			"mode": "Modul de repetare"
+		},
+		"messages": {
+			"looping_song": "**Se repetă melodia.**",
+			"looping_queue": "**Se repetă coada.**",
+			"looping_off": "**Repetarea este acum dezactivată.**",
+			"invalid_mode": "Mod de repetare invalid"
+		}
+	},
+	"lyrics": {
+		"description": "Afișează versurile pentru piesa actuală",
+		"lyrics_for_track": "### Versuri pentru: [{trackTitle}]({trackUrl})",
+		"no_lyrics_on_page": "Nu au fost găsite versuri pe această pagină.",
+		"searching": "🔍 Se caută versurile pentru **{trackTitle}**...",
+		"session_expired": "Sesiunea a expirat. Te rugăm să folosești din nou comanda pentru a reîmprospăta.",
+		"page_indicator": "Pagina {current}/{total}",
+		"artwork_description": "Copertă pentru {trackTitle}",
+		"no_lyrics_available": "Nu sunt versuri disponibile",
+		"button_subscribe": "📌 Abonează-te la Live Lyrics",
+		"button_unsubscribe": "📌 Dezabonează-te de la Live Lyrics",
+		"subscribed": "Te-ai abonat la actualizările versurilor live!",
+		"unsubscribed": "Te-ai dezabonat de la actualizările versurilor live.",
+		"errors": {
+			"no_results": "Nu s-au găsit versuri pentru piesa actuală.",
+			"lyrics_error": "A apărut o eroare la preluarea versurilor.",
+			"no_player_for_lyrics": "Nu se pot prelua versurile pentru această melodie fără un player activ."
+		},
+		"options": {
+			"song": "Melodia pentru care dorești versurile"
+		}
+	},
+	"nowplaying": {
+		"description": "Afișează melodia care se redă acum",
+		"now_playing": "Acum se redă",
+		"track_info": "[{title}]({uri}) - Solicitat de: <@{requester}>\n\n`{bar}`"
+	},
+	"pause": {
+		"description": "Pune în pauză melodia actuală",
+		"successfully_paused": "Melodia a fost pusă în pauză cu succes."
+	},
+	"play": {
+		"description": "Redă o melodie de pe YouTube, Spotify, URL etc.",
+		"options": {
+			"song": "Melodia sau URL-ul pe care dorești să îl redai"
+		},
+		"loading": "Se încarcă...",
+		"errors": {
+			"search_error": "A apărut o eroare în timpul căutării.",
+			"no_results": "Nu s-au găsit rezultate.",
+			"queue_too_long": "Coada este prea lungă. Dimensiunea maximă este de {maxQueueSize} melodii.",
+			"playlist_too_long": "Lista de redare este prea lungă. Dimensiunea maximă este de {maxPlaylistSize} melodii."
+		},
+		"added_to_queue": "S-a adăugat [{title}]({uri}) în coadă.",
+		"added_playlist_to_queue": "S-au adăugat {length} melodii în coadă."
+	},
+	"playlocal": {
+		"description": "Redă un fișier audio local",
+		"options": {
+			"file": "Fișierul audio pe care dorești să îl redai"
+		},
+		"loading": "Se încarcă...",
+		"errors": {
+			"empty_query": "Te rugăm să atașezi un fișier audio pentru a-l reda.",
+			"invalid_format": "Poți reda doar fișiere MP3, WAV, OGG, FLAC, AAC sau M4A.",
+			"no_results": "Eșec la redarea fișierului audio. S-ar putea să fie corupt."
+		},
+		"added_to_queue": "S-a adăugat [{title}]({url}) în coadă"
+	},
+	"playnext": {
+		"description": "Adaugă o melodie la începutul cozii",
+		"options": {
+			"song": "Melodia pe care dorești să o redai"
+		},
+		"loading": "Se încarcă...",
+		"errors": {
+			"search_error": "A apărut o eroare în timpul căutării.",
+			"no_results": "Nu s-au găsit rezultate.",
+			"queue_too_long": "Coada este prea lungă. Dimensiunea maximă este de {maxQueueSize} melodii.",
+			"playlist_too_long": "Lista de redare este prea lungă. Dimensiunea maximă este de {maxPlaylistSize} melodii."
+		},
+		"added_to_play_next": "S-a adăugat [{title}]({uri}) pentru a fi redat următorul în coadă.",
+		"added_playlist_to_play_next": "S-au adăugat {length} melodii pentru a fi redate următoarele în coadă."
+	},
+	"queue": {
+		"description": "Afișează coada actuală de melodii.",
+		"now_playing": "Acum se redă: [{title}]({uri}) - Solicitat de: <@{requester}> - Durată: `{duration}`",
+		"live": "LIVE",
+		"track_info": "{index}. [{title}]({uri}) - Solicitat de: <@{requester}> - Durată: `{duration}`",
+		"title": "Coadă",
+		"page_info": "Pagina {index} din {total}",
+		"duration": "Durata Cozii: `{totalDuration}`"
+	},
+	"remove": {
+		"description": "Elimină o anumită melodie din coadă",
+		"options": {
+			"song": "Numărul melodiei pe care dorești să o elimini"
+		},
+		"errors": {
+			"no_songs": "Nu există melodii în coadă.",
+			"invalid_number": "Te rugăm să furnizezi un număr de melodie valid."
+		},
+		"messages": {
+			"removed": "S-a eliminat melodia numărul {songNumber} din coadă."
+		}
+	},
+	"replay": {
+		"description": "Redă din nou piesa actuală",
+		"errors": {
+			"not_seekable": "Nu se poate reda din nou această piesă deoarece nu permite derularea."
+		},
+		"messages": {
+			"replaying": "Se redă din nou piesa actuală."
+		}
+	},
+	"resume": {
+		"description": "Reia melodia aflată în pauză",
+		"errors": {
+			"not_paused": "Playerul nu este în pauză."
+		},
+		"messages": {
+			"resumed": "Playerul a fost reluat."
+		}
+	},
+	"search": {
+		"description": "Caută o melodie",
+		"options": {
+			"song": "Melodia pe care o cauți"
+		},
+		"select": "Alege o melodie din listă...",
+		"errors": {
+			"no_results": "Nu s-au găsit rezultate.",
+			"no_results_title": "Nu s-au găsit rezultate de căutare!",
+			"no_results_description": "Nu am putut găsi nicio melodie care să corespundă interogării tale. Încearcă să schimbi cuvintele cheie sau să furnizezi un link.",
+			"invalid_selection_title": "Selecție invalidă!",
+			"invalid_selection_description": "Opțiunea selectată este invalidă. Te rugăm să alegi un număr de melodie din listă.",
+			"search_error": "A apărut o eroare în timpul căutării melodiei.",
+			"vc_connect_fail_title": "Eroare la conectarea în canalul vocal",
+			"vc_connect_fail_description": "Nu m-am putut conecta la canalul tău vocal. Asigură-te că am permisiunile corecte."
+		},
+		"messages": {
+			"results_found": "S-au găsit **{count}** melodii.",
+			"select_prompt": "Alege un număr pentru a adăuga melodia în coadă.",
+			"page_info": "Pagina {currentPage}/{maxPages}",
+			"added_to_queue": "Melodia **[{title}]({uri})** a fost adăugată în coadă!",
+			"selection_timed_out_title": "Timp expirat!",
+			"selection_timed_out_description": "Nicio melodie nu a fost selectată în timpul acordat. Căutarea a fost anulată. Te rugăm să încerci din nou.",
+			"selection_timed_out_short": "Selecția a expirat."
+		}
+	},
+	"seek": {
+		"description": "Derulează la un anumit moment în melodie",
+		"options": {
+			"duration": "Durata la care dorești să derulezi (ex: 1m 30s)"
+		},
+		"errors": {
+			"invalid_format": "Format de timp invalid. Exemple: seek 1m, seek 1h 30m",
+			"not_seekable": "Această piesă nu permite derularea.",
+			"beyond_duration": "Nu se poate derula dincolo de durata melodiei {length}."
+		},
+		"messages": {
+			"seeked_to": "Derulat la {duration}"
+		}
+	},
+	"shuffle": {
+		"description": "Amestecă coada",
+		"messages": {
+			"shuffled": "Coada a fost amestecată."
+		},
+		"errors": {
+			"fairplay": "Modul Fairplay este activat. Nu poți amesteca coada."
+		}
+	},
+	"skip": {
+		"description": "Sare peste melodia actuală",
+		"messages": {
+			"skipped": "S-a sărit peste [{title}]({uri})."
+		}
+	},
+	"skipto": {
+		"description": "Sare la o anumită melodie din coadă",
+		"options": {
+			"number": "Numărul melodiei la care dorești să sari"
+		},
+		"errors": {
+			"invalid_number": "Te rugăm să furnizezi un număr valid."
+		},
+		"messages": {
+			"skipped_to": "S-a sărit la melodia numărul {number}."
+		}
+	},
+	"move": {
+		"description": "Mută poziția unei piese în coadă",
+		"options": {
+			"from": "Poziția piesei de mutat",
+			"to": "Poziția în care se va muta piesa"
+		},
+		"errors": {
+			"no_tracks": "Nu există piese în coadă.",
+			"invalid_usage": "Utilizare invalidă. Te rugăm să furnizezi pozițiile 'de la' și 'la'.",
+			"invalid_numbers": "Te rugăm să furnizezi poziții de piese valide.",
+			"invalid_positions": "Te rugăm să furnizezi poziții de piese valide în cadrul cozii.",
+			"same_position": "Pozițiile 'de la' și 'la' sunt aceleași."
+		},
+		"messages": {
+			"moved": "S-a mutat **{title}** de la poziția {from} la {to}."
+		}
+	},
+	"stop": {
+		"description": "Oprește muzica și golește coada",
+		"messages": {
+			"stopped": "Muzica a fost oprită și coada a fost golită."
+		}
+	},
+	"volume": {
+		"description": "Setează volumul playerului",
+		"options": {
+			"number": "Volumul pe care dorești să îl setezi (0-200)"
+		},
+		"messages": {
+			"invalid_number": "Te rugăm să furnizezi un număr valid.",
+			"too_low": "Volumul nu poate fi mai mic de 0.",
+			"too_high": "Volumul nu poate fi mai mare de 200. Vrei să îți distrugi auzul sau difuzoarele? Hmmm, cred că nu este o idee atât de bună.",
+			"set": "Volumul a fost setat la {volume}"
+		}
+	},
+	"addsong": {
+		"description": "Adaugă o melodie la o listă de redare salvată",
+		"options": {
+			"playlist": "Lista de redare la care dorești să adaugi",
+			"song": "Melodia pe care dorești să o adaugi"
+		},
+		"messages": {
+			"no_playlist": "Te rugăm să furnizezi o listă de redare",
+			"no_song": "Te rugăm să furnizezi o melodie",
+			"playlist_not_found": "Acea listă de redare nu există",
+			"no_songs_found": "Nu s-au găsit melodii",
+			"added": "S-au adăugat {count} melodii la lista {playlist}"
+		}
+	},
+	"create": {
+		"description": "Creează o listă de redare nouă.",
+		"options": {
+			"name": "Numele listei de redare"
+		},
+		"messages": {
+			"name_too_long": "Numele listelor de redare pot avea maximum 50 de caractere.",
+			"playlist_exists": "O listă de redare cu acest nume există deja. Te rugăm să folosești alt nume.",
+			"playlist_created": "Lista de redare **{name}** a fost creată.",
+			"name_empty": "Trebuie să furnizezi un nume pentru lista de redare."
+		}
+	},
+	"delete": {
+		"description": "Șterge o listă de redare",
+		"options": {
+			"playlist": "Lista de redare pe care dorești să o ștergi"
+		},
+		"messages": {
+			"playlist_not_found": "Acea listă de redare nu există.",
+			"playlist_deleted": "S-a șters lista de redare **{playlistName}**."
+		}
+	},
+	"list": {
+		"description": "Listează toate listele de redare ale unui utilizator",
+		"options": {
+			"user": "Utilizatorul ale cărui liste de redare dorești să le obții"
+		},
+		"messages": {
+			"no_playlists": "Acest utilizator nu are liste de redare.",
+			"your": "Tale",
+			"playlists_title": "Listele de redare ale lui {username}",
+			"error": "A apărut o eroare la preluarea listelor de redare.",
+			"invalid_username": "Nume de utilizator invalid sau utilizatorul nu a fost găsit.",
+			"invalid_userid": "ID de utilizator invalid."
+		}
+	},
+	"load": {
+		"description": "Încarcă o listă de redare salvată în coadă.",
+		"options": {
+			"playlist": "Lista de redare pe care dorești să o încarci"
+		},
+		"messages": {
+			"playlist_not_exist": "Acea listă de redare nu există.",
+			"playlist_empty": "Acea listă de redare este goală.",
+			"playlist_loaded": "S-a încărcat `{name}` cu `{count}` melodii.",
+			"no_lavalink_nodes": "Nu există noduri Lavalink disponibile pentru a încărca lista de redare."
+		}
+	},
+	"removesong": {
+		"description": "Elimină o melodie dintr-o listă de redare",
+		"options": {
+			"playlist": "Lista de redare din care dorești să elimini",
+			"song": "Melodia pe care dorești să o elimini"
+		},
+		"messages": {
+			"provide_playlist": "Te rugăm să furnizezi o listă de redare.",
+			"provide_song": "Te rugăm să furnizezi o melodie.",
+			"playlist_not_exist": "Acea listă de redare nu există.",
+			"song_not_found": "Nu a fost găsită nicio melodie corespunzătoare.",
+			"song_removed": "S-a eliminat {song} din lista {playlist}.",
+			"error_occurred": "A apărut o eroare la eliminarea melodiei."
+		}
+	},
+	"steal": {
+		"description": "Fură o listă de redare de la un alt utilizator și o adaugă la listele tale",
+		"options": {
+			"playlist": "Lista de redare pe care dorești să o furi",
+			"user": "Utilizatorul de la care dorești să furi lista de redare"
+		},
+		"messages": {
+			"provide_playlist": "Te rugăm să furnizezi un nume de listă de redare.",
+			"provide_user": "Te rugăm să menționezi un utilizator.",
+			"playlist_not_exist": "Acea listă de redare nu există pentru utilizatorul menționat.",
+			"playlist_exists": "Ai deja o listă de redare numită `{playlist}`.",
+			"playlist_stolen": "Lista de redare `{playlist}` a fost furată cu succes de la {user}.",
+			"error_occurred": "A apărut o eroare la furarea listei de redare."
+		}
+	},
+	"movenode": {
+		"description": "Mută playerele pe un alt nod Lavalink",
+		"options": {
+			"node": "ID-ul nodului pentru mutarea playerelor"
+		},
+		"messages": {
+			"no_player": "Nu există niciun player muzical activ pe acest server.",
+			"no_available_nodes": "Nu există noduri disponibile pentru mutare.",
+			"available_nodes_title": "Noduri Disponibile",
+			"current_node": "Nod Actual",
+			"available_nodes": "Noduri Disponibile",
+			"usage_hint": "Utilizare: movenode <nodeId>",
+			"node_not_found": "Nodul `{node}` nu a fost găsit.",
+			"node_not_connected": "Nodul `{node}` nu este conectat.",
+			"same_node": "Playerul este deja pe nodul `{node}`.",
+			"moving": "Se mută playerul de la `{from}` la `{to}`...",
+			"success_title": "Player mutat cu succes",
+			"success_description": "Playerul a fost mutat de la `{from}` la `{to}`.",
+			"error": "Eșec la mutarea playerului: {error}",
+			"moving_all_players": "Se mută toate playerele pe nodul `{node}`...",
+			"results_title": "Rezultate MoveNode",
+			"moved_players": "**Playere mutate pe servere:**\n{list}",
+			"guild_move": "• `{guildId}` ({from} → {to})",
+			"failed_moves": "**Eșec la mutarea playerelor pe servere:**\n{list}",
+			"guild_move_failed": "• `{guildId}`: {error}",
+			"no_players_moved": "Nu a fost necesară mutarea niciunui player.",
+			"unknown_error": "Eroare necunoscută",
+			"no_players": "Nu există playere de mutat."
+		}
+	},
+	"messages": {
+		"no_description": "No description provided",
+		"no_usage": "No usage provided",
+		"no_examples": "No examples provided"
+	}
 }

@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import {
 	EmbedLinks,
@@ -13,7 +12,7 @@ export default class Dj extends Command {
 		super(client, {
 			name: "dj",
 			description: {
-				content: I18N.commands.dj.description,
+				content: ($) => $.commands.dj.description,
 				examples: ["dj add @role", "dj remove @role", "dj clear", "dj toggle"],
 				usage: "dj",
 			},
@@ -37,12 +36,12 @@ export default class Dj extends Command {
 			options: [
 				{
 					name: "add",
-					description: I18N.commands.dj.options.add,
+					description: ($) => $.commands.dj.options.add,
 					type: 1,
 					options: [
 						{
 							name: "role",
-							description: I18N.commands.dj.options.role,
+							description: ($) => $.commands.dj.options.role,
 							type: 8,
 							required: true,
 						},
@@ -50,12 +49,12 @@ export default class Dj extends Command {
 				},
 				{
 					name: "remove",
-					description: I18N.commands.dj.options.remove,
+					description: ($) => $.commands.dj.options.remove,
 					type: 1,
 					options: [
 						{
 							name: "role",
-							description: I18N.commands.dj.options.role,
+							description: ($) => $.commands.dj.options.role,
 							type: 8,
 							required: true,
 						},
@@ -63,12 +62,12 @@ export default class Dj extends Command {
 				},
 				{
 					name: "clear",
-					description: I18N.commands.dj.options.clear,
+					description: ($) => $.commands.dj.options.clear,
 					type: 1,
 				},
 				{
 					name: "toggle",
-					description: I18N.commands.dj.options.toggle,
+					description: ($) => $.commands.dj.options.toggle,
 					type: 1,
 				},
 			],
@@ -95,7 +94,7 @@ export default class Dj extends Command {
 			case "add": {
 				if (!role) {
 					return ctx.sendMessage({
-						embeds: [embed.setDescription(ctx.locale(I18N.commands.dj.errors.provide_role))],
+						embeds: [embed.setDescription(ctx.locale(($) => $.commands.dj.errors.provide_role))],
 					});
 				}
 				if (
@@ -104,7 +103,7 @@ export default class Dj extends Command {
 					return ctx.sendMessage({
 						embeds: [
 							embed.setDescription(
-								ctx.locale(I18N.commands.dj.messages.role_exists, {
+								ctx.locale(($) => $.commands.dj.messages.role_exists, {
 									roleId: role.id,
 								}),
 							),
@@ -116,7 +115,7 @@ export default class Dj extends Command {
 				return ctx.sendMessage({
 					embeds: [
 						embed.setDescription(
-							ctx.locale(I18N.commands.dj.messages.role_added, {
+							ctx.locale(($) => $.commands.dj.messages.role_added, {
 								roleId: role.id,
 							}),
 						),
@@ -127,7 +126,7 @@ export default class Dj extends Command {
 			case "remove": {
 				if (!role) {
 					return ctx.sendMessage({
-						embeds: [embed.setDescription(ctx.locale(I18N.commands.dj.errors.provide_role))],
+						embeds: [embed.setDescription(ctx.locale(($) => $.commands.dj.errors.provide_role))],
 					});
 				}
 				if (
@@ -138,7 +137,7 @@ export default class Dj extends Command {
 					return ctx.sendMessage({
 						embeds: [
 							embed.setDescription(
-								ctx.locale(I18N.commands.dj.messages.role_not_found, {
+								ctx.locale(($) => $.commands.dj.messages.role_not_found, {
 									roleId: role.id,
 								}),
 							),
@@ -149,7 +148,7 @@ export default class Dj extends Command {
 				return ctx.sendMessage({
 					embeds: [
 						embed.setDescription(
-							ctx.locale(I18N.commands.dj.messages.role_removed, {
+							ctx.locale(($) => $.commands.dj.messages.role_removed, {
 								roleId: role.id,
 							}),
 						),
@@ -160,26 +159,26 @@ export default class Dj extends Command {
 			case "clear": {
 				if (!dj) {
 					return ctx.sendMessage({
-						embeds: [embed.setDescription(ctx.locale(I18N.commands.dj.errors.no_roles))],
+						embeds: [embed.setDescription(ctx.locale(($) => $.commands.dj.errors.no_roles))],
 					});
 				}
 				await client.db.clearRoles(ctx.guild.id);
 				return ctx.sendMessage({
-					embeds: [embed.setDescription(ctx.locale(I18N.commands.dj.messages.all_roles_cleared))],
+					embeds: [embed.setDescription(ctx.locale(($) => $.commands.dj.messages.all_roles_cleared))],
 				});
 			}
 
 			case "toggle": {
 				if (!dj) {
 					return ctx.sendMessage({
-						embeds: [embed.setDescription(ctx.locale(I18N.commands.dj.errors.no_roles))],
+						embeds: [embed.setDescription(ctx.locale(($) => $.commands.dj.errors.no_roles))],
 					});
 				}
 				await client.db.setDj(ctx.guild.id, !dj.mode);
 				return ctx.sendMessage({
 					embeds: [
 						embed.setDescription(
-							ctx.locale(I18N.commands.dj.messages.toggle, {
+							ctx.locale(($) => $.commands.dj.messages.toggle, {
 								status: dj.mode ? "disabled" : "enabled",
 							}),
 						),
@@ -190,8 +189,8 @@ export default class Dj extends Command {
 			default:
 				return ctx.sendMessage({
 					embeds: [
-						embed.setDescription(ctx.locale(I18N.commands.dj.errors.invalid_subcommand)).addFields({
-							name: ctx.locale(I18N.commands.dj.subcommands),
+						embed.setDescription(ctx.locale(($) => $.commands.dj.errors.invalid_subcommand)).addFields({
+							name: ctx.locale(($) => $.commands.dj.subcommands),
 							value: "`add`, `remove`, `clear`, `toggle`",
 						}),
 					],

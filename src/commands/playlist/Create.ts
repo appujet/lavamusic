@@ -1,4 +1,3 @@
-import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
@@ -7,7 +6,7 @@ export default class CreatePlaylist extends Command {
 		super(client, {
 			name: "create",
 			description: {
-				content: I18N.commands.create.description,
+				content: ($) => $.commands.create.description,
 				examples: ["create <name>"],
 				usage: "create <name>",
 			},
@@ -31,7 +30,7 @@ export default class CreatePlaylist extends Command {
 			options: [
 				{
 					name: "name",
-					description: I18N.commands.create.options.name,
+					description: ($) => $.commands.create.options.name,
 					type: 3,
 					required: true,
 				},
@@ -48,7 +47,7 @@ export default class CreatePlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					embed
-						.setDescription(ctx.locale(I18N.commands.create.messages.name_empty))
+						.setDescription(ctx.locale(($) => $.commands.create.messages.name_empty))
 						.setColor(this.client.color.red),
 				],
 			});
@@ -58,7 +57,7 @@ export default class CreatePlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					embed
-						.setDescription(ctx.locale(I18N.commands.create.messages.name_too_long))
+						.setDescription(ctx.locale(($) => $.commands.create.messages.name_too_long))
 						.setColor(this.client.color.red),
 				],
 			});
@@ -69,7 +68,7 @@ export default class CreatePlaylist extends Command {
 			return await ctx.sendMessage({
 				embeds: [
 					embed
-						.setDescription(ctx.locale(I18N.commands.create.messages.playlist_exists))
+						.setDescription(ctx.locale(($) => $.commands.create.messages.playlist_exists))
 						.setColor(this.client.color.red),
 				],
 			});
@@ -84,7 +83,7 @@ export default class CreatePlaylist extends Command {
 			embeds: [
 				embed
 					.setDescription(
-						ctx.locale(I18N.commands.create.messages.playlist_created, {
+						ctx.locale(($) => $.commands.create.messages.playlist_created, {
 							name,
 						}),
 					)
